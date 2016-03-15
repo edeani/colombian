@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.controllers.InicioController">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <Pane layoutX="14.0" layoutY="14.0" prefHeight="174.0" prefWidth="295.0">
+         <children>
+            <Label layoutX="20.0" layoutY="49.0" text="Usuario">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="87.0" text="Password">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="129.0" layoutY="14.0" text="Login">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="bIngresar" layoutX="129.0" layoutY="126.0" mnemonicParsing="false" onAction="#handleLogin" text="Ingresar" />
+            <TextField fx:id="fUsuarioLogin" layoutX="92.0" layoutY="47.0" onKeyPressed="#enterUsuario" />
+            <PasswordField fx:id="fPasswordLogin" layoutX="92.0" layoutY="85.0" />
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>
