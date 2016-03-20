@@ -1,0 +1,4 @@
+GIT Actions Special
+ vim .git/info/exclude
+ #Para incluir se coloca el directorio o expresion regular y para excluir lo mismo pero precedido por un signo de admiración.
+ #https://git-scm.com/docs/gitignore

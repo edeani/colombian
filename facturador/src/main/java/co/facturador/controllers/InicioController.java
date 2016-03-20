@@ -1,5 +1,7 @@
 package co.facturador.controllers;
 
+import co.com.facturador.services.LoginService;
+import co.com.facturador.services.LoginServiceImpl;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,8 +21,14 @@ public class InicioController implements Initializable {
     private Button bIngresarLogin;
     @FXML
     private void handleLogin(ActionEvent event) {
+        LoginService loginService = new LoginServiceImpl();
+        boolean succes = loginService.loguearUsuario("BABYMADFHS", "02062206");
+         if(succes){
+               System.out.println("Succes");
+           }else{
+               System.out.println("Not Succes");
+           }
         System.out.println("You clicked me!");
-        fUsuarioLogin.requestFocus();
     }
     
     @FXML

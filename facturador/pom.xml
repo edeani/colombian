@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>co.controllers.MainApp</mainClass>
+        <mainClass>co.facturador.controllers.MainApp</mainClass>
     </properties>
 
     <organization>
@@ -107,6 +107,12 @@
         </plugins>
     </build>
     <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.18</version>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>

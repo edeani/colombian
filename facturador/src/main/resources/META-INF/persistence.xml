@@ -9,6 +9,7 @@
     <class>co.facturador.entity.Productos</class>
     <class>co.facturador.entity.Factura</class>
     <class>co.facturador.entity.Llevar</class>
+    <class>co.facturador.entity.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/x022vm01_chia?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
