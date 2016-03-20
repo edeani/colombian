@@ -2,6 +2,13 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="facturador_jar.0PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>co.facturador.entity.DetalleLlevar</class>
+    <class>co.facturador.entity.ProductoPorInventario</class>
+    <class>co.facturador.entity.Inventario</class>
+    <class>co.facturador.entity.DetalleFactura</class>
+    <class>co.facturador.entity.Productos</class>
+    <class>co.facturador.entity.Factura</class>
+    <class>co.facturador.entity.Llevar</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/x022vm01_chia?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
