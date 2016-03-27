@@ -13,6 +13,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
         UtilController utilController = new UtilController();
+        //utilController.goToScene(primaryStage,"/fxml/Login.fxml", "/styles/Styles.css", "Login");
         utilController.goToScene(primaryStage,"/fxml/Login.fxml", "/styles/Styles.css", "Login");
     }
     

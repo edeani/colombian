@@ -45,7 +45,6 @@ public class InicioController implements Initializable {
     
     @FXML
     private void enterUsuario(KeyEvent event){
-        System.out.println("Enter");
         if(event.getCode().toString().equals("ENTER"))
         {
             if(event.getSource()==fUsuarioLogin)
