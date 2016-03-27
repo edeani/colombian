@@ -1,7 +1,7 @@
 package co.facturador.controllers;
 
-import co.com.facturador.services.LoginService;
-import co.com.facturador.services.LoginServiceImpl;
+import co.facturador.services.LoginService;
+import co.facturador.services.LoginServiceImpl;
 import co.facturador.controllers.util.UtilController;
 import java.net.URL;
 import java.util.ResourceBundle;

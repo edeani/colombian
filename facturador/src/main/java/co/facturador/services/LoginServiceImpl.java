@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.com.facturador.services;
+package co.facturador.services;
 
-import co.com.facturador.services.util.GenericService;
+import co.facturador.services.util.GenericService;
 import co.facturador.daos.UsuarioJpaController;
 import co.facturador.entity.Usuario;
 

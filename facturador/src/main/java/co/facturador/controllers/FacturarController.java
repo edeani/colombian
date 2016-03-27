@@ -5,7 +5,7 @@
  */
 package co.facturador.controllers;
 
-import co.com.facturador.dto.FacturaNormalDto;
+import co.facturador.dto.FacturaNormalDto;
 import co.facturador.controllers.util.EditingCell;
 import java.net.URL;
 import java.util.ResourceBundle;
