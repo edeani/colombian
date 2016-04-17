@@ -7,10 +7,16 @@ package co.facturador.controllers;
 
 import co.facturador.dto.FacturaNormalDto;
 import co.facturador.controllers.util.EditingCell;
+import co.facturador.dto.ItemFactura;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +28,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -154,6 +166,7 @@ public class FacturarController implements Initializable{
         
         this.paneFactura.getChildren().add(tFactura);
     }
+    
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {

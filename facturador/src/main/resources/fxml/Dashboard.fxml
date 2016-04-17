@@ -20,7 +20,7 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="Ventas">
                         <items>
-                          <MenuItem mnemonicParsing="false" onAction="#cargarFacturar" text="Facturar" />
+                          <MenuItem mnemonicParsing="false" onAction="#imprimirFactura" text="Facturar" />
                         </items>
                       </Menu>
                     </menus>
