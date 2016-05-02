@@ -43,8 +43,10 @@ public class InicioController implements Initializable {
         
     }
     
+    
     @FXML
     private void enterUsuario(KeyEvent event){
+        //Capturo el evento de una tecla
         if(event.getCode().toString().equals("ENTER"))
         {
             if(event.getSource()==fUsuarioLogin)
