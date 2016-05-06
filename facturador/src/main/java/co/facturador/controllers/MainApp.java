@@ -14,7 +14,7 @@ public class MainApp extends Application {
         this.primaryStage = stage;
         UtilController utilController = new UtilController();
         //utilController.goToScene(primaryStage,"/fxml/Login.fxml", "/styles/Styles.css", "Login");
-        utilController.goToScene(primaryStage,"/fxml/Login.fxml", "/styles/Styles.css", "Login");
+        utilController.goToScene(primaryStage,"/fxml/Dashboard.fxml", "/styles/Styles.css", "Login");
     }
     
 

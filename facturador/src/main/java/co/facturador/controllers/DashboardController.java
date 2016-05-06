@@ -51,7 +51,7 @@ public class DashboardController implements Initializable {
         fc.crearFactura(contentDashBoard);
     }
     
-    @FXML
+     @FXML
     public void imprimirFactura(ActionEvent event) throws JRException, PrinterException{
         List<ItemFactura> detalleFactura = new ArrayList<ItemFactura>();
         ItemFactura item = new ItemFactura();
@@ -68,9 +68,33 @@ public class DashboardController implements Initializable {
             item1.setValorUnitario(63F);
             item1.setValorTotal(485f);
             
+            
+            ItemFactura item2 = new ItemFactura();
+            item1.setCodigoProducto(1);
+            item1.setDescripcion("product 4");
+            item1.setUnidades(5);
+            item1.setValorUnitario(63F);
+            item1.setValorTotal(485f);
+            
+            ItemFactura item3 = new ItemFactura();
+            item1.setCodigoProducto(1);
+            item1.setDescripcion("product 5");
+            item1.setUnidades(5);
+            item1.setValorUnitario(63F);
+            item1.setValorTotal(485f);
+            
+            ItemFactura item4 = new ItemFactura();
+            item1.setCodigoProducto(1);
+            item1.setDescripcion("product 6");
+            item1.setUnidades(5);
+            item1.setValorUnitario(63F);
+            item1.setValorTotal(485f);
+            
             detalleFactura.add(item);
             detalleFactura.add(item1);
-        
+            detalleFactura.add(item2);
+            detalleFactura.add(item3);
+            detalleFactura.add(item4);
             JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(detalleFactura);
             String reporteJrxml ="C:/Users/EderArmando/Documents/NetBeansProjects/git/colombian/facturador/src/main/resources/jasper/factura.jrxml";
             JasperReport jasperReport = JasperCompileManager.compileReport(reporteJrxml);
@@ -97,6 +121,7 @@ public class DashboardController implements Initializable {
             
             
     }
+    
     /**
      * Initializes the controller class.
      */

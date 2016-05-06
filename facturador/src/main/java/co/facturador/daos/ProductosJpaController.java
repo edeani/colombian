@@ -61,7 +61,7 @@ public class ProductosJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Float id = productos.getCodigoProducto();
+                Long id = productos.getCodigoProducto();
                 if (findProductos(id) == null) {
                     throw new NonexistentEntityException("The productos with id " + id + " no longer exists.");
                 }
@@ -119,7 +119,7 @@ public class ProductosJpaController implements Serializable {
         }
     }
 
-    public Productos findProductos(Float id) {
+    public Productos findProductos(Long id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Productos.class, id);

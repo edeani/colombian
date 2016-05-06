@@ -5,28 +5,33 @@
  */
 package co.facturador.dto;
 
+import co.facturador.controllers.util.Typ;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
  * @author EderArmando
  */
-public class FacturaNormalDto {
+public class FacturaTableViewDto {
+
     private SimpleStringProperty codigoProducto;
+    private SelectItemDto productos;
     private SimpleStringProperty descripcion;
     private SimpleStringProperty unidades;
     private SimpleStringProperty valorUnitario;
     private SimpleStringProperty valorTotal;
 
-    public FacturaNormalDto(String codigoProducto,String descripcion,String unidades,String valorUnitario,String valorTotal)
-    {
+    public FacturaTableViewDto(String codigoProducto, SelectItemDto SelectItemDto, String descripcion, String unidades, String valorUnitario, String valorTotal) {
         this.codigoProducto = new SimpleStringProperty(codigoProducto);
+        this.productos = SelectItemDto;
         this.descripcion = new SimpleStringProperty(descripcion);
         this.unidades = new SimpleStringProperty(unidades);
         this.valorUnitario = new SimpleStringProperty(valorUnitario);
         this.valorTotal = new SimpleStringProperty(valorTotal);
     }
-            
+
     /**
      * @return the codigoProducto
      */
@@ -97,6 +102,13 @@ public class FacturaNormalDto {
         this.valorTotal = new SimpleStringProperty(valorTotal);
     }
 
-    
-    
+    public SelectItemDto getProductos() {
+        return productos;
+    }
+
+    public void setProductos(SelectItemDto productos) {
+        this.productos = productos;
+    }
+
+     
 }

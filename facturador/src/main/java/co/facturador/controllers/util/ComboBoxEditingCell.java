@@ -24,7 +24,7 @@ public class ComboBoxEditingCell extends TableCell<Class, Typ> {
         private ComboBox<Typ> comboBox;
         private ObservableList<Typ> typData;
         
-        private ComboBoxEditingCell() {
+        public ComboBoxEditingCell() {
         }
 
         @Override
@@ -33,7 +33,7 @@ public class ComboBoxEditingCell extends TableCell<Class, Typ> {
                 super.startEdit();
                 createComboBox();
                 setText(null);
-                setGraphic(comboBox);
+                setGraphic(getComboBox());
             }
         }
 
@@ -54,11 +54,11 @@ public class ComboBoxEditingCell extends TableCell<Class, Typ> {
                 setGraphic(null);
             } else {
                 if (isEditing()) {
-                    if (comboBox != null) {
-                        comboBox.setValue(getTyp());
+                    if (getComboBox() != null) {
+                        getComboBox().setValue(getTyp());
                     }
                     setText(getTyp().getTyp());
-                    setGraphic(comboBox);
+                    setGraphic(getComboBox());
                 } else {
                     setText(getTyp().getTyp());
                     setGraphic(null);
@@ -67,15 +67,15 @@ public class ComboBoxEditingCell extends TableCell<Class, Typ> {
         }
 
         private void createComboBox() {
-            comboBox = new ComboBox<>(getTypData());
-            comboBoxConverter(comboBox);
-            comboBox.valueProperty().set(getTyp());
-            comboBox.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
-            comboBox.setOnAction(new EventHandler<ActionEvent>() {
+            setComboBox(new ComboBox<>(getTypData()));
+            comboBoxConverter(getComboBox());
+            getComboBox().valueProperty().set(getTyp());
+            getComboBox().setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
+            getComboBox().setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
-                           System.out.println("Committed: " + comboBox.getSelectionModel().getSelectedItem());
-                            commitEdit(comboBox.getSelectionModel().getSelectedItem());
+                           System.out.println("Committed: " + getComboBox().getSelectionModel().getSelectedItem());
+                            commitEdit(getComboBox().getSelectionModel().getSelectedItem());
                         }
                     });
             /*comboBox.setOnAction((e) -> {
@@ -128,6 +128,20 @@ public class ComboBoxEditingCell extends TableCell<Class, Typ> {
      */
     public void setTypData(ObservableList<Typ> typData) {
         this.typData = typData;
+    }
+
+    /**
+     * @return the comboBox
+     */
+    public ComboBox<Typ> getComboBox() {
+        return comboBox;
+    }
+
+    /**
+     * @param comboBox the comboBox to set
+     */
+    public void setComboBox(ComboBox<Typ> comboBox) {
+        this.comboBox = comboBox;
     }
         
         
