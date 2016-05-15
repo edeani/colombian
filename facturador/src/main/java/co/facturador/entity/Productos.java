@@ -25,7 +25,7 @@ public class Productos implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "codigo_producto")
-    private Float codigoProducto;
+    private Long codigoProducto;
     @Column(name = "descripcion_producto")
     private String descripcionProducto;
     @Basic(optional = false)
@@ -41,20 +41,20 @@ public class Productos implements Serializable {
     public Productos() {
     }
 
-    public Productos(Float codigoProducto) {
+    public Productos(Long codigoProducto) {
         this.codigoProducto = codigoProducto;
     }
 
-    public Productos(Float codigoProducto, float valorProducto) {
+    public Productos(Long codigoProducto, float valorProducto) {
         this.codigoProducto = codigoProducto;
         this.valorProducto = valorProducto;
     }
 
-    public Float getCodigoProducto() {
+    public Long getCodigoProducto() {
         return codigoProducto;
     }
 
-    public void setCodigoProducto(Float codigoProducto) {
+    public void setCodigoProducto(Long codigoProducto) {
         this.codigoProducto = codigoProducto;
     }
 

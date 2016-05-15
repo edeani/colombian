@@ -13,10 +13,12 @@ public class SelectItemDto {
     
     private Long id;
     private String texto;
+    private Long precio;
 
-    public SelectItemDto(Long id,String texto){
+    public SelectItemDto(Long id,String texto,Long precio){
         this.id = id;
         this.texto = texto;
+        this.precio = precio;
     }
 
     public SelectItemDto() {
@@ -39,5 +41,11 @@ public class SelectItemDto {
         this.texto = texto;
     }
 
-    
+    public Long getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Long precio) {
+        this.precio = precio;
+    }
 }
