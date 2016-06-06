@@ -1,0 +1,21 @@
+-- Modificaciones Bd de superBroaster 2016-3-20
+-- Tabla Usuario
+ALTER TABLE usuario 
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+-- producto_por_inventario
+ALTER TABLE producto_por_inventario 
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+-- detalle_llevar
+ALTER TABLE detalle_llevar
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+
+-- llevar
+ALTER TABLE llevar 
+CHANGE COLUMN `numero_orden` `numero_orden` INT NOT NULL ;
+
+ALTER TABLE llevar MODIFY COLUMN numero_orden INT auto_increment;

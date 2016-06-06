@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.facturador.controllers.DashboardController">
+    <stylesheets>
+        <URL value="@/styles/dashboard.css" />
+    </stylesheets>
+   <children>
+      <TitledPane animated="false" collapsible="false" layoutX="24.0" layoutY="12.0" text="Dashboard">
+        <content>
+          <AnchorPane id="contentDashBoard" minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="750.0">
+               <children>
+                  <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="752.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Ventas">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#imprimirFactura" text="Facturar" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <Pane fx:id="contentDashBoard" layoutX="16.0" layoutY="33.0" prefHeight="503.0" prefWidth="721.0">
+                     <children>
+                        <Label fx:id="lSeccion" layoutX="288.0" layoutY="6.0" prefHeight="34.0" prefWidth="146.0" />
+                     </children></Pane>
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+   </children>
+</AnchorPane>
