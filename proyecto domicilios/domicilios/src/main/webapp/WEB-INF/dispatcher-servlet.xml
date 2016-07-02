@@ -10,8 +10,7 @@
   <context:component-scan base-package="domicilios.controller" />
   <context:annotation-config />
  
-  <bean
-    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix">
       <value>/WEB-INF/views/</value>
     </property>
