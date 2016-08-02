@@ -6,5 +6,6 @@
     <class>domicilios.entidad.Producto</class>
     <class>domicilios.entidad.Rol</class>
     <class>domicilios.entidad.Usuario</class-->
+    <properties/>
   </persistence-unit>
 </persistence>

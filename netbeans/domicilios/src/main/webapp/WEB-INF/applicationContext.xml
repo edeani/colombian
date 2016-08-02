@@ -23,16 +23,16 @@
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
 
     <!-- holding properties for database connectivity /-->
-    <context:property-placeholder location="classpath:propiedades/conexion.properties"/>
+    <context:property-placeholder location="classpath:conexion.properties"/>
 
     <!-- enabling annotation driven configuration /-->
     <!--context:annotation-config/-->
  
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/domicilios"/>
-        <property name="username"  value="root"/>
-        <property name="password" value=""/>
+        <property name="url" value="jdbc:mysql://${serverbd}/${basededatos}"/>
+        <property name="username"  value="${usuariobd}"/>
+        <property name="password" value="${paswordbd}"/>
     </bean>
     
     <bean id="entityManagerFactory"

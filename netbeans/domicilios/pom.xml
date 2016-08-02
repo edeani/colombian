@@ -145,12 +145,12 @@
                 </configuration>
             </plugin>
         </plugins>
-        <!--resources>
+        <resources>
             <resource>
-                <directory>src/main/resources/propiedades</directory>
+                <directory>src/main/resources/</directory>
                 <filtering>true</filtering>
             </resource>
-        </resources-->
+        </resources>
     </build>
     <!-- Perfiles de compilación -->
 
