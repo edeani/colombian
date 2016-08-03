@@ -9,6 +9,7 @@ import domicilios.dao.UsuarioDao;
 import domicilios.entidad.Usuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioServiceImpl implements UsuarioService{
 
     @Autowired
+    @Qualifier("UsuarioDaoImpl")
     private UsuarioDao usuarioDao;
     
     @Transactional(readOnly = true)
     @Override
     public List<Usuario> listUsuarios() {
-        return usuarioDao.listUsuarios();
+        return usuarioDao.findAll();
     }
     
 }
