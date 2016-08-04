@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioServiceImpl implements UsuarioService{
 
     @Autowired
-    @Qualifier("UsuarioDaoImpl")
     private UsuarioDao usuarioDao;
     
     @Transactional(readOnly = true)

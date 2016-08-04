@@ -41,6 +41,7 @@
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>
+        <property name="packagesToScan" value="domicilios.entidad" />
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
@@ -54,5 +55,5 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
-     
+    
 </beans>

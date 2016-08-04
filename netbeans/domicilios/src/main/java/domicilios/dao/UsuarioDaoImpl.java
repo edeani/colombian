@@ -17,13 +17,8 @@ import org.springframework.stereotype.Repository;
  *
  * @author user
  */
-@Repository("UsuarioDaoImpl")
+@Repository
 public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDao{
-
-
-    public UsuarioDaoImpl(Class<Usuario> entityClass) {
-        super(entityClass);
-    }
      
     @Override
     public List<Usuario> listUsuarios() {

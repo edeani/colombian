@@ -5,36 +5,32 @@
  */
 package domicilios.dao;
 
-import domicilios.entidad.Usuario;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Criteria;
-import org.springframework.stereotype.Repository;
-import org.springframework.util.ReflectionUtils;
 
 /**
  *
  * @author user
  */
-@Repository
-public abstract  class  GenericDaoImpl<T> implements GenericDao<T>{
+public  class  GenericDaoImpl<T> implements GenericDao<T>{
 
-    private Class<T> entitytClass;
+    
+    protected Class<T> entitytClass;
 
-    public GenericDaoImpl(Class<T> entityClass) {
-        this.entitytClass = entityClass;
-    }
-
-    private EntityManager entityManager;
 
     @PersistenceContext
-    public void setEntityManager(EntityManager em) {
-        this.entityManager = em;
+    protected EntityManager entityManager;
+
+    public GenericDaoImpl() {
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass()
+             .getGenericSuperclass();
+        this.entitytClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
-    
     /*
      * Return a list defined by the Criteria
      */
@@ -45,12 +41,12 @@ public abstract  class  GenericDaoImpl<T> implements GenericDao<T>{
     /*
      * Return all of type 'T' (as determined by the generic member variable type 'entityClass')
      */
-    
+    @Override
     public List<T> findAll() {
 
         try {
             CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(this.entitytClass));
+            cq.select(cq.from(entitytClass));
             Query q = entityManager.createQuery(cq);
  
                 /*q.setMaxResults(maxResults);
