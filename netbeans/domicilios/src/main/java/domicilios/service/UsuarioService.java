@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface UsuarioService {
     public List<Usuario> listUsuarios();
+    public Usuario findUsuarioByUserName(String username);
 }

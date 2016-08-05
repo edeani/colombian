@@ -6,22 +6,23 @@
 package domicilios.dao;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
-import org.hibernate.Criteria;
 
 /**
  *
  * @author user
+ * @param <T>
  */
 public  class  GenericDaoImpl<T> implements GenericDao<T>{
 
     
     protected Class<T> entitytClass;
-
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -30,12 +31,6 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
         ParameterizedType genericSuperclass = (ParameterizedType) getClass()
              .getGenericSuperclass();
         this.entitytClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
-    }
-    /*
-     * Return a list defined by the Criteria
-     */
-    public List<T> findAll(Criteria criteria) {
-        return criteria.list();
     }
 
     /*
@@ -58,6 +53,26 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
         }
     }
     
+    @SuppressWarnings("query-genric-dao")
+    @Override
+    public List<T> query(String queryString,HashMap<String,Object> parametros){
+        
+        try {
+            Query query = entityManager.createQuery(queryString);
+            if(parametros!=null){
+                parametros.entrySet().stream().forEach((entry) -> {
+                    query.setParameter(entry.getKey(), entry.getValue());
+                });
+            }
+            return (List<T>) query.getResultList();
+        } catch (Exception e) {
+            System.out.println("query::"+e.getMessage());
+            return null;
+        }finally{
+            entityManager.close();
+        }
+    }
+    
      public Class<T> getEntityClass() {
         return this.entitytClass;
     }
@@ -65,4 +80,6 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
     public void setEntityClass(Class<T> entityClass) {
         this.entitytClass = entityClass;
     }
+    
+   
 }

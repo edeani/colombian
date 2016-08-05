@@ -2,6 +2,7 @@
 <!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
@@ -10,9 +11,19 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.3.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
-
+    <context:annotation-config />
+    <!--bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/-->
+    <!-- The controllers are autodetected POJOs labeled with the @Controller annotation. -->
+    <context:component-scan base-package="domicilios.controller">
+        <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+    <context:component-scan base-package="domicilios.dao" />
+    <context:component-scan base-package="domicilios.service" />
+    <context:component-scan base-package="domicilios.service.autorizacion" />
+    <mvc:annotation-driven />
     <!--bean id="dataSource"
     class="org.springframework.jdbc.datasource.DriverManagerDataSource"
     p:driverClassName="${jdbc.driverClassName}"

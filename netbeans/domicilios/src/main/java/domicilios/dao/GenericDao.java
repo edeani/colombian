@@ -5,6 +5,7 @@
  */
 package domicilios.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,4 +15,5 @@ import java.util.List;
 public interface GenericDao <T>{
     
     public List<T> findAll();
+    public List<T> query(String query,HashMap<String,Object> parametros);
 }
