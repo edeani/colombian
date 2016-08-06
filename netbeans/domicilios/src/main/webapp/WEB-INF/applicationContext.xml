@@ -24,12 +24,6 @@
     <context:component-scan base-package="domicilios.service" />
     <context:component-scan base-package="domicilios.service.autorizacion" />
     <mvc:annotation-driven />
-    <!--bean id="dataSource"
-    class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-    p:driverClassName="${jdbc.driverClassName}"
-    p:url="${jdbc.url}"
-    p:username="${jdbc.username}"
-    p:assword="${jdbc.password}" /-->
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
 

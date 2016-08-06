@@ -9,6 +9,7 @@ import domicilios.dao.RolDao;
 import domicilios.dao.UsuarioDao;
 import domicilios.entidad.Rol;
 import domicilios.entidad.Usuario;
+import domicilios.util.LeerXml;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario findUsuarioByUserName(String username) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("username", username);
-        List<Usuario> usuarios = usuarioDao.queryJpa("select u from Usuario u where u.nombreusuario=:username", parametros);
+        List<Usuario> usuarios = usuarioDao.queryJpa(LeerXml.getQuery("UsuarioJpa.findXnombreusuario"), parametros);
         if (usuarios != null) {
             return usuarios.get(0);
         } else {

@@ -8,9 +8,11 @@
       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
  
      
+    <!-- Le quito seguridad a los recursos -->
     <http pattern="/css/**" security="none" />
     <http pattern="/js/**" security="none" />
     <http pattern="/img/**" security="none" />
+    
     <http use-expressions="true">
         <csrf disabled="true"/>
         <intercept-url pattern="/" access="isAnonymous()" />
@@ -18,7 +20,7 @@
         <intercept-url pattern="/login.htm" access="isAnonymous()" />
         <intercept-url pattern="/logout.htm" access="isAnonymous()" />
  
- 
+
         <intercept-url pattern="/userInfo.htm" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
         <intercept-url pattern="/admin.htm" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/other/**" access="isAuthenticated()" />
