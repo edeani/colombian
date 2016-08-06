@@ -54,6 +54,26 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
     
     @SuppressWarnings("query-genric-jpa-dao")
     @Override
+    public T queryOpjectJpa(String queryString,HashMap<String,Object> parametros){
+        
+        try {
+            Query query = entityManager.createQuery(queryString);
+            if(parametros!=null){
+                parametros.entrySet().stream().forEach((entry) -> {
+                    query.setParameter(entry.getKey(), entry.getValue());
+                });
+            }
+            return (T) query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("query::"+e.getMessage());
+            return null;
+        }finally{
+            entityManager.close();
+        }
+    }
+    
+    @SuppressWarnings("query-genric-jpa-dao")
+    @Override
     public List<T> queryJpa(String queryString,HashMap<String,Object> parametros){
         
         try {

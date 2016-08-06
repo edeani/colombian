@@ -35,12 +35,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario findUsuarioByUserName(String username) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("username", username);
-        List<Usuario> usuarios = usuarioDao.queryJpa(LeerXml.getQuery("UsuarioJpa.findXnombreusuario"), parametros);
-        if (usuarios != null) {
-            return usuarios.get(0);
-        } else {
-            return null;
-        }
+        return usuarioDao.queryOpjectJpa(LeerXml.getQuery("UsuarioJpa.findXnombreusuario"), parametros);
     }
 
     @Transactional(readOnly = true)
