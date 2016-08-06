@@ -5,7 +5,9 @@
  */
 package domicilios.service;
 
+import domicilios.dao.RolDao;
 import domicilios.dao.UsuarioDao;
+import domicilios.entidad.Rol;
 import domicilios.entidad.Usuario;
 import java.util.HashMap;
 import java.util.List;
@@ -23,13 +25,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioDao usuarioDao;
+    
+    @Autowired
+    private RolDao rolDao;
 
     @Transactional(readOnly = true)
     @Override
     public Usuario findUsuarioByUserName(String username) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("username", username);
-        List<Usuario> usuarios = usuarioDao.query("select u from Usuario u where u.nombreusuario=:username", parametros);
+        List<Usuario> usuarios = usuarioDao.queryJpa("select u from Usuario u where u.nombreusuario=:username", parametros);
         if (usuarios != null) {
             return usuarios.get(0);
         } else {
@@ -41,6 +46,30 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public List<Usuario> listUsuarios() {
         return usuarioDao.findAll();
+    }
+
+    @Transactional
+    @Override
+    public void crearUsuario(Usuario usuario) {
+        usuarioDao.save(usuario);
+    }
+
+    @Transactional
+    @Override
+    public void actualizarUsuario(Usuario usuario) {
+        usuarioDao.Update(usuario);
+    }
+
+    @Transactional
+    @Override
+    public void borrarUsuario(Usuario usuario) {
+        usuarioDao.delete(usuario);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Rol roles(Integer idrol) {
+        return rolDao.findById(idrol);
     }
 
 }

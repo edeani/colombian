@@ -7,10 +7,6 @@ package domicilios.dao;
 
 import domicilios.entidad.Usuario;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -22,7 +18,7 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
      
     @Override
     public List<Usuario> listUsuarios() {
-        return null;
+       return null;
     }
    
     

@@ -8,7 +8,6 @@ package domicilios.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -53,9 +52,9 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
         }
     }
     
-    @SuppressWarnings("query-genric-dao")
+    @SuppressWarnings("query-genric-jpa-dao")
     @Override
-    public List<T> query(String queryString,HashMap<String,Object> parametros){
+    public List<T> queryJpa(String queryString,HashMap<String,Object> parametros){
         
         try {
             Query query = entityManager.createQuery(queryString);
@@ -73,13 +72,52 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
         }
     }
     
-     public Class<T> getEntityClass() {
+    @SuppressWarnings("query-genric-sql-dao")
+    @Override
+    public List<T> querySql(String queryString,HashMap<String,Object> parametros){
+        
+        try {
+            Query query = entityManager.createNativeQuery(queryString);
+            if(parametros!=null){
+                parametros.entrySet().stream().forEach((entry) -> {
+                    query.setParameter(entry.getKey(), entry.getValue());
+                });
+            }
+            return (List<T>) query.getResultList();
+        } catch (Exception e) {
+            System.out.println("query::"+e.getMessage());
+            return null;
+        }finally{
+            entityManager.close();
+        }
+    }
+    
+    @Override
+    public void save(T objeto) {
+        this.entityManager.persist(objeto);
+    }
+
+    @Override
+    public void Update(T objeto) {
+        this.entityManager.merge(objeto);
+    }
+
+    @Override
+    public void delete(T objeto) {
+        this.entityManager.remove(objeto);
+    }
+    
+    @Override
+    public T findById(Object id) {
+        return this.entityManager.find(entitytClass, id);
+    }
+    
+    public Class<T> getEntityClass() {
         return this.entitytClass;
     }
 
     public void setEntityClass(Class<T> entityClass) {
         this.entitytClass = entityClass;
     }
-    
    
 }
