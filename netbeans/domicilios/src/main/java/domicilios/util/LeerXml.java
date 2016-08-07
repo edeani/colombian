@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
@@ -22,16 +23,19 @@ import org.xml.sax.SAXException;
  * @author user
  */
 
+@Component
 public class LeerXml {
 
-    private static final String FOLDER_CONSULTAS = "/consultas/";
+    private static final String FOLDER_CONSULTAS = "consultas/";
     private static final String EXT_XML = ".xml";
-    public static String getQuery(String nameQuery) {
+    public  String getQuery(String nameQuery) {
         
         try {
-            String nombreArchivo = nameQuery.split(".")[0];
+            String nombreArchivo = nameQuery.split("\\.")[0];
             
-            File fXmlFile = new File(FOLDER_CONSULTAS.concat(nombreArchivo).concat(EXT_XML));
+            ClassLoader classLoader = getClass().getClassLoader();
+            
+            File fXmlFile = new File(classLoader.getResource(FOLDER_CONSULTAS.concat(nombreArchivo).concat(EXT_XML)).getFile());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = (Document) dBuilder.parse(fXmlFile);
@@ -54,7 +58,7 @@ public class LeerXml {
         } catch (NullPointerException e) {
             System.out.println("getQuery Null::"+e.getMessage());
         }catch (ParserConfigurationException | SAXException | IOException | DOMException ex){
-            System.out.println("getQuery::");
+            System.out.println("getQuery::"+ex.getMessage());
         }
         
         

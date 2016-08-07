@@ -4,7 +4,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pagina de Inicio</title>
-        <script src="/domicilios/js/jquery-3.1.0.min.js"></script>
     </head>
     <body>
         Holaaaa Eder

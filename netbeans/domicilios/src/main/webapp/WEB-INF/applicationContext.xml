@@ -23,6 +23,7 @@
     <context:component-scan base-package="domicilios.dao" />
     <context:component-scan base-package="domicilios.service" />
     <context:component-scan base-package="domicilios.service.autorizacion" />
+    <context:component-scan base-package="domicilios.util" />
     <mvc:annotation-driven />
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->

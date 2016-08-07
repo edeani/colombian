@@ -29,13 +29,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     
     @Autowired
     private RolDao rolDao;
+    
+    @Autowired
+    private LeerXml leerXml;
 
     @Transactional(readOnly = true)
     @Override
     public Usuario findUsuarioByUserName(String username) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("username", username);
-        return usuarioDao.queryOpjectJpa(LeerXml.getQuery("UsuarioJpa.findXnombreusuario"), parametros);
+        return usuarioDao.queryOpjectJpa(leerXml.getQuery("UsuarioJpa.findXnombreusuario"), parametros);
     }
 
     @Transactional(readOnly = true)
