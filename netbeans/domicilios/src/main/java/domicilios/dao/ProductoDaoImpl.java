@@ -5,14 +5,14 @@
  */
 package domicilios.dao;
 
-import domicilios.entidad.Rol;
+import domicilios.entidad.Producto;
 import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author edeani
+ * @author user
  */
 @Repository
-public class RolDaoImpl extends GenericDaoImpl<Rol> implements RolDao{
+public class ProductoDaoImpl extends GenericDaoImpl<Producto> implements ProductoDao{
     
 }
