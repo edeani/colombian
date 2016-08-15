@@ -7,6 +7,7 @@ package domicilios.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,9 +19,8 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author user
  * @param <T>
  */
-public  class  GenericDaoImpl<T> implements GenericDao<T>{
+public class GenericDaoImpl<T> implements GenericDao<T> {
 
-    
     protected Class<T> entitytClass;
 
     @PersistenceContext
@@ -28,7 +28,7 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
 
     public GenericDaoImpl() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass()
-             .getGenericSuperclass();
+                .getGenericSuperclass();
         this.entitytClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
 
@@ -42,76 +42,70 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
             CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
             cq.select(cq.from(entitytClass));
             Query q = entityManager.createQuery(cq);
- 
-                /*q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);*/
 
+            /*q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);*/
             return q.getResultList();
         } finally {
             entityManager.close();
         }
     }
-    
+
     @SuppressWarnings("query-genric-jpa-dao")
     @Override
-    public T queryOpjectJpa(String queryString,HashMap<String,Object> parametros){
-        
+    public T queryOpjectJpa(String queryString, HashMap<String, Object> parametros) {
+
         try {
             Query query = entityManager.createQuery(queryString);
-            if(parametros!=null){
+            if (parametros != null) {
                 parametros.entrySet().stream().forEach((entry) -> {
                     query.setParameter(entry.getKey(), entry.getValue());
                 });
             }
             return (T) query.getSingleResult();
         } catch (Exception e) {
-            System.out.println("query::"+e.getMessage());
+            System.out.println("query::" + e.getMessage());
             return null;
-        }finally{
+        } finally {
             entityManager.close();
         }
     }
-    
+
     @SuppressWarnings("query-genric-jpa-dao")
     @Override
-    public List<T> queryJpa(String queryString,HashMap<String,Object> parametros){
-        
+    public List<T> queryJpa(String queryString, HashMap<String, Object> parametros) {
+
         try {
             Query query = entityManager.createQuery(queryString);
-            if(parametros!=null){
+            if (parametros != null) {
                 parametros.entrySet().stream().forEach((entry) -> {
                     query.setParameter(entry.getKey(), entry.getValue());
                 });
             }
             return (List<T>) query.getResultList();
         } catch (Exception e) {
-            System.out.println("query::"+e.getMessage());
+            System.out.println("query::" + e.getMessage());
             return null;
-        }finally{
+        } finally {
             entityManager.close();
         }
     }
-    
-    @SuppressWarnings("query-genric-sql-dao")
+
     @Override
-    public List<T> querySql(String queryString,HashMap<String,Object> parametros){
-        
+    public List<T> findAll(Integer max, Integer first) {
+
         try {
-            Query query = entityManager.createNativeQuery(queryString);
-            if(parametros!=null){
-                parametros.entrySet().stream().forEach((entry) -> {
-                    query.setParameter(entry.getKey(), entry.getValue());
-                });
-            }
-            return (List<T>) query.getResultList();
-        } catch (Exception e) {
-            System.out.println("query::"+e.getMessage());
-            return null;
-        }finally{
+            CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(entitytClass));
+            Query q = entityManager.createQuery(cq);
+            q.setMaxResults(max);
+            q.setFirstResult(first);
+            return q.getResultList();
+        } finally {
             entityManager.close();
         }
     }
-    
+
     @Override
     public void save(T objeto) {
         this.entityManager.persist(objeto);
@@ -126,12 +120,12 @@ public  class  GenericDaoImpl<T> implements GenericDao<T>{
     public void delete(T objeto) {
         this.entityManager.remove(objeto);
     }
-    
+
     @Override
     public T findById(Object id) {
         return this.entityManager.find(entitytClass, id);
     }
-    
+
     public Class<T> getEntityClass() {
         return this.entitytClass;
     }

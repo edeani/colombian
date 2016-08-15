@@ -8,6 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
+        @RequestMapping(value = "/signin.htm", method = RequestMethod.GET)
+	public ModelAndView signinPage(){
+    	ModelAndView mav = new ModelAndView("usuario/signin");
+		return  mav;
+	}
 	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
 	public ModelAndView loginDomicilios(){
     	ModelAndView mav = new ModelAndView("login");
@@ -16,9 +21,8 @@ public class LoginController {
     
     @RequestMapping("/403.htm")
     public ModelAndView domicilios403(){
-    	ModelAndView mav = new ModelAndView("inicio");
-    	mav.addObject("mensaje", "Estoy en 403");
-		return  mav;
+    	ModelAndView mav = new ModelAndView("403");
+        return  mav;
 	}
     
     @RequestMapping("/logoutSuccessful.htm")

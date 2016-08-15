@@ -15,11 +15,13 @@ import java.util.List;
 public interface GenericDao <T>{
     
     List<T> findAll();
+    List<T> findAll(Integer max,Integer first);
     void save(T objeto);
     void Update(T objeto);
     void delete(T objeto);
     T findById(Object id);
     T queryOpjectJpa(String queryString,HashMap<String,Object> parametros);
     List<T> queryJpa(String query,HashMap<String,Object> parametros);
-    List<T> querySql(String query,HashMap<String,Object> parametros);
+            
+
 }

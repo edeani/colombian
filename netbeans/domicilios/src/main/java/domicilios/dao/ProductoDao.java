@@ -5,12 +5,15 @@
  */
 package domicilios.dao;
 
+import domicilios.dto.ProductoDto;
 import domicilios.entidad.Producto;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
  * @author user
  */
 public interface ProductoDao extends GenericDao<Producto>{
-    
+    List<ProductoDto> findAllPageSql(Integer first,Integer cantidad,HashMap<String,Object> parametros);
 }
