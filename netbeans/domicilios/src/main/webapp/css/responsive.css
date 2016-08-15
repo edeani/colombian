@@ -49,6 +49,9 @@
 	#header .btn.rst-signup{
 		display: none;
 	}
+	.rst-nav-menu li {
+		padding: 0 0 0 20px;
+		}
 	#header .rst-form-login {
 		left: auto;
 		margin: 0;
@@ -91,6 +94,7 @@
 	}
 }
 @media screen and (max-width: 767px) {
+	.rst-visitors{ display:none;}
 	.rst-table, .rst-table-row, .rst-table-cell {
 		display: block;
 		width: auto;
@@ -217,8 +221,12 @@
 	}
 	.rst-logo {
 		display: inline-block;
-		margin-top: 20px;
+		margin-top: 8px;
 		vertical-align: top;
+	}
+
+	.rst-logo.rst-table-cell {
+    max-width: 120px;
 	}
 	.rst-menu a, .rst-digits a {
 		display: inline-block;
@@ -333,7 +341,7 @@
 		bottom: auto;
 		left: auto;
 		right: 20px;
-		top: 50%;
+		top: 77%;
 	}
 	#footer .rst-copyright {
 		padding-top: 20px;

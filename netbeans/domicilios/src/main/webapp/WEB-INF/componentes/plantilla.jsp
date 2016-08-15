@@ -14,19 +14,18 @@
         <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
 
         <!-- Bootstrap ================================================== -->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/jasny-bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
-        <link rel="stylesheet" type="text/css" href="font-awesome-4.3.0/css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/css/jasny-bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap-slider.css">
+        <link rel="stylesheet" type="text/css" href="/font-awesome-4.3.0/css/font-awesome.css">
 
         <!-- Plugins CSS ================================================== -->
-        <link rel="stylesheet" type="text/css" href="css/animate.css"><!-- animation -->
-        <link rel="stylesheet" type="text/css" href="css/bgndGallery.css"><!-- bgndGallery -->
+        <link rel="stylesheet" type="text/css" href="/css/animate.css"><!-- animation -->
+        <link rel="stylesheet" type="text/css" href="/css/bgndGallery.css"><!-- bgndGallery -->
         <link rel="stylesheet" type="text/css" href="/js/fancybox/jquery.fancybox.css?v=2.1.5"><!-- Fancybox  -->
-        <link rel="stylesheet" type="text/css" href="css/calendar/fullcalendar.min.css"><!-- Calendar -->
+        <link rel="stylesheet" type="text/css" href="/css/calendar/fullcalendar.min.css"><!-- Calendar -->
         <link rel="stylesheet" type="text/css" href="/js/bxslider/jquery.bxslider.css"><!-- BxSlider -->
-        <link rel="stylesheet" type="text/css" href="css/jquery.rs.selectbox.css"><!-- Selectbox -->	
-        <link rel="stylesheet" type="text/css" href="/js/owlcarousel/owl.carousel.css"><!-- owl carousel -->
+        <link rel="stylesheet" type="text/css" href="/css/jquery.rs.selectbox.css"><!-- Selectbox -->	
 
         <!--script src="/js/jquery-3.1.0.min.js"></script-->
     <sitemesh:write property='head'/>
@@ -38,33 +37,101 @@
     <![endif]-->
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="pageLoading">
-        <div class="bouncing">
-            <em class="icon-food"></em>
-        </div>
-    </div>
     <!--- Wrapper -->
-    <div id="wrapper" class="home-page">
+    <div id="wrapper">
+        <header id="header">
+            <div class="container">
+                <div class="rst-table">
+                    <div class="rst-table-row">
+                        <a href="index.html" class="rst-logo rst-table-cell"><img src="/img/logopollo.png" alt=""/></a>
+                        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="rst-nav-menu collapse navbar-collapse bs-navbar-collapse rst-table-cell">
+                            <form class="rst-search-mobie" action="/">
+                                <button class="rst-submit"><i class="fa fa-search"></i></button>
+                                <input type="text" value="" />
+                            </form>
+                            <ul class="rst-main-menu">
+                                <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
+                                <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
+                                <li><a href="checkout.html">Hacer Pedido</a></li>
+                                <li><a href="#contact">Contacto</a></li>
+                                <li class="menu-item-has-children">
+                                    <a href="#">Iniciar sesi&oacute;n</a>
+                                    <div class="sub-menu rst-form-login">
+                                        <form action="/">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><img src="/img/mail.png" alt="" /></span>
+                                                <input class="form-control" type="email" placeholder="Email" />
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><img src="/img/unlock.png" alt="" /></span>
+                                                <input class="form-control" type="password" name="password" placeholder="Contrase&ntilde;a" />
+                                            </div>
+                                            <input type="submit" class="btn btn-success" value="Iniciar sesi&oacute;n" />
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
+                        </div>
+                        <div class="rst-account rst-table-cell">
+                            <div class="rst-cart">
+                                <a href="#" class="rst-cart-icon"><span>6</span></a>
+                                <div class="rst-form-login rst-cart-info">
+                                    <div class="rst-list-product">
+                                        <div class="rst-product-item">
+                                            <a href="#">Plato 1<span class="count">2</span> <span class="price">$25.000</span></a>
+                                        </div>
+                                        <div class="rst-product-item">
+                                            <a href="#">Plato 2 <span class="count">2</span> <span class="price">$25.000</span></a>
+                                        </div>
+                                        <div class="rst-product-item">
+                                            <a href="#">Plato 3 <span class="count">2</span> <span class="price">$25.000</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="rst-checkout">
+                                        <a href="checkout.html" class="btn btn-success btn-sm btnpagar"> HACER PEDIDO</a>
+                                        <span class="price">$75.000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/signin.htm" class="rst-signup btn btn-success">REGISTRARSE</a>
+                        </div>
+                    </div>
+                </div><!-- End Top Header -->
+                <div class="rst-search rst-table">
+                    <div class="rst-table-row">
+                        <div class="rst-table-cell">
+                            <form action="/">
+                                <input type="text" placeholder="type and hit enter" value="" />
+                            </form>
+                            <a href="#" class="rst-hide-form"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
+                </div><!-- End Top Header -->
+            </div>
+        </header>	
+
+        <%-- WRITTING BODY--%>
         <sitemesh:write property='body'/>
+        <%-- WRITTING BODY--%>
         <!--- Footer -->
+
         <footer id="footer">
             <div class="container">
                 <div class="row">
                     <div class="rst-table">
                         <div class="rst-table-row">
                             <div class="rst-copyright rst-table-cell">
-                                <a href="#" class="rst-logo-footer"><img src="img/logo-footer.png" alt="" /></a>&copy; 2014 FoodUp. All right reserved.
-                            </div>
-                            <div class="rst-menu-footer rst-table-cell">
-                                <ul>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="menu.html">Menu</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
+                                &copy; 2016 / Colombian Broaster - Todos los derechos reservados.
                             </div>
                             <div class="rst-note rst-table-cell">
-                                <p>Thanks for watching. Go to start.</p>
+                                <p>IR ARRIBA</p>
                             </div>
                         </div>
                     </div>
@@ -72,10 +139,11 @@
                 </div>
             </div>
         </footer>
+        <a name="contact1"></a>
     </div><!--- End Wrapper -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script type="text/javascript" src="js/jquery.1.11.1.js"></script>
+    <script type="text/javascript" src="/js/jquery.1.11.1.js"></script>
     <!--script src="/js/jquery-3.1.0.min.js"></script-->
     <!-- Bootstrap Js Compiled Plugins -->
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -105,7 +173,6 @@
     <script type='text/javascript' src='js/woocommerce.js'></script>
     <script type='text/javascript'>
         /* <![CDATA[ */
-        var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
         var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
         /* ]]> */
     </script>
