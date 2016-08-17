@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,22 +39,26 @@
 
                 <div class="row rst-form-input">
                     <div class="col-sm-6 rst-form-left">
-                        <form action="/" class="rst-form-register">
+                        <springForm:form action="/signin.htm" cssClass="rst-form-register" method="POST" commandName="usuarioRegistroDto">
                             <h3>USUARIO NUEVO</h3>
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="Nombre">
+                                <springForm:input path="nombre" cssClass="form-control" placeholder="Nombre" maxlength="100"></springForm:input>
+                                <springForm:errors path="nombre" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control" placeholder="Email">
+                            <springForm:input path="correo" cssClass="form-control" placeholder="Email"></springForm:input>
+                            <springForm:errors path="correo" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" class="form-control" placeholder="Contrase&ntilde;a">
-                                <input type="password" name="repeat-password" class="form-control" placeholder="Repetir contrase&ntilde;a">
+                                <springForm:input path="password" cssClass="form-control" placeholder="Contrase&ntilde;a" maxlength="20"></springForm:input>
+                                <springForm:errors path="password" cssClass="error" />
+                                <springForm:input path="confirmarpassword" cssClass="form-control" placeholder="Repetir contrase&ntilde;a" maxlength="20"></springForm:input>
+                                <springForm:errors path="confirmarpassword" cssClass="error" />
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-lg btn-success" value="registrase" />
                             </div>
-                        </form>
+                        </springForm:form>
                     </div>
                     <div class="col-sm-6 rst-form-right">
                         <form action="${pageContext.request.contextPath}/j_spring_security_check" method='POST'>
