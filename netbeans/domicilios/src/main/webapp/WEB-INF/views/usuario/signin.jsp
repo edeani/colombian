@@ -45,17 +45,17 @@
                             <h3>USUARIO NUEVO</h3>
                             <div class="form-group">
                                 <springForm:input path="nombre" cssClass="form-control" placeholder="Nombre" maxlength="100"></springForm:input>
-                                <springForm:errors path="nombre" cssClass="error" />
+                                <springForm:errors path="nombre" cssClass="text-danger" />
                             </div>
                             <div class="form-group">
                             <springForm:input path="correo" cssClass="form-control" placeholder="Email"></springForm:input>
-                            <springForm:errors path="correo" cssClass="error" />
+                            <springForm:errors path="correo" cssClass="text-danger" />
                             </div>
                             <div class="form-group">
                                 <springForm:password path="password" cssClass="form-control" placeholder="Contraseña" maxlength="20"></springForm:password>
-                                <springForm:errors path="password" cssClass="error" />
+                                <springForm:errors path="password" cssClass="text-danger" />
                                 <springForm:password path="confirmarpassword" cssClass="form-control" placeholder="Repetir contraseña" maxlength="20"></springForm:password>
-                                <springForm:errors path="confirmarpassword" cssClass="error" />
+                                <springForm:errors path="confirmarpassword" cssClass="text-danger" />
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-lg btn-success" value="registrase" />
@@ -67,7 +67,9 @@
                             <h3>INICIAR SESI&Oacute;N</h3>
                             <c:if test="${param.error == 'true'}">
                             <div class="form-group">
+                                <span class="text-danger">
                                 Usuario o Password Incorrectos
+                                </span>
                             </div>
                             </c:if>
                             <div class="form-group">

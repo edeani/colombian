@@ -6,7 +6,7 @@ $(document).ready(function () {
             return true;
         if (tecla == 0)
             return true;
-        patron = /[A-Za-z0-9_ áéíóúñÁÉÍÓÚÑ]/;
+        patron = /[A-Za-z_ áéíóúñÁÉÍÓÚÑ]/;
         te = String.fromCharCode(tecla);
         return patron.test(te);
     });
