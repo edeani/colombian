@@ -17,18 +17,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UsuarioRegistroDto {
     @NotEmpty
     @Size(max = 100)
-    @Pattern(regexp = "[a-zA-Z_áéíóúñÁÉÍÓÚÑ]")
+    @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ]*")
     private String nombre;
     @Email
     @Size(max = 100)
     private String correo;
     @NotEmpty
     @Size(max = 20)
-    @Pattern(regexp = "[0-9a-zA-Z_áéíóúñÁÉÍÓÚÑ\\-\\.\\,!\\+$]")
+    @Pattern(regexp = "[A-Za-z0-9_ áéíóúñÁÉÍÓÚÑ\\-\\.\\,!\\+\\$]*")
     private String password;
     @NotEmpty
     @Size(max = 20)
-    @Pattern(regexp = "[0-9a-zA-Z_áéíóúñÁÉÍÓÚÑ\\-\\.\\,!\\+$]")
+    @Pattern(regexp = "[A-Za-z0-9_ áéíóúñÁÉÍÓÚÑ\\-\\.\\,!\\+\\$]*")
     private String confirmarpassword;
 
     public String getNombre() {

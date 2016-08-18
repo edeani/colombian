@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,8 @@
         <link href='fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-
+        
+        <script type="text/javascript" src="/js/usuario/signin.js"></script>
     </head>
     <body>
         <!-- Contenido Login Registro -->
@@ -50,9 +52,9 @@
                             <springForm:errors path="correo" cssClass="error" />
                             </div>
                             <div class="form-group">
-                                <springForm:input path="password" cssClass="form-control" placeholder="Contrase&ntilde;a" maxlength="20"></springForm:input>
+                                <springForm:password path="password" cssClass="form-control" placeholder="Contraseña" maxlength="20"></springForm:password>
                                 <springForm:errors path="password" cssClass="error" />
-                                <springForm:input path="confirmarpassword" cssClass="form-control" placeholder="Repetir contrase&ntilde;a" maxlength="20"></springForm:input>
+                                <springForm:password path="confirmarpassword" cssClass="form-control" placeholder="Repetir contraseña" maxlength="20"></springForm:password>
                                 <springForm:errors path="confirmarpassword" cssClass="error" />
                             </div>
                             <div class="form-group">
@@ -63,6 +65,11 @@
                     <div class="col-sm-6 rst-form-right">
                         <form action="${pageContext.request.contextPath}/j_spring_security_check" method='POST'>
                             <h3>INICIAR SESI&Oacute;N</h3>
+                            <c:if test="${param.error == 'true'}">
+                            <div class="form-group">
+                                Usuario o Password Incorrectos
+                            </div>
+                            </c:if>
                             <div class="form-group">
                                 <input type="text" name="username" class="form-control" placeholder="Email">
                             </div>

@@ -36,9 +36,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     String username = authentication.getPrincipal().toString();
     String password = authentication.getCredentials().toString() ;
-    //org.hibernate.exception.SQLGrammarException: could not extract ResultSet
-    Usuario user = usuarioService.findUsuarioByUserName(username);
-    Boolean aprobar = Boolean.TRUE;
+    Usuario user = usuarioService.findUsuarioByCorreo(username);
     if (user == null) {
         throw new BadCredentialsException("1000");
     }

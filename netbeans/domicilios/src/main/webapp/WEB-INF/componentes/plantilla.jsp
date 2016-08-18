@@ -27,6 +27,8 @@
         <link rel="stylesheet" type="text/css" href="/js/bxslider/jquery.bxslider.css"><!-- BxSlider -->
         <link rel="stylesheet" type="text/css" href="/css/jquery.rs.selectbox.css"><!-- Selectbox -->	
 
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script type="text/javascript" src="/js/jquery.1.11.1.js"></script>
         <!--script src="/js/jquery-3.1.0.min.js"></script-->
     <sitemesh:write property='head'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -142,8 +144,7 @@
         <a name="contact1"></a>
     </div><!--- End Wrapper -->
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script type="text/javascript" src="/js/jquery.1.11.1.js"></script>
+
     <!--script src="/js/jquery-3.1.0.min.js"></script-->
     <!-- Bootstrap Js Compiled Plugins -->
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
