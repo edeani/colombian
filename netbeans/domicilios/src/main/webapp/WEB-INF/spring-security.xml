@@ -15,15 +15,15 @@
     
     <http use-expressions="true">
         <csrf disabled="true"/>
-        <intercept-url pattern="/" access="isAnonymous()" />
-        <intercept-url pattern="/home.htm" access="permitAll()" />
+        <intercept-url pattern="/**" access="permitAll()" />
+        <!--intercept-url pattern="/home.htm" access="permitAll()" />
         <intercept-url pattern="/login.htm" access="permitAll()" />
-        <intercept-url pattern="/logout.htm" access="isAnonymous()" />
+        <intercept-url pattern="/logout.htm" access="isAnonymous()" /-->
  
 
         <intercept-url pattern="/userInfo.htm" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
         <intercept-url pattern="/admin.htm" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/other/**" access="isAuthenticated()" />
+        <intercept-url pattern="/pedido/**" access="isAuthenticated()" />
  
         <access-denied-handler error-page="/403.htm" />
  
@@ -32,9 +32,9 @@
                     authentication-failure-url="/signin.htm?error=true" username-parameter="username"
                     password-parameter="password" />
  
-        <logout logout-url="/logout.htm" logout-success-url="/logoutSuccessful"
+        <logout logout-url="/logout.htm" logout-success-url="/home.htm"
                 delete-cookies="JSESSIONID" invalidate-session="true" />
-
+        
     </http>
  
     <authentication-manager>

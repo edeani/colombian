@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,6 +63,7 @@
                                 <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
                                 <li><a href="checkout.html">Hacer Pedido</a></li>
                                 <li><a href="#contact">Contacto</a></li>
+                                <sec:authorize  access="!isAuthenticated()">
                                 <li class="menu-item-has-children">
                                     <a href="#">Iniciar sesi&oacute;n</a>
                                     <div class="sub-menu rst-form-login">
@@ -78,6 +80,7 @@
                                         </form>
                                     </div>
                                 </li>
+                                </sec:authorize>
                             </ul>
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
                         </div>
@@ -102,7 +105,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <sec:authorize  access="isAuthenticated()">
+                            <a href="/signin.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
+                            </sec:authorize>
+                            <sec:authorize  access="!isAuthenticated()">
                             <a href="/signin.htm" class="rst-signup btn btn-success">REGISTRARSE</a>
+                            </sec:authorize>
                         </div>
                     </div>
                 </div><!-- End Top Header -->

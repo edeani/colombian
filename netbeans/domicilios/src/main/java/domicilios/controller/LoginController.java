@@ -3,6 +3,7 @@ package domicilios.controller;
 import domicilios.dto.UsuarioRegistroDto;
 import domicilios.entidad.Usuario;
 import domicilios.service.UsuarioService;
+import domicilios.service.autorizacion.SecurityService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private SecurityService securityService;
+
     @RequestMapping(value = "/signin.htm", method = RequestMethod.GET)
     public ModelAndView signinPage() {
-        ModelAndView mav = new ModelAndView("usuario/signin");
-        setBasicModel(mav, new UsuarioRegistroDto());
+        ModelAndView mav = null;
+        if (securityService.getCurrentUser()==null) {
+            mav = new ModelAndView("usuario/signin");
+            setBasicModel(mav, new UsuarioRegistroDto());
+        } else {
+            /**
+             * TODO: Redirigir a la pantalla de pedidos
+             */
+            mav = new ModelAndView("redirect:/home.htm");
+        }
         return mav;
     }
 
@@ -52,7 +64,6 @@ public class LoginController extends BaseController{
         return mav;
     }
 
-
     @SuppressWarnings("warnings-registrarusuario")
     @RequestMapping(value = "/signin.htm", method = RequestMethod.POST)
     public ModelAndView registrarUsuario(@ModelAttribute @Valid UsuarioRegistroDto usuarioRegistroDto, BindingResult binding) {
@@ -73,7 +84,7 @@ public class LoginController extends BaseController{
                 mav.addObject("error_crear", "Error creando Usuario");
                 return mav;
             }
-            
+
         }
     }
 
