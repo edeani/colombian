@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/WEB-INF/decorators">
+
+        <decorator name="basicIndex" page="basicIndex.jsp">
+		<pattern>/index*</pattern>
+	</decorator>
+	<decorator name="basic" page="basic.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	<excludes>
+		<pattern>*/ajax/**</pattern>	
+		<pattern>/*/lightbox/**</pattern>		
+	</excludes>
+</decorators>

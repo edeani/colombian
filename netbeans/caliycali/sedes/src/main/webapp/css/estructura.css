@@ -1,0 +1,58 @@
+/* 
+    Document   : estructura
+    Created on : 5/12/2012, 11:38:04 AM
+    Author     : edeani
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+#cuerpo{
+    margin: 0 auto;
+    width: 1100px;
+    height: 100%;
+}
+
+#selectSedes{
+    margin: 0% 0% 0% 0%;
+    
+}
+
+.textoNegro{
+    font-family: 'Comic Sans MS',Arial;
+    color: black;
+    text-shadow: 1px grey;
+}
+
+#acomodar{
+    float: left;
+    border: 1px black solid;
+    margin: 5px 20px 0px 0px;
+}
+
+#reporteInventarioSede{
+    width: 100%;
+    height: 100%;
+    overflow:auto;
+}
+.datos{
+    margin: 5px 5px 10px 29%;
+    float: top;
+    width: 50%;
+}
+
+/*Estilo para botón de cerrar del colobox*/
+ #cboxClose{
+  background: none repeat scroll 0 0 silver;
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+  float: left;
+  font-size: 16px;
+  text-align: center;
+  width: 198px;
+}

@@ -1,0 +1,111 @@
+/* 
+    Document   : estructura
+    Created on : 5/12/2012, 11:38:04 AM
+    Author     : edeani
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+#cuerpo{
+    margin: 0 auto;
+    width: 1100px;
+    height: 100%;
+}
+
+#selectSedes{
+    margin: 0% 0% 0% 0%;
+    
+}
+
+.textoNegro{
+    font-family: 'Comic Sans MS',Arial;
+    color: black;
+    text-shadow: 1px grey;
+}
+
+#acomodar{
+    float: left;
+    border: 1px black solid;
+    margin: 5px 20px 0px 0px;
+}
+
+#reporteInventarioSede{
+    width: 100%;
+    height: 100%;
+    overflow:auto;
+}
+.datos{
+    margin: 5px 5px 10px 29%;
+    float: top;
+    width: 50%;
+}
+
+/*Estilo para botón de cerrar del colobox*/
+ #cboxClose{
+  background: none repeat scroll 0 0 green;
+  color: white;
+  cursor: pointer;
+  float: left;
+  font-size: 16px;
+  font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+  text-align: center;
+  width: 300px;
+}
+
+/*Estilos para botones*/
+.generalButton{
+    width: 100px;
+}
+/*Estilos Para un formulario en columna*/
+.contenedorEstructuraForm{
+    margin: 0 300px;
+    max-width: 500px;
+}
+
+.contenedorEstructuraFormLarge{
+    margin: 0 100px;
+    max-width: 900px;
+}
+
+.contentFormSimple{
+    max-width: 100%;
+}
+.contentFormSimple > label {
+  margin: 0 10px;
+}
+
+.contentFormCol{
+    max-width: 100%;
+}
+
+.contentFormCol li {
+  float: left;
+  margin: 0 20px;
+  padding: 5px;
+  width: 160px;
+  height: 25px;
+  list-style: outside none none;
+}
+/*Estilos para una tabla general*/
+.tablaDatosInfo {
+  background: black none repeat scroll 0 0;
+  border: medium solid black;
+  border-radius: 3px;
+  color: white;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.tablaDatosInfo thead tr{
+    background: green;
+}
+
+.tablaDatosInfo tbody tr{
+    font-size: 14px;
+}
