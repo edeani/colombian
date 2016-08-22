@@ -20,7 +20,7 @@
     p:location="/WEB-INF/jdbc.properties" /-->
     <bean id="entityManagerFactory"
       class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="Principal" />
         <property name="persistenceUnitName" value="CaliyCali" />
         <property name="jpaDialect" ref="jpaDialect" />
         <property name="jpaVendorAdapter">
@@ -47,7 +47,7 @@
       p:username="x022vm01"
       p:password="taYzLzk4hqx"/-->
     <!-- Popayan -->
-    <bean id="dataSource"
+    <bean id="Principal"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
       p:url="jdbc:mysql://200.58.100.154:3306/x022vm01_principalsedes"

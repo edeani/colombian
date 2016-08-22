@@ -251,7 +251,7 @@ public class ReportesDaoImpl implements ReportesDao {
         return gastos;
     }
 
-        @Override
+    @Override
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(String nameDataSource, String fechaInicio, String fechaFin) {
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
         List<ComprobanteConsolidadoSedeDto> movimientos = null;

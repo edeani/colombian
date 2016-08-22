@@ -4,6 +4,7 @@
  */
 package com.colombian.cali.colombiancaliycali.controllers;
 
+import com.colombia.cali.colombiancaliycali.util.Formatos;
 import com.colombia.cali.colombiancaliycali.util.LectorPropiedades;
 import com.colombian.cali.colombiancaliycali.dto.FormReporteInventarioDto;
 import com.colombian.cali.colombiancaliycali.dto.InventarioDTO;
@@ -13,7 +14,9 @@ import com.colombian.cali.colombiancaliycali.dto.ReporteInventarioDTO;
 import com.colombian.cali.colombiancaliycali.mapper.InventarioMapper;
 import com.colombian.cali.colombiancaliycali.services.InventarioService;
 import com.colombian.cali.colombiancaliycali.services.SedesService;
+import com.colombian.cali.colombiancaliycali.services.colombianjsf.InventarioColombianService;
 import com.google.gson.Gson;
+import com.mycompany.mapper.Inventario;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +48,8 @@ public class InventarioController extends BaseController {
     @Autowired
     InventarioService inventarioService;
     private LectorPropiedades propiedades;
+    @Autowired
+    private InventarioColombianService inventarioColombianService;
 
     @RequestMapping("/index.htm")
     public ModelAndView inicio() {
@@ -239,5 +244,16 @@ public class InventarioController extends BaseController {
         return mav;
     }
     
+    @RequestMapping(value = "/colombian/reporte/inventarios.htm")
+    public ModelAndView indexInventarioColombian(){
+        return new ModelAndView("reportes/colombian/inventario/formInventario");
+    }
     
+    @RequestMapping(value = "/colombian/ajax/consultar.htm")
+    public ModelAndView consultarInventarioColombian(@RequestParam String fechaInicial,@RequestParam String fechaFinal){
+        ModelAndView mav = new ModelAndView("reportes/colombian/inventario/datosInventario");
+        List<Inventario> inventario = inventarioColombianService.traerInventario(Formatos.StringDateToDate(fechaFinal), Formatos.StringDateToDate(fechaInicial));
+        mav.addObject("inventario", inventario); 
+        return mav;
+    }
 }

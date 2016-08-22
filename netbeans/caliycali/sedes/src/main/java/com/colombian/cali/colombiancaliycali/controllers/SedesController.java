@@ -6,6 +6,8 @@ package com.colombian.cali.colombiancaliycali.controllers;
 
 import com.colombia.cali.colombiancaliycali.util.LectorPropiedades;
 import com.colombian.cali.colombiancaliycali.dto.ItemsDTO;
+import com.colombian.cali.colombiancaliycali.entidades.Sedes;
+import com.colombian.cali.colombiancaliycali.services.SecurityService;
 import com.colombian.cali.colombiancaliycali.services.SedesService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -28,9 +31,11 @@ public class SedesController extends BaseController {
 
     @Autowired
     private SedesService sedeService;
-    
+    @Autowired
+    private SecurityService securityService;
+
     private LectorPropiedades propiedades;
-    
+
     @ModelAttribute("sedes")
     public String traerSedes(HttpSession session, HttpServletRequest request) {
         String idsede = (String) session.getAttribute("sede");
@@ -43,6 +48,7 @@ public class SedesController extends BaseController {
 
         return idsede;
     }
+
     //Carga las sedes en el select
     @RequestMapping("/ajax/listaSedeSelect.htm")
     public ModelAndView cargarSedes(HttpSession session) {
@@ -50,17 +56,17 @@ public class SedesController extends BaseController {
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
         propiedades.setPropiedad(getPropiedadPrincipal());
-        
+
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(propiedades.leerPropiedad());
         mav.addObject("datos", datosSedes);
 
         return mav;
     }
-    
+
     //Seteo la sede en Sesión
-    @RequestMapping(value="/ajax/seleccionarSede.htm",method = {RequestMethod.GET, RequestMethod.POST})
-    public  ModelAndView seleccionarSede(HttpSession session,HttpServletRequest request,
-           @RequestParam(value="idSede",required = false) Long idSede,@RequestParam(value="nombreSede",required = false) String nombreSede){
+    @RequestMapping(value = "/ajax/seleccionarSede.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView seleccionarSede(HttpSession session, HttpServletRequest request,
+            @RequestParam(value = "idSede", required = false) Long idSede, @RequestParam(value = "nombreSede", required = false) String nombreSede) {
         ModelAndView mav = new ModelAndView("util/formSelectSedes");
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
@@ -69,13 +75,19 @@ public class SedesController extends BaseController {
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(propiedades.leerPropiedad());
         mav.addObject("datos", datosSedes);
         mav.addObject("sede", idSede);
-        //mav.addObject("sede", sede.getIdsedes());
-        
-        //session.setAttribute("objetoSede", sede);
-        
         return mav;
     }
-    
-    
+
+    @RequestMapping(value = "/ajax/setSedeSession.htm")
+    public @ResponseBody   String setSedeReportesColombian(@RequestParam Long idSede) {
+        try {
+            Sedes sede = sedeService.buscarSede(propiedades.leerPropiedad(), idSede);
+            securityService.getCurrentUser().setSede(sede); 
+        } catch (Exception e) {
+            System.out.println("setSedeReportesColombian::"+e.getMessage());
+            return "error";
+        }
+        return "ok";
+    }
 
 }

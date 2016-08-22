@@ -14,9 +14,9 @@
             </label>
             <form:input path="numeroFactura"  title="Número Factura" />
             <label>Sede
-                <form:select path="sede" data-url="${pageContext.servletContext.contextPath}/chia/ajax/seleccionarSede.htm">
+                <form:select path="sede" data-url="${pageContext.servletContext.contextPath}/sedes/ajax/seleccionarSede.htm">
                     <option value="">Seleccionar</option>
-                    <c:import url="/chia/ajax/listaSedeSelect.htm">
+                    <c:import url="/sedes/ajax/listaSedeSelect.htm">
                     </c:import>
                 </form:select>
             </label>

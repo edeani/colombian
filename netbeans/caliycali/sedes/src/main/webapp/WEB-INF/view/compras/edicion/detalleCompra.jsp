@@ -21,7 +21,7 @@
                 <label>Sede
                     <select id="idsede" name="idsede" style="width: 155px;">
                         <option value="">Seleccionar</option>
-                        <c:import url="/chia/ajax/seleccionarSede.htm">
+                        <c:import url="/sedes/ajax/seleccionarSede.htm">
                             <c:param name="idSede">${detalleCompraDTO.idsede}</c:param>
                         </c:import>
                     </select>

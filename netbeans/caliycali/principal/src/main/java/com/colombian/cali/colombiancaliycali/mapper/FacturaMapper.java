@@ -12,9 +12,7 @@ import com.colombia.cali.colombiancaliycali.util.Formatos;
 import com.colombian.cali.colombiancaliycali.dto.DetalleFacturaDTO;
 import com.colombian.cali.colombiancaliycali.entidades.FacturasCompras;
 import com.colombian.cali.colombiancaliycali.entidades.FacturasProcesadasCuentas;
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  *
@@ -22,7 +20,6 @@ import java.util.Locale;
  */
 public class FacturaMapper {
     private CaliycaliDao caliycaliDao;
-    private Formatos formato;
 
     /**
      * Arma la inserción del detale

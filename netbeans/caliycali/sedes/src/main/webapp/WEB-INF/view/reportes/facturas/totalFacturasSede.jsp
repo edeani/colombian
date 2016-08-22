@@ -32,7 +32,7 @@
             <label>Sede
                 <select id="sede" name="sede">
                     <option value="">Seleccionar</option>
-                    <c:import url="/chia/ajax/listaSedeSelect.htm">
+                    <c:import url="/sedes/ajax/listaSedeSelect.htm">
                     </c:import>
                 </select>
             </label>

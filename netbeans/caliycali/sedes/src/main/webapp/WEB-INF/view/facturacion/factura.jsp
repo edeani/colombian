@@ -30,9 +30,9 @@
             <div class="clear"></div>
             <div class="clear"></div>
             <div style="position: relative; margin-left: 115px;">Sede
-                <form:select path="sede" data-url="${pageContext.servletContext.contextPath}/chia/ajax/seleccionarSede.htm">
+                <form:select path="sede" data-url="${pageContext.servletContext.contextPath}/sedes/ajax/seleccionarSede.htm">
                     <option value="">Seleccionar</option>
-                    <c:import url="/chia/ajax/listaSedeSelect.htm">
+                    <c:import url="/sedes/ajax/listaSedeSelect.htm">
                     </c:import>
                 </form:select>
             </div>

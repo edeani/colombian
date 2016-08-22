@@ -39,7 +39,7 @@
                 <label id="labelSede" style="display: none;" >Sede
                     <select id="sede" name="sede">
                         <option value="">Seleccionar</option>
-                        <c:import url="/chia/ajax/listaSedeSelect.htm">
+                        <c:import url="/sedes/ajax/listaSedeSelect.htm">
                         </c:import>
                     </select>
                     <input id="nombreSede" type="hidden" name="nombreSede" value="">

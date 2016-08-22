@@ -34,8 +34,7 @@ public class SedesDaoImpl implements SedesDao {
         try {
             entityManager.persist(sede);
         } catch (Exception e) {
-            System.out.println("SEDES::PERSIST");
-            e.printStackTrace();
+            System.out.println("SEDES::PERSIST::"+e.getMessage());
         }
 
 
@@ -48,8 +47,7 @@ public class SedesDaoImpl implements SedesDao {
              Query query = entityManager.createQuery("select s from Sedes s");
              sedes = query.getResultList();
         } catch (Exception e) {
-            System.out.println("SEDES::LISTA");
-            e.printStackTrace();
+            System.out.println("SEDES::LISTA::"+e.getMessage());
         }
         return sedes;
     }
@@ -61,9 +59,9 @@ public class SedesDaoImpl implements SedesDao {
             Query query = entityManager.createQuery("select s from Sedes s where s.idsedes="+idSede);
             sede = (Sedes) query.getSingleResult();
         } catch (Exception e) {
-            System.out.println("Error findSede");
+            System.out.println("Error findSede::"+e.getMessage());
         }
         return sede;
     }
-    
+
 }

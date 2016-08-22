@@ -26,7 +26,7 @@
                     Sede
                     <select name="idsede" id="idsede" class="contentRequired">
                         <option value="">Seleccionar</option>
-                        <c:import url="/chia/ajax/listaSedeSelect.htm"></c:import>
+                        <c:import url="/sedes/ajax/listaSedeSelect.htm"></c:import>
                     <select>
                 </label>
                 <label id="cmpFechaInicial">

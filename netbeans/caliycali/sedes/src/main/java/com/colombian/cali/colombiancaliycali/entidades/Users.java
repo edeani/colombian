@@ -50,7 +50,7 @@ public class Users implements UserDetails,Serializable {
     @JoinColumn(name = "IDROL")
     private Rol rol;
      
-     @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "IDSEDES")
     private Sedes sede;
      

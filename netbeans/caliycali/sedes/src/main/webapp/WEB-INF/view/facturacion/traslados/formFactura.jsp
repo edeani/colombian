@@ -15,17 +15,17 @@
             <form:input path="numeroFactura" type="hidden"  title="Número Factura" />
             <label>
                 Sede Origen
-                <form:select path="sedeOrigen" data-url="${pageContext.servletContext.contextPath}/chia/ajax/seleccionarSede.htm">
+                <form:select path="sedeOrigen" data-url="${pageContext.servletContext.contextPath}/sedes/ajax/seleccionarSede.htm">
                     <option value="">Seleccionar</option>
-                    <c:import url="/chia/ajax/listaSedeSelect.htm">
+                    <c:import url="/sedes/ajax/listaSedeSelect.htm">
                     </c:import>
                 </form:select>
             </label>
             <label>
                 Sede Destino
-                <form:select path="sedeDestino" data-url="${pageContext.servletContext.contextPath}/chia/ajax/seleccionarSede.htm">
+                <form:select path="sedeDestino" data-url="${pageContext.servletContext.contextPath}/sedes/ajax/seleccionarSede.htm">
                     <option value="">Seleccionar</option>
-                    <c:import url="/chia/ajax/listaSedeSelect.htm">
+                    <c:import url="/sedes/ajax/listaSedeSelect.htm">
                     </c:import>
                 </form:select>
                 <div id="labelSede">

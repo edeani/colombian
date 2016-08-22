@@ -29,7 +29,7 @@
                     Sede
                     <form:select path="idSede" class="contentRequired">
                         <option value="">Seleccionar</option>
-                        <c:import url="/chia/ajax/listaSedeSelect.htm"></c:import>
+                        <c:import url="/sedes/ajax/listaSedeSelect.htm"></c:import>
                     </form:select>
                     <form:input path="nombreSede" type="hidden"/>
                 </label>

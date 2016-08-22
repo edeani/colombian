@@ -7,7 +7,6 @@ package com.colombian.cali.colombiancaliycali.services;
 
 import com.colombia.cali.colombiancaliycali.util.Formatos;
 import com.colombia.cali.colombiancaliycali.util.LectorPropiedades;
-import com.colombian.cali.colombiancaliycali.services.PorcentajeVentasService;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -47,8 +46,8 @@ public class JobServiceImpl implements JobService{
         try {
             String base_datos = lectorPropiedades.leerPropiedad(PROPIEDAD_BD);
             //Pedimos reporte del mes anterior
-            porcentajeVentasService.generarPorcentajeVentas("dataSource", mes-1);
-            porcentajeVentasService.generarDetallePorcentajeVentas("dataSource", mes-1);
+            porcentajeVentasService.generarPorcentajeVentas(base_datos, mes-1);
+            porcentajeVentasService.generarDetallePorcentajeVentas(base_datos, mes-1);
         } catch (Exception e) {
             System.out.println("ERROR::jobPorcentajeVentas"+e.getMessage());
         }

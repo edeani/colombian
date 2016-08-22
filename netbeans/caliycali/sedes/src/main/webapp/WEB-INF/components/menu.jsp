@@ -80,7 +80,14 @@
                 <li><a href='<%=request.getContextPath()%>/consolidado/sede.htm'><span>Consolidado</span></a></li>
             </ul>
         </li>
-
+        <li class='has-sub'><a href='#'><span>Entrar Sedes</span></a>
+            <ul>
+                <li><a href='<%=request.getContextPath()%>/tiemporeal/cierres.htm'><span>Tiempo Real</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/inventario/colombian/reporte/inventarios.htm'><span>Inventario</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/compras/colombian/reportes/compras.htm'><span>Compras</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/mesasyllevar/ordenes.htm'><span>Mesas y Llevar</span></a></li>
+            </ul>
+        </li>
     </ul>
 
     <div id="cerrarSesion">

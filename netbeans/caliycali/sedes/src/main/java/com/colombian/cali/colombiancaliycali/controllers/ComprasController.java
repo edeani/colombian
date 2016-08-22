@@ -4,6 +4,7 @@
  */
 package com.colombian.cali.colombiancaliycali.controllers;
 
+import com.colombia.cali.colombiancaliycali.util.Formatos;
 import com.colombia.cali.colombiancaliycali.util.LectorPropiedades;
 import com.colombian.cali.colombiancaliycali.dto.ComprasDto;
 import com.colombian.cali.colombiancaliycali.dto.ComprasProveedorFechaDto;
@@ -19,6 +20,9 @@ import com.colombian.cali.colombiancaliycali.mapper.ComprasMapper;
 import com.colombian.cali.colombiancaliycali.services.ComprasService;
 import com.colombian.cali.colombiancaliycali.services.InventarioService;
 import com.colombian.cali.colombiancaliycali.services.JasperService;
+import com.colombian.cali.colombiancaliycali.services.SecurityService;
+import com.colombian.cali.colombiancaliycali.services.colombianjsf.ComprasColombianService;
+import com.mycompany.dto.ReporteComprasSedeDto;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,9 +52,13 @@ public class ComprasController extends BaseController {
     @Autowired
     private ComprasService comprasService;
     @Autowired
+    private ComprasColombianService comprasColombianService;
+    @Autowired
     private InventarioService inventarioService;
     @Autowired
     private JasperService jasperService;
+    @Autowired
+    private SecurityService securityService;
     private LectorPropiedades propiedades;
     private static final String titulo = "Entradas Compras";
 
@@ -387,6 +395,35 @@ public class ComprasController extends BaseController {
         mav = new ModelAndView("redirect:/compras/reportes/cuentasPagarProveedor.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
+        return mav;
+    }
+    
+    /**
+     * Pagina Reporte de compras de Colombian
+     * @return 
+     */
+    @RequestMapping("/colombian/reportes/compras.htm")
+    public ModelAndView reporteComprasColombian(){
+        ModelAndView mav = new ModelAndView("reportes/compras/colombian/comprasSede");
+        return mav;
+    }
+    @RequestMapping("/colombian/reportes/compraspdf.htm")
+    public ModelAndView generarComprasColombian(@RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal){
+        ModelAndView mav = null;
+        
+        List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal));
+        if (reporte != null) {
+            if (reporte.size() > 0) {
+                JRDataSource datos = new JRBeanCollectionDataSource(reporte);
+                Map<String, Object> parameterMap = new HashMap<String, Object>();
+                parameterMap.put("datos", datos);
+                parameterMap.put("sede", securityService.getCurrentUser().getSede().getSede());
+                parameterMap.put("fechaInicial", fechaInicial);
+                parameterMap.put("fechaFinal", fechaFinal);
+                mav = new ModelAndView("comprasSedesColombian", parameterMap);
+                return mav;
+            }
+        }
         return mav;
     }
 }
