@@ -34,10 +34,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Transactional(readOnly = true)
     @Override
-    public Usuario findUsuarioByUserName(String username) {
+    public Usuario findUsuarioByCorreo(String correo) {
         HashMap<String, Object> parametros = new HashMap<>();
-        parametros.put("username", username);
-        return usuarioDao.queryOpjectJpa(leerXml.getQuery("UsuarioJpa.findXnombreusuario"), parametros);
+        parametros.put("correo", correo);
+        return usuarioDao.queryOpjectJpa(leerXml.getQuery("UsuarioJpa.findXcorreo"), parametros);
     }
 
     @Transactional(readOnly = true)

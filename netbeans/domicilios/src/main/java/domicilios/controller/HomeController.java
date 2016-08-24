@@ -26,8 +26,8 @@ public class HomeController{
     @RequestMapping("/home.htm")
     public ModelAndView inicio(){
         ModelAndView mav = new ModelAndView("home/inicio");
-        List<Producto> productos = productoService.listAll();
-        mav.addObject("productos", productos);
+        /*List<Producto> productos = productoService.listAll();
+        mav.addObject("productos", productos);*/
         return mav;
     }
 }

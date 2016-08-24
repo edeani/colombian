@@ -5,6 +5,7 @@
  */
 package domicilios.service;
 
+import domicilios.dto.ProductoDto;
 import domicilios.entidad.Producto;
 import java.util.List;
 
@@ -14,5 +15,6 @@ import java.util.List;
  */
 public interface ProductoService {
 
-    List<Producto> listAll();
+    List<ProductoDto> listAllPage(Integer page);
+    Integer numeroProducto();
 }
