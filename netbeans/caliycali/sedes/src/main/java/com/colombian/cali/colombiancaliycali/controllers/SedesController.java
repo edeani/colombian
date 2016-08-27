@@ -34,7 +34,6 @@ public class SedesController extends BaseController {
     @Autowired
     private SecurityService securityService;
 
-    private LectorPropiedades propiedades;
 
     @ModelAttribute("sedes")
     public String traerSedes(HttpSession session, HttpServletRequest request) {
@@ -53,11 +52,10 @@ public class SedesController extends BaseController {
     @RequestMapping("/ajax/listaSedeSelect.htm")
     public ModelAndView cargarSedes(HttpSession session) {
         ModelAndView mav = new ModelAndView("util/formSelect");
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
+        getPropiedades().setArchivo(getArchivo());
+        getPropiedades().setPropiedad(getPropiedadPrincipal());
 
-        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(propiedades.leerPropiedad());
+        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(getPropiedades().leerPropiedad());
         mav.addObject("datos", datosSedes);
 
         return mav;
@@ -68,11 +66,10 @@ public class SedesController extends BaseController {
     public ModelAndView seleccionarSede(HttpSession session, HttpServletRequest request,
             @RequestParam(value = "idSede", required = false) Long idSede, @RequestParam(value = "nombreSede", required = false) String nombreSede) {
         ModelAndView mav = new ModelAndView("util/formSelectSedes");
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
+        getPropiedades().setArchivo(getArchivo());
+        getPropiedades().setPropiedad(getPropiedadPrincipal());
 
-        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(propiedades.leerPropiedad());
+        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(getPropiedades().leerPropiedad());
         mav.addObject("datos", datosSedes);
         mav.addObject("sede", idSede);
         return mav;
@@ -81,7 +78,7 @@ public class SedesController extends BaseController {
     @RequestMapping(value = "/ajax/setSedeSession.htm")
     public @ResponseBody   String setSedeReportesColombian(@RequestParam Long idSede) {
         try {
-            Sedes sede = sedeService.buscarSede(propiedades.leerPropiedad(), idSede);
+            Sedes sede = sedeService.buscarSede(getPropiedades().leerPropiedad(), idSede);
             securityService.getCurrentUser().setSede(sede); 
         } catch (Exception e) {
             System.out.println("setSedeReportesColombian::"+e.getMessage());

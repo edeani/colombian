@@ -45,14 +45,67 @@
     width: 50%;
 }
 
-/*Estilo para botón de cerrar del colobox*/
+/*Estilo para botÃ³n de cerrar del colobox*/
  #cboxClose{
-  background: none repeat scroll 0 0 silver;
-  border: 1px solid black;
-  color: black;
+  background: none repeat scroll 0 0 green;
+  color: white;
   cursor: pointer;
   float: left;
   font-size: 16px;
+  font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
   text-align: center;
-  width: 198px;
+  width: 300px;
+}
+
+/*Estilos para botones*/
+.generalButton{
+    width: 100px;
+}
+/*Estilos Para un formulario en columna*/
+.contenedorEstructuraForm{
+    margin: 0 300px;
+    max-width: 500px;
+}
+
+.contenedorEstructuraFormLarge{
+    margin: 0 100px;
+    max-width: 900px;
+}
+
+.contentFormSimple{
+    max-width: 100%;
+}
+.contentFormSimple > label {
+  margin: 0 10px;
+}
+
+.contentFormCol{
+    max-width: 100%;
+}
+
+.contentFormCol li {
+  float: left;
+  margin: 0 20px;
+  padding: 5px;
+  width: 180px;
+  height: 25px;
+  list-style: outside none none;
+}
+/*Estilos para una tabla general*/
+.tablaDatosInfo {
+  background: black none repeat scroll 0 0;
+  border: medium solid black;
+  border-radius: 3px;
+  color: white;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.tablaDatosInfo thead tr{
+    background: green;
+}
+
+.tablaDatosInfo tbody tr{
+    font-size: 14px;
 }

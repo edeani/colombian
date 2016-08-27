@@ -18,7 +18,7 @@ $(document).ready(function() {
      */
     $(document).on("change","#sedeSession", function(){
         loader("cargador", "barra.gif");
-        var respuesta = peticionAjax("/colombianCaliyCali/sedes/ajax/setSedeSession.htm","POST","idSede="+$("#sedeSession").val());
+        var respuesta = peticionAjax("/chia/sedes/ajax/setSedeSession.htm","POST","idSede="+$("#sedeSession").val());
         loader("cargador", "");
     });
 });
