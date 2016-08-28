@@ -7,7 +7,6 @@ package domicilios.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

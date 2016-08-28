@@ -23,7 +23,7 @@ public class UsuarioRegistroDto {
     @Size(max = 100)
     private String correo;
     @NotEmpty
-    @Size(max = 20)
+    @Size(min=6,max = 20)
     @Pattern(regexp = "[A-Za-z0-9_ áéíóúñÁÉÍÓÚÑ\\-\\.\\,!\\+\\$]*")
     private String password;
     @NotEmpty

@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domicilios.service.autorizacion;
+package domicilios.dao;
 
-import domicilios.entidad.Usuario;
+import domicilios.entidad.ValidacionUsuarios;
 
 /**
  *
  * @author user
  */
-public interface SecurityService {
-    public Usuario getCurrentUser();
-    void autenticarUsuarioRegistrado(String username,String token);
+public interface ValidacionUsuarioDao extends GenericDao<ValidacionUsuarios>{
+    
 }

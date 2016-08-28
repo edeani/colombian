@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class BaseController {
+    
+    private static final String PROPIEDADES_COLOMBIAN="colombian.properties";
+    
     private String getEntityKey(Object entity) {
         return StringUtils.uncapitalize(entity.getClass().getSimpleName());
     }
@@ -24,4 +27,9 @@ public class BaseController {
         mav.addObject(entityKey, entity);
         mav.addObject("commandName", entityKey);
     }
+    
+    public static String getPROPIEDADES_COLOMBIAN() {
+        return PROPIEDADES_COLOMBIAN;
+    }
+    
 }

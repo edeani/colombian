@@ -8,6 +8,7 @@ package domicilios.entidad;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,8 +47,6 @@ public class Usuario implements Serializable {
     @Size(max = 45)
     @Column(name = "direccion")
     private String direccion;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "cedula")
     private String cedula;

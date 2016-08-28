@@ -5,9 +5,14 @@
  */
 package domicilios.service.autorizacion;
 
+import domicilios.dao.UsuarioDao;
+import domicilios.dao.ValidacionUsuarioDao;
 import domicilios.entidad.Usuario;
+import domicilios.entidad.ValidacionUsuarios;
 import domicilios.service.UsuarioService;
+import domicilios.util.LeerXml;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import static java.util.regex.Pattern.matches;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -32,7 +38,17 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private ValidacionUsuarioDao validacionUsuarioDao;
+
+    @Autowired
+    private UsuarioDao usuarioDao;
+
+    @Autowired
+    private LeerXml leerXml;
+
     private static final String PREFIJO_ROL = "ROLE_";
+    private static final String USUARIO_ACTIVO = "A";
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -74,6 +90,25 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
             return null;
         }
 
+    }
+
+    @Transactional
+    @Override
+    public void autenticarUsuarioRegistrado(String username, String token) {
+        Usuario usuario = usuarioService.findUsuarioByCorreo(username);
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idusuario", usuario.getIdusuario());
+        ValidacionUsuarios vu = validacionUsuarioDao.queryOpjectJpa(leerXml.getQuery("ValidacionUsuarioJpa.findXidusuario"), parametros);
+
+        if (vu != null) {
+            if (!matches(token, vu.getToken())) {
+                throw new BadCredentialsException("1000");
+            }
+            usuario.setEstado(USUARIO_ACTIVO);
+            usuarioDao.Update(usuario);
+
+            
+        }
     }
 
 }

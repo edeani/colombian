@@ -7,12 +7,20 @@ package domicilios.service;
 
 import domicilios.dao.RolDao;
 import domicilios.dao.UsuarioDao;
+import domicilios.dao.ValidacionUsuarioDao;
 import domicilios.entidad.Rol;
 import domicilios.entidad.Usuario;
+import domicilios.entidad.ValidacionUsuarios;
+import domicilios.util.LectorPropiedades;
 import domicilios.util.LeerXml;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +33,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioDao usuarioDao;
-    
+
+    @Autowired
+    private ValidacionUsuarioDao validacionUsuarioDao;
+
     @Autowired
     private RolDao rolDao;
-    
+
     @Autowired
     private LeerXml leerXml;
+
+    private static final String SEPARADOR_TOKEN = "_";
+    @Value("${token.clave}")
+    private String CLAVE_TOKEN;
+    private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
+    private static final int ID_ROL_USUARIO = 1;
 
     @Transactional(readOnly = true)
     @Override
@@ -49,7 +66,41 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     @Override
     public void crearUsuario(Usuario usuario) {
+        //Guardo Usuario
+        Rol rol = rolDao.findById(ID_ROL_USUARIO);
+        usuario.setIdrol(rol);
         usuarioDao.save(usuario);
+        //Genero Token
+        StringBuilder token = new StringBuilder();
+        token.append(usuario.getNombreusuario().toLowerCase()).append(SEPARADOR_TOKEN).append(usuario.getCorreo()).append(SEPARADOR_TOKEN).append(CLAVE_TOKEN);
+        TimeZone timeZone1 = TimeZone.getTimeZone("America/Bogota");
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTimeZone(timeZone1);
+        calendar.add(Calendar.DAY_OF_MONTH, 7); // agregar 1 semana al token de expiración.
+        int ano = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        int hora = calendar.get(Calendar.HOUR);
+        int minuto = calendar.get(Calendar.MINUTE);
+        String fechaActual = "" + dia + mes + ano + hora + minuto;
+        token.append(SEPARADOR_TOKEN).append(fechaActual);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(token.toString());
+        
+
+        ValidacionUsuarios vu = new ValidacionUsuarios();
+        LectorPropiedades le = new LectorPropiedades();
+
+        vu.setToken(hashedPassword);
+        vu.setEstado(le.leerPropiedad(PROPIEDADES_COLOMBIAN, "usuario.estadoregistro"));
+
+        vu.setIdusuario(usuario);
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(ano, mes, dia, hora, minuto, 0);
+        vu.setFecha(cal.getTime());
+        
+        validacionUsuarioDao.save(vu);
     }
 
     @Transactional

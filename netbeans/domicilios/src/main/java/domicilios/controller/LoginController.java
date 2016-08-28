@@ -4,6 +4,7 @@ import domicilios.dto.UsuarioRegistroDto;
 import domicilios.entidad.Usuario;
 import domicilios.service.UsuarioService;
 import domicilios.service.autorizacion.SecurityService;
+import domicilios.util.LectorPropiedades;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,6 +74,8 @@ public class LoginController extends BaseController {
             return mavError;
         } else {
             Usuario usuario = new Usuario();
+            LectorPropiedades lp = new LectorPropiedades();
+            usuario.setEstado(lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(),"usuario.estadoregistro"));
             usuario.setCorreo(usuarioRegistroDto.getCorreo());
             usuario.setPassword(usuarioRegistroDto.getPassword());
             usuario.setNombreusuario(usuarioRegistroDto.getNombre());
@@ -89,9 +92,9 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping("/activar/{token}/usuario.htm")
-    public @ResponseBody
-    String activarUsuario(@PathVariable String token) {
-        return "ok";
+    public ModelAndView activarUsuario(@PathVariable String token) {
+        
+        return null;
     }
 
 }
