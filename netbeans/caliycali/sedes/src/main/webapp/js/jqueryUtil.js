@@ -113,7 +113,7 @@ function proximoCampoSinEvento(campo, clase) {
 function loader(idDiv, load)
 {
     if (load !== "") {
-        $("#" + idDiv).html("<div style=' float: left; margin-left:40%;' ><img src='"+$("#contextpath").val()+"'/img/loaders/" + load + "' /><br>Cargando ...</div>");
+        $("#" + idDiv).html("<div style=' float: left; margin-left:40%;' ><img src='"+$("#contextpath").val()+"/img/loaders/" + load + "' /><br>Cargando ...</div>");
     } else {
         $("#" + idDiv).html("");
     }
