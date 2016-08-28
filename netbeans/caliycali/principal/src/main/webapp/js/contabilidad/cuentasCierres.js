@@ -69,7 +69,7 @@ $(document).ready(function() {
             event.preventDefault();
         } else {
             $(this).autocomplete({
-                source: "/colombianCaliyCali/cuentas/ajax/autocompletar.htm",
+                source: $("#contextpath").val()+"/cuentas/ajax/autocompletar.htm",
                 select: function(event, ui) {
                     valorCampoIdCuenta = ui.item.idCuenta;
                     valorCampoNombreCuenta = ui.item.nombreCuenta;

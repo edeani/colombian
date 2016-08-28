@@ -10,7 +10,7 @@
     <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/averias/averias.js?id=0" type="text/javascript"></script>
 </head>
-<form:form commandName="${commandName}" path="DetalleAveriaDTO" action="/colombianCaliyCali/averia/guardar.htm" >
+<form:form commandName="${commandName}" path="DetalleAveriaDTO" action="${pageContext.servletContext.contextPath}/averia/guardar.htm" >
 <div id="contenidoHome">
     
     <div id="tituloPagina">${titulo}</div>

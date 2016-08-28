@@ -494,7 +494,7 @@ $(document).ready(function(){
         var numeroFactura = $("#numeroFactura").val();
         if($("#numeroFactura").val() != ""){
             loader("cargador", "barra.gif");
-            html = peticionAjaxProducto("/colombianCaliyCali/factura/ajax/listaProductos.htm", "POST","numeroFactura="+numeroFactura);
+            html = peticionAjaxProducto($("#contextpath").val()+"/factura/ajax/listaProductos.htm", "POST","numeroFactura="+numeroFactura);
             $("#contenidoFactura").html(html);
             loader("cargador", "");
             if($("#numeroSede").val() == ""){
@@ -545,7 +545,7 @@ $(document).ready(function(){
     /*if (  code=='9') {
             var numeroFactura = $("#numeroFactura").val();
             loader("cargador", "barra.gif");
-            html = peticionAjaxProducto("/colombianCaliyCali/factura/ajax/listaProductos.htm", "POST","numeroFactura="+numeroFactura);
+            html = peticionAjaxProducto($("#contextpath").val()+"/factura/ajax/listaProductos.htm", "POST","numeroFactura="+numeroFactura);
             $("#contenidoFactura").html(html);
             loader("cargador", "");
             if($("#numeroSede").val() == ""){

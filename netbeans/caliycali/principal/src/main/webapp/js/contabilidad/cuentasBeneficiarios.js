@@ -28,7 +28,7 @@ $(document).ready(function() {
             event.preventDefault();
         } else {
             $(this).autocomplete({
-                source: "/colombianCaliyCali/cuentas/ajax/autocompletar.htm",
+                source: $("#contextpath").val()+"/cuentas/ajax/autocompletar.htm",
                 select: function(event, ui) {
                     valorCampoIdCuenta = ui.item.idCuenta;
                     valorCampoNombreCuenta = ui.item.nombreCuenta;
@@ -59,7 +59,7 @@ $(document).ready(function() {
             event.preventDefault();
         } else {
             $(this).autocomplete({
-                source: "/colombianCaliyCali/factura/ajax/proveedor/autocompletar.htm?idproveedor=" + $("#idProveedor").val(),
+                source: $("#contextpath").val()+"/factura/ajax/proveedor/autocompletar.htm?idproveedor=" + $("#idProveedor").val(),
                 select: function(event, ui) {
                     valorCampoIdFactura = ui.item.value;
                     valorFechaFactura = ui.item.fechaFactura;
@@ -103,7 +103,7 @@ $(document).ready(function() {
         $('#secuencia').attr('readonly', true);
         $("#cmpSecuencia").show();
         //coloco la fecha
-        var urlFecha = "/colombianCaliyCali/pagos/ajax/fecha.htm";
+        var urlFecha = $("#contextpath").val()+"/pagos/ajax/fecha.htm";
         var fecha = peticionAjax(urlFecha, "post", "");
         //preparo para mostrar campo fecha
         $("#fechaPago").val(fecha);
@@ -136,7 +136,7 @@ $(document).ready(function() {
         $('#secuencia').attr('readonly', true);
         $("#cmpSecuencia").show();
         //coloco la fecha
-        var urlFecha = "/colombianCaliyCali/pagos/ajax/fecha.htm";
+        var urlFecha = $("#contextpath").val()+"/pagos/ajax/fecha.htm";
         var fecha = peticionAjax(urlFecha, "post", "");
         //preparo para mostrar campo fecha
         $("#fechaPago").val(fecha);
@@ -148,7 +148,7 @@ $(document).ready(function() {
         $("#cmpFecha").show();
         $("#lnkRows").show();
         //Traigo las pendientes del proveedor
-        var urlPendientes = "/colombianCaliyCali/compras/ajax/avencer.htm";
+        var urlPendientes = $("#contextpath").val()+"/compras/ajax/avencer.htm";
         var htmlComprasPendientes = peticionAjax(urlPendientes,"post","idProveedor="+idProveedor);
         $("#divContenedorTabla2").html(htmlComprasPendientes);
         //Muestro capa de los pendientes

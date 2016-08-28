@@ -12,7 +12,7 @@
 <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
 <div id="contenidoCompra">
     <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
-    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="/colombianCaliyCali/compras/guardar.htm" >
+    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/guardar.htm" >
         <div id="contenidoHome"> 
             <div id="tituloPagina">${titulo}</div>
             <div id="campoNumeroFactura">

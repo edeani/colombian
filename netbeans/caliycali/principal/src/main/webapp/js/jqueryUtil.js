@@ -18,7 +18,7 @@ $(document).ready(function () {
      */
     $(document).on("change","#sedeSession", function(){
         loader("cargador", "barra.gif");
-        var respuesta = peticionAjax("/colombianCaliyCali/sedes/ajax/setSedeSession.htm","POST","idSede="+$("#sedeSession").val());
+        var respuesta = peticionAjax($("#contextpath").val()+"/sedes/ajax/setSedeSession.htm","POST","idSede="+$("#sedeSession").val());
         loader("cargador", "");
     });
 });
@@ -113,7 +113,7 @@ function proximoCampoSinEvento(campo, clase) {
 function loader(idDiv, load)
 {
     if (load !== "") {
-        $("#" + idDiv).html("<div style=' float: left; margin-left:40%;' ><img src='/colombianCaliyCali/img/loaders/" + load + "' /><br>Cargando ...</div>");
+        $("#" + idDiv).html("<div style=' float: left; margin-left:40%;' ><img src='"+$("#contextpath").val()+"/img/loaders/" + load + "' /><br>Cargando ...</div>");
     } else {
         $("#" + idDiv).html("");
     }
