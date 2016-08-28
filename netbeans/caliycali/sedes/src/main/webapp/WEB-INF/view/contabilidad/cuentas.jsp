@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
-    <link href="/chia/css/tabladinamica/estilos.css" rel="stylesheet" type="text/css">
-    <link href="/chia/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css" rel="stylesheet" type="text/css">
+    <link href="<%=request.getContextPath()%>/css/jquery-ui.css" rel="stylesheet" type="text/css">
     <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>

@@ -22,7 +22,7 @@
         <decorator:head/>
     </head>
     <body>
-        
+        <input type="hidden" id="contextpath" value="${pageContext.servletContext.contextPath}"/>
         <div  id="cuerpo">
             <%@ include file="/WEB-INF/components/header.jsp" %>
             <decorator:body/>

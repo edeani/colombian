@@ -12,7 +12,7 @@
 <script src="<%=request.getContextPath()%>/js/jquery.easy-confirm-dialog.js" type="text/javascript"> </script>
 <script src="<%=request.getContextPath()%>/js/inventario/inventario.js" type="text/javascript"> </script>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
-<link href="/chia/css/lightbox/colorbox.css" rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/css/lightbox/colorbox.css" rel="stylesheet" type="text/css">
 
 </head>
 <div id="contenidoHome">

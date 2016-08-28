@@ -3,8 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
-    <link href="/chia/css/tabladinamica/estilos.css" rel="stylesheet" type="text/css">    
-    <link href="/chia/css/proveedores/proveedorescss.css" rel="stylesheet" type="text/css"> 
+    <link href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css" rel="stylesheet" type="text/css">    
+    <link href="<%=request.getContextPath()%>/css/proveedores/proveedorescss.css" rel="stylesheet" type="text/css"> 
     <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/proveedor/proveedores.js" type="text/javascript"></script>

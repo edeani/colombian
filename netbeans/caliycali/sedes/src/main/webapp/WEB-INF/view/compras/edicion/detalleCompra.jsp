@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="contenidoCompra">
     <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
-    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="/chia/compras/actualizar.htm" >
+    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/actualizar.htm" >
         <div id="contenidoHome"> 
             <div id="tituloPagina">${titulo}</div>
             <div id="campoNumeroFactura">

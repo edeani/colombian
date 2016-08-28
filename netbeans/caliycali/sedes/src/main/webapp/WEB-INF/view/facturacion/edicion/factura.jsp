@@ -14,7 +14,7 @@
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 
 <div id="formFactura" data-url ="${pageContext.servletContext.contextPath}/factura/ajax/actualizar.htm">
-<form:form target="_blank" commandName="${commandName}" path="DetalleFacturaDTO" action="/chia/factura/facturaVentaActualizadaPDF.htm" >
+<form:form target="_blank" commandName="${commandName}" path="DetalleFacturaDTO" action="${pageContext.servletContext.contextPath}/factura/facturaVentaActualizadaPDF.htm" >
     <div id="contenidoHome"> 
         <input id="rutaLoader"value="<%=request.getContextPath()%>/img/loaders/" type="hidden"/>
         <div id="tituloPagina">${titulo}</div>

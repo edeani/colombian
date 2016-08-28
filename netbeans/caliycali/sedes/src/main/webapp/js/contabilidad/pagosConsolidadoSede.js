@@ -43,7 +43,7 @@ $(document).ready(function() {
     });
 
     $("#idCuentaConsolidado").autocomplete({
-        source: "/chia/cuentas/ajax/autocompletar.htm",
+        source: $("#contextpath").val()+"/cuentas/ajax/autocompletar.htm",
         select: function(event, ui) {
             valorCampoIdCuenta = ui.item.idCuenta;
             valorCampoConceptoCuenta = ui.item.nombreCuenta;
