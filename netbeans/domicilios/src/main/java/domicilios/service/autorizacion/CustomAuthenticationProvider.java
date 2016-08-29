@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import static java.util.regex.Pattern.matches;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -40,6 +41,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
 
     @Autowired
     private ValidacionUsuarioDao validacionUsuarioDao;
+    
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private UsuarioDao usuarioDao;
@@ -101,13 +105,25 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         ValidacionUsuarios vu = validacionUsuarioDao.queryOpjectJpa(leerXml.getQuery("ValidacionUsuarioJpa.findXidusuario"), parametros);
 
         if (vu != null) {
-            if (!matches(token, vu.getToken())) {
-                throw new BadCredentialsException("1000");
+            if (!token.equals(vu.getToken())) {
+                throw new SecurityException("1002");
             }
             usuario.setEstado(USUARIO_ACTIVO);
             usuarioDao.Update(usuario);
 
+            vu.setEstado(USUARIO_ACTIVO);
+            validacionUsuarioDao.Update(vu);
             
+            List<GrantedAuthority> grantedAuths = new ArrayList<>();
+            grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + usuario.getIdrol().getNombrerol()));
+            
+           UsernamePasswordAuthenticationToken usuarioLogueado = new UsernamePasswordAuthenticationToken(usuario, usuario.getPassword(), grantedAuths);
+           authenticationManager.authenticate(usuarioLogueado);
+           
+           
+           if(usuarioLogueado.isAuthenticated()){
+             SecurityContextHolder.getContext().setAuthentication(usuarioLogueado);
+           }
         }
     }
 

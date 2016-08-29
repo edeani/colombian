@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -91,10 +91,14 @@ public class LoginController extends BaseController {
         }
     }
 
-    @RequestMapping("/activar/{token}/usuario.htm")
-    public ModelAndView activarUsuario(@PathVariable String token) {
-        
-        return null;
+    @RequestMapping("/activar/usuario.htm")
+    public ModelAndView activarUsuario(@RequestParam String token,@RequestParam String email) {
+        try {
+            securityService.autenticarUsuarioRegistrado(email, token);
+            return new ModelAndView("redirect:/contenido/products.htm");
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/403.htm");
+        }
     }
 
 }
