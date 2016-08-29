@@ -83,7 +83,7 @@ public class LoginController extends BaseController {
                 usuarioService.crearUsuario(usuario);
                 return new ModelAndView("redirect:/contenido/products.htm");
             } catch (Exception e) {
-                ModelAndView mav = new ModelAndView("redirect:/registrar.htm");
+                ModelAndView mav = new ModelAndView("redirect:/signin.htm");
                 mav.addObject("error_crear", "Error creando Usuario");
                 return mav;
             }

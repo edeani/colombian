@@ -12,6 +12,7 @@ import domicilios.entidad.ValidacionUsuarios;
 import domicilios.service.UsuarioService;
 import domicilios.util.LeerXml;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import static java.util.regex.Pattern.matches;
@@ -112,17 +113,18 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
             usuarioDao.Update(usuario);
 
             vu.setEstado(USUARIO_ACTIVO);
+            vu.setFechaactivacion(new Date());
             validacionUsuarioDao.Update(vu);
             
             List<GrantedAuthority> grantedAuths = new ArrayList<>();
             grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + usuario.getIdrol().getNombrerol()));
             
-           UsernamePasswordAuthenticationToken usuarioLogueado = new UsernamePasswordAuthenticationToken(usuario, usuario.getPassword(), grantedAuths);
-           authenticationManager.authenticate(usuarioLogueado);
+           UsernamePasswordAuthenticationToken usuarioLogueado = new UsernamePasswordAuthenticationToken(usuario.getCorreo(), usuario.getPassword(), grantedAuths);
+           Authentication authentication = authenticationManager.authenticate(usuarioLogueado);
            
            
            if(usuarioLogueado.isAuthenticated()){
-             SecurityContextHolder.getContext().setAuthentication(usuarioLogueado);
+             SecurityContextHolder.getContext().setAuthentication(authentication);
            }
         }
     }

@@ -48,6 +48,9 @@ public class ValidacionUsuarios implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
+    @Column(name = "fechaactivacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaactivacion;
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario idusuario;
@@ -105,4 +108,12 @@ public class ValidacionUsuarios implements Serializable {
         this.idusuario = idusuario;
     }
 
+    public Date getFechaactivacion() {
+        return fechaactivacion;
+    }
+
+    public void setFechaactivacion(Date fechaactivacion) {
+        this.fechaactivacion = fechaactivacion;
+    }
+ 
 }
