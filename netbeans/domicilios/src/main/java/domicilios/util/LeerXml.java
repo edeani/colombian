@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.DOMException;
@@ -34,8 +35,10 @@ public class LeerXml {
             String nombreArchivo = nameQuery.split("\\.")[0];
             
             ClassLoader classLoader = getClass().getClassLoader();
-            
-            File fXmlFile = new File(classLoader.getResource(FOLDER_CONSULTAS.concat(nombreArchivo).concat(EXT_XML)).getFile());
+            String path= classLoader.getResource(FOLDER_CONSULTAS.concat(nombreArchivo).concat(EXT_XML)).getFile();
+            path = URLDecoder.decode(path, "utf-8");
+            path = new File(path).getPath();
+            File fXmlFile = new File(path);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = (Document) dBuilder.parse(fXmlFile);

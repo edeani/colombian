@@ -63,24 +63,6 @@
                                 <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
                                 <li><a href="checkout.html">Hacer Pedido</a></li>
                                 <li><a href="#contact">Contacto</a></li>
-                                <sec:authorize  access="!isAuthenticated()">
-                                <li class="menu-item-has-children">
-                                    <a href="#">Iniciar sesi&oacute;n</a>
-                                    <div class="sub-menu rst-form-login">
-                                        <form action="/">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><img src="/img/mail.png" alt="" /></span>
-                                                <input class="form-control" type="email" placeholder="Email" />
-                                            </div>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><img src="/img/unlock.png" alt="" /></span>
-                                                <input class="form-control" type="password" name="password" placeholder="Contrase&ntilde;a" />
-                                            </div>
-                                            <input type="submit" class="btn btn-success" value="Iniciar sesi&oacute;n" />
-                                        </form>
-                                    </div>
-                                </li>
-                                </sec:authorize>
                             </ul>
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
                         </div>
@@ -109,7 +91,7 @@
                             <a href="/signin.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
                             </sec:authorize>
                             <sec:authorize  access="!isAuthenticated()">
-                            <a href="/signin.htm" class="rst-signup btn btn-success">REGISTRARSE</a>
+                            <a href="/signin.htm" class="rst-signup btn btn-success">Ingresar</a>
                             </sec:authorize>
                         </div>
                     </div>

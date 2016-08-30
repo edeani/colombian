@@ -1,14 +1,14 @@
 <%-- 
-    Document   : 404
-    Created on : 15/08/2016, 05:50:35 PM
-    Author     : user
+    Document   : welcome
+    Created on : 30-ago-2016, 14:04:07
+    Author     : edeani
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Colombian Broaster. El mejor pollo al estilo Americano</title>
+        <title>Bienvenido a Colombian</title>
         <!-- Custom Css ================================================== -->
         <link rel="stylesheet" type="text/css" href="/css/rs-wp-v1.2.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
@@ -20,15 +20,13 @@
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <!-- Contenido 404 -->
+        <!-- Contenido wellcome -->
         <div id="content" class="page-404">
             <div class="container">
-                <h1><img class="rst-img-404" src="/img/404.png" alt="" /></h1>
-                <h3>P&aacute;gina no encontrada</h3>
-                <p>La p&aacute;gina que busca no existe.</p>
-                <a href="index.htm" class="btn btn-danger btn-lg rst-go-home">Ir a inicio</a>
+                <h3>Gracias por registrarte. En unos momentos llegar&aacute; a tu correo un mail de confirmaci&oacute;n para activar tu cuenta.</h3>
+                <a href="/home.htm" class="btn btn-danger btn-lg rst-go-home">Inicio</a>
             </div>
         </div>
-        <!-- Fin Contenido 404 -->
+        <!-- Fin Contenido wellcome -->
     </body>
 </html>

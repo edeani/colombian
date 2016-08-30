@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,9 +80,9 @@ public class LoginController extends BaseController {
             usuario.setNombreusuario(usuarioRegistroDto.getNombre());
             try {
                 usuarioService.crearUsuario(usuario);
-                return new ModelAndView("redirect:/contenido/products.htm");
+                return new ModelAndView("redirect:/alerta/mail.htm");
             } catch (Exception e) {
-                ModelAndView mav = new ModelAndView("redirect:/signin.htm");
+                ModelAndView mav = new ModelAndView("usuario/signin");
                 mav.addObject("error_crear", "Error creando Usuario");
                 return mav;
             }
@@ -95,10 +94,19 @@ public class LoginController extends BaseController {
     public ModelAndView activarUsuario(@RequestParam String token,@RequestParam String email) {
         try {
             securityService.autenticarUsuarioRegistrado(email, token);
-            return new ModelAndView("redirect:/contenido/products.htm");
+            return new ModelAndView("redirect:/wellcome.htm");
         } catch (Exception e) {
             return new ModelAndView("redirect:/403.htm");
         }
     }
-
+    
+    @RequestMapping("/wellcome.htm")
+    public ModelAndView paginaBienvenido(){
+        return new ModelAndView("wellcome");
+    }
+    
+    @RequestMapping("/alerta/mail.htm")
+    public ModelAndView alertaMail(){
+        return new ModelAndView("mensaje_activarmail");
+    }
 }
