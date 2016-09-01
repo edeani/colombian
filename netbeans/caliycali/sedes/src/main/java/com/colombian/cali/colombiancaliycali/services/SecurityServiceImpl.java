@@ -139,12 +139,12 @@ public class SecurityServiceImpl implements AuthenticationProvider, SecurityServ
     	Users permisosUsuario;
         permisosUsuario = new Users();
         try {
-            Object obj = getDao().findUniqueByFields(Users.class, new String[] { "username" }, new Object[] { aut.getName() });
+            Users obj = (Users) getDao().findUniqueByFields(Users.class, new String[] { "username" }, new Object[] { aut.getName() });
             
             if(obj!=null){
                 System.out.println( "entre "+obj.getClass()+","+obj.toString()+","+obj.hashCode());
                 try{
-            	permisosUsuario = (Users)obj;
+            	permisosUsuario = obj;
                 System.out.println( "permisos usuarios es:"+ permisosUsuario.getUsername());
                 }catch(Exception e){
                     System.out.println( "error "+ e.toString());
