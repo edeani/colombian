@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <div id='cssmenu'>
@@ -27,7 +28,7 @@
             </ul>
         </li>
         <!--Contabilidad-->
-        <c:if test="${sessionScope.idusuario != '10754'}">
+        <sec:authorize ifAnyGranted="ROLE_ADMIN">
         <li class='has-sub'><a href='#'><span>Contabilidad</span></a>
             <ul>
                 <li><a href='<%=request.getContextPath()%>/cuentas/index.htm'><span>Cuentas</span></a></li>
@@ -61,7 +62,7 @@
                 </li>
             </ul>
         </li>
-        </c:if>
+        </sec:authorize>
         <!--Reportes-->
         <li class='has-sub'><a href='#'><span>Reportes</span></a>
             <ul>
