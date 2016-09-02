@@ -83,6 +83,10 @@ public class HomeController extends BaseController {
         model.addObject("error", "me loguee");
         return model;
     }
+    @RequestMapping(value = "/accesodenegado.htm")
+     public ModelAndView accesDenied() {
+         return new ModelAndView("accesodenegado");
+     }
     //Use onSubmit instead of doSubmitAction 
     //when you need access to the Request, Response, or BindException objects
     /*

@@ -23,6 +23,15 @@
         <intercept-url pattern="/images/**" filters="none" />
         <intercept-url pattern="/img/**" filters="none" />
         <intercept-url pattern="/js/**" filters="none" />
+        <intercept-url pattern="/cuentas/ajax/buscar.htm" filters="none" />
+        <intercept-url pattern="/cuentas/**" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/pagos/terceros/**" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/pagos/proveedor/**" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/pagos/sede/**" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/consolidado/comprobante/**" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/cajamenor/**" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/imprimir/comprobante/pago.htm" access="hasAnyRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/consolidado/**" access="hasAnyRole('ROLE_ADMIN')" />      
         <intercept-url pattern="/**" access="isAuthenticated()" />
         <session-management>
             <concurrency-control expired-url="/index.htm"/>
