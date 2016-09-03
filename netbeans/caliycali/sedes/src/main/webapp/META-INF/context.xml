@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/chia">
+<Context antiJARLocking="true" path="/cucuta">
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="caliyacali" password="compaq" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/caliycali?zeroDateTimeBehavior=convertToNull" username="root"/>
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="caliycali" password="compaq" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/caliycali?zeroDateTimeBehavior=convertToNull" username="root"/>
 </Context>

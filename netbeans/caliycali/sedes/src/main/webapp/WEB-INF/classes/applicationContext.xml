@@ -47,19 +47,26 @@
       p:username="x022vm01"
       p:password="taYzLzk4hqx"/-->
     <!-- Popayan -->
-    <bean id="Principal"
+     <bean id="Principal"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://200.58.100.154:3306/x022vm01_principalsedes"
+      p:url="jdbc:mysql://200.58.100.154:3306/x022vm01_cucutaprincipal"
       p:username="x022vm01"
-      p:password="c62iVEgFEQwA"/>  
-    
-    <bean id="chia"
+      p:password="c62iVEgFEQwA"/>
+
+    <bean id="Patios"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://200.58.100.154:3306/x022vm01_chia"
+      p:url="jdbc:mysql://200.58.100.154:3306/x022vm01_cucuta"
       p:username="x022vm01"
-      p:password="c62iVEgFEQwA"/>   
+      p:password="c62iVEgFEQwA"/>
+
+     <bean id="caobos"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.jdbc.Driver"
+      p:url="jdbc:mysql://200.58.100.154:3306/x022vm01_caobos"
+      p:username="x022vm01" 
+      p:password="c62iVEgFEQwA"/>
     
      <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect " />
     

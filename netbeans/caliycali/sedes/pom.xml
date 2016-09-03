@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.colombian.cali</groupId>
-    <artifactId>chia</artifactId>
+    <artifactId>cucuta</artifactId>
     <version>1.0-Cali</version>
     <packaging>war</packaging>
 
-    <name>chia</name>
+    <name>cucuta</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

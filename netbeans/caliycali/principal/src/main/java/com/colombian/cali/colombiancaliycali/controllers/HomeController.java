@@ -41,10 +41,10 @@ public class HomeController extends BaseController {
     private SedesService sedeService;
     private JdbcTemplate jdbcTemplate;
     private LectorPropiedades propiedades;
-    
+
     @RequestMapping(value = "/index.htm")
-    public ModelAndView inicio(@RequestParam(required = false) String error, HttpServletRequest request,HttpSession session) {
-              
+    public ModelAndView inicio(@RequestParam(required = false) String error, HttpServletRequest request, HttpSession session) {
+
         ModelAndView model = new ModelAndView("index");
         model.addObject("error", error);
         /*this.jdbcTemplate = new JdbcTemplate(projectsDao.getDatasource(propiedades.leerPropiedad()));
@@ -76,13 +76,19 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "/entre.htm")
-    public ModelAndView entre(Principal principal,HttpServletRequest request) {
+    public ModelAndView entre(Principal principal, HttpServletRequest request) {
         ModelAndView model = new ModelAndView("logueado");
         HttpSession session = request.getSession();
         session.setAttribute("idusuario", securityService.getCurrentUser().getCedula());
         model.addObject("error", "me loguee");
         return model;
     }
+
+    @RequestMapping(value = "/accesodenegado.htm")
+    public ModelAndView accesDenied() {
+        return new ModelAndView("accesodenegado");
+    }
+
     //Use onSubmit instead of doSubmitAction 
     //when you need access to the Request, Response, or BindException objects
     /*
@@ -103,5 +109,5 @@ public class HomeController extends BaseController {
         request.getSession().invalidate();
         return new ModelAndView(new RedirectView("index.htm"));
     }
-    
+
 }
