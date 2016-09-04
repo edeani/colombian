@@ -17,6 +17,8 @@ public class ProductoDto implements Serializable{
     private Integer idproducto;
     private String nombreproducto;
     private Float precioproducto;
+    private String tipo;
+    private String nombreTipo;
 
     public Integer getIdproducto() {
         return idproducto;
@@ -40,6 +42,22 @@ public class ProductoDto implements Serializable{
 
     public void setPrecioproducto(Float precioproducto) {
         this.precioproducto = precioproducto;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getNombreTipo() {
+        return nombreTipo;
+    }
+
+    public void setNombreTipo(String nombreTipo) {
+        this.nombreTipo = nombreTipo;
     }
     
     

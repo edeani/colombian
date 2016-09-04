@@ -11,7 +11,7 @@ package domicilios.util;
  */
 public class Util {
     public static Integer firstItemPage(Integer page,Integer cantidad){
-        return (page*10)-1;
+        return cantidad*(page-1);
     }
     
 }

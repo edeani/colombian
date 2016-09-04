@@ -87,12 +87,18 @@
                             </div>
 
                             <div class="row product-list view-list">
+                                <c:set var="seccion" value=""></c:set>
+                                <c:set var="seccion_temp" value=""></c:set>
                                 <c:forEach items="${productos}" var="p">
-                                    <div class="col-sm-12 product-item">
+                                    <c:if test="${seccion_temp ne p.nombreTipo}">
+                                        <c:set var="seccion" value="${p.nombreTipo}"></c:set>
+                                        <c:set var="seccion_temp" value="${p.nombreTipo}"></c:set>
+                                    </c:if>
+                                    <div class="col-sm-12 product-item ${seccion}">
                                         <div class="rst-thumbnail">
                                             <a href="products_detail.html"><img src="/img/post/gallery10.jpg" alt="" /></a>
                                             <div class="rst-hover">
-                                                ${p.nombreproducto}
+                                                ${p.nombreTipo}
                                                 <a href="#" class="addtocard"></a>
                                             </div>
                                         </div>
@@ -106,11 +112,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <c:set var="seccion" value=""></c:set>
                                 </c:forEach>
 
                             </div><!-- End Product List-->
                             <nav class="wp-pagenavi">
+                                <c:if test="${pages  > 1}">
                                 <a class="btn btn-sm btn-success page-prev" href="#">Atr&aacute;s</a>
+                                </c:if>
                                 <c:forEach var="indice" begin="1" end="${pages}">
                                     <c:choose>
                                         <c:when test="${indice==actualPage}">
@@ -121,7 +130,9 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
+                                <c:if test="${pages  > 1}">
                                 <a class="btn btn-sm btn-success page-next" href="#">Siguiente</a>            
+                                </c:if>            
                             </nav>
                         </div>
                     </div>

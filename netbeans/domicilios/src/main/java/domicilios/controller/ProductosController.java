@@ -34,7 +34,7 @@ public class ProductosController {
     
     @Autowired
     public void setTotalProductos(){
-        this.paginas=productoService.numeroProducto()/this.cantidadPagina;
+        this.paginas=(productoService.numeroProducto()/this.cantidadPagina)+1;
     }
     
     @RequestMapping("/productos.htm")

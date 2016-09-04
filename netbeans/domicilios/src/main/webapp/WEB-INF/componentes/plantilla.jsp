@@ -63,6 +63,9 @@
                                 <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
                                 <li><a href="checkout.html">Hacer Pedido</a></li>
                                 <li><a href="#contact">Contacto</a></li>
+                                <sec:authorize  access="isAuthenticated()">
+                                    <li><a href="/logout.htm">Cerrar Sesi&oacute;n</a></li>
+                                </sec:authorize>
                             </ul>
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
                         </div>
@@ -88,10 +91,10 @@
                                 </div>
                             </div>
                             <sec:authorize  access="isAuthenticated()">
-                            <a href="/signin.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
+                                <a href="/signin.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
                             </sec:authorize>
                             <sec:authorize  access="!isAuthenticated()">
-                            <a href="/signin.htm" class="rst-signup btn btn-success">Ingresar</a>
+                                <a href="/signin.htm" class="rst-signup btn btn-success">Ingresar</a>
                             </sec:authorize>
                         </div>
                     </div>
