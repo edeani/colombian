@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="CaliyCali" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <non-jta-data-source/>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Compras</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.DetalleFactura</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Factura</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Inventario</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Producto</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Proveedor</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Rol</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Sedes</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Users</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Averias</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.DetalleAverias</class>
+    <class>com.colombian.cali.colombiancaliycali.controllers.TrasladosController</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.CuentasPuc</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.PagosTerceros</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Beneficiarios</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.DetallePagosProveedor</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.DetallePagos</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.FacturasCompras</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.FacturasProcesadasCuentas</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.CierreSedes_1</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.CierreSedes</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.DetalleCierreSedes</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.DetallePorcentajeVentas</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.PorcentajeVentas</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    
+    <!-- Popayan -->
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.58.100.154:3306/x022vm01_principalbarranquilla?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="c62iVEgFEQwA"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="x022vm01"/>
+    </properties>
+    
+    <!-- Local -->
+    <!--properties>
+        <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:3306/x022vm01_principalsedes?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="compaq"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+    </properties-->
+  </persistence-unit>
+</persistence>
