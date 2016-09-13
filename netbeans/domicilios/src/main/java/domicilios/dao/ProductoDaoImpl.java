@@ -5,20 +5,16 @@
  */
 package domicilios.dao;
 
-import domicilios.mapper.ClassMapper;
 import domicilios.dto.ProductoDto;
 import domicilios.entidad.Producto;
 import domicilios.mapper.ProductoDtoMapper;
 import domicilios.util.LeerXml;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import javax.persistence.Query;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 /**

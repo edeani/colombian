@@ -279,53 +279,6 @@ function main() {
 			$('.rst-check').removeClass('rst-check');
 		});
 		
-		$('#calendar').fullCalendar({
-			defaultDate: '2015-02-12',
-			editable: false,
-			eventLimit: true, // allow "more" link when too many events
-			header: {
-				left:   'prev',
-				center: 'title',
-				right:  'next'
-			},
-			events: [
-				{
-					title: 'All Day Event',
-					start: '2015-02-01'
-				},
-				{
-					title: 'Long Event',
-					start: '2015-02-07'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2015-02-09T16:00:00'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2015-02-16T16:00:00'
-				},
-				{
-					title: 'Conference',
-					start: '2015-02-11'
-				},
-				{
-					title: 'Meeting',
-					start: '2015-02-12T10:30:00',
-				},
-				{
-					title: 'Birthday Party',
-					start: '2015-02-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2015-02-28'
-				}
-			]
-		});
 		
 		
 		//Check validate send mail

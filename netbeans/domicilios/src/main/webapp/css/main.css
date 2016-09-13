@@ -103,7 +103,8 @@ html, body {
 	position: relative;
 	height: 100%;
 	color: #1b1b1b;
-	overflow-x: hidden;
+        /*Lo comento por que este estilo bloquea los scroll de jquery*/
+	/*overflow-x: hidden;*/
 }
 h1 {
 	font-size: 36px;

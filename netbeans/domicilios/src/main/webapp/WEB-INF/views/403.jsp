@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="css/responsive.css">
 
         <!-- Fonts    ================================================== -->
-        <link href='fonts/stylesheet.css' rel='stylesheet' type='text/css'>
+        <link href='/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     </head>

@@ -17,9 +17,11 @@
 
         <!-- Fonts 
         ================================================== -->
-        <link href='fonts/stylesheet.css' rel='stylesheet' type='text/css'>
+        <link href='/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+        
+        <script type="text/javascript" src="/js/producto/productos.js"></script>
     </head>
     <body>
         <!-- Inicio contenido de productos -->
@@ -34,36 +36,17 @@
                 </div>
             </div><!-- Banner -->
             <div class="container rst-main-content">
-                <div class="rst-product-list">
+                <div id="listaDivProd" class="rst-product-list">
                     <div class="row">
-                        <div class="col-sm-3" >
-                            <h4 style="display: none;">Precio</h4>
-                            <div class="rst-slider" style="display: none;">
-                                <span class="price-min">$0</span>
-                                <input type="text" class="slider-input" value="0" data-slider-text-after="$" data-slider-min="0" data-slider-max="80000" data-slider-step="1" />
-                                <span class="price-max">$80.000</span>
-                            </div>                
-                            <hr />
-                            <h4 style="display: none;">Descuento</h4>
-                            <div class="rst-slider" style="display: none;">
-                                <span class="price-min">50%</span>
-                                <input type="text" class="slider-input" value="0" data-slider-text-before="%" data-slider-min="50" data-slider-max="90" data-slider-step="1" />
-                                <span class="price-max">90%</span>
-                            </div>
-                            <hr />
+                        <div id="categoriasDiv" class="col-sm-3" >
                             <h4>Categorias</h4>
                             <ul class="list-category">
-                                <li class="active"><a href="#">Pollo</a></li>
-                                <li><a href="#">Hamburguesas</a></li>
-                                <li><a href="#">Sopas</a></li>
-                                <li><a href="#">Combos Familiares</a></li>
-                                <li><a href="#">Porciones</a></li>
-                                <li><a href="#">Bebidas</a></li>
-                            </ul>
-                            <hr />
-                            <ul class="list-tag" style="display: none;">
-                                <li class="active"><a href="#">Los m&aacute;s pedidos</a></li>
-                            </ul>
+                                <c:forEach items="${categorias}" var="c" varStatus="indice">
+                                    <c:if test="${indice.index == 0}" ><c:set value="active " var="claseActiva"></c:set></c:if>
+                                    <li data-href="${c.nombre}" class="${claseActiva}" style="cursor: pointer;"><a href="#${c.nombre}" class="categoria">${c.nombre}</a></li>
+                                    <c:set value="" var="claseActiva"></c:set>
+                                </c:forEach>
+                            </ul>       
                         </div>
                         <div class="col-sm-9">
                             <div class="row">
@@ -91,10 +74,10 @@
                                 <c:set var="seccion_temp" value=""></c:set>
                                 <c:forEach items="${productos}" var="p">
                                     <c:if test="${seccion_temp ne p.nombreTipo}">
-                                        <c:set var="seccion" value="${p.nombreTipo}"></c:set>
+                                        <c:set var="seccion" value="id='${p.nombreTipo}'"></c:set>
                                         <c:set var="seccion_temp" value="${p.nombreTipo}"></c:set>
                                     </c:if>
-                                    <div class="col-sm-12 product-item ${seccion}">
+                                    <div class="col-sm-12 product-item" ${seccion}>
                                         <div class="rst-thumbnail">
                                             <a href="products_detail.html"><img src="/img/post/gallery10.jpg" alt="" /></a>
                                             <div class="rst-hover">

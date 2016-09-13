@@ -164,20 +164,19 @@
     <!-- WoW Plugins -->
     <script src="/js/wow.min.js"></script>
 
-    <script type='text/javascript' src='js/woocommerce.js'></script>
+    <script type='text/javascript' src='/js/woocommerce.js'></script>
     <script type='text/javascript'>
         /* <![CDATA[ */
         var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
         /* ]]> */
     </script>
-    <script type='text/javascript' src='js/single-product.min.js'></script>
+    <script type='text/javascript' src='/js/single-product.min.js'></script>
 
     <script type='text/javascript' src="/js/bootstrap-slider.js"></script>
 
     <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>
 
-    <script src='js/calendar/moment.min.js'></script>
-    <script src='js/calendar/fullcalendar.min.js'></script>
+    <script src='/js/calendar/moment.min.js'></script>
 
     <script type="text/javascript" src="/js/main.js"></script>
 </body>

@@ -3,19 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domicilios.service;
+package domicilios.dao;
 
-import domicilios.dto.ProductoDto;
 import domicilios.entidad.Categoria;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author user
  */
-public interface ProductoService {
-
-    List<ProductoDto> listAllPage(Integer page);
-    Integer numeroProducto();
-    List<Categoria> listCategory();
+@Repository
+public class CategoriaDaoImpl extends GenericDaoImpl<Categoria> implements CategoriaDao{
+    
 }

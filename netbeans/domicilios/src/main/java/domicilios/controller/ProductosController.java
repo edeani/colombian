@@ -6,6 +6,7 @@
 package domicilios.controller;
 
 import domicilios.dto.ProductoDto;
+import domicilios.entidad.Categoria;
 import domicilios.service.ProductoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,10 @@ public class ProductosController {
     public ModelAndView productos(){
         List<ProductoDto> productos = productoService.listAllPage(1);
         ModelAndView mav = new ModelAndView("productos/contenidoProductos");
-        
+        List<Categoria> categorias =productoService.listCategory();
         mav.addObject("productos", productos);
         mav.addObject("actualPage", 1);
-        
+        mav.addObject("categorias", categorias);
         return mav;
     }
     

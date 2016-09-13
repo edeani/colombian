@@ -3,19 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domicilios.service;
+package domicilios.dao;
 
-import domicilios.dto.ProductoDto;
 import domicilios.entidad.Categoria;
-import java.util.List;
 
 /**
  *
  * @author user
  */
-public interface ProductoService {
-
-    List<ProductoDto> listAllPage(Integer page);
-    Integer numeroProducto();
-    List<Categoria> listCategory();
+public interface CategoriaDao extends GenericDao<Categoria>{
+    
 }
