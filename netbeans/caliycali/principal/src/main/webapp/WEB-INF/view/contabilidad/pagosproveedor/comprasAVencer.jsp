@@ -32,10 +32,10 @@
                                 <input id="fechaVencimientoPendiente${fila.index}" value="${item.fechaVencimiento}">
                             </td>
                             <td>
-                                <input id="saldoPendiente${fila.index}" value="${item.saldo}">
+                                <input id="saldoPendiente${fila.index}" value="<fmt:formatNumber groupingUsed="false" value="${item.saldo}" type="number"></fmt:formatNumber>">
                             </td>
                             <td>
-                                <input id="valorTotalPendiente${fila.index}" value="${item.valorTotal}">
+                                <input id="valorTotalPendiente${fila.index}" value="<fmt:formatNumber value="${item.valorTotal}" groupingUsed="false" type="number"></fmt:formatNumber>">
                             </td>
                             <td align="right">
                                 <input type="button" value="+" class="clsAgregarFilaProveedor" data-numero="${fila.index}">
