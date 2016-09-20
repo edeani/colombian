@@ -61,7 +61,7 @@
                             <ul class="rst-main-menu">
                                 <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
                                 <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
-                                <li><a href="checkout.html">Hacer Pedido</a></li>
+                                <li><a href="/compras/pedido.htm">Hacer Pedido</a></li>
                                 <li><a href="#contact">Contacto</a></li>
                                 <sec:authorize  access="isAuthenticated()">
                                     <li><a href="/logout.htm">Cerrar Sesi&oacute;n</a></li>
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="rst-checkout">
-                                        <a href="checkout.html" class="btn btn-success btn-sm btnpagar"> HACER PEDIDO</a>
+                                        <a href="/compras/pedido.htm" class="btn btn-success btn-sm btnpagar"> HACER PEDIDO</a>
                                         <span class="price">$75.000</span>
                                     </div>
                                 </div>

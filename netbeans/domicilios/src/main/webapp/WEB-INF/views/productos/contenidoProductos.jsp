@@ -20,7 +20,7 @@
         <link href='/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-        
+
         <script type="text/javascript" src="/js/producto/productos.js"></script>
     </head>
     <body>
@@ -38,17 +38,21 @@
             <div class="container rst-main-content">
                 <div id="listaDivProd" class="rst-product-list">
                     <div class="row">
-                        <div id="categoriasDiv" class="col-sm-3" >
+                        <div id="categoriasDiv" class="col-sm-3" style="width: 400px">
                             <h4>Categorias</h4>
                             <ul class="list-category">
                                 <c:forEach items="${categorias}" var="c" varStatus="indice">
                                     <c:if test="${indice.index == 0}" ><c:set value="active " var="claseActiva"></c:set></c:if>
                                     <li data-href="${c.nombre}" class="${claseActiva}" style="cursor: pointer;"><a href="#${c.nombre}" class="categoria">${c.nombre}</a></li>
-                                    <c:set value="" var="claseActiva"></c:set>
-                                </c:forEach>
-                            </ul>       
+                                        <c:set value="" var="claseActiva"></c:set>
+                                    </c:forEach>
+                            </ul>
+                            <h4>Resumen Pedido</h4>
+                            <div id="carSummary" class="rst-form-login rst-cart-info">
+                                <c:import url="/compras/ajax/resumen.htm"></c:import>
+                            </div>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-7">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <form action="/" class="rst-form-input">
@@ -77,16 +81,16 @@
                                         <c:set var="seccion" value="id='${p.nombreTipo}'"></c:set>
                                         <c:set var="seccion_temp" value="${p.nombreTipo}"></c:set>
                                     </c:if>
-                                    <div class="col-sm-12 product-item" ${seccion}>
+                                    <div class="col-sm-7 product-item" ${seccion}>
                                         <div class="rst-thumbnail">
-                                            <a href="products_detail.html"><img src="/img/post/gallery10.jpg" alt="" /></a>
+                                            <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-data-nombprecio="${p.precioproducto}" href="#"><img src="/img/post/gallery10.jpg" alt="" /></a>
                                             <div class="rst-hover">
                                                 ${p.nombreTipo}
-                                                <a href="#" class="addtocard"></a>
+                                                <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-precio="${p.precioproducto}" href="#"></a>
                                             </div>
                                         </div>
                                         <div class="rst-product-info">
-                                            <h3><a href="products_detail.html">${p.nombreproducto}</a></h3>
+                                            <h3><a class="addCar" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-precio="${p.precioproducto}" href="#">${p.nombreproducto}</a></h3>
                                             <span class="price-product"><sup>$</sup> ${p.precioproducto}</span>
                                             <span class="rst-stock in-stock" data-toggle="tooltip" data-placement="bottom" data-original-title="In stock"></span>
                                             <hr/>
@@ -101,7 +105,7 @@
                             </div><!-- End Product List-->
                             <nav class="wp-pagenavi">
                                 <c:if test="${pages  > 1}">
-                                <a class="btn btn-sm btn-success page-prev" href="#">Atr&aacute;s</a>
+                                    <a class="btn btn-sm btn-success page-prev" href="#">Atr&aacute;s</a>
                                 </c:if>
                                 <c:forEach var="indice" begin="1" end="${pages}">
                                     <c:choose>
@@ -114,7 +118,7 @@
                                     </c:choose>
                                 </c:forEach>
                                 <c:if test="${pages  > 1}">
-                                <a class="btn btn-sm btn-success page-next" href="#">Siguiente</a>            
+                                    <a class="btn btn-sm btn-success page-next" href="#">Siguiente</a>            
                                 </c:if>            
                             </nav>
                         </div>
