@@ -4,7 +4,9 @@
     Author     : user
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +24,7 @@
     <body>
         <div id="content">
             <div class="container rst-main-content">
+                <springForm:form action="/compras/guardar.htm" method="post" commandName="pedidoClienteDto">
                 <div class="text-center">
                     <h1 class="h1pedido">HACER PEDIDO</h1>
                 </div>            
@@ -38,6 +41,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <c:forEach items="${pedidoDto.productos}" var="p">
                                 <tr>
                                     <td class="product-name">
                                         <a class="remove" href="#"><i class="fa fa-close"></i></a>
@@ -50,6 +54,7 @@
                                     </td>
                                     <td class="price">$20.000</td>
                                 </tr>
+                                </c:forEach>
                                 <tr>
                                     <td class="product-name">
                                         <a class="remove" href="#"><i class="fa fa-close"></i></a>
@@ -158,6 +163,8 @@
                         </div>
                     </div>
                 </div>
-            </div><!-- End Content -->
+                </springForm:form>
+            </div>
+        </div><!-- End Content -->
     </body>
 </html>

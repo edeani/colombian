@@ -30,6 +30,8 @@ public class PedidosController extends BaseController{
     @RequestMapping("/pedido.htm")
     public ModelAndView pedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto){
         ModelAndView mav = new ModelAndView("compra/pedido");
+        setBasicModel(mav,pedidoDto);
+        mav.addObject("pedidoDto", pedidoDto);
         return mav;
     }
     
