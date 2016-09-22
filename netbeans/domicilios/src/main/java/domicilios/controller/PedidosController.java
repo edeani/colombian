@@ -28,10 +28,15 @@ public class PedidosController extends BaseController{
     private static final String SESSIONCOMPRA = "#{session.getAttribute('pedido')}";
     
     @RequestMapping("/pedido.htm")
-    public ModelAndView pedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto){
+    public ModelAndView pedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto,HttpSession session){
         ModelAndView mav = new ModelAndView("compra/pedido");
+        if(pedidoDto==null){
+            return new ModelAndView("pedidoVacio");
+        }else if(pedidoDto.getProductos().isEmpty()){
+            return new ModelAndView("pedidoVacio");
+        }
         setBasicModel(mav,pedidoDto);
-        mav.addObject("pedidoDto", pedidoDto);
+        mav.addObject("pedido", pedidoDto);
         return mav;
     }
     

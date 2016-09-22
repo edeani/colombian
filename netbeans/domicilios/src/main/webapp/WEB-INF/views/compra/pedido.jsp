@@ -4,9 +4,10 @@
     Author     : user
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,49 +42,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${pedidoDto.productos}" var="p">
+                                <c:forEach items="${pedido.productos}" var="p">
                                 <tr>
                                     <td class="product-name">
                                         <a class="remove" href="#"><i class="fa fa-close"></i></a>
                                         <img class="img-circle" src="img/post/product-card-01.jpg" alt="" />
-                                        Sashimi & vasabi
+                                        ${p.nombreproducto}
                                     </td>
-                                    <td>$10.000</td>
+                                    <td><fmt:formatNumber type="number"  pattern="###.###" value="${p.precio}" /></td>
                                     <td>
-                                        <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="2" title="Qty" class="input-text qty text" size="4" /></div>
+                                        <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="${p.cantidad}" title="Qty" class="input-text qty text" size="4" /></div>
                                     </td>
-                                    <td class="price">$20.000</td>
+                                    <td class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${p.total}" /></td>
                                 </tr>
                                 </c:forEach>
-                                <tr>
-                                    <td class="product-name">
-                                        <a class="remove" href="#"><i class="fa fa-close"></i></a>
-                                        <img class="img-circle" src="img/post/product-card-02.jpg" alt="" />
-                                        Hamburger 
-                                    </td>
-                                    <td>$10.000</td>
-                                    <td>
-                                        <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="1" title="Qty" class="input-text qty text" size="4" /></div>
-                                    </td>
-                                    <td class="price">$25.000</td>
-                                </tr>
-                                <tr>
-                                    <td class="product-name">
-                                        <a class="remove" href="#"><i class="fa fa-close"></i></a>
-                                        <img class="img-circle" src="img/post/product-card-03.jpg" alt="" />
-                                        Pizza menu 
-                                    </td>
-                                    <td>$10.000</td>
-                                    <td>
-                                        <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="1" title="Qty" class="input-text qty text" size="4" /></div>
-                                    </td>
-                                    <td class="price">$20.000</td>
-                                </tr>
                                 <tr class="subtotal">
                                     <th></th>
                                     <th></th>
                                     <th>subtotal</th>
-                                    <th class="price">$65.000</th>
+                                    <th class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${pedido.total}" /></th>
                                 </tr>
                             </tbody>
                         </table>

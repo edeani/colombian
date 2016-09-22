@@ -1,5 +1,5 @@
 <%-- 
-    Document   : 404
+    Document   : pedidoVacio
     Created on : 15/08/2016, 05:50:35 PM
     Author     : user
 --%>
@@ -23,8 +23,8 @@
         <!-- Contenido 404 -->
         <div id="content" class="page-404">
             <div class="container">
-                <h3>Acceso Denegado</h3>
-                <a href="/home.htm" class="btn btn-danger btn-lg rst-go-home">Ir a inicio</a>
+                <h3>Carrito Vac&iacute;o</h3>
+                <a href="/contenido/productos.htm" class="btn btn-danger btn-lg rst-go-home">Conoce nuestro men&uacute; para que escogas lo que mas te gusta</a>
             </div>
         </div>
         <!-- Fin Contenido 404 -->
