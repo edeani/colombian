@@ -55,6 +55,9 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 1)
     @Column(name = "estado")
     private String estado;
+    @Size(max = 15)
+    @Column(name = "telefono")
+    private String telefono;
     @OneToMany(mappedBy = "idusuario")
     private List<Pedido> pedidoList;
     @JoinColumn(name = "idrol", referencedColumnName = "idrol")
@@ -145,5 +148,14 @@ public class Usuario implements Serializable {
     public void setIdrol(Rol idrol) {
         this.idrol = idrol;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
     
 }
