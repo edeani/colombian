@@ -31,9 +31,9 @@ public class PedidosController extends BaseController{
     public ModelAndView pedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto,HttpSession session){
         ModelAndView mav = new ModelAndView("compra/pedido");
         if(pedidoDto==null){
-            return new ModelAndView("pedidoVacio");
+            return new ModelAndView("compra/pedidoVacio");
         }else if(pedidoDto.getProductos().isEmpty()){
-            return new ModelAndView("pedidoVacio");
+            return new ModelAndView("compra/pedidoVacio");
         }
         setBasicModel(mav,pedidoDto);
         mav.addObject("pedido", pedidoDto);
