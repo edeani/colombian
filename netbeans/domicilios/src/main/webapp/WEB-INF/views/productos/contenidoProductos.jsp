@@ -95,7 +95,7 @@
                                             <span class="rst-stock in-stock" data-toggle="tooltip" data-placement="bottom" data-original-title="In stock"></span>
                                             <hr/>
                                             <div class="rst-product-content">
-                                                <p></p>
+                                                <p>${p.descripcion}</p>
                                             </div>
                                         </div>
                                     </div>

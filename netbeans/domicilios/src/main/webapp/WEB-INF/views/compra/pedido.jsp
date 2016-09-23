@@ -42,7 +42,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${pedido.productos}" var="p">
+                                <c:forEach items="${pedido.productos}" var="p" varStatus="indice">
                                 <tr>
                                     <td class="product-name">
                                         <a class="remove" href="#"><i class="fa fa-close"></i></a>
@@ -54,6 +54,11 @@
                                         <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="${p.cantidad}" title="Qty" class="input-text qty text" size="4" /></div>
                                     </td>
                                     <td class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${p.total}" /></td>
+                                    <input type="hidden"  name="productos[${indice.index}].idproducto" value="${p.idproducto}"/>
+                                    <input type="hidden"  name="productos[${indice.index}].nombreproducto" value="${p.nombreproducto}"/>
+                                    <input type="hidden"  name="productos[${indice.index}].precio" value="${p.precio}"/> 
+                                    <input type="hidden"  name="productos[${indice.index}].cantidad" value="${p.cantidad}"/> 
+                                    <input type="hidden"  name="productos[${indice.index}].total" value="${p.total}"/>
                                 </tr>
                                 </c:forEach>
                                 <tr class="subtotal">
@@ -61,6 +66,7 @@
                                     <th></th>
                                     <th>subtotal</th>
                                     <th class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${pedido.total}" /></th>
+                                    <input type="hidden"  name="total" value="${pedido.total}"/>
                                 </tr>
                             </tbody>
                         </table>
@@ -73,65 +79,32 @@
                             <h4 class="titulocheck"><span class="rst-circle">1</span>TUS DATOS</h4>
                             <div class="form-group">
                                 <label>Nombre completo</label>
-                                <input type="text" name="name" class="form-control" placeholder="">
+                                <springForm:input path="nombre" cssClass="form-control" />
                             </div>
                             <div class="form-group">
                                 <label>Direcci&oacute;n</label>
-                                <input type="text" name="name" class="form-control" placeholder="">
+                                <springForm:input path="direccion" cssClass="form-control" />
                             </div>
                             <div class="form-group">
                                 <label>Tel&eacute;fono</label>
-                                <input type="text" name="name" class="form-control" value="+1" placeholder="">
+                                <springForm:input path="telefono" cssClass="form-control" />
                             </div>
-                            <div class="form-group">
-                                <label>Comentarios</label>
-                                <textarea class="form-control" name="comments" rows="5" placeholder=""></textarea>
-                            </div>
+                            
                         </div>
                         <div class="col-sm-6 checkout-payment">
                             <h4 class="titulocheck"><span class="rst-circle">2</span>SISTEMA DE PAGO</h4>
                             <div class="form-group">
                                 <label>Seleccione sistema de pago</label>
-                                <select name="" class="form-control">
-                                    <option value="">Mastercard</option>
-                                    <option value="1">Visa</option>
-                                </select>
+                                <springForm:select path="medioPago" cssClass="form-control">
+                                    <option value="1">Mastercard</option>
+                                    <option value="2">Visa</option>
+                                </springForm:select>
                             </div>
                             <div class="form-group">
-                                <label>Name on cart</label>
-                                <input type="text" name="name" class="form-control" value="" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label>Credit card detail</label>
-                                <input type="text" name="name" class="form-control" value="" placeholder="×××× — ×××× — ×××× — ××××">
+                                <label>Comentarios</label>
+                                <springForm:textarea path="comentarios" cssClass="form-control" rows="5"/>
                             </div>
 
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Credit card detail</label>
-                                        <select name="" class="form-control">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label> &nbsp; </label>
-                                        <select name="" class="form-control">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>CVC</label>
-                                        <input type="text" name="name" class="form-control" value="" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group btnpago">
