@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -47,6 +45,9 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "iddetallepedido", referencedColumnName = "iddetallepedido")
     @ManyToOne
     private Detallepedido iddetallepedido;
+    @Column(name = "coordenadas")
+    private String coordenadas;
+    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario idusuario;
@@ -112,6 +113,14 @@ public class Pedido implements Serializable {
 
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
+    }
+
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
     }
 
 }
