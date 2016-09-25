@@ -28,8 +28,6 @@ public class Detallepedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "iddetallepedido")
     private Long iddetallepedido;
     @Column(name = "cantidadorden")

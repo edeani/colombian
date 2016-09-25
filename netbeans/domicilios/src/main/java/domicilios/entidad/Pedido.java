@@ -29,8 +29,6 @@ public class Pedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "idpedido")
     private Long idpedido;
     @Size(max = 45)
@@ -42,9 +40,6 @@ public class Pedido implements Serializable {
     @Size(max = 45)
     @Column(name = "estadopedido")
     private String estadopedido;
-    @JoinColumn(name = "iddetallepedido", referencedColumnName = "iddetallepedido")
-    @ManyToOne
-    private Detallepedido iddetallepedido;
     @Column(name = "coordenadas")
     private String coordenadas;
     
@@ -94,15 +89,6 @@ public class Pedido implements Serializable {
     public void setEstadopedido(String estadopedido) {
         this.estadopedido = estadopedido;
     }
-
-    public Detallepedido getIddetallepedido() {
-        return iddetallepedido;
-    }
-
-    public void setIddetallepedido(Detallepedido iddetallepedido) {
-        this.iddetallepedido = iddetallepedido;
-    }
-
     public Usuario getIdusuario() {
         return idusuario;
     }
