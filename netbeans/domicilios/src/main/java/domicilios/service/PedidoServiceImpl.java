@@ -8,20 +8,24 @@ package domicilios.service;
 import domicilios.dao.DetallePedidoDao;
 import domicilios.dao.PedidoDao;
 import domicilios.dao.ProductoDao;
+import domicilios.dao.TipoPagoDao;
 import domicilios.dao.UsuarioDao;
 import domicilios.dto.PedidoClienteDto;
 import domicilios.dto.ProductoClienteDto;
 import domicilios.entidad.Detallepedido;
 import domicilios.entidad.Pedido;
+import domicilios.entidad.Tipopago;
 import domicilios.entidad.Usuario;
 import domicilios.mapper.PedidoClienteDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author user
  */
+@Service
 public class PedidoServiceImpl implements PedidoService{
 
     @Autowired
@@ -36,12 +40,17 @@ public class PedidoServiceImpl implements PedidoService{
     @Autowired
     private UsuarioDao usuarioDao;
     
+    @Autowired
+    private TipoPagoDao tipoPagoDao;
+    
     
     @Transactional
     @Override
     public void guardarPedido(PedidoClienteDto pedidoClienteDto,Usuario usuario) {
         Pedido pedido = PedidoClienteDtoMapper.pedidcoClienteDtoToPedido(pedidoClienteDto);
         pedido.setIdusuario(usuario);
+        Tipopago tipoPago = tipoPagoDao.findById(pedidoClienteDto.getMedioPago());
+        pedido.setIdtipopago(tipoPago);
         pedidoDao.save(pedido);
         
         for(ProductoClienteDto producto : pedidoClienteDto.getProductos() ){

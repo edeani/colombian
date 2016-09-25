@@ -70,6 +70,7 @@
                                     <th>subtotal</th>
                                     <th id="viewTotalPedido" class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${pedido.total}" /></th>
                                     <input type="hidden" id="totalPedido" name="total" value="${pedido.total}"/>
+                                    <input type="hidden" id="estadoPedido" name="estado" value="${pedido.estado}"/>
                                 </tr>
                             </tbody>
                         </table>
@@ -82,22 +83,22 @@
                             <h4 class="titulocheck"><span class="rst-circle">1</span>TUS DATOS</h4>
                             <div class="form-group">
                                 <label>Nombre completo</label>
-                                <springForm:input path="nombre" cssClass="form-control" />
+                                <springForm:input path="nombre" cssClass="form-control" value="${pedido.nombre}"/>
                                 <springForm:errors path="nombre" cssClass="text-danger" />
                             </div>
                             <div class="form-group">
                                 <label>Direcci&oacute;n</label>
-                                <springForm:input path="direccion" cssClass="form-control" />
+                                <springForm:input path="direccion" cssClass="form-control" value="${pedido.direccion}"/>
                                 <springForm:errors path="direccion" cssClass="text-danger" />
                             </div>
                             <div class="form-group">
                                 <label>Identificacion</label>
-                                <springForm:input path="cedula" cssClass="form-control" />
+                                <springForm:input path="cedula" cssClass="form-control" value="${pedido.cedula}" />
                                 <springForm:errors path="cedula" cssClass="text-danger" />
                             </div>
                             <div class="form-group">
                                 <label>Tel&eacute;fono</label>
-                                <springForm:input path="telefono" cssClass="form-control" />
+                                <springForm:input path="telefono" cssClass="form-control" value="${pedido.telefono}"/>
                                 <springForm:errors path="telefono" cssClass="text-danger" />
                             </div>
                         </div>
@@ -107,8 +108,9 @@
                             <div class="form-group">
                                 <label>Seleccione sistema de pago</label>
                                 <springForm:select path="medioPago" cssClass="form-control">
-                                    <option value="1">Mastercard</option>
-                                    <option value="2">Visa</option>
+                                    <c:forEach items="${tiposPago}" var="tp">
+                                        <option value="${tp.idtipo}">${tp.nombre}</option>
+                                    </c:forEach>
                                 </springForm:select>
                             </div>
                             

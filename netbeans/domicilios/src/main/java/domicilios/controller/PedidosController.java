@@ -7,6 +7,10 @@ package domicilios.controller;
 
 import domicilios.dto.PedidoClienteDto;
 import domicilios.dto.ProductoClienteDto;
+import domicilios.entidad.Tipopago;
+import domicilios.entidad.Usuario;
+import domicilios.service.PedidoService;
+import domicilios.service.TipoPagoService;
 import domicilios.service.autorizacion.SecurityService;
 import java.util.List;
 import java.util.Objects;
@@ -33,14 +37,28 @@ public class PedidosController extends BaseController {
 
     @Autowired
     private SecurityService securityService;
+    
+    @Autowired
+    private TipoPagoService tipoPagoService;
+    
+    @Autowired
+    private PedidoService pedidoService;
 
     private static final String SESSIONCOMPRA = "#{session.getAttribute('pedido')}";
     
     private static final String ESTADO_COMPRA = "A";
 
+    List<Tipopago> tiposPago;
+    
+    @Autowired
+    private void tiposDePago(){
+        this.tiposPago=tipoPagoService.tiposDePago();
+    }
+    
     @RequestMapping(value = "/pedido.htm", method = RequestMethod.GET)
     public ModelAndView pedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session) {
         ModelAndView mav ;
+       
         if (securityService.getCurrentUser() != null) {
             mav = new ModelAndView("compra/pedido");
             if (pedidoDto == null) {
@@ -48,9 +66,21 @@ public class PedidosController extends BaseController {
             } else if (pedidoDto.getProductos().isEmpty()) {
                 return new ModelAndView("compra/pedidoVacio");
             }
+            Usuario usuario = securityService.getCurrentUser();
+            pedidoDto.setNombre(usuario.getNombreusuario());
+            if(usuario.getCedula()!=null){
+                pedidoDto.setCedula(usuario.getCedula());
+            }
+            if(usuario.getDireccion()!=null){
+                pedidoDto.setDireccion(usuario.getDireccion());
+            }
+            if(usuario.getTelefono()!=null){
+                pedidoDto.setTelefono(usuario.getTelefono());
+            }
+            
             setBasicModel(mav, pedidoDto);
             mav.addObject("pedido", pedidoDto);
-        }else{
+       }else{
             mav = new ModelAndView("redirect:/signin.htm");
         }
         return mav;
@@ -64,10 +94,16 @@ public class PedidosController extends BaseController {
             setBasicModel(mavError, pedidoClienteDto);
             return mavError;
         } else {
-            
+            ModelAndView mav = new ModelAndView("compra/finalizacion");
+            try {
+                pedidoService.guardarPedido(pedidoClienteDto, securityService.getCurrentUser());
+            } catch (Exception e) {
+                mav = new ModelAndView("redirect:/compras/pedido.htm");
+                mav.addObject("mensaje", "Ocurri&oacute un problema al realizar la operaci&oacute;");
+                return mav;
+            }
+            return mav;
         }
-
-        return null;
     }
 
     @RequestMapping("/ajax/resumen.htm")
@@ -106,5 +142,9 @@ public class PedidosController extends BaseController {
         }
 
         return "OK";
+    }
+    @ModelAttribute("tiposPago")
+    private List<Tipopago> tiposPago(){
+        return tiposPago;
     }
 }

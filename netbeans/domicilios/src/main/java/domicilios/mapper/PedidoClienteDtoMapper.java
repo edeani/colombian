@@ -21,7 +21,7 @@ public class PedidoClienteDtoMapper {
         
         pedido.setEstadopedido(pedidoClienteDto.getEstado());
         pedido.setTotalpedido(pedidoClienteDto.getTotal());
-        
+        pedido.setDireccion(pedidoClienteDto.getDireccion());
         return pedido;
     }
     

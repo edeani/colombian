@@ -34,7 +34,7 @@ public class PedidoClienteDto {
     private Integer medioPago;
     @NotEmpty
     @Size(max = 100)
-    @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ\\.#\\-]*")
+    @Pattern(regexp = "[A-Za-z0-9 áéíóúñÁÉÍÓÚÑ\\.#\\-]*")
     private String direccion;
     @NotEmpty
     @Size(max = 10)
