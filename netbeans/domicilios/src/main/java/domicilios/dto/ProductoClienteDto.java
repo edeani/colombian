@@ -16,6 +16,11 @@ public class ProductoClienteDto {
     private Integer cantidad;
     private Float total;
 
+    /**
+     * Se coloca el constructor por defecto para que model attribute  asigne los valore de este objeto embebido
+     */
+    public ProductoClienteDto(){
+    }
     public ProductoClienteDto(Integer idproducto,String nombreProducto,Float precio,Integer cantidad,Float total){
         this.idproducto = idproducto;
         this.nombreproducto = nombreProducto;

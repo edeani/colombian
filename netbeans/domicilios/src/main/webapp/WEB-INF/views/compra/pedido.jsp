@@ -21,11 +21,14 @@
         <link href='/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+        
+        <script type="text/javascript" src="/js/producto/pedido.js"></script>
     </head>
     <body>
         <div id="content">
             <div class="container rst-main-content">
-                <springForm:form action="/compras/guardar.htm" method="post" commandName="pedidoClienteDto">
+                <springForm:form action="/compras/pedido.htm" method="post" commandName="pedidoClienteDto">
+                <springForm:hidden path="idpedido" cssClass="form-control" />
                 <div class="text-center">
                     <h1 class="h1pedido">HACER PEDIDO</h1>
                 </div>            
@@ -43,30 +46,30 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${pedido.productos}" var="p" varStatus="indice">
-                                <tr>
+                                <tr id="fila${indice.index}" class="fila">
                                     <td class="product-name">
-                                        <a class="remove" href="#"><i class="fa fa-close"></i></a>
+                                        <a data-row="${indice.index}" class="remove removeCar indiceData" href="javascript:void(0);"><i class="fa fa-close"></i></a>
                                         <img class="img-circle" src="img/post/product-card-01.jpg" alt="" />
                                         ${p.nombreproducto}
                                     </td>
                                     <td><fmt:formatNumber type="number"  pattern="###.###" value="${p.precio}" /></td>
                                     <td>
-                                        <div class="quantity"><input type="number" step="1" min="0"  name="cart[8fe0093bb30d6f8c31474bd0764e6ac0][qty]" value="${p.cantidad}" title="Qty" class="input-text qty text" size="4" /></div>
+                                        <div class="quantity"><input data-row="${indice.index}" value="${p.cantidad}" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
                                     </td>
-                                    <td class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${p.total}" /></td>
-                                    <input type="hidden"  name="productos[${indice.index}].idproducto" value="${p.idproducto}"/>
-                                    <input type="hidden"  name="productos[${indice.index}].nombreproducto" value="${p.nombreproducto}"/>
-                                    <input type="hidden"  name="productos[${indice.index}].precio" value="${p.precio}"/> 
-                                    <input type="hidden"  name="productos[${indice.index}].cantidad" value="${p.cantidad}"/> 
-                                    <input type="hidden"  name="productos[${indice.index}].total" value="${p.total}"/>
+                                    <td id="p${indice.index}viewTotalProducto" class="price indiceViewTotalProducto">$<fmt:formatNumber type="number"  pattern="###.###" value="${p.total}" /></td>
+                                    <input type="hidden" id="p${indice.index}idproducto"  name="productos[${indice.index}].idproducto" value="${p.idproducto}"/>
+                                    <input type="hidden" id="p${indice.index}nombreproducto" name="productos[${indice.index}].nombreproducto" value="${p.nombreproducto}"/>
+                                    <input type="hidden" id="p${indice.index}precio" name="productos[${indice.index}].precio" value="${p.precio}"/> 
+                                    <input type="hidden" id="p${indice.index}cantidad" name="productos[${indice.index}].cantidad" value="${p.cantidad}"/> 
+                                    <input type="hidden" id="p${indice.index}total" name="productos[${indice.index}].total" value="${p.total}"/>
                                 </tr>
                                 </c:forEach>
                                 <tr class="subtotal">
                                     <th></th>
                                     <th></th>
                                     <th>subtotal</th>
-                                    <th class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${pedido.total}" /></th>
-                                    <input type="hidden"  name="total" value="${pedido.total}"/>
+                                    <th id="viewTotalPedido" class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${pedido.total}" /></th>
+                                    <input type="hidden" id="totalPedido" name="total" value="${pedido.total}"/>
                                 </tr>
                             </tbody>
                         </table>
@@ -80,18 +83,26 @@
                             <div class="form-group">
                                 <label>Nombre completo</label>
                                 <springForm:input path="nombre" cssClass="form-control" />
+                                <springForm:errors path="nombre" cssClass="text-danger" />
                             </div>
                             <div class="form-group">
                                 <label>Direcci&oacute;n</label>
                                 <springForm:input path="direccion" cssClass="form-control" />
+                                <springForm:errors path="direccion" cssClass="text-danger" />
+                            </div>
+                            <div class="form-group">
+                                <label>Identificacion</label>
+                                <springForm:input path="cedula" cssClass="form-control" />
+                                <springForm:errors path="cedula" cssClass="text-danger" />
                             </div>
                             <div class="form-group">
                                 <label>Tel&eacute;fono</label>
                                 <springForm:input path="telefono" cssClass="form-control" />
+                                <springForm:errors path="telefono" cssClass="text-danger" />
                             </div>
-                            
                         </div>
                         <div class="col-sm-6 checkout-payment">
+                            
                             <h4 class="titulocheck"><span class="rst-circle">2</span>SISTEMA DE PAGO</h4>
                             <div class="form-group">
                                 <label>Seleccione sistema de pago</label>
@@ -100,6 +111,7 @@
                                     <option value="2">Visa</option>
                                 </springForm:select>
                             </div>
+                            
                             <div class="form-group">
                                 <label>Comentarios</label>
                                 <springForm:textarea path="comentarios" cssClass="form-control" rows="5"/>

@@ -6,16 +6,14 @@
 package domicilios.entidad;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -29,30 +27,38 @@ public class Detallepedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "iddetallepedido")
-    private Integer iddetallepedido;
+    private Long iddetallepedido;
     @Column(name = "cantidadorden")
     private Integer cantidadorden;
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
     private Producto idproducto;
-    @OneToMany(mappedBy = "iddetallepedido")
-    private List<Pedido> pedidoList;
+    @NotNull
+    @Column(name = "preciounitario")
+    private Float preciounitario;
+    @NotNull
+    @Column(name = "totalproducto")
+    private Float totalproducto;
+    @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+    @ManyToOne
+    private Pedido pedido;
 
     public Detallepedido() {
     }
 
-    public Detallepedido(Integer iddetallepedido) {
+    public Detallepedido(Long iddetallepedido) {
         this.iddetallepedido = iddetallepedido;
     }
 
-    public Integer getIddetallepedido() {
+    public Long getIddetallepedido() {
         return iddetallepedido;
     }
 
-    public void setIddetallepedido(Integer iddetallepedido) {
+    public void setIddetallepedido(Long iddetallepedido) {
         this.iddetallepedido = iddetallepedido;
     }
 
@@ -72,12 +78,30 @@ public class Detallepedido implements Serializable {
         this.idproducto = idproducto;
     }
 
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setPedidoList(List<Pedido> pedidoList) {
-        this.pedidoList = pedidoList;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
+
+    public Float getPreciounitario() {
+        return preciounitario;
+    }
+
+    public void setPreciounitario(Float preciounitario) {
+        this.preciounitario = preciounitario;
+    }
+
+    public Float getTotalproducto() {
+        return totalproducto;
+    }
+
+    public void setTotalproducto(Float totalproducto) {
+        this.totalproducto = totalproducto;
+    }
+
+    
     
 }

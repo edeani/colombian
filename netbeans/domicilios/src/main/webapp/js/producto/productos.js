@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.categoria').click(function (e) {
+    $(document).on('click','.categoria',function (e) {
         e.preventDefault();
         volver = $(this).attr('href');
         for (i = 0; i < $('.categoria').length; i++) {

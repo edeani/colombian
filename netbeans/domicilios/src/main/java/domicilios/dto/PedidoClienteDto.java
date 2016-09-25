@@ -6,6 +6,7 @@
 package domicilios.dto;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -18,12 +19,18 @@ public class PedidoClienteDto {
     private Long idpedido;
     private List<ProductoClienteDto> productos;
     private Float total;
-
+    private String estado;
+    private Integer idusuario;
+    
+    @NotEmpty
+    @Size(max = 15)
+    @Pattern(regexp = "[0-9]*")
+    private String cedula;
     @NotEmpty
     @Size(max = 100)
     @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ]*")
     private String nombre;
-    @NotEmpty
+    @NotNull
     private Integer medioPago;
     @NotEmpty
     @Size(max = 100)
@@ -33,9 +40,11 @@ public class PedidoClienteDto {
     @Size(max = 10)
     @Pattern(regexp = "[0-9]*")
     private String telefono;
-    @NotEmpty
-    @Size(max = 200)
+    @Size(max = 500)
+    @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ\\.#\\-,]*")
     private String comentarios;
+    
+    
     
     public String getComentarios() {
         return comentarios;
@@ -100,6 +109,30 @@ public class PedidoClienteDto {
 
     public void setTotal(Float total) {
         this.total = total;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Integer getIdusuario() {
+        return idusuario;
+    }
+
+    public void setIdusuario(Integer idusuario) {
+        this.idusuario = idusuario;
     }
     
     

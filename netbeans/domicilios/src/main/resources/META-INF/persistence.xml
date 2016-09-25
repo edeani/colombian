@@ -8,6 +8,7 @@
     <class>domicilios.entidad.Usuario</class>
     <class>domicilios.entidad.ValidacionUsuarios</class-->
     <class>domicilios.entidad.Categoria</class>
+    <class>domicilios.entidad.Tipopago</class>
     <properties/>
   </persistence-unit>
 </persistence>

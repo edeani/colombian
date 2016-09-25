@@ -38,7 +38,9 @@ public class ProductosController {
 
     private Integer paginas = 0;
 
-    private static Integer CANTIDAD_PRODUCTO = 1;
+    private static final Integer CANTIDAD_PRODUCTO = 1;
+    
+    private static final String ESTADO_COMPRA = "A";
 
     private static final String SESSIONCOMPRA = "#{session.getAttribute('pedido')}";
 
@@ -76,6 +78,7 @@ public class ProductosController {
             productoClienteDto = new ArrayList<>();
             pedidoDto.setProductos(productoClienteDto);
             pedidoDto.setTotal(0F);
+            pedidoDto.setEstado(ESTADO_COMPRA);
         } else if (pedidoDto.getProductos() != null) {
             productoClienteDto = pedidoDto.getProductos();
         } else {

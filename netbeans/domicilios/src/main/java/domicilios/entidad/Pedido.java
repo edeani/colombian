@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,16 +28,14 @@ public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idpedidos")
-    private Integer idpedidos;
+    @Column(name = "idpedido")
+    private Long idpedido;
     @Size(max = 45)
     @Column(name = "direccion")
     private String direccion;
-    @Size(max = 45)
-    @Column(name = "puntodereferencia")
-    private String puntodereferencia;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "totalpedido")
     private Float totalpedido;
@@ -52,19 +52,23 @@ public class Pedido implements Serializable {
     @ManyToOne
     private Usuario idusuario;
 
+    @JoinColumn(name = "idtipopago", referencedColumnName = "idtipo")
+    @ManyToOne
+    private Tipopago idtipopago;
+    
     public Pedido() {
     }
 
-    public Pedido(Integer idpedidos) {
-        this.idpedidos = idpedidos;
+    public Pedido(Long idpedidos) {
+        this.idpedido = idpedidos;
     }
 
-    public Integer getIdpedidos() {
-        return idpedidos;
+    public Long getIdpedido() {
+        return idpedido;
     }
 
-    public void setIdpedidos(Integer idpedidos) {
-        this.idpedidos = idpedidos;
+    public void setIdpedido(Long idpedido) {
+        this.idpedido = idpedido;
     }
 
     public String getDireccion() {
@@ -73,14 +77,6 @@ public class Pedido implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public String getPuntodereferencia() {
-        return puntodereferencia;
-    }
-
-    public void setPuntodereferencia(String puntodereferencia) {
-        this.puntodereferencia = puntodereferencia;
     }
 
     public Float getTotalpedido() {
@@ -123,4 +119,12 @@ public class Pedido implements Serializable {
         this.coordenadas = coordenadas;
     }
 
+    public Tipopago getIdtipopago() {
+        return idtipopago;
+    }
+
+    public void setIdtipopago(Tipopago idtipopago) {
+        this.idtipopago = idtipopago;
+    }
+   
 }
