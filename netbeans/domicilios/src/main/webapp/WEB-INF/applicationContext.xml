@@ -26,8 +26,15 @@
     <context:component-scan base-package="domicilios.service" />
     <context:component-scan base-package="domicilios.service.autorizacion" />
     <context:component-scan base-package="domicilios.util" />
-    <mvc:annotation-driven />
-
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    <mvc:interceptors>
+        <!-- Resuelve quién generó el request -->
+        <bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
+    </mvc:interceptors>
     <bean class="org.springframework.context.support.ResourceBundleMessageSource"
           id="messageSource">
         <property name="basename" value="messages" />
