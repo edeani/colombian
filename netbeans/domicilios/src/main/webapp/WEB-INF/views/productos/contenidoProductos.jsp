@@ -43,7 +43,7 @@
                             <ul class="list-category">
                                 <c:forEach items="${categorias}" var="c" varStatus="indice">
                                     <c:if test="${indice.index == 0}" ><c:set value="active " var="claseActiva"></c:set></c:if>
-                                    <li data-href="${c.nombre}" class="${claseActiva}" style="cursor: pointer;"><a href="#${c.nombre}" class="categoria">${c.nombre}</a></li>
+                                    <li data-href="${c.nombre}" class="${claseActiva}" style="cursor: pointer;"><a data-href="${c.nombre}" href="javascript:void(0);" class="categoria">${c.nombre}</a></li>
                                         <c:set value="" var="claseActiva"></c:set>
                                     </c:forEach>
                             </ul>
@@ -72,7 +72,7 @@
                                     </c:if>
                                     <div class="col-sm-10 product-item" ${seccion}>
                                         <div class="rst-thumbnail">
-                                            <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-data-nombprecio="${p.precioproducto}" href="#"><img src="/img/post/gallery10.jpg" alt="" /></a>
+                                            <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-precio="${p.precioproducto}" href="#"><img src="/img/post/gallery10.jpg" alt="" /></a>
                                             <div class="rst-hover">
                                                 ${p.nombreTipo}
                                                 <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-precio="${p.precioproducto}" href="#"></a>

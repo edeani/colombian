@@ -1,24 +1,22 @@
 $(document).ready(function () {
     $(document).on('click','.categoria',function (e) {
-        e.preventDefault();
-        volver = $(this).attr('href');
+        
+        var volver = "#"+$(this).attr('data-href');
+        
         for (i = 0; i < $('.categoria').length; i++) {
             $($('.categoria')[i]).parent().removeClass("active");
+            
         }
         $(this).parent().addClass("active");
-        // setTimeout(function () {
         $('html, body').animate({
             scrollTop: $(volver).offset().top
-        }, 500);
-        //}, 1000);
+        }, 1000);
 
-        $('#categoriasDiv').animate({
-            'marginTop': $(volver).offset().top 
-        }, 500);
+
     });
     
     $(window).scroll(function () {
-        $("#categoriasDiv").stop().animate({"marginTop": (posicionBarraLateral()) + "px", "marginLeft": ($(window).scrollLeft()) + "px"}, "slow");
+       $("#categoriasDiv").stop().animate({"marginTop": (posicionBarraLateral()) + "px", "marginLeft": ($(window).scrollLeft()) + "px"}, "slow");
     });
     
     $(document).on("click",".addCar",function(event){
