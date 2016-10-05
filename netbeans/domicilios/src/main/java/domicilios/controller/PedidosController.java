@@ -87,7 +87,7 @@ public class PedidosController extends BaseController {
     }
 
     @RequestMapping(value = "/pedido.htm", method = RequestMethod.POST)
-    public ModelAndView guardarPedido(@ModelAttribute @Valid PedidoClienteDto pedidoClienteDto, BindingResult binding) {
+    public ModelAndView guardarPedido(@ModelAttribute @Valid PedidoClienteDto pedidoClienteDto, BindingResult binding,@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto) {
 
         if (binding.hasErrors()) {
             ModelAndView mavError = new ModelAndView("compra/pedido");
@@ -97,6 +97,7 @@ public class PedidosController extends BaseController {
             ModelAndView mav = new ModelAndView("compra/finalizacion");
             try {
                 pedidoService.guardarPedido(pedidoClienteDto, securityService.getCurrentUser());
+                pedidoDto=null;
             } catch (Exception e) {
                 mav = new ModelAndView("redirect:/compras/pedido.htm");
                 mav.addObject("mensaje", "Ocurri&oacute un problema al realizar la operaci&oacute;");
