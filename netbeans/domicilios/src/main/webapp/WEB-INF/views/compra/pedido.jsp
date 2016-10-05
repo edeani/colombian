@@ -21,112 +21,164 @@
         <link href='/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-        
+
+        <script type='text/javascript' src='/js/woocommerce.js'></script>
+        <!-- Google Map -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&libraries=places&callback=initAutocomplete"  async defer></script>
         <script type="text/javascript" src="/js/producto/pedido.js"></script>
     </head>
     <body>
         <div id="content">
             <div class="container rst-main-content">
                 <springForm:form action="/compras/pedido.htm" method="post" commandName="pedidoClienteDto">
-                <springForm:hidden path="idpedido" cssClass="form-control" />
-                <div class="text-center">
-                    <h1 class="h1pedido">HACER PEDIDO</h1>
-                </div>            
-                <br /><br /><br />
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
-                        <table class="table table-border-row table-card">
-                            <thead>
-                                <tr>
-                                    <th class="product-name">Nombre</th>
-                                    <th>PRECIO</th>
-                                    <th>CANTIDAD</th>
-                                    <th class="price">TOTAL</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${pedido.productos}" var="p" varStatus="indice">
-                                <tr id="fila${indice.index}" class="fila">
-                                    <td class="product-name">
-                                        <a data-row="${indice.index}" class="remove removeCar indiceData" href="javascript:void(0);"><i class="fa fa-close"></i></a>
-                                        <img class="img-circle" src="img/post/product-card-01.jpg" alt="" />
-                                        ${p.nombreproducto}
-                                    </td>
-                                    <td><fmt:formatNumber type="number"  pattern="###.###" value="${p.precio}" /></td>
-                                    <td>
-                                        <div class="quantity"><input data-row="${indice.index}" value="${p.cantidad}" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
-                                    </td>
-                                    <td id="p${indice.index}viewTotalProducto" class="price indiceViewTotalProducto">$<fmt:formatNumber type="number"  pattern="###.###" value="${p.total}" /></td>
+                    <springForm:hidden path="idpedido" cssClass="form-control" />
+                    <div class="text-center">
+                        <h1 class="h1pedido">HACER PEDIDO</h1>
+                    </div>            
+                    <br /><br /><br />
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <table class="table table-border-row table-card">
+                                <thead>
+                                    <tr>
+                                        <th class="product-name">Nombre</th>
+                                        <th>PRECIO</th>
+                                        <th>CANTIDAD</th>
+                                        <th class="price">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${pedido.productos}" var="p" varStatus="indice">
+                                        <tr id="fila${indice.index}" class="fila">
+                                            <td class="product-name">
+                                                <a data-row="${indice.index}" class="remove removeCar indiceData" href="javascript:void(0);"><i class="fa fa-close"></i></a>
+                                                <img class="img-circle" src="img/post/product-card-01.jpg" alt="" />
+                                                ${p.nombreproducto}
+                                            </td>
+                                            <td><fmt:formatNumber type="number"  pattern="###.###" value="${p.precio}" /></td>
+                                            <td>
+                                                <div class="quantity"><input data-row="${indice.index}" value="${p.cantidad}" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
+                                            </td>
+                                            <td id="p${indice.index}viewTotalProducto" class="price indiceViewTotalProducto">$<fmt:formatNumber type="number"  pattern="###.###" value="${p.total}" /></td>
                                     <input type="hidden" id="p${indice.index}idproducto"  name="productos[${indice.index}].idproducto" value="${p.idproducto}"/>
                                     <input type="hidden" id="p${indice.index}nombreproducto" name="productos[${indice.index}].nombreproducto" value="${p.nombreproducto}"/>
                                     <input type="hidden" id="p${indice.index}precio" name="productos[${indice.index}].precio" value="${p.precio}"/> 
                                     <input type="hidden" id="p${indice.index}cantidad" name="productos[${indice.index}].cantidad" value="${p.cantidad}"/> 
                                     <input type="hidden" id="p${indice.index}total" name="productos[${indice.index}].total" value="${p.total}"/>
-                                </tr>
+                                    </tr>
                                 </c:forEach>
                                 <tr class="subtotal">
                                     <th></th>
                                     <th></th>
                                     <th>subtotal</th>
                                     <th id="viewTotalPedido" class="price">$<fmt:formatNumber type="number"  pattern="###.###" value="${pedido.total}" /></th>
-                                    <input type="hidden" id="totalPedido" name="total" value="${pedido.total}"/>
-                                    <input type="hidden" id="estadoPedido" name="estado" value="${pedido.estado}"/>
+                                <input type="hidden" id="totalPedido" name="total" value="${pedido.total}"/>
+                                <input type="hidden" id="estadoPedido" name="estado" value="${pedido.estado}"/>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <br /><br /><br />
-                <div class="rst-form-input form-checkout">
-                    <div class="row">
-                        <div class="col-sm-6 checkout-address">
-                            <h4 class="titulocheck"><span class="rst-circle">1</span>TUS DATOS</h4>
-                            <div class="form-group">
-                                <label>Nombre completo</label>
-                                <springForm:input path="nombre" cssClass="form-control" value="${pedido.nombre}"/>
-                                <springForm:errors path="nombre" cssClass="text-danger" />
-                            </div>
-                            <div class="form-group">
-                                <label>Direcci&oacute;n</label>
-                                <springForm:input path="direccion" cssClass="form-control" value="${pedido.direccion}"/>
-                                <springForm:errors path="direccion" cssClass="text-danger" />
-                            </div>
-                            <div class="form-group">
-                                <label>Identificacion</label>
-                                <springForm:input path="cedula" cssClass="form-control" value="${pedido.cedula}" />
-                                <springForm:errors path="cedula" cssClass="text-danger" />
-                            </div>
-                            <div class="form-group">
-                                <label>Tel&eacute;fono</label>
-                                <springForm:input path="telefono" cssClass="form-control" value="${pedido.telefono}"/>
-                                <springForm:errors path="telefono" cssClass="text-danger" />
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-sm-6 checkout-payment">
-                            
-                            <h4 class="titulocheck"><span class="rst-circle">2</span>SISTEMA DE PAGO</h4>
-                            <div class="form-group">
-                                <label>Seleccione sistema de pago</label>
-                                <springForm:select path="medioPago" cssClass="form-control">
-                                    <c:forEach items="${tiposPago}" var="tp">
-                                        <option value="${tp.idtipo}">${tp.nombre}</option>
-                                    </c:forEach>
-                                </springForm:select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Comentarios</label>
-                                <springForm:textarea path="comentarios" cssClass="form-control" rows="5"/>
-                            </div>
+                    </div>
+                    <br /><br /><br />
+                    <div class="rst-form-input form-checkout">
+                        <div class="row">
+                            <div class="col-sm-6 checkout-address">
+                                <h4 class="titulocheck"><span class="rst-circle">1</span>TUS DATOS</h4>
+                                <div class="form-group">
+                                    <label>Nombre completo</label>
+                                    <springForm:input path="nombre" cssClass="form-control" value="${pedido.nombre}"/>
+                                    <springForm:errors path="nombre" cssClass="text-danger" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Direcci&oacute;n</label>
 
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group btnpago">
-                                <input class="btn btn-danger btn-lg" type="submit" value="Hacer pedido">
+                                </div>
+                                <div class="form-inline">
+                                    <div class="form-group" style="width: 25%;">
+                                        <select id="componente" class="form-control">
+                                            <option value="Calle" selected="selected">Calle</option>
+                                            <option value="Carrera">Carrera</option>
+                                            <option value="Avenida">Avenida</option>
+                                            <option value="Avenida Carrera">Avenida Carrera</option>
+                                            <option value="Avenida Calle">Avenida Calle</option>
+                                            <option value="Circular">Circular</option>
+                                            <option value="Circunvalar">Circunvalar</option>
+                                            <option value="Diagonal">Diagonal</option>
+                                            <option value="Manzana">Manzana</option>
+                                            <option value="Transversal">Transversal</option>
+                                            <option value="Vía">Vía</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="width: 15%;">
+                                        <input type="text" id="datoComponente" class="form-control"/>
+                                    </div>
+                                    <label>#</label>
+                                    <div class="form-group" style="width: 15%;">
+                                        <input type="text" id="datoComponente1" class="form-control"/>
+                                    </div>
+                                    <label >-</label>
+                                    <div class="form-group" style="width: 15%;">
+                                        <input type="text" id="datoComponente2" class="form-control"/>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="col-sm-3">
+                                    <input type="text" id="complemento1" class="form-control"/>
+                                </div>
+                                <div class="form-group col-sm-1">
+                                    <label></label>
+                                    #
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <input type="text" id="complemento2" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label></label>
+                                    -
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <input type="text" id="complemento2" class="form-control"/>
+                                </div>-->
+                                <div class="form-group">
+                                    <springForm:hidden path="direccion" cssClass="form-control" value="${pedido.direccion}"/>
+                                    <springForm:errors path="direccion" cssClass="text-danger" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Identificacion</label>
+                                    <springForm:input path="cedula" cssClass="form-control" value="${pedido.cedula}" />
+                                    <springForm:errors path="cedula" cssClass="text-danger" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tel&eacute;fono</label>
+                                    <springForm:input path="telefono" cssClass="form-control" value="${pedido.telefono}"/>
+                                    <springForm:errors path="telefono" cssClass="text-danger" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 checkout-payment">
+
+                                <h4 class="titulocheck"><span class="rst-circle">2</span>SISTEMA DE PAGO</h4>
+                                <div class="form-group">
+                                    <label>Seleccione sistema de pago</label>
+                                    <springForm:select path="medioPago" cssClass="form-control">
+                                        <c:forEach items="${tiposPago}" var="tp">
+                                            <option value="${tp.idtipo}">${tp.nombre}</option>
+                                        </c:forEach>
+                                    </springForm:select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Comentarios</label>
+                                    <springForm:textarea path="comentarios" cssClass="form-control" rows="5"/>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group btnpago">
+                                    <input class="btn btn-danger btn-lg" type="submit" value="Hacer pedido">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </springForm:form>
             </div>
         </div><!-- End Content -->
