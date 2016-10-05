@@ -159,24 +159,13 @@
     <script type="text/javascript" src="/js/jquery.rs.selectbox.js"></script>
 
     <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=places"></script>
-
-    <!-- WoW Plugins -->
-    <script src="/js/wow.min.js"></script>
+    <%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&libraries=places&callback=initAutocomplete"  async defer></script>--%>
 
     <script type='text/javascript' src='/js/woocommerce.js'></script>
-    <script type='text/javascript'>
-        /* <![CDATA[ */
-        var wc_single_product_params = {"i18n_required_rating_text": "Please select a rating", "review_rating_required": "yes"};
-        /* ]]> */
-    </script>
-    <script type='text/javascript' src='/js/single-product.min.js'></script>
-
+    
     <script type='text/javascript' src="/js/bootstrap-slider.js"></script>
 
     <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>
-
-    <script src='/js/calendar/moment.min.js'></script>
 
     <script type="text/javascript" src="/js/main.js"></script>
 </body>

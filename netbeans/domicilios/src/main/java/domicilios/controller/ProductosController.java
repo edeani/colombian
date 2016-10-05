@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,9 @@ public class ProductosController {
 
     private Integer paginas = 0;
 
-    private static Integer CANTIDAD_PRODUCTO = 1;
+    private static final Integer CANTIDAD_PRODUCTO = 1;
+    
+    private static final String ESTADO_COMPRA = "A";
 
     private static final String SESSIONCOMPRA = "#{session.getAttribute('pedido')}";
 
@@ -48,13 +51,18 @@ public class ProductosController {
     }
 
     @RequestMapping("/productos.htm")
-    public ModelAndView productos() {
+    public ModelAndView productos(Device device) {
         List<ProductoDto> productos = productoService.listAllPage(1);
         ModelAndView mav = new ModelAndView("productos/contenidoProductos");
         List<Categoria> categorias = productoService.listCategory();
         mav.addObject("productos", productos);
         mav.addObject("actualPage", 1);
         mav.addObject("categorias", categorias);
+        if(device.isNormal()){
+            mav.addObject("dispositivo", "desktop");
+        }else{
+            mav.addObject("dispositivo", "mobile");
+        }
         return mav;
     }
 
@@ -76,6 +84,7 @@ public class ProductosController {
             productoClienteDto = new ArrayList<>();
             pedidoDto.setProductos(productoClienteDto);
             pedidoDto.setTotal(0F);
+            pedidoDto.setEstado(ESTADO_COMPRA);
         } else if (pedidoDto.getProductos() != null) {
             productoClienteDto = pedidoDto.getProductos();
         } else {
@@ -114,7 +123,28 @@ public class ProductosController {
 
         return "OK";
     }
+    
+    @RequestMapping("/ajax/carrito/cantidad/actualizar.htm")
+    public @ResponseBody
+    String actualizarCarritoAddRemove(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, @RequestParam Integer idproducto,
+            @RequestParam Float precioProducto,@RequestParam Integer cantidad) {
 
+        List<ProductoClienteDto> productoClienteDto = pedidoDto.getProductos();
+        Float totalProducto = 0F;
+        for (ProductoClienteDto productoClienteDto1 : productoClienteDto) {
+            if (Objects.equals(productoClienteDto1.getIdproducto(), idproducto)) {
+                totalProducto = productoClienteDto1.getTotal();
+                productoClienteDto1.setCantidad(cantidad);
+                productoClienteDto1.setTotal(productoClienteDto1.getPrecio() * cantidad);
+                totalProducto = productoClienteDto1.getTotal() - totalProducto;
+                break;
+            }
+        }
+
+        pedidoDto.setTotal(pedidoDto.getTotal() + totalProducto);
+
+        return "OK";
+    }
     
     @ModelAttribute("pages")
     public Integer cantidadProductos() {

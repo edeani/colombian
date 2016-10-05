@@ -23,6 +23,7 @@ public class ProductoDtoMapper implements RowMapper{
         productoDto.setPrecioproducto(rs.getFloat("precioproducto"));
         productoDto.setTipo(rs.getString("tipo"));
         productoDto.setNombreTipo(rs.getString("nombretipo"));
+        productoDto.setDescripcion(rs.getString("descripcion"));
         return productoDto;
     }
 }

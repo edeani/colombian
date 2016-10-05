@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -38,6 +36,11 @@ public class Producto implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "precioproducto")
     private Float precioproducto;
+    
+    @Size(max = 200)
+    @Column(name = "descripcion")
+    private String descripcion;
+    
     @OneToMany(mappedBy = "idproducto")
     private List<Detallepedido> detallepedidoList;
 
@@ -78,6 +81,14 @@ public class Producto implements Serializable {
 
     public void setDetallepedidoList(List<Detallepedido> detallepedidoList) {
         this.detallepedidoList = detallepedidoList;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }

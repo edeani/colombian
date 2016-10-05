@@ -21,7 +21,15 @@
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
-        <script type="text/javascript" src="/js/producto/productos.js"></script>
+        <c:choose>
+            <c:when test="${dispositivo == 'desktop'}">
+                <script type="text/javascript" src="/js/producto/productos.js"></script>
+            </c:when>
+            <c:otherwise>
+                <script type="text/javascript" src="/js/${dispositivo}/producto/productos.js"></script>    
+            </c:otherwise>
+        </c:choose>
+
     </head>
     <body>
         <!-- Inicio contenido de productos -->
@@ -38,7 +46,7 @@
             <div class="container rst-main-content">
                 <div id="listaDivProd" class="rst-product-list">
                     <div class="row">
-                        <div id="categoriasDiv" class="col-sm-3" style="width: 400px">
+                        <div id="categoriasDiv" class="col-sm-4">
                             <h4>Categorias</h4>
                             <ul class="list-category">
                                 <c:forEach items="${categorias}" var="c" varStatus="indice">
@@ -50,30 +58,19 @@
                             <h4>Resumen Pedido</h4>
                             <div id="carSummary" class="rst-form-login rst-cart-info">
                                 <c:import url="/compras/ajax/resumen.htm"></c:import>
-                            </div>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <form action="/" class="rst-form-input">
-                                        <div class="form-group">
-                                            <select class="form-control" name="country" id="InputCountry">
-                                                <option value="Popular">Popular</option>
-                                                <option value="Price">Precio</option>
-                                                <option value="View">M&aacute;s pedido</option>
-                                            </select>
-                                        </div>
-                                    </form>
                                 </div>
-                                <div class="col-sm-9">
-                                    <div class="rst-view">
-                                        <a href="#" class="rst-tile"></a>
-                                        <a href="#" class="rst-list active"></a>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="rst-view">
+                                            <a href="#" class="rst-tile"></a>
+                                            <a href="#" class="rst-list active"></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row product-list view-list">
+                                <div class="row product-list view-list">
                                 <c:set var="seccion" value=""></c:set>
                                 <c:set var="seccion_temp" value=""></c:set>
                                 <c:forEach items="${productos}" var="p">
@@ -81,7 +78,7 @@
                                         <c:set var="seccion" value="id='${p.nombreTipo}'"></c:set>
                                         <c:set var="seccion_temp" value="${p.nombreTipo}"></c:set>
                                     </c:if>
-                                    <div class="col-sm-7 product-item" ${seccion}>
+                                    <div class="col-sm-10 product-item" ${seccion}>
                                         <div class="rst-thumbnail">
                                             <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-data-nombprecio="${p.precioproducto}" href="#"><img src="/img/post/gallery10.jpg" alt="" /></a>
                                             <div class="rst-hover">
@@ -95,7 +92,7 @@
                                             <span class="rst-stock in-stock" data-toggle="tooltip" data-placement="bottom" data-original-title="In stock"></span>
                                             <hr/>
                                             <div class="rst-product-content">
-                                                <p></p>
+                                                <p>${p.descripcion}</p>
                                             </div>
                                         </div>
                                     </div>
