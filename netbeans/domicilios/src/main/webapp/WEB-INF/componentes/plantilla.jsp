@@ -161,7 +161,8 @@
     <!-- Google Map -->
     <%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&libraries=places&callback=initAutocomplete"  async defer></script>--%>
 
-
+    <script type='text/javascript' src='/js/woocommerce.js'></script>
+    
     <script type='text/javascript' src="/js/bootstrap-slider.js"></script>
 
     <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>

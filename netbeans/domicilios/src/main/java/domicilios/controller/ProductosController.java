@@ -123,7 +123,28 @@ public class ProductosController {
 
         return "OK";
     }
+    
+    @RequestMapping("/ajax/carrito/cantidad/actualizar.htm")
+    public @ResponseBody
+    String actualizarCarritoAddRemove(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, @RequestParam Integer idproducto,
+            @RequestParam Float precioProducto,@RequestParam Integer cantidad) {
 
+        List<ProductoClienteDto> productoClienteDto = pedidoDto.getProductos();
+        Float totalProducto = 0F;
+        for (ProductoClienteDto productoClienteDto1 : productoClienteDto) {
+            if (Objects.equals(productoClienteDto1.getIdproducto(), idproducto)) {
+                totalProducto = productoClienteDto1.getTotal();
+                productoClienteDto1.setCantidad(cantidad);
+                productoClienteDto1.setTotal(productoClienteDto1.getPrecio() * cantidad);
+                totalProducto = productoClienteDto1.getTotal() - totalProducto;
+                break;
+            }
+        }
+
+        pedidoDto.setTotal(pedidoDto.getTotal() + totalProducto);
+
+        return "OK";
+    }
     
     @ModelAttribute("pages")
     public Integer cantidadProductos() {
