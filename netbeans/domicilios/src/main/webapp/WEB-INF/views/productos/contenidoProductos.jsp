@@ -20,8 +20,15 @@
         <link href='/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-
-        <script type="text/javascript" src="/js/producto/productos.js"></script>
+        
+        <c:choose>
+            <c:when test="${dispositivo == 'desktop'}">
+            <script type="text/javascript" src="/js/producto/productos.js"></script>
+            </c:when>
+            <c:otherwise>
+                <script type="text/javascript" src="/js/${dispositivo}/producto/productos.js"></script>    
+            </c:otherwise>
+        </c:choose>
     </head>
     <body>
         <!-- Inicio contenido de productos -->
