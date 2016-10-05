@@ -159,7 +159,7 @@
     <script type="text/javascript" src="/js/jquery.rs.selectbox.js"></script>
 
     <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=places"></script>
+    <%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&libraries=places&callback=initAutocomplete"  async defer></script>--%>
 
 
     <script type='text/javascript' src="/js/bootstrap-slider.js"></script>

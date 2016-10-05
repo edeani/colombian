@@ -324,8 +324,7 @@
         <!--- Contact Detail/Map -->
         <div class="rst-contact">
             <div id="map-canvas" class="rst-contact-maps" data-zoom="15" data-center="10.731688,122.5505356"> </div>
-            <div  class="rst-contact-maps"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.792527635275!2d-74.0861058858103!3d4.631070343548287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9bd6bbf6ab23%3A0x63699270611dc1cc!2sColombian+Broaster!5e0!3m2!1ses!2ses!4v1471132545122" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe> </div>
-
+                <div  class="rst-contact-maps"> <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&q=Colombian+Broaster,Bogotá+Colombia" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe> </div>
         </div><!--- end Contact Detail/Map -->
     </div><!--- end container -->
     <!-- Fin Container Inicio -->
