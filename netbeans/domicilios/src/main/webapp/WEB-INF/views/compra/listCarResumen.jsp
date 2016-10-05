@@ -3,7 +3,7 @@
 <div id="listCar" class="rst-list-product">
     <c:forEach items="${pedido.productos}" var="producto" >
         <div class="rst-product-item itemCar" data-idproducto="${producto.idproducto}" data-total="${producto.total}">
-            <a href="#">${producto.nombreproducto} <span id="update${producto.idproducto}" data-cantidad="${producto.cantidad}" class="count">${producto.cantidad}</span></a><span class="price">$${producto.total} <button type="button" class="btn-xs removeCar" data-toggle="tooltip" data-placement="right" title="Eliminar">-</button></span>
+            <a href="#">${producto.nombreproducto} <span id="update${producto.idproducto}" data-cantidad="${producto.cantidad}" class="count">${producto.cantidad}</span></a><span class="price">$${producto.total} <i class="fa fa-close removeCar" style="cursor: pointer;" title="Eliminar"></i></span>
         </div>
     </c:forEach>
 </div>
