@@ -11,6 +11,10 @@ $(document).ready(function () {
             scrollTop: $(volver).offset().top
         }, 500);
         //}, 1000);
+
+        $('#categoriasDiv').animate({
+            'marginTop': $(volver).offset().top 
+        }, 500);
     });
     
     $(window).scroll(function () {
