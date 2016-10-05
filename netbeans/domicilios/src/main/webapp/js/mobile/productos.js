@@ -13,10 +13,6 @@ $(document).ready(function () {
         //}, 1000);
     });
     
-    $(window).scroll(function () {
-        $("#categoriasDiv").stop().animate({"marginTop": (posicionBarraLateral()) + "px", "marginLeft": ($(window).scrollLeft()) + "px"}, "slow");
-    });
-    
     $(document).on("click",".addCar",function(event){
         event.preventDefault();
         var idproducto = $(this).attr("data-id");
