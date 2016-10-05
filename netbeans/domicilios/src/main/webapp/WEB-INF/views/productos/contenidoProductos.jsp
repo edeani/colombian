@@ -21,7 +21,15 @@
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
-        <script type="text/javascript" src="/js/producto/productos.js"></script>
+        <c:choose>
+            <c:when test="${dispositivo == 'desktop'}">
+                <script type="text/javascript" src="/js/producto/productos.js"></script>
+            </c:when>
+            <c:otherwise>
+                <script type="text/javascript" src="/js/${dispositivo}/producto/productos.js"></script>    
+            </c:otherwise>
+        </c:choose>
+
     </head>
     <body>
         <!-- Inicio contenido de productos -->
@@ -50,19 +58,19 @@
                             <h4>Resumen Pedido</h4>
                             <div id="carSummary" class="rst-form-login rst-cart-info">
                                 <c:import url="/compras/ajax/resumen.htm"></c:import>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-sm-9">
-                                    <div class="rst-view">
-                                        <a href="#" class="rst-tile"></a>
-                                        <a href="#" class="rst-list active"></a>
-                                    </div>
                                 </div>
                             </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="rst-view">
+                                            <a href="#" class="rst-tile"></a>
+                                            <a href="#" class="rst-list active"></a>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="row product-list view-list">
+                                <div class="row product-list view-list">
                                 <c:set var="seccion" value=""></c:set>
                                 <c:set var="seccion_temp" value=""></c:set>
                                 <c:forEach items="${productos}" var="p">
