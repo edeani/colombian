@@ -94,6 +94,63 @@ $(document).ready(function () {
             }
         }
     });
+
+    $(document).on("submit", "#pedidoClienteDto", function (event) {
+        var resumenDireccion = "";
+        var continuar = true;
+        if ($("#componente").val() !== "" && $("#datoComponente").val() !== "" && $("#datoComponente1").val() !== "" && $("#datoComponente2").val() !== "") {
+            resumenDireccion = "" + $("#componente").val() + " " + $("#datoComponente").val() + " #" + $("#datoComponente1").val() + "-" + $("#datoComponente2").val();
+        } else {
+            continuar = false;
+            $("#direccion").val("");
+        }
+        if (resumenDireccion.length > 0) {
+            var elementos = resumenDireccion.split(" ");
+            if (elementos.length === 3) {
+                $("#direccion").val(resumenDireccion);
+            } else {
+                $("#direccion").val("");
+                continuar = false;
+            }
+        }
+
+        var responsePlace;
+        if (continuar) {
+            var geocoder = new google.maps.Geocoder();
+            var address = resumenDireccion + ",Bogotá";
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    responsePlace = results[0].geometry.location;
+                    var sectorCoord;
+                    var sector;
+                    //if ($("#crearSector").val() === "S") {
+                         
+                        sectorCoord = [
+                            {lat: 4.6335769, lng: -74.0964651},
+                            {lat: 4.6512045, lng: -74.0844811},
+                            {lat: 4.6494979, lng: -74.0718173},
+                            {lat: 4.6256623, lng: -74.082114}
+                        ];
+                        sector= new google.maps.Polygon({paths: sectorCoord});
+                        $("#crearSector").val("");
+                   // }
+
+                    var estadoDirección = google.maps.geometry.poly.containsLocation(responsePlace, sector) ? 'IN' : 'OUT';
+                    if (estadoDirección === "OUT") {
+                        if ($("#direccion.errors").length > 0) {
+                            $("#direccion.errors").remove();
+                        }
+                        $("#formGroupDir").append("<span id='direccion.errors' class='text-danger'>Zona fuera de cobertura</span>");
+                    }
+                } else {
+                    console.log("La dirección no existe");
+                }
+            });
+        }
+
+        event.preventDefault();
+
+    });
 });
 
 

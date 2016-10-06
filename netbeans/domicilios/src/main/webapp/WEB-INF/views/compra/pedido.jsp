@@ -23,8 +23,8 @@
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
         <script type='text/javascript' src='/js/woocommerce.js'></script>
-        <!-- Google Map -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&libraries=places&callback=initAutocomplete"  async defer></script>
+        <!-- Google Map https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&signed_in=true&callback=initMap-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&libraries=geometry&signed_in=true"  async defer></script>
         <script type="text/javascript" src="/js/producto/pedido.js"></script>
     </head>
     <body>
@@ -121,25 +121,8 @@
                                         <input type="text" id="datoComponente2" class="form-control"/>
                                     </div>
                                 </div>
-                                <!--
-                                <div class="col-sm-3">
-                                    <input type="text" id="complemento1" class="form-control"/>
-                                </div>
-                                <div class="form-group col-sm-1">
-                                    <label></label>
-                                    #
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <input type="text" id="complemento2" class="form-control"/>
-                                </div>
-                                <div class="form-group">
-                                    <label></label>
-                                    -
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <input type="text" id="complemento2" class="form-control"/>
-                                </div>-->
-                                <div class="form-group">
+                                <div class="form-group" id="formGroupDir">
+                                    <input id="crearSector" type="hidden" value="S"/>
                                     <springForm:hidden path="direccion" cssClass="form-control" value="${pedido.direccion}"/>
                                     <springForm:errors path="direccion" cssClass="text-danger" />
                                 </div>
