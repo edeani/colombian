@@ -121,19 +121,27 @@ $(document).ready(function () {
             geocoder.geocode({'address': address}, function (results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
                     responsePlace = results[0].geometry.location;
-                    var sectorCoord;
                     var sector;
                     //if ($("#crearSector").val() === "S") {
-                         
-                        sectorCoord = [
-                            {lat: 4.6335769, lng: -74.0964651},
-                            {lat: 4.6512045, lng: -74.0844811},
-                            {lat: 4.6494979, lng: -74.0718173},
-                            {lat: 4.6256623, lng: -74.082114}
-                        ];
-                        sector= new google.maps.Polygon({paths: sectorCoord});
-                        $("#crearSector").val("");
-                   // }
+
+                    /*sectorCoord = [
+                     {lat: 4.6335769, lng: -74.0964651},
+                     {lat: 4.6512045, lng: -74.0844811},
+                     {lat: 4.6494979, lng: -74.0718173},
+                     {lat: 4.6256623, lng: -74.082114}
+                     ];*/
+
+                    sector = new google.maps.Polygon({
+                        paths: [
+                            new google.maps.LatLng(4.6610566,-74.1339197),
+                            new google.maps.LatLng(4.6589392,-74.1324068),
+                            new google.maps.LatLng(4.6607738,-74.1304302),
+                            new google.maps.LatLng(4.6625952,-74.1329887),
+                            new google.maps.LatLng(4.6610566,-74.1339197)
+                        ]
+                    });
+                    $("#crearSector").val("");
+                    // }
 
                     var estadoDirección = google.maps.geometry.poly.containsLocation(responsePlace, sector) ? 'IN' : 'OUT';
                     if (estadoDirección === "OUT") {
