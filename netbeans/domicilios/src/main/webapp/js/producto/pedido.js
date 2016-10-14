@@ -122,28 +122,20 @@ $(document).ready(function () {
                 if (status === google.maps.GeocoderStatus.OK) {
                     responsePlace = results[0].geometry.location;
                     var sector;
-                    //if ($("#crearSector").val() === "S") {
 
-                    /*sectorCoord = [
-                     {lat: 4.6335769, lng: -74.0964651},
-                     {lat: 4.6512045, lng: -74.0844811},
-                     {lat: 4.6494979, lng: -74.0718173},
-                     {lat: 4.6256623, lng: -74.082114}
-                     ];*/
 
                     sector = new google.maps.Polygon({
                         paths: [
-                            new google.maps.LatLng(4.6610566,-74.1339197),
-                            new google.maps.LatLng(4.6589392,-74.1324068),
-                            new google.maps.LatLng(4.6607738,-74.1304302),
-                            new google.maps.LatLng(4.6625952,-74.1329887),
-                            new google.maps.LatLng(4.6610566,-74.1339197)
+                            {lat: 4.6872302, lng: -74.0954264}, //Boyacá con Avenida calle 72
+                            {lat: 4.6489007, lng: -74.1266292}, //Puente boyaca con 13
+                            {lat: 4.6033661, lng: -74.07996}, //Cra 14 cll 12
+                            {lat: 4.6278161, lng: -74.0638729}, // Javeriana
+                            {lat: 4.6872302, lng: -74.0954264}
                         ]
                     });
                     $("#crearSector").val("");
-                    // }
-
-                    var estadoDirección = google.maps.geometry.poly.containsLocation(responsePlace, sector) ? 'IN' : 'OUT';
+                    
+                    var estadoDirección = google.maps.geometry.poly.containsLocation(new google.maps.LatLng( responsePlace.lat(),responsePlace.lng()), sector) ? 'IN' : 'OUT';
                     if (estadoDirección === "OUT") {
                         if ($("#direccion.errors").length > 0) {
                             $("#direccion.errors").remove();
@@ -159,6 +151,36 @@ $(document).ready(function () {
         event.preventDefault();
 
     });
+
+
 });
+
+function mapaTurnOn() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: {lat: 4.6681213, lng: -74.115153},
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    // Define the LatLng coordinates for the polygon's path.
+    var triangleCoords = [
+        {lat: 4.6872302, lng: -74.0954264}, //Boyacá con Avenida calle 72
+        {lat: 4.6489007, lng: -74.1266292}, //Puente boyaca con 13
+        {lat: 4.6033661, lng: -74.07996}, //Cra 14 cll 12
+        {lat: 4.6278161, lng: -74.0638729}, // Javeriana
+        {lat: 4.6872302, lng: -74.0954264}
+    ];
+
+
+    // Construct the polygon.
+    var bermudaTriangle = new google.maps.Polygon({
+        paths: triangleCoords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#9AFE2E',
+        fillOpacity: 0.35
+    });
+    bermudaTriangle.setMap(map);
+}
 
 

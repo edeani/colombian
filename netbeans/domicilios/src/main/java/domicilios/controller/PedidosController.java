@@ -63,7 +63,9 @@ public class PedidosController extends BaseController {
             mav = new ModelAndView("compra/pedido");
             if (pedidoDto == null) {
                 return new ModelAndView("compra/pedidoVacio");
-            } else if (pedidoDto.getProductos().isEmpty()) {
+            } else if (pedidoDto.getProductos() == null) {
+                return new ModelAndView("compra/pedidoVacio");
+            }else if(pedidoDto.getProductos().isEmpty()){
                 return new ModelAndView("compra/pedidoVacio");
             }
             Usuario usuario = securityService.getCurrentUser();

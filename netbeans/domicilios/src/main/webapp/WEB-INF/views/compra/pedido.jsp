@@ -24,7 +24,7 @@
 
         <script type='text/javascript' src='/js/woocommerce.js'></script>
         <!-- Google Map https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&signed_in=true&callback=initMap-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&libraries=geometry&signed_in=true"  async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&libraries=geometry&signed_in=true&callback=mapaTurnOn"  async defer></script>
         <script type="text/javascript" src="/js/producto/pedido.js"></script>
     </head>
     <body>
@@ -136,10 +136,6 @@
                                     <springForm:input path="telefono" cssClass="form-control" value="${pedido.telefono}"/>
                                     <springForm:errors path="telefono" cssClass="text-danger" />
                                 </div>
-                            </div>
-                            <div class="col-sm-6 checkout-payment">
-
-                                <h4 class="titulocheck"><span class="rst-circle">2</span>SISTEMA DE PAGO</h4>
                                 <div class="form-group">
                                     <label>Seleccione sistema de pago</label>
                                     <springForm:select path="medioPago" cssClass="form-control">
@@ -153,6 +149,14 @@
                                     <label>Comentarios</label>
                                     <springForm:textarea path="comentarios" cssClass="form-control" rows="5"/>
                                 </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <h4 class="titulocheck"><span class="rst-circle">2</span>Mapa</h4>
+
+                                <div id="map" style="width: 500px !important; height: 500px !important;">
+                                </div>
+
 
                             </div>
                             <div class="col-sm-12">
