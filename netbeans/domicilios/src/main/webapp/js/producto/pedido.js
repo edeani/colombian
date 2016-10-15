@@ -148,11 +148,7 @@ $(document).ready(function () {
                         if (marker !== null && marker !== undefined) {
                             marker.setMap(null);
                         }
-                        marker = new google.maps.Marker({
-                            position: custom_latlng,
-                            map: map,
-                            title: address
-                        });
+                        createMarker(custom_latlng,address);
 
                     }
                 } else {
@@ -168,9 +164,11 @@ $(document).ready(function () {
 
 });
 function mapaTurnOn() {
+    
+    var coor_col=new google.maps.LatLng(4.6310628,-74.083934);
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: {lat: 4.6681213, lng: -74.115153},
+        zoom: 20,
+        center: coor_col,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     // Define the LatLng coordinates for the polygon's path.
@@ -193,6 +191,15 @@ function mapaTurnOn() {
         fillOpacity: 0.35
     });
     sector.setMap(map);
+
+    createMarker(coor_col,"Colombian Broaster");
 }
 
+function createMarker(coord,title){
+    marker = new google.maps.Marker({
+        position: coord,
+        map: map,
+        title: title
+    });
+}
 
