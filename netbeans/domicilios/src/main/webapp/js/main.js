@@ -19,7 +19,7 @@ if( jQuery('.rst-contact-maps').length && jQuery('.rst-contact-maps').attr('data
 
 		map.setOptions({draggable: true, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
 		var infowindow = new google.maps.InfoWindow();
-		var service = new google.maps.places.PlacesService(map);
+		//var service = new google.maps.places.PlacesService(map);
 	  
 	}
 	jQuery(document).ready(function() {
