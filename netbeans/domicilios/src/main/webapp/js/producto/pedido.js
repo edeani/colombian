@@ -173,6 +173,7 @@ function mapaTurnOn() {
     });
     // Define the LatLng coordinates for the polygon's path.
     var sectorCoord = [
+    /*var sectorCoord = [
         {lat: 4.6872302, lng: -74.0954264}, //Boyacá con Avenida calle 72
         {lat: 4.6489007, lng: -74.1266292}, //Puente boyaca con 13
         {lat: 4.6033661, lng: -74.07996}, //Cra 14 cll 12
