@@ -5,7 +5,6 @@
  */
 package domicilios.controller;
 
-import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,8 +20,6 @@ public class HomeController{
     @RequestMapping("/home.htm")
     public ModelAndView inicio(){
         ModelAndView mav = new ModelAndView("home/inicio");
-        /*List<Producto> productos = productoService.listAll();
-        mav.addObject("productos", productos);*/
         return mav;
     }
 }

@@ -163,23 +163,46 @@ $(document).ready(function () {
 
 
 });
+
+function replaceAll(toreplace,oldstr,newstr){
+    while (toreplace.indexOf(oldstr)!==-1){
+        toreplace=toreplace.replace(oldstr,newstr);
+    }
+    return toreplace;
+}
+function getCookie(nombre){
+	    var cookies=document.cookie;
+	    if(!cookies) return false;
+	    var comienzo=cookies.indexOf(nombre);
+	    if(comienzo===-1) return false;
+	    comienzo=comienzo+nombre.length+1;
+	    cantidad=cookies.indexOf("; ", comienzo)-comienzo;
+	    if(cantidad<=0) cantidad=cookies.length;
+	    return cookies.substr(comienzo, cantidad);
+}
+
 function mapaTurnOn() {
-    
-    var coor_col=new google.maps.LatLng(4.6310628,-74.083934);
+    var latlngCol = getCookie("center");
+    var latlngCol = replaceAll(latlngCol,'"','');
+    var coordCenterCool = latlngCol.split(",");
+    var coor_col=new google.maps.LatLng(parseFloat(coordCenterCool[0]),parseFloat(coordCenterCool[1]));
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 20,
         center: coor_col,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     // Define the LatLng coordinates for the polygon's path.
-    var sectorCoord = [
     /*var sectorCoord = [
         {lat: 4.6872302, lng: -74.0954264}, //Boyacá con Avenida calle 72
         {lat: 4.6489007, lng: -74.1266292}, //Puente boyaca con 13
         {lat: 4.6033661, lng: -74.07996}, //Cra 14 cll 12
         {lat: 4.6278161, lng: -74.0638729}, // Javeriana
         {lat: 4.6872302, lng: -74.0954264}
-    ];
+    ];*/
+    var coordArea = replaceAll(getCookie("area"),'"[','[');
+    coordArea = replaceAll(coordArea,']"',']');
+    coordArea = coordArea.replace(/\\/g, '');
+    var sectorCoord = $.parseJSON(coordArea);
 
 
     // Construct the polygon.
