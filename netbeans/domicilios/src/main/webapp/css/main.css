@@ -402,7 +402,7 @@ blockquote:after {
 	left: 12px;
 	position: absolute;
 	top: 100%;
-	background: #1e2a36;
+	background: #f7f7f7;
 	text-align: left;
 }
 .rst-nav-menu ul.sub-menu li {

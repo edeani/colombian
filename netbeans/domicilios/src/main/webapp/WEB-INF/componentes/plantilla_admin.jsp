@@ -59,37 +59,23 @@
                                 <input type="text" value="" />
                             </form>
                             <ul class="rst-main-menu">
-                                <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
-                                <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
-                                <li><a href="/compras/pedido.htm">Hacer Pedido</a></li>
-                                <li><a href="#contact">Contacto</a></li>
+                                <sec:authorize  access="hasRole('ROLE_ADMIN')">
+                                <li class="menu-item-has-children">
+                                    <a href="#">Administraci&oacute;n</a>
+                                    <ul class="sub-menu" style="min-width: 164px;">
+                                        <li><a href="/administracion/productos/inventario.htm">Productos</a></li>
+                                        <li><a href="#">Pedidos</a></li>
+                                    </ul>
+                                </li>
+                                </sec:authorize>
                                 <sec:authorize  access="isAuthenticated()">
-                                    <li><a href="/logout.htm">Cerrar Sesi&oacute;n</a></li>
+                                <li><a href="/logout.htm">Cerrar Sesi&oacute;n</a></li>
                                 </sec:authorize>
                             </ul>
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
                         </div>
                         <div class="rst-account rst-table-cell">
-                            <div class="rst-cart">
-                                <a href="#" class="rst-cart-icon"><span>6</span></a>
-                                <div class="rst-form-login rst-cart-info">
-                                    <div class="rst-list-product">
-                                        <div class="rst-product-item">
-                                            <a href="#">Plato 1<span class="count">2</span> <span class="price">$25.000</span></a>
-                                        </div>
-                                        <div class="rst-product-item">
-                                            <a href="#">Plato 2 <span class="count">2</span> <span class="price">$25.000</span></a>
-                                        </div>
-                                        <div class="rst-product-item">
-                                            <a href="#">Plato 3 <span class="count">2</span> <span class="price">$25.000</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="rst-checkout">
-                                        <a href="/compras/pedido.htm" class="btn btn-success btn-sm btnpagar"> HACER PEDIDO</a>
-                                        <span class="price">$75.000</span>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <sec:authorize  access="isAuthenticated()">
                                 <a href="/signin.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
                             </sec:authorize>
@@ -157,7 +143,7 @@
 
     <!-- Selectbox Js -->
     <script type="text/javascript" src="/js/jquery.rs.selectbox.js"></script>
-    
+
     <script type='text/javascript' src="/js/bootstrap-slider.js"></script>
 
     <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>
