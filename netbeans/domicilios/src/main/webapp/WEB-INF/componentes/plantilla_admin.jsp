@@ -63,17 +63,8 @@
                                 <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
                                 <li><a href="/compras/pedido.htm">Hacer Pedido</a></li>
                                 <li><a href="#contact">Contacto</a></li>
-                                <sec:authorize  access="hasRole('ROLE_ADMIN')">
-                                <li class="menu-item-has-children">
-                                    <a href="#">Administraci&oacute;n</a>
-                                    <ul class="sub-menu" style="min-width: 164px;">
-                                        <li><a href="/administracion/productos/inventario.htm">Productos</a></li>
-                                        <li><a href="#">Pedidos</a></li>
-                                    </ul>
-                                </li>
-                                </sec:authorize>
                                 <sec:authorize  access="isAuthenticated()">
-                                <li><a href="/logout.htm">Cerrar Sesi&oacute;n</a></li>
+                                    <li><a href="/logout.htm">Cerrar Sesi&oacute;n</a></li>
                                 </sec:authorize>
                             </ul>
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
@@ -166,7 +157,7 @@
 
     <!-- Selectbox Js -->
     <script type="text/javascript" src="/js/jquery.rs.selectbox.js"></script>
-
+    
     <script type='text/javascript' src="/js/bootstrap-slider.js"></script>
 
     <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>
