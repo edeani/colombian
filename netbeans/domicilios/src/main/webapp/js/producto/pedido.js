@@ -157,8 +157,6 @@ $(document).ready(function () {
             });
         }
 
-        event.preventDefault();
-
     });
 
 
@@ -191,14 +189,6 @@ function mapaTurnOn() {
         center: coor_col,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-    // Define the LatLng coordinates for the polygon's path.
-    /*var sectorCoord = [
-        {lat: 4.6872302, lng: -74.0954264}, //Boyacá con Avenida calle 72
-        {lat: 4.6489007, lng: -74.1266292}, //Puente boyaca con 13
-        {lat: 4.6033661, lng: -74.07996}, //Cra 14 cll 12
-        {lat: 4.6278161, lng: -74.0638729}, // Javeriana
-        {lat: 4.6872302, lng: -74.0954264}
-    ];*/
     var coordArea = replaceAll(getCookie("area"),'"[','[');
     coordArea = replaceAll(coordArea,']"',']');
     coordArea = coordArea.replace(/\\/g, '');
