@@ -31,7 +31,9 @@
             <div class="container rst-main-content">
 
                 <div class="text-center">
-                    <h1 class="h1pedido">Prodcutos</h1>
+                    <h1 class="h1pedido">Productos</h1>
+                    
+                    <button type="button" class="btn btn-success btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"> </span>&nbsp;Agregar</button>
                 </div>            
                 <br /><br /><br />
                 <div class="row">
@@ -42,7 +44,7 @@
                                     <th>Id</th>
                                     <th class="product-name">Nombre</th>
                                     <th>Descripci&oacute;n</th>
-                                    <th class="price">Precio</th>
+                                    <th>Precio</th>
                                     <th>Tipo</th>
                                     <th></th>
                                 </tr>
