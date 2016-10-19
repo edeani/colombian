@@ -62,16 +62,18 @@
                                         <td><fmt:formatNumber type="number"  pattern="###.###" value="${p.precioproducto}" /></td>
                                         <td>${p.nombreTipo}</td>
                                         <td>
-                                            <a data-row="${indice.index}" class="edit editProduct" href="javascript:void(0);"><i style="color: #149bdf;" class="fa fa-edit"></i></a>
-                                            <a data-row="${indice.index}" class="remove removeProduct" href="javascript:void(0);"><i style="color: red;" class="fa fa-close"></i></a>
+                                            <p style="width: 135px; margin: 0px;">
+                                                <a data-row="${indice.index}" class="edit btn btn-primary editProduct" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-edit" aria-hidden="true"></i></a>
+                                                <a data-row="${indice.index}" class="btn btn-danger remove removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </p>
                                         </td>
-                                        <input type="hidden" value="${p.idproducto}" id="idproducto${indice.index}" class="fieldProducto"/>
-                                        <input type="hidden" value="${p.nombreproducto}" id="nombre${indice.index}" class="fieldNombreProducto"/>
-                                       <!--td>
-                                           <div class="quantity"><input data-row="${indice.index}" value="" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
-                                       </td-->
+                                <input type="hidden" value="${p.idproducto}" id="idproducto${indice.index}" class="fieldProducto"/>
+                                <input type="hidden" value="${p.nombreproducto}" id="nombre${indice.index}" class="fieldNombreProducto"/>
+                                <!--td>
+                                    <div class="quantity"><input data-row="${indice.index}" value="" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
+                                </td-->
 
-                                       </tr>
+                                </tr>
                             </c:forEach>
 
                             </tbody>
