@@ -34,7 +34,7 @@
                 <div class="text-center">
                     <h1 class="h1pedido">Productos</h1>
 
-                    <button type="button" class="btn btn-success btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"> </span>&nbsp;Agregar</button>
+                    <button type="button" class="btn btn-success btn-default"><span class="fa fa-plus fa-lg" aria-hidden="true"> </span>&nbsp;Agregar</button>
                 </div>            
                 <br /><br /><br />
                 <div class="row">
@@ -63,8 +63,8 @@
                                         <td>${p.nombreTipo}</td>
                                         <td>
                                             <p style="width: 135px; margin: 0px;">
-                                                <a data-row="${indice.index}" class="edit btn btn-primary editProduct" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-edit" aria-hidden="true"></i></a>
-                                                <a data-row="${indice.index}" class="btn btn-danger remove removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                <a data-row="${indice.index}" class="edit btn btn-primary editProduct" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
+                                                <a data-row="${indice.index}" class="btn btn-danger removeP removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
                                             </p>
                                         </td>
                                 <input type="hidden" value="${p.idproducto}" id="idproducto${indice.index}" class="fieldProducto"/>

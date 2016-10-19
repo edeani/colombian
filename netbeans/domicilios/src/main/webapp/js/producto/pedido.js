@@ -123,26 +123,15 @@ $(document).ready(function () {
             geocoder.geocode({'address': address}, function (results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
                     responsePlace = results[0].geometry.location;
-                    /*var sector;
-                     
-                     
-                     sector = new google.maps.Polygon({
-                     paths: [
-                     {lat: 4.6872302, lng: -74.0954264}, //Boyacá con Avenida calle 72
-                     {lat: 4.6489007, lng: -74.1266292}, //Puente boyaca con 13
-                     {lat: 4.6033661, lng: -74.07996}, //Cra 14 cll 12
-                     {lat: 4.6278161, lng: -74.0638729}, // Javeriana
-                     {lat: 4.6872302, lng: -74.0954264}
-                     ]
-                     });*/
-                    $("#crearSector").val("");
+
                     var custom_latlng = new google.maps.LatLng(responsePlace.lat(), responsePlace.lng());
-                    var estadoDirección = google.maps.geometry.poly.containsLocation(custom_latlng, sector) ? 'IN' : 'OUT';
-                    if (estadoDirección === "OUT") {
+                    var estadoDireccion = google.maps.geometry.poly.containsLocation(custom_latlng, sector) ? 'IN' : 'OUT';
+                    if ( estadoDireccion === "OUT") {
                         if ($("#direccion.errors").length > 0) {
                             $("#direccion.errors").remove();
                         }
                         $("#formGroupDir").append("<span id='direccion.errors' class='text-danger'>Zona fuera de cobertura</span>");
+                        event.preventDefault();
                     } else {
                         map.setCenter(custom_latlng);
                         if (marker !== null && marker !== undefined) {
