@@ -16,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="/css/rs-wp-v1.2.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <link rel="stylesheet" type="text/css" href="/css/responsive.css">
+        <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.css">
 
         <!-- Fonts ================================================== -->
         <link href='/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
@@ -23,8 +24,8 @@
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
         <script type='text/javascript' src='/js/woocommerce.js'></script>
-
-        <script type="text/javascript" src="/js/producto/pedido.js"></script>
+        <script type="text/javascript" src="/js/jquery-confirm.js"></script>
+        <script type="text/javascript" src="/js/producto/admon-productos.js"></script>
     </head>
     <body>
         <div id="content">
@@ -32,7 +33,7 @@
 
                 <div class="text-center">
                     <h1 class="h1pedido">Productos</h1>
-                    
+
                     <button type="button" class="btn btn-success btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"> </span>&nbsp;Agregar</button>
                 </div>            
                 <br /><br /><br />
@@ -63,14 +64,15 @@
                                         <td>
                                             <a data-row="${indice.index}" class="edit editProduct" href="javascript:void(0);"><i style="color: #149bdf;" class="fa fa-edit"></i></a>
                                             <a data-row="${indice.index}" class="remove removeProduct" href="javascript:void(0);"><i style="color: red;" class="fa fa-close"></i></a>
-                                            
                                         </td>
-                                        <!--td>
-                                            <div class="quantity"><input data-row="${indice.index}" value="" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
-                                        </td-->
-                                        
-                                    </tr>
-                                </c:forEach>
+                                        <input type="hidden" value="${p.idproducto}" id="idproducto${indice.index}" class="fieldProducto"/>
+                                        <input type="hidden" value="${p.nombreproducto}" id="nombre${indice.index}" class="fieldNombreProducto"/>
+                                       <!--td>
+                                           <div class="quantity"><input data-row="${indice.index}" value="" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
+                                       </td-->
+
+                                       </tr>
+                            </c:forEach>
 
                             </tbody>
                         </table>
