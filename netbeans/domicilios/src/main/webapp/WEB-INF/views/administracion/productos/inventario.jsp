@@ -34,7 +34,7 @@
                 <div class="text-center">
                     <h1 class="h1pedido">Productos</h1>
 
-                    <button type="button" class="btn btn-success btn-default"><span class="fa fa-plus fa-lg" aria-hidden="true"> </span>&nbsp;Agregar</button>
+                    <a href="/administracion/productos/ingresar-producto.htm" class="btn btn-success btn-default"><span class="fa fa-plus fa-lg" aria-hidden="true"> </span>&nbsp;Agregar</a>
                 </div>            
                 <br /><br /><br />
                 <div class="row">

@@ -36,8 +36,8 @@ public class AdministracionProductos {
     
     @RequestMapping("/ingresar-producto.htm")
     public ModelAndView paginaIngresarProducto(){
-        ModelAndView mav = new ModelAndView();
-        
+        ModelAndView mav = new ModelAndView("administracion/productos/detalleProducto");
+        mav.addObject("estado", "N");
         return mav;
     }
     
