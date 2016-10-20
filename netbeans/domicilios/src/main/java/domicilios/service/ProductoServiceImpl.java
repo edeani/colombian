@@ -9,6 +9,7 @@ import domicilios.dao.CategoriaDao;
 import domicilios.dao.ProductoDao;
 import domicilios.dto.ProductoDto;
 import domicilios.entidad.Categoria;
+import domicilios.entidad.Producto;
 import domicilios.util.Util;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,14 @@ public class ProductoServiceImpl implements ProductoService{
     @Transactional(readOnly = true)
     public List<Categoria> listCategory() {
         return categoriaDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void eliminarProductoXid(Integer idproducto) {
+        Producto producto = productoDao.findById(idproducto);
+        producto.setEstado("I");
+        productoDao.Update(producto);
     }
     
 }

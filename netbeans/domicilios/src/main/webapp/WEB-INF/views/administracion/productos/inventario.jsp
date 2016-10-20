@@ -63,8 +63,8 @@
                                         <td>${p.nombreTipo}</td>
                                         <td>
                                             <p style="width: 135px; margin: 0px;">
-                                                <a data-row="${indice.index}" class="edit btn btn-primary editProduct" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
-                                                <a data-row="${indice.index}" class="btn btn-danger removeP removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
+                                                <a data-row="${indice.index}" class="edit btn btn-primary btn-sm editProduct" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
+                                                <a data-row="${indice.index}" class="btn btn-danger removeP btn-sm removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
                                             </p>
                                         </td>
                                 <input type="hidden" value="${p.idproducto}" id="idproducto${indice.index}" class="fieldProducto"/>

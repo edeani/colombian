@@ -11,6 +11,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -30,5 +32,18 @@ public class AdministracionProductos {
        List<ProductoDto> productos = productoService.listAllPage(1);
        mav.addObject("productos", productos);
        return mav;
+    }
+    
+    @RequestMapping("/ingresar-producto.htm")
+    public ModelAndView paginaIngresarProducto(){
+        ModelAndView mav = new ModelAndView();
+        
+        return mav;
+    }
+    
+    @RequestMapping("/eliminar-producto.htm")
+    public @ResponseBody String eliminarProducto(@RequestParam Integer idproducto){
+        productoService.eliminarProductoXid(idproducto);
+        return "OK";
     }
 }

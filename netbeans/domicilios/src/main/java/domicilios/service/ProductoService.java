@@ -18,4 +18,5 @@ public interface ProductoService {
     List<ProductoDto> listAllPage(Integer page);
     Integer numeroProducto();
     List<Categoria> listCategory();
+    void eliminarProductoXid(Integer idproducto);
 }

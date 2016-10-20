@@ -37,9 +37,13 @@ public class Producto implements Serializable {
     @Column(name = "precioproducto")
     private Float precioproducto;
     
-    @Size(max = 200)
+    @Size(max = 500)
     @Column(name = "descripcion")
     private String descripcion;
+    
+    @Size(max = 1)
+    @Column(name = "estado")
+    private String estado;
     
     @OneToMany(mappedBy = "idproducto")
     private List<Detallepedido> detallepedidoList;
@@ -90,5 +94,14 @@ public class Producto implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     
 }
