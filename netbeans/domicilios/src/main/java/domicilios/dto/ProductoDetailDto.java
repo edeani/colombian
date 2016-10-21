@@ -5,21 +5,34 @@
  */
 package domicilios.dto;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author user
  */
 
-public class ProductoDto implements Serializable{
+public class ProductoDetailDto{
+    
     
     private Integer idproducto;
+    @NotEmpty
+    @Size(max = 45)
+    @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ]*")
     private String nombreproducto;
+    @NotNull
     private Float precioproducto;
+    @NotNull
     private Integer tipo;
-    private String nombreTipo;
+    @NotEmpty
+    @Size(max = 500)
+    @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ\\.#\\-,]*")
     private String descripcion;
+    @NotEmpty
+    @Size(max = 1)
     private String estado;
 
     public Integer getIdproducto() {
@@ -53,15 +66,7 @@ public class ProductoDto implements Serializable{
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
-
-    public String getNombreTipo() {
-        return nombreTipo;
-    }
-
-    public void setNombreTipo(String nombreTipo) {
-        this.nombreTipo = nombreTipo;
-    }
-
+    
     public String getDescripcion() {
         return descripcion;
     }

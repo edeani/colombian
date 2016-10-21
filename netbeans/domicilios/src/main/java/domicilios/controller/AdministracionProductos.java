@@ -5,12 +5,14 @@
  */
 package domicilios.controller;
 
+import domicilios.dto.ProductoDetailDto;
 import domicilios.dto.ProductoDto;
 import domicilios.service.ProductoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/administracion/productos")
-public class AdministracionProductos {
+public class AdministracionProductos extends BaseController{
     
     @Autowired
     private ProductoService productoService;
@@ -34,9 +36,12 @@ public class AdministracionProductos {
        return mav;
     }
     
-    @RequestMapping("/ingresar-producto.htm")
+    @RequestMapping(value="/ingresar-producto.htm",method = RequestMethod.GET)
     public ModelAndView paginaIngresarProducto(){
         ModelAndView mav = new ModelAndView("administracion/productos/detalleProducto");
+        ProductoDetailDto producto = new ProductoDetailDto();
+        setBasicModel(mav, producto);
+        mav.addObject("producto",producto);
         mav.addObject("estado", "N");
         return mav;
     }

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,8 @@
         <link href='fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+        <script type="text/javascript" src="/js/producto/crearproducto.js"></script>
     </head>
     <body>
         <div id="content">
@@ -34,52 +37,52 @@
                 </div><!-- Banner -->
             </c:if>
             <div class="container rst-main-content rst-product-detail">
+                <springForm:form action="/administracion/productos/ingresar-producto.htm" method="post" commandName="productoDetailDto">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="rst-product-images">
+                                <ul class="bxslider">
+                                    <li><img style="width: 260px;" src="/img/post/gallery10.jpg" alt="Foto" /></li>
+                                </ul>
+                            </div>
 
-                <div class="row">
-                    <div class="col-sm-5">
-                        <div class="rst-product-images">
-                            <ul class="bxslider">
-                                <li><img style="width: 260px;" src="/img/post/gallery10.jpg" alt="Foto" /></li>
-                            </ul>
                         </div>
-                        
-                    </div>
-                    <div class="col-sm-7">
-
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa  fa-cutlery"></i></span>
-                            <input class="form-control" type="text" placeholder="Nombre" maxlength="50">
-                        </div>
-                        <br />
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa  fa-usd fa-lg"></i></span>
-                            <input class="form-control" type="text" placeholder="Precio" maxlength="50">
-                        </div>
-                        <br />
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-comment"></i></span>
-                            <textarea class="form-control" type="text" placeholder="Descripción" maxlength="200" rows="5"></textarea>
-                        </div>
-                        <br />
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa  fa-tag"></i></span>
-                            <select class="form-control">
-                                <option value="">Categor&iacute;a</option>
-                                <option value="2">2</option>
-                                <option value="1">1</option>
-                            </select>
-                        </div>
-                        <br />
-                        <div class="rst-product-info main-product-detail">
-                            <form action="/">
-                                <button class="btn btn-success btn-lg"><i class="fa fa-save fa-lg"></i> Guardar</button>
-                            </form>
-                            <hr />
+                        <div class="col-sm-7">
+                            <springForm:hidden path="idproducto" />
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa  fa-cutlery"></i></span>
+                                    <springForm:input cssClass="form-control" path="nombreproducto" maxlength="45" placeholder="Nombre"/>
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa  fa-usd fa-lg"></i></span>
+                                    <springForm:input cssClass="form-control" path="precioproducto" maxlength="5" placeholder="PrecioNombre"/>
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                                    <springForm:textarea cssClass="form-control" placeholder="Descripción" maxlength="200" rows="5" path="descripcion"/>
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa  fa-tag"></i></span>
+                                <springForm:select path="tipo" cssClass="form-control">
+                                    <option value="">Categor&iacute;a</option>
+                                    <option value="2">2</option>
+                                    <option value="1">1</option>
+                                </springForm:select>
+                            </div>
+                            <br />
+                            <div class="rst-product-info main-product-detail">
+                                <form action="/">
+                                    <button class="btn btn-success btn-lg"><i class="fa fa-save fa-lg"></i> Guardar</button>
+                                </form>
+                                <hr />
+                            </div>
                         </div>
                     </div>
-                </div>
-               <button class="btn btn-primary"><i class="fa fa-camera-retro fa-lg" aria-hidden="true"></i> Im&aacute;gen</button>
-                
+                    <button class="btn btn-primary"><i class="fa fa-camera-retro fa-lg" aria-hidden="true"></i> Im&aacute;gen</button>
+                </springForm:form>
             </div>
         </div><!-- End Content -->
     </body>
