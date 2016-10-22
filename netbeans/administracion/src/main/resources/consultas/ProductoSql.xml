@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="ProductoSql.listProducto">
+        select p.*,c.nombre as nombretipo from producto p inner join categoria c on c.cons = p.tipo where p.estado = 'A' order by p.tipo limit :cantidad offset :minimo ;
+    </query>
+</queries>
