@@ -9,28 +9,28 @@
 
         <title><sitemesh:write property='title'/></title>
         <!-- Favicons    ================================================== -->
-        <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-        <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
+        <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="<%=request.getContextPath()%>/img/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="<%=request.getContextPath()%>/img/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="<%=request.getContextPath()%>/img/apple-touch-icon-114x114.png">
 
         <!-- Bootstrap ================================================== -->
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="/css/jasny-bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap-slider.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jasny-bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap-slider.css">
         <link rel="stylesheet" type="text/css" href="/font-awesome-4.3.0/css/font-awesome.css">
 
         <!-- Plugins CSS ================================================== -->
-        <link rel="stylesheet" type="text/css" href="/css/animate.css"><!-- animation -->
-        <link rel="stylesheet" type="text/css" href="/css/bgndGallery.css"><!-- bgndGallery -->
-        <link rel="stylesheet" type="text/css" href="/js/fancybox/jquery.fancybox.css?v=2.1.5"><!-- Fancybox  -->
-        <link rel="stylesheet" type="text/css" href="/css/calendar/fullcalendar.min.css"><!-- Calendar -->
-        <link rel="stylesheet" type="text/css" href="/js/bxslider/jquery.bxslider.css"><!-- BxSlider -->
-        <link rel="stylesheet" type="text/css" href="/css/jquery.rs.selectbox.css"><!-- Selectbox -->	
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/animate.css"><!-- animation -->
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bgndGallery.css"><!-- bgndGallery -->
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/fancybox/jquery.fancybox.css?v=2.1.5"><!-- Fancybox  -->
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/calendar/fullcalendar.min.css"><!-- Calendar -->
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/bxslider/jquery.bxslider.css"><!-- BxSlider -->
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.rs.selectbox.css"><!-- Selectbox -->	
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script type="text/javascript" src="/js/jquery.1.11.1.js"></script>
-        <!--script src="/js/jquery-3.1.0.min.js"></script-->
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.1.11.1.js"></script>
+        <!--script src="<%=request.getContextPath()%>/js/jquery-3.1.0.min.js"></script-->
     <sitemesh:write property='head'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="rst-table">
                     <div class="rst-table-row">
-                        <a href="index.html" class="rst-logo rst-table-cell"><img src="/img/logopollo.png" alt=""/></a>
+                        <a href="index.html" class="rst-logo rst-table-cell"><img src="<%=request.getContextPath()%>/img/logopollo.png" alt=""/></a>
                         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -147,30 +147,30 @@
     </div><!--- End Wrapper -->
 
 
-    <!--script src="/js/jquery-3.1.0.min.js"></script-->
+    <!--script src="<%=request.getContextPath()%>/js/jquery-3.1.0.min.js"></script-->
     <!-- Bootstrap Js Compiled Plugins -->
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
 
     <!-- Backstretch Plugins -->
-    <script type="text/javascript" src="/js/jquery.backstretch.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.backstretch.js"></script>
 
     <!-- Form Js -->
-    <script type="text/javascript" src="/js/jquery.rs.form.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.rs.form.js"></script>
 
     <!-- BxSlider -->
-    <script type="text/javascript" src="/js/bxslider/jquery.easing.1.3.js"></script>
-    <script type="text/javascript" src="/js/bxslider/jquery.bxslider.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/bxslider/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/bxslider/jquery.bxslider.min.js"></script>
 
     <!-- Fancybox -->
-    <script type="text/javascript" src="/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
 
     <!-- Selectbox Js -->
-    <script type="text/javascript" src="/js/jquery.rs.selectbox.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.rs.selectbox.js"></script>
 
-    <script type='text/javascript' src="/js/bootstrap-slider.js"></script>
+    <script type='text/javascript' src="<%=request.getContextPath()%>/js/bootstrap-slider.js"></script>
 
-    <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>
+    <script type='text/javascript' src="<%=request.getContextPath()%>/js/owlcarousel/owl.carousel.min.js"></script>
 
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/main.js"></script>
 </body>
 </html>
