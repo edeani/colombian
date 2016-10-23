@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domicilios.controller;
+package com.administracion.controller;
 
-import domicilios.dto.ProductoDetailDto;
-import domicilios.dto.ProductoDto;
-import domicilios.service.ProductoService;
+import com.administracion.dto.ProductoDetailDto;
+import com.administracion.dto.ProductoDto;
+import com.administracion.service.ProductoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @author user
  */
 @Controller
-@RequestMapping("/administracion/productos")
-public class AdministracionProductos extends BaseController{
+@RequestMapping("/productos")
+public class ProductosController extends BaseController{
     
     @Autowired
     private ProductoService productoService;

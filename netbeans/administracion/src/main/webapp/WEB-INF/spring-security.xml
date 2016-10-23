@@ -18,11 +18,11 @@
         <csrf disabled="true"/>
         
         <intercept-url pattern="/signin.htm" access="isAnonymous()" />
-        <intercept-url pattern="/**" access="isAuthenticated()" />
+        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
         
         <access-denied-handler error-page="/403.htm" />
  
-        <form-login login-page='/signin.htm' login-processing-url="/j_spring_security_check"
+        <form-login login-page='/signin.htm' login-processing-url="/j_spring_security_check" 
                     default-target-url="/home.htm" always-use-default-target="false"
                     authentication-failure-url="/signin.htm?error=true" username-parameter="username"
                     password-parameter="password" />

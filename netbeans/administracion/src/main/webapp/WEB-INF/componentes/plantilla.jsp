@@ -67,7 +67,7 @@
                                 <li class="menu-item-has-children">
                                     <a href="#">Administraci&oacute;n</a>
                                     <ul class="sub-menu" style="min-width: 164px;">
-                                        <li><a href="/administracion/productos/inventario.htm">Productos</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/productos/inventario.htm">Productos</a></li>
                                         <li><a href="#">Pedidos</a></li>
                                     </ul>
                                 </li>

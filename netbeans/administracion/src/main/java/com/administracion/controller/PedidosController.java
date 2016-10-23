@@ -7,18 +7,19 @@ package com.administracion.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * @author user
+ * @author edeani
  */
 @Controller
-public class LoginController {
-
-    @RequestMapping(value = "/signin.htm")
-    public ModelAndView paginaLogin() {
-        return new ModelAndView("index");
+@RequestMapping("/pedidos")
+public class PedidosController {
+     
+    @RequestMapping("/listado.htm")
+    public ModelAndView indexDomicilios(){
+        ModelAndView mav =new ModelAndView("pedidos/ordenes");
+        return mav;
     }
 }
