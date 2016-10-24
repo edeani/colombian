@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController{
     
     
-    @RequestMapping("/home.htm")
+    @RequestMapping("home.htm")
     public ModelAndView inicio(){
         ModelAndView mav = new ModelAndView("home");
         return mav;
