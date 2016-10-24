@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="rst-table">
                     <div class="rst-table-row">
-                        <a href="index.html" class="rst-logo rst-table-cell"><img src="<%=request.getContextPath()%>/img/logopollo.png" alt=""/></a>
+                        <a href="<%=request.getContextPath()%>/home.htm" class="rst-logo rst-table-cell"><img src="<%=request.getContextPath()%>/img/logopollo.png" alt=""/></a>
                         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -60,18 +60,8 @@
                             </form>
                             <ul class="rst-main-menu">
                                 <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
-                                <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
-                                <li><a href="/compras/pedido.htm">Hacer Pedido</a></li>
-                                <li><a href="#contact">Contacto</a></li>
-                                <sec:authorize  access="hasRole('ROLE_ADMIN')">
-                                <li class="menu-item-has-children">
-                                    <a href="#">Administraci&oacute;n</a>
-                                    <ul class="sub-menu" style="min-width: 164px;">
-                                        <li><a href="<%=request.getContextPath()%>/productos/inventario.htm">Productos</a></li>
-                                        <li><a href="#">Pedidos</a></li>
-                                    </ul>
-                                </li>
-                                </sec:authorize>
+                                <li><a href="<%=request.getContextPath()%>/productos/inventario.htm">Productos</a></li>
+                                <li><a href="<%=request.getContextPath()%>/pedidos/domicilios.htm">Pedidos</a></li>
                                 <sec:authorize  access="isAuthenticated()">
                                 <li><a href="<%=request.getContextPath()%>/logout.htm">Cerrar Sesi&oacute;n</a></li>
                                 </sec:authorize>
