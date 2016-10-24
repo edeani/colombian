@@ -30,7 +30,7 @@ public class ProductosController extends BaseController{
     
     @RequestMapping("/inventario.htm")
     public ModelAndView index(){
-       ModelAndView mav = new ModelAndView("administracion/productos/inventario");
+       ModelAndView mav = new ModelAndView("productos/inventario");
        List<ProductoDto> productos = productoService.listAllPage(1);
        mav.addObject("productos", productos);
        return mav;
@@ -38,7 +38,7 @@ public class ProductosController extends BaseController{
     
     @RequestMapping(value="/ingresar-producto.htm",method = RequestMethod.GET)
     public ModelAndView paginaIngresarProducto(){
-        ModelAndView mav = new ModelAndView("administracion/productos/detalleProducto");
+        ModelAndView mav = new ModelAndView("productos/detalleProducto");
         ProductoDetailDto producto = new ProductoDetailDto();
         setBasicModel(mav, producto);
         mav.addObject("producto",producto);
