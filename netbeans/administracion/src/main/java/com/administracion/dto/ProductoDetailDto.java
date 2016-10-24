@@ -21,7 +21,7 @@ public class ProductoDetailDto{
     private Integer idproducto;
     @NotEmpty
     @Size(max = 45)
-    @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ]*")
+    @Pattern(regexp = "[A-Za-z0-9 áéíóúñÁÉÍÓÚÑ\\.\\-]*")
     private String nombreproducto;
     @NotNull
     private Float precioproducto;
@@ -29,7 +29,7 @@ public class ProductoDetailDto{
     private Integer tipo;
     @NotEmpty
     @Size(max = 500)
-    @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ\\.#\\-,]*")
+    @Pattern(regexp = "[A-Za-z0-9 áéíóúñÁÉÍÓÚÑ\\.#\\-,]*")
     private String descripcion;
     @NotEmpty
     @Size(max = 1)

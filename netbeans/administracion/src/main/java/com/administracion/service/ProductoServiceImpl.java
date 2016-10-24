@@ -7,6 +7,7 @@ package com.administracion.service;
 
 import com.administracion.dao.CategoriaDao;
 import com.administracion.dao.ProductoDao;
+import com.administracion.dto.ProductoDetailDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Categoria;
 import com.administracion.entidad.Producto;
@@ -58,6 +59,18 @@ public class ProductoServiceImpl implements ProductoService{
         Producto producto = productoDao.findById(idproducto);
         producto.setEstado("I");
         productoDao.Update(producto);
+    }
+
+    @Override
+    @Transactional
+    public void crearProductoAdministrador(ProductoDetailDto producto) {
+        Producto nuevoProducto = new Producto();
+        nuevoProducto.setDescripcion(producto.getDescripcion());
+        nuevoProducto.setNombreproducto(producto.getNombreproducto());
+        nuevoProducto.setPrecioproducto(producto.getPrecioproducto());
+        nuevoProducto.setEstado(producto.getEstado());
+        
+        productoDao.save(nuevoProducto);
     }
     
 }

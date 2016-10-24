@@ -68,34 +68,7 @@
                             </ul>
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
                         </div>
-                        <div class="rst-account rst-table-cell">
-                            <div class="rst-cart">
-                                <a href="#" class="rst-cart-icon"><span>6</span></a>
-                                <div class="rst-form-login rst-cart-info">
-                                    <div class="rst-list-product">
-                                        <div class="rst-product-item">
-                                            <a href="#">Plato 1<span class="count">2</span> <span class="price">$25.000</span></a>
-                                        </div>
-                                        <div class="rst-product-item">
-                                            <a href="#">Plato 2 <span class="count">2</span> <span class="price">$25.000</span></a>
-                                        </div>
-                                        <div class="rst-product-item">
-                                            <a href="#">Plato 3 <span class="count">2</span> <span class="price">$25.000</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="rst-checkout">
-                                        <a href="/compras/pedido.htm" class="btn btn-success btn-sm btnpagar"> HACER PEDIDO</a>
-                                        <span class="price">$75.000</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <sec:authorize  access="isAuthenticated()">
-                                <a href="/signin.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
-                            </sec:authorize>
-                            <sec:authorize  access="!isAuthenticated()">
-                                <a href="/signin.htm" class="rst-signup btn btn-success">Ingresar</a>
-                            </sec:authorize>
-                        </div>
+                        
                     </div>
                 </div><!-- End Top Header -->
                 <div class="rst-search rst-table">

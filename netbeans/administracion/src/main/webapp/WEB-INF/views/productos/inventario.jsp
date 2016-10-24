@@ -25,7 +25,7 @@
 
         <script type='text/javascript' src='/js/woocommerce.js'></script>
         <script type="text/javascript" src="/js/jquery-confirm.js"></script>
-        <script type="text/javascript" src="/js/producto/admon-productos.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/admon-productos.js"></script>
     </head>
     <body>
         <div id="content">
