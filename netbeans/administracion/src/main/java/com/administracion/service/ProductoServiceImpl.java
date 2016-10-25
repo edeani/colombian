@@ -69,8 +69,10 @@ public class ProductoServiceImpl implements ProductoService{
         nuevoProducto.setNombreproducto(producto.getNombreproducto());
         nuevoProducto.setPrecioproducto(producto.getPrecioproducto());
         nuevoProducto.setEstado(producto.getEstado());
-        
         productoDao.save(nuevoProducto);
+        
+        //Recupero consecutivo del producto guardado
+        producto.setIdproducto(nuevoProducto.getIdproducto());
     }
     
 }
