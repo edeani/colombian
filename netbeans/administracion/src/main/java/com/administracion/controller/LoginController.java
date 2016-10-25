@@ -7,7 +7,6 @@ package com.administracion.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -20,5 +19,11 @@ public class LoginController {
     @RequestMapping(value = "/signin.htm")
     public ModelAndView paginaLogin() {
         return new ModelAndView("index");
+    }
+    
+    @RequestMapping("/403.htm")
+    public ModelAndView domicilios403() {
+        ModelAndView mav = new ModelAndView("403");
+        return mav;
     }
 }
