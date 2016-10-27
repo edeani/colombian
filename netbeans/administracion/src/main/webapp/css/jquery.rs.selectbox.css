@@ -1,0 +1,54 @@
+.rs-select-inner {
+    height: 100%;
+    left: 0;
+    line-height: 40px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.rs-select-box {
+    position: relative;
+}
+.rs-select-value {
+	padding: 0 12px;
+}
+.rs-select-box.expanded .rs-select-inner {
+    z-index:100;
+}
+.rs-select-arrow{
+	height: 23px;
+    margin-top: -12px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 28px;
+	background: url("../img/arrow_select.png") no-repeat scroll center center transparent;
+}
+.rs-select-box .rs-select-options {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #969696;  
+	display:none;
+	position:relative; 
+	z-index:9999;
+	min-height:20px;
+}
+.rs-select-box.rs-select-box-bottom .rs-select-options
+{
+    position:absolute;
+    bottom:100%;
+    width:100%;
+}
+.rs-select-box .rs-select-item {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 12px;
+}
+.rs-select-box .rs-select-item:hover, .rs-select-box .rs-select-item.active {
+    color: #0080A8;
+	background:#ececec;
+}
+.rs-select-hidden{
+	position:absolute;
+	left:-9999px;	
+}
