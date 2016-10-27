@@ -1,3 +1,5 @@
+create database domicilios;
+use domicilios;
 -- phpMyAdmin SQL Dump
 -- version 4.3.4
 -- http://www.phpmyadmin.net
