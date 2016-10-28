@@ -202,6 +202,15 @@
                 <bd.ip>localhost:3306</bd.ip>
             </properties>
         </profile>
+        <profile>
+            <id>dev-pc-linux</id>
+            <properties>
+                <base.datos>domicilios</base.datos>
+                <bd.user>root</bd.user>
+                <bd.password>Compaq*87</bd.password>
+                <bd.ip>localhost:3306</bd.ip>
+            </properties>
+        </profile>
     </profiles>
     <repositories>
         <repository>
