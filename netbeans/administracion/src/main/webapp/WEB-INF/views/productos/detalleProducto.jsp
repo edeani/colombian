@@ -9,12 +9,19 @@
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/rs-wp-v1.2.css">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/responsive.css">
+        <link href="<%=request.getContextPath()%>/css/upload/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
         <!-- Fonts         ================================================== -->
-        <link href='fonts/stylesheet.css' rel='stylesheet' type='text/css'>
+        <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
+        <!--Las librerias para eluplñoad deben tener siempre el mismo orden -->
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/canvas-to-blob.min.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/sortable.min.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/purify.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/upload/fileinput.min.js"></script>
+        <!--fin upload-->
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/crearproducto.js"></script>
     </head>
@@ -43,7 +50,7 @@
                         <div class="col-sm-5">
                             <div class="rst-product-images">
                                 <ul class="bxslider">
-                                    <li><img style="width: 260px;" src="/img/post/gallery10.jpg" alt="Foto" /></li>
+                                    <li><img style="width: 260px;" src="<%=request.getContextPath()%>/img/post/gallery10.jpg" alt="Foto" /></li>
                                 </ul>
                             </div>
 
@@ -97,13 +104,13 @@
         <c:if test="${not empty mensaje}">
             <script type="text/javascript">
                 $(document).ready(function () {
-                    $.alert({
-                        title: 'Mensaje',
+                $.alert({
+                title: 'Mensaje',
                         content: '${mensaje}',
                         confirmButton: 'ok'
                         confirm: function () {
                         }
-                    });
+                });
                 });
             </script>
         </c:if>
