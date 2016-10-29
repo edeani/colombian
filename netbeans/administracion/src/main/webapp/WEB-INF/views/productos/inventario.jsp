@@ -13,18 +13,18 @@
     <head>
         <title>Administración de Productos</title>
         <!-- Custom Css ================================================== -->
-        <link rel="stylesheet" type="text/css" href="/css/rs-wp-v1.2.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/responsive.css">
-        <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.css">
+        <link rel="stylesheet" type="text/css" href="/administracion/css/rs-wp-v1.2.css">
+        <link rel="stylesheet" type="text/css" href="/administracion/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/administracion/css/responsive.css">
+        <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm.css">
 
         <!-- Fonts ================================================== -->
-        <link href='/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
+        <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
-        <script type='text/javascript' src='/js/woocommerce.js'></script>
-        <script type="text/javascript" src="/js/jquery-confirm.js"></script>
+        <script type='text/javascript' src='<%=request.getContextPath()%>/js/woocommerce.js'></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/admon-productos.js"></script>
     </head>
     <body>
@@ -55,7 +55,7 @@
                                     <tr id="fila${indice.index}" class="fila">
                                         <td>${p.idproducto}</td>
                                         <td class="product-name">
-                                            <img class="img-circle" src="img/post/product-card-01.jpg" alt="" />
+                                            <img class="img-circle" src="<%=request.getContextPath()%>/img/post/product-card-01.jpg" alt="" />
                                             ${p.nombreproducto}
                                         </td>
                                         <td>${p.descripcion}</td>
