@@ -96,9 +96,14 @@
                             <springForm:errors path="tipo" cssClass="text-danger" />
                             <br />
                             <springForm:hidden path="estado" />
+                            <div class="rst-product-info main-product-detail">
+                                <form action="/">
+                                    <button class="btn btn-success btn-lg"><i class="fa fa-save fa-lg"></i> Guardar</button>
+                                </form>
+                                <hr />
+                            </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary"><i class="fa fa-camera-retro fa-lg" aria-hidden="true"></i> Im&aacute;gen</button>
                 </springForm:form>
             </div>
         </div><!-- End Content -->

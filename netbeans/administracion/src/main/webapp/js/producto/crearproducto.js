@@ -1,3 +1,3 @@
 $(document).on('ready', function() {
-    $("#uploadimg").fileinput({showCaption: false});
+    $("#uploadimg").fileinput({showCaption: false,showUpload: false});
 });
