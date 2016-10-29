@@ -9,12 +9,13 @@
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/rs-wp-v1.2.css">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/responsive.css">
-        <link href="<%=request.getContextPath()%>/css/upload/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
         <!-- Fonts         ================================================== -->
         <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+        
+        <link href="<%=request.getContextPath()%>/css/upload/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
         <!--Las librerias para eluplñoad deben tener siempre el mismo orden -->
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/canvas-to-blob.min.js"></script>
@@ -50,8 +51,15 @@
                         <div class="col-sm-5">
                             <div class="rst-product-images">
                                 <ul class="bxslider">
-                                    <li><img style="width: 260px;" src="<%=request.getContextPath()%>/img/post/gallery10.jpg" alt="Foto" /></li>
+                                    <li>
+
+                                       <!--img style="width: 260px;" src="<%=request.getContextPath()%>/img/post/gallery10.jpg" alt="Foto" /-->
+
+                                    </li>
                                 </ul>
+                                <div id="content-img" style="width: 100%; height: 100%;">
+                                    <input id="upload-img" type="file" >
+                                </div>
                             </div>
 
                         </div>
