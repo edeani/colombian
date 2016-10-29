@@ -58,7 +58,7 @@
                                     </li>
                                 </ul>
                                 <div id="content-img" style="width: 100%; height: 100%;">
-                                    <input id="upload-img" type="file" >
+                                    <input id="uploadimg" type="file" >
                                 </div>
                             </div>
 
@@ -96,12 +96,6 @@
                             <springForm:errors path="tipo" cssClass="text-danger" />
                             <br />
                             <springForm:hidden path="estado" />
-                            <div class="rst-product-info main-product-detail">
-                                <form action="/">
-                                    <button class="btn btn-success btn-lg"><i class="fa fa-save fa-lg"></i> Guardar</button>
-                                </form>
-                                <hr />
-                            </div>
                         </div>
                     </div>
                     <button class="btn btn-primary"><i class="fa fa-camera-retro fa-lg" aria-hidden="true"></i> Im&aacute;gen</button>
