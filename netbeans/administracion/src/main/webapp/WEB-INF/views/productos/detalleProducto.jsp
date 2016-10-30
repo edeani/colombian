@@ -46,7 +46,7 @@
                 </div><!-- Banner -->
             </c:if>
             <div class="container rst-main-content rst-product-detail">
-                <springForm:form action="${pageContext.servletContext.contextPath}/productos/ingresar-producto.htm" method="post" commandName="productoDetailDto">
+                <springForm:form  method="post" commandName="productoDetailDto" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="rst-product-images">
@@ -58,7 +58,7 @@
                                     </li>
                                 </ul>
                                 <div id="content-img" style="width: 100%; height: 100%;">
-                                    <input id="uploadimg" type="file" >
+                                    <input id="imagen" name="imagen" type="file"/>
                                 </div>
                             </div>
 
@@ -70,7 +70,7 @@
                                     <springForm:input cssClass="form-control" path="nombreproducto" maxlength="45" placeholder="Nombre"/>
 
                             </div>
-                            <springForm:errors path="nombreproducto" cssClass="text-danger" />
+                                    <springForm:errors path="nombreproducto" cssClass="text-danger" />
                             <br />
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa  fa-usd fa-lg"></i></span>

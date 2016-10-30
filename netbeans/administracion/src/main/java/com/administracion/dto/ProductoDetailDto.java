@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -34,6 +35,10 @@ public class ProductoDetailDto{
     @NotEmpty
     @Size(max = 1)
     private String estado;
+    
+    private MultipartFile imagen;
+    
+    private String rutaImagen;
 
     public Integer getIdproducto() {
         return idproducto;
@@ -81,6 +86,22 @@ public class ProductoDetailDto{
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public MultipartFile getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(MultipartFile imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
     
     

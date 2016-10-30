@@ -190,6 +190,7 @@
                 <bd.user>root</bd.user>
                 <bd.password>compaq</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
+                <path.img></path.img>
             </properties>
         </profile>
         <!-- Aquí se agregan mas perfiles de compilación -->
@@ -200,6 +201,7 @@
                 <bd.user>root</bd.user>
                 <bd.password></bd.password>
                 <bd.ip>localhost:3306</bd.ip>
+                <path.img></path.img>
             </properties>
         </profile>
         <profile>
@@ -209,6 +211,7 @@
                 <bd.user>root</bd.user>
                 <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
+                <path.img>/home/edeani/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
             </properties>
         </profile>
     </profiles>

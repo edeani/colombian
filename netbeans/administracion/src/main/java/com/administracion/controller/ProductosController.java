@@ -8,7 +8,9 @@ package com.administracion.controller;
 import com.administracion.dto.ProductoDetailDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Categoria;
+import com.administracion.enumration.ExtencionesEnum;
 import com.administracion.service.ProductoService;
+import com.administracion.util.LectorPropiedades;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +46,8 @@ public class ProductosController extends BaseController implements ServletContex
     private ServletContext servletContext;
 
     private List<Categoria> categorias;
-    private static final String EXT_JPEG = ".jpeg";
-    private static final String EXT_PNG = ".png";
+    private static final String PROPIEDAD_PATHIMG = "path.img";
+    private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
 
     @Autowired
     private void setCategorias() {
@@ -76,14 +79,13 @@ public class ProductosController extends BaseController implements ServletContex
     }
 
     @RequestMapping(value = "/ingresar-producto.htm", method = RequestMethod.POST)
-    public ModelAndView ingresarProducto(@ModelAttribute @Valid ProductoDetailDto productoDetailDto, BindingResult binding,
-            @RequestParam(value = "image", required = false) MultipartFile image) {
+    public ModelAndView ingresarProducto(@ModelAttribute @Valid ProductoDetailDto productoDetailDto, BindingResult binding) {
         if (binding.hasErrors()) {
             return setMavOnErrorIngresarProducto(productoDetailDto);
         } else {
             try {
                 productoService.crearProductoAdministrador(productoDetailDto);
-                subirImagenes(image, productoDetailDto.getIdproducto().toString());
+                subirImagenes(productoDetailDto.getImagen(), productoDetailDto.getIdproducto().toString());
                 return new ModelAndView("redirect:/productos/inventario.htm");
             } catch (Exception e) {
                 System.out.println("ingresarProducto::" + e.getMessage());
@@ -111,26 +113,25 @@ public class ProductosController extends BaseController implements ServletContex
 
     @RequestMapping(value = "/upload-image", method = RequestMethod.POST)
     @ResponseBody
-    public String subirImagenes(@RequestParam(value = "image", required = false) MultipartFile image, @RequestParam(required = false) String nombreImagen) {
+    public String subirImagenes(@RequestParam(value = "imagen", required = false) MultipartFile image, @RequestParam(required = false) String nombreImagen) throws Exception {
         if (image != null) {
-            if (!image.getContentType().equals("image/jpeg") && !image.getContentType().equals("image/png")) {
-                return "Solo se aceptan imágenes JPG y PNG";
-            } else {
-                if (image.getContentType().equals("image/jpeg")) {
-                    nombreImagen += EXT_JPEG;
-                } else if (image.getContentType().equals("image/png")) {
-                    nombreImagen += EXT_PNG;
+            LectorPropiedades le = new LectorPropiedades();
+            try {
+                String extension = "";
+                String nombreCompleto = nombreImagen;
+                if (image.getContentType().contains("jpeg")) {
+                    nombreCompleto += ExtencionesEnum.JPG.getExt();
+                } else if (image.getContentType().contains("png")) {
+                    nombreCompleto += ExtencionesEnum.PNG.getExt();
+                } else if (image.getContentType().contains("gif")) {
+                    nombreCompleto += ExtencionesEnum.GIF.getExt();
+                } else {
+                    nombreCompleto = image.getOriginalFilename();
                 }
-                File file = new File(servletContext.getRealPath("/") + "/"
-                        + nombreImagen);
-
-                try {
-                    FileUtils.writeByteArrayToFile(file, image.getBytes());
-                } catch (IOException ex) {
-                    Logger.getLogger(ProductosController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                System.out.println("Go to the location:  " + file.toString()
-                        + " on your computer and verify that the image has been stored.");
+                FileCopyUtils.copy(image.getBytes(), new File(le.leerPropiedad(PROPIEDADES_COLOMBIAN, PROPIEDAD_PATHIMG) + nombreCompleto));
+            } catch (IOException ex) {
+                Logger.getLogger(ProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                throw new Exception("Falló carga imagen");
             }
             return "OK";
         } else {
