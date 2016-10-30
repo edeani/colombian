@@ -21,6 +21,7 @@ public class ProductoDto implements Serializable{
     private String nombreTipo;
     private String descripcion;
     private String estado;
+    private String imagen;
 
     public Integer getIdproducto() {
         return idproducto;
@@ -76,6 +77,14 @@ public class ProductoDto implements Serializable{
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
     

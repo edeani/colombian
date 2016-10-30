@@ -11,7 +11,7 @@ import com.administracion.dto.ProductoDetailDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Categoria;
 import com.administracion.entidad.Producto;
-import com.administracion.enumration.ExtencionesEnum;
+import com.administracion.enumeration.ExtencionesEnum;
 import com.administracion.util.Util;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +87,26 @@ public class ProductoServiceImpl implements ProductoService {
         }
         
         productoDao.Update(nuevoProducto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Producto findProductoXid(Integer idproducto) {
+        return productoDao.findById(idproducto);
+    }
+
+    @Override
+    @Transactional
+    public void actualizarProductoAdministrador(ProductoDetailDto productoDetailDto) {
+        Producto producto = productoDao.findById(productoDetailDto.getIdproducto());
+        
+        producto.setDescripcion(productoDetailDto.getDescripcion());
+        producto.setImagen(productoDetailDto.getRutaImagen());
+        producto.setNombreproducto(productoDetailDto.getNombreproducto());
+        producto.setPrecioproducto(productoDetailDto.getPrecioproducto());
+        producto.setTipo(productoDetailDto.getIdproducto());
+        
+        productoDao.Update(producto);
     }
 
 }

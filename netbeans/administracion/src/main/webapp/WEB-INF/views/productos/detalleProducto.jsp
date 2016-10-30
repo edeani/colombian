@@ -24,42 +24,34 @@
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/upload/fileinput.min.js"></script>
         <!--fin upload-->
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
+        <c:choose>
+            <c:when test="${estado eq 'E'}">
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/editarproducto.js"></script>        
+            </c:when>
+            <c:otherwise>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/crearproducto.js"></script>
+            </c:otherwise>
+        </c:choose>
     </head>
     <body>
         <div id="content">
-            <c:if test="${estado ne 'N'}">
-                <div id="rst-banner" data-background="<%=request.getContextPath()%>/img/post/banner02.jpg">
-                    <div class="container">
-                        <div class="rst-inner-banner clearfix">
-                            <div class="rst-banner-content pull-left">
-                                <h1>Sushi</h1>
-                                <p>We opened. Tasty food &amp; drinks.</p>
-                            </div>
-                            <ul class="breadcrumb pull-right">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="products_list.html">Store</a> </li>
-                                <li>Sushi</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div><!-- Banner -->
-            </c:if>
+            
+              
             <div class="container rst-main-content rst-product-detail">
                 <springForm:form  method="post" commandName="productoDetailDto" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="rst-product-images">
-                                <ul class="bxslider">
-                                    <li>
-
-                                       <!--img style="width: 260px;" src="<%=request.getContextPath()%>/img/post/gallery10.jpg" alt="Foto" /-->
-
-                                    </li>
-                                </ul>
-                                <div id="content-img" style="width: 100%; height: 100%;">
+                                <c:if test="${estado eq 'E'}">
+                                    <div id="load-pic">
+                                       <img style="width: 260px;" src="<%=request.getContextPath()%>/img-producto/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
+                                    </div>
+                                </br>
+                                </c:if>
+                                <div id="content-img" style="width: 100%; height: 100%;" >
                                     <input id="imagen" name="imagen" type="file"/>
                                 </div>
+    
                             </div>
 
                         </div>

@@ -8,7 +8,8 @@ package com.administracion.controller;
 import com.administracion.dto.ProductoDetailDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Categoria;
-import com.administracion.enumration.ExtencionesEnum;
+import com.administracion.entidad.Producto;
+import com.administracion.enumeration.ExtencionesEnum;
 import com.administracion.service.ProductoService;
 import com.administracion.util.LectorPropiedades;
 import java.io.File;
@@ -18,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -81,7 +81,7 @@ public class ProductosController extends BaseController implements ServletContex
     @RequestMapping(value = "/ingresar-producto.htm", method = RequestMethod.POST)
     public ModelAndView ingresarProducto(@ModelAttribute @Valid ProductoDetailDto productoDetailDto, BindingResult binding) {
         if (binding.hasErrors()) {
-            return setMavOnErrorIngresarProducto(productoDetailDto);
+            return setMavOnErrorIngresarProducto(productoDetailDto, "N");
         } else {
             try {
                 productoService.crearProductoAdministrador(productoDetailDto);
@@ -89,18 +89,59 @@ public class ProductosController extends BaseController implements ServletContex
                 return new ModelAndView("redirect:/productos/inventario.htm");
             } catch (Exception e) {
                 System.out.println("ingresarProducto::" + e.getMessage());
-                ModelAndView mavex = setMavOnErrorIngresarProducto(productoDetailDto);
+                ModelAndView mavex = setMavOnErrorIngresarProducto(productoDetailDto, "N");
                 mavex.addObject("mensaje", "No se pudo crear el producto. Intente m&aacute;s tarde.");
                 return mavex;
             }
         }
     }
 
-    private ModelAndView setMavOnErrorIngresarProducto(ProductoDetailDto productoDetailDto) {
+    @RequestMapping(value = "/editar-producto.htm", method = RequestMethod.GET)
+    public ModelAndView paginaEditarProducto(@RequestParam Integer idproducto) {
+        ModelAndView mav = new ModelAndView("productos/detalleProducto");
+        Producto producto = productoService.findProductoXid(idproducto);
+        ProductoDetailDto productoDetailDto = new ProductoDetailDto();
+        if (producto != null) {
+            productoDetailDto.setDescripcion(producto.getDescripcion());
+            productoDetailDto.setEstado(producto.getEstado());
+            productoDetailDto.setIdproducto(producto.getIdproducto());
+            productoDetailDto.setRutaImagen(producto.getImagen());
+            productoDetailDto.setNombreproducto(producto.getNombreproducto());
+            productoDetailDto.setTipo(producto.getTipo());
+            productoDetailDto.setPrecioproducto(producto.getPrecioproducto());
+        } else {
+            productoDetailDto.setEstado("A");
+            mav.addObject("mensaje", "Producto no encontrado");
+        }
+
+        setBasicModel(mav, productoDetailDto);
+        mav.addObject("producto", productoDetailDto);
+        mav.addObject("estado", "E");
+        return mav;
+    }
+
+    @RequestMapping(value = "/editar-producto.htm", method = RequestMethod.GET)
+    public ModelAndView editarProducto(@ModelAttribute @Valid ProductoDetailDto productoDetailDto, BindingResult binding) {
+        if (binding.hasErrors()) {
+            return setMavOnErrorIngresarProducto(productoDetailDto, "E");
+        } else {
+            productoService.actualizarProductoAdministrador(productoDetailDto);
+            try {
+                subirImagenes(productoDetailDto.getImagen(), productoDetailDto.getIdproducto().toString());
+                return new ModelAndView("redirect:/productos/inventario.htm");
+            } catch (Exception e) {
+                ModelAndView mavex = setMavOnErrorIngresarProducto(productoDetailDto, "E");
+                mavex.addObject("mensaje", "No se pudo crear la imagen producto. Intente m&aacute;s tarde.");
+                return mavex;
+            }
+        }
+    }
+
+    private ModelAndView setMavOnErrorIngresarProducto(ProductoDetailDto productoDetailDto, String estado) {
         ModelAndView mav = new ModelAndView("productos/detalleProducto");
         setBasicModel(mav, productoDetailDto);
         mav.addObject("producto", productoDetailDto);
-        mav.addObject("estado", "N");
+        mav.addObject("estado", estado);
         return mav;
     }
 
