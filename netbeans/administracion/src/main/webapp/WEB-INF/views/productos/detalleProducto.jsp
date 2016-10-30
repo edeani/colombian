@@ -9,12 +9,13 @@
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/rs-wp-v1.2.css">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/responsive.css">
+        <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm.css">
 
         <!-- Fonts         ================================================== -->
         <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-        
+
         <link href="<%=request.getContextPath()%>/css/upload/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
         <!--Las librerias para eluplñoad deben tener siempre el mismo orden -->
@@ -26,17 +27,17 @@
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
         <c:choose>
             <c:when test="${estado eq 'E'}">
-        <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/editarproducto.js"></script>        
+                <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/editarproducto.js"></script>        
             </c:when>
             <c:otherwise>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/crearproducto.js"></script>
+                <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/crearproducto.js"></script>
             </c:otherwise>
         </c:choose>
     </head>
     <body>
         <div id="content">
-            
-              
+
+
             <div class="container rst-main-content rst-product-detail">
                 <springForm:form  method="post" commandName="productoDetailDto" enctype="multipart/form-data">
                     <div class="row">
@@ -44,25 +45,26 @@
                             <div class="rst-product-images">
                                 <c:if test="${estado eq 'E'}">
                                     <div id="load-pic">
-                                       <img style="width: 260px;" src="<%=request.getContextPath()%>/img-producto/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
+                                        <img style="width: 260px;" src="<%=request.getContextPath()%>/img-producto/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
                                     </div>
-                                </br>
+                                    </br>
                                 </c:if>
                                 <div id="content-img" style="width: 100%; height: 100%;" >
                                     <input id="imagen" name="imagen" type="file"/>
                                 </div>
-    
+
                             </div>
 
                         </div>
                         <div class="col-sm-7">
+                            <springForm:hidden path="rutaImagen" />
                             <springForm:hidden path="idproducto" />
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa  fa-cutlery"></i></span>
                                     <springForm:input cssClass="form-control" path="nombreproducto" maxlength="45" placeholder="Nombre"/>
 
                             </div>
-                                    <springForm:errors path="nombreproducto" cssClass="text-danger" />
+                            <springForm:errors path="nombreproducto" cssClass="text-danger" />
                             <br />
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa  fa-usd fa-lg"></i></span>
@@ -102,15 +104,24 @@
         <%-- Se muestra si hay un error interno --%>
         <c:if test="${not empty mensaje}">
             <script type="text/javascript">
-                $(document).ready(function () {
+
                 $.alert({
-                title: 'Mensaje',
-                        content: '${mensaje}',
-                        confirmButton: 'ok'
-                        confirm: function () {
-                        }
+                    title: 'Mensaje',
+                    content: '${mensaje}',
+                    confirmButton: 'ok',
+                    confirm: function () {
+                    }
                 });
-                });
+                //reload img
+                setTimeout(
+                        reload
+                        , 5000);
+                function reload() {
+                    var imagen = $("#load-pic").children()[0];
+                    var rutaImg = $(imagen).attr("src");
+                    d = new Date();
+                    $(imagen).attr("src", rutaImg+"?"+d.getTime());
+                }
             </script>
         </c:if>
     </body>

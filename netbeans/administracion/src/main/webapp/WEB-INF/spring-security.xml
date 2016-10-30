@@ -17,7 +17,7 @@
     <http use-expressions="true">
         <csrf disabled="true"/>
         
-        <intercept-url pattern="/signin.htm" access="isAnonymous()" />
+        <intercept-url pattern="/signin.htm" access="permitAll()" />
         <intercept-url pattern="/productos/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/pedidos/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/home.htm" access="hasRole('ROLE_ADMIN')" />

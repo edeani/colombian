@@ -38,13 +38,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/productos")
-public class ProductosController extends BaseController implements ServletContextAware {
+public class ProductosController extends BaseController {
 
     @Autowired
     private ProductoService productoService;
-
-    private ServletContext servletContext;
-
     private List<Categoria> categorias;
     private static final String PROPIEDAD_PATHIMG = "path.img";
     private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
@@ -86,7 +83,7 @@ public class ProductosController extends BaseController implements ServletContex
             try {
                 productoService.crearProductoAdministrador(productoDetailDto);
                 subirImagenes(productoDetailDto.getImagen(), productoDetailDto.getIdproducto().toString());
-                return new ModelAndView("redirect:/productos/inventario.htm");
+                return new ModelAndView("redirect:/productos/editar-producto.htm?idproducto=" + productoDetailDto.getIdproducto() + "&origen=G");
             } catch (Exception e) {
                 System.out.println("ingresarProducto::" + e.getMessage());
                 ModelAndView mavex = setMavOnErrorIngresarProducto(productoDetailDto, "N");
@@ -97,7 +94,7 @@ public class ProductosController extends BaseController implements ServletContex
     }
 
     @RequestMapping(value = "/editar-producto.htm", method = RequestMethod.GET)
-    public ModelAndView paginaEditarProducto(@RequestParam Integer idproducto) {
+    public ModelAndView paginaEditarProducto(@RequestParam Integer idproducto, @RequestParam(required = false) String origen) {
         ModelAndView mav = new ModelAndView("productos/detalleProducto");
         Producto producto = productoService.findProductoXid(idproducto);
         ProductoDetailDto productoDetailDto = new ProductoDetailDto();
@@ -109,6 +106,13 @@ public class ProductosController extends BaseController implements ServletContex
             productoDetailDto.setNombreproducto(producto.getNombreproducto());
             productoDetailDto.setTipo(producto.getTipo());
             productoDetailDto.setPrecioproducto(producto.getPrecioproducto());
+
+            if(origen!=null){
+                if(origen.equals("G"))
+              mav.addObject("mensaje", "Guardado");
+                
+            }
+            
         } else {
             productoDetailDto.setEstado("A");
             mav.addObject("mensaje", "Producto no encontrado");
@@ -120,7 +124,7 @@ public class ProductosController extends BaseController implements ServletContex
         return mav;
     }
 
-    @RequestMapping(value = "/editar-producto.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/editar-producto.htm", method = RequestMethod.POST)
     public ModelAndView editarProducto(@ModelAttribute @Valid ProductoDetailDto productoDetailDto, BindingResult binding) {
         if (binding.hasErrors()) {
             return setMavOnErrorIngresarProducto(productoDetailDto, "E");
@@ -128,7 +132,12 @@ public class ProductosController extends BaseController implements ServletContex
             productoService.actualizarProductoAdministrador(productoDetailDto);
             try {
                 subirImagenes(productoDetailDto.getImagen(), productoDetailDto.getIdproducto().toString());
-                return new ModelAndView("redirect:/productos/inventario.htm");
+                ModelAndView mav = new ModelAndView("productos/detalleProducto");
+                setBasicModel(mav, productoDetailDto);
+                mav.addObject("producto", productoDetailDto);
+                mav.addObject("estado", "E");
+                mav.addObject("mensaje", "Guardado!");
+                return mav;
             } catch (Exception e) {
                 ModelAndView mavex = setMavOnErrorIngresarProducto(productoDetailDto, "E");
                 mavex.addObject("mensaje", "No se pudo crear la imagen producto. Intente m&aacute;s tarde.");
@@ -156,33 +165,31 @@ public class ProductosController extends BaseController implements ServletContex
     @ResponseBody
     public String subirImagenes(@RequestParam(value = "imagen", required = false) MultipartFile image, @RequestParam(required = false) String nombreImagen) throws Exception {
         if (image != null) {
-            LectorPropiedades le = new LectorPropiedades();
-            try {
-                String extension = "";
-                String nombreCompleto = nombreImagen;
-                if (image.getContentType().contains("jpeg")) {
-                    nombreCompleto += ExtencionesEnum.JPG.getExt();
-                } else if (image.getContentType().contains("png")) {
-                    nombreCompleto += ExtencionesEnum.PNG.getExt();
-                } else if (image.getContentType().contains("gif")) {
-                    nombreCompleto += ExtencionesEnum.GIF.getExt();
-                } else {
-                    nombreCompleto = image.getOriginalFilename();
+            if (!image.isEmpty()) {
+                LectorPropiedades le = new LectorPropiedades();
+                try {
+                    String extension = "";
+                    String nombreCompleto = nombreImagen;
+                    if (image.getContentType().contains("jpeg")) {
+                        nombreCompleto += ExtencionesEnum.JPG.getExt();
+                    } else if (image.getContentType().contains("png")) {
+                        nombreCompleto += ExtencionesEnum.PNG.getExt();
+                    } else if (image.getContentType().contains("gif")) {
+                        nombreCompleto += ExtencionesEnum.GIF.getExt();
+                    } else {
+                        nombreCompleto = image.getOriginalFilename();
+                    }
+                    FileCopyUtils.copy(image.getBytes(), new File(le.leerPropiedad(PROPIEDADES_COLOMBIAN, PROPIEDAD_PATHIMG) + nombreCompleto));
+                } catch (IOException ex) {
+                    Logger.getLogger(ProductosController.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new Exception("Falló carga imagen");
                 }
-                FileCopyUtils.copy(image.getBytes(), new File(le.leerPropiedad(PROPIEDADES_COLOMBIAN, PROPIEDAD_PATHIMG) + nombreCompleto));
-            } catch (IOException ex) {
-                Logger.getLogger(ProductosController.class.getName()).log(Level.SEVERE, null, ex);
-                throw new Exception("Falló carga imagen");
+                return "OK";
             }
-            return "OK";
-        } else {
-            return "Imágen Vacía";
         }
+        return "Imágen Vacía";
+
     }
 
-    @Override
-    public void setServletContext(ServletContext sc) {
-        this.servletContext = sc;
-    }
 
 }

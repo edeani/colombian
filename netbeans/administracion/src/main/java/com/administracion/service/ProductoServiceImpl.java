@@ -85,7 +85,7 @@ public class ProductoServiceImpl implements ProductoService {
         } else {
             nuevoProducto.setImagen(producto.getImagen().getOriginalFilename());
         }
-        
+
         productoDao.Update(nuevoProducto);
     }
 
@@ -99,13 +99,28 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional
     public void actualizarProductoAdministrador(ProductoDetailDto productoDetailDto) {
         Producto producto = productoDao.findById(productoDetailDto.getIdproducto());
-        
+
         producto.setDescripcion(productoDetailDto.getDescripcion());
         producto.setImagen(productoDetailDto.getRutaImagen());
         producto.setNombreproducto(productoDetailDto.getNombreproducto());
         producto.setPrecioproducto(productoDetailDto.getPrecioproducto());
-        producto.setTipo(productoDetailDto.getIdproducto());
-        
+        producto.setTipo(productoDetailDto.getTipo());
+        if (producto.getImagen() == null) {
+            producto.setImagen("");
+        }
+        if (producto.getImagen().isEmpty()) {
+            if (productoDetailDto.getImagen().getContentType().contains("jpeg")) {
+                producto.setImagen(productoDetailDto.getIdproducto() + ExtencionesEnum.JPG.getExt());
+            } else if (productoDetailDto.getImagen().getContentType().contains("png")) {
+                producto.setImagen(productoDetailDto.getIdproducto() + ExtencionesEnum.PNG.getExt());
+            } else if (productoDetailDto.getImagen().getContentType().contains("gif")) {
+                producto.setImagen(productoDetailDto.getIdproducto() + ExtencionesEnum.GIF.getExt());
+            } else {
+                producto.setImagen(productoDetailDto.getImagen().getOriginalFilename());
+            }
+        } 
+        //Actualizo la ruta para el objeto vista en pantalla
+        productoDetailDto.setRutaImagen(producto.getImagen());
         productoDao.Update(producto);
     }
 
