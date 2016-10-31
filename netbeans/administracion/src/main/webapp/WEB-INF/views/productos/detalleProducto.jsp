@@ -51,6 +51,7 @@
                                 </c:if>
                                 <div id="content-img" style="width: 100%; height: 100%;" >
                                     <input id="imagen" name="imagen" type="file"/>
+                                    <p>Selecione la im&aacute;gen del Producto(Tama&ntilde;o m&aacute;ximo permitido 600k)</p>
                                 </div>
 
                             </div>
