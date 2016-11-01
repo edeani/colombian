@@ -124,4 +124,12 @@ public class ProductoServiceImpl implements ProductoService {
         productoDao.Update(producto);
     }
 
+    @Override
+    @Transactional
+    public void activarProductoXid(Integer idproducto) {
+        Producto producto = productoDao.findById(idproducto);
+        producto.setEstado("A");
+        productoDao.Update(producto);
+    }
+
 }

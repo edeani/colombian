@@ -159,6 +159,12 @@ public class ProductosController extends BaseController {
         return "OK";
     }
 
+    @RequestMapping("/activar-producto.htm")
+    public @ResponseBody
+    String activarProducto(@RequestParam Integer idproducto) {
+        productoService.activarProductoXid(idproducto);
+        return "OK";
+    }
     @RequestMapping(value = "/upload-image", method = RequestMethod.POST)
     @ResponseBody
     public String subirImagenes(@RequestParam(value = "imagen", required = false) MultipartFile image, @RequestParam(required = false) String nombreImagen) throws Exception {

@@ -21,6 +21,7 @@ public interface ProductoService {
     Integer numeroProducto();
     List<Categoria> listCategory();
     void eliminarProductoXid(Integer idproducto);
+    void activarProductoXid(Integer idproducto);
     void crearProductoAdministrador(ProductoDetailDto producto);
     Producto findProductoXid(Integer idproducto);
     void actualizarProductoAdministrador(ProductoDetailDto productoDetailDto);
