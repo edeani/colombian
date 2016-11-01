@@ -8,7 +8,7 @@ $(document).ready(function () {
             confirmButtonClass: 'btn-success',
             cancelButtonClass: 'btn-danger',
             title: 'Alerta!',
-            content: '¿Desea confirmar la eliminación del producto "' + nombre + '" con id ' + idproducto + '?',
+            content: '¿Desea confirmar la inactivación del producto "' + nombre + '" con id ' + idproducto + '?',
             confirmButton: 'Si',
             cancelButton: 'NO, para nada !',
             confirm: function () {
@@ -18,11 +18,14 @@ $(document).ready(function () {
                     type: 'POST',
                     timeout: 20000,
                     success: function (response) {
-                        removeProductTable(fila);
+                        //removeProductTable(fila);
+                        $("#fila"+fila).addClass("alert alert-danger");
+                        $("#activeButtons"+fila).hide();
+                        $("#inactiveButtons"+fila).show();
                         $.dialog({
                             icon: 'fa fa-check',
                             title: 'Mensaje',
-                            content: 'El producto "' + nombre + '" con id:' + idproducto + ' ha sido eliminado con éxito',
+                            content: 'El producto "' + nombre + '" con id:' + idproducto + ' ha sido inactivado con éxito',
                         });
                     }
                 });
@@ -33,7 +36,11 @@ $(document).ready(function () {
             }
         });
     });
-
+/**
+ * Remueve una fila de la tabla de productos
+ * @param {type} fila
+ * @returns {undefined}
+ */
     function removeProductTable(fila) {
         $("#fila" + fila).remove();
 
@@ -46,6 +53,30 @@ $(document).ready(function () {
             $($(".fieldNombreProducto")[i]).attr("id", "nombre" + i);
         }
     }
+});
+
+$(document).on("click", "a.recoverProduct", function (event) {
+        event.preventDefault();
+        var fila = $(this).attr("data-row");
+        var idproducto = $("#idproducto" + fila).val();
+        var nombre = $("#nombre" + fila).val();
+        $.ajax({
+            url: "/administracion/productos/activar-producto.htm",
+            data: "idproducto=" + $("#idproducto" + fila).val(),
+            type: 'POST',
+            timeout: 20000,
+            success: function (response) {
+                //removeProductTable(fila);
+                $("#fila"+fila).removeClass("alert alert-danger");
+                $("#activeButtons"+fila).show();
+                $("#inactiveButtons"+fila).hide();
+                $.dialog({
+                    icon: 'fa fa-check',
+                    title: 'Mensaje',
+                    content: 'El producto "' + nombre + '" con id:' + idproducto + ' ha sido activado con éxito',
+                });
+            }
+        });
 });
 
 
