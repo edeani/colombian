@@ -5,12 +5,15 @@
  */
 package com.administracion.dao;
 
+import com.administracion.dto.PedidoDto;
 import com.administracion.entidad.Pedido;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
  * @author user
  */
 public interface PedidoDao extends GenericDao<Pedido>{
-    
+    List<PedidoDto> findAllPageSql(Integer first, Integer cantidad, HashMap<String, Object> parametros);
 }

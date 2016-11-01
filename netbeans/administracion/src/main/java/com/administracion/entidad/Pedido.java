@@ -6,6 +6,7 @@
 package com.administracion.entidad;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 /**
@@ -48,6 +51,10 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "idtipopago", referencedColumnName = "idtipo")
     @ManyToOne
     private Tipopago idtipopago;
+    
+    @Column(name = "fecha")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecha;
     
     public Pedido() {
     }
@@ -109,6 +116,14 @@ public class Pedido implements Serializable {
 
     public void setIdtipopago(Tipopago idtipopago) {
         this.idtipopago = idtipopago;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
    
 }
