@@ -74,5 +74,5 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
-    
+    <mvc:resources mapping="/img-producto/**" location="/img-producto/" />    
 </beans>

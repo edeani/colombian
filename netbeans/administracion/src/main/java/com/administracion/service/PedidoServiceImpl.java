@@ -17,6 +17,11 @@ import com.administracion.entidad.Pedido;
 import com.administracion.entidad.Tipopago;
 import com.administracion.entidad.Usuario;
 import com.adiministracion.mapper.PedidoClienteDtoMapper;
+import com.administracion.dto.PedidoDto;
+import com.administracion.util.Util;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +56,7 @@ public class PedidoServiceImpl implements PedidoService{
         pedido.setIdusuario(usuario);
         Tipopago tipoPago = tipoPagoDao.findById(pedidoClienteDto.getMedioPago());
         pedido.setIdtipopago(tipoPago);
+        pedido.setFecha(new Date());
         pedidoDao.save(pedido);
         
         for(ProductoClienteDto producto : pedidoClienteDto.getProductos() ){
@@ -76,6 +82,16 @@ public class PedidoServiceImpl implements PedidoService{
         usuario.setTelefono(pedidoClienteDto.getTelefono());
         
         usuarioDao.Update(usuario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PedidoDto> findPedidosXPage(Integer page, Integer cantidad,String fechaInicial,String fechaFinal) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("fechainicial", fechaInicial);
+        parametros.put("fechafinal", fechaFinal);
+        Integer firstItem = Util.firstItemPage(page, cantidad);
+        return pedidoDao.findAllPageSql(firstItem, cantidad, parametros);
     }
     
 }

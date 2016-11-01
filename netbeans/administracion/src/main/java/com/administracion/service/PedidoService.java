@@ -6,7 +6,9 @@
 package com.administracion.service;
 
 import com.administracion.dto.PedidoClienteDto;
+import com.administracion.dto.PedidoDto;
 import com.administracion.entidad.Usuario;
+import java.util.List;
 
 /**
  *
@@ -14,4 +16,5 @@ import com.administracion.entidad.Usuario;
  */
 public interface PedidoService {
     void guardarPedido(PedidoClienteDto pedidoClienteDto,Usuario usuario);
+    List<PedidoDto> findPedidosXPage(Integer page,Integer cantidad,String fechaInicial,String fechaFinal);
 }

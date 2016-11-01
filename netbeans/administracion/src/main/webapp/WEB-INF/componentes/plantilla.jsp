@@ -18,7 +18,7 @@
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jasny-bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap-slider.css">
-        <link rel="stylesheet" type="text/css" href="/font-awesome-4.3.0/css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/font-awesome-4.3.0/css/font-awesome.css">
 
         <!-- Plugins CSS ================================================== -->
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/animate.css"><!-- animation -->

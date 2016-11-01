@@ -1254,6 +1254,11 @@ th {
 	border-color: transparent;
 	color: #fff;
 }
+#tablaProductos .alert-danger{
+        border-color: transparent;
+        color: #a94442;
+        background-color: #f2dede;
+}
 .alert-warning {
 	background-color: #f8f67a;
 	border-color: transparent;

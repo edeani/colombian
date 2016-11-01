@@ -8,6 +8,7 @@ package com.administracion.service;
 import com.administracion.dto.ProductoDetailDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Categoria;
+import com.administracion.entidad.Producto;
 import java.util.List;
 
 /**
@@ -20,5 +21,8 @@ public interface ProductoService {
     Integer numeroProducto();
     List<Categoria> listCategory();
     void eliminarProductoXid(Integer idproducto);
+    void activarProductoXid(Integer idproducto);
     void crearProductoAdministrador(ProductoDetailDto producto);
+    Producto findProductoXid(Integer idproducto);
+    void actualizarProductoAdministrador(ProductoDetailDto productoDetailDto);
 }

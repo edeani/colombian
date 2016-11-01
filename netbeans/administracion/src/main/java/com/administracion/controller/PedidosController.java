@@ -17,9 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/pedidos")
 public class PedidosController {
      
-    @RequestMapping("/listado.htm")
+    @RequestMapping("/domicilios.htm")
     public ModelAndView indexDomicilios(){
-        ModelAndView mav =new ModelAndView("pedidos/ordenes");
+        ModelAndView mav =new ModelAndView("pedido/ordenes");
         return mav;
     }
 }
