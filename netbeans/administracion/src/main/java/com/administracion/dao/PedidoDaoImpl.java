@@ -5,6 +5,7 @@
  */
 package com.administracion.dao;
 
+import com.adiministracion.mapper.PedidosDtoMapper;
 import com.adiministracion.mapper.ProductoDtoMapper;
 import com.administracion.dto.PedidoDto;
 import com.administracion.entidad.Pedido;
@@ -45,7 +46,7 @@ public class PedidoDaoImpl extends GenericDaoImpl<Pedido> implements PedidoDao{
         namedParameterSource.addValue("minimo", first);
         namedParameterSource.addValue("cantidad", cantidad);
         
-        return namedParameterJdbcTemplate.query(leerXml.getQuery("PedidoSql.listPedido"),namedParameterSource, new ProductoDtoMapper());
+        return namedParameterJdbcTemplate.query(leerXml.getQuery("PedidoSql.listPedido"),namedParameterSource, new PedidosDtoMapper());
     }
     
     

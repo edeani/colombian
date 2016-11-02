@@ -97,7 +97,8 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on("submit", "#pedidoClienteDto", function (event) {
+    $(document).on("click", "#pedidoClienteDto", function (event) {
+        event.preventDefault();
         var resumenDireccion = "";
         var continuar = true;
         if ($("#componente").val() !== "" && $("#datoComponente").val() !== "" && $("#datoComponente1").val() !== "" && $("#datoComponente2").val() !== "") {
@@ -131,14 +132,14 @@ $(document).ready(function () {
                             $("#direccion.errors").remove();
                         }
                         $("#formGroupDir").append("<span id='direccion.errors' class='text-danger'>Zona fuera de cobertura</span>");
-                        event.preventDefault();
+                        
                     } else {
                         map.setCenter(custom_latlng);
                         if (marker !== null && marker !== undefined) {
                             marker.setMap(null);
                         }
                         createMarker(custom_latlng,address);
-
+                        $("#pedidoClienteDto").submit();
                     }
                 } else {
                     console.log("La dirección no existe");

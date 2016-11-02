@@ -17,6 +17,7 @@ import domicilios.entidad.Pedido;
 import domicilios.entidad.Tipopago;
 import domicilios.entidad.Usuario;
 import domicilios.mapper.PedidoClienteDtoMapper;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,7 @@ public class PedidoServiceImpl implements PedidoService{
         pedido.setIdusuario(usuario);
         Tipopago tipoPago = tipoPagoDao.findById(pedidoClienteDto.getMedioPago());
         pedido.setIdtipopago(tipoPago);
+        pedido.setFecha(new Date());
         pedidoDao.save(pedido);
         
         for(ProductoClienteDto producto : pedidoClienteDto.getProductos() ){

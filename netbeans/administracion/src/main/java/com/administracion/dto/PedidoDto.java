@@ -17,10 +17,12 @@ public class PedidoDto {
     private String coordenadas;
     private Integer idtipopago;
     private String tipopago;
-    private Integer idusuario;
+    private Long idusuario;
     private String nombre;
     private String correo;
     private String telefono;
+    private String fecha;
+    
     public Long getIdpedido() {
         return idpedido;
     }
@@ -77,11 +79,11 @@ public class PedidoDto {
         this.tipopago = tipopago;
     }
 
-    public Integer getIdusuario() {
+    public Long getIdusuario() {
         return idusuario;
     }
 
-    public void setIdusuario(Integer idusuario) {
+    public void setIdusuario(Long idusuario) {
         this.idusuario = idusuario;
     }
 
@@ -107,6 +109,14 @@ public class PedidoDto {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
     
     
