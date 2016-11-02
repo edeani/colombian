@@ -15,12 +15,13 @@ $(document).on('ready', function () {
             success: function (response) {
                 //removeProductTable(fila);
                 if (response === "OK") {
+                    $("#fila" + fila).removeClass("alert alert-danger");
                     $("#fila" + fila).addClass("alert alert-success");
                     $($(".aceptOrder")[fila]).hide();
                     var rejectDiv = $(".rejectOrder")[fila];
-                    if ($(rejectDiv).length > 0) {
-                        $(rejectDiv).show();
-                    }
+
+                    $(rejectDiv).show();
+
                     $.dialog({
                         icon: 'fa fa-check',
                         title: 'Mensaje',
@@ -50,10 +51,8 @@ $(document).on('ready', function () {
                     $("#fila" + fila).removeClass("alert alert-succes");
                     $("#fila" + fila).addClass("alert alert-danger");
                     $($(".rejectOrder")[fila]).hide();
-                    var rejectDiv = $(".aceptOrder")[fila];
-                    if ($(rejectDiv).length > 0) {
-                        $(rejectDiv).show();
-                    }
+                    $($(".aceptOrder")[fila]).show();
+
                     $.dialog({
                         icon: 'fa fa-check',
                         title: 'Mensaje',

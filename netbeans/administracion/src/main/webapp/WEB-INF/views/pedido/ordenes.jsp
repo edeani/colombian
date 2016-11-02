@@ -77,7 +77,7 @@
                                         <td>${d.tipopago}</td>
                                         <td>
                                             <p style="width: 135px; margin: 0px;">
-                                            <div id="activeButtons${indice.index}">
+                                            <div id="activeButtons${indice.index}" class="btn-controls">
                                                 <a title="ver" data-row="${indice.index}" class="edit btn btn-primary btn-sm viewOrder" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
                                                 <c:set var="displayaceptar" value="none"></c:set>
                                                 <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'R'}">
@@ -87,12 +87,8 @@
                                                 <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'A'}">
                                                 <c:set var="displayrechazar" value="block"></c:set>
                                                 </c:if>
-                                                <div class="aceptDiv">
-                                                <a title="Aprobar"  data-row="${indice.index}" class="edit btn btn-success btn-sm aceptOrder" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
-                                                </div>
-                                                <div class="rejectDiv">
-                                                <a title="Rechazar" data-row="${indice.index}" class="btn btn-danger removeP btn-sm rejectOrder" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
-                                                </div>
+                                                <a title="Aprobar" style="display: ${displayaceptar};"  data-row="${indice.index}" class="edit btn btn-success btn-sm aceptOrder" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
+                                                <a title="Rechazar" style="display: ${displayrechazar};" data-row="${indice.index}" class="btn btn-danger removeP btn-sm rejectOrder" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
                                             </div>
                                             </p>
                                         </td>

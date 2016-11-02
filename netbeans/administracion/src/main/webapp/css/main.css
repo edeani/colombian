@@ -1209,6 +1209,12 @@ th {
 	border-bottom-color: #ff4c05;
 	color: #fff;
 }
+.btn-controls a {
+    width: 31%;
+    float: left;
+    margin: 0 1%;
+    padding: 9px 14px;
+}
 .btn-black {
 	background-color: #45514c;
 	border-bottom-color: #080a0d;
