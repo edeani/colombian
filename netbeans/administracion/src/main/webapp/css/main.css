@@ -1249,6 +1249,16 @@ th {
 	border-color: transparent;
 	color: #fff;
 }
+#tablaPedidos .alert-success{
+        border-color: transparent;
+        color: #3c763d;
+        background-color: #c3deb8;
+}
+#tablaPedidos .alert-danger{
+        border-color: transparent;
+        color: #a94442;
+        background-color: #f2dede;
+}
 .alert-danger {
 	background-color: #d75b41;
 	border-color: transparent;
