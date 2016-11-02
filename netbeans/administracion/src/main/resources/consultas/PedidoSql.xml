@@ -7,4 +7,7 @@
         where DATE(p.fecha) between :fechainicial and  :fechafinal
         order by p.idpedido desc limit :cantidad offset :minimo ;
     </query>
+    <query id="PedidoSql.updateEstado">
+        update pedido set estadopedido=:estado where idpedido=:idpedido ;
+    </query>
 </queries>

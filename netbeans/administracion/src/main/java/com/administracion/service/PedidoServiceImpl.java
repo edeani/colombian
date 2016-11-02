@@ -93,5 +93,11 @@ public class PedidoServiceImpl implements PedidoService{
         Integer firstItem = Util.firstItemPage(page, cantidad);
         return pedidoDao.findAllPageSql(firstItem, cantidad, parametros);
     }
+
+    @Override
+    @Transactional
+    public void updateEstado(Long idpedido, String estado) {
+        pedidoDao.updateEstado(idpedido, estado);
+    }
     
 }

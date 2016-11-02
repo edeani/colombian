@@ -64,7 +64,7 @@
                             </tfoot>
                             <tbody>
                                 <c:forEach items="${pedidos}" var="d" varStatus="indice">
-                                    <tr id="fila${indice.index}" class="fila <c:if test="${d.estadopedido=='I'}">alert alert-danger</c:if>">
+                                    <tr id="fila${indice.index}" class="fila <c:if test="${d.estadopedido=='R'}">alert alert-danger</c:if>">
                                         <td>${d.idpedido}</td>
                                         <td class="product-name">
                                             ${d.nombre}
@@ -77,18 +77,17 @@
                                             <p style="width: 135px; margin: 0px;">
 
                                             <div id="activeButtons${indice.index}" style="display: ${displayactives};">
-                                                <a title="ver" data-row="${indice.index}" class="edit btn btn-primary btn-sm editProduct" href="<%=request.getContextPath()%>/productos/editar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
+                                                <a title="ver" data-row="${indice.index}" class="edit btn btn-primary btn-sm viewOrder" href="<%=request.getContextPath()%>/productos/editar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
                                                 <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'R'}">
-                                                <a title="Aprobar" data-row="${indice.index}" class="edit btn btn-success btn-sm recoverProduct" href="<%=request.getContextPath()%>/productos/recuperar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
+                                                <a title="Aprobar" data-row="${indice.index}" class="edit btn btn-success btn-sm aceptOrder" href="<%=request.getContextPath()%>/productos/recuperar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
                                                 </c:if>
                                                 <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'A'}">
-                                                <a title="Rechazar" data-row="${indice.index}" class="btn btn-danger removeP btn-sm removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
+                                                <a title="Rechazar" data-row="${indice.index}" class="btn btn-danger removeP btn-sm rejectOrder" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
                                                 </c:if>
                                             </div>
                                             </p>
                                         </td>
-                                <input type="hidden" value="${p.idproducto}" id="idproducto${indice.index}" class="fieldProducto"/>
-                                <input type="hidden" value="${p.nombreproducto}" id="nombre${indice.index}" class="fieldNombreProducto"/>
+                                <input type="hidden" value="${d.idpedido}" id="idpedido${indice.index}" class="fieldPedido"/>
                                 <!--td>
                                     <div class="quantity"><input data-row="${indice.index}" value="" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
                                 </td-->

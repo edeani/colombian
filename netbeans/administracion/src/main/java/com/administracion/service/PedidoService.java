@@ -17,4 +17,5 @@ import java.util.List;
 public interface PedidoService {
     void guardarPedido(PedidoClienteDto pedidoClienteDto,Usuario usuario);
     List<PedidoDto> findPedidosXPage(Integer page,Integer cantidad,String fechaInicial,String fechaFinal);
+    void updateEstado(Long idpedido,String estado);
 }
