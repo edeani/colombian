@@ -1,3 +1,5 @@
+-- create database domicilios;
+use domicilios;
 -- MySQL dump 10.13  Distrib 5.7.13, for linux-glibc2.5 (x86_64)
 --
 -- Host: 127.0.0.1    Database: domicilios
