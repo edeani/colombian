@@ -44,9 +44,10 @@
                                 <tr>
                                     <th>Id</th>
                                     <th class="product-name">Nombre</th>
-                                    <th>Descripci&oacute;n</th>
-                                    <th>Precio</th>
-                                    <th>Tipo</th>
+                                    <th>Direcci&oacute;n</th>
+                                    <th>Total</th>
+                                    <th>Fecha</th>
+                                    <th>Paga con</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -54,23 +55,24 @@
                                 <tr>
                                     <th>Id</th>
                                     <th class="product-name">Nombre</th>
-                                    <th>Descripci&oacute;n</th>
-                                    <th>Precio</th>
-                                    <th>Tipo</th>
+                                    <th>Direcci&oacute;n</th>
+                                    <th>Total</th>
+                                    <th>Fecha</th>
+                                    <th>Paga con</th>
                                     <th></th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <c:forEach items="${domicilios}" var="p" varStatus="indice">
+                                <c:forEach items="${domicilios}" var="d" varStatus="indice">
                                     <tr id="fila${indice.index}" class="fila <c:if test="${p.estado=='I'}">alert alert-danger</c:if>">
-                                        <td>${p.idproducto}</td>
+                                        <td>${d.idpedido}</td>
                                         <td class="product-name">
-                                            <img class="img-circle" src="<%=request.getContextPath()%>/img/post/product-card-01.jpg" alt="" />
-                                            ${p.nombreproducto}
+                                            ${d.nombreusuario}
                                         </td>
-                                        <td>${p.descripcion}</td>
-                                        <td><fmt:formatNumber type="number"  pattern="###.###" value="${p.precioproducto}" /></td>
-                                        <td>${p.nombreTipo}</td>
+                                        <td>${d.direccion}</td>
+                                        <td><fmt:formatNumber type="number"  pattern="###.###" value="${d.totalpedido}" /></td>
+                                        <td>${d.fecha}</td>
+                                        <td>${d.tipopago}</td>
                                         <td>
                                             <p style="width: 135px; margin: 0px;">
                                                 <c:set var="displayactives" value=""></c:set>
