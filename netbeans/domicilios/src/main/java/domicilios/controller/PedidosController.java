@@ -51,7 +51,7 @@ public class PedidosController extends BaseController {
 
     private static final String SESSIONCOMPRA = "#{session.getAttribute('pedido')}";
 
-    private static final String ESTADO_COMPRA = "A";
+    private static final String ESTADO_COMPRA = "P";
     
     private static final String PROP_COORDS_DOMI = "coordenadas-domicilios";
     

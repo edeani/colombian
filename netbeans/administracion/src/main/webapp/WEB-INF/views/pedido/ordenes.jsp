@@ -38,7 +38,7 @@
                 </div>            
                 <br /><br /><br />
                 <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
+                    <div class="col-sm-12">
                         <table class="table table-border-row table-card" id="tablaDomicilios">
                             <thead>
                                 <tr>
@@ -63,11 +63,11 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <c:forEach items="${domicilios}" var="d" varStatus="indice">
-                                    <tr id="fila${indice.index}" class="fila <c:if test="${p.estado=='I'}">alert alert-danger</c:if>">
+                                <c:forEach items="${pedidos}" var="d" varStatus="indice">
+                                    <tr id="fila${indice.index}" class="fila <c:if test="${d.estadopedido=='I'}">alert alert-danger</c:if>">
                                         <td>${d.idpedido}</td>
                                         <td class="product-name">
-                                            ${d.nombreusuario}
+                                            ${d.nombre}
                                         </td>
                                         <td>${d.direccion}</td>
                                         <td><fmt:formatNumber type="number"  pattern="###.###" value="${d.totalpedido}" /></td>
@@ -75,27 +75,16 @@
                                         <td>${d.tipopago}</td>
                                         <td>
                                             <p style="width: 135px; margin: 0px;">
-                                                <c:set var="displayactives" value=""></c:set>
-                                                <c:set var="displayinactives" value=""></c:set>
-                                                <c:choose>
-                                                <c:when test="${p.estado=='A'}">
-                                                    <c:set var="displayactives" value="block"></c:set>
-                                                    <c:set var="displayinactives" value="none"></c:set>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="displayactives" value="none"></c:set>
-                                                    <c:set var="displayinactives" value="block"></c:set>
-                                                </c:otherwise>
-                                                </c:choose>    
+
                                             <div id="activeButtons${indice.index}" style="display: ${displayactives};">
-                                                 <a title="Editar" data-row="${indice.index}" class="edit btn btn-primary btn-sm editProduct" href="<%=request.getContextPath()%>/productos/editar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
-                                                 <a title="Inactivar"title="Activar Producto" data-row="${indice.index}" class="btn btn-danger removeP btn-sm removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
+                                                <a title="ver" data-row="${indice.index}" class="edit btn btn-primary btn-sm editProduct" href="<%=request.getContextPath()%>/productos/editar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
+                                                <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'R'}">
+                                                <a title="Aprobar" data-row="${indice.index}" class="edit btn btn-success btn-sm recoverProduct" href="<%=request.getContextPath()%>/productos/recuperar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
+                                                </c:if>
+                                                <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'A'}">
+                                                <a title="Rechazar" data-row="${indice.index}" class="btn btn-danger removeP btn-sm removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
+                                                </c:if>
                                             </div>
-                                            <div id="inactiveButtons${indice.index}" style="display: ${displayinactives};">
-                                                <a title="Activar" data-row="${indice.index}" class="edit btn btn-success btn-sm recoverProduct" href="<%=request.getContextPath()%>/productos/recuperar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
-                                            </div>
-
-
                                             </p>
                                         </td>
                                 <input type="hidden" value="${p.idproducto}" id="idproducto${indice.index}" class="fieldProducto"/>
