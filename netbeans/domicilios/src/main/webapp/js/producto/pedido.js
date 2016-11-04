@@ -97,7 +97,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on("click", "#pedidoClienteDto", function (event) {
+    $(document).on("click", "#guardarcompra", function (event) {
         event.preventDefault();
         var resumenDireccion = "";
         var continuar = true;

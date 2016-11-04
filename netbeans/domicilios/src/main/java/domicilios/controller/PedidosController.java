@@ -108,28 +108,33 @@ public class PedidosController extends BaseController {
 
     @RequestMapping(value = "/pedido.htm", method = RequestMethod.POST)
     public ModelAndView guardarPedido(@ModelAttribute @Valid PedidoClienteDto pedidoClienteDto, BindingResult binding, @Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto,
-             HttpServletResponse response, HttpServletRequest request) {
+             HttpServletResponse response, HttpServletRequest request,HttpSession session) {
 
         if (binding.hasErrors()) {
             ModelAndView mavError = new ModelAndView("compra/pedido");
             setBasicModel(mavError, pedidoClienteDto);
             return mavError;
         } else {
-            ModelAndView mav = new ModelAndView("compra/finalizacion");
             try {
                 pedidoService.guardarPedido(pedidoClienteDto, securityService.getCurrentUser());
                 pedidoDto = null;
                 ManageCookies.eraseCookie(NAME_COORDS_COLOMBIAN, response, request);
                 ManageCookies.eraseCookie(NAME_COORDS_DOMI, response, request);
+                session.removeAttribute("pedido");
+                return new ModelAndView("redirect:/compras/finalizada.htm");
             } catch (Exception e) {
-                mav = new ModelAndView("redirect:/compras/pedido.htm");
+                ModelAndView mav = new ModelAndView("redirect:/compras/pedido.htm");
                 mav.addObject("mensaje", "Ocurri&oacute un problema al realizar la operaci&oacute;");
                 return mav;
             }
-            return mav;
         }
     }
-
+    
+    @RequestMapping("/finalizada.htm")
+    public ModelAndView compraFinalizada(){
+         return new ModelAndView("compra/finalizacion");
+    }
+    
     @RequestMapping("/ajax/resumen.htm")
     public ModelAndView resumenPedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session) {
         if (pedidoDto == null) {
