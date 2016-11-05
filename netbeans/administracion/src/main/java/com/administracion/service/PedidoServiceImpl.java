@@ -18,6 +18,7 @@ import com.administracion.entidad.Tipopago;
 import com.administracion.entidad.Usuario;
 import com.adiministracion.mapper.PedidoClienteDtoMapper;
 import com.administracion.dto.PedidoDto;
+import com.administracion.util.LeerXml;
 import com.administracion.util.Util;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ public class PedidoServiceImpl implements PedidoService{
     @Autowired
     private TipoPagoDao tipoPagoDao;
     
-    
+        
     @Transactional
     @Override
     public void guardarPedido(PedidoClienteDto pedidoClienteDto,Usuario usuario) {
@@ -98,6 +99,15 @@ public class PedidoServiceImpl implements PedidoService{
     @Transactional
     public void updateEstado(Long idpedido, String estado) {
         pedidoDao.updateEstado(idpedido, estado);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Detallepedido> listDetallePedido(Long idpedido) {
+        HashMap<String,Object> parametros = new HashMap<>();
+        parametros.put("idpedido", idpedido);
+        
+        return detallePedidoDao.queryJpa(new LeerXml().getQuery("PedidoJpa.listDetallePedido"), parametros);
     }
     
 }

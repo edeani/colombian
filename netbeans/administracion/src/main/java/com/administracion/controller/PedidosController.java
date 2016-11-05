@@ -6,7 +6,9 @@
 package com.administracion.controller;
 
 import com.administracion.dto.PedidoDto;
+import com.administracion.entidad.Detallepedido;
 import com.administracion.service.PedidoService;
+import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.util.Util;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,9 @@ public class PedidosController {
 
     @Autowired
     private PedidoService pedidoService;
+    
+    @Autowired
+    private SecurityService securityService;
 
     @RequestMapping("/domicilios.htm")
     public ModelAndView indexDomicilios() {
@@ -59,5 +64,17 @@ public class PedidosController {
         } catch (Exception e) {
         }
         return "OK";
+    }
+    
+    @RequestMapping("/ajax/ver-detalle.htm")
+    public ModelAndView verDetalleDomicilio(@RequestParam Long idpedido){
+       List<Detallepedido> detallepedidos = pedidoService.listDetallePedido(idpedido);
+    
+       ModelAndView mav = new ModelAndView("pedido/cuadroDetalle");
+       mav.addObject("detalle", detallepedidos);
+       mav.addObject("idpedido", idpedido);
+       mav.addObject("nombre", securityService.getCurrentUser().getNombreusuario());
+       
+       return mav;
     }
 }

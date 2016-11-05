@@ -23,7 +23,7 @@
         <!-- Contenido 404 -->
         <div id="content" class="page-404">
             <div class="container">
-                <h3>Gracias por tu compra. Tu pedido Estr&aacute; llegando en un per&iacute;do de 20 a 40 minutos.</h3>
+                <h3>Gracias por tu compra. Tu pedido Estar&aacute; llegando en un per&iacute;do de 20 a 40 minutos.</h3>
                 <a href="/home.htm" class="btn btn-danger btn-lg rst-go-home">Ir a inicio</a>
             </div>
         </div>

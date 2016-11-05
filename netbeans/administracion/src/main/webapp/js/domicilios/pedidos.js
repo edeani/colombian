@@ -2,29 +2,51 @@ $(document).on('ready', function () {
     //$('#tablaDomicilios').DataTable();
 
     $(document).on("click", ".viewOrder", function () {
-
+        /*
+         * function () {
+         var self = this;
+         return $.ajax({
+         url: '/administracion/pedidos/ajax/ver-detalle.htm',
+         dataType: 'html',
+         method: 'post',
+         timeout: 6000,
+         }).done(function (response) {
+         self.setContent(response);
+         }).fail(function () {
+         self.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
+         });
+         }
+         * 
+         */
     });
     $(document).on("click", ".aceptOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $(".fieldPedido")[fila];
-
+        var idpedido = $(inputIdpedido).val();
         $.confirm({
             confirmButtonClass: 'btn-success',
             cancelButtonClass: 'btn-danger',
             title: 'Alerta!',
-            content: 'Domicilio #8 Eder Armando Anillo Lora<ul class="list-group">'+
-  '<li class="list-group-item">Cras justo odio</li>'+
-  '<li class="list-group-item">Dapibus ac facilisis in</li>'+
-  '<li class="list-group-item">Morbi leo risus</li>'+
-  '<li class="list-group-item">Porta ac consectetur ac</li>'+
-  '<li class="list-group-item">Vestibulum at eros</li>'+
-  '</ul >',
+            content: function () {
+                var self = this;
+                return $.ajax({
+                    url: '/administracion/pedidos/ajax/ver-detalle.htm',
+                    dataType: 'html',
+                    data:'idpedido='+idpedido,
+                    method: 'post',
+                    timeout: 6000,
+                }).done(function (response) {
+                    self.setContent(response);
+                }).fail(function () {
+                    self.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
+                });
+            },
             confirmButton: 'Si',
             cancelButton: 'NO, para nada !',
             confirm: function () {
                 $.ajax({
                     url: "/administracion/pedidos/ajax/aprobar.htm",
-                    data: "idpedido=" + $(inputIdpedido).val(),
+                    data: "idpedido=" + idpedido,
                     type: 'POST',
                     timeout: 20000,
                     success: function (response) {
