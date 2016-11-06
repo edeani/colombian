@@ -79,20 +79,30 @@
                                             <p style="width: 135px; margin: 0px;">
                                             <div id="activeButtons${indice.index}" class="btn-controls">
                                                 <a title="ver" data-row="${indice.index}" class="edit btn btn-primary btn-sm viewOrder" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
-                                                <c:set var="displayaceptar" value="none"></c:set>
-                                                <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'R'}">
-                                                <c:set var="displayaceptar" value="block"></c:set>
-                                                </c:if>
-                                                <c:set var="displayrechazar" value="none"></c:set>
-                                                <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'A'}">
-                                                <c:set var="displayrechazar" value="block"></c:set>
-                                                </c:if>
+                                                    <c:set var="displayaceptar" value="none"></c:set>
+                                                    <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'R'}">
+                                                        <c:set var="displayaceptar" value="block"></c:set>
+                                                    </c:if>
+                                                    <c:set var="displayrechazar" value="none"></c:set>
+                                                    <c:if test="${d.estadopedido eq 'P' or d.estadopedido eq 'A'}">
+                                                        <c:set var="displayrechazar" value="block"></c:set>
+                                                    </c:if>
                                                 <a title="Aprobar" style="display: ${displayaceptar};"  data-row="${indice.index}" class="edit btn btn-success btn-sm aceptOrder" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
                                                 <a title="Rechazar" style="display: ${displayrechazar};" data-row="${indice.index}" class="btn btn-danger removeP btn-sm rejectOrder" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
                                             </div>
                                             </p>
                                         </td>
-                                <input type="hidden" value="${d.idpedido}" class="fieldPedido"/>
+                                        <form class="formDatos">
+                                            <input type="hidden" name="idpedido" value="${d.idpedido}" class="fieldPedido"/>
+                                            <input type="hidden" name="direccion" value="${d.direccion}" class="fieldDireccion"/>
+                                            <input type="hidden" name="tipopago" value="${d.tipopago}" class="fieldTipopago"/>
+                                            <input type="hidden" name="nombre" value="${d.nombre}" class="fieldNombre"/>
+                                            <input type="hidden" name="correo" value="${d.correo}" class="fieldCorreo"/>
+                                            <input type="hidden" name="telefono"  value="${d.telefono}" class="fieldTelefono"/>
+                                            <input type="hidden" name="fecha" value="${d.fecha}" class="fieldFecha"/>
+                                            <input type="hidden" name="cedula" value="${d.cedula}" class="fieldCedula"/>
+                                            <input type="hidden" name="totalpedido" value="${d.totalpedido}" class="fielTotalped"/>
+                                        </form>        
                                 <!--td>
                                     <div class="quantity"><input data-row="${indice.index}" value="" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
                                 </td-->

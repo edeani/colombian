@@ -22,6 +22,7 @@ public class PedidoDto {
     private String correo;
     private String telefono;
     private String fecha;
+    private String cedula;
     
     public Long getIdpedido() {
         return idpedido;
@@ -117,6 +118,14 @@ public class PedidoDto {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
     
     

@@ -31,7 +31,7 @@ public class PedidosDtoMapper implements RowMapper{
         pedido.setTotalpedido(rs.getFloat("totalpedido"));
         pedido.setIdusuario(rs.getLong("idusuario"));
         pedido.setEstadopedido(rs.getString("estadopedido"));
-        
+        pedido.setCedula(rs.getString("cedula"));
         return pedido;
     }
     

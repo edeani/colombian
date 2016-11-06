@@ -8,7 +8,6 @@ package com.administracion.controller;
 import com.administracion.dto.PedidoDto;
 import com.administracion.entidad.Detallepedido;
 import com.administracion.service.PedidoService;
-import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.util.Util;
 import java.util.Date;
 import java.util.List;
@@ -30,9 +29,6 @@ public class PedidosController {
 
     @Autowired
     private PedidoService pedidoService;
-    
-    @Autowired
-    private SecurityService securityService;
 
     @RequestMapping("/domicilios.htm")
     public ModelAndView indexDomicilios() {
@@ -67,14 +63,22 @@ public class PedidosController {
     }
     
     @RequestMapping("/ajax/ver-detalle.htm")
-    public ModelAndView verDetalleDomicilio(@RequestParam Long idpedido){
+    public ModelAndView verDetalleDomicilio(@RequestParam Long idpedido,@RequestParam String nombre,
+            @RequestParam String direccion,@RequestParam String tipopago,@RequestParam String correo,@RequestParam String telefono,
+            @RequestParam String fecha,@RequestParam String cedula,@RequestParam Float totalpedido){
        List<Detallepedido> detallepedidos = pedidoService.listDetallePedido(idpedido);
     
        ModelAndView mav = new ModelAndView("pedido/cuadroDetalle");
        mav.addObject("detalle", detallepedidos);
        mav.addObject("idpedido", idpedido);
-       mav.addObject("nombre", securityService.getCurrentUser().getNombreusuario());
-       
+       mav.addObject("direccion", direccion);
+       mav.addObject("tipopago", tipopago);
+       mav.addObject("correo", correo);
+       mav.addObject("telefono", telefono);
+       mav.addObject("fecha", fecha);
+       mav.addObject("cedula", cedula);
+       mav.addObject("nombre", nombre);
+       mav.addObject("totalpedido", totalpedido);
        return mav;
     }
 }

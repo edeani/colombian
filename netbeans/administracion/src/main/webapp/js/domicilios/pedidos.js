@@ -23,16 +23,18 @@ $(document).on('ready', function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $(".fieldPedido")[fila];
         var idpedido = $(inputIdpedido).val();
+        var formDatosAdicionales = $(".formDatos")[fila];
         $.confirm({
+            columnClass:'col-md-10 col-md-offset-1',
             confirmButtonClass: 'btn-success',
             cancelButtonClass: 'btn-danger',
-            title: 'Alerta!',
+            title: false,
             content: function () {
                 var self = this;
                 return $.ajax({
                     url: '/administracion/pedidos/ajax/ver-detalle.htm',
                     dataType: 'html',
-                    data:'idpedido='+idpedido,
+                    data:$(formDatosAdicionales).serialize(),
                     method: 'post',
                     timeout: 6000,
                 }).done(function (response) {
