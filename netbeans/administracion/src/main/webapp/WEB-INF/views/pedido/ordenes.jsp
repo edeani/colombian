@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Administración de Productos</title>
+        <title>Administraci&oacute;n de Productos</title>
         <!-- Custom Css ================================================== -->
         <link rel="stylesheet" type="text/css" href="/administracion/css/rs-wp-v1.2.css">
         <link rel="stylesheet" type="text/css" href="/administracion/css/main.css">
@@ -64,6 +64,7 @@
                             </tfoot>
                             <tbody>
                                 <c:forEach items="${pedidos}" var="d" varStatus="indice">
+                                    <c:set var="clasefila" value=""></c:set>
                                     <c:if test="${d.estadopedido=='R'}"><c:set var="clasefila" value="alert alert-danger"/></c:if> 
                                     <c:if test="${d.estadopedido=='A'}"><c:set var="clasefila" value="alert alert-success"/></c:if>
                                     <tr id="fila${indice.index}" class="fila ${clasefila}">
@@ -94,19 +95,11 @@
                                         </td>
                                         <form class="formDatos">
                                             <input type="hidden" name="idpedido" value="${d.idpedido}" class="fieldPedido"/>
-                                            <input type="hidden" name="direccion" value="${d.direccion}" class="fieldDireccion"/>
                                             <input type="hidden" name="tipopago" value="${d.tipopago}" class="fieldTipopago"/>
-                                            <input type="hidden" name="nombre" value="${d.nombre}" class="fieldNombre"/>
-                                            <input type="hidden" name="correo" value="${d.correo}" class="fieldCorreo"/>
-                                            <input type="hidden" name="telefono"  value="${d.telefono}" class="fieldTelefono"/>
                                             <input type="hidden" name="fecha" value="${d.fecha}" class="fieldFecha"/>
-                                            <input type="hidden" name="cedula" value="${d.cedula}" class="fieldCedula"/>
                                             <input type="hidden" name="totalpedido" value="${d.totalpedido}" class="fielTotalped"/>
+                                            <input type="hidden" name="idusuario" value="${d.idusuario}" class="fielIdusuario"/>
                                         </form>        
-                                <!--td>
-                                    <div class="quantity"><input data-row="${indice.index}" value="" type="number" min="1" step="1" id="view${indice.index}Cantidad" title="Cantidad" class="input-text qty text viewCantidad indiceData" size="4"/></div>
-                                </td-->
-
                                 </tr>
                             </c:forEach>
 
