@@ -1,4 +1,4 @@
--- create database domicilios;
+create database domicilios;
 use domicilios;
 -- MySQL dump 10.13  Distrib 5.7.13, for linux-glibc2.5 (x86_64)
 --
