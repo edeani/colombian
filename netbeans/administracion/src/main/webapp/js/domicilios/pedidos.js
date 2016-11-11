@@ -1,5 +1,5 @@
 $(document).on('ready', function () {
-    //$('#tablaDomicilios').DataTable();
+    $('#tablaPedidos').DataTable();
 
     $(document).on("click", ".viewOrder", function () {
         /*
