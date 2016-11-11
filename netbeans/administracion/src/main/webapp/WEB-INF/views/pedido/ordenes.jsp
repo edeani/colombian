@@ -26,7 +26,7 @@
 
         <script type='text/javascript' src='<%=request.getContextPath()%>/js/woocommerce.js'></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/datatable/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/domicilios/pedidos.js"></script>
     </head>
     <body>
