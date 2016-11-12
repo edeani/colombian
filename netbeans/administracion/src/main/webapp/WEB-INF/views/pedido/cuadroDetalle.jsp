@@ -1,11 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<br/>
 <c:choose>
     <c:when test="${estado=='A'}">
-        <c:set var="mensaje" value="&iquest;Desea Aprobar el Domicilio #${idpedido}?"></c:set>
+        <c:set var="cssClass" value="panel-success"></c:set>
     </c:when>
     <c:when test="${estado=='R'}">
-        <c:set var="mensaje" value="&iquest;Desea Rechazar el Domicilio #${idpedido}?"></c:set>
+        <c:set var="cssClass" value="panel-danger"></c:set>
+    </c:when>
+    <c:when test="${estado=='P'}">
+        <c:set var="cssClass" value="panel-primary"></c:set>
     </c:when>
 </c:choose>
 <div class="panel ${cssClass}">

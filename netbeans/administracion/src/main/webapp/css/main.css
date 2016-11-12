@@ -1181,7 +1181,9 @@ th {
 }
 .btn-sm {
 	padding: 9px 20px;
+
 }
+
 .btn-success {
 	background-color: #5ccd69;
 	border-bottom-color: #47a652;
@@ -2951,4 +2953,9 @@ footer .rst-table {
 .rst-backtop:hover, .rst-backtop:focus {
 	background: #47a652;
 	color: #fff;
+}
+
+.jconfirm-light .jconfirm-buttons button{
+    float: right;
+    margin: 10px 5px;
 }

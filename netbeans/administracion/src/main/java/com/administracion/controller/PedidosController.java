@@ -62,26 +62,22 @@ public class PedidosController {
             }
             pedidoService.updateEstado(idpedido, estado);
         } catch (Exception e) {
+            return "Error::"+e.getMessage();
         }
         return "OK";
     }
     
     @RequestMapping("/ajax/ver-detalle.htm")
     public ModelAndView verDetalleDomicilio(@RequestParam Long idpedido,@RequestParam Long idusuario,@RequestParam String tipopago,
-            @RequestParam String fecha,@RequestParam Float totalpedido,@RequestParam String cssClass,@RequestParam String estado){
+            @RequestParam String fecha,@RequestParam Float totalpedido,@RequestParam String estado){
        List<Detallepedido> detallepedidos = pedidoService.listDetallePedido(idpedido);
     
        ModelAndView mav = new ModelAndView("pedido/cuadroDetalle");
        mav.addObject("detalle", detallepedidos);
        mav.addObject("idpedido", idpedido);
-       //mav.addObject("direccion", direccion);
        mav.addObject("tipopago", tipopago);
-       mav.addObject("cssClass", cssClass);
        mav.addObject("estado", estado);
-       //mav.addObject("correo", correo);
-       //mav.addObject("telefono", telefono);
        mav.addObject("fecha", fecha);
-       //mav.addObject("cedula", cedula);
        Usuario usuario = usuarioService.findUsuarioById(idusuario);
        mav.addObject("usuario", usuario);
        mav.addObject("totalpedido", totalpedido);
