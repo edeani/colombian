@@ -5,8 +5,11 @@
  */
 package com.administracion.controller;
 
+import com.adiministracion.mapper.PedidoClienteDtoMapper;
+import com.administracion.dto.PedidoClienteDto;
 import com.administracion.dto.PedidoDto;
 import com.administracion.entidad.Detallepedido;
+import com.administracion.entidad.Pedido;
 import com.administracion.entidad.Usuario;
 import com.administracion.service.PedidoService;
 import com.administracion.service.UsuarioService;
@@ -27,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/pedidos")
-public class PedidosController {
+public class PedidosController extends BaseController{
 
     @Autowired
     private PedidoService pedidoService;
@@ -68,19 +71,37 @@ public class PedidosController {
     }
     
     @RequestMapping("/ajax/ver-detalle.htm")
-    public ModelAndView verDetalleDomicilio(@RequestParam Long idpedido,@RequestParam Long idusuario,@RequestParam String tipopago,
-            @RequestParam String fecha,@RequestParam Float totalpedido,@RequestParam String estado){
+    public ModelAndView verDetalleDomicilio(@RequestParam Long idpedido,
+            @RequestParam String fecha){
+       
+       PedidoClienteDto pedidoDto = new PedidoClienteDto();
+       //Seteo los productos del pedido
        List<Detallepedido> detallepedidos = pedidoService.listDetallePedido(idpedido);
-    
+       pedidoDto.setProductos(PedidoClienteDtoMapper.listDetallePedidoToProductoClienteDto(detallepedidos));
+       /**
+        * Traigo los datos generales del pedido
+        */
+       Pedido pedido = pedidoService.findById(idpedido);
+       
+       pedidoDto.setIdusuario(pedido.getIdusuario().getIdusuario());
+       pedidoDto.setCedula(pedido.getIdusuario().getCedula());
+       pedidoDto.setComentarios(pedido.getComentarios());
+       pedidoDto.setIdpedido(pedido.getIdpedido());
+       pedidoDto.setEstado(pedido.getEstadopedido());
+       pedidoDto.setMedioPago(pedido.getIdtipopago().getIdtipo());
+       pedidoDto.setNombre(pedido.getIdusuario().getNombreusuario());
+       pedidoDto.setTelefono(pedido.getIdusuario().getTelefono());
+       pedidoDto.setTotal(pedido.getTotalpedido());
+       pedidoDto.setDireccion(pedido.getDireccion());
+             
        ModelAndView mav = new ModelAndView("pedido/cuadroDetalle");
-       mav.addObject("detalle", detallepedidos);
-       mav.addObject("idpedido", idpedido);
-       mav.addObject("tipopago", tipopago);
-       mav.addObject("estado", estado);
+       
+       setBasicModel(mav, pedidoDto);
+       mav.addObject("pedido", pedidoDto);
        mav.addObject("fecha", fecha);
-       Usuario usuario = usuarioService.findUsuarioById(idusuario);
-       mav.addObject("usuario", usuario);
-       mav.addObject("totalpedido", totalpedido);
+       mav.addObject("correo", pedido.getIdusuario().getCorreo());
+       mav.addObject("tipopago", pedido.getIdtipopago().getNombre());
+      //ModelAndView mav = new ModelAndView("pedido/cuadroDetalle");
        return mav;
     }
 }

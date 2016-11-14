@@ -109,5 +109,11 @@ public class PedidoServiceImpl implements PedidoService{
         
         return detallePedidoDao.queryJpa(new LeerXml().getQuery("PedidoJpa.listDetallePedido"), parametros);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Pedido findById(Long idpedido) {
+        return pedidoDao.findById(idpedido);
+    }
     
 }

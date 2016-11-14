@@ -85,11 +85,7 @@
                                         </td>
                                         <form id="formDatos${indice.index}">
                                             <input type="hidden" id="pedido${indice.index}" name="idpedido" value="${d.idpedido}" class="fieldPedido"/>
-                                            <input type="hidden" name="tipopago" value="${d.tipopago}" class="fieldTipopago"/>
                                             <input type="hidden" name="fecha" value="${d.fecha}" class="fieldFecha"/>
-                                            <input type="hidden" name="totalpedido" value="${d.totalpedido}" class="fieldTotalped"/>
-                                            <input type="hidden" name="idusuario" value="${d.idusuario}" class="fieldIdusuario"/>
-                                            <input type="hidden" name="estado" value="${d.estadopedido}" class="fieldEstado"/>
                                         </form>        
                                 </tr>
                             </c:forEach>
