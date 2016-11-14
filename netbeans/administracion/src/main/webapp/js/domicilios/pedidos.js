@@ -1,24 +1,6 @@
 $(document).on('ready', function () {
     $('#tablaPedidos').DataTable();
     $(document).on("click", ".viewOrder", function () {
-        /*
-         * function () {
-         var self = this;
-         return $.ajax({
-         url: '/administracion/pedidos/ajax/ver-detalle.htm',
-         dataType: 'html',
-         method: 'post',
-         timeout: 6000,
-         }).done(function (response) {
-         self.setContent(response);
-         }).fail(function () {
-         self.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
-         });
-         }
-         * 
-         */
-    });
-    $(document).on("click", ".viewOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $("#pedido" + fila);
         var idpedido = $(inputIdpedido).val();
@@ -121,71 +103,70 @@ $(document).on('ready', function () {
         $("#viewTotalPedido").html(totalPedidoNuevo);
 
     });
-    
+
     $(document).on("click", ".removeCar", function (event) {
         event.preventDefault();
 
         var indice = $(this).attr("data-row");
         var idproducto = $("#p" + indice + "idproducto").val();
-        /*var continuar = false;
-        $.ajax({
-            url: "/compras/ajax/carrito/eliminar.htm",
-            data: "idproducto=" + idproducto,
-            async: false,
-            type: 'POST',
-            timeout: 20000,
-            success: function (response) {
-                if (response === "OK") {
-                    continuar = true;
+
+        var variacion = parseInt($("#p" + indice + "total").val());
+        var totalPedidoAnterior = parseInt($("#totalPedido").val());
+
+
+        $("#f" + indice).remove();
+        var totalPedidoNuevo = totalPedidoAnterior - variacion;
+        $("#totalPedido").val(totalPedidoNuevo);
+        $("#viewTotalPedido").html(totalPedidoNuevo);
+
+        for (i = 0; i < $(".f").length; i++) {
+            var fila = $(".f")[i];
+            var indiceAnteriorFila = parseInt($(fila).attr("id").split("f")[1]);
+            if (indiceAnteriorFila !== i) {
+                $(fila).attr("id", "f" + i);
+                var objUpdateData = $(fila).find(".indiceData");
+                for (j = 0; j < $(objUpdateData).length; j++) {
+                    $($(objUpdateData)[j]).attr("data-row", i);
                 }
+
+                $("#p" + indiceAnteriorFila + "idproducto").attr("id", "p" + i + "idproducto");
+                $("#p" + indiceAnteriorFila + "nombreproducto").attr("id", "p" + i + "nombreproducto");
+                $("#p" + indiceAnteriorFila + "precio").attr("id", "p" + i + "precio");
+                $("#p" + indiceAnteriorFila + "cantidad").attr("id", "p" + i + "cantidad");
+                $("#p" + indiceAnteriorFila + "total").attr("id", "p" + i + "total");
+
+                $("#p" + i + "idproducto").attr("name", "productos[" + i + "].idproducto");
+                $("#p" + i + "nombreproducto").attr("name", "productos[" + i + "].nombreproducto");
+                $("#p" + i + "precio").attr("name", "productos[" + i + "].precio");
+                $("#p" + i + "cantidad").attr("name", "productos[" + i + "].cantidad");
+                $("#p" + i + "total").attr("name", "productos[" + i + "].total");
+
+
+                $("#f" + i + " td.indiceViewTotalProducto").attr("id", "p" + i + "viewTotalProducto");
             }
-        });*/
-        //if (continuar) {
-            var variacion = parseInt($("#p" + indice + "total").val());
-            var totalPedidoAnterior = parseInt($("#totalPedido").val());
-
-
-            $("#f" + indice).remove();
-            var totalPedidoNuevo = totalPedidoAnterior - variacion;
-            $("#totalPedido").val(totalPedidoNuevo);
-            $("#viewTotalPedido").html(totalPedidoNuevo);
-
-            for (i = 0; i < $(".f").length; i++) {
-                var fila = $(".f")[i];
-                var indiceAnteriorFila = parseInt($(fila).attr("id").split("f")[1]);
-                if (indiceAnteriorFila !== i) {
-                    $(fila).attr("id", "f" + i);
-                    var objUpdateData = $(fila).find(".indiceData");
-                    for (j = 0; j < $(objUpdateData).length; j++) {
-                        $($(objUpdateData)[j]).attr("data-row", i);
-                    }
-
-                    $("#p" + indiceAnteriorFila + "idproducto").attr("id", "p" + i + "idproducto");
-                    $("#p" + indiceAnteriorFila + "nombreproducto").attr("id", "p" + i + "nombreproducto");
-                    $("#p" + indiceAnteriorFila + "precio").attr("id", "p" + i + "precio");
-                    $("#p" + indiceAnteriorFila + "cantidad").attr("id", "p" + i + "cantidad");
-                    $("#p" + indiceAnteriorFila + "total").attr("id", "p" + i + "total");
-
-                    $("#p" + i + "idproducto").attr("name", "productos[" + i + "].idproducto");
-                    $("#p" + i + "nombreproducto").attr("name", "productos[" + i + "].nombreproducto");
-                    $("#p" + i + "precio").attr("name", "productos[" + i + "].precio");
-                    $("#p" + i + "cantidad").attr("name", "productos[" + i + "].cantidad");
-                    $("#p" + i + "total").attr("name", "productos[" + i + "].total");
-
-
-                    $("#f" + i + " td.indiceViewTotalProducto").attr("id", "p" + i + "viewTotalProducto");
-                }
-            }
-        //}
-    });
-    
-    $(document).on("keypress",".viewCantidad",function(event){
-        if(event.which === 13) {
-          event.preventDefault();
-          $(this).next().focus();
         }
     });
+
+    $(document).on("keypress", ".viewCantidad", function (event) {
+        if (event.which === 13) {
+            event.preventDefault();
+            $(this).next().focus();
+        }
+    });
+    $(document).on("click", "#addProductoPanel", function (event) {
+        event.preventDefault();
+        var totalFilas = $(".f").length;
+        
+        
+    });
     
+    function mensajePedido(mensaje) { 
+        $.dialog({ 
+            icon: 'fa fa-check', 
+            title: 'Mensaje', 
+            content: mensaje 
+        }); 
+    }
     function procesarPedido(mensaje, accion) {
 
 
