@@ -10,9 +10,7 @@ import com.administracion.dto.PedidoClienteDto;
 import com.administracion.dto.PedidoDto;
 import com.administracion.entidad.Detallepedido;
 import com.administracion.entidad.Pedido;
-import com.administracion.entidad.Usuario;
 import com.administracion.service.PedidoService;
-import com.administracion.service.UsuarioService;
 import com.administracion.util.Util;
 import java.util.Date;
 import java.util.List;
@@ -35,8 +33,6 @@ public class PedidosController extends BaseController{
     @Autowired
     private PedidoService pedidoService;
     
-    @Autowired
-    private UsuarioService usuarioService;
     @RequestMapping("/domicilios.htm")
     public ModelAndView indexDomicilios() {
 

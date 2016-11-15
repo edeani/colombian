@@ -7,6 +7,7 @@ package com.administracion.service;
 
 import com.administracion.dao.CategoriaDao;
 import com.administracion.dao.ProductoDao;
+import com.administracion.dto.ProductoAutocompletarDto;
 import com.administracion.dto.ProductoDetailDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Categoria;
@@ -35,6 +36,9 @@ public class ProductoServiceImpl implements ProductoService {
     @Value("${producto.cantidad}")
     Integer cantidad;
 
+    @Value("${producto.autocompletar}")
+    Integer autocompletar;
+    
     @Transactional(readOnly = true)
     @Override
     public List<ProductoDto> listAllPage(Integer page) {
@@ -130,6 +134,12 @@ public class ProductoServiceImpl implements ProductoService {
         Producto producto = productoDao.findById(idproducto);
         producto.setEstado("A");
         productoDao.Update(producto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductoAutocompletarDto> autocompletarProducto(String nombreproducto) {
+        return productoDao.findProductoLikeNombre(nombreproducto, autocompletar);
     }
 
 }

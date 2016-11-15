@@ -6,7 +6,6 @@
 package com.administracion.dao;
 
 import com.adiministracion.mapper.PedidosDtoMapper;
-import com.adiministracion.mapper.ProductoDtoMapper;
 import com.administracion.dto.PedidoDto;
 import com.administracion.entidad.Pedido;
 import com.administracion.util.LeerXml;
@@ -57,6 +56,6 @@ public class PedidoDaoImpl extends GenericDaoImpl<Pedido> implements PedidoDao{
         
         namedParameterJdbcTemplate.update(leerXml.getQuery("PedidoSql.updateEstado"),namedParameterSource);
     }
-    
-    
+
+     
 }
