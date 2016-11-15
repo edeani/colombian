@@ -18,12 +18,14 @@
         <link rel="stylesheet" type="text/css" href="/administracion/css/responsive.css">
         <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm.css">
         <link rel="stylesheet" type="text/css" href="/administracion/css/datatable/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="/administracion/css/jquery/jquery-ui.min.css">
 
         <!-- Fonts ================================================== -->
         <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery/jquery-ui.min.js"></script>
         <script type='text/javascript' src='<%=request.getContextPath()%>/js/woocommerce.js'></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/datatable/jquery.dataTables.min.js"></script>
@@ -97,5 +99,6 @@
                 <br /><br /><br />
             </div>
         </div><!-- End Content -->
+        <input id="textoProducto0" value=""/>
     </body>
 </html>

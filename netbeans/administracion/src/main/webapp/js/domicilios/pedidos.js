@@ -1,5 +1,6 @@
 $(document).on('ready', function () {
     $('#tablaPedidos').DataTable();
+    var valorTextoProd = "";
     $(document).on("click", ".viewOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $("#pedido" + fila);
@@ -156,16 +157,39 @@ $(document).on('ready', function () {
     $(document).on("click", "#addProductoPanel", function (event) {
         event.preventDefault();
         var totalFilas = $(".f").length;
-        
-        
+
+        $.confirm({
+            closeIcon: true,
+            closeIconClass: 'fa fa-close',
+            title: "Agregar Producto",
+            content: function () {
+                return '<div class=""><div class="panel-heading"><div class="row"><div class="col-md-6"><input id="textoProducto" value=""/></div></div><div class="row"><div class="col-md-6">Fecha y Hora:</div></div><div class="row"><div class="col-md-6">Fecha y Hora:</div></div><div class="row"><div class="col-md-6">Fecha y Hora:</div></div></div></div>';
+            },
+            onContentReady: function () {
+                $("#textoProducto").autocomplete({
+                 minLength: 2,
+                 source: $("#contextpath").val() + "/productos/ajax/autocompletar.htm",
+                 select: function (event, ui) {
+                 valorTextoProd = ui.item.idproducto;
+                 return false;
+                 }
+                 , close: function (event, ui) {
+                 $("#textoProducto").val(valorTextoProd);
+                 
+                 
+                 
+                 }
+                 });
+            }
+        });
     });
     
-    function mensajePedido(mensaje) { 
-        $.dialog({ 
-            icon: 'fa fa-check', 
-            title: 'Mensaje', 
-            content: mensaje 
-        }); 
+    function mensajePedido(mensaje) {
+        $.dialog({
+            icon: 'fa fa-check',
+            title: 'Mensaje',
+            content: mensaje
+        });
     }
     function procesarPedido(mensaje, accion) {
 

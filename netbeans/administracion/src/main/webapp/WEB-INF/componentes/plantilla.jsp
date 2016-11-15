@@ -107,6 +107,7 @@
             </div>
         </footer>
         <a name="contact1"></a>
+        <input type="hidden" value="<%=request.getContextPath()%>" id="contextpath"/>
     </div><!--- End Wrapper -->
 
 

@@ -11,7 +11,7 @@ package com.administracion.dto;
  */
 public class ProductoAutocompletarDto {
     private Long idproducto;
-    private String nombreproducto;
+    private String value;
     private Float precio;
     private String tipo;
     private Integer idtipo;
@@ -26,12 +26,12 @@ public class ProductoAutocompletarDto {
         this.idproducto = idproducto;
     }
 
-    public String getNombreproducto() {
-        return nombreproducto;
+    public String getValue() {
+        return value;
     }
 
-    public void setNombreproducto(String nombreproducto) {
-        this.nombreproducto = nombreproducto;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public Float getPrecio() {

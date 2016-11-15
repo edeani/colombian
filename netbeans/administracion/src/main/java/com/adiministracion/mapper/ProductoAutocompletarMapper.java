@@ -20,7 +20,7 @@ public class ProductoAutocompletarMapper implements RowMapper<ProductoAutocomple
     public ProductoAutocompletarDto mapRow(ResultSet rs, int i) throws SQLException {
         ProductoAutocompletarDto productoAutocompletarDto = new ProductoAutocompletarDto();
         productoAutocompletarDto.setIdproducto(rs.getLong("idproducto"));
-        productoAutocompletarDto.setNombreproducto(rs.getString("nombreproducto"));
+        productoAutocompletarDto.setValue(rs.getString("nombreproducto"));
         productoAutocompletarDto.setPrecio(rs.getFloat("precioproducto"));
         productoAutocompletarDto.setIdtipo(rs.getInt("idtipo"));
         productoAutocompletarDto.setTipo(rs.getString("nombretipo"));
