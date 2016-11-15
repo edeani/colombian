@@ -43,6 +43,8 @@ public class Pedido implements Serializable {
     private String estadopedido;
     @Column(name = "coordenadas")
     private String coordenadas;
+    @Column(name="comentarios")
+    private String comentarios;
     
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne
@@ -124,6 +126,14 @@ public class Pedido implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(String comentarios) {
+        this.comentarios = comentarios;
     }
    
 }

@@ -53,22 +53,26 @@ public class PedidoServiceImpl implements PedidoService{
         Tipopago tipoPago = tipoPagoDao.findById(pedidoClienteDto.getMedioPago());
         pedido.setIdtipopago(tipoPago);
         pedido.setFecha(new Date());
+        pedido.setComentarios(pedidoClienteDto.getComentarios());
         pedidoDao.save(pedido);
         
-        for(ProductoClienteDto producto : pedidoClienteDto.getProductos() ){
+        pedidoClienteDto.getProductos().stream().map((producto) -> {
             Detallepedido detallepedido = new Detallepedido();
             try {
                 detallepedido.setIdproducto(productoDao.findById(producto.getIdproducto()));
             } catch (Exception e) {
-              throw  new NullPointerException("Error en guardarPedido::No se encontró el producto");
+                throw  new NullPointerException("Error en guardarPedido::No se encontró el producto");
             }
             detallepedido.setCantidadorden(producto.getCantidad());
             detallepedido.setPreciounitario(producto.getPrecio());
             detallepedido.setTotalproducto(producto.getTotal());
+            return detallepedido;
+        }).map((detallepedido) -> {
             detallepedido.setPedido(pedido);
-            
+            return detallepedido;            
+        }).forEachOrdered((detallepedido) -> {
             detallePedidoDao.save(detallepedido);
-        }
+        });
         
         /**
          * Actualizo los datos del cliente
