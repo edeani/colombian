@@ -1,7 +1,8 @@
 $(document).on('ready', function () {
     $('#tablaPedidos').DataTable();
     var valorTextoProd = "";
-    var jsonSelected="[]";
+    var jsonSelected = "[]";
+    var sizeFilas=0;
     $(document).on("click", ".viewOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $("#pedido" + fila);
@@ -121,32 +122,7 @@ $(document).on('ready', function () {
         $("#totalPedido").val(totalPedidoNuevo);
         $("#viewTotalPedido").html(totalPedidoNuevo);
 
-        for (i = 0; i < $(".f").length; i++) {
-            var fila = $(".f")[i];
-            var indiceAnteriorFila = parseInt($(fila).attr("id").split("f")[1]);
-            if (indiceAnteriorFila !== i) {
-                $(fila).attr("id", "f" + i);
-                var objUpdateData = $(fila).find(".indiceData");
-                for (j = 0; j < $(objUpdateData).length; j++) {
-                    $($(objUpdateData)[j]).attr("data-row", i);
-                }
-
-                $("#p" + indiceAnteriorFila + "idproducto").attr("id", "p" + i + "idproducto");
-                $("#p" + indiceAnteriorFila + "nombreproducto").attr("id", "p" + i + "nombreproducto");
-                $("#p" + indiceAnteriorFila + "precio").attr("id", "p" + i + "precio");
-                $("#p" + indiceAnteriorFila + "cantidad").attr("id", "p" + i + "cantidad");
-                $("#p" + indiceAnteriorFila + "total").attr("id", "p" + i + "total");
-
-                $("#p" + i + "idproducto").attr("name", "productos[" + i + "].idproducto");
-                $("#p" + i + "nombreproducto").attr("name", "productos[" + i + "].nombreproducto");
-                $("#p" + i + "precio").attr("name", "productos[" + i + "].precio");
-                $("#p" + i + "cantidad").attr("name", "productos[" + i + "].cantidad");
-                $("#p" + i + "total").attr("name", "productos[" + i + "].total");
-
-
-                $("#f" + i + " td.indiceViewTotalProducto").attr("id", "p" + i + "viewTotalProducto");
-            }
-        }
+        actualizarIndicesPedido("f","f");
     });
 
     $(document).on("keypress", ".viewCantidad", function (event) {
@@ -164,6 +140,7 @@ $(document).on('ready', function () {
             closeIconClass: 'fa fa-close',
             escapeKey: true,
             backgroundDismiss: true,
+            columnClass: 'col-md-8 col-md-offset-2',
             title: false,
             content: function () {
                 var self = this;
@@ -184,14 +161,14 @@ $(document).on('ready', function () {
                     source: $("#contextpath").val() + "/productos/ajax/autocompletar.htm",
                     select: function (event, ui) {
                         valorTextoProd = ui.item.value;
-                        jsonSelected=ui.item;
+                        jsonSelected = ui.item;
                         return false;
                     }
                     , close: function (event, ui) {
                         $("#textoProducto").val(valorTextoProd);
-                        
+
                         $.ajax({
-                            url: $("#contextpath").val()+"/productos/ajax/admin/content-producto.htm",
+                            url: $("#contextpath").val() + "/productos/ajax/admin/content-producto.htm",
                             data: "jsonProducto=" + $.toJSON(jsonSelected),
                             type: 'POST',
                             timeout: 20000,
@@ -213,6 +190,35 @@ $(document).on('ready', function () {
             title: 'Mensaje',
             content: mensaje
         });
+    }
+
+    function actualizarIndicesPedido(clase,id) {
+        for (i = 0; i < $("."+clase).length; i++) {
+            var fila = $("."+clase)[i];
+            var indiceAnteriorFila = parseInt($(fila).attr("id").split(id)[1]);
+            if (indiceAnteriorFila !== i) {
+                $(fila).attr("id", id + i);
+                var objUpdateData = $(fila).find(".indiceData");
+                for (j = 0; j < $(objUpdateData).length; j++) {
+                    $($(objUpdateData)[j]).attr("data-row", i);
+                }
+
+                $("#p" + indiceAnteriorFila + "idproducto").attr("id", "p" + i + "idproducto");
+                $("#p" + indiceAnteriorFila + "nombreproducto").attr("id", "p" + i + "nombreproducto");
+                $("#p" + indiceAnteriorFila + "precio").attr("id", "p" + i + "precio");
+                $("#p" + indiceAnteriorFila + "cantidad").attr("id", "p" + i + "cantidad");
+                $("#p" + indiceAnteriorFila + "total").attr("id", "p" + i + "total");
+
+                $("#p" + i + "idproducto").attr("name", "productos[" + i + "].idproducto");
+                $("#p" + i + "nombreproducto").attr("name", "productos[" + i + "].nombreproducto");
+                $("#p" + i + "precio").attr("name", "productos[" + i + "].precio");
+                $("#p" + i + "cantidad").attr("name", "productos[" + i + "].cantidad");
+                $("#p" + i + "total").attr("name", "productos[" + i + "].total");
+
+
+                $("#f" + i + " td.indiceViewTotalProducto").attr("id", "p" + i + "viewTotalProducto");
+            }
+        }
     }
     function procesarPedido(mensaje, accion) {
 
