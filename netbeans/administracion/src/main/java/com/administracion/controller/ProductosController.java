@@ -186,11 +186,12 @@ public class ProductosController extends BaseController {
     }
     
     @RequestMapping("/ajax/admin/content-producto.htm")
-    public ModelAndView htmlElementoNuevoProducto(@RequestParam String jsonProducto){
+    public ModelAndView htmlElementoNuevoProducto(@RequestParam String jsonProducto,@RequestParam Integer sizeFilas){
       ModelAndView mav = new ModelAndView("pedido/newProductoOrden");
       Gson gson = new Gson();
       ProductoAutocompletarDto producto = gson.fromJson(jsonProducto, ProductoAutocompletarDto.class);
       mav.addObject("producto", producto);
+      mav.addObject("sizeFilas", sizeFilas);
       return mav;
     }
     @RequestMapping(value = "/upload-image", method = RequestMethod.POST)
