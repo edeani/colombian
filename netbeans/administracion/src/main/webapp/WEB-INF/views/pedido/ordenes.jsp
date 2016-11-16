@@ -29,6 +29,7 @@
         <script type='text/javascript' src='<%=request.getContextPath()%>/js/woocommerce.js'></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/datatable/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/json/jquery.json.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/domicilios/pedidos.js"></script>
     </head>
     <body>
@@ -99,6 +100,5 @@
                 <br /><br /><br />
             </div>
         </div><!-- End Content -->
-        <input id="textoProducto0" value=""/>
     </body>
 </html>

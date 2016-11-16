@@ -1,6 +1,7 @@
 $(document).on('ready', function () {
     $('#tablaPedidos').DataTable();
     var valorTextoProd = "";
+    var jsonSelected="[]";
     $(document).on("click", ".viewOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $("#pedido" + fila);
@@ -161,29 +162,51 @@ $(document).on('ready', function () {
         $.confirm({
             closeIcon: true,
             closeIconClass: 'fa fa-close',
-            title: "Agregar Producto",
+            escapeKey: true,
+            backgroundDismiss: true,
+            title: false,
             content: function () {
-                return '<div class=""><div class="panel-heading"><div class="row"><div class="col-md-6"><input id="textoProducto" value=""/></div></div><div class="row"><div class="col-md-6">Fecha y Hora:</div></div><div class="row"><div class="col-md-6">Fecha y Hora:</div></div><div class="row"><div class="col-md-6">Fecha y Hora:</div></div></div></div>';
+                var self = this;
+                return $.ajax({
+                    url: $("#contextpath").val() + '/productos/ajax/admin/nuevo-producto.htm',
+                    dataType: 'html',
+                    method: 'post',
+                    timeout: 10000
+                }).done(function (response) {
+                    self.setContent(response);
+                }).fail(function () {
+                    self.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
+                });
             },
             onContentReady: function () {
                 $("#textoProducto").autocomplete({
-                 minLength: 2,
-                 source: $("#contextpath").val() + "/productos/ajax/autocompletar.htm",
-                 select: function (event, ui) {
-                 valorTextoProd = ui.item.idproducto;
-                 return false;
-                 }
-                 , close: function (event, ui) {
-                 $("#textoProducto").val(valorTextoProd);
-                 
-                 
-                 
-                 }
-                 });
+                    minLength: 2,
+                    source: $("#contextpath").val() + "/productos/ajax/autocompletar.htm",
+                    select: function (event, ui) {
+                        valorTextoProd = ui.item.value;
+                        jsonSelected=ui.item;
+                        return false;
+                    }
+                    , close: function (event, ui) {
+                        $("#textoProducto").val(valorTextoProd);
+                        
+                        $.ajax({
+                            url: $("#contextpath").val()+"/productos/ajax/admin/content-producto.htm",
+                            data: "jsonProducto=" + $.toJSON(jsonSelected),
+                            type: 'POST',
+                            timeout: 20000,
+                            success: function (response) {
+                                //TODO: CODIGO DE INSERCIÓN Y CERRADO DEL LIGHTBOX
+                            }
+                        });
+
+
+                    }
+                });
             }
         });
     });
-    
+
     function mensajePedido(mensaje) {
         $.dialog({
             icon: 'fa fa-check',

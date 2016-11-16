@@ -179,6 +179,20 @@ public class ProductosController extends BaseController {
         }
         return json;
     }
+    
+    @RequestMapping("/ajax/admin/nuevo-producto.htm")
+    public ModelAndView htmlNuevoProducto(){
+      return new ModelAndView("pedido/newProductoOrden");
+    }
+    
+    @RequestMapping("/ajax/admin/content-producto.htm")
+    public ModelAndView htmlElementoNuevoProducto(@RequestParam String jsonProducto){
+      ModelAndView mav = new ModelAndView("pedido/newProductoOrden");
+      Gson gson = new Gson();
+      ProductoAutocompletarDto producto = gson.fromJson(jsonProducto, ProductoAutocompletarDto.class);
+      mav.addObject("producto", producto);
+      return mav;
+    }
     @RequestMapping(value = "/upload-image", method = RequestMethod.POST)
     @ResponseBody
     public String subirImagenes(@RequestParam(value = "imagen", required = false) MultipartFile image, @RequestParam(required = false) String nombreImagen) throws Exception {

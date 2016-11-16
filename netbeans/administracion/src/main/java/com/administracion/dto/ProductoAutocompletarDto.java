@@ -11,6 +11,7 @@ package com.administracion.dto;
  */
 public class ProductoAutocompletarDto {
     private Long idproducto;
+    //value es el nombre del producto
     private String value;
     private Float precio;
     private String tipo;
