@@ -18,6 +18,7 @@ public class ProductoAutocompletarDto {
     private Integer idtipo;
     private String imagen;
     private String descripcion;
+    private Integer cantidad;
 
     public Long getIdproducto() {
         return idproducto;
@@ -73,6 +74,14 @@ public class ProductoAutocompletarDto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
     
     
