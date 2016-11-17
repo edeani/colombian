@@ -30,10 +30,7 @@ $(document).on('ready', function () {
                                 if (response === "OK") {
                                     $("#f" + fila).removeClass("alert alert-danger");
                                     $("#f" + fila).addClass("alert alert-success");
-                                    $($(".aceptOrder")[fila]).hide();
-                                    var rejectDiv = $(".rejectOrder")[fila];
-                                    $(rejectDiv).show();
-                                    mensajePedido('El pedido "' + $($(".fieldPedido")[fila]).val() + ' ha sido aprobado con &eacute;xito');
+                                    mensajePedido('El pedido ' + idpedido + ' ha sido aprobado con &eacute;xito');
                                 } else {
                                     mensajePedido(response);
                                 }
@@ -51,13 +48,12 @@ $(document).on('ready', function () {
                             type: 'POST',
                             timeout: 20000,
                             success: function (response) {
-                                //removeProductTable(fila);
                                 if (response === "OK") {
                                     $("#f" + fila).removeClass("alert alert-succes");
                                     $("#f" + fila).addClass("alert alert-danger");
                                     $($(".rejectOrder")[fila]).hide();
                                     $($(".aceptOrder")[fila]).show();
-                                    mensajePedido('El pedido "' + $($(".fieldPedido")[fila]).val() + ' ha sido inactivado con &eacute;xito');
+                                    mensajePedido('El pedido ' + idpedido + ' ha sido inactivado con &eacute;xito');
                                 } else {
                                     mensajePedido(response);
                                 }
