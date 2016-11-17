@@ -19,6 +19,7 @@
         <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm.css">
         <link rel="stylesheet" type="text/css" href="/administracion/css/datatable/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="/administracion/css/jquery/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm-pedidos.css">
 
         <!-- Fonts ================================================== -->
         <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
@@ -68,9 +69,9 @@
                             <tbody>
                                 <c:forEach items="${pedidos}" var="d" varStatus="indice">
                                     <c:set var="clasefila" value=""></c:set>
-                                    <c:if test="${d.estadopedido eq 'R'}"><c:set var="clasefila" value="alert alert-danger"/></c:if> 
-                                    <c:if test="${d.estadopedido eq 'A'}"><c:set var="clasefila" value="alert alert-success"/></c:if>
-                                    <tr id="fila${indice.index}" class="fila ${clasefila}">
+                                    <c:if test="${d.estadopedido eq 'R'}"><c:set var="clasefila" value="alert-danger"/></c:if> 
+                                    <c:if test="${d.estadopedido eq 'A'}"><c:set var="clasefila" value="alert-success"/></c:if>
+                                    <tr id="fila${indice.index}" class="fila alert ${clasefila}">
                                         <td>${d.idpedido}</td>
                                         <td class="product-name">
                                             ${d.nombre}

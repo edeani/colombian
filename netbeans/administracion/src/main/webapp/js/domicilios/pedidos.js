@@ -28,8 +28,8 @@ $(document).on('ready', function () {
                             timeout: 20000,
                             success: function (response) {
                                 if (response === "OK") {
-                                    $("#f" + fila).removeClass("alert alert-danger");
-                                    $("#f" + fila).addClass("alert alert-success");
+                                    $("#fila" + fila).removeClass("alert-danger");
+                                    $("#fila" + fila).addClass("alert-success");
                                     mensajePedido('El pedido ' + idpedido + ' ha sido aprobado con &eacute;xito');
                                 } else {
                                     mensajePedido(response);
@@ -49,10 +49,8 @@ $(document).on('ready', function () {
                             timeout: 20000,
                             success: function (response) {
                                 if (response === "OK") {
-                                    $("#f" + fila).removeClass("alert alert-succes");
-                                    $("#f" + fila).addClass("alert alert-danger");
-                                    $($(".rejectOrder")[fila]).hide();
-                                    $($(".aceptOrder")[fila]).show();
+                                    $("#fila" + fila).removeClass("alert-succes");
+                                    $("#fila" + fila).addClass("alert-danger");
                                     mensajePedido('El pedido ' + idpedido + ' ha sido inactivado con &eacute;xito');
                                 } else {
                                     mensajePedido(response);
