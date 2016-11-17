@@ -1,8 +1,9 @@
+var valorTextoProd = "";
+var prodSeleccionado = "[]";
+var sizeFilas = 0;
+var dialogAddProduct=null;
 $(document).on('ready', function () {
     $('#tablaPedidos').DataTable();
-    var valorTextoProd = "";
-    var jsonSelected = "[]";
-    var sizeFilas=0;
     $(document).on("click", ".viewOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $("#pedido" + fila);
@@ -122,7 +123,7 @@ $(document).on('ready', function () {
         $("#totalPedido").val(totalPedidoNuevo);
         $("#viewTotalPedido").html(totalPedidoNuevo);
 
-        actualizarIndicesPedido("f","f");
+        actualizarIndicesPedido("f", "f");
     });
 
     $(document).on("keypress", ".viewCantidad", function (event) {
@@ -133,16 +134,17 @@ $(document).on('ready', function () {
     });
     $(document).on("click", "#addProductoPanel", function (event) {
         event.preventDefault();
-        var totalFilas = $(".f").length;
+        sizeFilas = $(".f").length;
 
-        $.confirm({
+        $.dialog({
             closeIcon: true,
             closeIconClass: 'fa fa-close',
             escapeKey: true,
             backgroundDismiss: true,
-            columnClass: 'col-md-8 col-md-offset-2',
+            columnClass: 'col-md-10 col-md-offset-1',
             title: false,
             content: function () {
+                dialogAddProduct = this;
                 var self = this;
                 return $.ajax({
                     url: $("#contextpath").val() + '/productos/ajax/admin/nuevo-producto.htm',
@@ -161,21 +163,24 @@ $(document).on('ready', function () {
                     source: $("#contextpath").val() + "/productos/ajax/autocompletar.htm",
                     select: function (event, ui) {
                         valorTextoProd = ui.item.value;
-                        jsonSelected = ui.item;
+                        prodSeleccionado = ui.item;
                         return false;
                     }
                     , close: function (event, ui) {
                         $("#textoProducto").val(valorTextoProd);
-
-                        $.ajax({
-                            url: $("#contextpath").val() + "/productos/ajax/admin/content-producto.htm",
-                            data: "jsonProducto=" + $.toJSON(jsonSelected),
-                            type: 'POST',
-                            timeout: 20000,
-                            success: function (response) {
-                                //TODO: CODIGO DE INSERCIÓN Y CERRADO DEL LIGHTBOX
-                            }
-                        });
+                        var totalCompraProducto = parseInt(prodSeleccionado.precio) * parseInt($("#viewAddCantidad").val());
+                        $("#totalProducto").val(totalCompraProducto);
+                        prodSeleccionado.cantidad = parseInt($("#viewAddCantidad").val());
+                        $('#addProductoOrder').prop('disabled', false);
+                        /*$.ajax({
+                         url: $("#contextpath").val() + "/productos/ajax/admin/content-producto.htm",
+                         data: "jsonProducto=" + $.toJSON(jsonSelected)+"&sizeFilas="+sizeFilas,
+                         type: 'POST',
+                         timeout: 20000,
+                         success: function (response) {
+                         
+                         }
+                         });*/
 
 
                     }
@@ -184,6 +189,24 @@ $(document).on('ready', function () {
         });
     });
 
+    $(document).on("change", "#viewAddCantidad", function () {
+        var cantidadActual = parseInt($(this).val());
+        var precioProdSel = prodSeleccionado.precio;
+        prodSeleccionado.cantidad=cantidadActual;
+        if (precioProdSel !== null && precioProdSel !== undefined) {
+            $("#totalProducto").val(cantidadActual * parseInt(precioProdSel));
+            $('#addProductoOrder').prop('disabled', false);
+        }else{
+            $('#addProductoOrder').prop('disabled', true);
+        }
+    });
+
+    $(document).on("click","#addProductoOrder",function(event){
+        event.preventDefault();
+        //TODO: Agregar producto a la grilla del pedido
+        dialogAddProduct.close();
+        dialogAddProduct=null;
+    });
     function mensajePedido(mensaje) {
         $.dialog({
             icon: 'fa fa-check',
@@ -192,9 +215,9 @@ $(document).on('ready', function () {
         });
     }
 
-    function actualizarIndicesPedido(clase,id) {
-        for (i = 0; i < $("."+clase).length; i++) {
-            var fila = $("."+clase)[i];
+    function actualizarIndicesPedido(clase, id) {
+        for (i = 0; i < $("." + clase).length; i++) {
+            var fila = $("." + clase)[i];
             var indiceAnteriorFila = parseInt($(fila).attr("id").split(id)[1]);
             if (indiceAnteriorFila !== i) {
                 $(fila).attr("id", id + i);
