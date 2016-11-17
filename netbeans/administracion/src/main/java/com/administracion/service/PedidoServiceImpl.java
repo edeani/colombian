@@ -11,7 +11,6 @@ import com.administracion.dao.ProductoDao;
 import com.administracion.dao.TipoPagoDao;
 import com.administracion.dao.UsuarioDao;
 import com.administracion.dto.PedidoClienteDto;
-import com.administracion.dto.ProductoClienteDto;
 import com.administracion.entidad.Detallepedido;
 import com.administracion.entidad.Pedido;
 import com.administracion.entidad.Tipopago;
@@ -60,20 +59,23 @@ public class PedidoServiceImpl implements PedidoService{
         pedido.setFecha(new Date());
         pedidoDao.save(pedido);
         
-        for(ProductoClienteDto producto : pedidoClienteDto.getProductos() ){
+        pedidoClienteDto.getProductos().stream().map((producto) -> {
             Detallepedido detallepedido = new Detallepedido();
             try {
                 detallepedido.setIdproducto(productoDao.findById(producto.getIdproducto()));
             } catch (Exception e) {
-              throw  new NullPointerException("Error en guardarPedido::No se encontró el producto");
+                throw  new NullPointerException("Error en guardarPedido::No se encontró el producto");
             }
             detallepedido.setCantidadorden(producto.getCantidad());
             detallepedido.setPreciounitario(producto.getPrecio());
             detallepedido.setTotalproducto(producto.getTotal());
+            return detallepedido;
+        }).map((detallepedido) -> {
             detallepedido.setPedido(pedido);
-            
+            return detallepedido;            
+        }).forEachOrdered((detallepedido) -> {
             detallePedidoDao.save(detallepedido);
-        }
+        });
         
         /**
          * Actualizo los datos del cliente
@@ -114,6 +116,34 @@ public class PedidoServiceImpl implements PedidoService{
     @Transactional(readOnly = true)
     public Pedido findById(Long idpedido) {
         return pedidoDao.findById(idpedido);
+    }
+
+    @Override
+    @Transactional
+    public void actualizarPedidoAdmin(PedidoClienteDto pedidoClienteDto) {
+        Long idpedido = pedidoClienteDto.getIdpedido();
+        pedidoDao.updateTotal(idpedido, pedidoClienteDto.getTotal());
+        detallePedidoDao.deleteDetallePedidoSql(idpedido);
+        
+        Pedido pedido = pedidoDao.findById(idpedido);
+        
+        pedidoClienteDto.getProductos().stream().map((producto) -> {
+            Detallepedido detallepedido = new Detallepedido();
+            try {
+                detallepedido.setIdproducto(productoDao.findById(producto.getIdproducto()));
+            } catch (Exception e) {
+                throw  new NullPointerException("Error en guardarPedido::No se encontró el producto");
+            }
+            detallepedido.setCantidadorden(producto.getCantidad());
+            detallepedido.setPreciounitario(producto.getPrecio());
+            detallepedido.setTotalproducto(producto.getTotal());
+            return detallepedido;
+        }).map((detallepedido) -> {
+            detallepedido.setPedido(pedido);
+            return detallepedido;            
+        }).forEachOrdered((detallepedido) -> {
+            detallePedidoDao.save(detallepedido);
+        });
     }
     
 }

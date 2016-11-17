@@ -12,5 +12,5 @@ import com.administracion.entidad.Detallepedido;
  * @author user
  */
 public interface DetallePedidoDao extends GenericDao<Detallepedido>{
-    
+    void deleteDetallePedidoSql(Long idpedido);
 }

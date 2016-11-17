@@ -10,4 +10,10 @@
     <query id="PedidoSql.updateEstado">
         update pedido set estadopedido=:estado where idpedido=:idpedido ;
     </query>
+    <query id="PedidoSql.updateTotal">
+        update pedido set totalpedido=:total where idpedido=:idpedido ;
+    </query>
+    <query id="PedidoSql.deleteDetallePedido">
+        delete from detallepedido where idpedido=:idpedido ;
+    </query>
 </queries>

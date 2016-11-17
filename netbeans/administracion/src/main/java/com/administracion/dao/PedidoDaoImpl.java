@@ -57,5 +57,14 @@ public class PedidoDaoImpl extends GenericDaoImpl<Pedido> implements PedidoDao{
         namedParameterJdbcTemplate.update(leerXml.getQuery("PedidoSql.updateEstado"),namedParameterSource);
     }
 
+    @Override
+    public void updateTotal(Long idpedido, Float total) {
+        final MapSqlParameterSource namedParameterSource = new MapSqlParameterSource();
+        namedParameterSource.addValue("idpedido", idpedido);
+        namedParameterSource.addValue("total", total);
+        
+        namedParameterJdbcTemplate.update(leerXml.getQuery("PedidoSql.updateTotal"),namedParameterSource);
+    }
+
      
 }

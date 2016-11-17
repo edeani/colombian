@@ -172,17 +172,6 @@ $(document).on('ready', function () {
                         $("#totalProducto").val(totalCompraProducto);
                         prodSeleccionado.cantidad = parseInt($("#viewAddCantidad").val());
                         $('#addProductoOrder').prop('disabled', false);
-                        /*$.ajax({
-                         url: $("#contextpath").val() + "/productos/ajax/admin/content-producto.htm",
-                         data: "jsonProducto=" + $.toJSON(jsonSelected)+"&sizeFilas="+sizeFilas,
-                         type: 'POST',
-                         timeout: 20000,
-                         success: function (response) {
-                         
-                         }
-                         });*/
-
-
                     }
                 });
             }
@@ -203,7 +192,6 @@ $(document).on('ready', function () {
 
     $(document).on("click", "#addProductoOrder", function (event) {
         event.preventDefault();
-        //TODO: Agregar producto a la grilla del pedido
         $.ajax({
             url: $("#contextpath").val() + "/productos/ajax/admin/content-producto.htm",
             data: "jsonProducto=" + $.toJSON(prodSeleccionado) + "&sizeFilas=" + sizeFilas,
@@ -211,7 +199,7 @@ $(document).on('ready', function () {
             timeout: 20000,
             success: function (response) {
                 $("#listProduct").append(response);
-                var tot = parseInt(prodSeleccionado.precio)*parseInt(prodSeleccionado.cantidad)+parseInt($("#totalPedido").val());
+                var tot = parseInt(prodSeleccionado.precio) * parseInt(prodSeleccionado.cantidad) + parseInt($("#totalPedido").val());
                 $("#viewTotalPedido").html(tot);
                 $("#totalPedido").val(tot);
                 dialogAddProduct.close();
@@ -221,12 +209,57 @@ $(document).on('ready', function () {
             dialogAddProduct.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
         });
     });
-    
+
+    $(document).on("click", "#updatePedidoPanel", function (event) {
+        event.preventDefault();
+
+        $.confirm({
+            closeIcon: true,
+            closeIconClass: 'fa fa-close',
+            title: false,
+            escapeKey: true,
+            backgroundDismiss: true,
+            buttons: {
+                aceptar: {
+                    btnClass: 'btn-success',
+                    action: function () {
+                        $.ajax({
+                            url: $("#contextpath").val() + "/pedidos/ajax/actualizar.htm",
+                            data: $("#pedidoClienteDto").serialize(),
+                            type: 'POST',
+                            timeout: 20000,
+                            success: function (response) {
+                                if (response === "OK") {
+                                    mensajePedido("El pedido " + $("#idpedido").val() + " ha sido actualizado.");
+                                }
+                            }
+                        }).fail(function () {
+                            dialogAddProduct.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
+                        });
+                    }
+                },
+                cancelar: {
+                    btnClass: 'btn-danger',
+                    action: function () {
+                    }
+                }
+            },
+            content: function () {
+                return '<div class="alert alert-warning alert-dismissible" role="alert">' +
+                        '<strong></strong> ¿Deseas Actualizar el pedido?.' +
+                        '</div>';
+            }
+        });
+        /*
+         */
+
+    });
     function mensajePedido(mensaje) {
         $.dialog({
             icon: 'fa fa-check',
             title: 'Mensaje',
-            content: mensaje
+            content: '<div class="alert alert-success alert-dismissible" role="alert">' +
+                        '<strong></strong> '+mensaje+'</div>'
         });
     }
 
@@ -257,9 +290,5 @@ $(document).on('ready', function () {
                 $("#f" + i + " td.indiceViewTotalProducto").attr("id", "p" + i + "viewTotalProducto");
             }
         }
-    }
-    function procesarPedido(mensaje, accion) {
-
-
     }
 });

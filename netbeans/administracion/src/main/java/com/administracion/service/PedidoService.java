@@ -22,4 +22,5 @@ public interface PedidoService {
     Pedido findById(Long idpedido);
     void updateEstado(Long idpedido,String estado);
     List<Detallepedido> listDetallePedido(Long idpedido);
+    void actualizarPedidoAdmin(PedidoClienteDto pedidoClienteDto);
 }

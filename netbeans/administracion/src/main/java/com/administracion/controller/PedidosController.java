@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -99,5 +100,16 @@ public class PedidosController extends BaseController{
        mav.addObject("tipopago", pedido.getIdtipopago().getNombre());
       //ModelAndView mav = new ModelAndView("pedido/cuadroDetalle");
        return mav;
+    }
+    
+    @RequestMapping("/ajax/actualizar.htm")
+    @ResponseBody
+    public String actualizarPedido(@ModelAttribute PedidoClienteDto pedidoClienteDto){
+        try {
+            pedidoService.actualizarPedidoAdmin(pedidoClienteDto);
+        } catch (Exception e) {
+            return "Error::"+e.getMessage();
+        }
+        return "OK";
     }
 }
