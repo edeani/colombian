@@ -187,10 +187,11 @@ public class ProductosController extends BaseController {
     
     @RequestMapping("/ajax/admin/content-producto.htm")
     public ModelAndView htmlElementoNuevoProducto(@RequestParam String jsonProducto,@RequestParam Integer sizeFilas){
-      ModelAndView mav = new ModelAndView("pedido/newProductoOrden");
+      ModelAndView mav = new ModelAndView("pedido/addFilaProducto");
       Gson gson = new Gson();
       ProductoAutocompletarDto producto = gson.fromJson(jsonProducto, ProductoAutocompletarDto.class);
       mav.addObject("producto", producto);
+      mav.addObject("total", producto.getCantidad()*producto.getPrecio());
       mav.addObject("sizeFilas", sizeFilas);
       return mav;
     }

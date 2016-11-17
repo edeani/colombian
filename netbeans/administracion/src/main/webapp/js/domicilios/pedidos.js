@@ -1,7 +1,7 @@
 var valorTextoProd = "";
 var prodSeleccionado = "[]";
 var sizeFilas = 0;
-var dialogAddProduct=null;
+var dialogAddProduct = null;
 $(document).on('ready', function () {
     $('#tablaPedidos').DataTable();
     $(document).on("click", ".viewOrder", function () {
@@ -192,21 +192,36 @@ $(document).on('ready', function () {
     $(document).on("change", "#viewAddCantidad", function () {
         var cantidadActual = parseInt($(this).val());
         var precioProdSel = prodSeleccionado.precio;
-        prodSeleccionado.cantidad=cantidadActual;
+        prodSeleccionado.cantidad = cantidadActual;
         if (precioProdSel !== null && precioProdSel !== undefined) {
             $("#totalProducto").val(cantidadActual * parseInt(precioProdSel));
             $('#addProductoOrder').prop('disabled', false);
-        }else{
+        } else {
             $('#addProductoOrder').prop('disabled', true);
         }
     });
 
-    $(document).on("click","#addProductoOrder",function(event){
+    $(document).on("click", "#addProductoOrder", function (event) {
         event.preventDefault();
         //TODO: Agregar producto a la grilla del pedido
-        dialogAddProduct.close();
-        dialogAddProduct=null;
+        $.ajax({
+            url: $("#contextpath").val() + "/productos/ajax/admin/content-producto.htm",
+            data: "jsonProducto=" + $.toJSON(prodSeleccionado) + "&sizeFilas=" + sizeFilas,
+            type: 'POST',
+            timeout: 20000,
+            success: function (response) {
+                $("#listProduct").append(response);
+                var tot = parseInt(prodSeleccionado.precio)*parseInt(prodSeleccionado.cantidad)+parseInt($("#totalPedido").val());
+                $("#viewTotalPedido").html(tot);
+                $("#totalPedido").val(tot);
+                dialogAddProduct.close();
+                dialogAddProduct = null;
+            }
+        }).fail(function () {
+            dialogAddProduct.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
+        });
     });
+    
     function mensajePedido(mensaje) {
         $.dialog({
             icon: 'fa fa-check',

@@ -62,7 +62,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="listProduct">
                 <c:forEach var="p" items="${pedido.productos}" varStatus="i">
                     <tr id="f${i.index}" class="f">
                         <td>${p.idproducto}</td>

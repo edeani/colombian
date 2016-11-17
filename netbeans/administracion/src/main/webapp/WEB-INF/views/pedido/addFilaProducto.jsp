@@ -10,12 +10,12 @@
             <input type="button" value="+" class="plus">
         </div>
     </td>
-    <td id="p0viewTotalProducto" class="indiceViewTotalProducto">7800</td>
+    <td id="p${sizeFilas}viewTotalProducto" class="indiceViewTotalProducto"><fmt:formatNumber type="number"  pattern="###.###" value="${total}" /></td>
     <td><a data-row="${sizeFilas}" class="remove removeCar indiceData" href="javascript:void(0);"><i class="fa fa-close"></i></a></td>
 <input type="hidden" id="p${sizeFilas}idproducto" name="productos[${sizeFilas}].idproducto" value="${producto.idproducto}">
 <input type="hidden" id="p${sizeFilas}nombreproducto" name="productos[${sizeFilas}].nombreproducto" value="${producto.value}">
 <input type="hidden" id="p${sizeFilas}precio" name="productos[${sizeFilas}].precio" value="${producto.precio}"> 
-<input type="hidden" id="p${sizeFilas}cantidad" name="productos[${sizeFilas}].cantidad" value=""> 
-<input type="hidden" id="p${sizeFilas}total" name="productos[${sizeFilas}].total" value="">
+<input type="hidden" id="p${sizeFilas}cantidad" name="productos[${sizeFilas}].cantidad" value="${producto.cantidad}"> 
+<input type="hidden" id="p${sizeFilas}total" name="productos[${sizeFilas}].total" value="${total}">
 </tr>
 
