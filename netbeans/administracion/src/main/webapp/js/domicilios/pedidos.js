@@ -3,7 +3,23 @@ var prodSeleccionado = "[]";
 var sizeFilas = 0;
 var dialogAddProduct = null;
 $(document).on('ready', function () {
-    $('#tablaPedidos').DataTable();
+    $('#tablaPedidos').DataTable({
+        lengthMenu: [[10, 30, 40], [10, 30, 40]],
+        language: {
+            search: "Buscar por nombre:",
+            info: "Orden _START_ hasta _END_ de _TOTAL_",
+            lengthMenu: "Mostrar _MENU_",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            zeroRecords: "No se encontraron elementos",
+            paginate: {
+                first: "Primero",
+                previous: "Ant.",
+                next: "Sig.",
+                last: "&Uacute;ltimo"
+            }
+        }
+    });
     $(document).on("click", ".viewOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $("#pedido" + fila);
@@ -253,7 +269,7 @@ $(document).on('ready', function () {
             icon: 'fa fa-check',
             title: 'Mensaje',
             content: '<div class="alert alert-success alert-dismissible" role="alert">' +
-                        '<strong></strong> '+mensaje+'</div>'
+                    '<strong></strong> ' + mensaje + '</div>'
         });
     }
 

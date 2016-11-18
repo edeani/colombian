@@ -98,7 +98,6 @@ public class PedidosController extends BaseController{
        mav.addObject("fecha", fecha);
        mav.addObject("correo", pedido.getIdusuario().getCorreo());
        mav.addObject("tipopago", pedido.getIdtipopago().getNombre());
-      //ModelAndView mav = new ModelAndView("pedido/cuadroDetalle");
        return mav;
     }
     
