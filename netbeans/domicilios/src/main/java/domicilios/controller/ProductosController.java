@@ -41,7 +41,7 @@ public class ProductosController {
 
     private static final Integer CANTIDAD_PRODUCTO = 1;
     
-    private static final String ESTADO_COMPRA = "A";
+    private static final String ESTADO_COMPRA = "P";
 
     private static final String SESSIONCOMPRA = "#{session.getAttribute('pedido')}";
 

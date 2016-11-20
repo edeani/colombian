@@ -5,6 +5,7 @@
  */
 package com.administracion.controller;
 
+import com.administracion.dto.ProductoAutocompletarDto;
 import com.administracion.dto.ProductoDetailDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Categoria;
@@ -12,6 +13,7 @@ import com.administracion.entidad.Producto;
 import com.administracion.enumeration.ExtencionesEnum;
 import com.administracion.service.ProductoService;
 import com.administracion.util.LectorPropiedades;
+import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -164,6 +166,34 @@ public class ProductosController extends BaseController {
     String activarProducto(@RequestParam Integer idproducto) {
         productoService.activarProductoXid(idproducto);
         return "OK";
+    }
+    
+    @RequestMapping("/ajax/autocompletar.htm")
+    @ResponseBody
+    public String autocompletarProducto(@RequestParam String term){
+        List<ProductoAutocompletarDto> productos = productoService.autocompletarProducto(term);
+        String json = "[]";
+        if(productos!=null){
+            Gson gson = new Gson();
+            json = gson.toJson(productos);
+        }
+        return json;
+    }
+    
+    @RequestMapping("/ajax/admin/nuevo-producto.htm")
+    public ModelAndView htmlNuevoProducto(){
+      return new ModelAndView("pedido/newProductoOrden");
+    }
+    
+    @RequestMapping("/ajax/admin/content-producto.htm")
+    public ModelAndView htmlElementoNuevoProducto(@RequestParam String jsonProducto,@RequestParam Integer sizeFilas){
+      ModelAndView mav = new ModelAndView("pedido/addFilaProducto");
+      Gson gson = new Gson();
+      ProductoAutocompletarDto producto = gson.fromJson(jsonProducto, ProductoAutocompletarDto.class);
+      mav.addObject("producto", producto);
+      mav.addObject("total", producto.getCantidad()*producto.getPrecio());
+      mav.addObject("sizeFilas", sizeFilas);
+      return mav;
     }
     @RequestMapping(value = "/upload-image", method = RequestMethod.POST)
     @ResponseBody

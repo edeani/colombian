@@ -16,4 +16,7 @@ import java.util.List;
  */
 public interface PedidoDao extends GenericDao<Pedido>{
     List<PedidoDto> findAllPageSql(Integer first, Integer cantidad, HashMap<String, Object> parametros);
+    List<PedidoDto> findAllXfechaSql(String fechaInicial,String fechaFinal);
+    void updateEstado(Long idpedido,String estado);
+    void updateTotal(Long idpedido, Float total);
 }

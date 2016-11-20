@@ -11,13 +11,13 @@ import com.administracion.dao.ProductoDao;
 import com.administracion.dao.TipoPagoDao;
 import com.administracion.dao.UsuarioDao;
 import com.administracion.dto.PedidoClienteDto;
-import com.administracion.dto.ProductoClienteDto;
 import com.administracion.entidad.Detallepedido;
 import com.administracion.entidad.Pedido;
 import com.administracion.entidad.Tipopago;
 import com.administracion.entidad.Usuario;
 import com.adiministracion.mapper.PedidoClienteDtoMapper;
 import com.administracion.dto.PedidoDto;
+import com.administracion.util.LeerXml;
 import com.administracion.util.Util;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,7 +48,7 @@ public class PedidoServiceImpl implements PedidoService{
     @Autowired
     private TipoPagoDao tipoPagoDao;
     
-    
+        
     @Transactional
     @Override
     public void guardarPedido(PedidoClienteDto pedidoClienteDto,Usuario usuario) {
@@ -59,20 +59,23 @@ public class PedidoServiceImpl implements PedidoService{
         pedido.setFecha(new Date());
         pedidoDao.save(pedido);
         
-        for(ProductoClienteDto producto : pedidoClienteDto.getProductos() ){
+        pedidoClienteDto.getProductos().stream().map((producto) -> {
             Detallepedido detallepedido = new Detallepedido();
             try {
                 detallepedido.setIdproducto(productoDao.findById(producto.getIdproducto()));
             } catch (Exception e) {
-              throw  new NullPointerException("Error en guardarPedido::No se encontró el producto");
+                throw  new NullPointerException("Error en guardarPedido::No se encontró el producto");
             }
             detallepedido.setCantidadorden(producto.getCantidad());
             detallepedido.setPreciounitario(producto.getPrecio());
             detallepedido.setTotalproducto(producto.getTotal());
+            return detallepedido;
+        }).map((detallepedido) -> {
             detallepedido.setPedido(pedido);
-            
+            return detallepedido;            
+        }).forEachOrdered((detallepedido) -> {
             detallePedidoDao.save(detallepedido);
-        }
+        });
         
         /**
          * Actualizo los datos del cliente
@@ -92,6 +95,61 @@ public class PedidoServiceImpl implements PedidoService{
         parametros.put("fechafinal", fechaFinal);
         Integer firstItem = Util.firstItemPage(page, cantidad);
         return pedidoDao.findAllPageSql(firstItem, cantidad, parametros);
+    }
+
+    @Override
+    @Transactional
+    public void updateEstado(Long idpedido, String estado) {
+        pedidoDao.updateEstado(idpedido, estado);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Detallepedido> listDetallePedido(Long idpedido) {
+        HashMap<String,Object> parametros = new HashMap<>();
+        parametros.put("idpedido", idpedido);
+        
+        return detallePedidoDao.queryJpa(new LeerXml().getQuery("PedidoJpa.listDetallePedido"), parametros);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Pedido findById(Long idpedido) {
+        return pedidoDao.findById(idpedido);
+    }
+
+    @Override
+    @Transactional
+    public void actualizarPedidoAdmin(PedidoClienteDto pedidoClienteDto) {
+        Long idpedido = pedidoClienteDto.getIdpedido();
+        pedidoDao.updateTotal(idpedido, pedidoClienteDto.getTotal());
+        detallePedidoDao.deleteDetallePedidoSql(idpedido);
+        
+        Pedido pedido = pedidoDao.findById(idpedido);
+        
+        pedidoClienteDto.getProductos().stream().map((producto) -> {
+            Detallepedido detallepedido = new Detallepedido();
+            try {
+                detallepedido.setIdproducto(productoDao.findById(producto.getIdproducto()));
+            } catch (Exception e) {
+                throw  new NullPointerException("Error en guardarPedido::No se encontró el producto");
+            }
+            detallepedido.setCantidadorden(producto.getCantidad());
+            detallepedido.setPreciounitario(producto.getPrecio());
+            detallepedido.setTotalproducto(producto.getTotal());
+            return detallepedido;
+        }).map((detallepedido) -> {
+            detallepedido.setPedido(pedido);
+            return detallepedido;            
+        }).forEachOrdered((detallepedido) -> {
+            detallePedidoDao.save(detallepedido);
+        });
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PedidoDto> findPedidosXFecha(String fechaInicial, String fechaFinal) {
+        return pedidoDao.findAllXfechaSql(fechaInicial, fechaFinal);
     }
     
 }

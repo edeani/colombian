@@ -5,6 +5,7 @@
  */
 package com.administracion.dao;
 
+import com.administracion.dto.ProductoAutocompletarDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Producto;
 import java.util.HashMap;
@@ -16,4 +17,5 @@ import java.util.List;
  */
 public interface ProductoDao extends GenericDao<Producto>{
     List<ProductoDto> findAllPageSql(Integer first,Integer cantidad,HashMap<String,Object> parametros);
+    List<ProductoAutocompletarDto> findProductoLikeNombre(String nombreproducto,Integer cantidad);
 }

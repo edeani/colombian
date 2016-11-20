@@ -161,7 +161,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group btnpago">
-                                    <input class="btn btn-danger btn-lg" type="submit" value="Hacer pedido">
+                                    <input id="guardarcompra" class="btn btn-danger btn-lg" type="button" value="Hacer pedido">
                                 </div>
                             </div>
                         </div>

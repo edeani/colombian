@@ -20,7 +20,8 @@ public class PedidoClienteDto {
     private List<ProductoClienteDto> productos;
     private Float total;
     private String estado;
-    private Integer idusuario;
+    private Long idusuario;
+
     
     @NotEmpty
     @Size(max = 15)
@@ -127,13 +128,13 @@ public class PedidoClienteDto {
         this.estado = estado;
     }
 
-    public Integer getIdusuario() {
+    public Long getIdusuario() {
         return idusuario;
     }
 
-    public void setIdusuario(Integer idusuario) {
+    public void setIdusuario(Long idusuario) {
         this.idusuario = idusuario;
     }
-    
-    
+
+
 }

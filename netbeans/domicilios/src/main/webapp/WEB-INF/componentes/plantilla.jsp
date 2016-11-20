@@ -61,7 +61,7 @@
                             <ul class="rst-main-menu">
                                 <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
                                 <li><a href="/contenido/productos.htm">Men&uacute;</a></li>
-                                <li><a href="/compras/pedido.htm">Hacer Pedido</a></li>
+                                <li><a href="/compras/pedido.htm">T&uacute; Pedido</a></li>
                                 <li><a href="#contact">Contacto</a></li>
                                 <sec:authorize  access="hasRole('ROLE_ADMIN')">
                                 <li class="menu-item-has-children">

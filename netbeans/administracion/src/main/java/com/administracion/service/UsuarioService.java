@@ -16,6 +16,7 @@ import java.util.List;
 public interface UsuarioService {
     public List<Usuario> listUsuarios();
     public Usuario findUsuarioByCorreo(String correo);
+    public Usuario findUsuarioById(Long idusuario);
     public void crearUsuario(Usuario usuario);
     public void actualizarUsuario(Usuario usuario);
     public void borrarUsuario(Usuario usuario);

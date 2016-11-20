@@ -5,9 +5,11 @@
  */
 package com.administracion.dao;
 
+import com.adiministracion.mapper.ProductoAutocompletarMapper;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Producto;
 import com.adiministracion.mapper.ProductoDtoMapper;
+import com.administracion.dto.ProductoAutocompletarDto;
 import com.administracion.util.LeerXml;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +51,15 @@ public class ProductoDaoImpl extends GenericDaoImpl<Producto> implements Product
         
     }
 
+    @Override
+    public List<ProductoAutocompletarDto> findProductoLikeNombre(String nombreproducto,Integer cantidad) {
+        final MapSqlParameterSource nameMapSqlParameterSource = new MapSqlParameterSource();
+        nameMapSqlParameterSource.addValue("nombreproducto", "%"+nombreproducto+"%");
+        nameMapSqlParameterSource.addValue("cantidad", cantidad);
+        
+        return namedParameterJdbcTemplate.query(leerXml.getQuery("ProductoSql.listProductoLikeNombre"), nameMapSqlParameterSource, new ProductoAutocompletarMapper());
+    }
+    
 }
 
 

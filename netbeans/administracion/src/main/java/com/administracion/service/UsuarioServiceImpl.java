@@ -121,4 +121,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         return rolDao.findById(idrol);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario findUsuarioById(Long idusuario) {
+        return usuarioDao.findById(idusuario);
+    }
+
 }

@@ -5,7 +5,7 @@
  */
 package com.administracion.dao;
 
-import com.adiministracion.mapper.ProductoDtoMapper;
+import com.adiministracion.mapper.PedidosDtoMapper;
 import com.administracion.dto.PedidoDto;
 import com.administracion.entidad.Pedido;
 import com.administracion.util.LeerXml;
@@ -45,8 +45,35 @@ public class PedidoDaoImpl extends GenericDaoImpl<Pedido> implements PedidoDao{
         namedParameterSource.addValue("minimo", first);
         namedParameterSource.addValue("cantidad", cantidad);
         
-        return namedParameterJdbcTemplate.query(leerXml.getQuery("PedidoSql.listPedido"),namedParameterSource, new ProductoDtoMapper());
+        return namedParameterJdbcTemplate.query(leerXml.getQuery("PedidoSql.listPedido"),namedParameterSource, new PedidosDtoMapper());
     }
-    
-    
+
+    @Override
+    public void updateEstado(Long idpedido, String estado) {
+        final MapSqlParameterSource namedParameterSource = new MapSqlParameterSource();
+        namedParameterSource.addValue("idpedido", idpedido);
+        namedParameterSource.addValue("estado", estado);
+        
+        namedParameterJdbcTemplate.update(leerXml.getQuery("PedidoSql.updateEstado"),namedParameterSource);
+    }
+
+    @Override
+    public void updateTotal(Long idpedido, Float total) {
+        final MapSqlParameterSource namedParameterSource = new MapSqlParameterSource();
+        namedParameterSource.addValue("idpedido", idpedido);
+        namedParameterSource.addValue("total", total);
+        
+        namedParameterJdbcTemplate.update(leerXml.getQuery("PedidoSql.updateTotal"),namedParameterSource);
+    }
+
+    @Override
+    public List<PedidoDto> findAllXfechaSql(String fechaInicial, String fechaFinal) {
+        final MapSqlParameterSource namedParameterSource = new MapSqlParameterSource();
+        namedParameterSource.addValue("fechainicial", fechaInicial);
+        namedParameterSource.addValue("fechafinal", fechaFinal);
+        
+        return namedParameterJdbcTemplate.query(leerXml.getQuery("PedidoSql.listPedidoXfecha"),namedParameterSource, new PedidosDtoMapper());
+    }
+
+     
 }

@@ -51,14 +51,14 @@ public class PedidosController extends BaseController {
 
     private static final String SESSIONCOMPRA = "#{session.getAttribute('pedido')}";
 
-    private static final String ESTADO_COMPRA = "A";
-    
+    private static final String ESTADO_COMPRA = "P";
+
     private static final String PROP_COORDS_DOMI = "coordenadas-domicilios";
-    
+
     private static final String PROP_COORDS_COLOMBIAN = "coordenadas-colombian";
-    
+
     private static final String NAME_COORDS_DOMI = "area";
-    
+
     private static final String NAME_COORDS_COLOMBIAN = "center";
 
     List<Tipopago> tiposPago;
@@ -72,67 +72,69 @@ public class PedidosController extends BaseController {
     public ModelAndView pedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         ModelAndView mav;
 
-        if (securityService.getCurrentUser() != null) {
-            mav = new ModelAndView("compra/pedido");
-            if (pedidoDto == null) {
-                return new ModelAndView("compra/pedidoVacio");
-            } else if (pedidoDto.getProductos() == null) {
-                return new ModelAndView("compra/pedidoVacio");
-            } else if (pedidoDto.getProductos().isEmpty()) {
-                return new ModelAndView("compra/pedidoVacio");
-            }
-            Usuario usuario = securityService.getCurrentUser();
-            pedidoDto.setNombre(usuario.getNombreusuario());
-            if (usuario.getCedula() != null) {
-                pedidoDto.setCedula(usuario.getCedula());
-            }
-            if (usuario.getDireccion() != null) {
-                pedidoDto.setDireccion(usuario.getDireccion());
-            }
-            if (usuario.getTelefono() != null) {
-                pedidoDto.setTelefono(usuario.getTelefono());
-            }
-
-            setBasicModel(mav, pedidoDto);
-            mav.addObject("pedido", pedidoDto);
-            
-            if (ManageCookies.getCookieValue(request, NAME_COORDS_DOMI) == null) {
-                LectorPropiedades lp = new LectorPropiedades();
-                String jsonCoordenadasString = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), PROP_COORDS_DOMI);
-                String jsonCoordenadasColString = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), PROP_COORDS_COLOMBIAN);
-                ManageCookies.setCookie(response, NAME_COORDS_DOMI, jsonCoordenadasString, 1, "/");
-                ManageCookies.setCookie(response, NAME_COORDS_COLOMBIAN, jsonCoordenadasColString, 1, "/");
-            }
-        } else {
-            mav = new ModelAndView("redirect:/signin.htm");
+        mav = new ModelAndView("compra/pedido");
+        if (pedidoDto == null) {
+            return new ModelAndView("compra/pedidoVacio");
+        } else if (pedidoDto.getProductos() == null) {
+            return new ModelAndView("compra/pedidoVacio");
+        } else if (pedidoDto.getProductos().isEmpty()) {
+            return new ModelAndView("compra/pedidoVacio");
         }
+        Usuario usuario = securityService.getCurrentUser();
+        pedidoDto.setNombre(usuario.getNombreusuario());
+        if (usuario.getCedula() != null) {
+            pedidoDto.setCedula(usuario.getCedula());
+        }
+        if (usuario.getDireccion() != null) {
+            pedidoDto.setDireccion(usuario.getDireccion());
+        }
+        if (usuario.getTelefono() != null) {
+            pedidoDto.setTelefono(usuario.getTelefono());
+        }
+
+        setBasicModel(mav, pedidoDto);
+        mav.addObject("pedido", pedidoDto);
+
+        if (ManageCookies.getCookieValue(request, NAME_COORDS_DOMI) == null) {
+            LectorPropiedades lp = new LectorPropiedades();
+            String jsonCoordenadasString = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), PROP_COORDS_DOMI);
+            String jsonCoordenadasColString = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), PROP_COORDS_COLOMBIAN);
+            ManageCookies.setCookie(response, NAME_COORDS_DOMI, jsonCoordenadasString, 1, "/");
+            ManageCookies.setCookie(response, NAME_COORDS_COLOMBIAN, jsonCoordenadasColString, 1, "/");
+        }
+
         return mav;
     }
 
     @RequestMapping(value = "/pedido.htm", method = RequestMethod.POST)
-    public ModelAndView guardarPedido(@ModelAttribute @Valid PedidoClienteDto pedidoClienteDto, BindingResult binding, @Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto
-    ,HttpServletResponse response, HttpServletRequest request) {
+    public ModelAndView guardarPedido(@ModelAttribute @Valid PedidoClienteDto pedidoClienteDto, BindingResult binding, @Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto,
+             HttpServletResponse response, HttpServletRequest request,HttpSession session) {
 
         if (binding.hasErrors()) {
             ModelAndView mavError = new ModelAndView("compra/pedido");
             setBasicModel(mavError, pedidoClienteDto);
             return mavError;
         } else {
-            ModelAndView mav = new ModelAndView("compra/finalizacion");
             try {
                 pedidoService.guardarPedido(pedidoClienteDto, securityService.getCurrentUser());
                 pedidoDto = null;
                 ManageCookies.eraseCookie(NAME_COORDS_COLOMBIAN, response, request);
                 ManageCookies.eraseCookie(NAME_COORDS_DOMI, response, request);
+                session.removeAttribute("pedido");
+                return new ModelAndView("redirect:/compras/finalizada.htm");
             } catch (Exception e) {
-                mav = new ModelAndView("redirect:/compras/pedido.htm");
+                ModelAndView mav = new ModelAndView("redirect:/compras/pedido.htm");
                 mav.addObject("mensaje", "Ocurri&oacute un problema al realizar la operaci&oacute;");
                 return mav;
             }
-            return mav;
         }
     }
-
+    
+    @RequestMapping("/finalizada.htm")
+    public ModelAndView compraFinalizada(){
+         return new ModelAndView("compra/finalizacion");
+    }
+    
     @RequestMapping("/ajax/resumen.htm")
     public ModelAndView resumenPedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session) {
         if (pedidoDto == null) {

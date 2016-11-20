@@ -5,6 +5,7 @@
  */
 package com.administracion.service;
 
+import com.administracion.dto.ProductoAutocompletarDto;
 import com.administracion.dto.ProductoDetailDto;
 import com.administracion.dto.ProductoDto;
 import com.administracion.entidad.Categoria;
@@ -25,4 +26,5 @@ public interface ProductoService {
     void crearProductoAdministrador(ProductoDetailDto producto);
     Producto findProductoXid(Integer idproducto);
     void actualizarProductoAdministrador(ProductoDetailDto productoDetailDto);
+    List<ProductoAutocompletarDto> autocompletarProducto(String nombreproducto);
 }
