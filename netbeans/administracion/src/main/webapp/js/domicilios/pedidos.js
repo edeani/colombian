@@ -3,10 +3,11 @@ var prodSeleccionado = "[]";
 var sizeFilas = 0;
 var dialogAddProduct = null;
 var tableDomi = null;
-var inputHasta=null;
 $(document).on('ready', function () {
     $("#fechaInicial").datepicker({
         dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
         onSelect: function () {
             var dateStart = new Date($(this).val());
             var dateCurrent = new Date();
@@ -19,8 +20,10 @@ $(document).on('ready', function () {
             );
         }
     });
-    inputHasta=$("#fechaFinal").datepicker({
-        dateFormat: "yy-mm-dd"
+    $("#fechaFinal").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true
     });
     tableDomi = configuracionTabla();
     $(document).on("click", ".viewOrder", function () {
