@@ -66,5 +66,14 @@ public class PedidoDaoImpl extends GenericDaoImpl<Pedido> implements PedidoDao{
         namedParameterJdbcTemplate.update(leerXml.getQuery("PedidoSql.updateTotal"),namedParameterSource);
     }
 
+    @Override
+    public List<PedidoDto> findAllXfechaSql(String fechaInicial, String fechaFinal) {
+        final MapSqlParameterSource namedParameterSource = new MapSqlParameterSource();
+        namedParameterSource.addValue("fechainicial", fechaInicial);
+        namedParameterSource.addValue("fechafinal", fechaFinal);
+        
+        return namedParameterJdbcTemplate.query(leerXml.getQuery("PedidoSql.listPedidoXfecha"),namedParameterSource, new PedidosDtoMapper());
+    }
+
      
 }

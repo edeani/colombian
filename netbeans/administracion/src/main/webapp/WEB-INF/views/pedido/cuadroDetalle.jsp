@@ -35,7 +35,7 @@
                 <div class="col-md-4 list-group-item"><span class="label label-primary">Tel&eacute;fono</span> ${pedido.telefono}</div>
             </div>
             <div class="row">
-                <div class="col-md-12 list-group-item"><span class="label label-primary">Comentarios</span> El ejemplo de mis comentarios</div>
+                <div class="col-md-12 list-group-item"><span class="label label-primary">Comentarios</span> ${pedido.comentarios}</div>
             </div>
             <div class="row">
                 <div class="col-md-6 list-group-item" style="border: #FFF">

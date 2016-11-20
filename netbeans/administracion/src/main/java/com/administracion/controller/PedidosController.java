@@ -111,4 +111,12 @@ public class PedidosController extends BaseController{
         }
         return "OK";
     }
+    
+    @RequestMapping("/ajax/ordenes-x-fecha.htm")
+    public ModelAndView ordenesXFecha(@RequestParam String fechaInicial,@RequestParam String fechaFinal){
+        List<PedidoDto> pedidos = pedidoService.findPedidosXFecha(fechaInicial, fechaFinal);
+        ModelAndView mav =  new ModelAndView("pedido/listapedido");
+        mav.addObject("pedidos", pedidos);
+        return mav;
+    }
 }

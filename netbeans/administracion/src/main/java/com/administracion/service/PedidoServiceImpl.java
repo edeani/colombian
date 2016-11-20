@@ -145,5 +145,11 @@ public class PedidoServiceImpl implements PedidoService{
             detallePedidoDao.save(detallepedido);
         });
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PedidoDto> findPedidosXFecha(String fechaInicial, String fechaFinal) {
+        return pedidoDao.findAllXfechaSql(fechaInicial, fechaFinal);
+    }
     
 }

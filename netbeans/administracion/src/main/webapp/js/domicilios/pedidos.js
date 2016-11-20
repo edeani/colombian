@@ -2,24 +2,15 @@ var valorTextoProd = "";
 var prodSeleccionado = "[]";
 var sizeFilas = 0;
 var dialogAddProduct = null;
+var tableDomi = null;
 $(document).on('ready', function () {
-    $('#tablaPedidos').DataTable({
-        lengthMenu: [[10, 30, 40], [10, 30, 40]],
-        language: {
-            search: "Buscar por nombre:",
-            info: "Orden _START_ hasta _END_ de _TOTAL_",
-            lengthMenu: "Mostrar _MENU_",
-            loadingRecords: "Cargando...",
-            processing: "Procesando...",
-            zeroRecords: "No se encontraron elementos",
-            paginate: {
-                first: "Primero",
-                previous: "Ant.",
-                next: "Sig.",
-                last: "&Uacute;ltimo"
-            }
-        }
+    $("#fechaInicial").datepicker({
+        dateFormat: "yy-mm-dd"
     });
+    $("#fechaFinal").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+    tableDomi = configuracionTabla();
     $(document).on("click", ".viewOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $("#pedido" + fila);
@@ -264,6 +255,22 @@ $(document).on('ready', function () {
          */
 
     });
+
+    $(document).on("click", "#filtrar", function () {
+        $.ajax({
+            url: $("#contextpath").val() + "/pedidos/ajax/ordenes-x-fecha.htm",
+            data: "fechaInicial=" + $("#fechaInicial").val() + "&fechaFinal=" + $("#fechaFinal").val(),
+            type: 'POST',
+            timeout: 20000,
+            success: function (response) {
+                tableDomi.clear();
+                tableDomi.destroy();
+                $("#updateListaDom").html(response);
+                tableDomi = configuracionTabla();
+            }
+        });
+    });
+
     function mensajePedido(mensaje) {
         $.dialog({
             icon: 'fa fa-check',
@@ -300,5 +307,26 @@ $(document).on('ready', function () {
                 $("#f" + i + " td.indiceViewTotalProducto").attr("id", "p" + i + "viewTotalProducto");
             }
         }
+    }
+
+    function configuracionTabla() {
+        var conf = $('#tablaPedidos').DataTable({
+            lengthMenu: [[10, 30, 40], [10, 30, 40]],
+            language: {
+                search: "Buscar:",
+                info: "Orden _START_ hasta _END_ de _TOTAL_",
+                lengthMenu: "Mostrar _MENU_",
+                loadingRecords: "Cargando...",
+                processing: "Procesando...",
+                zeroRecords: "No se encontraron elementos",
+                paginate: {
+                    first: "Primero",
+                    previous: "Ant.",
+                    next: "Sig.",
+                    last: "&Uacute;ltimo"
+                }
+            }
+        });
+        return conf;
     }
 });

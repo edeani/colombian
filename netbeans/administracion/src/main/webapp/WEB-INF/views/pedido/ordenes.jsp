@@ -43,6 +43,12 @@
                 <br /><br /><br />
                 <div class="row">
                     <div class="col-sm-12">
+                        FI<input id="fechaInicial" value=""/> FF <input id="fechaFinal" value=""/> <button id="filtrar" >Filtrar</button>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <table class="table table-border-row table-card" id="tablaPedidos">
                             <thead>
                                 <tr>
@@ -66,7 +72,7 @@
                                     <th></th>
                                 </tr>
                             </tfoot>
-                            <tbody>
+                            <tbody id="updateListaDom">
                                 <c:forEach items="${pedidos}" var="d" varStatus="indice">
                                     <c:set var="clasefila" value=""></c:set>
                                     <c:if test="${d.estadopedido eq 'R'}"><c:set var="clasefila" value="alert-danger"/></c:if> 
@@ -87,10 +93,10 @@
                                             </div>
                                             </p>
                                         </td>
-                                        <form id="formDatos${indice.index}">
-                                            <input type="hidden" id="pedido${indice.index}" name="idpedido" value="${d.idpedido}" class="fieldPedido"/>
-                                            <input type="hidden" name="fecha" value="${d.fecha}" class="fieldFecha"/>
-                                        </form>        
+                                <form id="formDatos${indice.index}">
+                                    <input type="hidden" id="pedido${indice.index}" name="idpedido" value="${d.idpedido}" class="fieldPedido"/>
+                                    <input type="hidden" name="fecha" value="${d.fecha}" class="fieldFecha"/>
+                                </form>        
                                 </tr>
                             </c:forEach>
 

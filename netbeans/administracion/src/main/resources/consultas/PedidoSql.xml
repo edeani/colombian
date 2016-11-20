@@ -7,6 +7,12 @@
         where DATE(p.fecha) between :fechainicial and  :fechafinal
         order by p.idpedido desc limit :cantidad offset :minimo ;
     </query>
+    <query id="PedidoSql.listPedidoXfecha">
+        select p.idpedido,p.idusuario,p.direccion,p.estadopedido,p.coordenadas,p.totalpedido,p.idtipopago,tp.nombre as tipopago,p.fecha,u.nombreusuario,u.correo,
+        u.cedula,u.telefono from pedido p inner join tipopago tp on tp.idtipo = p.idtipopago 
+        inner join usuario u on u.idusuario = p.idusuario 
+        where DATE(p.fecha) between :fechainicial and  :fechafinal;
+    </query>
     <query id="PedidoSql.updateEstado">
         update pedido set estadopedido=:estado where idpedido=:idpedido ;
     </query>
