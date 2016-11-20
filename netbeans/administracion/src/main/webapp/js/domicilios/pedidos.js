@@ -3,11 +3,23 @@ var prodSeleccionado = "[]";
 var sizeFilas = 0;
 var dialogAddProduct = null;
 var tableDomi = null;
+var inputHasta=null;
 $(document).on('ready', function () {
     $("#fechaInicial").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "yy-mm-dd",
+        onSelect: function () {
+            var dateStart = new Date($(this).val());
+            var dateCurrent = new Date();
+            var dias = parseInt((dateStart - dateCurrent) / (1000 * 60 * 60 * 24));
+            if(dias > 0){
+                dias+=1;
+            }
+            $("#fechaFinal").datepicker(
+                "option", "minDate",dias
+            );
+        }
     });
-    $("#fechaFinal").datepicker({
+    inputHasta=$("#fechaFinal").datepicker({
         dateFormat: "yy-mm-dd"
     });
     tableDomi = configuracionTabla();

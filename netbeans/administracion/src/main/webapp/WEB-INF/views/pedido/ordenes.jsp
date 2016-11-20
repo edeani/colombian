@@ -42,11 +42,26 @@
                 </div>            
                 <br /><br /><br />
                 <div class="row">
-                    <div class="col-sm-12">
-                        FI<input id="fechaInicial" value=""/> FF <input id="fechaFinal" value=""/> <button id="filtrar" >Filtrar</button>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Desde</span>
+                            <input id="fechaInicial" class="form-control" value=""/> 
+                            <span class="input-group-addon" id="basic-addon1">Hasta</span>
+                            <input id="fechaFinal" class="form-control" value=""/>
+
+                        </div>
+
 
                     </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <button id="filtrar" class="btn btn-default" style="background: #ec652f"><i class="fa fa-filter fa-lg" aria-hidden="true"></i>Filtrar</button>
+                        </div>
+                    </div>
+
                 </div>
+                </br></br>
                 <div class="row">
                     <div class="col-sm-12">
                         <table class="table table-border-row table-card" id="tablaPedidos">
