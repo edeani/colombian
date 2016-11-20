@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         FI<input id="fechaInicial" value=""/> FF <input id="fechaFinal" value=""/> <button id="filtrar" >Filtrar</button>
-                        
+
                     </div>
                 </div>
                 <div class="row">
@@ -92,13 +92,14 @@
                                                 <a title="ver" data-row="${indice.index}" class="edit btn btn-primary btn-sm viewOrder" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
                                             </div>
                                             </p>
+                                            <form id="formDatos${indice.index}" style="display: none;">
+                                                <input type="hidden" id="pedido${indice.index}" name="idpedido" value="${d.idpedido}" class="fieldPedido">
+                                                <input type="hidden" name="fecha" value="${d.fecha}" class="fieldFecha"/>
+                                            </form>  
                                         </td>
-                                <form id="formDatos${indice.index}">
-                                    <input type="hidden" id="pedido${indice.index}" name="idpedido" value="${d.idpedido}" class="fieldPedido"/>
-                                    <input type="hidden" name="fecha" value="${d.fecha}" class="fieldFecha"/>
-                                </form>        
-                                </tr>
-                            </c:forEach>
+
+                                    </tr>
+                                </c:forEach>
 
                             </tbody>
                         </table>
