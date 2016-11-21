@@ -49,10 +49,7 @@
                             <input id="fechaInicial" class="form-control" value=""/> 
                             <span class="input-group-addon" id="basic-addon1">Hasta</span>
                             <input id="fechaFinal" class="form-control" value=""/>
-
                         </div>
-
-
                     </div>
                     <div class="col-md-2">
                         <div class="input-group">
