@@ -8,9 +8,12 @@ package com.administracion.controller;
 import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Usuario;
 import com.administracion.service.UsuarioService;
+import javax.validation.Valid;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/usuarios")
-public class UsuariosAdministradorController {
+public class UsuariosAdministradorController extends BaseController{
     
     @Autowired
     private UsuarioService usuarioService;
@@ -38,8 +41,8 @@ public class UsuariosAdministradorController {
         if (validatorEmail.isValid(email, null)) {
             UsuarioDto usuarioDto = usuarioService.findUsuarioByCorreoDto(email);
             if (usuarioDto != null) {
+                setBasicModel(mav, usuarioDto);
                 mav.addObject("usuario", usuarioDto);
-
             }else{
                 mav.addObject("mensaje", "Usuario no encontrado");
             }
@@ -47,5 +50,20 @@ public class UsuariosAdministradorController {
             mav.addObject("mensaje", "Email no v&aacute;lido");
         }
         return mav;
+    }
+    
+    @RequestMapping("/ajax/actualizar-usuario.htm")
+    public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto,BindingResult binding){
+        if(binding.hasErrors()){
+            ModelAndView mav = new ModelAndView("usuarios/finded");
+            setBasicModel(mav, usuarioDto);
+            mav.addObject("usuario", usuarioDto);
+            return mav;
+        }else{
+            ModelAndView mav = new ModelAndView("usuarios/finded");
+            usuarioService.actualizarUsuarioAdministracion(usuarioDto);
+            mav.addObject("mensaje","OK");
+            return mav;
+        }
     }
 }

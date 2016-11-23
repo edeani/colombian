@@ -10,10 +10,11 @@
     <head>
         <title>Administración de usuarios</title>
         <!-- Custom Css ================================================== -->
-        <link rel="stylesheet" type="text/css" href="/administracion/css/rs-wp-v1.2.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/responsive.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/rs-wp-v1.2.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/responsive.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery-confirm.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/usuarios/usuarios-admin.css">
         <!-- Fonts ================================================== -->
         <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>

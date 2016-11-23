@@ -21,6 +21,7 @@ public interface UsuarioService {
     public Usuario findUsuarioById(Long idusuario);
     public void crearUsuario(Usuario usuario);
     public void actualizarUsuario(Usuario usuario);
+    public void actualizarUsuarioAdministracion(UsuarioDto usuarioDto);
     public void borrarUsuario(Usuario usuario);
     public Rol roles(Integer idrol);
 }

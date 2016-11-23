@@ -134,4 +134,20 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioDao.findUsuarioXCorreoSql(correo);
     }
 
+    @Override
+    @Transactional
+    public void actualizarUsuarioAdministracion(UsuarioDto usuarioDto) {
+        Usuario usuario = usuarioDao.findById(usuarioDto.getIdusuario());
+        usuario.setDireccion(usuarioDto.getDireccion());
+        usuario.setEstado(usuarioDto.getEstado());
+        usuarioDto.setNombreusuario(usuarioDto.getNombreusuario());
+        usuarioDto.setPassword(usuarioDto.getPassword());
+        usuarioDto.setTelefono(usuarioDto.getTelefono());
+        
+        Rol rol = rolDao.findById(usuarioDto.getIdrol());
+        usuario.setIdrol(rol);
+        
+        usuarioDao.Update(usuario);
+    }
+
 }

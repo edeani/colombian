@@ -30,7 +30,6 @@
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.1.11.1.js"></script>
-        <!--script src="<%=request.getContextPath()%>/js/jquery-3.1.0.min.js"></script-->
     <sitemesh:write property='head'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,6 +61,7 @@
                                 <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
                                 <li><a href="<%=request.getContextPath()%>/productos/inventario.htm">Productos</a></li>
                                 <li><a href="<%=request.getContextPath()%>/pedidos/domicilios.htm">Pedidos</a></li>
+                                <li><a href="<%=request.getContextPath()%>/usuarios/index.htm">Usuarios</a></li>
                                 <sec:authorize  access="isAuthenticated()">
                                 <li><a href="<%=request.getContextPath()%>/logout.htm">Cerrar Sesi&oacute;n</a></li>
                                 </sec:authorize>

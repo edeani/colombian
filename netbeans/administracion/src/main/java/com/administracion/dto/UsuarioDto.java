@@ -28,6 +28,10 @@ public class UsuarioDto {
     @Size(max = 15)
     @Pattern(regexp = "[0-9]*")
     private String identificacion;
+    @NotEmpty   
+    @Size(max = 10)
+    @Pattern(regexp = "[0-9]*")
+    private String telefono;
     @NotNull
     private Integer idrol;
     @NotEmpty
@@ -113,6 +117,14 @@ public class UsuarioDto {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
     
     
