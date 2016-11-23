@@ -5,6 +5,7 @@
  */
 package com.administracion.service;
 
+import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Rol;
 import com.administracion.entidad.Usuario;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 public interface UsuarioService {
     public List<Usuario> listUsuarios();
     public Usuario findUsuarioByCorreo(String correo);
+    public UsuarioDto findUsuarioByCorreoDto(String correo);
     public Usuario findUsuarioById(Long idusuario);
     public void crearUsuario(Usuario usuario);
     public void actualizarUsuario(Usuario usuario);

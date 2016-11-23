@@ -6,7 +6,7 @@ $(document).on("ready", function () {
             type: 'POST',
             timeout: 20000,
             success: function (response) {
-                console.log(response);
+                $("#datosUsuario").html(response);
             }
         });
     });

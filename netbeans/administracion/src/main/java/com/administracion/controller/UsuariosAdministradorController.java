@@ -5,6 +5,7 @@
  */
 package com.administracion.controller;
 
+import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Usuario;
 import com.administracion.service.UsuarioService;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
@@ -35,9 +36,9 @@ public class UsuariosAdministradorController {
         EmailValidator validatorEmail = new EmailValidator();
         ModelAndView mav = new ModelAndView("usuarios/finded");
         if (validatorEmail.isValid(email, null)) {
-            Usuario usuario = usuarioService.findUsuarioByCorreo(email);
-            if (usuario != null) {
-                mav.addObject("usuario", usuario);
+            UsuarioDto usuarioDto = usuarioService.findUsuarioByCorreoDto(email);
+            if (usuarioDto != null) {
+                mav.addObject("usuario", usuarioDto);
 
             }else{
                 mav.addObject("mensaje", "Usuario no encontrado");

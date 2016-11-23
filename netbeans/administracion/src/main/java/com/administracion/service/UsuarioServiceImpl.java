@@ -8,6 +8,7 @@ package com.administracion.service;
 import com.administracion.dao.RolDao;
 import com.administracion.dao.UsuarioDao;
 import com.administracion.dao.ValidacionUsuarioDao;
+import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Rol;
 import com.administracion.entidad.Usuario;
 import com.administracion.entidad.ValidacionUsuarios;
@@ -125,6 +126,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = true)
     public Usuario findUsuarioById(Long idusuario) {
         return usuarioDao.findById(idusuario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UsuarioDto findUsuarioByCorreoDto(String correo) {
+        return usuarioDao.findUsuarioXCorreoSql(correo);
     }
 
 }
