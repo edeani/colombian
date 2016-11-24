@@ -24,8 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/usuarios")
-public class UsuariosAdministradorController extends BaseController{
-    
+public class UsuariosAdministradorController extends BaseController {
+
     @Autowired
     private UsuarioService usuarioService;
 
@@ -42,8 +42,25 @@ public class UsuariosAdministradorController extends BaseController{
             UsuarioDto usuarioDto = usuarioService.findUsuarioByCorreoDto(email);
             if (usuarioDto != null) {
                 setBasicModel(mav, usuarioDto);
+                String direccion = usuarioDto.getDireccion();
+                String []direccionPartes = direccion.split("#");
+                String placa = direccionPartes[1];
+                
+                mav.addObject("datoComponente1", placa.split("-")[0]);
+                mav.addObject("datoComponente2", placa.split("-")[1]);
+                
+                String nombreNum = direccionPartes[0];
+                String  []nombreNumPartes = nombreNum.split(" ");
+                
+                if(nombreNumPartes.length==2){
+                    mav.addObject("componente", nombreNumPartes[0]);
+                    mav.addObject("datoComponente", nombreNumPartes[1]);
+                }else{
+                    mav.addObject("componente", nombreNumPartes[0]+" "+nombreNumPartes[1]);
+                    mav.addObject("datoComponente", nombreNumPartes[2]);
+                }
                 mav.addObject("usuario", usuarioDto);
-            }else{
+            } else {
                 mav.addObject("mensaje", "Usuario no encontrado");
             }
         } else {
@@ -51,18 +68,18 @@ public class UsuariosAdministradorController extends BaseController{
         }
         return mav;
     }
-    
+
     @RequestMapping("/ajax/actualizar-usuario.htm")
-    public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto,BindingResult binding){
-            if(binding.hasErrors()){
+    public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto, BindingResult binding) {
+        if (binding.hasErrors()) {
             ModelAndView mav = new ModelAndView("usuarios/finded");
             setBasicModel(mav, usuarioDto);
             mav.addObject("usuario", usuarioDto);
             return mav;
-        }else{
+        } else {
             ModelAndView mav = new ModelAndView("usuarios/finded");
             usuarioService.actualizarUsuarioAdministracion(usuarioDto);
-            mav.addObject("mensaje","OK");
+            mav.addObject("mensaje", "OK");
             return mav;
         }
     }
