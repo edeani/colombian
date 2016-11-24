@@ -140,10 +140,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = usuarioDao.findById(usuarioDto.getIdusuario());
         usuario.setDireccion(usuarioDto.getDireccion());
         usuario.setEstado(usuarioDto.getEstado());
-        usuarioDto.setNombreusuario(usuarioDto.getNombreusuario());
-        usuarioDto.setPassword(usuarioDto.getPassword());
-        usuarioDto.setTelefono(usuarioDto.getTelefono());
-        
+        usuario.setNombreusuario(usuarioDto.getNombreusuario());
+        usuario.setPassword(usuarioDto.getPassword());
+        usuario.setTelefono(usuarioDto.getTelefono());
+        usuario.setCedula(usuarioDto.getIdentificacion());
         Rol rol = rolDao.findById(usuarioDto.getIdrol());
         usuario.setIdrol(rol);
         

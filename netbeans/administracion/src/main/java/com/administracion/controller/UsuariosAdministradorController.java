@@ -54,7 +54,7 @@ public class UsuariosAdministradorController extends BaseController{
     
     @RequestMapping("/ajax/actualizar-usuario.htm")
     public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto,BindingResult binding){
-        if(binding.hasErrors()){
+            if(binding.hasErrors()){
             ModelAndView mav = new ModelAndView("usuarios/finded");
             setBasicModel(mav, usuarioDto);
             mav.addObject("usuario", usuarioDto);

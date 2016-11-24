@@ -10,6 +10,19 @@ $(document).on("ready", function () {
             }
         });
     });
+    
+    $(document).on("click","#save-user",function(event){
+        event.preventDefault();
+        $.ajax({
+            url: $("#contextpath").val()+"/usuarios/ajax/actualizar-usuario.htm",
+            data:  $("#usuarioDto").serialize(),
+            type: 'POST',
+            timeout: 20000,
+            success: function (response) {
+                $("#datosUsuario").html(response);
+            }
+        });
+    });
 });
 
 

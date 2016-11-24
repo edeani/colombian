@@ -22,9 +22,11 @@ public class UsuarioDto {
     @Size(max = 100)
     @Pattern(regexp = "[A-Za-z áéíóúñÁÉÍÓÚÑ]*")
     private String nombreusuario;
+    @NotEmpty
     @Email
     @Size(max = 100)
     private String correo;
+    @NotEmpty
     @Size(max = 15)
     @Pattern(regexp = "[0-9]*")
     private String identificacion;

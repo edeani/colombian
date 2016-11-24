@@ -43,6 +43,7 @@
                         </div>
                     </div>
                 </div>
+                <br/>
                 <div id="datosUsuario" class="row">
                     
                 </div>

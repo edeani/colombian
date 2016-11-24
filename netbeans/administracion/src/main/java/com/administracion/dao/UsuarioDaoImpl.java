@@ -22,26 +22,32 @@ import org.springframework.stereotype.Repository;
  * @author user
  */
 @Repository
-public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDao{
+public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDao {
+
     @Autowired
     private LeerXml leerXml;
-    
+
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-     @Autowired
+    @Autowired
     public void setDataSource(DataSource dataSource) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
-    
+
     @Override
     public UsuarioDto findUsuarioXCorreoSql(String correo) {
         final MapSqlParameterSource namedParameterSource = new MapSqlParameterSource();
         namedParameterSource.addValue("correo", correo);
         try {
-            List<UsuarioDto> usuario= namedParameterJdbcTemplate.query(leerXml.getQuery("UsuarioSql.findXcorreo"),namedParameterSource,new UsuarioDtoMapper());
-            if(usuario!=null){
-                return usuario.get(0);
-            }else{
+            List<UsuarioDto> usuario = namedParameterJdbcTemplate.query(leerXml.getQuery("UsuarioSql.findXcorreo"), namedParameterSource, new UsuarioDtoMapper());
+            if (usuario != null) {
+                if (usuario.size()>0) {
+                    return usuario.get(0);
+                } else {
+                    throw new DataAccessException("No se encontraron registros") {
+                    };
+                }
+            } else {
                 throw new DataAccessException("No se encontraron registros") {
                 };
             }
@@ -49,6 +55,5 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario> implements UsuarioDa
             return null;
         }
     }
-   
-    
+
 }
