@@ -17,7 +17,7 @@
             </c:when>
         </c:choose>
         <springForm:form action="${pageContext.request.contextPath}/usuarios/ajax/actualizar-usuario.htm" method="post" commandName="usuarioDto">
-            <div class="col-sm-4${fondo}"> 
+            <div id="datos1" class="col-sm-4${fondo}"> 
                 <br/>
                 <div class="form-group">
                     <input type="hidden" id="idusuario" name="idusuario" value="${usuario.idusuario}" class="form-control"/>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-7${fondo}">
+                <div id="datos2" class="col-sm-7${fondo}">
                 <br/>
                 <div class="form-group">
                     <div class="col-md-3">
