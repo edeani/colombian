@@ -8,6 +8,9 @@ package com.administracion.controller;
 import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Usuario;
 import com.administracion.service.UsuarioService;
+import com.administracion.util.ManageCookies;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +73,10 @@ public class UsuariosAdministradorController extends BaseController {
     }
 
     @RequestMapping("/ajax/actualizar-usuario.htm")
-    public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto, BindingResult binding) {
+    public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto, BindingResult binding,
+            HttpServletResponse response) {
         if (binding.hasErrors()) {
+            ManageCookies.setCookie(response, "updateUser", "N",1,"/");
             ModelAndView mav = new ModelAndView("usuarios/finded");
             setBasicModel(mav, usuarioDto);
             mav.addObject("usuario", usuarioDto);
@@ -79,6 +84,7 @@ public class UsuariosAdministradorController extends BaseController {
         } else {
             ModelAndView mav = new ModelAndView("usuarios/finded");
             usuarioService.actualizarUsuarioAdministracion(usuarioDto);
+            ManageCookies.setCookie(response, "updateUser", "S",1,"/");
             mav.addObject("mensaje", "OK");
             return mav;
         }

@@ -34,7 +34,7 @@
                     <div class="col-md-10">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Ingrese el mail del cliente</span>
-                            <input id="email" class="form-control" value="" placeholder="e-mail"/>
+                            <input id="email" class="form-control" value="" placeholder="e-mail" autocomplete="on"/>
                         </div>
                     </div>
                     <div class="col-md-2">

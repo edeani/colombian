@@ -37,48 +37,122 @@ $(document).on("ready", function () {
                 type: 'POST',
                 timeout: 20000,
                 success: function (response) {
-                    if(response.indexOf("OK")!==-1){
-                    }else{
-                        
+                    var updateUser = getCookie("updateUser");
+                    if (updateUser === "S") {
+                        $.dialog({
+                            icon: 'fa fa-check',
+                            title: 'Mensaje',
+                            content: 'Guardado con &Eacute;xito'
+                        });
+                    } else {
+                        $("#datosUsuario").html(response);
                     }
+                    guardarCookie("updateUser", "", adicionarFecha(-1));
                 }
             });
-        }else{
+        } else {
             console.log("Dirección incorrecta");
         }
     });
-    
-    
-    $(document).on("change","#estado",function(){
+
+
+    $(document).on("change", "#estado", function () {
         var estadoUser = $("#estado option:selected").val();
-                        if(estadoUser==="A"){
-                            $("#datos1").removeClass("bg-warning");
-                            $("#datos1").removeClass("bg-danger");
-                            $("#datos2").removeClass("bg-warning");
-                            $("#datos2").removeClass("bg-danger");
-                            
-                            $("#datos1").addClass("bg-succes");
-                            $("#datos2").addClass("bg-succes");
-                        }else if(estadoUser==="I"){
-                            $("#datos1").removeClass("bg-succes");
-                            $("#datos1").removeClass("bg-danger");
-                            $("#datos2").removeClass("bg-succes");
-                            $("#datos2").removeClass("bg-danger");
-                            
-                            $("#datos1").addClass("bg-warning");
-                            $("#datos2").addClass("bg-warning");
-                        }else if(estadoUser==="B"){
-                            $("#datos1").removeClass("bg-succes");
-                            $("#datos1").removeClass("bg-warning");
-                            $("#datos2").removeClass("bg-succes");
-                            $("#datos2").removeClass("bg-warning");
-                            
-                            $("#datos1").addClass("bg-danger");
-                            $("#datos2").addClass("bg-danger");
-                        }
-                        
-                   
+        if (estadoUser === "A") {
+            $("#datos1").removeClass("bg-warning");
+            $("#datos1").removeClass("bg-danger");
+            $("#datos2").removeClass("bg-warning");
+            $("#datos2").removeClass("bg-danger");
+
+            $("#datos1").addClass("bg-success");
+            $("#datos2").addClass("bg-success");
+        } else if (estadoUser === "I") {
+            $("#datos1").removeClass("bg-success");
+            $("#datos1").removeClass("bg-danger");
+            $("#datos2").removeClass("bg-success");
+            $("#datos2").removeClass("bg-danger");
+
+            $("#datos1").addClass("bg-warning");
+            $("#datos2").addClass("bg-warning");
+        } else if (estadoUser === "B") {
+            $("#datos1").removeClass("bg-success");
+            $("#datos1").removeClass("bg-warning");
+            $("#datos2").removeClass("bg-success");
+            $("#datos2").removeClass("bg-warning");
+
+            $("#datos1").addClass("bg-danger");
+            $("#datos2").addClass("bg-danger");
+        }
+
+
+    });
+
+    $("#email").keypress(function (event) {
+        if (event.which === 13) {
+            $("#btn-search").trigger("click");
+        }
     });
 });
+
+function getCookie(nombre) {
+    var cookies = document.cookie;
+    if (!cookies)
+        return false;
+    var comienzo = cookies.indexOf(nombre);
+    if (comienzo === -1)
+        return false;
+    comienzo = comienzo + nombre.length + 1;
+    cantidad = cookies.indexOf("; ", comienzo) - comienzo;
+    if (cantidad <= 0)
+        cantidad = cookies.length;
+    return cookies.substr(comienzo, cantidad);
+}
+
+function guardarCookie(nombre, valor, fecha) {
+    document.cookie = nombre + "=" + valor + ";expires=" + fecha + ";path=/";
+}
+
+/**
+ * Genera fecha de expiracion con dias apartir de hoy
+ * @param ndias
+ * @returns {Date}
+ */
+function adicionarFecha(ndias) {
+    var fechaActual = new Date();
+    var anno = fechaActual.getFullYear();
+    var mes = fechaActual.getMonth();// En js los meses van de 0 a 11
+    var dia = fechaActual.getDate();
+
+    var stotalFecha = miSumarFechaDias(ndias, dia + "/" + mes + "/" + anno);
+    var arr = stotalFecha.split("/");
+    var totalFecha = new Date(arr[2], arr[1], arr[0]);
+
+    return totalFecha;
+
+}
+
+/**
+ * Genera fecha de expiracion en dias desde la fecha indicada
+ * @param d
+ * @param fecha
+ * @returns
+ */
+function miSumarFechaDias(d, fecha)
+{
+    var Fecha = new Date();
+    var sFecha = fecha || (Fecha.getDate() + "/" + (Fecha.getMonth() + 1) + "/" + Fecha.getFullYear());
+    var sep = sFecha.indexOf('/') !== -1 ? '/' : '-';
+    var aFecha = sFecha.split(sep);
+    var fecha = aFecha[2] + '/' + aFecha[1] + '/' + aFecha[0];
+    fecha = new Date(fecha);
+    fecha.setDate(fecha.getDate() + parseInt(d));
+    var anno = fecha.getFullYear();
+    var mes = fecha.getMonth() + 1;
+    var dia = fecha.getDate();
+    mes = (mes < 10) ? ("0" + mes) : mes;
+    dia = (dia < 10) ? ("0" + dia) : dia;
+    var fechaFinal = dia + sep + mes + sep + anno;
+    return (fechaFinal);
+}
 
 
