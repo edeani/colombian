@@ -24,21 +24,21 @@
                     <div class="col-md-3">
                         <label>Nombre</label>
                     </div>
-                    <input id="nombreusuario" name="nombreusuario" value="${usuario.nombreusuario}" class="form-control"/>
+                    <input id="nombreusuario" name="nombreusuario" value="${usuario.nombreusuario}" class="form-control" maxlength="100"/>
                     <springForm:errors path="nombreusuario" cssClass="text-danger"></springForm:errors>
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <label>Correo</label>
                         </div>
-                        <input id="correo" name="correo" value="${usuario.correo}" class="form-control"/>
+                        <input id="correo" name="correo" value="${usuario.correo}" class="form-control" maxlength="100"/>
                     <springForm:errors path="correo" cssClass="text-danger"></springForm:errors>
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <label>Tel&eacute;fono</label>
                         </div>
-                        <input id="telefono" name="telefono" value="${usuario.telefono}" class="form-control"/>
+                        <input id="telefono" name="telefono" value="${usuario.telefono}" class="form-control numeric" maxlength="10"/>
                     <springForm:errors path="telefono" cssClass="text-danger"></springForm:errors>
                     </div>
                     <div class="form-group">
@@ -52,7 +52,7 @@
                     <div class="col-md-3">
                         <label>Identificaci&oacute;n</label>
                     </div>
-                    <input id="identificacion" name="identificacion" value="${usuario.identificacion}" class="form-control"/>
+                    <input id="identificacion" name="identificacion" value="${usuario.identificacion}" class="form-control numeric" maxlength="15"/>
                     <springForm:errors path="identificacion" cssClass="text-danger"></springForm:errors>
                     </div>
                     <div class="form-group">
@@ -97,12 +97,12 @@
                             <option value="Transversal">Transversal</option>
                             <option value="Vía">Vía</option>
                         </select>
-                        <input type="text" id="datoComponente" class="form-control" style="width: 10%;" value="${datoComponente}"/>
+                        <input type="text" id="datoComponente" class="form-control textnumber" style="width: 10%;" value="${datoComponente}"/>
                         <label>#</label>
-                        <input type="text" id="datoComponente1" class="form-control" style="width: 10%;" value="${datoComponente1}"/>
+                        <input type="text" id="datoComponente1" class="form-control textnumber" style="width: 10%;" value="${datoComponente1}"/>
                         <label >-</label>
-                        <input type="text" id="datoComponente2" class="form-control" style="width: 10%;" value="${datoComponente2}"/>
-                        <input type="hidden" id="direccion" name="direccion" value="${usuario.direccion}" class="form-control"/>
+                        <input type="text" id="datoComponente2" class="form-control textnumber" style="width: 10%;" value="${datoComponente2}"/>
+                        <input type="hidden" id="direccion" name="direccion" value="${usuario.direccion}" class="form-control" maxlength="100"/>
                         <springForm:errors path="direccion" cssClass="text-danger"></springForm:errors>
                         </div>
                     </div>

@@ -9,6 +9,9 @@ import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Usuario;
 import com.administracion.service.UsuarioService;
 import com.administracion.util.ManageCookies;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -31,7 +34,18 @@ public class UsuariosAdministradorController extends BaseController {
 
     @Autowired
     private UsuarioService usuarioService;
-
+    
+    private List<String> coordUrbana;
+    
+    @Autowired
+    private void listaEstructuraUrbana(){
+        coordUrbana = new ArrayList<>();
+        String listaBuff = "Calle,Carrera,Avenida,Avenida Carrera,Avenida Calle,Circular,+"
+                + "Circunvalar,Diagonal,Manzana,Transversal,Vía";
+        String listado[] = listaBuff.split(",");
+        coordUrbana.addAll(Arrays.asList(listado));
+    }
+    
     @RequestMapping("/index.htm")
     public ModelAndView indexAdminUsuarios() {
         return new ModelAndView("usuarios/clientes");
@@ -89,4 +103,6 @@ public class UsuariosAdministradorController extends BaseController {
             return mav;
         }
     }
+    
+    
 }
