@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href="/administracion/css/main.css">
         <link rel="stylesheet" type="text/css" href="/administracion/css/responsive.css">
         <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm.css">
+        <link rel="stylesheet" type="text/css" href="/administracion/css/datatable/jquery.dataTables.min.css">
 
         <!-- Fonts ================================================== -->
         <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
@@ -25,6 +26,7 @@
 
         <script type='text/javascript' src='<%=request.getContextPath()%>/js/woocommerce.js'></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/datatable/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/producto/admon-productos.js"></script>
     </head>
     <body>
@@ -55,7 +57,16 @@
                                     <tr id="fila${indice.index}" class="fila <c:if test="${p.estado=='I'}">alert alert-danger</c:if>">
                                         <td>${p.idproducto}</td>
                                         <td class="product-name">
-                                            <img class="img-circle" src="<%=request.getContextPath()%>/img/post/product-card-01.jpg" alt="" />
+                                            <c:choose>
+                                                <c:when test="${not empty p.imagen}">
+                                                    <img class="rst-thumbnail" src="<%=request.getContextPath()%>/img-producto/${p.imagen}" alt="${p.nombreproducto}" />
+                                                    <!--img style="width: 260px;" src="<%=request.getContextPath()%>/img-producto/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" /-->
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img style="width: 260px;" src="<%=request.getContextPath()%>/img/post/gallery11.jpg" alt="${p.nombreproducto}" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                            
                                             ${p.nombreproducto}
                                         </td>
                                         <td>${p.descripcion}</td>
@@ -66,18 +77,18 @@
                                                 <c:set var="displayactives" value=""></c:set>
                                                 <c:set var="displayinactives" value=""></c:set>
                                                 <c:choose>
-                                                <c:when test="${p.estado=='A'}">
-                                                    <c:set var="displayactives" value="block"></c:set>
-                                                    <c:set var="displayinactives" value="none"></c:set>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="displayactives" value="none"></c:set>
-                                                    <c:set var="displayinactives" value="block"></c:set>
-                                                </c:otherwise>
+                                                    <c:when test="${p.estado=='A'}">
+                                                        <c:set var="displayactives" value="block"></c:set>
+                                                        <c:set var="displayinactives" value="none"></c:set>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="displayactives" value="none"></c:set>
+                                                        <c:set var="displayinactives" value="block"></c:set>
+                                                    </c:otherwise>
                                                 </c:choose>    
                                             <div id="activeButtons${indice.index}" style="display: ${displayactives};">
-                                                 <a title="Editar" data-row="${indice.index}" class="edit btn btn-primary btn-sm editProduct" href="<%=request.getContextPath()%>/productos/editar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
-                                                 <a title="Inactivar"title="Activar Producto" data-row="${indice.index}" class="btn btn-danger removeP btn-sm removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
+                                                <a title="Editar" data-row="${indice.index}" class="edit btn btn-primary btn-sm editProduct" href="<%=request.getContextPath()%>/productos/editar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
+                                                <a title="Inactivar"title="Activar Producto" data-row="${indice.index}" class="btn btn-danger removeP btn-sm removeProduct" href="javascript:void(0);" aria-label="Delete"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
                                             </div>
                                             <div id="inactiveButtons${indice.index}" style="display: ${displayinactives};">
                                                 <a title="Activar" data-row="${indice.index}" class="edit btn btn-success btn-sm recoverProduct" href="<%=request.getContextPath()%>/productos/recuperar-producto.htm?idproducto=${p.idproducto}" aria-label="Edit"><i  class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
