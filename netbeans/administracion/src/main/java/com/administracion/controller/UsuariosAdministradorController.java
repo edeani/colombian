@@ -6,13 +6,12 @@
 package com.administracion.controller;
 
 import com.administracion.dto.UsuarioDto;
-import com.administracion.entidad.Usuario;
 import com.administracion.service.UsuarioService;
+import com.administracion.util.LectorPropiedades;
 import com.administracion.util.ManageCookies;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
@@ -37,11 +36,12 @@ public class UsuariosAdministradorController extends BaseController {
     
     private List<String> coordUrbana;
     
+    private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
     @Autowired
     private void listaEstructuraUrbana(){
         coordUrbana = new ArrayList<>();
-        String listaBuff = "Calle,Carrera,Avenida,Avenida Carrera,Avenida Calle,Circular,+"
-                + "Circunvalar,Diagonal,Manzana,Transversal,Vía";
+        LectorPropiedades lp = new LectorPropiedades();
+        final String listaBuff = lp.leerPropiedad(PROPIEDADES_COLOMBIAN, "coord.urbana");
         String listado[] = listaBuff.split(",");
         coordUrbana.addAll(Arrays.asList(listado));
     }
@@ -104,5 +104,8 @@ public class UsuariosAdministradorController extends BaseController {
         }
     }
     
-    
+    @ModelAttribute("coord")
+    public List<String> listaCoordUrbanas(){
+        return coordUrbana;
+    }
 }

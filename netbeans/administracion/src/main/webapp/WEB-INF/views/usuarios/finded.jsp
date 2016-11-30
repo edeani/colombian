@@ -85,17 +85,9 @@
                     </div>
                     <div class="form-inline">
                         <select id="componente" class="form-control" style="width: 27%;">
-                            <option value="Calle" selected="selected">Calle</option>
-                            <option value="Carrera">Carrera</option>
-                            <option value="Avenida">Avenida</option>
-                            <option value="Avenida Carrera">Avenida Carrera</option>
-                            <option value="Avenida Calle">Avenida Calle</option>
-                            <option value="Circular">Circular</option>
-                            <option value="Circunvalar">Circunvalar</option>
-                            <option value="Diagonal">Diagonal</option>
-                            <option value="Manzana">Manzana</option>
-                            <option value="Transversal">Transversal</option>
-                            <option value="Vía">Vía</option>
+                            <c:forEach var="opc" items="${coord}">
+                                <option value="${opc}" <c:if test="${opc==componente}">selected="selected"</c:if>>${opc}</option>
+                            </c:forEach>
                         </select>
                         <input type="text" id="datoComponente" class="form-control textnumber" style="width: 10%;" value="${datoComponente}"/>
                         <label>#</label>

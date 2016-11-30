@@ -17,13 +17,14 @@ $(document).on("ready", function () {
         var continuar = true;
         if ($("#componente").val() !== "" && $("#datoComponente").val() !== "" && $("#datoComponente1").val() !== "" && $("#datoComponente2").val() !== "") {
             resumenDireccion = "" + $("#componente").val() + " " + $("#datoComponente").val() + " #" + $("#datoComponente1").val() + "-" + $("#datoComponente2").val();
+            var elemComponente = $("#componente").val().split(" ");
         } else {
             continuar = false;
             $("#direccion").val("");
         }
         if (resumenDireccion.length > 0) {
             var elementos = resumenDireccion.split(" ");
-            if (elementos.length === 3) {
+            if ((elementos.length === 3)||(elementos.length===4 && elemComponente.length===2)) {
                 $("#direccion").val(resumenDireccion);
             } else {
                 $("#direccion").val("");
