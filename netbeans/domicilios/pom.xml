@@ -34,7 +34,7 @@
             <artifactId>spring-orm</artifactId>
             <version>4.2.6.RELEASE</version>
         </dependency>
-        <!-- Spring Orm-->
+        <!-- Spring Security-->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -50,10 +50,17 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>${springsecurity.version}</version>
         </dependency>
+        <!-- Spring Mobile-->
         <dependency>
             <groupId>org.springframework.mobile</groupId>
             <artifactId>spring-mobile-device</artifactId>
             <version>1.1.5.RELEASE</version>
+        </dependency>
+        <!-- Spring Support-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${springframework.version}</version>
         </dependency>
         <!-- Servlet -->
         <dependency>
