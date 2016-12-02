@@ -75,7 +75,7 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
-    <mvc:resources mapping="/img-producto/**" location="/img-producto/" />  
+    
     
     <!-- mailing -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" >
@@ -92,4 +92,9 @@
             </props>
         </property>
     </bean>  
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/mailing/" />
+    </bean>
+    
+    <mvc:resources mapping="/img-producto/**" location="/img-producto/" />  
 </beans>
