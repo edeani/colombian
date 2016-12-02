@@ -79,7 +79,7 @@
             <artifactId>sitemesh</artifactId>
             <version>3.0.0</version>
         </dependency>
-        <!-- Hibernaste -->
+        <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
