@@ -5,13 +5,13 @@
  */
 package com.administracion.dao;
 
+import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Usuario;
-import java.util.List;
 
 /**
  *
  * @author user
  */
 public interface UsuarioDao extends GenericDao<Usuario>{
-    public List<Usuario> listUsuarios();
+    UsuarioDto findUsuarioXCorreoSql(String correo);
 }

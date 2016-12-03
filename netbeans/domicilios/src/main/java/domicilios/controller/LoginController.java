@@ -4,6 +4,7 @@ import domicilios.dto.UsuarioRegistroDto;
 import domicilios.entidad.Usuario;
 import domicilios.service.UsuarioService;
 import domicilios.service.autorizacion.SecurityService;
+import domicilios.service.mailing.MailsUsuario;
 import domicilios.util.LectorPropiedades;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class LoginController extends BaseController {
     private UsuarioService usuarioService;
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private MailsUsuario mailsUsuario;
 
     @RequestMapping(value = "/signin.htm", method = RequestMethod.GET)
     public ModelAndView signinPage() {
@@ -80,6 +83,7 @@ public class LoginController extends BaseController {
             usuario.setNombreusuario(usuarioRegistroDto.getNombre());
             try {
                 usuarioService.crearUsuario(usuario);
+                mailsUsuario.mailRegistro(usuario);
                 return new ModelAndView("redirect:/alerta/mail.htm");
             } catch (Exception e) {
                 ModelAndView mav = new ModelAndView("usuario/signin");

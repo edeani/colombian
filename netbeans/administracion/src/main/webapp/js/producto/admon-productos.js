@@ -1,4 +1,6 @@
+var tableProd = null;
 $(document).ready(function () {
+    tableDomi = configuracionTabla();
     $(document).on("click", "a.removeProduct", function (event) {
         event.preventDefault();
         var fila = $(this).attr("data-row");
@@ -79,4 +81,23 @@ $(document).on("click", "a.recoverProduct", function (event) {
         });
 });
 
-
+function configuracionTabla() {
+        var conf = $('#tablaProductos').DataTable({
+            lengthMenu: [[10, 30, 40], [10, 30, 40]],
+            language: {
+                search: "Buscar:",
+                info: "Orden _START_ hasta _END_ de _TOTAL_",
+                lengthMenu: "Mostrar _MENU_",
+                loadingRecords: "Cargando...",
+                processing: "Procesando...",
+                zeroRecords: "No se encontraron elementos",
+                paginate: {
+                    first: "Primero",
+                    previous: "Ant.",
+                    next: "Sig.",
+                    last: "&Uacute;ltimo"
+                }
+            }
+        });
+        return conf;
+    }

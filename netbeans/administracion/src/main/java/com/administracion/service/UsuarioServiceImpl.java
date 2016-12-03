@@ -8,6 +8,7 @@ package com.administracion.service;
 import com.administracion.dao.RolDao;
 import com.administracion.dao.UsuarioDao;
 import com.administracion.dao.ValidacionUsuarioDao;
+import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Rol;
 import com.administracion.entidad.Usuario;
 import com.administracion.entidad.ValidacionUsuarios;
@@ -125,6 +126,37 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = true)
     public Usuario findUsuarioById(Long idusuario) {
         return usuarioDao.findById(idusuario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UsuarioDto findUsuarioByCorreoDto(String correo) {
+        return usuarioDao.findUsuarioXCorreoSql(correo);
+    }
+
+    @Override
+    @Transactional
+    public void actualizarUsuarioAdministracion(UsuarioDto usuarioDto) {
+        Usuario usuario = usuarioDao.findById(usuarioDto.getIdusuario());
+        usuario.setDireccion(usuarioDto.getDireccion());
+        usuario.setEstado(usuarioDto.getEstado());
+        usuario.setNombreusuario(usuarioDto.getNombreusuario());
+        usuario.setPassword(usuarioDto.getPassword());
+        usuario.setTelefono(usuarioDto.getTelefono());
+        usuario.setCedula(usuarioDto.getIdentificacion());
+        Rol rol = rolDao.findById(usuarioDto.getIdrol());
+        usuario.setIdrol(rol);
+        
+        usuarioDao.Update(usuario);
+    }
+
+    @Override
+    @Transactional
+    public void actualizarUsuarioAdministracionRol(Integer idrol, Long idusuario) {
+       Rol rol = rolDao.findById(idrol);
+       Usuario usuario = usuarioDao.findById(idusuario);
+       usuario.setIdrol(rol);
+       usuarioDao.Update(usuario);
     }
 
 }

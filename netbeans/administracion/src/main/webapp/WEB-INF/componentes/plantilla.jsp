@@ -30,7 +30,6 @@
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.1.11.1.js"></script>
-        <!--script src="<%=request.getContextPath()%>/js/jquery-3.1.0.min.js"></script-->
     <sitemesh:write property='head'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,13 +61,19 @@
                                 <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
                                 <li><a href="<%=request.getContextPath()%>/productos/inventario.htm">Productos</a></li>
                                 <li><a href="<%=request.getContextPath()%>/pedidos/domicilios.htm">Pedidos</a></li>
+                                <li class="menu-item-has-children"><a href="javascript:void(0);">Usuarios</a>
+                                    <ul class="sub-menu" style="background-color: white;">
+                                        <li><a href="<%=request.getContextPath()%>/usuarios/index.htm">Editar</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/usuarios/roles.htm">Roles</a></li>
+                                    </ul>
+                                </li>
                                 <sec:authorize  access="isAuthenticated()">
-                                <li><a href="<%=request.getContextPath()%>/logout.htm">Cerrar Sesi&oacute;n</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/logout.htm">Cerrar Sesi&oacute;n</a></li>
                                 </sec:authorize>
                             </ul>
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
                         </div>
-                        
+
                     </div>
                 </div><!-- End Top Header -->
                 <div class="rst-search rst-table">

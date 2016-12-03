@@ -45,7 +45,15 @@
                             <div class="rst-product-images">
                                 <c:if test="${estado eq 'E'}">
                                     <div id="load-pic">
-                                        <img style="width: 260px;" src="<%=request.getContextPath()%>/img-producto/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
+                                        <c:choose>
+                                            <c:when test="${not empty productoDetailDto.rutaImagen}">
+                                                <img style="width: 260px;" src="<%=request.getContextPath()%>/img-producto/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img style="width: 260px;" src="<%=request.getContextPath()%>/img/post/gallery11.jpg" alt="${productoDetailDto.nombreproducto}" />
+                                            </c:otherwise>
+                                        </c:choose>
+                                        
                                     </div>
                                     </br>
                                 </c:if>
