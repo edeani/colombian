@@ -61,14 +61,19 @@
                                 <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
                                 <li><a href="<%=request.getContextPath()%>/productos/inventario.htm">Productos</a></li>
                                 <li><a href="<%=request.getContextPath()%>/pedidos/domicilios.htm">Pedidos</a></li>
-                                <li><a href="<%=request.getContextPath()%>/usuarios/index.htm">Usuarios</a></li>
+                                <li class="menu-item-has-children"><a href="javascript:void(0);">Usuarios</a>
+                                    <ul class="sub-menu" style="background-color: white;">
+                                        <li><a href="<%=request.getContextPath()%>/usuarios/index.htm">Editar</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/usuarios/roles.htm">Roles</a></li>
+                                    </ul>
+                                </li>
                                 <sec:authorize  access="isAuthenticated()">
-                                <li><a href="<%=request.getContextPath()%>/logout.htm">Cerrar Sesi&oacute;n</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/logout.htm">Cerrar Sesi&oacute;n</a></li>
                                 </sec:authorize>
                             </ul>
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
                         </div>
-                        
+
                     </div>
                 </div><!-- End Top Header -->
                 <div class="rst-search rst-table">

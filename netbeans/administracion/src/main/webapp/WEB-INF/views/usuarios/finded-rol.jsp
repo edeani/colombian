@@ -1,0 +1,107 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
+<c:choose>
+    <c:when test="${not empty mensaje}">
+        ${mensaje}
+    </c:when>
+    <c:otherwise>
+        <c:choose>
+            <c:when test="${usuario.estado=='A'}">
+                <c:set var="fondo" value=" bg-success"></c:set>
+            </c:when>
+            <c:when test="${usuario.estado=='I'}">
+                <c:set var="fondo" value=" bg-warning"></c:set>
+            </c:when>
+            <c:when test="${usuario.estado=='B'}">
+                <c:set var="fondo" value=" bg-danger"></c:set>
+            </c:when>
+        </c:choose>
+        <springForm:form action="${pageContext.request.contextPath}/usuarios/ajax/actualizar-usuario.htm" method="post" commandName="usuarioDto">
+            <div id="datos1" class="col-sm-4${fondo}"> 
+                <br/>
+                <div class="form-group">
+                    <input type="hidden" id="idusuario" name="idusuario" value="${usuario.idusuario}" class="form-control"/>
+                    <div class="col-md-3">
+                        <label>Nombre</label>
+                    </div>
+                    ${usuario.nombreusuario}
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Correo</label>
+                    </div>
+                    ${usuario.correo}
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>ID</label>
+                    </div>
+                    ${usuario.identificacion}
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6" style="height: 55px;" >
+                            <label>Estado</label>
+                    </div>
+                </div>
+            </div>
+            <div id="datos2" class="col-sm-7${fondo}">
+                <br/>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Identificaci&oacute;n</label>
+                    </div>
+                    <input id="identificacion" name="identificacion" value="${usuario.identificacion}" class="form-control numeric" maxlength="15"/>
+                    <springForm:errors path="identificacion" cssClass="text-danger"></springForm:errors>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Estado</label>
+                        </div>
+                    <c:choose>
+                        <c:when test="${usuario.estado=='A'}">
+                            <c:set var="selectA" value="selected='selected'"></c:set>
+                        </c:when>
+                        <c:when test="${usuario.estado=='I'}">
+                            <c:set var="selectI" value="selected='selected'"></c:set>
+                        </c:when>
+                        <c:when test="${usuario.estado=='B'}">
+                            <c:set var="selectB" value="selected='selected'"></c:set>
+                        </c:when>
+                    </c:choose>
+                    <select id="estado" name="estado" class="form-control">
+                        <option value="A" ${selectA}>Activo</option>
+                        <option value="I" ${selectI}>Inactivo</option>
+                        <option value="B" ${selectB}>Bloqueado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" id="password" name="password" value="${usuario.password}"/>
+                    <input type="hidden" id="idrol" name="idrol" value="${usuario.idrol}"/>
+                    <input type="hidden" id="nombrerol" name="nombrerol" value="${usuario.nombrerol}"/>
+                    <div class="col-md-3">
+                        <label>Direcci&oacute;n</label>
+                    </div>
+                    <div class="form-inline">
+                        <select id="componente" class="form-control" style="width: 27%;">
+                            <c:forEach var="opc" items="${coord}">
+                                <option value="${opc}" <c:if test="${opc==componente}">selected="selected"</c:if>>${opc}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="text" id="datoComponente" class="form-control textnumber" style="width: 10%;" value="${datoComponente}"/>
+                        <label>#</label>
+                        <input type="text" id="datoComponente1" class="form-control textnumber" style="width: 10%;" value="${datoComponente1}"/>
+                        <label >-</label>
+                        <input type="text" id="datoComponente2" class="form-control textnumber" style="width: 10%;" value="${datoComponente2}"/>
+                        <input type="hidden" id="direccion" name="direccion" value="${usuario.direccion}" class="form-control" maxlength="100"/>
+                        <springForm:errors path="direccion" cssClass="text-danger"></springForm:errors>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                        </div>
+                        <button id="save-user" class="btn btn-label">Guardar</button>  
+                    </div>
+                </div>
+        </springForm:form>
+    </c:otherwise>
+</c:choose>

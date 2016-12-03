@@ -33,22 +33,46 @@ public class UsuariosAdministradorController extends BaseController {
 
     @Autowired
     private UsuarioService usuarioService;
-    
+
     private List<String> coordUrbana;
-    
+
     private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
+
     @Autowired
-    private void listaEstructuraUrbana(){
+    private void listaEstructuraUrbana() {
         coordUrbana = new ArrayList<>();
         LectorPropiedades lp = new LectorPropiedades();
         final String listaBuff = lp.leerPropiedad(PROPIEDADES_COLOMBIAN, "coord.urbana");
         String listado[] = listaBuff.split(",");
         coordUrbana.addAll(Arrays.asList(listado));
     }
-    
+
     @RequestMapping("/index.htm")
     public ModelAndView indexAdminUsuarios() {
         return new ModelAndView("usuarios/clientes");
+    }
+
+    @RequestMapping("/roles.htm")
+    public ModelAndView modificarRol(Integer idrol) {
+        ModelAndView mav = new ModelAndView("usuarios/clientes-rol");
+        return mav;
+    }
+
+    @RequestMapping("/ajax/buscar-x-mail-rol.htm")
+    public ModelAndView buscarUsuarioXmailRol(@RequestParam String email) {
+        EmailValidator validatorEmail = new EmailValidator();
+        ModelAndView mav = new ModelAndView("usuarios/finded-rol");
+        if (validatorEmail.isValid(email, null)) {
+            UsuarioDto usuarioDto = usuarioService.findUsuarioByCorreoDto(email);
+            if (usuarioDto != null) {
+                mav.addObject("usuario", usuarioDto);
+            } else {
+                mav.addObject("mensaje", "Usuario no encontrado");
+            }
+        } else {
+            mav.addObject("mensaje", "Email no v&aacute;lido");
+        }
+        return mav;
     }
 
     @RequestMapping("/ajax/buscar-x-mail.htm")
@@ -60,20 +84,20 @@ public class UsuariosAdministradorController extends BaseController {
             if (usuarioDto != null) {
                 setBasicModel(mav, usuarioDto);
                 String direccion = usuarioDto.getDireccion();
-                String []direccionPartes = direccion.split("#");
+                String[] direccionPartes = direccion.split("#");
                 String placa = direccionPartes[1];
-                
+
                 mav.addObject("datoComponente1", placa.split("-")[0]);
                 mav.addObject("datoComponente2", placa.split("-")[1]);
-                
+
                 String nombreNum = direccionPartes[0];
-                String  []nombreNumPartes = nombreNum.split(" ");
-                
-                if(nombreNumPartes.length==2){
+                String[] nombreNumPartes = nombreNum.split(" ");
+
+                if (nombreNumPartes.length == 2) {
                     mav.addObject("componente", nombreNumPartes[0]);
                     mav.addObject("datoComponente", nombreNumPartes[1]);
-                }else{
-                    mav.addObject("componente", nombreNumPartes[0]+" "+nombreNumPartes[1]);
+                } else {
+                    mav.addObject("componente", nombreNumPartes[0] + " " + nombreNumPartes[1]);
                     mav.addObject("datoComponente", nombreNumPartes[2]);
                 }
                 mav.addObject("usuario", usuarioDto);
@@ -90,7 +114,7 @@ public class UsuariosAdministradorController extends BaseController {
     public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto, BindingResult binding,
             HttpServletResponse response) {
         if (binding.hasErrors()) {
-            ManageCookies.setCookie(response, "updateUser", "N",1,"/");
+            ManageCookies.setCookie(response, "updateUser", "N", 1, "/");
             ModelAndView mav = new ModelAndView("usuarios/finded");
             setBasicModel(mav, usuarioDto);
             mav.addObject("usuario", usuarioDto);
@@ -98,14 +122,14 @@ public class UsuariosAdministradorController extends BaseController {
         } else {
             ModelAndView mav = new ModelAndView("usuarios/finded");
             usuarioService.actualizarUsuarioAdministracion(usuarioDto);
-            ManageCookies.setCookie(response, "updateUser", "S",1,"/");
+            ManageCookies.setCookie(response, "updateUser", "S", 1, "/");
             mav.addObject("mensaje", "OK");
             return mav;
         }
     }
-    
+
     @ModelAttribute("coord")
-    public List<String> listaCoordUrbanas(){
+    public List<String> listaCoordUrbanas() {
         return coordUrbana;
     }
 }
