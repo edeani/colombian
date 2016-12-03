@@ -27,7 +27,7 @@
         <div id="content">
             <div class="container rst-main-content">
                 <div class="text-center">
-                    <h1 class="h1pedido">Usuarios</h1>
+                    <h1 class="h1pedido">Roles</h1>
                 </div>
                 <br />
                 <div class="row">

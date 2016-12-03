@@ -6,6 +6,7 @@
 package com.administracion.controller;
 
 import com.administracion.dto.UsuarioDto;
+import com.administracion.service.RolesService;
 import com.administracion.service.UsuarioService;
 import com.administracion.util.LectorPropiedades;
 import com.administracion.util.ManageCookies;
@@ -34,6 +35,9 @@ public class UsuariosAdministradorController extends BaseController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private RolesService rolesService;
+    
     private List<String> coordUrbana;
 
     private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
@@ -65,6 +69,7 @@ public class UsuariosAdministradorController extends BaseController {
         if (validatorEmail.isValid(email, null)) {
             UsuarioDto usuarioDto = usuarioService.findUsuarioByCorreoDto(email);
             if (usuarioDto != null) {
+                mav.addObject("roles", rolesService.listRoles());
                 mav.addObject("usuario", usuarioDto);
             } else {
                 mav.addObject("mensaje", "Usuario no encontrado");
@@ -128,6 +133,15 @@ public class UsuariosAdministradorController extends BaseController {
         }
     }
 
+    @RequestMapping("/ajax/actualizar-usuario-rol.htm")
+    public ModelAndView actualizarUsuarioRol(@RequestParam Integer idrol,@RequestParam Long idusuario,HttpServletResponse response) {
+            ModelAndView mav = new ModelAndView("usuarios/finded-rol");
+            usuarioService.actualizarUsuarioAdministracionRol(idrol,idusuario);
+            ManageCookies.setCookie(response, "updateUser", "S", 1, "/");
+            mav.addObject("mensaje", "OK");
+            return mav;
+    }
+    
     @ModelAttribute("coord")
     public List<String> listaCoordUrbanas() {
         return coordUrbana;

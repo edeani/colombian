@@ -11,30 +11,12 @@ $(document).on("ready", function () {
         });
     });
 
-    $(document).on("click", "#save-user", function (event) {
+    $(document).on("click", "#save-rol", function (event) {
         event.preventDefault();
-        var resumenDireccion = "";
-        var continuar = true;
-        if ($("#componente").val() !== "" && $("#datoComponente").val() !== "" && $("#datoComponente1").val() !== "" && $("#datoComponente2").val() !== "") {
-            resumenDireccion = "" + $("#componente").val() + " " + $("#datoComponente").val() + " #" + $("#datoComponente1").val() + "-" + $("#datoComponente2").val();
-            var elemComponente = $("#componente").val().split(" ");
-        } else {
-            continuar = false;
-            $("#direccion").val("");
-        }
-        if (resumenDireccion.length > 0) {
-            var elementos = resumenDireccion.split(" ");
-            if ((elementos.length === 3)||(elementos.length===4 && elemComponente.length===2)) {
-                $("#direccion").val(resumenDireccion);
-            } else {
-                $("#direccion").val("");
-                continuar = false;
-            }
-        }
-        if (continuar) {
+        
             $.ajax({
-                url: $("#contextpath").val() + "/usuarios/ajax/actualizar-usuario.htm",
-                data: $("#usuarioDto").serialize(),
+                url: $("#contextpath").val() + "/usuarios/ajax/actualizar-usuario-rol.htm",
+                data: "idrol="+$("#idrol option:selected").val()+"&idusuario="+$("#idusuario").val(),
                 type: 'POST',
                 timeout: 20000,
                 success: function (response) {
@@ -51,42 +33,8 @@ $(document).on("ready", function () {
                     guardarCookie("updateUser", "", adicionarFecha(-1));
                 }
             });
-        } else {
-            console.log("Dirección incorrecta");
-        }
     });
 
-
-    $(document).on("change", "#estado", function () {
-        var estadoUser = $("#estado option:selected").val();
-        if (estadoUser === "A") {
-            $("#datos1").removeClass("bg-warning");
-            $("#datos1").removeClass("bg-danger");
-            $("#datos2").removeClass("bg-warning");
-            $("#datos2").removeClass("bg-danger");
-
-            $("#datos1").addClass("bg-success");
-            $("#datos2").addClass("bg-success");
-        } else if (estadoUser === "I") {
-            $("#datos1").removeClass("bg-success");
-            $("#datos1").removeClass("bg-danger");
-            $("#datos2").removeClass("bg-success");
-            $("#datos2").removeClass("bg-danger");
-
-            $("#datos1").addClass("bg-warning");
-            $("#datos2").addClass("bg-warning");
-        } else if (estadoUser === "B") {
-            $("#datos1").removeClass("bg-success");
-            $("#datos1").removeClass("bg-warning");
-            $("#datos2").removeClass("bg-success");
-            $("#datos2").removeClass("bg-warning");
-
-            $("#datos1").addClass("bg-danger");
-            $("#datos2").addClass("bg-danger");
-        }
-
-
-    });
 
     $("#email").keypress(function (event) {
         if (event.which === 13) {
@@ -94,21 +42,8 @@ $(document).on("ready", function () {
         }
     });
 
-    $(document).on("input", ".numeric", function () {
-        this.value = this.value.replace(/[^\d\.\-]/g, '');
-    });
-
-    $(document).on("keypress",".textnumber",function (e) {
-        var regex = new RegExp("^[a-zA-Z0-9]+$");
-        var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-        if (regex.test(str)) {
-            return true;
-        }
-
-        e.preventDefault();
-        return false;
-    });
 });
+
 
 function getCookie(nombre) {
     var cookies = document.cookie;
@@ -146,29 +81,3 @@ function adicionarFecha(ndias) {
     return totalFecha;
 
 }
-
-/**
- * Genera fecha de expiracion en dias desde la fecha indicada
- * @param d
- * @param fecha
- * @returns
- */
-function miSumarFechaDias(d, fecha)
-{
-    var Fecha = new Date();
-    var sFecha = fecha || (Fecha.getDate() + "/" + (Fecha.getMonth() + 1) + "/" + Fecha.getFullYear());
-    var sep = sFecha.indexOf('/') !== -1 ? '/' : '-';
-    var aFecha = sFecha.split(sep);
-    var fecha = aFecha[2] + '/' + aFecha[1] + '/' + aFecha[0];
-    fecha = new Date(fecha);
-    fecha.setDate(fecha.getDate() + parseInt(d));
-    var anno = fecha.getFullYear();
-    var mes = fecha.getMonth() + 1;
-    var dia = fecha.getDate();
-    mes = (mes < 10) ? ("0" + mes) : mes;
-    dia = (dia < 10) ? ("0" + dia) : dia;
-    var fechaFinal = dia + sep + mes + sep + anno;
-    return (fechaFinal);
-}
-
-

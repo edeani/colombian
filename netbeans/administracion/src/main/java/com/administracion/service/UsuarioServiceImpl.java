@@ -150,4 +150,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioDao.Update(usuario);
     }
 
+    @Override
+    @Transactional
+    public void actualizarUsuarioAdministracionRol(Integer idrol, Long idusuario) {
+       Rol rol = rolDao.findById(idrol);
+       Usuario usuario = usuarioDao.findById(idusuario);
+       usuario.setIdrol(rol);
+       usuarioDao.Update(usuario);
+    }
+
 }
