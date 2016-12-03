@@ -24,4 +24,5 @@ public interface UsuarioService {
     public void actualizarUsuarioAdministracion(UsuarioDto usuarioDto);
     public void borrarUsuario(Usuario usuario);
     public Rol roles(Integer idrol);
+    public void actualizarUsuarioAdministracionRol(Integer idrol,Long idusuario);
 }
