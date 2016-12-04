@@ -5,7 +5,10 @@
  */
 package domicilios.service.mailing;
 
+import domicilios.dao.ValidacionUsuarioDao;
 import domicilios.entidad.Usuario;
+import domicilios.entidad.ValidacionUsuarios;
+import domicilios.util.LeerXml;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import java.io.IOException;
@@ -29,12 +32,22 @@ public class MailsUsuarioImpl implements MailsUsuario {
     @Autowired
     private FreeMarkerConfigurer freemarkerConfig;
 
+    @Autowired
+    private ValidacionUsuarioDao validacionUsuarioDao;
+
+    @Autowired
+    private LeerXml leerXml;
+
     @Override
     public void mailRegistro(Usuario usuario) {
         StringBuilder content = new StringBuilder();
         try {
+            HashMap<String, Object> parametros = new HashMap<>();
+            parametros.put("idusuario", usuario.getIdusuario());
+            ValidacionUsuarios vu = validacionUsuarioDao.queryOpjectJpa(leerXml.getQuery("ValidacionUsuarioJpa.findXidusuario"), parametros);
             Map<String, Object> modelo = new HashMap<>();
-            modelo.put("nombre", "A");
+            modelo.put("token", vu.getToken());
+            modelo.put("mail", usuario.getCorreo());
             content.append(FreeMarkerTemplateUtils.processTemplateIntoString(
                     freemarkerConfig.getConfiguration().getTemplate("confirmacion_registro.html"), modelo));
             mailingService.sendMail("anloder4@gmail.com", "virguspower@yahoo.com", "Prueba", content.toString());

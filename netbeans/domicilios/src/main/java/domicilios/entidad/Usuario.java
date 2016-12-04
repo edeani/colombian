@@ -31,9 +31,8 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "idusuario")
-    private Integer idusuario;
+    private Long idusuario;
     @Size(max = 45)
     @Column(name = "nombreusuario")
     private String nombreusuario;
@@ -66,21 +65,21 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Integer idusuario) {
+    public Usuario(Long idusuario) {
         this.idusuario = idusuario;
     }
 
-    public Usuario(Integer idusuario, String cedula, String estado) {
+    public Usuario(Long idusuario, String cedula, String estado) {
         this.idusuario = idusuario;
         this.cedula = cedula;
         this.estado = estado;
     }
 
-    public Integer getIdusuario() {
+    public Long getIdusuario() {
         return idusuario;
     }
 
-    public void setIdusuario(Integer idusuario) {
+    public void setIdusuario(Long idusuario) {
         this.idusuario = idusuario;
     }
 

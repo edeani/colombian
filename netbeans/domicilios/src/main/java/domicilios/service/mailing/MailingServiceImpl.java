@@ -42,7 +42,7 @@ public class MailingServiceImpl implements MailingService {
              * well.
              * helper.addAttachment("cutie.png", new ClassPathResource("linux-icon.png"));
              */
-            helper.setText(contenido);
+            helper.setText(contenido,true);
         };
         
         
