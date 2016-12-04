@@ -29,8 +29,7 @@
         <!-- Contenido wellcome -->
         <div id="content" class="page-404">
             <div class="container">
-                <h3>Gracias por registrarte. Puedes hacer tu domicilios mirando nuestro men&uacute; en el bot&oacute;n de abajo</h3>
-                <a href="/contenido/productos.htm" class="btn btn-danger btn-lg rst-go-home">Pide Aqu&iacute;</a>
+                <h3>Token Inv&aacute;lido</h3>
             </div>
         </div>
         <!-- Fin Contenido wellcome -->
