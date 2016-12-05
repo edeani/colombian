@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /*
@@ -31,5 +33,27 @@ public class TiposPagoController {
         ModelAndView  mav = new ModelAndView("pagos/index-tipos");
         mav.addObject("tipos", tipos);
         return mav;
+    }
+    
+    @RequestMapping("/ajax/crear.htm")
+    @ResponseBody
+    public String crearTipoPago(@RequestParam String nombre,@RequestParam String estado){
+        try {
+            tipoPagoService.crearTipoPago(estado, nombre);
+            return "OK";
+        } catch (Exception e) {
+            return "Error::"+e.getMessage();
+        }
+    }
+    
+    @RequestMapping("/ajax/actualizar.htm")
+    @ResponseBody
+    public String actualizarTipoPago(@RequestParam Integer idtipopago,@RequestParam String nombre,@RequestParam String estado){
+        Tipopago tipopago = new Tipopago();
+        tipopago.setEstado(estado);
+        tipopago.setIdtipo(idtipopago);
+        tipopago.setNombre(nombre);
+        tipoPagoService.actualizarTiposPago(tipopago);
+        return "OK";
     }
 }

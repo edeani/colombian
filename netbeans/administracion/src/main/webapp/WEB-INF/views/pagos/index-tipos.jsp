@@ -31,7 +31,7 @@
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/datatable/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/json/jquery.json.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/js/domicilios/pedidos.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/tipos-pago/tipos-pago.js"></script>
     </head>
     <body>
         <div id="content">
@@ -58,7 +58,7 @@
                                     <th></th>
                                 </tr>
                             </tfoot>
-                            <tbody id="updateListaDom">
+                            <tbody id="listaPagos">
                                 <c:forEach items="${tipos}" var="t" varStatus="indice">
                                     
                                     <tr id="fila${indice.index}" class="fila alert ${clasefila}">
