@@ -1,7 +1,63 @@
-var tableTipoPago = null;
+var tableTiposPago = null;
+var basePath = "";
 $(document).on('ready', function () {
-    
-    tableTipoPago = configuracionTabla();
+    basePath = $("#contextpath").val();
+    tableTiposPago = configuracionTabla();
+
+    $(document).on("click", ".editar", function (event) {
+        var fila = $(this).parent().attr("data-index");
+        $.confirm({
+            closeIconClass: 'fa fa-close',
+            title: false,
+            columnClass: 'col-md-10 col-md-offset-1',
+            escapeKey: true,
+            backgroundDismiss: true,
+            buttons: {
+                aceptar: {
+                    btnClass: 'btn-success',
+                    text: 'Aceptar',
+                    action: function () {
+                        $.ajax({
+                            url: basePath + "/tipos-pago/ajax/actualizar.htm",
+                            data: $("#formProcess").serialize(),
+                            type: 'POST',
+                            timeout: 20000,
+                            success: function (response) {
+                                if (response === "OK") {
+                                    $("#fila" + fila).removeClass("alert-danger");
+                                    $("#fila" + fila).addClass("alert-success");
+                                    mensajePedido('Actualizado');
+                                } else {
+                                    mensajePedido(response);
+                                }
+                            }
+                        });
+                    }
+                },
+                cancelar: {
+                    btnClass: 'btn-danger',
+                    text: 'Cancelar',
+                    action: function () {
+                        
+                    }
+                }
+            },
+            content: function () {
+                var self = this;
+                return $.ajax({
+                    url: basePath+'/tipos-pago/ajax/tipo-producto.htm',
+                    dataType: 'html',
+                    data: $("#form"+fila).serialize(),
+                    method: 'post',
+                    timeout: 10000
+                }).done(function (response) {
+                    self.setContent(response);
+                }).fail(function () {
+                    self.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
+                });
+            }
+        });
+    });
     $(document).on("click", ".viewOrder", function () {
         var fila = $(this).attr("data-row");
         var inputIdpedido = $("#pedido" + fila);
@@ -254,10 +310,10 @@ $(document).on('ready', function () {
             type: 'POST',
             timeout: 20000,
             success: function (response) {
-                tableTipoPago.clear();
-                tableTipoPago.destroy();
+                tableTiposPago.clear();
+                tableTiposPago.destroy();
                 $("#updateListaDom").html(response);
-                tableTipoPago = configuracionTabla();
+                tableTiposPago = configuracionTabla();
             }
         });
     });
@@ -301,10 +357,11 @@ $(document).on('ready', function () {
     }
 
     function configuracionTabla() {
-        var conf = $('#listaPagos').DataTable({
-            lengthMenu: false,
+        var conf = $('#tablaPedidos').DataTable({
+            lengthMenu: [[5], [5]],
             language: {
-                search: "Buscar:",
+                info: "Formas de Pago _START_ hasta _END_ de _TOTAL_",
+                lengthMenu: "Mostrar _MENU_",
                 loadingRecords: "Cargando...",
                 processing: "Procesando...",
                 zeroRecords: "No se encontraron elementos",

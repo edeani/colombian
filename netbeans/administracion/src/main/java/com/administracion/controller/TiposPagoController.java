@@ -56,4 +56,14 @@ public class TiposPagoController {
         tipoPagoService.actualizarTiposPago(tipopago);
         return "OK";
     }
+    
+    @RequestMapping("/ajax/tipo-producto.htm")
+    public ModelAndView formatoTipoPago(@RequestParam Integer idtipopago,@RequestParam String nombre,@RequestParam String estado){
+        ModelAndView mav = new ModelAndView("pagos/formato-tipo-pago");
+        mav.addObject("estado", estado);
+        mav.addObject("idtipopago", idtipopago);
+        mav.addObject("nombre", nombre);
+        
+        return mav;
+    }
 }

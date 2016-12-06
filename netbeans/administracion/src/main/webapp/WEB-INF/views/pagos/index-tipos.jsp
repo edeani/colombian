@@ -42,12 +42,13 @@
                 </div>            
                 <br />
                 <div class="row">
-                    <div class="col-sm-6 col-lg-offset-3">
+                    <div class="col-sm-7 col-lg-offset-3">
                         <table class="table table-border-row table-card" id="tablaPedidos">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th class="product-name">Nombre</th>
+                                    <th>Estado</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -55,18 +56,28 @@
                                 <tr>
                                     <th>Id</th>
                                     <th class="product-name">Nombre</th>
+                                    <th>Estado</th>
                                     <th></th>
                                 </tr>
                             </tfoot>
                             <tbody id="listaPagos">
                                 <c:forEach items="${tipos}" var="t" varStatus="indice">
-                                    
-                                    <tr id="fila${indice.index}" class="fila alert ${clasefila}">
+                                    <tr id="fila${indice.index}" class="fila">
                                         <td>${t.idtipo}</td>
                                         <td class="product-name">
                                            ${t.nombre} 
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            ${t.estado}
+                                        </td>
+                                        <td data-index="${indice.index}">
+                                            <a href="javascript:void(0);" class="editar"><i aria-hidden="true" class="fa fa-edit fa-2x"></i></a>
+                                            <form id="form${indice.index}">
+                                                <input name="nombre" value="${t.nombre}" type="hidden"/>
+                                                <input name="estado" value="${t.estado}" type="hidden"/>
+                                                <input name="idtipopago" value="${t.idtipo}" type="hidden"/> 
+                                            </form>
+                                        </td>
 
                                     </tr>
                                 </c:forEach>
