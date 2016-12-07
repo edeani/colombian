@@ -27,5 +27,26 @@ public class TiposPagoServiceImpl implements TipoPagoService{
     public List<Tipopago> tiposDePago() {
         return tipoPagoDao.findAll();
     }
+
+    @Override
+    @Transactional
+    public void actualizarTiposPago(Tipopago tipopago) {
+        Tipopago tp = tipoPagoDao.findById(tipopago.getIdtipo());
+        tp.setEstado(tipopago.getEstado());
+        tp.setNombre(tipopago.getNombre());
+        
+        tipoPagoDao.Update(tp);
+    }
+
+    @Override
+    @Transactional
+    public void crearTipoPago(String estado, String nombre) {
+        Tipopago tipopago = new Tipopago();
+        tipopago.setEstado(estado);
+        tipopago.setNombre(nombre);
+        
+        tipoPagoDao.save(tipopago);
+    }
+    
     
 }

@@ -28,8 +28,8 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/signin.htm", method = RequestMethod.GET)
     public ModelAndView signinPage() {
-        ModelAndView mav = null;
-        if (securityService.getCurrentUser()==null) {
+        ModelAndView mav;
+        if (securityService.getCurrentUser() == null) {
             mav = new ModelAndView("usuario/signin");
             setBasicModel(mav, new UsuarioRegistroDto());
         } else {
@@ -77,7 +77,7 @@ public class LoginController extends BaseController {
         } else {
             Usuario usuario = new Usuario();
             LectorPropiedades lp = new LectorPropiedades();
-            usuario.setEstado(lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(),"usuario.estadoregistro"));
+            usuario.setEstado(lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), "usuario.estadoregistro"));
             usuario.setCorreo(usuarioRegistroDto.getCorreo());
             usuario.setPassword(usuarioRegistroDto.getPassword());
             usuario.setNombreusuario(usuarioRegistroDto.getNombre());
@@ -95,22 +95,31 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping("/activar/usuario.htm")
-    public ModelAndView activarUsuario(@RequestParam String token,@RequestParam String email) {
+    public ModelAndView activarUsuario(@RequestParam String token, @RequestParam String email) {
         try {
             securityService.autenticarUsuarioRegistrado(email, token);
             return new ModelAndView("redirect:/wellcome.htm");
         } catch (Exception e) {
-            return new ModelAndView("redirect:/403.htm");
+            if (e.getMessage().equals("1003")) {
+                return new ModelAndView("redirect:/token.htm");
+            } else {
+                return new ModelAndView("redirect:/403.htm");
+            }
         }
     }
-    
+
     @RequestMapping("/wellcome.htm")
-    public ModelAndView paginaBienvenido(){
+    public ModelAndView paginaBienvenido() {
         return new ModelAndView("wellcome");
     }
     
+    @RequestMapping("/token.htm")
+    public ModelAndView paginaTokenInvalido() {
+        return new ModelAndView("token");
+    }
+
     @RequestMapping("/alerta/mail.htm")
-    public ModelAndView alertaMail(){
+    public ModelAndView alertaMail() {
         return new ModelAndView("mensaje_activarmail");
     }
 }

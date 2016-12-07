@@ -108,6 +108,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         if (vu != null) {
             if (!token.equals(vu.getToken())) {
                 throw new SecurityException("1002");
+            }else if(vu.getEstado().equals(USUARIO_ACTIVO)){
+                throw new SecurityException("1003");
             }
             usuario.setEstado(USUARIO_ACTIVO);
             usuarioDao.Update(usuario);

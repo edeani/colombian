@@ -60,6 +60,12 @@
                             <ul class="rst-main-menu">
                                 <li class="current-menu-item"><a href="/home.htm">Inicio</a></li>
                                 <li><a href="<%=request.getContextPath()%>/productos/inventario.htm">Productos</a></li>
+                                <li class="menu-item-has-children"><a href="javascript:void(0);">Propiedades</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="<%=request.getContextPath()%>/tipos-pago/index.htm">Tipos Pago</a></li>
+                                    </ul>
+                                </li>
+                                <li></li>
                                 <li><a href="<%=request.getContextPath()%>/pedidos/domicilios.htm">Pedidos</a></li>
                                 <li class="menu-item-has-children"><a href="javascript:void(0);">Usuarios</a>
                                     <ul class="sub-menu" style="background-color: white;">

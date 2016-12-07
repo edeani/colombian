@@ -14,4 +14,6 @@ import java.util.List;
  */
 public interface TipoPagoService {
     List<Tipopago> tiposDePago();
+    void actualizarTiposPago(Tipopago tipopago);
+    void crearTipoPago(String estado,String nombre);
 }
