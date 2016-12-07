@@ -17,7 +17,7 @@
     <div class="panel-body">
         <div class="row">
             <form id="formProcess" class="form-inline">
-                <div class="col-md-3 form-group"><label class="label label-primary">Id</label> ${idtipopago}<input name="idtipopago" value="${idtipopago}"  type="hidden"/></div>
+                <div class="col-md-3 form-group"><input name="idtipopago" value="${idtipopago}"  type="hidden"/></div>
                 <div class="form-group"><label for="nombreF">Nombre</label> <input id="nombreF" name="nombre" value="${nombre}"  class="form-control"/></div>
                 <div class="form-group"><label for="estadoF">Estado</label> 
                     <select id="estadoF" name="estado"  class="form-control">

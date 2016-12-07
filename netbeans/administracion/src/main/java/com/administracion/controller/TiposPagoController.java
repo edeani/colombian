@@ -31,10 +31,16 @@ public class TiposPagoController {
     public ModelAndView indexTiposPago(){
         List<Tipopago> tipos = tipoPagoService.tiposDePago();
         ModelAndView  mav = new ModelAndView("pagos/index-tipos");
-        mav.addObject("tipos", tipos);
         return mav;
     }
     
+    @RequestMapping("/ajax/list.htm")
+    public ModelAndView listaTiposPago(){
+        List<Tipopago> tipos = tipoPagoService.tiposDePago();
+        ModelAndView  mav = new ModelAndView("pagos/list-tipo");
+        mav.addObject("tipos", tipos);
+        return mav;
+    }
     @RequestMapping("/ajax/crear.htm")
     @ResponseBody
     public String crearTipoPago(@RequestParam String nombre,@RequestParam String estado){
