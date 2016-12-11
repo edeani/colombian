@@ -96,29 +96,21 @@
                                 <div class="form-inline">
                                     <div class="form-group" style="width: 25%;">
                                         <select id="componente" class="form-control">
-                                            <option value="Calle" selected="selected">Calle</option>
-                                            <option value="Carrera">Carrera</option>
-                                            <option value="Avenida">Avenida</option>
-                                            <option value="Avenida Carrera">Avenida Carrera</option>
-                                            <option value="Avenida Calle">Avenida Calle</option>
-                                            <option value="Circular">Circular</option>
-                                            <option value="Circunvalar">Circunvalar</option>
-                                            <option value="Diagonal">Diagonal</option>
-                                            <option value="Manzana">Manzana</option>
-                                            <option value="Transversal">Transversal</option>
-                                            <option value="Vía">Vía</option>
+                                            <c:forEach var="opc" items="${coord}">
+                                                <option value="${opc}" <c:if test="${opc==componente}">selected="selected"</c:if>>${opc}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                     <div class="form-group" style="width: 15%;">
-                                        <input type="text" id="datoComponente" class="form-control"/>
+                                        <input type="text" id="datoComponente" class="form-control" value="${datoComponente}"/>
                                     </div>
                                     <label>#</label>
                                     <div class="form-group" style="width: 15%;">
-                                        <input type="text" id="datoComponente1" class="form-control"/>
+                                        <input type="text" id="datoComponente1" class="form-control" value="${datoComponente1}"/>
                                     </div>
                                     <label >-</label>
                                     <div class="form-group" style="width: 15%;">
-                                        <input type="text" id="datoComponente2" class="form-control"/>
+                                        <input type="text" id="datoComponente2" class="form-control" value="${datoComponente2}"/>
                                     </div>
                                 </div>
                                 <div class="form-group" id="formGroupDir">

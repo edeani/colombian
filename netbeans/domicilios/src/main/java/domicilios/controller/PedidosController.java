@@ -15,6 +15,8 @@ import domicilios.service.TipoPagoService;
 import domicilios.service.autorizacion.SecurityService;
 import domicilios.util.LectorPropiedades;
 import domicilios.util.ManageCookies;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +62,17 @@ public class PedidosController extends BaseController {
     private static final String NAME_COORDS_DOMI = "area";
 
     private static final String NAME_COORDS_COLOMBIAN = "center";
+    
+    private List<String> coordUrbana;
+
+    @Autowired
+    private void listaEstructuraUrbana() {
+        coordUrbana = new ArrayList<>();
+        LectorPropiedades lp = new LectorPropiedades();
+        final String listaBuff = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), "coord.urbana");
+        String listado[] = listaBuff.split(",");
+        coordUrbana.addAll(Arrays.asList(listado));
+    }
 
     List<Tipopago> tiposPago;
 
@@ -91,7 +104,31 @@ public class PedidosController extends BaseController {
         if (usuario.getTelefono() != null) {
             pedidoDto.setTelefono(usuario.getTelefono());
         }
+        /**
+         * Proceso la dirección para ponerla en los campos
+         */
+        String direccion = usuario.getDireccion();
+        if (direccion != null) {
+            String[] direccionPartes = direccion.split("#");
+            String placa = direccionPartes[1];
 
+            mav.addObject("datoComponente1", placa.split("-")[0]);
+            mav.addObject("datoComponente2", placa.split("-")[1]);
+
+            String nombreNum = direccionPartes[0];
+            String[] nombreNumPartes = nombreNum.split(" ");
+
+            if (nombreNumPartes.length == 2) {
+                mav.addObject("componente", nombreNumPartes[0]);
+                mav.addObject("datoComponente", nombreNumPartes[1]);
+            } else {
+                mav.addObject("componente", nombreNumPartes[0] + " " + nombreNumPartes[1]);
+                mav.addObject("datoComponente", nombreNumPartes[2]);
+            }
+        }
+        /**
+         * Fin Procesamiento de la dirección
+         */
         setBasicModel(mav, pedidoDto);
         mav.addObject("pedido", pedidoDto);
 
@@ -108,7 +145,7 @@ public class PedidosController extends BaseController {
 
     @RequestMapping(value = "/pedido.htm", method = RequestMethod.POST)
     public ModelAndView guardarPedido(@ModelAttribute @Valid PedidoClienteDto pedidoClienteDto, BindingResult binding, @Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto,
-             HttpServletResponse response, HttpServletRequest request,HttpSession session) {
+            HttpServletResponse response, HttpServletRequest request, HttpSession session) {
 
         if (binding.hasErrors()) {
             ModelAndView mavError = new ModelAndView("compra/pedido");
@@ -129,12 +166,12 @@ public class PedidosController extends BaseController {
             }
         }
     }
-    
+
     @RequestMapping("/finalizada.htm")
-    public ModelAndView compraFinalizada(){
-         return new ModelAndView("compra/finalizacion");
+    public ModelAndView compraFinalizada() {
+        return new ModelAndView("compra/finalizacion");
     }
-    
+
     @RequestMapping("/ajax/resumen.htm")
     public ModelAndView resumenPedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session) {
         if (pedidoDto == null) {
@@ -176,5 +213,10 @@ public class PedidosController extends BaseController {
     @ModelAttribute("tiposPago")
     private List<Tipopago> tiposPago() {
         return tiposPago;
+    }
+    
+    @ModelAttribute("coord")
+    public List<String> listaCoordUrbanas() {
+        return coordUrbana;
     }
 }
