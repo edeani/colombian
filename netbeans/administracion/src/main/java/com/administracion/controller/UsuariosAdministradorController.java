@@ -40,13 +40,11 @@ public class UsuariosAdministradorController extends BaseController {
     
     private List<String> coordUrbana;
 
-    private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
-
     @Autowired
     private void listaEstructuraUrbana() {
         coordUrbana = new ArrayList<>();
         LectorPropiedades lp = new LectorPropiedades();
-        final String listaBuff = lp.leerPropiedad(PROPIEDADES_COLOMBIAN, "coord.urbana");
+        final String listaBuff = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), "coord.urbana");
         String listado[] = listaBuff.split(",");
         coordUrbana.addAll(Arrays.asList(listado));
     }
