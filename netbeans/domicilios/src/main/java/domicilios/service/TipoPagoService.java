@@ -13,5 +13,5 @@ import java.util.List;
  * @author user
  */
 public interface TipoPagoService {
-    List<Tipopago> tiposDePago();
+    List<Tipopago> tiposDePagoActivos();
 }

@@ -14,5 +14,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class TipoPagoDaoImpl extends GenericDaoImpl<Tipopago> implements TipoPagoDao{
+
+    
     
 }

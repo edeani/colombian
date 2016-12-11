@@ -13,5 +13,4 @@ import java.util.List;
  * @author user
  */
 public interface UsuarioDao extends GenericDao<Usuario>{
-    public List<Usuario> listUsuarios();
 }

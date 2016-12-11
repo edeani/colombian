@@ -109,7 +109,7 @@ $(document).ready(function () {
         }
         if (resumenDireccion.length > 0) {
             var elementos = resumenDireccion.split(" ");
-            if (elementos.length === 3) {
+            if (elementos.length === 3 || elementos.length===4) {
                 $("#direccion").val(resumenDireccion);
             } else {
                 $("#direccion").val("");

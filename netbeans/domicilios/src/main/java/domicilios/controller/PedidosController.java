@@ -78,7 +78,7 @@ public class PedidosController extends BaseController {
 
     @Autowired
     private void tiposDePago() {
-        this.tiposPago = tipoPagoService.tiposDePago();
+        this.tiposPago = tipoPagoService.tiposDePagoActivos();
     }
 
     @RequestMapping(value = "/pedido.htm", method = RequestMethod.GET)
