@@ -22,7 +22,7 @@
         <intercept-url pattern="/logout.htm" access="isAnonymous()" /-->
 
         <intercept-url pattern="/compras/pedido.htm" access="isAuthenticated()" />
- 
+        <intercept-url pattern="/user/**" access="isAuthenticated()" />
         <access-denied-handler error-page="/signin.htm" />
         
         <form-login login-page='/signin.htm' login-processing-url="/j_spring_security_check"
