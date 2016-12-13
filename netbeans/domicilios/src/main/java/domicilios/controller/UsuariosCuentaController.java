@@ -5,8 +5,14 @@
  */
 package domicilios.controller;
 
+import domicilios.dto.PedidoViewDto;
+import domicilios.entidad.Usuario;
+import domicilios.service.PedidoService;
+import domicilios.service.autorizacion.SecurityService;
 import domicilios.util.Util;
 import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,14 +25,21 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/user")
 public class UsuariosCuentaController {
     
+    @Autowired
+    private PedidoService pedidoService;
+    
+    @Autowired
+    private SecurityService securityService;
+    
     @RequestMapping("/pedidos.htm")
     public ModelAndView misPedidos(){
         
         String fecha = Util.dateTostring(new Date());
-        //List<PedidoViewDto> pedidos = pedidoService.findPedidosXPage(1, 20, fecha, fecha);
+        Usuario usuario = securityService.getCurrentUser();
+        List<PedidoViewDto> pedidos = pedidoService.findPedidosXPageUsuario(1, 5, usuario.getIdusuario());
 
         ModelAndView mav = new ModelAndView("pedido/ordenes");
-        //mav.addObject("pedidos", pedidos);
+        mav.addObject("pedidos", pedidos);
         return mav;
         
     }

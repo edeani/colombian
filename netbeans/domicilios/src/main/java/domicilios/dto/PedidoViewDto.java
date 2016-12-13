@@ -14,6 +14,7 @@ public class PedidoViewDto {
     private String direccion;
     private Float total;
     private String fecha;
+    private String tipopago;
 
     public Long getIdpedido() {
         return idpedido;
@@ -45,6 +46,14 @@ public class PedidoViewDto {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getTipopago() {
+        return tipopago;
+    }
+
+    public void setTipopago(String tipopago) {
+        this.tipopago = tipopago;
     }
     
     

@@ -13,13 +13,13 @@
     <head>
         <title>Administraci&oacute;n de Productos</title>
         <!-- Custom Css ================================================== -->
-        <link rel="stylesheet" type="text/css" href="/administracion/css/rs-wp-v1.2.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/responsive.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/datatable/jquery.dataTables.min.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/jquery/jquery-ui.min.css">
-        <link rel="stylesheet" type="text/css" href="/administracion/css/jquery-confirm-pedidos.css">
+        <link rel="stylesheet" type="text/css" href="/css/rs-wp-v1.2.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/responsive.css">
+        <link rel="stylesheet" type="text/css" href="/css/jquery-confirm.css">
+        <link rel="stylesheet" type="text/css" href="/css/datatable/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/jquery/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/jquery-confirm-pedidos.css">
 
         <!-- Fonts ================================================== -->
         <link href='<%=request.getContextPath()%>/fonts/stylesheet.css' rel='stylesheet' type='text/css'>
@@ -48,6 +48,7 @@
                                 <tr>
                                     <th>Fecha</th>
                                     <th class="product-name">Direcci&oacute;n</th>
+                                    <th>Modo de pago</th>
                                     <th>Total</th>
                                     <th></th>
                                 </tr>
@@ -56,36 +57,23 @@
                                 <tr>
                                     <th>Fecha</th>
                                     <th class="product-name">Direcci&oacute;n</th>
+                                    <th>Modo de pago</th>
                                     <th>Total</th>
                                     <th></th>
                                 </tr>
                             </tfoot>
                             <tbody id="updateListaDom">
                                 <c:forEach items="${pedidos}" var="d" varStatus="indice">
-                                    <c:set var="clasefila" value=""></c:set>
-                                    <c:if test="${d.estadopedido eq 'R'}"><c:set var="clasefila" value="alert-danger"/></c:if> 
-                                    <c:if test="${d.estadopedido eq 'A'}"><c:set var="clasefila" value="alert-success"/></c:if>
-                                    <tr id="fila${indice.index}" class="fila alert ${clasefila}">
-                                        <td>${d.idpedido}</td>
-                                        <td class="product-name">
-                                            ${d.nombre}
-                                        </td>
-                                        <td>${d.direccion}</td>
-                                        <td><fmt:formatNumber type="number"  pattern="###.###" value="${d.totalpedido}" /></td>
+                                    <tr>
                                         <td>${d.fecha}</td>
+                                        <td>${d.direccion}</td>
                                         <td>${d.tipopago}</td>
+                                        <td>${d.total}</td>
                                         <td>
-                                            <p style="width: 135px; margin: 0px;">
-                                            <div id="activeButtons${indice.index}" class="btn-controls">
-                                                <a title="ver" data-row="${indice.index}" class="edit btn btn-primary btn-sm viewOrder" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
+                                            <div class="btn-controls">
+                                                <a title="ver" data-idpedido="${d.idpedido}" class="edit btn btn-primary btn-sm viewOrder" href="javascript:void(0);" aria-label="Edit"><i  class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
                                             </div>
-                                            </p>
-                                            <form id="formDatos${indice.index}" style="display: none;">
-                                                <input type="hidden" id="pedido${indice.index}" name="idpedido" value="${d.idpedido}" class="fieldPedido">
-                                                <input type="hidden" name="fecha" value="${d.fecha}" class="fieldFecha"/>
-                                            </form>  
                                         </td>
-
                                     </tr>
                                 </c:forEach>
 

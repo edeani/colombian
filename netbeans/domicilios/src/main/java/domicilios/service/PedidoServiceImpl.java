@@ -11,13 +11,16 @@ import domicilios.dao.ProductoDao;
 import domicilios.dao.TipoPagoDao;
 import domicilios.dao.UsuarioDao;
 import domicilios.dto.PedidoClienteDto;
-import domicilios.dto.ProductoClienteDto;
+import domicilios.dto.PedidoViewDto;
 import domicilios.entidad.Detallepedido;
 import domicilios.entidad.Pedido;
 import domicilios.entidad.Tipopago;
 import domicilios.entidad.Usuario;
 import domicilios.mapper.PedidoClienteDtoMapper;
+import domicilios.util.Util;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +85,15 @@ public class PedidoServiceImpl implements PedidoService{
         usuario.setTelefono(pedidoClienteDto.getTelefono());
         
         usuarioDao.Update(usuario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PedidoViewDto> findPedidosXPageUsuario(Integer page, Integer cantidad, Long idusuario) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idusuario", idusuario);
+        Integer firstItem = Util.firstItemPage(page, cantidad);
+        return pedidoDao.findAllPageSql(firstItem, cantidad, parametros);
     }
     
 }
