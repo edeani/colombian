@@ -134,7 +134,7 @@
             <p class="description-heading">Texto complementario</p>
         </div>
         <div class="container">
-            <div class="row">
+            <div class="row" style="display: none;">
                 <div class="col-sm-4">
                     <div class="rst-dishes-item">
                         <div class="rst-thumbnail">
@@ -176,7 +176,7 @@
                 </div>
             </div>
         </div>
-        <div class="rst-dishes" data-background="/img/post/bg_dishes.jpg">
+        <div class="rst-dishes" data-background="/img/post/bg_dishes.jpg" style="display: none;">
             <div class="rst-dishes-form clearfix">
                 <div class="rst-table">
                     <div class="rst-table-row">
