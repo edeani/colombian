@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                             <sec:authorize  access="isAuthenticated()">
-                                <a href="/signin.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
+                                <a href="/user/pedidos.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
                             </sec:authorize>
                             <sec:authorize  access="!isAuthenticated()">
                                 <a href="/signin.htm" class="rst-signup btn btn-success">Ingresar</a>

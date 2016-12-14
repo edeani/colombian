@@ -1,0 +1,7 @@
+#datosUsuario .form-control{
+    width: 63%;
+}
+
+#datosUsuario .form-control.carrera {
+    width: 30%;
+}
