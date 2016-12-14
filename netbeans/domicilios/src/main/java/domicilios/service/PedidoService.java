@@ -6,7 +6,11 @@
 package domicilios.service;
 
 import domicilios.dto.PedidoClienteDto;
+import domicilios.dto.PedidoViewDto;
+import domicilios.entidad.Detallepedido;
+import domicilios.entidad.Pedido;
 import domicilios.entidad.Usuario;
+import java.util.List;
 
 /**
  *
@@ -14,4 +18,8 @@ import domicilios.entidad.Usuario;
  */
 public interface PedidoService {
     void guardarPedido(PedidoClienteDto pedidoClienteDto,Usuario usuario);
+    List<PedidoViewDto> findPedidosXPageUsuario(Integer page, Integer cantidad, Long idusuario);
+    List<Detallepedido> listDetallePedido(Long idpedido);
+    public Pedido findById(Long idpedido);
+    
 }

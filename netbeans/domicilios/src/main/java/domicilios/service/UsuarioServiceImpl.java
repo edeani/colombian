@@ -8,6 +8,7 @@ package domicilios.service;
 import domicilios.dao.RolDao;
 import domicilios.dao.UsuarioDao;
 import domicilios.dao.ValidacionUsuarioDao;
+import domicilios.dto.UsuarioDto;
 import domicilios.entidad.Rol;
 import domicilios.entidad.Usuario;
 import domicilios.entidad.ValidacionUsuarios;
@@ -121,4 +122,25 @@ public class UsuarioServiceImpl implements UsuarioService {
         return rolDao.findById(idrol);
     }
 
+    @Override
+    @Transactional
+    public void actualizarUsuarioAdministracion(UsuarioDto usuarioDto) {
+        Usuario usuario = usuarioDao.findById(usuarioDto.getIdusuario());
+        usuario.setDireccion(usuarioDto.getDireccion());
+        usuario.setEstado(usuarioDto.getEstado());
+        usuario.setNombreusuario(usuarioDto.getNombreusuario());
+        usuario.setPassword(usuarioDto.getPassword());
+        usuario.setTelefono(usuarioDto.getTelefono());
+        usuario.setCedula(usuarioDto.getIdentificacion());
+        Rol rol = rolDao.findById(usuarioDto.getIdrol());
+        usuario.setIdrol(rol);
+        
+        usuarioDao.Update(usuario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UsuarioDto findUsuarioByCorreoDto(String correo) {
+        return usuarioDao.findUsuarioXCorreoSql(correo);
+    }
 }

@@ -79,7 +79,7 @@
                             <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
                         </div>
                         <div class="rst-account rst-table-cell">
-                            <div class="rst-cart">
+                            <div class="rst-cart" style="display: none;">
                                 <a href="#" class="rst-cart-icon"><span>6</span></a>
                                 <div class="rst-form-login rst-cart-info">
                                     <div class="rst-list-product">
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                             <sec:authorize  access="isAuthenticated()">
-                                <a href="/signin.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
+                                <a href="/user/pedidos.htm" class="rst-signup btn btn-success"><sec:authentication property="principal.nombreusuario"/></a>
                             </sec:authorize>
                             <sec:authorize  access="!isAuthenticated()">
                                 <a href="/signin.htm" class="rst-signup btn btn-success">Ingresar</a>

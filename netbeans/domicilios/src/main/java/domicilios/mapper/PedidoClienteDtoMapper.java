@@ -6,7 +6,11 @@
 package domicilios.mapper;
 
 import domicilios.dto.PedidoClienteDto;
+import domicilios.dto.ProductoClienteDto;
+import domicilios.entidad.Detallepedido;
 import domicilios.entidad.Pedido;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,5 +29,25 @@ public class PedidoClienteDtoMapper {
         return pedido;
     }
     
+    
+    public static List<ProductoClienteDto> listDetallePedidoToProductoClienteDto(List<Detallepedido> productosCliente){
+        List<ProductoClienteDto> p = new ArrayList<>();
+        productosCliente.stream().forEach((productoClienteDto) -> {
+            p.add(detallePedidoToProductoClienteDto(productoClienteDto));
+        });
+        return p;
+    }
+    
+    public static ProductoClienteDto detallePedidoToProductoClienteDto(Detallepedido productoClienteDto){
+        ProductoClienteDto prod= new ProductoClienteDto();
+        
+        prod.setCantidad(productoClienteDto.getCantidadorden());
+        prod.setIdproducto(productoClienteDto.getIdproducto().getIdproducto());
+        prod.setNombreproducto(productoClienteDto.getIdproducto().getNombreproducto());
+        prod.setPrecio(productoClienteDto.getPreciounitario());
+        prod.setTotal(productoClienteDto.getTotalproducto());
+        
+        return prod;
+    }
 
 }

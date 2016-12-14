@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="PedidoSql.listPedido">
+        select p.idpedido,p.direccion,p.totalpedido as total,tp.nombre as tipopago,p.fecha from pedido p inner join tipopago tp on tp.idtipo = p.idtipopago 
+        inner join usuario u on u.idusuario = p.idusuario 
+        where p.idusuario = :idusuario
+        order by p.fecha desc limit :cantidad offset :minimo ;
+    </query>
+</queries>

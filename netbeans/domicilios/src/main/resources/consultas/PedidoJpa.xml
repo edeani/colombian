@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="PedidoJpa.listDetallePedido">
+        select dp from Detallepedido dp where dp.pedido.idpedido=:idpedido
+    </query>
+</queries>

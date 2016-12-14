@@ -96,7 +96,7 @@ $(document).on('ready', function () {
                 }).fail(function () {
                     self.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
                 });
-            },
+            }
         });
 
 
