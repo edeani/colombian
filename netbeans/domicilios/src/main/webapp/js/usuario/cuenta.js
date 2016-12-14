@@ -44,9 +44,32 @@ $(document).on("ready", function () {
             console.log("Dirección incorrecta");
         }
     });
-
+    
+    $(document).on("click",".viewOrder",function(event){
+        event.preventDefault();
+        var idpedido = $(this).attr("data-idpedido");
+        $.dialog({
+            title:"Tú pedido",
+            columnClass: 'col-md-10 col-md-offset-1',
+            content: function () {
+                var self = this;
+                return $.ajax({
+                    url: '/user/ajax/detalle-orden.htm',
+                    dataType: 'html',
+                    data: "idpedido="+idpedido,
+                    method: 'post',
+                    timeout: 10000
+                }).done(function (response) {
+                    self.setContent(response);
+                }).fail(function () {
+                    self.setContent('Ocurri&oacute; un problema al realizar la operaci&oacute;n');
+                });
+            }
+        });
+    });
     $(document).on("input", ".numeric", function () {
         this.value = this.value.replace(/[^\d\.\-]/g, '');
+        
     });
 
     $(document).on("keypress",".textnumber",function (e) {

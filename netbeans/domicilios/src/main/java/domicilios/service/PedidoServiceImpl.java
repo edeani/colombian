@@ -17,6 +17,7 @@ import domicilios.entidad.Pedido;
 import domicilios.entidad.Tipopago;
 import domicilios.entidad.Usuario;
 import domicilios.mapper.PedidoClienteDtoMapper;
+import domicilios.util.LeerXml;
 import domicilios.util.Util;
 import java.util.Date;
 import java.util.HashMap;
@@ -95,5 +96,19 @@ public class PedidoServiceImpl implements PedidoService{
         Integer firstItem = Util.firstItemPage(page, cantidad);
         return pedidoDao.findAllPageSql(firstItem, cantidad, parametros);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Pedido findById(Long idpedido) {
+       return  pedidoDao.findById(idpedido);
+    }
     
+    @Override
+    @Transactional(readOnly = true)
+    public List<Detallepedido> listDetallePedido(Long idpedido) {
+        HashMap<String,Object> parametros = new HashMap<>();
+        parametros.put("idpedido", idpedido);
+        
+        return detallePedidoDao.queryJpa(new LeerXml().getQuery("PedidoJpa.listDetallePedido"), parametros);
+    }
 }

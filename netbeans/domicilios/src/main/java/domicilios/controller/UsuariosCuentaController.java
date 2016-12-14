@@ -7,7 +7,11 @@ package domicilios.controller;
 
 import domicilios.dto.PedidoViewDto;
 import domicilios.dto.UsuarioDto;
+import domicilios.dto.VerPedidoDto;
+import domicilios.entidad.Detallepedido;
+import domicilios.entidad.Pedido;
 import domicilios.entidad.Usuario;
+import domicilios.mapper.PedidoClienteDtoMapper;
 import domicilios.service.PedidoService;
 import domicilios.service.UsuarioService;
 import domicilios.service.autorizacion.SecurityService;
@@ -25,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -91,6 +96,29 @@ public class UsuariosCuentaController extends BaseController {
 
     }
 
+    @RequestMapping("/ajax/detalle-orden.htm")
+    public ModelAndView detallePedido(@RequestParam Long idpedido){
+       ModelAndView mav = new ModelAndView("pedido/detalleOrden");
+       VerPedidoDto verPedidoDto = new VerPedidoDto();
+        //Seteo los productos del pedido
+       List<Detallepedido> detallepedidos = pedidoService.listDetallePedido(idpedido);
+       verPedidoDto.setProductos(PedidoClienteDtoMapper.listDetallePedidoToProductoClienteDto(detallepedidos));
+       
+       /**
+        * Traigo los datos generales del pedido
+        */
+       Pedido pedido = pedidoService.findById(idpedido);
+       
+       verPedidoDto.setIdusuario(pedido.getIdusuario().getIdusuario());
+       verPedidoDto.setComentarios(pedido.getComentarios());
+       verPedidoDto.setIdpedido(pedido.getIdpedido());
+       verPedidoDto.setTotal(pedido.getTotalpedido());
+       
+       mav.addObject("tipopago", pedido.getIdtipopago().getNombre());
+       mav.addObject("fecha", pedido.getFecha());
+       mav.addObject("pedido",verPedidoDto);
+       return  mav;
+    }
     @RequestMapping("/ajax/actualizar-usuario.htm")
     public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto, BindingResult binding,
             HttpServletResponse response) {
