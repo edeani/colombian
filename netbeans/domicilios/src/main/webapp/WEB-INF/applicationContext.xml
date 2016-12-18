@@ -95,6 +95,10 @@
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/mailing/" />
     </bean>
-    
-    <mvc:resources mapping="/img-producto/**" location="/img-producto/" />  
+      
+    <mvc:resources mapping="/img/**" location="/img/" cache-period="3600"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/" cache-period="3600"/>
+    <mvc:resources mapping="/css/**" location="/css/" cache-period="3600" />
+    <mvc:resources mapping="/font-awesome-4.3/**" location="/font-awesome-4.3/" cache-period="3600"/>
+    <mvc:resources mapping="/js/**" location="/js/" cache-period="3600"/>
 </beans>
