@@ -5,12 +5,15 @@
  */
 package domicilios.service.mailing;
 
+import java.util.concurrent.Future;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +29,13 @@ public class MailingServiceImpl implements MailingService {
     private JavaMailSender mailSender;
 
     @Override
-    public void sendMail(String from, String to, String subject, final String contenido) {
-        MimeMessagePreparator preparator = (MimeMessage mimeMessage) -> {
+    @Async
+    public Future<Boolean> sendMail(String from, String to, String subject, final String contenido) {
+        MimeMessagePreparator preparator;
+        preparator = (MimeMessage mimeMessage) -> {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setSubject("Your order on Demoapp with Templates");
-            helper.setFrom("customerserivces@yourshop.com");
+            helper.setSubject(subject);
+            helper.setFrom(from);
             helper.setTo(to);
             /**
              * Hay un segundo parámetro booleano para indicar si se adjunta
@@ -49,9 +54,11 @@ public class MailingServiceImpl implements MailingService {
         try {
             mailSender.send(preparator);
             System.out.println("Message has been sent.............................");
+            return new AsyncResult<>(Boolean.TRUE);
         }
         catch (MailException ex) {
             System.err.println(ex.getMessage());
+           return new AsyncResult<>(Boolean.FALSE);
         }
     }
 

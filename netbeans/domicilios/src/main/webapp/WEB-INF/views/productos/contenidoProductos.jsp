@@ -80,7 +80,16 @@
                                     </c:if>
                                     <div class="col-sm-10 product-item" ${seccion}>
                                         <div class="rst-thumbnail">
-                                            <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-data-nombprecio="${p.precioproducto}" href="#"><img src="/img/post/gallery10.jpg" alt="" /></a>
+                                            <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-data-nombprecio="${p.precioproducto}" href="#">
+                                                <c:choose>
+                                                    <c:when test="${not empty p.imagen}">
+                                                        <img src="/administracion/img-producto/${p.imagen}" alt="${p.nombreproducto}" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img src="/administracion/img-producto/gallery10.jpg" alt="" />
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </a>
                                             <div class="rst-hover">
                                                 ${p.nombreTipo}
                                                 <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-precio="${p.precioproducto}" href="#"></a>

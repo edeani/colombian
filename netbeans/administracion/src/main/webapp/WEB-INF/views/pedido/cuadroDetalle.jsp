@@ -17,10 +17,10 @@
     <!-- Default panel contents -->
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-6">Pedido No.${pedido.idpedido}::::::::::: Fecha y Hora: ${fecha}</div>
+            <div class="col-md-6">Pedido No.${pedido.idpedido} Fecha y Hora: ${fecha}</div>
         </div>
     </div>
-    <%--Inicio del Fomulario de pedido de la aminitración --%> 
+    <%--Inicio del Fomulario de pedido de la aminitracion --%> 
     <springForm:form action="#" method="post" commandName="pedidoClienteDto">
         <springForm:hidden path="idpedido"  />
         <div class="panel-body">
