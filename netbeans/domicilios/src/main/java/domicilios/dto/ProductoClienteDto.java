@@ -15,6 +15,7 @@ public class ProductoClienteDto {
     private Float precio;
     private Integer cantidad;
     private Float total;
+    private String imagen;
 
     /**
      * Se coloca el constructor por defecto para que model attribute  asigne los valore de este objeto embebido
@@ -66,6 +67,14 @@ public class ProductoClienteDto {
 
     public void setNombreproducto(String nombreproducto) {
         this.nombreproducto = nombreproducto;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
     

@@ -52,7 +52,7 @@
                                         <tr id="fila${indice.index}" class="fila">
                                             <td class="product-name">
                                                 <a data-row="${indice.index}" class="remove removeCar indiceData" href="javascript:void(0);"><i class="fa fa-close"></i></a>
-                                                <img class="img-circle" src="img/post/product-card-01.jpg" alt="" />
+                                                <img class="img-circle" src="/administracion/img-producto/" alt="" />
                                                 ${p.nombreproducto}
                                             </td>
                                             <td><fmt:formatNumber type="number"  pattern="###.###" value="${p.precio}" /></td>

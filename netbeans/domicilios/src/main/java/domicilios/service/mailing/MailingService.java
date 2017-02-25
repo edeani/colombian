@@ -5,10 +5,12 @@
  */
 package domicilios.service.mailing;
 
+import java.util.concurrent.Future;
+
 /**
  *
  * @author edeani
  */
 public interface MailingService {
-    void sendMail(String from,String to,String subject,final String contenido);
+    Future<Boolean> sendMail(String from,String to,String subject,final String contenido);
 }

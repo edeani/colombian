@@ -74,12 +74,6 @@ public class PedidosController extends BaseController {
         coordUrbana.addAll(Arrays.asList(listado));
     }
 
-    List<Tipopago> tiposPago;
-
-    @Autowired
-    private void tiposDePago() {
-        this.tiposPago = tipoPagoService.tiposDePagoActivos();
-    }
 
     @RequestMapping(value = "/pedido.htm", method = RequestMethod.GET)
     public ModelAndView pedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
@@ -212,7 +206,7 @@ public class PedidosController extends BaseController {
 
     @ModelAttribute("tiposPago")
     private List<Tipopago> tiposPago() {
-        return tiposPago;
+        return  tipoPagoService.tiposDePagoActivos();
     }
     
     @ModelAttribute("coord")
