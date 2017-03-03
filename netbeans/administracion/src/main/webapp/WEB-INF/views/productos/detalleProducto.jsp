@@ -47,7 +47,7 @@
                                     <div id="load-pic">
                                         <c:choose>
                                             <c:when test="${not empty productoDetailDto.rutaImagen}">
-                                                <img style="width: 260px;" src="<%=request.getContextPath()%>/img-producto/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
+                                                <img style="width: 260px;" src="/estaticos/img/productos/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
                                             </c:when>
                                             <c:otherwise>
                                                 <img style="width: 260px;" src="<%=request.getContextPath()%>/img/post/gallery11.jpg" alt="${productoDetailDto.nombreproducto}" />
