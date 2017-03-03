@@ -325,7 +325,7 @@
         <!--- Contact Detail/Map -->
         <div class="rst-contact">
             <div id="map-canvas" class="rst-contact-maps" data-zoom="15" data-center="10.731688,122.5505356"> </div>
-                <div  class="rst-contact-maps"> <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&q=Colombian+Broaster,Bogotá+Colombia" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe> </div>
+                <div  class="rst-contact-maps"> <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCuORR5DPzE4CG5YdiEJsV8wn4TrKSbtWw&q=place_id:ChIJI6v2u9abP44RzMEdYXCSaWM&center=4.6310628,-74.083934" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe> </div>
         </div><!--- end Contact Detail/Map -->
     </div><!--- end container -->
     <!-- Fin Container Inicio -->
