@@ -220,6 +220,16 @@
                 <path.img>/home/edeani/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
             </properties>
         </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <base.datos>domicilios</base.datos>
+                <bd.user>root</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>localhost:3306</bd.ip>
+                <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/productos/</path.img>
+            </properties>
+        </profile>
     </profiles>
     <repositories>
         <repository>
