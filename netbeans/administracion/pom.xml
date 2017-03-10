@@ -196,7 +196,8 @@
                 <bd.user>root</bd.user>
                 <bd.password>compaq</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>/home/edeani/NetBeansProjects/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
+                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
+                <url.img>/administracion/img-producto</url.img>
             </properties>
         </profile>
         <!-- Aquí se agregan mas perfiles de compilación -->
@@ -208,6 +209,7 @@
                 <bd.password></bd.password>
                 <bd.ip>localhost:3306</bd.ip>
                 <path.img></path.img>
+                <url.img></url.img>
             </properties>
         </profile>
         <profile>
@@ -218,6 +220,7 @@
                 <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
                 <path.img>/home/edeani/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
+                <url.img></url.img>
             </properties>
         </profile>
         <profile>
@@ -228,6 +231,7 @@
                 <bd.password>YI15102206j</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
                 <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/productos/</path.img>
+                <url.img>/estaticos/img/productos</url.img>
             </properties>
         </profile>
     </profiles>

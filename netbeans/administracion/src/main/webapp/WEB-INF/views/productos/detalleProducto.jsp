@@ -38,7 +38,7 @@
         <div id="content">
 
 
-            <div class="container rst-main-content rst-product-detail">
+            <div class="container rst-main-content rst-product-detail">                   
                 <springForm:form  method="post" commandName="productoDetailDto" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-5">
@@ -47,7 +47,7 @@
                                     <div id="load-pic">
                                         <c:choose>
                                             <c:when test="${not empty productoDetailDto.rutaImagen}">
-                                                <img style="width: 260px;" src="/estaticos/img/productos/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
+                                                <img style="width: 260px;" src="${urlImg}/${productoDetailDto.rutaImagen}" alt="${productoDetailDto.nombreproducto}" />
                                             </c:when>
                                             <c:otherwise>
                                                 <img style="width: 260px;" src="<%=request.getContextPath()%>/img/post/gallery11.jpg" alt="${productoDetailDto.nombreproducto}" />
