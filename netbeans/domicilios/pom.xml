@@ -202,6 +202,7 @@
                 <bd.user>root</bd.user>
                 <bd.password>compaq</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
+                <url.img>/administracion/img-producto</url.img>
             </properties>
         </profile>
         <!-- Aquí se agregan mas perfiles de compilación -->
@@ -212,6 +213,7 @@
                 <bd.user>root</bd.user>
                 <bd.password></bd.password>
                 <bd.ip>localhost:3306</bd.ip>
+                <url.img></url.img>
             </properties>
         </profile>
         <profile>
@@ -221,6 +223,17 @@
                 <bd.user>root</bd.user>
                 <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
+                <url.img></url.img>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <base.datos>domicilios</base.datos>
+                <bd.user>root</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>localhost:3306</bd.ip>
+                <url.img>/estaticos/img/productos</url.img>
             </properties>
         </profile>
     </profiles>

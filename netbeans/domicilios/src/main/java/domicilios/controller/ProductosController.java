@@ -34,6 +34,9 @@ public class ProductosController {
     @Value("${producto.cantidad}")
     Integer cantidadPagina;
 
+    @Value("${url.img}")
+    private String urlImg;
+    
     @Autowired
     private ProductoService productoService;
 
@@ -149,5 +152,10 @@ public class ProductosController {
     @ModelAttribute("pages")
     public Integer cantidadProductos() {
         return paginas;
+    }
+    
+    @ModelAttribute("urlImg")
+    public String urlImg() {
+        return urlImg;
     }
 }

@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -43,6 +44,8 @@ public class ProductosController extends BaseController {
     @Autowired
     private ProductoService productoService;
     private List<Categoria> categorias;
+    @Value("${url.img}")
+    private String urlImg;
     private static final String PROPIEDAD_PATHIMG = "path.img";
     private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
 
@@ -225,5 +228,8 @@ public class ProductosController extends BaseController {
 
     }
 
-
+    @ModelAttribute("urlImg")
+    public String urlImagenes(){
+        return urlImg;
+    }
 }

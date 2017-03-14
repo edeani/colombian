@@ -83,7 +83,7 @@
                                             <a class="addCar addtocard" data-id="${p.idproducto}" data-nombre="${p.nombreproducto}" data-cantidad="1" data-data-nombprecio="${p.precioproducto}" href="#">
                                                 <c:choose>
                                                     <c:when test="${not empty p.imagen}">
-                                                        <img src="/administracion/img-producto/${p.imagen}" alt="${p.nombreproducto}" />
+                                                        <img src="${urlImg}/${p.imagen}" alt="${p.nombreproducto}" />
                                                     </c:when>
                                                     <c:otherwise>
                                                         <img src="/administracion/img-producto/gallery10.jpg" alt="" />
