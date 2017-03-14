@@ -271,9 +271,8 @@
             <div class="row"><!--- row -->
                 <div class="col-sm-4">
                     <h3>Nosotros</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac eros eu sem pulvinar cursus in vel dui. Vivamus condimentum orci facilisis ligula congue, eu egestas odio lacinia commodo. </p>
-
-                    <p>In dignissim cursus varius. Donec venenatis dapibus ullamcorper. In nec sapien elit. Maecenas mattis ornare ligula, eu feugiat dui commodo in. Duis vehicula sagittis dolor in commodo. </p>
+                    <p>Estamos para servirte el mejor pollo de la ciudad, &aacute;demas tenemos platos especiales, jugos naturales, Hamburguesas.</p>
+                    <p>Llevamos mas de 20 a&ntilde;os compartiendo nuestro buen sabor y atenci&oacute;n.</p>
                 </div>
                 <div class="col-sm-4">
                     <h3>¿En d&oacute;nde estamos?</h3>
@@ -293,27 +292,31 @@
                     <div class="rst-happy-hours">
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Lunes</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 07.00 — 23.00</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Martes</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 07.00 — 21.00</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Miercoles</div>
-                            <div class="pull-right hours"><span class="rst-stock low-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 18.00 — 21.00</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Jueves</div>
-                            <div class="pull-right hours"><span class="rst-stock low-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 18.00 — 22.00</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Viernes</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 07.00 — 22.00</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
-                            <div class="pull-left date">Sabado y domingo</div>
-                            <div class="pull-right hours"><span class="rst-stock low-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 18.00 — 24.00</div>
+                            <div class="pull-left date">S&aacute;bado</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
+                        </div>
+                        <div class="clearfix rst-happy-date">
+                            <div class="pull-left date">Domingos y Festivos</div>
+                            <div class="pull-right hours"><span class="rst-stock low-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 08.45PM</div>
                         </div>
                     </div>
                 </div>
