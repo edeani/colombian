@@ -211,7 +211,7 @@
             <properties>
                 <base.datos>domicilios</base.datos>
                 <bd.user>root</bd.user>
-                <bd.password></bd.password>
+                <bd.password>david</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
                 <url.img></url.img>
             </properties>
