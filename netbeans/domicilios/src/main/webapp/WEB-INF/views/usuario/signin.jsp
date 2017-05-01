@@ -40,7 +40,7 @@
             <div class="container rst-main-content">
 
                 <div class="row rst-form-input">
-                    <div class="col-sm-6 rst-form-left">
+                    <div class="col-sm-6 rst-form-left" style="display: none;">
                         <springForm:form action="/signin.htm" cssClass="rst-form-register" method="POST" commandName="usuarioRegistroDto">
                             <h3>USUARIO NUEVO</h3>
                             <div class="form-group">

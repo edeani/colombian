@@ -82,7 +82,7 @@
                     <br /><br /><br />
                     <div class="rst-form-input form-checkout">
                         <div class="row">
-                            <div class="col-sm-6 checkout-address">
+                            <div class="col-sm-6 checkout-address" style="display: none;">
                                 <h4 class="titulocheck"><span class="rst-circle">1</span>TUS DATOS</h4>
                                 <div class="form-group">
                                     <label>Nombre completo</label>
@@ -142,7 +142,7 @@
                                     <springForm:textarea path="comentarios" cssClass="form-control" rows="5"/>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                                <div class="col-sm-6" style="display: none;">
 
                                 <h4 class="titulocheck"><span class="rst-circle">2</span>Mapa</h4>
 
