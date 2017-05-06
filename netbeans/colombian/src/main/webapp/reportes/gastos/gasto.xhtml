@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Reporte de gastos</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Gastos" /> 
+            <ui:define name="contenido">
+                <div id="tituloCierre">Reporte de Gastos <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                <h:form prependId="false">
+                    <h:panelGrid columns="30" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{gastosBean.fi}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{gastosBean.fi}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{gastosBean.ff}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{gastosBean.ff}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:commandButton update="gastos,mensaje0,totalIzquierda" value="Procesar" actionListener="#{gastosBean.reporteGastos()}" />
+                    </h:panelGrid>
+
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+
+                    <p:tree value="#{gastosBean.root}" var="node" id="gastos" styleClass="centrar">  
+                        <p:treeNode id="treeNode">  
+                            <h:outputText value="#{node.getNombre()}                  $#{node.getValor()}" id="lblNode"/>  
+                        </p:treeNode>  
+                    </p:tree>  
+                    
+                    <h:outputText class="totalGastos" id="totalIzquierda" value="TOTAL $#{gastosBean.total}"/>
+                    <!-- Árbol con tablas -->
+                   
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

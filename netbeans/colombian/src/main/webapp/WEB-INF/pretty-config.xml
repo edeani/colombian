@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.org/prettyfaces/3.3.3" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.org/prettyfaces/3.3.3               http://ocpsoft.org/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
+	
+	<url-mapping id="index">
+		<pattern value="/index" />
+		<view-id value="/faces/index.xhtml" /> 
+	</url-mapping>
+        <url-mapping id="reportes">
+		<pattern value="/home/usuario/#{username}" />
+		<view-id value="/faces/homeUsuario.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="clientes">
+		<pattern value="/home/usuario/#{username}/reportes/clientes" />
+		<view-id value="/faces/reportes/clientes/listadoCliente.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="averias">
+		<pattern value="/home/usuario/#{username}/reportes/averias" />
+		<view-id value="/faces/reportes/averias/reporteAverias.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="cierreDiario">
+		<pattern value="/home/usuario/#{username}/reportes/cierreDiario" />
+		<view-id value="/faces/reportes/cierres/cierreDiario.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="inventario">
+		<pattern value="/home/usuario/#{username}/reportes/inventario" />
+		<view-id value="/faces/reportes/inventario/inventario.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="compras">
+		<pattern value="/home/usuario/#{username}/reportes/compras" />
+		<view-id value="/faces/reportes/compras/compra.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+         <url-mapping id="domicilios">
+		<pattern value="/home/usuario/#{username}/reportes/domiciliosDia" />
+		<view-id value="/faces/reportes/domicilios/domicilios.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="cuadre">
+		<pattern value="/home/usuario/#{username}/reportes/cuadre" />
+		<view-id value="/faces/reportes/cuadre/cuadre.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="mesasllevar">
+		<pattern value="/home/usuario/#{username}/reportes/mesasllevar" />
+		<view-id value="/faces/reportes/mesasllevar/mesasllevar.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="ventas">
+		<pattern value="/home/usuario/#{username}/reportes/ventas" />
+		<view-id value="/faces/reportes/ventas/venta.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="consolidado">
+		<pattern value="/home/usuario/#{username}/reportes/consolidado" />
+		<view-id value="/faces/reportes/consolidado/consolidado.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        <url-mapping id="gastos">
+		<pattern value="/home/usuario/#{username}/reportes/gastos" />
+		<view-id value="/faces/reportes/gastos/gasto.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+         <url-mapping id="ordenesdomicilios">
+		<pattern value="/home/usuario/#{username}/reportes/ordenesdomicilios" />
+		<view-id value="/faces/reportes/ordenesdomicilios/ordenesdomicilios.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
+        </pretty-config>

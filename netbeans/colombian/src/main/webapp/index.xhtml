@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Iniciar Sesión</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructura.xhtml">
+            <ui:param name="titulo" value="Logueo de Usuarios" /> 
+            <ui:define name="contenido"> 
+                <h:form id="formularioUsuario">                    
+                    <p:panel id="panel" header="Autenticaci&oacute;n" style="margin-bottom:10px;">  
+                        <h:panelGrid columns="3">  
+                            <h:outputLabel for="nombre" value="Nombre: *" />  
+                            <p:inputText id="nombre"   
+                                         value="#{userSessionBean.username}" required="true" label="nombre" >
+                                <f:validateLength minimum="2" />  
+                            </p:inputText>
+                            <p:message for="nombre" />  
+
+                            <h:outputLabel for="password" value="Password: *" />  
+                            <p:password id="password"  
+                                        value="#{userSessionBean.password}" required="true" label="password"/>  
+                            <p:message for="password" /> 
+                            <p:commandButton value="Iniciar Sesi&oacute;n" update="panel" id="ajax"  ajax="true"
+                                             action="#{homeBean.loguearUsuario()}" />
+                        </h:panelGrid>  
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                        
+                    </p:panel>
+                   
+                    
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

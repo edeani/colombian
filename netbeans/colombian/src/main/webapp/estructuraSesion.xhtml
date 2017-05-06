@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="/colombian/resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="/colombian/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="/colombian/resources/css/styles.css" rel="stylesheet" type="text/css" />
+        <link href="/colombian/resources/js/jquery-1.8.2.min.js" type="text/javascript"/>
+        <link href="/colombian/resources/js/reportes/reportes.js" type="text/javascript"/>
+        <link href='http://fonts.googleapis.com/css?family=Revalia|Ranchers' rel='stylesheet' type='text/css'></link>
+        <script type="text/javascript" src="/colombian/resources/js/util.js"/>
+        <title>Asaderos en Linea</title>
+    </h:head>
+
+    <h:body> 
+        <div id="top">
+            <div id="titulo">
+                Asaderos en L&iacute;nea
+            </div>
+        </div>
+        <div>
+            <div id="left">
+                <p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" onerror="error.show()" />  
+                        <p:dialog modal="true" widgetVar="statusDialog"   draggable="false" closable="false">  
+                            <p:graphicImage value="/resources/img/ajax-loader.gif" />  
+                        </p:dialog>
+                        
+                 <p:dialog modal="true" widgetVar="error"   draggable="false" closable="true">  
+                     #{userSessionBean.mensaje}
+                 </p:dialog>
+                <ui:insert name="menu">
+                    <h:form>  
+                        <p:growl id="messages"/>  
+                        <p:menu>
+                            <p:submenu label="Sedes">  
+                                <p:menuitem value="Listado Clientes" update="messages" icon="star" >
+                                    <p:selectOneMenu  id="bd" editable="false"  value="#{userSessionBean.s}">   
+                                        <f:selectItems  value="#{userSessionBean.sedes}" var="s" itemLabel="#{s.sed_nombre}" itemValue="#{s.sed_cod}"/>  
+                                        <p:ajax event="change" listener="#{userSessionBean.cambioSede()}"/>
+                                    </p:selectOneMenu>
+                                </p:menuitem>    
+                            </p:submenu>
+                            <p:submenu label="Reportes">  
+                                <p:menuitem value="Tiempo Real" actionListener="#{diarioBean.navegarReporteCierre()}" update="messages" icon="star" />
+                                <p:menuitem value="Inventario" actionListener="#{inventarioBean.navegarReporteInventario()}" update="messages" icon="star" />
+                                <p:menuitem value="Compras" actionListener="#{comprasBean.navegarReporteCompras()}" update="messages" icon="star" />
+                                <p:menuitem value="Ventas" actionListener="#{ventasBean.navegarReporteVentas()}" update="messages" icon="star" />
+                                <p:menuitem value="Domicilios Por Dias" actionListener="#{domiciliosDia.navegarReporteDomicilios()}" update="messages" icon="star" />
+                                <p:menuitem value="Ordenes Domicilios" actionListener="#{ordenesdomiciliosbean.navegarReporteOrdenesDomicilios()}" update="messages" icon="star" />
+                                <p:menuitem value="Mesas y LLevar" actionListener="#{mesaBean.navegarReporteMesaLLevar()}" update="messages" icon="star" />
+                                <p:menuitem value="Control Cierres" actionListener="#{cuadrebean.navegarReporteCuadre()}" update="messages" icon="star" />
+                                <p:menuitem value="Gastos" actionListener="#{gastosBean.navegarReporteGastos()}" update="messages" icon="star" />
+                                <p:menuitem value="Consolidado" actionListener="#{consolidadoBean.navegarReporteConsolidado()}" update="messages" icon="star" />  
+                                <p:menuitem value="Listado Clientes" actionListener="#{clientesBean.navegarReporteClientes()}" update="messages" icon="star" />  
+                            </p:submenu>
+
+
+
+                        </p:menu>  
+                    </h:form>
+                </ui:insert>
+            </div>
+            <div>
+                <div id="right">
+                    <ui:insert name="identificacion">
+                        <div id="sesion">
+                            #{userSessionBean.username}
+                            <br/>
+                            <p:commandLink action="#{homeBean.cerrarSesion()}">
+                                Cerrar Sesi&oacute;n
+                            </p:commandLink>
+                        </div>
+                    </ui:insert>
+                </div>
+                <div id="content" class="right_content">
+                    <ui:insert name="contenido">
+                    </ui:insert>
+                </div>
+            </div>
+        </div>        
+    </h:body>
+
+</html>

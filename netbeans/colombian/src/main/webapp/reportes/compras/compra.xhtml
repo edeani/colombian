@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Reporte de Compras</title>
+    </h:head>
+    <h:body>
+        Hello from Facelets 
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Clientes" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Reporte Compras <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                </div>
+                <h:form id="compras">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{comprasBean.finicial}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{comprasBean.finicial}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{comprasBean.ffinal}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{comprasBean.ffinal}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:commandButton update="compra,totalIzquierda,mensaje0" value="Procesar" actionListener="#{comprasBean.listadoCompras()}" />
+                    </h:panelGrid>
+                     <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                    <p:dataTable id="compra" var="compra" value="#{comprasBean.compras}">  
+                        <p:column headerText="Código">  
+                            <h:outputText value="#{compra.codigo_producto_inventario}" />  
+                        </p:column>  
+
+                        <p:column headerText="Producto">  
+                            <h:outputText value="#{compra.descripcion_producto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Unidades">  
+                            <h:outputText value="#{compra.numero_unidades}" />  
+                        </p:column>  
+
+                        <p:column headerText="Promedio">  
+                            <h:outputText value="$#{compra.promedio}" />  
+                        </p:column>
+
+                        <p:column headerText="Valor">  
+                            <h:outputText value="$#{compra.detalle_factura_valor_producto}" />  
+                        </p:column>
+
+                        
+                    </p:dataTable>
+                    
+                    <h:outputText class="totalIzquierda" id="totalIzquierda" value="TOTAL $#{comprasBean.totalCompras}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

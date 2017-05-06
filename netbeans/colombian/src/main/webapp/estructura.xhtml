@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="/colombian/resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="/colombian/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="/colombian/resources/css/styles.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Revalia|Ranchers' rel='stylesheet' type='text/css'></link>
+        <script type="text/javascript" src="/colombian/resources/js/util.js"/>
+        <title>ASADEROS EN LINEA</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <div id="titulo">
+                ASADEROS EN LINEA
+            </div>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="menu">
+                </ui:insert>
+            </div>
+            <div>
+                <div id="right">
+                    <ui:insert name="identificacion"></ui:insert>
+                </div>
+                <div id="content" class="right_content">         
+                     <p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()"/>  
+                        <p:dialog modal="true" widgetVar="statusDialog" header="Status"    draggable="false" closable="false">  
+                            <p:graphicImage value="/resources/img/ajax-loader.gif" />  
+                        </p:dialog>
+                    <ui:insert name="contenido">
+                    </ui:insert>
+                </div>
+            </div>
+        </div>        
+    </h:body>
+
+</html>

@@ -1,0 +1,58 @@
+/* 
+    Document   : styles
+    Created on : 10-sep-2012, 13:43:40
+    Author     : eder
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#titulo{
+    float: center;
+    text-align: center;
+    font-family: 'Revalia', cursive;
+    font-size: 30px;
+    margin: 15px 0;
+    color: white;
+}
+
+#tituloCierre
+{
+    text-align: center;
+    text-shadow: 1px 1px gray;
+    font-size: 20px;
+    color: black;
+    background-color: #FBEE23;
+    margin: 0px;
+    padding: 0px;
+}
+
+.totalIzquierda{
+    text-align: right;
+    font-size: 17px;
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+    margin: 20px 2px 0px 178px;
+    float: right
+}
+
+.totalGastos{
+    font-size: 17px;
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+    margin: 5px 258px;
+}
+.rellenoFooter{
+    
+}
+#estadoMensaje{
+    color: red;
+    font-size: 20px;
+}
+
+.centrar{
+    margin: 5px 258px;    
+}

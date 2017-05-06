@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Tiempo Real" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Reporte Tiempo Real <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                    
+                </div>
+                <h:form id="cierre">
+                    <h:panelGrid columns="4" cellpadding="5">
+                        <h:outputText value="Fecha de cierre: " />  
+                        <p:calendar label="Fecha Cierre" value="#{diarioBean.fechaCierre}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Selected Dates" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{diarioBean.fechaCierre}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+
+                            </h:panelGrid>  
+
+                        </p:dialog>
+                        <p:commandButton update="datosCierre,consignaciones,mensaje0" value="Procesar" actionListener="#{diarioBean.calcularCierreDiario()}" />
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" >
+                        <h:panelGrid columns="2" id="datosCierre" cellpadding="14">
+                            <h:outputText value="Caja Inicial: "/>
+                            <p:inputText  readonly="true" value="$#{diarioBean.cajaInicial}"/>
+                            <h:outputText value="Ventas: "/>
+                            <p:inputText  readonly="true" value="$#{diarioBean.ventas}"/>
+                            <h:outputText value="Gastos: "/>
+                            <p:inputText  readonly="true" value="$#{diarioBean.gastos}"/>
+                            <h:outputText value="Consignaciones: "/>
+                            <p:inputText readonly="true" value="$#{diarioBean.consignaciones}"/>
+                            <h:outputText value="Caja Final: " />
+                            <p:inputText readonly="true" value="$#{diarioBean.caja_final}"/>
+                        </h:panelGrid>
+                        <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                        <p:dataTable id="consignaciones" var="consignar" value="#{diarioBean.consigsMapper}">  
+                            <p:column headerText="Fecha">  
+                                <h:outputText value="#{consignar.fechaConsignacion}" />  
+                            </p:column>  
+
+                            <p:column headerText="Nombre">  
+                                <h:outputText value="#{consignar.nombreCajero}" />  
+                            </p:column>  
+
+                            <p:column headerText="Valor Consignación">  
+                                <h:outputText value="$#{consignar.valorConsignacion}" />  
+                            </p:column>  
+                        </p:dataTable>  
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
