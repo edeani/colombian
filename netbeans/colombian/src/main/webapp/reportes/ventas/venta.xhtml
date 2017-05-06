@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Ventas</title>
+    </h:head>
+    <h:body>
+         <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Ventas" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Reporte Ventas <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                </div>
+                <h:form id="ventas">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{ventasBean.fi}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{ventasBean.fi}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{ventasBean.ff}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{ventasBean.ff}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:commandButton update="mesa,tdm,domicilio,tdd,mostrador,tdmos,venta,tdv,mensaje0" value="Procesar" actionListener="#{ventasBean.reporteVentas()}" />
+                    </h:panelGrid>
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                    <p:dataTable id="mesa" var="mesa" value="#{ventasBean.ventasMesa}">  
+                        <f:facet name="header">  
+                            Reporte Ventas Mesa
+                        </f:facet> 
+                        <p:column headerText="Código">  
+                            <h:outputText value="#{mesa.codigo_proucto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Descripción">  
+                            <h:outputText value="#{mesa.descripcion_producto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Unidades">  
+                            <h:outputText value="#{mesa.numero_unidades}" />  
+                        </p:column>  
+
+                        <p:column headerText="Valor Producto">  
+                            <h:outputText value="$#{mesa.valor_producto}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Valor Total">  
+                            <h:outputText value="$#{mesa.total_producto}" />  
+                        </p:column>
+
+                    </p:dataTable>
+                    <div class="rellenoFooter"></div>
+                    <h:outputText class="totalIzquierda" id="tdm" value="TOTAL MESA $#{ventasBean.totalMesa}"/>
+                    <br/>
+                    <br/>
+                    <br/><br/>
+                    
+                    
+                    <p:dataTable id="domicilio" var="domicilio" value="#{ventasBean.ventasDomicilio}">  
+                        <f:facet name="header">  
+                            Reporte Ventas Domicilio
+                        </f:facet> 
+                        <p:column headerText="Código">  
+                            <h:outputText value="#{domicilio.codigo_proucto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Descripción">  
+                            <h:outputText value="#{domicilio.descripcion_producto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Unidades">  
+                            <h:outputText value="#{domicilio.numero_unidades}" />  
+                        </p:column>  
+
+                        <p:column headerText="Valor Producto">  
+                            <h:outputText value="$#{domicilio.valor_producto}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Valor Total">  
+                            <h:outputText value="$#{domicilio.total_producto}" />  
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <div class="rellenoFooter"></div>
+                    <h:outputText class="totalIzquierda" id="tdd" value="TOTAL DOMICILIO $#{ventasBean.totalDomicilios}"/>
+                    
+                    <br/>
+                    <br/>
+                    <br/><br/>
+                    
+                    
+                    <p:dataTable id="mostrador" var="mostrador" value="#{ventasBean.ventasMostrador}">  
+                        <f:facet name="header">  
+                            Reporte Ventas Llevar
+                        </f:facet> 
+                        <p:column headerText="Código">  
+                            <h:outputText value="#{mostrador.codigo_proucto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Descripción">  
+                            <h:outputText value="#{mostrador.descripcion_producto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Unidades">  
+                            <h:outputText value="#{mostrador.numero_unidades}" />  
+                        </p:column>  
+
+                        <p:column headerText="Valor Producto">  
+                            <h:outputText value="$#{mostrador.valor_producto}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Valor Total">  
+                            <h:outputText value="$#{mostrador.total_producto}" />  
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <div class="rellenoFooter"></div>
+                    <h:outputText class="totalIzquierda" id="tdmos" value="TOTAL LLEVAR $#{ventasBean.totalMostrador}"/>
+                    
+                    
+                    <br/>
+                    <br/>
+                    <br/><br/>
+                    
+                    
+                    <p:dataTable id="venta" var="venta" value="#{ventasBean.ventas}">  
+                        <f:facet name="header">  
+                            Reporte Venta Total
+                        </f:facet> 
+                        <p:column headerText="Código">  
+                            <h:outputText value="#{venta.codigo_proucto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Descripción">  
+                            <h:outputText value="#{venta.descripcion_producto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Unidades">  
+                            <h:outputText value="#{venta.numero_unidades}" />  
+                        </p:column>  
+
+                        <p:column headerText="Valor Producto">  
+                            <h:outputText value="$#{venta.valor_producto}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Valor Total">  
+                            <h:outputText value="$#{venta.total_producto}" />  
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <div class="rellenoFooter"></div>
+                    <h:outputText class="totalIzquierda" id="tdv" value="TOTAL VENTAS $#{ventasBean.totalVenta}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

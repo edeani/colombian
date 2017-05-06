@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Reporte Clientes</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Clientes" /> 
+            <ui:define name="contenido">
+                <div id="tituloCierre">Reporte de Clientes <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                <h:form prependId="false">
+                    <h:panelGrid columns="6" >
+                        <h:outputText value="Barrios"/>
+                        <p:selectOneMenu value="#{clientesBean.b}">
+                            <f:selectItem itemLabel="Todos los Barrios" itemValue=""/>
+                            <f:selectItems value="#{clientesBean.barrios}" var="Barrios" itemLabel="#{Barrios.descripcionBarrio}" itemValue="#{Barrios.codigoBarrio}"/>
+                            <p:ajax event="change" listener="#{clientesBean.reporteClientesBarrio()}" update="clientes,registros,mensaje0"/>
+                        </p:selectOneMenu>
+                        <h:outputText value=""/>
+                        <h:outputText value=""/>
+                        <h:outputText value=""/>
+                    </h:panelGrid>
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                    <p:dataTable id="clientes" var="cliente" value="#{clientesBean.clientes}" 
+                                 paginator="true" rows="30"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="30,40,50">  
+                        <f:facet name="header">  
+                            Reporte de Clientes  
+                        </f:facet> 
+                        <p:column id="modelHeader" sortBy="#{cliente.telefono}">  
+                            <f:facet name="header">  
+                                <h:outputText value="Tel&eacute;fono" />  
+                            </f:facet>  
+                            <h:outputText value="#{cliente.telefono}" />  
+                        </p:column>  
+
+                        <p:column sortBy="#{cliente.descripcion_cliente}">  
+                            <f:facet name="header">  
+                                <h:outputText value="Nombre" />  
+                            </f:facet>  
+                            <h:outputText value="#{cliente.descripcion_cliente}" />  
+                        </p:column>  
+
+                        <p:column sortBy="#{cliente.direccion_cliente}">  
+                            <f:facet name="header">  
+                                <h:outputText value="Direcci&oacute;n" />  
+                            </f:facet>  
+                            <h:outputText value="#{cliente.direccion_cliente}" />  
+                        </p:column>  
+
+                        <p:column sortBy="#{cliente.fecha_ingreso}">  
+                            <f:facet name="header">  
+                                <h:outputText value="Fecha Ingreso" />  
+                            </f:facet>  
+                            <h:outputText value="#{cliente.fecha_ingreso}" />  
+                        </p:column>  
+                        <p:column sortBy="#{cliente.barrio.descripcionBarrio}">  
+                            <f:facet name="header">  
+                                <h:outputText value="Barrio" />  
+                            </f:facet>  
+                            <h:outputText value="#{cliente.barrio.descripcionBarrio}" />  
+                        </p:column>
+                    </p:dataTable>
+                    <h:panelGrid columns="4" id="registros">
+                        <h:outputText value="Total Registros"/>
+                        <h:outputText value="#{clientesBean.count}"/>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+    </h:body>
+</html>
+

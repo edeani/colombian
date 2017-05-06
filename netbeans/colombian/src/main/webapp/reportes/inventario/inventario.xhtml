@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Inventario</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Clientes" /> 
+            <ui:define name="contenido">
+            <div id="tituloCierre">Reporte de Inventario <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                <h:form prependId="false">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{inventarioBean.finicial}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{inventarioBean.finicial}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{inventarioBean.ffinal}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{inventarioBean.ffinal}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+                        
+                        <p:commandButton update="inventario,mensaje0" value="Procesar" actionListener="#{inventarioBean.reporteInventario()}" />
+                    </h:panelGrid>
+                    
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                    
+                    <p:dataTable id="inventario" var="item" value="#{inventarioBean.inventario}">  
+                        <p:column headerText="Código">  
+                            <h:outputText value="#{item.codigo}" />  
+                        </p:column>  
+
+                        <p:column headerText="Producto">  
+                            <h:outputText value="#{item.nombreProducto}" />  
+                        </p:column>  
+
+                        <p:column headerText="Inicial">  
+                            <h:outputText value="#{item.inicial}" />  
+                        </p:column>  
+                        
+                        <p:column headerText="Compras">  
+                            <h:outputText value="#{item.compras}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Ventas">  
+                            <h:outputText value="#{item.ventas}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Averias y Consumo">  
+                            <h:outputText value="#{item.consumo}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Traslados">  
+                            <h:outputText value="#{item.traslados}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Final">  
+                            <h:outputText value="#{item.inventarioFinal}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Real">  
+                            <h:outputText value="#{item.real}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Diferencia">  
+                            <h:outputText value="#{item.diferencia}" />  
+                        </p:column>
+                    </p:dataTable>  
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

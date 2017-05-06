@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Reporte Mesas y LLevar</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Mesas y LLevar" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Reporte Mesas y LLevar <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                </div>
+                <h:form id="mesas">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{mesaBean.fi}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{mesaBean.fi}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{mesaBean.ff}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{mesaBean.ff}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:commandButton update="llevar,totalIzquierda_,totalIzquierda,mensaje0" value="Procesar" actionListener="#{mesaBean.listadoMesasLlevar()}" />
+                    </h:panelGrid>
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                    <p:dataTable id="llevar" var="llevar" value="#{mesaBean.mesayllevar}">  
+                        <p:column headerText="Fecha">  
+                            <h:outputText value="#{llevar.fecha}" />  
+                        </p:column>  
+
+                         <p:column headerText="Tipo">  
+                            <h:outputText value="#{llevar.tipo}" />  
+                        </p:column>  
+                        
+                        <p:column headerText="No Orden">  
+                            <h:outputText value="#{llevar.orden}" />  
+                        </p:column>  
+
+                       <p:column headerText="Valor">  
+                           <h:outputText value="$#{llevar.valor}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Mesa No">  
+                            <h:outputText value="#{llevar.mesa}" />  
+                        </p:column>
+                       
+                        <p:column headerText="Cod Mesera">  
+                            <h:outputText value="#{llevar.codMesera}" />  
+                        </p:column>
+                        
+                        
+                        
+
+
+                    </p:dataTable>
+
+                    <div class="rellenoFooter"></div>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda" value="TOTAL VALOR $#{mesaBean.totalvalor}"/>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda_" value="TOTAL ORDENES #{mesaBean.mesayllevar.size()}"/>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

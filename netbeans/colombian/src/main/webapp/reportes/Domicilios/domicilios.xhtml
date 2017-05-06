@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Reporte Domicilios</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Domicilios" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Reporte Domicilios <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                </div>
+                <h:form id="domiclios">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{domiciliosDia.fi}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{domiciliosDia.fi}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{domiciliosDia.ff}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{domiciliosDia.ff}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:commandButton update="orden,totalIzquierda_,totalIzquierda,mensaje0" value="Procesar" actionListener="#{domiciliosDia.listadoOrdenes()}" />
+                    </h:panelGrid>
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                    <p:dataTable id="orden" var="orden" value="#{domiciliosDia.ordenes}">  
+                        <p:column headerText="Fecha">  
+                            <h:outputText value="#{orden.fecha}" />  
+                        </p:column>  
+
+                        <p:column headerText="Día">  
+                            <h:outputText value="#{orden.dia}" />  
+                        </p:column>  
+
+                        <p:column headerText="Domicilios">  
+                            <h:outputText value="#{orden.registros}" />  
+                        </p:column>  
+
+                        <p:column headerText="Valor">  
+                            <h:outputText value="$#{orden.valorTotal}" />  
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                    <div class="rellenoFooter"></div>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda" value="TOTAL VALOR $#{domiciliosDia.totalDomicilios}"/>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda_" value="TOTAL DOMICILIOS #{domiciliosDia.totalRegistros}"/>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

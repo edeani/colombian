@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Reportes Cuadres Diario</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Cuadres" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Reporte Cuadre Diarios <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                </div>
+                <h:form id="cuadre">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{cuadrebean.fi}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{cuadrebean.fi}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{cuadrebean.ff}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{cuadrebean.ff}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:commandButton update="cuadrar,total2,total1,totalIzquierda,mensaje0" value="Procesar" actionListener="#{cuadrebean.listadoCuadres()}" />
+                    </h:panelGrid>
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                    <p:dataTable id="cuadrar" var="cuadre" value="#{cuadrebean.cuadre}">  
+                        <p:column headerText="Fecha">  
+                            <h:outputText value="#{cuadre.fecha}" />  
+                        </p:column>  
+
+                        <p:column headerText="Ventas">  
+                            <h:outputText value="#{cuadre.valorVentas}" />  
+                        </p:column>  
+
+                        <p:column headerText="Gastos">  
+                            <h:outputText value="#{cuadre.valorGastos}" />  
+                        </p:column>  
+
+                        <p:column headerText="Consignaciones">  
+                            <h:outputText value="$#{cuadre.valorConsignaciones}" />  
+                        </p:column>
+
+                        <p:column headerText="Caja Real">  
+                            <h:outputText value="$#{cuadre.valorCajaReal}" />  
+                        </p:column>
+                    </p:dataTable>
+
+                    <div class="rellenoFooter"></div>
+                    <h:outputText class="totalIzquierda" id="total2" value="TOTAL CONSIGNACIONES $#{cuadrebean.totalConsignaciones}"/>
+                    <h:outputText class="totalIzquierda" id="total1" value="TOTAL GASTOS $#{cuadrebean.totalGastos}"/>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda" value="TOTAL VENTAS $#{cuadrebean.totalVenta}"/>
+                    
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

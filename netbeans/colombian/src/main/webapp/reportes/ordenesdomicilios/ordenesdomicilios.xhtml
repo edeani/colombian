@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Reporte Domicilios Ordenes</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Domicilios Ordenes" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Reporte Domicilios Ordenes <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                </div>
+                <h:form id="ordensdomicilios">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{ordenesdomiciliosbean.fi}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{ordenesdomiciliosbean.fi}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{ordenesdomiciliosbean.ff}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{ordenesdomiciliosbean.ff}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:commandButton update="ordenes,totalIzquierda_,totalIzquierda,mensaje0" value="Procesar" actionListener="#{ordenesdomiciliosbean.listadoOrdenesDomi()}" />
+                    </h:panelGrid>
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
+                    <p:dataTable id="ordenes" var="ordenes" value="#{ordenesdomiciliosbean.ordendesdomicilios}">  
+                        <p:column headerText="Orden">  
+                            <h:outputText value="#{ordenes.orden}" />  
+                        </p:column>  
+
+                         <p:column headerText="Telefono">  
+                             <h:outputText value="#{ordenes.telefono}" />  
+                        </p:column>  
+                        
+                        <p:column headerText="Barrio">  
+                            <h:outputText value="#{ordenes.barrio}" />  
+                        </p:column>  
+
+                       <p:column headerText="Cliente">  
+                           <h:outputText value="#{ordenes.cliente}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Fecha">  
+                            <h:outputText value="#{ordenes.fecha}" />  
+                        </p:column>
+                       
+                        <p:column headerText="Valor">  
+                            <h:outputText value="$#{ordenes.valor}" />  
+                        </p:column>
+                        
+                        
+                        
+
+
+                    </p:dataTable>
+
+                    <div class="rellenoFooter"></div>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda" value="TOTAL VALOR $#{ordenesdomiciliosbean.totalvalor}"/>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda_" value="TOTAL ORDENES #{ordenesdomiciliosbean.ordendesdomicilios.size()}"/>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

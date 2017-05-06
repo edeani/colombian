@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Reporte Consolidado Ventas</title>
+    </h:head>
+    <h:body>
+       <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Reporte Consolidado" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Reporte Consolidado por Sedes <div>#{userSessionBean.username}</div></div>
+                </div>
+                <h:form id="consolidado">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Fecha Inicial: " /> 
+                        <p:calendar label="Fecha Inicial" value="#{consolidadoBean.fi}" id="popupButtonCal1" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display1" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{consolidadoBean.fi}" id="popupButtonDate1">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <h:outputText value="Fecha Final: " /> 
+                        <p:calendar label="Fecha Final" value="#{consolidadoBean.ff}" id="popupButtonCal" showOn="button" /> 
+                        <p:dialog header="Seleccione fecha" widgetVar="dialog"   
+                                  showEffect="fade" hideEffect="fade">  
+                            <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                <h:outputText value="Popup Button Date: " />  
+                                <h:outputText value="#{consolidadoBean.ff}" id="popupButtonDate">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                </h:outputText>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:commandButton update="consolidados,totalIzquierda,totalIzquierda_,totalIzquierda_0" value="Procesar" actionListener="#{consolidadoBean.reporteConsolidados()}" />
+                    </h:panelGrid>
+
+                    <p:dataTable id="consolidados" var="consolidado" value="#{consolidadoBean.consolidado}">  
+                        <p:column headerText="Sede">  
+                            <h:outputText value="#{consolidado.sede}" />  
+                        </p:column>  
+
+                        <p:column headerText="Ventas">  
+                            <h:outputText value="$#{consolidado.venta}" />  
+                        </p:column>  
+
+                        <p:column headerText="POLLO VENDIDO">  
+                            <h:outputText value="#{consolidado.unidades}" />  
+                        </p:column> 
+                        <p:column headerText="CONSIGNACIONES">  
+                            <h:outputText value="#{consolidado.consignacion}" />  
+                        </p:column> 
+                    </p:dataTable>
+                    
+                    <h:outputText class="totalIzquierda" id="totalIzquierda" value="POLLO VENDIDO #{consolidadoBean.totalUnidades}"/>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda_" value="TOTAL VENTA$#{consolidadoBean.totalVentas}"/>
+                    <h:outputText class="totalIzquierda" id="totalIzquierda_0" value="TOTAL CONSIGNACION$#{consolidadoBean.totalConsignacion}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
