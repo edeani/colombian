@@ -31,10 +31,10 @@
     
     <!-- Popayan -->
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.58.100.154:3306/x022vm01_cucutaprincipal?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="c62iVEgFEQwA"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://190.25.44.46:3306/buffalosgranestacion?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="x022vm01"/>
+      <property name="javax.persistence.jdbc.user" value="llmdvi"/>
     </properties>
     
     <!-- Local -->

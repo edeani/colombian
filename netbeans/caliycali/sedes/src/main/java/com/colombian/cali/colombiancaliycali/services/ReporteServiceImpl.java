@@ -49,6 +49,7 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
     private static final String conexion_principal = "dataSource";
     private static final String cuenta_ventas = "414015";
     private static final String cuenta_consignaciones = "11050501";
+    private static final String cuenta_pagos_con_tarjeta = "11201010";
     private static final String propiedades_cuentas = "/bd/cuentas.properties";
     private static final String propiedad_ingresos = "prefijo_ingresos";
     private static final String propiedad_gastos = "prefijo_gastos";
@@ -125,6 +126,22 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
             comprobante.addAll(gastos);
         }
 
+        /**
+         * Pagos con tarjeta
+         */
+        Long pagosContarjeta = reportesDao.pagosContarjetaTotal(sede.getSede(), sfecha);
+        if(pagosContarjeta!=null){
+            if(pagosContarjeta!=0L){
+                ComprobanteConsolidadoSedeDto comprobantePagosConTarjeta = new ComprobanteConsolidadoSedeDto();
+                comprobantePagosConTarjeta.setTotal(pagosContarjeta);
+                comprobantePagosConTarjeta.setConcepto("Pagos con Tarjeta "+sede.getSede());
+                comprobantePagosConTarjeta.setFecha(sfecha);
+                comprobantePagosConTarjeta.setIdCuenta(cuenta_pagos_con_tarjeta);
+                comprobantePagosConTarjeta.setIdSede(idSede);
+                comprobante.add(comprobantePagosConTarjeta);
+            }
+        }
+        
         return comprobante;
     }
 

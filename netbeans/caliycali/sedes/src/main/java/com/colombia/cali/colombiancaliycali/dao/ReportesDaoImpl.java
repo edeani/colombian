@@ -498,4 +498,26 @@ public class ReportesDaoImpl implements ReportesDao {
         return reporte;
     }
 
+    @Override
+    public Long pagosContarjetaTotal(String nameDataSource, String fecha) {
+        try {
+            this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
+            return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(valor_total) as total from mesa " +
+            "where fecha_orden = '"+fecha+"' and tipo_tarjeta is not null " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(valor_total) as total from orden " +
+            "where fecha_orden = '"+fecha+"' and tipo_tarjeta is not null " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(valor_total) as total from llevar " +
+            "where " +
+            "fecha_orden = '"+fecha+"' and tipo_tarjeta is not null " +
+            "and estado_orden = 'A') sub0");
+        } catch (Exception e) {
+            System.err.println("Error pagosContarjetaYDescMesa::"+e.getMessage());
+        }
+        return null;
+    }
+
 }

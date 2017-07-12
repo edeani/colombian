@@ -41,4 +41,5 @@ public interface ReportesDao {
     public List<ComprasProveedorFechaDto> reporteComprasProveedorFechaDto(String nameDataSource,String fechInicial, String fechaFinal);
     public List<CuentasPagarProveedoresDto> reporteCuentasPagarProveedoresDto(String nameDataSource,String fechInicial, String fechaFinal,Long idProveedor);
     public List<BalanceDto> reporteBalance(String nameDataSource,String fechInicial, String fechaFinal,Long idsede);
+    public Long pagosContarjetaTotal(String nameDataSource,String fecha);
 }
