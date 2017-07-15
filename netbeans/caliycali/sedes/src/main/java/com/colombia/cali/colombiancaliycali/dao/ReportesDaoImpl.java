@@ -178,52 +178,30 @@ public class ReportesDaoImpl implements ReportesDao {
         }
         return compras;
     }
-
+    
     @Override
-    public Long ordenesConsolidadoSede(Sedes sede, String fecha) {
+    public Long totalConsolidadoSede(Sedes sede, String fecha) {
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(sede.getSede()));
         Long ordenes = 0L;
         try {
-            String queryOrdenes = "select sum(o.valor_total) as total_orden "
+            String queryConsolidado = "select sum(total) as total from( select sum(o.valor_total) as total "
                     + "from orden o "
-                    + "where o.fecha_orden = '" + fecha + "' and o.estado_orden='A'";
-            ordenes = this.jdbctemplate.queryForLong(queryOrdenes);
+                    + "where o.fecha_orden = '" + fecha + "' and o.estado_orden='A' "
+                    + "UNION select sum(ll.valor_total) as total "
+                    + "from "
+                    + "llevar ll "
+                    + "where ll.fecha_orden = '" + fecha + "' and ll.estado_orden='A' "
+                    + "union select sum(m.valor_total) as total "
+                    + "from mesa m "
+                    + "where m.fecha_orden = '" + fecha + "' and m.estado_orden='A')A";
+            ordenes = this.jdbctemplate.queryForLong(queryConsolidado);
         } catch (Exception e) {
-            System.out.println("Error ordenesConsolidadoSede::" + e.getMessage());
+            System.out.println("Error totalConsolidadoSede::" + e.getMessage());
         }
         return ordenes;
     }
+    
 
-    @Override
-    public Long mesasConsolidadoSede(Sedes sede, String fecha) {
-        this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(sede.getSede()));
-        Long mesas = 0L;
-        try {
-            String queryMesas = "select sum(m.valor_total) as total_mesas "
-                    + "from mesa m "
-                    + "where m.fecha_orden = '" + fecha + "' and m.estado_orden='A'";
-            mesas = this.jdbctemplate.queryForLong(queryMesas);
-        } catch (Exception e) {
-            System.out.println("Error mesasConsolidadoSede::" + e.getMessage());
-        }
-        return mesas;
-    }
-
-    @Override
-    public Long llevarConsolidadoSede(Sedes sede, String fecha) {
-        this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(sede.getSede()));
-        Long llevar = 0L;
-        try {
-            String queryllevar = "select sum(ll.valor_total) as total_llevar "
-                    + "from "
-                    + "llevar ll "
-                    + "where ll.fecha_orden = '" + fecha + "' and ll.estado_orden='A'";
-            llevar = this.jdbctemplate.queryForLong(queryllevar);
-        } catch (DataAccessException e) {
-            System.out.println("Error llevarConsolidadoSede::" + e.getMessage());
-        }
-        return llevar;
-    }
 
     @Override
     public Long pagosConsolidado(String nameDataSource, String fecha) {
@@ -519,5 +497,29 @@ public class ReportesDaoImpl implements ReportesDao {
         }
         return null;
     }
+
+    @Override
+    public Long pagosDescuentoTotal(String nameDataSource, String fecha) {
+        try {
+            this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
+            return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(valor_total) as total from mesa " +
+            "where fecha_orden = '"+fecha+"' and descuento_orden > 0  " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(valor_total) as total from orden " +
+            "where fecha_orden = '"+fecha+"' and descuento_orden > 0 " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(valor_total) as total from llevar " +
+            "where " +
+            "fecha_orden = '"+fecha+"' and and descuento_orden > 0 " +
+            "and estado_orden = 'A') sub0");
+        } catch (Exception e) {
+            System.err.println("Error pagosDescuentoTotal::"+e.getMessage());
+        }
+        return null;
+    }
+
+    
 
 }

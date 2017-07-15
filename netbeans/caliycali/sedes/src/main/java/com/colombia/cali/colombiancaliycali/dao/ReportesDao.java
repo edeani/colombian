@@ -27,9 +27,7 @@ public interface ReportesDao {
     public Long gastosConsolidadoSede(Sedes sede,String fecha);
     public Long consignacionesConsolidadoSede(Sedes sede,String fecha);
     public Long comprasConsolidadoSede(Sedes sede,String fecha);
-    public Long ordenesConsolidadoSede(Sedes sede,String fecha);
-    public Long mesasConsolidadoSede(Sedes sede,String fecha);
-    public Long llevarConsolidadoSede(Sedes sede,String fecha);
+    public Long totalConsolidadoSede(Sedes sede,String fecha);
     public Long pagosConsolidado(String nameDataSource,String fecha);
     public List<ComprobanteConsolidadoSedeDto> buscarGastosXFecha(String nameDataSource,String fecha);
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(String nameDataSource,String fechaInicio,String fechaFin);
@@ -42,4 +40,5 @@ public interface ReportesDao {
     public List<CuentasPagarProveedoresDto> reporteCuentasPagarProveedoresDto(String nameDataSource,String fechInicial, String fechaFinal,Long idProveedor);
     public List<BalanceDto> reporteBalance(String nameDataSource,String fechInicial, String fechaFinal,Long idsede);
     public Long pagosContarjetaTotal(String nameDataSource,String fecha);
+    public Long pagosDescuentoTotal(String nameDataSource,String fecha);
 }

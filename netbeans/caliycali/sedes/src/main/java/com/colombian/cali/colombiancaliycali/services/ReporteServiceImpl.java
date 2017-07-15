@@ -50,6 +50,7 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
     private static final String cuenta_ventas = "414015";
     private static final String cuenta_consignaciones = "11050501";
     private static final String cuenta_pagos_con_tarjeta = "11201010";
+    private static final String cuenta_descuentos = "421040";
     private static final String propiedades_cuentas = "/bd/cuentas.properties";
     private static final String propiedad_ingresos = "prefijo_ingresos";
     private static final String propiedad_gastos = "prefijo_gastos";
@@ -81,11 +82,9 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
         comprobanteConsolidadoSedeDtoVentas.setIdSede(idSede);
         comprobanteConsolidadoSedeDtoVentas.setSede(sede.getSede());
 
-        Long mesas = reportesDao.mesasConsolidadoSede(sede, sfecha);
-        Long llevar = reportesDao.llevarConsolidadoSede(sede, sfecha);
-        Long orden = reportesDao.ordenesConsolidadoSede(sede, sfecha);
+        Long totalVentas = reportesDao.totalConsolidadoSede(sede, sfecha);
 
-        comprobanteConsolidadoSedeDtoVentas.setTotal(mesas + llevar + orden);
+        comprobanteConsolidadoSedeDtoVentas.setTotal(totalVentas);
         comprobanteConsolidadoSedeDtoVentas.setConcepto("Ventas " + sede.getSede());
         comprobanteConsolidadoSedeDtoVentas.setIdCuenta(cuenta_ventas);
 
@@ -102,7 +101,7 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
         comprobanteConsolidadoSedeDtoConsignaciones.setIdCuenta(cuenta_consignaciones);
 
         boolean agregarRegistro = false;
-        if (mesas != 0L && llevar != 0L && orden != 0L) {
+        if (totalVentas != 0L) {
             agregarRegistro = true;
         }
 
@@ -142,6 +141,21 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
             }
         }
         
+        /**
+         * Descuento de los pagos
+         */
+        Long pagosDescuento = reportesDao.pagosDescuentoTotal(sede.getSede(), sfecha);
+         if(pagosContarjeta!=null){
+            if(pagosContarjeta!=0L){
+                ComprobanteConsolidadoSedeDto comprobantePagosDescuento = new ComprobanteConsolidadoSedeDto();
+                comprobantePagosDescuento.setTotal(pagosDescuento);
+                comprobantePagosDescuento.setConcepto("Descuentos "+sede.getSede());
+                comprobantePagosDescuento.setFecha(sfecha);
+                comprobantePagosDescuento.setIdCuenta(cuenta_descuentos);
+                comprobantePagosDescuento.setIdSede(idSede);
+                comprobante.add(comprobantePagosDescuento);
+            }
+        }
         return comprobante;
     }
 
