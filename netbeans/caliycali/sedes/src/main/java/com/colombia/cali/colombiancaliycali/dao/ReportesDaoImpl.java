@@ -187,7 +187,7 @@ public class ReportesDaoImpl implements ReportesDao {
             String queryConsolidado = "select sum(total) as total from( select sum(o.valor_total) as total "
                     + "from orden o "
                     + "where o.fecha_orden = '" + fecha + "' and o.estado_orden='A' "
-                    + "UNION select sum(ll.valor_total) as total "
+                    + "union select sum(ll.valor_total) as total "
                     + "from "
                     + "llevar ll "
                     + "where ll.fecha_orden = '" + fecha + "' and ll.estado_orden='A' "
@@ -481,16 +481,16 @@ public class ReportesDaoImpl implements ReportesDao {
         try {
             this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
             return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(valor_total) as total from mesa " +
-            "where fecha_orden = '"+fecha+"' and tipo_tarjeta is not null " +
+            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A' " +
             "union " +
             "select sum(valor_total) as total from orden " +
-            "where fecha_orden = '"+fecha+"' and tipo_tarjeta is not null " +
+            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A' " +
             "union " +
             "select sum(valor_total) as total from llevar " +
             "where " +
-            "fecha_orden = '"+fecha+"' and tipo_tarjeta is not null " +
+            "fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A') sub0");
         } catch (Exception e) {
             System.err.println("Error pagosContarjetaYDescMesa::"+e.getMessage());
@@ -503,16 +503,16 @@ public class ReportesDaoImpl implements ReportesDao {
         try {
             this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
             return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(valor_total) as total from mesa " +
-            "where fecha_orden = '"+fecha+"' and descuento_orden > 0  " +
+            "where fecha_orden = '"+fecha+"' and descuento_orden <> 0  " +
             "and estado_orden = 'A' " +
             "union " +
             "select sum(valor_total) as total from orden " +
-            "where fecha_orden = '"+fecha+"' and descuento_orden > 0 " +
+            "where fecha_orden = '"+fecha+"' and descuento_orden <> 0 " +
             "and estado_orden = 'A' " +
             "union " +
             "select sum(valor_total) as total from llevar " +
             "where " +
-            "fecha_orden = '"+fecha+"' and and descuento_orden > 0 " +
+            "fecha_orden = '"+fecha+"' and and descuento_orden <> 0 " +
             "and estado_orden = 'A') sub0");
         } catch (Exception e) {
             System.err.println("Error pagosDescuentoTotal::"+e.getMessage());
