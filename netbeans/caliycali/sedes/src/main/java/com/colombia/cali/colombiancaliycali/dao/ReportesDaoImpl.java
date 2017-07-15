@@ -480,15 +480,15 @@ public class ReportesDaoImpl implements ReportesDao {
     public Long pagosContarjetaTotal(String nameDataSource, String fecha) {
         try {
             this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
-            return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(valor_total) as total from mesa " +
+            return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(pago_tarjeta) as total from mesa " +
             "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A' " +
             "union " +
-            "select sum(valor_total) as total from orden " +
+            "select sum(pago_tarjeta) as total from orden " +
             "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A' " +
             "union " +
-            "select sum(valor_total) as total from llevar " +
+            "select sum(pago_tarjeta) as total from llevar " +
             "where " +
             "fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A') sub0");
@@ -502,17 +502,17 @@ public class ReportesDaoImpl implements ReportesDao {
     public Long pagosDescuentoTotal(String nameDataSource, String fecha) {
         try {
             this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
-            return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(valor_total) as total from mesa " +
+            return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(descuento_orden) as total from mesa " +
             "where fecha_orden = '"+fecha+"' and descuento_orden <> 0  " +
             "and estado_orden = 'A' " +
             "union " +
-            "select sum(valor_total) as total from orden " +
+            "select sum(descuento_orden) as total from orden " +
             "where fecha_orden = '"+fecha+"' and descuento_orden <> 0 " +
             "and estado_orden = 'A' " +
             "union " +
-            "select sum(valor_total) as total from llevar " +
+            "select sum(descuento_orden) as total from llevar " +
             "where " +
-            "fecha_orden = '"+fecha+"' and and descuento_orden <> 0 " +
+            "fecha_orden = '"+fecha+"' and  descuento_orden <> 0 " +
             "and estado_orden = 'A') sub0");
         } catch (Exception e) {
             System.err.println("Error pagosDescuentoTotal::"+e.getMessage());
