@@ -137,6 +137,7 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
                 comprobantePagosConTarjeta.setFecha(sfecha);
                 comprobantePagosConTarjeta.setIdCuenta(cuenta_pagos_con_tarjeta);
                 comprobantePagosConTarjeta.setIdSede(idSede);
+                comprobantePagosConTarjeta.setSede(sede.getSede());
                 comprobante.add(comprobantePagosConTarjeta);
             }
         }
@@ -153,6 +154,7 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
                 comprobantePagosDescuento.setFecha(sfecha);
                 comprobantePagosDescuento.setIdCuenta(cuenta_descuentos);
                 comprobantePagosDescuento.setIdSede(idSede);
+                comprobantePagosDescuento.setSede(sede.getSede());
                 comprobante.add(comprobantePagosDescuento);
             }
         }
