@@ -42,7 +42,10 @@ public class TiempoRealController extends BaseController{
         cierreDiario.setGastos(cierreColombianService.cierreGastos(Formatos.StringDateToDate(fecha)));
         cierreDiario.setConsignaciones(cierreColombianService.cierreConsignaciones(Formatos.StringDateToDate(fecha)));
         cierreDiario.setListaConsignaciones(cierreColombianService.cierreListaConsignaciones(Formatos.StringDateToDate(fecha)));
-        cierreDiario.setCajaFinal(cierreDiario.getVentas()+cierreDiario.getCajaInicial()-cierreDiario.getConsignaciones()-cierreDiario.getGastos());
+        cierreDiario.setPagosTarjetas(cierreColombianService.cierrePagosConTarjetas(Formatos.StringDateToDate(fecha)));
+        cierreDiario.setDescuentos(cierreColombianService.cierreDescuentos(Formatos.StringDateToDate(fecha)));
+        cierreDiario.setCajaFinal(cierreDiario.getVentas()+cierreDiario.getCajaInicial()-cierreDiario.getConsignaciones()-cierreDiario.getGastos()
+                -cierreDiario.getDescuentos()-cierreDiario.getPagosTarjetas());
         
         
         mav.addObject("cierreDiario", cierreDiario);

@@ -4,6 +4,7 @@
  */
 package com.colombian.cali.colombiancaliycali.services.colombianjsf;
 
+import com.colombia.cali.colombiancaliycali.dao.ReportesDao;
 import com.colombia.cali.colombiancaliycali.dataSource.ProjectsDao;
 import com.colombian.cali.colombiancaliycali.entidades.Users;
 import com.colombian.cali.colombiancaliycali.services.SecurityService;
@@ -16,7 +17,6 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +31,8 @@ public class CierreColomianServiceImpl implements CierreColombianService {
     private SecurityService securityService;
     @Autowired
     private ProjectsDao projectsDao;
+    @Autowired
+    private ReportesDao reportesDao;
     
     private JdbcTemplate jdbctemplate;
 
@@ -148,6 +150,36 @@ public class CierreColomianServiceImpl implements CierreColombianService {
         return listaConsignaciones;
         //return null;
 
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Double cierrePagosConTarjetas(Date fechaCierre) {
+        Users user = securityService.getCurrentUser();
+        Double pagosConTarjeta = 0D;
+        String sFecha = com.colombia.cali.colombiancaliycali.util.Formatos.dateTostring(fechaCierre);
+        try {
+           pagosConTarjeta = reportesDao.pagosContarjetaTotal(user.getSede().getSede(),sFecha).doubleValue();
+        } catch (Exception e) {
+            System.out.println("Error cierrePagosConTarjetas::" + e.getMessage());
+        }
+        
+        return pagosConTarjeta;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Double cierreDescuentos(Date fechaCierre) {
+        Users user = securityService.getCurrentUser();
+        Double descuentos = 0D;
+        String sFecha = com.colombia.cali.colombiancaliycali.util.Formatos.dateTostring(fechaCierre);
+        try {
+           descuentos = reportesDao.pagosDescuentoTotal(user.getSede().getSede(),sFecha).doubleValue();
+        } catch (Exception e) {
+            System.out.println("Error cierreDescuentos::" + e.getMessage());
+        }
+        
+        return descuentos;
     }
 
    

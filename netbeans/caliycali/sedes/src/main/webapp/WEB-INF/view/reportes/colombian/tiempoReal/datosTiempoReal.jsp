@@ -9,8 +9,8 @@
             Caja Inicial
         </label>
     </li>
-    <li>
-        $<input id="cajaInicial" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.cajaInicial}"/>"></input>
+    <li style="width: 200px !important;">
+        $<input  id="cajaInicial" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.cajaInicial}"/>"></input>
     </li>
 </ul>
 <ul>
@@ -19,7 +19,7 @@
             Ventas
         </label>
     </li>
-    <li>
+    <li style="width: 200px !important;">
         $<input id="ventas" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.ventas}"/>"></input>
     </li>
 </ul>
@@ -29,7 +29,7 @@
             Gastos
         </label>
     </li>
-    <li>
+    <li style="width: 200px !important;">
         $<input id="gastos"value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.gastos}"/>"></input>
     </li>
 </ul>
@@ -39,8 +39,28 @@
             Total Consginaciones
         </label>
     </li>
+    <li style="width: 200px !important;">
+        $<input  id="consignaciones" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.consignaciones}"/>"></input>
+    </li>
+</ul>
+<ul>
     <li>
-        $<input id="consignaciones" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.consignaciones}"/>"></input>
+        <label>
+            Total Pagos Tarjetas
+        </label>
+    </li>
+    <li style="width: 200px !important;">
+        $<input  id="pagosTarjeta" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.pagosTarjetas}"/>"></input>
+    </li>
+</ul>
+<ul>
+    <li>
+        <label>
+            Total Descuentos
+        </label>
+    </li>
+    <li style="width: 200px !important;">
+        $<input class="campoTiempoReal" id="descuentos" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.descuentos}"/>"></input>
     </li>
 </ul>
 <ul>
@@ -49,11 +69,11 @@
             Caja Final  
         </label>
     </li>
-    <li>
+    <li style="width: 200px !important;">
         $<input path="cajaFinal" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.cajaFinal}"/>"></input>
     </li>
 </ul>
-    <table id="datosCierre" class="tablaDatosInfo">
+<table id="datosCierre" class="tablaDatosInfo">
     <thead>
     <th>Fecha</th><th>Nombre</th><th>Valor Consignaci&oacute;n</th>
 </thead>

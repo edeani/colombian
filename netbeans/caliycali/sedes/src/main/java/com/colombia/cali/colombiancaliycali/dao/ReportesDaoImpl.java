@@ -493,7 +493,7 @@ public class ReportesDaoImpl implements ReportesDao {
             "fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A') sub0");
         } catch (Exception e) {
-            System.err.println("Error pagosContarjetaYDescMesa::"+e.getMessage());
+            System.err.println("Error pagosContarjetaTotal::"+e.getMessage());
         }
         return null;
     }
