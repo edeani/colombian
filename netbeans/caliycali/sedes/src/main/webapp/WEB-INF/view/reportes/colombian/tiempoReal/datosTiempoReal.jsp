@@ -43,16 +43,18 @@
         $<input  id="consignaciones" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.consignaciones}"/>"></input>
     </li>
 </ul>
-<ul>
-    <li>
-        <label>
-            Total Pagos Tarjetas
-        </label>
-    </li>
-    <li style="width: 200px !important;">
-        $<input  id="pagosTarjeta" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.pagosTarjetas}"/>"></input>
-    </li>
-</ul>
+<c:if test="${not empty cierreDiario.pagosTarjetas}">
+    <ul>
+        <li>
+            <label>
+                Total Pagos Tarjetas
+            </label>
+        </li>
+        <li style="width: 200px !important;">
+            $<input  id="pagosTarjeta" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.pagosTarjetas}"/>"></input>
+        </li>
+    </ul>
+</c:if>
 <ul>
     <li>
         <label>
@@ -63,16 +65,19 @@
         $<input class="campoTiempoReal" id="descuentos" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.descuentos}"/>"></input>
     </li>
 </ul>
-<ul>
-    <li>
-        <label>
-            Caja Final  
-        </label>
-    </li>
-    <li style="width: 200px !important;">
-        $<input path="cajaFinal" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.cajaFinal}"/>"></input>
-    </li>
-</ul>
+
+<c:if test="${not empty cierreDiario.cajaFinal}">
+    <ul>
+        <li>
+            <label>
+                Caja Final  
+            </label>
+        </li>
+        <li style="width: 200px !important;">
+            $<input path="cajaFinal" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.cajaFinal}"/>"></input>
+        </li>
+    </ul>
+</c:if>
 <table id="datosCierre" class="tablaDatosInfo">
     <thead>
     <th>Fecha</th><th>Nombre</th><th>Valor Consignaci&oacute;n</th>
