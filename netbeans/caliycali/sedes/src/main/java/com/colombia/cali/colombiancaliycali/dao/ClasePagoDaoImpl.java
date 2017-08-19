@@ -7,7 +7,6 @@ package com.colombia.cali.colombiancaliycali.dao;
 
 import com.colombia.cali.colombiancaliycali.dataSource.ProjectsDao;
 import com.colombian.cali.colombiancaliycali.entidades.ClasePago;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -28,6 +28,7 @@
     <class>com.colombian.cali.colombiancaliycali.entidades.DetallePorcentajeVentas</class>
     <class>com.colombian.cali.colombiancaliycali.entidades.PorcentajeVentas</class>
     <class>com.colombian.cali.colombiancaliycali.entidades.ClasePago</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.NotasDebito</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <!-- Popayan -->
     <properties>
