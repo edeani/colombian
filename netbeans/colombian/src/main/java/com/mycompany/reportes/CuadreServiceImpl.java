@@ -40,7 +40,8 @@ public class CuadreServiceImpl implements CuadreService {
         if (password == null) {
             conexion.setPassword("");
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador() + "/" + user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         setValorVentas((Double) 0D);
         setValorGastos((Double) 0D);

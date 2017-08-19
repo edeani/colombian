@@ -38,7 +38,8 @@ public class BarriosServiceImpl implements BarriosService{
             conexion.setPassword(user.getSede().getPassword());
         }
         
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
        List<Barrios> barrios = null;
        if(connection != null){

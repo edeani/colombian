@@ -47,7 +47,8 @@ public class ComprasServiceImpl implements ComprasService{
             conexion.setPassword(password);
         }
         
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         List<Compras> compras = new ArrayList<Compras>();
         totalCompras = 0D;

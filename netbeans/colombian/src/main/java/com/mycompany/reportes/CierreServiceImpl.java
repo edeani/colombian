@@ -48,7 +48,9 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         Double caja_inicial =0D;
         if(connection != null){
@@ -103,7 +105,8 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         Double ventas =0D;
         if(connection!=null){
@@ -167,7 +170,8 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         
         Double gastos =0D;
@@ -224,7 +228,8 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         Double consignaciones =0D;
         if(connection!=null){
@@ -287,7 +292,8 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         if(connection!=null){
         EntityManager em = factory.createEntityManager();
@@ -301,7 +307,7 @@ public class CierreServiceImpl implements CierreService {
            query.setParameter("fecha", fechaCierre, TemporalType.DATE);
            listaConsignaciones =  query.getResultList();
         }catch(Exception e){
-            System.out.println("cierreListaConsignaciones::"+e.getMessage());
+          
         } finally {
             em.close();
             

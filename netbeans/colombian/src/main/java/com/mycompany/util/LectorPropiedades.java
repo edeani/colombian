@@ -28,18 +28,6 @@ public class LectorPropiedades {
         }
         return valorPropiedad;
     }
-    public String leerPropiedad(String propiedad)
-    {
-        String valorPropiedad = "";
-        try {
-            Properties propertie = new Properties();
-            propertie.load(LectorPropiedades.class.getResource(archivo).openStream());
-            valorPropiedad = propertie.getProperty(propiedad);
-        } catch (Exception e) {
-            
-        }
-        return valorPropiedad;
-    }
     
     //Obtengo el nombre  de la persistencia
     public String getPersitencia(String propertie)

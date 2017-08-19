@@ -13,10 +13,12 @@ import com.mycompany.reportes.CierreService;
 import com.mycompany.reportes.CierreServiceImpl;
 import com.mycompany.util.Formatos;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.swing.JOptionPane;
 
 /**
  *
