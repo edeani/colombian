@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -46,6 +47,14 @@
                             <p:inputText readonly="true" value="$#{diarioBean.consignaciones}"/>
                             <h:outputText value="Caja Final: " />
                             <p:inputText readonly="true" value="$#{diarioBean.caja_final}"/>
+                            <c:if test="#{diarioBean.viewPagosTarjeta}">
+                            <h:outputText value="Pagos Tarjeta: " />
+                            <p:inputText readonly="true" value="$#{diarioBean.pagosTarjetas}"/>
+                            </c:if>
+                            <c:if test="#{diarioBean.viewDescuentos}">
+                            <h:outputText value="Descuentos: " />
+                            <p:inputText readonly="true" value="$#{diarioBean.descuentos}"/>
+                            </c:if>
                         </h:panelGrid>
                         <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
                         <p:dataTable id="consignaciones" var="consignar" value="#{diarioBean.consigsMapper}">  

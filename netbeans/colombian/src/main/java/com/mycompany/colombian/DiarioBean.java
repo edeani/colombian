@@ -8,17 +8,18 @@ import com.mycompani.bean.util.BeanNavigator;
 import com.mycompani.bean.util.UserSessionBean;
 import com.mycompany.dto.ConsignacionesDtoToMapper;
 import com.mycompany.entidades.Consignaciones;
+import com.mycompany.enums.EnumClasePago;
 import com.mycompany.mapper.ConsignacionesMapper;
 import com.mycompany.reportes.CierreService;
 import com.mycompany.reportes.CierreServiceImpl;
+import com.mycompany.reportes.ClasePagoService;
+import com.mycompany.reportes.ClasePagoServiceImpl;
 import com.mycompany.util.Formatos;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,11 +37,21 @@ public class DiarioBean {
     private String gastos;
     private String consignaciones;
     private String caja_final;
+    private String descuentos;
+    private String pagosTarjetas;
     private List<Consignaciones> consigs;
+    private boolean viewPagosTarjeta;
+    private boolean viewDescuentos;
     private List<ConsignacionesMapper> consigsMapper;
     private CierreService cierreService;
+    private ClasePagoService clasePagoService;
+    
     public DiarioBean() {
         cierreService = new CierreServiceImpl();
+        clasePagoService = new ClasePagoServiceImpl();
+        
+        viewPagosTarjeta = clasePagoService.pagoServiceXSede(EnumClasePago.PAGO_TARJETA.texto());
+        viewDescuentos = clasePagoService.pagoServiceXSede(EnumClasePago.DESCUENTO.texto());
         fechaCierre = new Date();
     }
     
@@ -58,6 +69,12 @@ public class DiarioBean {
         setVentas(formato.numeroToStringFormato(cierreService.cierreVentas(fechaCierre)));
         setGastos(formato.numeroToStringFormato(cierreService.cierreGastos(fechaCierre)));
         setConsignaciones(formato.numeroToStringFormato(cierreService.cierreConsignaciones(fechaCierre)));
+        if(viewPagosTarjeta){
+            setPagosTarjetas(formato.numeroToStringFormato(cierreService.cierrePagosTarjeta(fechaCierre)));
+        }
+        if(viewDescuentos){
+            setDescuentos(formato.numeroToStringFormato(cierreService.cierreVentas(fechaCierre)));
+        }
         setCaja_final(formato.numeroToStringFormato(cierreService.cierrCajaFinal(formato.stringToNumeroFormato(ventas), 
                    formato.stringToNumeroFormato(gastos),
                    formato.stringToNumeroFormato(cajaInicial),
@@ -178,4 +195,38 @@ public class DiarioBean {
     public void setConsigsMapper(List<ConsignacionesMapper> consigsMapper) {
         this.consigsMapper = consigsMapper;
     }
+
+    public String getDescuentos() {
+        return descuentos;
+    }
+
+    public void setDescuentos(String descuentos) {
+        this.descuentos = descuentos;
+    }
+
+    public String getPagosTarjetas() {
+        return pagosTarjetas;
+    }
+
+    public void setPagosTarjetas(String pagosTarjetas) {
+        this.pagosTarjetas = pagosTarjetas;
+    }
+
+    public boolean isViewPagosTarjeta() {
+        return viewPagosTarjeta;
+    }
+
+    public void setViewPagosTarjeta(boolean viewPagosTarjeta) {
+        this.viewPagosTarjeta = viewPagosTarjeta;
+    }
+
+    public boolean isViewDescuentos() {
+        return viewDescuentos;
+    }
+
+    public void setViewDescuentos(boolean viewDescuentos) {
+        this.viewDescuentos = viewDescuentos;
+    }
+    
+    
 }
