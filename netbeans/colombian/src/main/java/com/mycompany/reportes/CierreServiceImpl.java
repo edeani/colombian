@@ -5,9 +5,7 @@
 package com.mycompany.reportes;
 
 import com.mycompani.bean.util.UserSessionBean;
-import com.mycompany.dao.ClientesJpaController;
 import com.mycompany.dao.ConsignacionesJpaController;
-import com.mycompany.entidades.Clientes;
 import com.mycompany.entidades.Consignaciones;
 import com.mycompany.util.Conexion;
 import com.mycompany.util.Formatos;
@@ -34,8 +32,8 @@ import javax.persistence.TemporalType;
 public class CierreServiceImpl implements CierreService {
 
     ConsignacionesJpaController consignacionJPA;
-    private UserSessionBean user = UserSessionBean.getInstance();
-    private String password = user.getSede().getPassword();
+    private final UserSessionBean user = UserSessionBean.getInstance();
+    private final String password = user.getSede().getPassword();
     @Asynchronous
     @Override
     public Double cierreDiario(Date fechaCierre) {
@@ -48,7 +46,9 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         Double caja_inicial =0D;
         if(connection != null){
@@ -103,7 +103,8 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         Double ventas =0D;
         if(connection!=null){
@@ -167,7 +168,8 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         
         Double gastos =0D;
@@ -224,7 +226,8 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         Double consignaciones =0D;
         if(connection!=null){
@@ -253,7 +256,7 @@ public class CierreServiceImpl implements CierreService {
             rs.next();
            consignaciones = rs.getDouble(1);
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
           System.out.print(e.getMessage());
             
@@ -287,7 +290,8 @@ public class CierreServiceImpl implements CierreService {
         } else{
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         if(connection!=null){
         EntityManager em = factory.createEntityManager();
@@ -301,7 +305,7 @@ public class CierreServiceImpl implements CierreService {
            query.setParameter("fecha", fechaCierre, TemporalType.DATE);
            listaConsignaciones =  query.getResultList();
         }catch(Exception e){
-            System.out.println("cierreListaConsignaciones::"+e.getMessage());
+          
         } finally {
             em.close();
             
@@ -314,6 +318,143 @@ public class CierreServiceImpl implements CierreService {
         //return null;
         
       
+    }
+    
+    @Asynchronous
+    @Override
+    public Double cierreDescuentos(Date fechaCierre) {
+        Connection connection;
+        //Me conecto a la base de datos
+        Conexion conexion = new Conexion();
+        if(password == null){
+            conexion.setPassword("");
+        } else{
+            conexion.setPassword(password);
+        }
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
+        connection = conexion.getConexion();
+        
+        Double descuentos =0D;
+        if(connection!=null){
+        DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+        Formatos formato = new Formatos();
+        String fecha = formato.dateTostring(dfDefault.format(fechaCierre));
+        String query = "select sum(total) as total from (select sum(descuento_orden) as total from mesa " +
+            "where fecha_orden = '"+fecha+"' and descuento_orden <> 0  " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(descuento_orden) as total from orden " +
+            "where fecha_orden = '"+fecha+"' and descuento_orden <> 0 " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(descuento_orden) as total from llevar " +
+            "where " +
+            "fecha_orden = '"+fecha+"' and  descuento_orden <> 0 " +
+            "and estado_orden = 'A') sub0";
+
+        
+        ResultSet rs = null;
+        
+        
+        
+        //java.sql.Date  d = formato.utilDateTosqlDate(fechaCierre);
+        //Ejecutar la consulta
+        Statement st = null;
+        
+        try {
+            st = connection.createStatement();
+            PreparedStatement ps = connection.prepareStatement(query);
+            
+            
+            
+            rs = ps.executeQuery();
+            
+            rs.next();
+            descuentos = rs.getDouble(1);
+            
+        } catch (Exception e) {
+
+          System.out.print(e.getMessage());
+            
+        }
+        
+        conexion.cerrar(rs);
+        conexion.cerrar(st);
+        conexion.destruir();
+        }else{
+            user.setMensaje("NO CONECTA LA BASE DE DATOS "+user.getSede().getSed_nombre());
+        }
+        
+        return descuentos;
+    }
+    @Asynchronous
+    @Override
+    public Double cierrePagosTarjeta(Date fechaCierre) {
+        Connection connection;
+        //Me conecto a la base de datos
+        Conexion conexion = new Conexion();
+        if(password == null){
+            conexion.setPassword("");
+        } else{
+            conexion.setPassword(password);
+        }
+        conexion.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexion.establecerConexion();
+        connection = conexion.getConexion();
+        
+        Double pagosTarjeta =0D;
+        if(connection!=null){
+        DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+        Formatos formato = new Formatos();
+        String fecha = formato.dateTostring(dfDefault.format(fechaCierre));
+        String query = "select sum(total) as total from (select sum(pago_tarjeta) as total from mesa " +
+            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(pago_tarjeta) as total from orden " +
+            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(pago_tarjeta) as total from llevar " +
+            "where " +
+            "fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
+            "and estado_orden = 'A') sub0";
+
+        
+        ResultSet rs = null;
+        
+        
+        
+        //java.sql.Date  d = formato.utilDateTosqlDate(fechaCierre);
+        //Ejecutar la consulta
+        Statement st = null;
+        
+        try {
+            st = connection.createStatement();
+            PreparedStatement ps = connection.prepareStatement(query);
+            
+            
+            
+            rs = ps.executeQuery();
+            
+            rs.next();
+            pagosTarjeta = rs.getDouble(1);
+            
+        } catch (Exception e) {
+
+          System.out.print(e.getMessage());
+            
+        }
+        
+        conexion.cerrar(rs);
+        conexion.cerrar(st);
+        conexion.destruir();
+        }else{
+            user.setMensaje("NO CONECTA LA BASE DE DATOS "+user.getSede().getSed_nombre());
+        }
+        
+        return pagosTarjeta;
     }
        
   

@@ -39,7 +39,9 @@ public class InventarioServiceImpl implements InventarioService {
         } else {
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador() + "/" + user.getSede().getBd());
+        conexion.establecerConexion();
+ 
         connection = conexion.getConexion();
         List<Inventario> inventario = new ArrayList<Inventario>();
         if (connection != null) {

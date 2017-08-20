@@ -39,7 +39,8 @@ import java.util.Locale;
         } else{
             conexion.setPassword(getPassword());
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(getUser().getSede().getIdentificador()+"/"+getUser().getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         List<Mesasyllevar> llevar = new ArrayList<Mesasyllevar>();
         totalvalor = 0D;

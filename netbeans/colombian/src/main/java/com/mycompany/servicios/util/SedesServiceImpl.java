@@ -9,7 +9,6 @@ import com.mycompany.dao.SedesJpaController;
 import com.mycompany.entidades.Sedes;
 import com.mycompany.util.Conexion;
 import com.mycompany.util.Formatos;
-import com.mycompany.util.LectorPropiedades;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,12 +38,10 @@ public class SedesServiceImpl implements SedesService,Serializable{
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
-        LectorPropiedades propiedades = new LectorPropiedades();
-        propiedades.setArchivo(ARCHIVO_CONEXIONES);
-        conexion.setBd(propiedades.leerPropiedad("basedatos"));
-        conexion.setPassword(propiedades.leerPropiedad("password"));
-        conexion.setServer(propiedades.leerPropiedad("servidor")+"/"+propiedades.leerPropiedad("basedatos"));
-        conexion.setUser(propiedades.leerPropiedad("usuario"));
+        conexion.setBd("principal");
+        conexion.setPassword("YI15102206j");
+        conexion.setServer("192.168.0.22:3306"+"/principal");
+        conexion.setUser("llmdvi");
         conexion.establecerConexion();
         connection = conexion.getConexion();
         
@@ -71,6 +68,11 @@ public class SedesServiceImpl implements SedesService,Serializable{
             while(rs.next()){
              Sedes sede = new Sedes();
              sede.setBd(rs.getString("bd"));
+             /*System.out.println("identificador");
+             System.out.println("password");
+             System.out.println("persistencia");
+             System.out.println("sed_cod");
+             System.out.println("sed_direccion");*/
              sede.setPassword(rs.getString("password"));
              sede.setIdentificador(rs.getString("identificador"));
              sede.setPersistencia(rs.getString("persistencia"));
@@ -78,7 +80,6 @@ public class SedesServiceImpl implements SedesService,Serializable{
              sede.setSed_nombre(rs.getString("sed_nombre"));
              sede.setSed_telefono(rs.getString("sed_telefono"));
              sede.setSed_cod(rs.getLong("sed_cod"));
-             sede.setUsuario(rs.getString("usuario"));
              sedes.add(sede);
             }
         } catch (Exception e) {

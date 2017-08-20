@@ -7,8 +7,10 @@ package com.mycompany.reportes;
 import com.mycompani.bean.util.UserSessionBean;
 import com.mycompany.entidades.Sedes;
 import com.mycompany.mapper.ConsolidadoMapper;
+import com.mycompany.mapper.Inventario;
 import com.mycompany.util.Conexion;
 import com.mycompany.util.Formatos;
+import com.mycompany.util.LectorPropiedades;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,8 +49,12 @@ public class ConsolidadoSedesServiceImpl implements ConsolidadoSedesService {
             Connection connection=null;
             //Me conecto a la base de datos
             Conexion conexion = new Conexion();
+            
+            conexion.setPassword(sedes.get(i).getPassword());
+            
+            conexion.setServer(sedes.get(i).getIdentificador() + "/" + sedes.get(i).getBd());
            
-            conexion.establecerConexion(sedes.get(i));
+            conexion.establecerConexion();
             connection = conexion.getConexion();
             
             if(connection != null){

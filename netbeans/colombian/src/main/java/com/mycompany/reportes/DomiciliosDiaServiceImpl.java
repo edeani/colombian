@@ -42,7 +42,8 @@ public class DomiciliosDiaServiceImpl implements DomiciliosDiaService {
         } else {
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador() + "/" + user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
 
         totalDomicilios = 0D;

@@ -44,7 +44,8 @@ public class OrdenesDomiciliosServiceImpl implements OrdenesDomiciliosService {
         } else{
             conexion.setPassword(getPassword());
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(getUser().getSede().getIdentificador()+"/"+getUser().getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
         List<OrdenesDomiciliosMapper> ordenesdomi = new ArrayList<OrdenesDomiciliosMapper>();
         setTotalvalor((Double) 0D);
