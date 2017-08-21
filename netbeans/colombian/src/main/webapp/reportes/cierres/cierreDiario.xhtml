@@ -45,8 +45,6 @@
                             <p:inputText  readonly="true" value="$#{diarioBean.gastos}"/>
                             <h:outputText value="Consignaciones: "/>
                             <p:inputText readonly="true" value="$#{diarioBean.consignaciones}"/>
-                            <h:outputText value="Caja Final: " />
-                            <p:inputText readonly="true" value="$#{diarioBean.caja_final}"/>
                             <c:if test="#{diarioBean.viewPagosTarjeta}">
                             <h:outputText value="Pagos Tarjeta: " />
                             <p:inputText readonly="true" value="$#{diarioBean.pagosTarjetas}"/>
@@ -55,6 +53,8 @@
                             <h:outputText value="Descuentos: " />
                             <p:inputText readonly="true" value="$#{diarioBean.descuentos}"/>
                             </c:if>
+                            <h:outputText value="Caja Final: " />
+                            <p:inputText readonly="true" value="$#{diarioBean.caja_final}"/>
                         </h:panelGrid>
                         <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
                         <p:dataTable id="consignaciones" var="consignar" value="#{diarioBean.consigsMapper}">  
