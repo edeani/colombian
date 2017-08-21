@@ -73,12 +73,12 @@ public class DiarioBean {
             setPagosTarjetas(formato.numeroToStringFormato(cierreService.cierrePagosTarjeta(fechaCierre)));
         }
         if(viewDescuentos){
-            setDescuentos(formato.numeroToStringFormato(cierreService.cierreVentas(fechaCierre)));
+            setDescuentos(formato.numeroToStringFormato(cierreService.cierreDescuentos(fechaCierre)));
         }
         setCaja_final(formato.numeroToStringFormato(cierreService.cierrCajaFinal(formato.stringToNumeroFormato(ventas), 
-                   formato.stringToNumeroFormato(gastos),
-                   formato.stringToNumeroFormato(cajaInicial),
-                   formato.stringToNumeroFormato(consignaciones))));
+                   formato.stringToNumeroFormato(gastos),formato.stringToNumeroFormato(cajaInicial),
+                   formato.stringToNumeroFormato(consignaciones),formato.stringToNumeroFormato(pagosTarjetas),
+                   formato.stringToNumeroFormato(descuentos))));
         setConsigs(cierreService.cierreListaConsignaciones(fechaCierre));
         ConsignacionesDtoToMapper consignacionDtoToMapper = new ConsignacionesDtoToMapper();
         consigsMapper = consignacionDtoToMapper.consignacionDtoToMapper(consigs);

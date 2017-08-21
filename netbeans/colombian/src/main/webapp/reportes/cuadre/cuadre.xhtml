@@ -41,7 +41,7 @@
                             </h:panelGrid>  
                         </p:dialog>
 
-                        <p:commandButton update="cuadrar,total2,total1,totalIzquierda,mensaje0" value="Procesar" actionListener="#{cuadrebean.listadoCuadres()}" />
+                        <p:commandButton update="cuadrar,total2,total1,totalIzquierda,pagosTarjetaOt,descuentosOt,mensaje0" value="Procesar" actionListener="#{cuadrebean.listadoCuadres()}" />
                     </h:panelGrid>
                     <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{userSessionBean.mensaje}</div></h:outputLabel>
                     <p:dataTable id="cuadrar" var="cuadre" value="#{cuadrebean.cuadre}">  
@@ -51,8 +51,13 @@
 
                         <p:column headerText="Ventas">  
                             <h:outputText value="#{cuadre.valorVentas}" />  
-                        </p:column>  
-
+                        </p:column> 
+                        <p:column headerText="Pagos Tarjeta">  
+                            <h:outputText value="#{cuadre.valorPagosTarjeta}" />  
+                        </p:column>
+                        <p:column headerText="Descuentos">  
+                            <h:outputText value="#{cuadre.valorDescuentos}" />  
+                        </p:column>
                         <p:column headerText="Gastos">  
                             <h:outputText value="#{cuadre.valorGastos}" />  
                         </p:column>  
@@ -70,6 +75,8 @@
                     <h:outputText class="totalIzquierda" id="total2" value="TOTAL CONSIGNACIONES $#{cuadrebean.totalConsignaciones}"/>
                     <h:outputText class="totalIzquierda" id="total1" value="TOTAL GASTOS $#{cuadrebean.totalGastos}"/>
                     <h:outputText class="totalIzquierda" id="totalIzquierda" value="TOTAL VENTAS $#{cuadrebean.totalVenta}"/>
+                    <h:outputText class="totalIzquierda" id="pagosTarjetaOt" value="PAGOS TARJETA $#{cuadrebean.totalPagosTarjeta}"/>
+                    <h:outputText class="totalIzquierda" id="descuentosOt" value="DESCUENTOS $#{cuadrebean.totalDescuentos}"/>
                     
                 </h:form>
             </ui:define>

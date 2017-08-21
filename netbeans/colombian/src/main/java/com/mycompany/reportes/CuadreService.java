@@ -19,4 +19,6 @@ public interface CuadreService {
  public Double getValorVentas();
  public Double getValorGastos();
  public Double getValorConsignaciones();
+ public Double getValorPagosTarjeta();
+ public Double getValorDescuentos();
 }
