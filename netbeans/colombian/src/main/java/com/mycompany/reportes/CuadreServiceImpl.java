@@ -31,6 +31,8 @@ public class CuadreServiceImpl implements CuadreService {
     private Double valorVentas;
     private Double valorGastos;
     private Double valorConsignaciones;
+    private Double valorDescuentos;
+    private Double valorPagosTarjeta;
 
     @Override
     public List<Cuadre> cuadreDia(Date fi, Date ff) {
@@ -46,6 +48,8 @@ public class CuadreServiceImpl implements CuadreService {
         setValorVentas((Double) 0D);
         setValorGastos((Double) 0D);
         setValorConsignaciones((Double) 0D);
+        setValorDescuentos(0D);
+        setValorPagosTarjeta(0D);
         List<Cuadre> cuadre = new ArrayList<Cuadre>();
         if (connection != null) {
             ResultSet rs = null;
@@ -56,7 +60,9 @@ public class CuadreServiceImpl implements CuadreService {
                     + "cierre_diario.valor_ventas AS VENTAS, "
                     + "cierre_diario.valor_gastos AS GASTOS, "
                     + "cierre_diario.consignaciones AS CONSIGNACIONES, "
-                    + "cierre_diario.caja_real AS CAJA_REAL "
+                    + "cierre_diario.caja_real AS CAJA_REAL, "
+                    + "cierre_diario.descuento_ventas AS DESCUENTOS, "
+                    + "cierre_diario.pago_tarjetas AS PAGO_TARJETAS "
                     + "FROM cierre_diario "
                     + "WHERE cierre_diario.fecha between '" + formato.dateTostring(dfDefault.format(fi)) + "'  and '" + formato.dateTostring(dfDefault.format(ff)) + "' " 
                     + "ORDER BY FECHA";
@@ -78,11 +84,14 @@ public class CuadreServiceImpl implements CuadreService {
                     c.setValorVentas(formato.numeroToStringFormato(rs.getDouble("VENTAS")));
                     c.setValorGastos(formato.numeroToStringFormato(rs.getDouble("GASTOS")));
                     c.setValorConsignaciones(formato.numeroToStringFormato(rs.getDouble("CONSIGNACIONES")));
+                    c.setValorDescuentos(formato.numeroToStringFormato(rs.getDouble("DESCUENTOS")));
+                    c.setValorPagosTarjeta(formato.numeroToStringFormato(rs.getDouble("PAGO_TARJETAS")));
                     c.setValorCajaReal(formato.numeroToStringFormato(rs.getDouble("CAJA_REAL")));
-
                     valorVentas += rs.getDouble("VENTAS");
                     valorGastos += rs.getDouble("GASTOS");
                     valorConsignaciones += rs.getDouble("CONSIGNACIONES");
+                    valorDescuentos+=rs.getDouble("DESCUENTOS");
+                    valorPagosTarjeta+=rs.getDouble("PAGO_TARJETAS");
 
                     cuadre.add(c);
 
@@ -135,6 +144,7 @@ public class CuadreServiceImpl implements CuadreService {
     /**
      * @return the valorConsignaciones
      */
+    @Override
     public Double getValorConsignaciones() {
         return valorConsignaciones;
     }
@@ -145,4 +155,24 @@ public class CuadreServiceImpl implements CuadreService {
     public void setValorConsignaciones(Double valorConsignaciones) {
         this.valorConsignaciones = valorConsignaciones;
     }
+
+    @Override
+    public Double getValorDescuentos() {
+        return valorDescuentos;
+    }
+
+    public void setValorDescuentos(Double valorDescuentos) {
+        this.valorDescuentos = valorDescuentos;
+    }
+    
+    @Override
+    public Double getValorPagosTarjeta() {
+        return valorPagosTarjeta;
+    }
+ 
+    public void setValorPagosTarjeta(Double valorPagosTarjeta) {
+        this.valorPagosTarjeta = valorPagosTarjeta;
+    }
+    
+    
 }

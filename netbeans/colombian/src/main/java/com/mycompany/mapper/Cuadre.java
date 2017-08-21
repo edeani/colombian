@@ -16,6 +16,8 @@ public class Cuadre {
     private String valorGastos;
     private String valorConsignaciones;
     private String ValorCajaReal;
+    private String valorPagosTarjeta;
+    private String valorDescuentos;
 
     /**
      * @return the fecha
@@ -86,6 +88,23 @@ public class Cuadre {
     public void setValorCajaReal(String ValorCajaReal) {
         this.ValorCajaReal = ValorCajaReal;
     }
+
+    public String getValorPagosTarjeta() {
+        return valorPagosTarjeta;
+    }
+
+    public void setValorPagosTarjeta(String valorPagosTarjeta) {
+        this.valorPagosTarjeta = valorPagosTarjeta;
+    }
+
+    public String getValorDescuentos() {
+        return valorDescuentos;
+    }
+
+    public void setValorDescuentos(String valorDescuentos) {
+        this.valorDescuentos = valorDescuentos;
+    }
+    
     
     
 }
