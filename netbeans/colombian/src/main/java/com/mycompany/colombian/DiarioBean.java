@@ -71,9 +71,13 @@ public class DiarioBean {
         setConsignaciones(formato.numeroToStringFormato(cierreService.cierreConsignaciones(fechaCierre)));
         if(viewPagosTarjeta){
             setPagosTarjetas(formato.numeroToStringFormato(cierreService.cierrePagosTarjeta(fechaCierre)));
+        }else{
+            setPagosTarjetas("0");
         }
         if(viewDescuentos){
             setDescuentos(formato.numeroToStringFormato(cierreService.cierreDescuentos(fechaCierre)));
+        }else{
+            setDescuentos("0");
         }
         setCaja_final(formato.numeroToStringFormato(cierreService.cierrCajaFinal(formato.stringToNumeroFormato(ventas), 
                    formato.stringToNumeroFormato(gastos),formato.stringToNumeroFormato(cajaInicial),
