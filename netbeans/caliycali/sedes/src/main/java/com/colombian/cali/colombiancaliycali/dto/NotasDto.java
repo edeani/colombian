@@ -15,6 +15,8 @@ import java.util.List;
 public class NotasDto {
 
     private Date fecha;
+    private Integer idSede;
+    private String sede;
     private  List<NotasDetalleDto> detallesNota;
    
 
@@ -25,13 +27,29 @@ public class NotasDto {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
+    
     public List<NotasDetalleDto> getDetallesNota() {
         return detallesNota;
     }
 
     public void setDetallesNota(List<NotasDetalleDto> detallesNota) {
         this.detallesNota = detallesNota;
+    }
+
+    public Integer getIdSede() {
+        return idSede;
+    }
+
+    public void setIdSede(Integer idSede) {
+        this.idSede = idSede;
+    }
+
+    public String getSede() {
+        return sede;
+    }
+
+    public void setSede(String sede) {
+        this.sede = sede;
     }
 
     

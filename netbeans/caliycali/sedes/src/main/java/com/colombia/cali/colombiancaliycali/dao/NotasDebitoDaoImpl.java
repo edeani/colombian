@@ -10,9 +10,6 @@ import com.colombia.cali.colombiancaliycali.dataSource.ProjectsDao;
 import com.colombia.cali.colombiancaliycali.util.Formatos;
 import com.colombian.cali.colombiancaliycali.dto.NotasDetalleDto;
 import com.colombian.cali.colombiancaliycali.dto.NotasDto;
-import com.colombian.cali.colombiancaliycali.entidades.NotasDebito;
-import java.text.Format;
-import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,10 +37,10 @@ public class NotasDebitoDaoImpl extends DataGenericDao implements NotasDebitoDao
                     for (NotasDetalleDto detNota: notasDebito.getDetallesNota()) {
                         if(i==0){
                             registros = caliycaliDao.insertJdbTemplate("idsede,fecha,concepto,total,cuenta", 
-                            "notas_debito",detNota.getIdSede()+",'"+Formatos.dateTostring(notasDebito.getFecha())+"','"+
+                            "notas_debito",notasDebito.getIdSede()+",'"+Formatos.dateTostring(notasDebito.getFecha())+"','"+
                             detNota.getConcepto()+"',"+detNota.getTotal()+",'"+detNota.getCuenta()+"'");
                         }else{
-                            registros = caliycaliDao.addInsertJdtbTemplate(registros,detNota.getIdSede()+",'"+Formatos.dateTostring(notasDebito.getFecha())+"','"+
+                            registros = caliycaliDao.addInsertJdtbTemplate(registros,notasDebito.getIdSede()+",'"+Formatos.dateTostring(notasDebito.getFecha())+"','"+
                             detNota.getConcepto()+"',"+detNota.getTotal()+",'"+detNota.getCuenta()+"'",i);
                         }
                         i++;

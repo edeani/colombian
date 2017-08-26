@@ -14,8 +14,8 @@ public class NotasDetalleDto {
     private Long cons;
     private String cuenta;
     private String concepto;
+    private String detalle;
     private Double total;
-    private Integer idSede;
 
     public Long getCons() {
         return cons;
@@ -49,14 +49,12 @@ public class NotasDetalleDto {
         this.total = total;
     }
 
-    public Integer getIdSede() {
-        return idSede;
+    public String getDetalle() {
+        return detalle;
     }
 
-    public void setIdSede(Integer idSede) {
-        this.idSede = idSede;
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
     }
-    
-    
-    
+      
 }

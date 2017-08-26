@@ -29,6 +29,7 @@ public class NotasController extends BaseController{
         NotasDto notasDto = new NotasDto();
         setBasicModel(mav, notasDto);
         mav.addObject("notasDto", notasDto);
+        mav.addObject("titulo", "Notas Debito");
         return mav;
     }
 }

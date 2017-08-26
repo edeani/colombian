@@ -43,7 +43,10 @@ public class NotasDebito implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "total")
     private Double total;
-
+    @Size(max = 50)
+    @Column(name = "cuenta")
+    private String cuenta;
+    
     public NotasDebito() {
     }
 
@@ -90,4 +93,13 @@ public class NotasDebito implements Serializable {
     public void setTotal(Double total) {
         this.total = total;
     }
+
+    public String getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
+    
 }

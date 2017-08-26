@@ -12,42 +12,48 @@
     <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.js" type="text/javascript"></script>
-    <script src="<%=request.getContextPath()%>/js/contabilidad/cuentasBeneficiarios.js?id=1" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/contabilidad/notasContabilidad.js?id=1" type="text/javascript"></script>
 </head> 
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
-<div id="tituloPagina">Pagos  Terceros Caja Mayor</div>
 <div id="formPago" data-url="${pageContext.servletContext.contextPath}/pagos/ajax/secuencia.htm">                                 
     <form:form commandName="${commandName}"  >
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
+            <div id="campoNumeroFactura">
+                <label class="textoNegro" style="display: none;">
+                    No. Factura 
+                </label>
+                <div id="labelSede"></div> 
+            </div>
             <div class="clear"></div>
             <div class="clear"></div>
             <div class="clear"></div>
             <div style="position: relative; margin-left: 115px;">
-                <label style="display: none;">
-                    <select id="idSede">
+                <label>
+                    Sede
+                    <form:select path="idSede">
                         <option value="">Seleccionar</option>
                         <c:import url="/sedes/ajax/listaSedeSelect.htm"></c:import>
-                    </select>
+                    </form:select>
+                    <form:input path="sede" type="hidden"/>
                 </label>
-
-                <label id="cmpFecha" style="display: block;">
+                <label id="cmpFecha">
                     Fecha
                     <form:input path="fecha" cssClass="fechaInicial"/>
                 </label>
-                <label id="lnkRows" style="display: none;">
+                <label id="lnkRows">
                     <a href="javascript:void(0);" onclick="addRowPagos('contenidoFactura');" id="agregarFila">AgregarFila</a>
                 </label>
-            </div>
+            </div
             <div id="cargador"></div>
             <div id="divContenedorTabla"  style="margin: 0 3% !important;" data-url ="${pageContext.servletContext.contextPath}/factura/ajax/producto.htm">
-                <table id="tblDatos" class="tblPagosTerceros" align="center" style="display: block;">
+                <table id="tblDatos" class="tblPagosTerceros" align="center" >
                     <thead>
                         <tr>
-                            <th>Sede</th>
                             <th>Cuenta</th>
                             <th>Concepto</th>
+                            <th>Detalle</th>
                             <th>Total</th>
                             <th width="22">&nbsp;</th>
                         </tr>
@@ -55,23 +61,22 @@
                     <tbody id="contenidoFactura" data-url ="<%=request.getContextPath()%>/inventario/ajax/selectProducto.htm">
                         <tr>
                             <td>
-                                <select data-numero="0" class="claseSelectSede" id="identificadorSede0" >
-                                    <!--Aquí van las opciones-->
-                                </select>
-                                <input type="hidden" id="inputIdentificadorSede0" name="notasDto.detallesNota[0].idSede" value=""/>    
+                                <input id="idpagotercero0" name="detallesNota[0].idpagotercero" value="" type="hidden"/>
+                                <input data-numero="0" id="numerocuenta0" name="detallesNota[0].cuenta" value="" class="ui-autocomplete-input claseValidarNum claseCuenta" autocomplete="off"/>
                             </td>
                             <td>
-                                <input data-numero="0" id="numerocuenta0" name="notasDto.detallesNota[0].cuenta" value="" class="ui-autocomplete-input claseValidarNum claseCuenta" autocomplete="off"/>
-                            </td>
-                            <td>
-                                <input class="claseConceptoCuenta" id="concepto0" name="notasDto.detallesNota[0].concepto" value=""/>
+                                <input class="claseConceptoCuenta" id="concepto0" name="detallesNota[0].concepto" value=""/>
                             </td>   
                             <td>
-                                <input class="claseValidarNum claseFormatDec claseTotalProveedor" id="total0" name="notasDto.detallesNota[0].total" value=""/>
+                                <input class="clasedescripcion claseproximocampo" id="detalle0" disabled="true" name="detallesNota[0].detalle" value="" maxlength="500"/>
+                            </td>
+                            <td>
+                                <input class="claseValidarNum claseFormatDec claseTotalProveedor" id="total0" name="detallesNota[0].total" value="" disabled="true"/>
+                                <input id="fechaPago0" name="detallesNota[0].fecha" value="" type="hidden"/>
                             </td>
                             <td align="right">
                                 <input type="button" value="-" class="clsEliminarFila">
-                                <input type="hidden" id="numero0" name="notasDto.detallesNota[0].numero" value="1"/>
+                                <input type="hidden" id="numero0" name="detallesNota[0].numero" value="1"/>
                             </td>
                         </tr>
                     </tbody>
@@ -83,7 +88,6 @@
                             <td><input name="totalPago" id="totalPago" value="0"/></td>
                         </tr>
                         <tr>    
-                            <td></td>
                             <td></td>
                             <td colspan="4" align="right">
                                 <input type="button" id="generar" value="Generar" />
