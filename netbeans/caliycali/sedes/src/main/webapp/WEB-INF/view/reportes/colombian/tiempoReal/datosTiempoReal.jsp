@@ -55,6 +55,7 @@
         </li>
     </ul>
 </c:if>
+<c:if test="${not empty cierreDiario.descuentos}">
 <ul>
     <li>
         <label>
@@ -65,19 +66,17 @@
         $<input class="campoTiempoReal" id="descuentos" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.descuentos}"/>"></input>
     </li>
 </ul>
-
-<c:if test="${not empty cierreDiario.cajaFinal}">
-    <ul>
-        <li>
-            <label>
-                Caja Final  
-            </label>
-        </li>
-        <li style="width: 200px !important;">
-            $<input path="cajaFinal" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.cajaFinal}"/>"></input>
-        </li>
-    </ul>
 </c:if>
+<ul>
+    <li>
+        <label>
+            Caja Final  
+        </label>
+    </li>
+    <li style="width: 200px !important;">
+        $<input path="cajaFinal" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.cajaFinal}"/>"></input>
+    </li>
+</ul>
 <table id="datosCierre" class="tablaDatosInfo">
     <thead>
     <th>Fecha</th><th>Nombre</th><th>Valor Consignaci&oacute;n</th>

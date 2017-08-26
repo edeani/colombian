@@ -5,7 +5,6 @@
 package com.mycompany.reportes;
 
 import com.mycompani.bean.util.UserSessionBean;
-import com.mycompany.entidades.Consignaciones;
 import com.mycompany.util.Conexion;
 import com.mycompany.util.Formatos;
 import com.mycompany.mapper.Cuadre;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,8 +24,8 @@ import javax.swing.JOptionPane;
  */
 public class CuadreServiceImpl implements CuadreService {
 
-    private UserSessionBean user = UserSessionBean.getInstance();
-    private String password = user.getSede().getPassword();
+    private final UserSessionBean user = UserSessionBean.getInstance();
+    private final String password = user.getSede().getPassword();
     private Double valorVentas;
     private Double valorGastos;
     private Double valorConsignaciones;
