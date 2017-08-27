@@ -37,10 +37,10 @@ public class NotasDebitoDaoImpl extends DataGenericDao implements NotasDebitoDao
                     for (NotasDetalleDto detNota: notasDebito.getDetallesNota()) {
                         if(i==0){
                             registros = caliycaliDao.insertJdbTemplate("idsede,fecha,concepto,total,cuenta", 
-                            "notas_debito",notasDebito.getIdSede()+",'"+Formatos.dateTostring(notasDebito.getFecha())+"','"+
+                            "notas_debito",notasDebito.getIdSede()+",'"+notasDebito.getFecha()+"','"+
                             detNota.getConcepto()+"',"+detNota.getTotal()+",'"+detNota.getCuenta()+"'");
                         }else{
-                            registros = caliycaliDao.addInsertJdtbTemplate(registros,notasDebito.getIdSede()+",'"+Formatos.dateTostring(notasDebito.getFecha())+"','"+
+                            registros = caliycaliDao.addInsertJdtbTemplate(registros,notasDebito.getIdSede()+",'"+notasDebito.getFecha()+"','"+
                             detNota.getConcepto()+"',"+detNota.getTotal()+",'"+detNota.getCuenta()+"'",i);
                         }
                         i++;

@@ -40,7 +40,7 @@ $(document).ready(function() {
                         var refCmpDetalle = "#detalle" + numberRow;
                         var refCmpFechaPago = "#fechaPago" + numberRow;
                         var refCmpNombreCuenta = "#concepto" + numberRow;
-                        $(refCmpFechaPago).val($("#fechaPago").val());
+                        //$(refCmpFechaPago).val($("#fechaPago").val());
                         $(refCmpNombreCuenta).val(valorCampoNombreCuenta);
                         $(refCmpDetalle).attr("disabled", false);
                         //$(refCmpIdCuenta).removeClass("campError");
@@ -181,14 +181,14 @@ $(document).ready(function() {
         if (continuar) {
             //Preparar campos decimales
             prepararCamposDecimales();
-            var url = $("#pagosTercerosDto").attr("action");
-            var parametros = $("#pagosTercerosDto").serialize();
+            var url = $("#notasDto").attr("action");
+            var parametros = $("#notasDto").serialize();
             var html = peticionAjax(url, "post", parametros);
             //Genero el PDF
-            var body = document.body;
+            /*var body = document.body;
             var form = document.createElement('form');
             form.method = 'POST';
-            form.action = $("#pagosTercerosDto").data("urlcomprobante");
+            form.action = $("#notasDto").data("urlcomprobante");
             form.name = 'jsform';
             form.id = 'jsform';
             form.target = "_blank";
@@ -199,7 +199,7 @@ $(document).ready(function() {
             input.value = $("#secuencia").val();
             form.appendChild(input);
             body.appendChild(form);
-            form.submit();
+            form.submit();*/
             var urlLocal = window.location.href;
             window.location.href = urlLocal;
         } else {
@@ -252,7 +252,7 @@ $(document).ready(function() {
         $(filasTr).each(function(index) {
             var cells = $(this).children().find("select,input");
             //CeldaSede.
-            var celdaSedeSelect = cells[0];
+            /*var celdaSedeSelect = cells[0];
             celdaSedeSelect.id = "identificadorSede" + indice;
             $(celdaSedeSelect).attr("data-numero", indice);
             var celdaSedeInput = cells[1];
@@ -260,29 +260,29 @@ $(document).ready(function() {
             celdaSedeInput.id = "identificadorSede" + indice;
             var cmpIdPagoTercero = cells[2];
             cmpIdPagoTercero.name = "detallesNota[" + indice + "].idpagotercero";
-            cmpIdPagoTercero.id = "idpagotercero" + indice;
-            var cmpIdCuenta = cells[3];
-            cmpIdCuenta.name = "detallesNota[" + (indice) + "].idCuenta";
+            cmpIdPagoTercero.id = "idpagotercero" + indice;*/
+            var cmpIdCuenta = cells[0];
+            cmpIdCuenta.name = "detallesNota[" + (indice) + "].cuenta";
             cmpIdCuenta.id = "numerocuenta" + indice;
             $(cmpIdCuenta).attr("data-numero", indice);
             //Campo Concepto
-            var cmpConcepto = cells[4];
-            cmpConcepto.name = "detallesNota[" + (indice) + "].conceptoCuenta";
+            var cmpConcepto = cells[1];
+            cmpConcepto.name = "detallesNota[" + (indice) + "].concepto";
             cmpConcepto.id = "concepto" + indice;
             //Campo Detalle
-            var cmpDetalle = cells[5];
+            var cmpDetalle = cells[2];
             cmpDetalle.name = "detallesNota[" + (indice) + "].detalle";
             cmpDetalle.id = "detalle" + indice;
             //Campo Total
-            var cmpTotal = cells[6];
+            var cmpTotal = cells[3];
             cmpTotal.name = "detallesNota[" + (indice) + "].total";
             cmpTotal.id = "total" + indice;
             //Campo de Fecha
-            var cmpFecha = cells[7];
+            /*var cmpFecha = cells[4];
             cmpFecha.name = "detallesNota[" + (indice) + "].fecha";
-            cmpFecha.id = "fecha" + indice;
+            cmpFecha.id = "fecha" + indice;*/
             //Orden de la factura
-            var cmpNumero = cells[9];
+            var cmpNumero = cells[5];
             cmpNumero.name = "detallesNota[" + (indice) + "].numero";
             cmpNumero.id = "numero" + indice;
             $(cmpNumero).val(indice + 1);

@@ -9,7 +9,9 @@ import com.colombian.cali.colombiancaliycali.dto.NotasDto;
 import com.colombian.cali.colombiancaliycali.services.NotasDebitoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -31,5 +33,10 @@ public class NotasController extends BaseController{
         mav.addObject("notasDto", notasDto);
         mav.addObject("titulo", "Notas Debito");
         return mav;
+    }
+    
+    @RequestMapping("/debito/guardar.htm")
+    public @ResponseBody String guardarNotasDebito(@ModelAttribute NotasDto notasDto){
+        return "ok";
     }
 }

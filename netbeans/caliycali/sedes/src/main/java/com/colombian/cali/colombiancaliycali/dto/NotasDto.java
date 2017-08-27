@@ -5,7 +5,6 @@
  */
 package com.colombian.cali.colombiancaliycali.dto;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,17 +13,18 @@ import java.util.List;
  */
 public class NotasDto {
 
-    private Date fecha;
+    
+    private String fecha;
     private Integer idSede;
     private String sede;
     private  List<NotasDetalleDto> detallesNota;
    
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
     
