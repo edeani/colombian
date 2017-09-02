@@ -13,4 +13,5 @@ import com.colombian.cali.colombiancaliycali.dto.NotasDto;
  */
 public interface NotasDebitoService {
     public void guardarNotaDebito(String dataSource,NotasDto notasDebito);
+    public void guardarNotaCredito(String dataSource,NotasDto notasDebito);
 }

@@ -26,5 +26,11 @@ public class NotasDebitoServiceImpl implements NotasDebitoService{
     public void guardarNotaDebito(String dataSource, NotasDto notasDebito) {
         notasDebitoDao.guardarNotaDebito(dataSource, notasDebito);
     }
+
+    @Transactional
+    @Override
+    public void guardarNotaCredito(String dataSource, NotasDto notasDebito) {
+         notasDebitoDao.guardarNotaCredito(dataSource, notasDebito);
+    }
     
 }

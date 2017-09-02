@@ -7,7 +7,6 @@ package com.colombia.cali.colombiancaliycali.dao;
 
 import com.colombia.cali.colombiancaliycali.dao.generic.DataGenericDao;
 import com.colombia.cali.colombiancaliycali.dataSource.ProjectsDao;
-import com.colombia.cali.colombiancaliycali.util.Formatos;
 import com.colombian.cali.colombiancaliycali.dto.NotasDetalleDto;
 import com.colombian.cali.colombiancaliycali.dto.NotasDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +54,31 @@ public class NotasDebitoDaoImpl extends DataGenericDao implements NotasDebitoDao
         }
     }
     
+    @Override
+    public void guardarNotaCredito(String dataSource, NotasDto notasDebito) {
+        try {
+            if(notasDebito.getDetallesNota()!=null){
+                if(notasDebito.getDetallesNota().size()>0){
+                    String registros ="";
+                    int i=0;
+                    for (NotasDetalleDto detNota: notasDebito.getDetallesNota()) {
+                        if(i==0){
+                            registros = caliycaliDao.insertJdbTemplate("idsede,fecha,concepto,total,cuenta,descripcion", 
+                            "notas_credito",notasDebito.getIdSede()+",'"+notasDebito.getFecha()+"','"+
+                            detNota.getConcepto()+"',"+detNota.getTotal()+",'"+detNota.getCuenta()+"','"+detNota.getDetalle()+"'");
+                        }else{
+                            registros = caliycaliDao.addInsertJdtbTemplate(registros,notasDebito.getIdSede()+",'"+notasDebito.getFecha()+"','"+
+                            detNota.getConcepto()+"',"+detNota.getTotal()+",'"+detNota.getCuenta()+"','"+detNota.getDetalle()+"'",i);
+                        }
+                        i++;
+                    }
+                    this.jdbcTemplate =  new JdbcTemplate(projectsDao.getDatasource(dataSource));
+                    this.jdbcTemplate.execute(registros);
+                }
+            }
+            
+        } catch (DataAccessException e) {
+            System.out.println("ERROR guardarNotaCredito::"+e.getMessage());
+        }
+    }
 }

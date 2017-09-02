@@ -45,4 +45,25 @@ public class NotasController extends BaseController{
         }
         return "ok";
     }
+    
+    @RequestMapping("/credito.htm")
+    public ModelAndView indexCredito(){
+        ModelAndView mav = new ModelAndView("contabilidad/notas/credito");
+        NotasDto notasDto = new NotasDto();
+        setBasicModel(mav, notasDto);
+        mav.addObject("notasDto", notasDto);
+        mav.addObject("titulo", "Notas Cr&eacute;dito");
+        return mav;
+    }
+    
+    @RequestMapping("/credito/guardar.htm")
+    public @ResponseBody String guardarNotasCredito(@ModelAttribute NotasDto notasDto){
+        try {
+            notasDebitoService.guardarNotaCredito(notasDto.getSede(), notasDto);
+        } catch (Exception e) {
+            System.out.println("Error guardarNotasCredito::"+e.getMessage());
+            return "Error";
+        }
+        return "ok";
+    }
 }
