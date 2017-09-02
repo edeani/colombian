@@ -15,6 +15,7 @@
     <script src="<%=request.getContextPath()%>/js/contabilidad/notasContabilidad.js?id=1" type="text/javascript"></script>
 </head> 
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
+
 <div id="formPago" >                                 
     <form:form commandName="${commandName}"  action="${pageContext.servletContext.contextPath}/notas/debito/guardar.htm">
         <div id="contenidoHome"> 
@@ -30,11 +31,13 @@
             <div class="clear"></div>
             <div class="clear"></div>
             <div style="position: relative; margin-left: 115px;">
-                <label>
+                <label style="display: none;">
                     Sede
                     <form:select path="idSede">
                         <option value="">Seleccionar</option>
-                        <c:import url="/sedes/ajax/listaSedeSelect.htm"></c:import>
+                        <c:import url="/sedes/ajax/seleccionarSede.htm">
+                            <c:param name="idSede" value="1"></c:param>
+                        </c:import>
                     </form:select>
                     <form:input path="sede" type="hidden"/>
                 </label>
@@ -45,8 +48,8 @@
                 <label id="lnkRows">
                     <a href="javascript:void(0);" onclick="addRowPagos('contenidoFactura');" id="agregarFila">AgregarFila</a>
                 </label>
-            </div
-            <div id="cargador"></div>
+            </div>
+                <div id="cargador" style="width: 300px; height: 20px; margin-left: 25%;"></div>
             <div id="divContenedorTabla"  style="margin: 0 3% !important;" data-url ="${pageContext.servletContext.contextPath}/factura/ajax/producto.htm">
                 <table id="tblDatos" class="tblPagosTerceros" align="center" >
                     <thead>

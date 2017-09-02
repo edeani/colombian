@@ -37,6 +37,12 @@ public class NotasController extends BaseController{
     
     @RequestMapping("/debito/guardar.htm")
     public @ResponseBody String guardarNotasDebito(@ModelAttribute NotasDto notasDto){
+        try {
+            notasDebitoService.guardarNotaDebito(notasDto.getSede(), notasDto);
+        } catch (Exception e) {
+            System.out.println("Error guardarNotasDebito::"+e.getMessage());
+            return "Error";
+        }
         return "ok";
     }
 }

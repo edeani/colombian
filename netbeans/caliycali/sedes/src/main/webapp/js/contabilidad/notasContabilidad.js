@@ -1,7 +1,5 @@
 $(document).ready(function() {
-    var nombreBeneficiario = "";
     var idBeneficiario = "";
-    var nombreProveedor = "";
     var idProveedor = "";
     var valorCampoIdCuenta = "";
     var valorCampoIdFactura = "";
@@ -9,6 +7,7 @@ $(document).ready(function() {
     var valorFechaFactura = "";
     var valorFactura = "";
 
+    $("#sede").val($("#idSede option:selected").text());
     $(".fechaInicial").datepicker({
         dateFormat: "yy-mm-dd",
         onClose: function(fechaSeleccionada) {
