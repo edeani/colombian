@@ -31,12 +31,11 @@
             <div class="clear"></div>
             <div class="clear"></div>
             <div style="position: relative; margin-left: 115px;">
-                <label style="display: none;">
+                <label>
                     Sede
                     <form:select path="idSede">
                         <option value="">Seleccionar</option>
-                        <c:import url="/sedes/ajax/seleccionarSede.htm">
-                            <c:param name="idSede" value="1"></c:param>
+                        <c:import url="/sedes/ajax/listaSedeSelect.htm">
                         </c:import>
                     </form:select>
                     <form:input path="sede" type="hidden"/>

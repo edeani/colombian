@@ -20,13 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/notas")
-public class NotasController extends BaseController{
-    
+public class NotasController extends BaseController {
+
     @Autowired
     private NotasDebitoService notasDebitoService;
-    
+
     @RequestMapping("/debito.htm")
-    public ModelAndView indexDebito(){
+    public ModelAndView indexDebito() {
         ModelAndView mav = new ModelAndView("contabilidad/notas/debito");
         NotasDto notasDto = new NotasDto();
         setBasicModel(mav, notasDto);
@@ -34,20 +34,23 @@ public class NotasController extends BaseController{
         mav.addObject("titulo", "Notas Debito");
         return mav;
     }
-    
+
     @RequestMapping("/debito/guardar.htm")
-    public @ResponseBody String guardarNotasDebito(@ModelAttribute NotasDto notasDto){
+    public @ResponseBody
+    String guardarNotasDebito(@ModelAttribute NotasDto notasDto) {
         try {
-            notasDebitoService.guardarNotaDebito(notasDto.getSede(), notasDto);
+            getPropiedades().setArchivo(getArchivo());
+            getPropiedades().setPropiedad(getPropiedadPrincipal());
+            notasDebitoService.guardarNotaDebito(getPropiedades().leerPropiedad(), notasDto);
         } catch (Exception e) {
-            System.out.println("Error guardarNotasDebito::"+e.getMessage());
+            System.out.println("Error guardarNotasDebito::" + e.getMessage());
             return "Error";
         }
         return "ok";
     }
-    
+
     @RequestMapping("/credito.htm")
-    public ModelAndView indexCredito(){
+    public ModelAndView indexCredito() {
         ModelAndView mav = new ModelAndView("contabilidad/notas/credito");
         NotasDto notasDto = new NotasDto();
         setBasicModel(mav, notasDto);
@@ -55,13 +58,16 @@ public class NotasController extends BaseController{
         mav.addObject("titulo", "Notas Cr&eacute;dito");
         return mav;
     }
-    
+
     @RequestMapping("/credito/guardar.htm")
-    public @ResponseBody String guardarNotasCredito(@ModelAttribute NotasDto notasDto){
+    public @ResponseBody
+    String guardarNotasCredito(@ModelAttribute NotasDto notasDto) {
         try {
-            notasDebitoService.guardarNotaCredito(notasDto.getSede(), notasDto);
+            getPropiedades().setArchivo(getArchivo());
+            getPropiedades().setPropiedad(getPropiedadPrincipal());
+            notasDebitoService.guardarNotaCredito(getPropiedades().leerPropiedad(), notasDto);
         } catch (Exception e) {
-            System.out.println("Error guardarNotasCredito::"+e.getMessage());
+            System.out.println("Error guardarNotasCredito::" + e.getMessage());
             return "Error";
         }
         return "ok";
