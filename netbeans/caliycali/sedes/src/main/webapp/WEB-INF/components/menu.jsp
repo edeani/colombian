@@ -52,6 +52,8 @@
                         <li><a href='<%=request.getContextPath()%>/cajamenor/proveedor/index.htm'><span>Pagos Proveedor</span></a></li>
                         <li><a href='<%=request.getContextPath()%>/cajamenor/sede/consolidado/index.htm'><span>Pagos Porcentaje Sedes</span></a></li>
                         <li><a href='<%=request.getContextPath()%>/cajamenor/reporte/index.htm'><span>Movimiento Bancos</span></a></li>
+                        <li><a href='<%=request.getContextPath()%>/notas/debito.htm'><span>Notas Debito</span></a></li>
+                        <li><a href='<%=request.getContextPath()%>/notas/credito.htm'><span>Notas Cr&eacute;dito</span></a></li>
                     </ul>
                 </li>
                 <li class='has-sub'><a href='#'><span>Estado P&eacute;rdida Ganancias</span></a>
