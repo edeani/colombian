@@ -299,8 +299,13 @@ public class ReportesDaoImpl implements ReportesDao {
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(String nameDataSource, String fechaInicial, String fechaFinal) {
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
         String sql = "select 'Ingresos'as nombre,case when sub0.total_ingresos is null then 0 else sub0.total_ingresos end as totalCuenta from( "
-                + "select sum(dcs.total) as total_ingresos from detalle_cierre_sedes dcs "
+                + "select sum(si.total) as total_ingresos from( "
+                + "select 'Ingresos' as nombre, dcs.total as total  from detalle_cierre_sedes dcs "
                 + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
+                + " union all "
+                + " select 'Notas Debito' as nombre, total from notas_debito "
+                + " where fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
+                + ")si "
                 + ")sub0 "
                 + "union all "
                 + "select 'Pagos',-1*sum(sub1.total) as total from( "
@@ -340,8 +345,13 @@ public class ReportesDaoImpl implements ReportesDao {
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisionalXSede(String nameDataSource, String fechaInicial, String fechaFinal, Long idSede) {
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
         String sql = "select 'Ingresos'as nombre,case when sub0.total_ingresos is null then 0 else sub0.total_ingresos end as totalCuenta from( "
-                + "select sum(dcs.total) as total_ingresos from detalle_cierre_sedes dcs "
-                + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dcs.idsede=" + idSede + " "
+                + "select sum(si.total) as total_ingresos from( "
+                + "select 'Ingresos' as nombre, dcs.total as total  from detalle_cierre_sedes dcs "
+                + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dcs.idsede=" + idSede
+                + " union all "
+                + " select 'Notas Debito' as nombre, total from notas_debito "
+                + " where fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and idsede=" + idSede + " "
+                + ")si "
                 + ")sub0 "
                 + "union all "
                 + "select 'Pagos',-1*sum(sub1.total) as total from( "
