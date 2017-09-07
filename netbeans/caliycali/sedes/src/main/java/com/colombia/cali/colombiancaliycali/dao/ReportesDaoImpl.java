@@ -451,6 +451,9 @@ public class ReportesDaoImpl implements ReportesDao {
                     "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
                     "union " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
+                    //Sumamos notas credito a los gastos o pagos
+                    " union " +
+                    "select cuenta,sum(total) as total from notas_credito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+"  group by cuenta  "+
                     ")sub group by sub.cuenta " +
                     ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
                 + "union all "+
@@ -461,7 +464,10 @@ public class ReportesDaoImpl implements ReportesDao {
                     "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
                     "union " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
-                    ")sub group by sub.cuenta " +
+                    //Sumamos notas debito a los ingresos
+                    " union " +
+                    "select cuenta,sum(total) as total from notas_debito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+"  group by cuenta  "
+                + ")sub group by sub.cuenta " +
                     ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
                 + "union all "
                 +" select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total,6 as tipo  " +
