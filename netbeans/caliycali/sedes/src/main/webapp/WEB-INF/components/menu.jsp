@@ -48,9 +48,9 @@
                 </li>
                 <li class='has-sub'><a href='#'><span>Bancos</span></a>
                     <ul>
-                        <li><a href='<%=request.getContextPath()%>/cajamenor/terceros/index.htm'><span>Pagos Terceros</span></a></li>
-                        <li><a href='<%=request.getContextPath()%>/cajamenor/proveedor/index.htm'><span>Pagos Proveedor</span></a></li>
-                        <li><a href='<%=request.getContextPath()%>/cajamenor/sede/consolidado/index.htm'><span>Pagos Porcentaje Sedes</span></a></li>
+                        <li><a href='<%=request.getContextPath()%>/cajamenor/terceros/index.htm'><span>Pagos Terceros Bancos</span></a></li>
+                        <li><a href='<%=request.getContextPath()%>/cajamenor/proveedor/index.htm'><span>Pagos Proveedor Bancos</span></a></li>
+                        <li><a href='<%=request.getContextPath()%>/cajamenor/sede/consolidado/index.htm'><span>Pagos Porcentaje Bancos</span></a></li>
                         <li><a href='<%=request.getContextPath()%>/cajamenor/reporte/index.htm'><span>Movimiento Bancos</span></a></li>
                         <li><a href='<%=request.getContextPath()%>/notas/debito.htm'><span>Notas Debito</span></a></li>
                         <li><a href='<%=request.getContextPath()%>/notas/credito.htm'><span>Notas Cr&eacute;dito</span></a></li>

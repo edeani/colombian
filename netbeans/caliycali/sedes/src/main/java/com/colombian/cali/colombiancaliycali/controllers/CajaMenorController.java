@@ -205,7 +205,7 @@ public class CajaMenorController extends BaseController {
         ModelAndView mav = new ModelAndView("reportes/consolidado/cajamenor/cajaMenor");
         mav.addObject("fechaInicial", new Date());
         mav.addObject("fechaFinal", new Date());
-        mav.addObject("titulo", "Reporte de Caja Menor");
+        mav.addObject("titulo", "Reporte Movimientos Bancos");
         return mav;
     }
 
