@@ -14,7 +14,7 @@
     <script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/contabilidad/cuentasBeneficiarios.js?id=1" type="text/javascript"></script>
 </head> 
-<div id="tituloPagina">Pagos Proveedor Caja Menor</div>
+<div id="tituloPagina">Pagos Proveedor Bancos</div>
 <div id="formProveedor" data-url="${pageContext.servletContext.contextPath}/cajamenor/ajax/secuencia.htm">     
     <input id="cuentaProveedores" value="${cuentaProveedores}" type="hidden">
     <form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/cajamenor/proveedores/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/cajamenor/ajax/proveedor/guardar.htm" >

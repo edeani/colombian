@@ -18,6 +18,7 @@ public class MovimientoCajaMapper {
 
     private static final String cuenta_deber_caja_mayor = "11050501";
     private static final String cuenta_deber_caja_menor = "11051001";
+    private static final String cuenta_deber_pagos_t = "11201010";
     public MovimientoCajaDto comprobanteConsolidadoSedeDtoToMovimietoCajaMayorDto(ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeDto) {
         MovimientoCajaDto movimientoCajaMayorDto = new MovimientoCajaDto();
         movimientoCajaMayorDto.setConcepto(comprobanteConsolidadoSedeDto.getConcepto());
@@ -33,7 +34,8 @@ public class MovimientoCajaMapper {
     public MovimientoCajaDto comprobanteConsolidadoSedeDtoToMovimietoCajaMenorDto(ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeDto) {
         MovimientoCajaDto movimientoCajaMayorDto = new MovimientoCajaDto();
         movimientoCajaMayorDto.setConcepto(comprobanteConsolidadoSedeDto.getConcepto());
-        if (comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_caja_menor)) {
+        if (comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_caja_menor)
+               || comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_pagos_t)) {
             movimientoCajaMayorDto.setHaber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
         } else {
             movimientoCajaMayorDto.setDeber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());

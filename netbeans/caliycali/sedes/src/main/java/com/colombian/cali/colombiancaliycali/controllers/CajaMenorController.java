@@ -96,7 +96,7 @@ public class CajaMenorController extends BaseController {
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdcajamenor());
                 if(titulo.isEmpty()){
-                   parameterMap.put("titulo", "Comprobante Terceros Caja Menor");
+                   parameterMap.put("titulo", "Comprobante Terceros Bancos");
                 }else{
                     parameterMap.put("titulo", titulo);
                 }
@@ -223,7 +223,7 @@ public class CajaMenorController extends BaseController {
             parameterMap.put("fechaInicio", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFin", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
-            parameterMap.put("titulo", "Libro Auxiliar de Caja Menor");
+            parameterMap.put("titulo", "Libro Movimiento Bancos");
             mav = new ModelAndView("movimientoCaja", parameterMap);
 
         }

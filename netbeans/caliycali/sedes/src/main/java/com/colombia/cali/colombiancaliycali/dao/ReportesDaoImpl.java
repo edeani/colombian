@@ -255,9 +255,18 @@ public class ReportesDaoImpl implements ReportesDao {
         try {
             String sql = "select a.* from(" + caliycaliDao.selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idcajamenor as idComprobante",
                     "detalle_caja_menor", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
-                    + " union all "
+                    + " union "
                     + caliycaliDao.selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idpago",
                             "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11051001'")
+                    + " union "
+                    + " select consecutivo,idcuenta,concepto,total,fecha,idcomprobantecierre "
+                    + " from detalle_cierre_sedes where fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11201010'"
+                    + " union "
+                    + " select cons as consecutivo,'11201010' as idcuenta,concepto,total,fecha,cons "
+                    + " from notas_credito where fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
+                    + " union "
+                    + " select cons as consecutivo,cuenta as idcuenta,concepto,total,fecha,cons "
+                    + " from notas_debito where fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
                     + ")a order by fecha,idComprobante");
             movimientos = this.jdbctemplate.query(sql, new BeanPropertyRowMapper<ComprobanteConsolidadoSedeDto>(ComprobanteConsolidadoSedeDto.class));
         } catch (DataAccessException e) {
