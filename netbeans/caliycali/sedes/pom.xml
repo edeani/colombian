@@ -192,7 +192,8 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>5.0.1</version>
+            <version>5.5.0</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
