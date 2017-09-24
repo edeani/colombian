@@ -11,11 +11,14 @@ import com.colombia.cali.colombiancaliycali.dao.generic.CaliycaliDaoImpl;
 import com.colombia.cali.colombiancaliycali.util.Formatos;
 import com.colombian.cali.colombiancaliycali.dto.DetalleCompraDTO;
 import com.colombian.cali.colombiancaliycali.dto.DetalleFacturaDTO;
+import com.colombian.cali.colombiancaliycali.dto.ItemFacturaDto;
 import com.colombian.cali.colombiancaliycali.entidades.Compras;
 import com.colombian.cali.colombiancaliycali.entidades.Factura;
 import com.colombian.cali.colombiancaliycali.entidades.FacturasCompras;
 import com.colombian.cali.colombiancaliycali.entidades.FacturasProcesadasCuentas;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -131,5 +134,23 @@ public class FacturaMapper {
         factura.setTotalFactura(compra.getTotalFactura());
         
         return factura;
+    }
+    
+    public static List<ItemFacturaDto> stringFacturaToIteFacturaDto(String factura){
+        String[] fila = factura.split("@");
+        List<ItemFacturaDto> detalleFactura = new ArrayList<ItemFacturaDto>();
+        for (String string : fila) {
+            String[] datosFila = string.split(",");
+            ItemFacturaDto item = new ItemFacturaDto();
+            item.setCodigoProducto(Integer.valueOf(datosFila[0]));
+            item.setDescripcion(datosFila[1]);
+            item.setUnidades(Integer.valueOf(datosFila[2]));
+            item.setValorTotal(Float.valueOf(datosFila[4]));
+            item.setValorUnitario(Float.valueOf(datosFila[3]));
+            detalleFactura.add(item);
+        }
+            
+            return detalleFactura;
+ 
     }
 }
