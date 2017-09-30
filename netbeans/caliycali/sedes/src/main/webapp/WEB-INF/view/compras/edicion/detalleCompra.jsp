@@ -39,6 +39,13 @@
                 <form:input readonly="readonly"  path="estadoCompraProveedor"></form:input>
                     <label>Saldo</label>
                 <form:input readonly="readonly"  path="saldo"></form:input>
+                <label>Impresora</label>
+                <select id="impresora" name="impresora">
+                    <option value="">Seleccionar</option>
+                    <c:forEach items="${impresoras}" var="printer">
+                        <option value="${printer}" <c:if test="${printer eq defaultPrinter}">selected="selected"</c:if>>${printer}</option>
+                    </c:forEach>
+                </select>
                 </div>
                 <div id="cargador"></div>
                 <div class="clear"></div>

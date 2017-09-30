@@ -169,8 +169,7 @@ public class ComprasController extends BaseController {
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
         propiedades.setPropiedad(getPropiedadPrincipal());
-
-        //comprasService.guardarCompra(propiedades.leerPropiedad(), detalleCompraDTO);
+        comprasService.guardarCompra(propiedades.leerPropiedad(), detalleCompraDTO);
         imprimirFactura(detalleCompraDTO);
         return new ModelAndView("redirect:/compras/home.htm");
     }
@@ -464,7 +463,6 @@ public class ComprasController extends BaseController {
                     parametros, beanCollectionDataSource);
             
             LectorPropiedades lector = new LectorPropiedades();
-            lector.setArchivo("/bd/proyecto.properties");
             PrintService selectedService = PrintUtil.findPrintService(detalleCompraDTO.getImpresora());
             if (selectedService != null) {
                 PrinterJob printerJob = PrinterJob.getPrinterJob();
