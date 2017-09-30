@@ -9,6 +9,7 @@ import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.List;
 import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 
 /**
  *
@@ -49,10 +50,19 @@ public class PrintUtil {
         List<String> list = new ArrayList<String>();
         if (null != services) {
             for (PrintService service : services) {
-                list.add(service.getName());
+                String nombrePrint = service.getName();
+                int indexName = nombrePrint.lastIndexOf("\\");
+                if(indexName!=-1){
+                    nombrePrint = nombrePrint.substring(indexName+1);
+                }
+                list.add(nombrePrint);
             }
         }
 
         return list;
+    }
+    
+    public static PrintService getDefaultPrinter(){
+        return PrintServiceLookup.lookupDefaultPrintService();
     }
 }

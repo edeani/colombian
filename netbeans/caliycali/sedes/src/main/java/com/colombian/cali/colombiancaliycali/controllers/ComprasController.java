@@ -53,6 +53,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -464,10 +465,9 @@ public class ComprasController extends BaseController {
             
             LectorPropiedades lector = new LectorPropiedades();
             lector.setArchivo("/bd/proyecto.properties");
-            PrintService selectedService = PrintUtil.findPrintService(lector.leerPropiedad("impresora"));
+            PrintService selectedService = PrintUtil.findPrintService(detalleCompraDTO.getImpresora());
             if (selectedService != null) {
                 PrinterJob printerJob = PrinterJob.getPrinterJob();
-                PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
                 try {
                     printerJob.setPrintService(selectedService);
                 } catch (PrinterException ex) {
@@ -483,5 +483,20 @@ public class ComprasController extends BaseController {
         } catch (JRException ex) {
             Logger.getLogger(ComprasController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @ModelAttribute("impresoras")
+    public List<String> listPrinter(){
+        return PrintUtil.getPrinterServiceNameList();
+    }
+    
+    @ModelAttribute("defaultPrinter")
+    public String defaultPrinter(){
+        String pDefault = PrintUtil.getDefaultPrinter().getName();
+        int indexName = pDefault.lastIndexOf("\\");
+        if(indexName!=-1){
+            pDefault = pDefault.substring(indexName+1);
+        }
+        return pDefault;
     }
 }

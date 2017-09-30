@@ -17,6 +17,7 @@ public class DetalleCompraDTO {
     private String fechaVencimiento;
     private String fecha;
     private String estadoCompraProveedor;
+    private String impresora;
     private Double saldo;
     private Long idFacturaCompra;
     private Long idsede;
@@ -123,5 +124,13 @@ public class DetalleCompraDTO {
     public void setIdsede(Long idsede) {
         this.idsede = idsede;
     }
-    
+
+    public String getImpresora() {
+        return impresora;
+    }
+
+    public void setImpresora(String impresora) {
+        this.impresora = impresora;
+    }
+        
 }

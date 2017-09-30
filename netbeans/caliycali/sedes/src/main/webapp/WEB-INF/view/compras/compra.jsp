@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
 <script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"> </script>
@@ -32,6 +33,7 @@
                 Fecha Vencimiento
             </label>
                 <form:input path="fechaVencimiento" class="fechaVencimiento"/>
+                </br>
             <label>Sede
                 <select id="idsede" name="idsede" style="width: 155px;">
                     <option value="">Seleccionar</option>
@@ -39,7 +41,17 @@
                     </c:import>
                 </select>
             </label>
-            </div>
+            <label>
+                Impresora
+            </label>
+            <select id="impresora" name="impresora">
+                <option value="">Seleccionar</option>
+                <c:forEach items="${impresoras}" var="printer">
+                    <option value="${printer}" <c:if test="${printer eq defaultPrinter}">selected="selected"</c:if>>${printer}</option>
+                </c:forEach>
+            </select>
+        </div>
+            
         <div class="clear"></div>
         <div class="clear"></div>
         <div class="clear"></div>
