@@ -32,7 +32,7 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <!-- Popayan -->
     <properties>
-      <!-- property name="javax.persistence.jdbc.url" value="jdbc:mysql://190.25.44.46:3306/buffalosgranestacion?zeroDateTimeBehavior=convertToNull"/-->
+      <!--property name="javax.persistence.jdbc.url" value="jdbc:mysql://190.25.44.46:3306/buffalosgranestacion?zeroDateTimeBehavior=convertToNull"/-->
          <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.23:3306/buffalosgranestacion?zeroDateTimeBehavior=convertToNull"/>
         <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

@@ -39,13 +39,7 @@
                 <form:input readonly="readonly"  path="estadoCompraProveedor"></form:input>
                     <label>Saldo</label>
                 <form:input readonly="readonly"  path="saldo"></form:input>
-                <label>Impresora</label>
-                <select id="impresora" name="impresora">
-                    <option value="">Seleccionar</option>
-                    <c:forEach items="${impresoras}" var="printer">
-                        <option value="${printer}" <c:if test="${printer eq defaultPrinter}">selected="selected"</c:if>>${printer}</option>
-                    </c:forEach>
-                </select>
+                <input type="hidden" id="impresora" name="impresora" value=""/>
                 </div>
                 <div id="cargador"></div>
                 <div class="clear"></div>
@@ -124,7 +118,10 @@
                             <td></td>
                             <td></td>
                             <td colspan="4" align="right">
+                                <input type="button" id="pre-actualizar" value="Actualizar" >
+                                <div style="display: none;">
                                 <input type="button" id="actualizar" value="Actualizar" >
+                                </div>
                                 <!input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                     <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                     </td>

@@ -36,7 +36,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -67,7 +66,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/compras")
 public class ComprasController extends BaseController {
-    
+
     @Autowired
     private ComprasService comprasService;
     @Autowired
@@ -80,7 +79,7 @@ public class ComprasController extends BaseController {
     private SecurityService securityService;
     private LectorPropiedades propiedades;
     private static final String titulo = "Entradas Compras";
-    
+
     @RequestMapping("/home.htm")
     public ModelAndView cargarCompras(HttpSession session) {
         ModelAndView mav = new ModelAndView("compras/compra");
@@ -88,15 +87,15 @@ public class ComprasController extends BaseController {
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
         propiedades.setPropiedad(getPropiedadPrincipal());
-        
+
         List<ItemsDTO> proveedores = comprasService.listaProveedores(propiedades.leerPropiedad());
         DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
-        
+
         mav.addObject("titulo", titulo);
         setBasicModel(mav, detalleCompraDTO);
         return mav;
     }
-    
+
     @RequestMapping("/edicion.htm")
     public ModelAndView editarCompras() {
         ModelAndView mav = new ModelAndView("compras/edicion/compra");
@@ -104,9 +103,9 @@ public class ComprasController extends BaseController {
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
         propiedades.setPropiedad(getPropiedadPrincipal());
-        
+
         DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
-        
+
         mav.addObject("titulo", titulo);
         setBasicModel(mav, detalleCompraDTO);
         return mav;
@@ -129,7 +128,7 @@ public class ComprasController extends BaseController {
             return "false";
         }
     }
-    
+
     @RequestMapping("/ajax/buscar/compra.htm")
     public ModelAndView buscarCompras(@RequestParam(value = "idcompra") Long idcompra) {
         ModelAndView mav = new ModelAndView("compras/edicion/detalleCompra");
@@ -146,7 +145,7 @@ public class ComprasController extends BaseController {
         }
         if (numeroCompras > 0) {
             Proveedor proveedor = comprasService.getProveedor(propiedades.leerPropiedad(), Long.parseLong(detalleCompraDTO.getCodigoProveedor()));
-            
+
             mav.addObject("detalleCompraDTO", detalleCompraDTO);
             mav.addObject("detalleCompras", detalleCompras);
             mav.addObject("sproveedor", proveedor.getNombre());
@@ -159,10 +158,10 @@ public class ComprasController extends BaseController {
             setBasicModel(mav, detalleCompraDTO);
             //mav = new ModelAndView("redirect:/compras/edicion.htm");
         }
-        
+
         return mav;
     }
-    
+
     @RequestMapping("/guardar.htm")
     public ModelAndView guardarCompras(@Valid DetalleCompraDTO detalleCompraDTO) {
         //bd principal
@@ -173,7 +172,7 @@ public class ComprasController extends BaseController {
         imprimirFactura(detalleCompraDTO);
         return new ModelAndView("redirect:/compras/home.htm");
     }
-    
+
     @RequestMapping("/actualizar.htm")
     public ModelAndView actualizarCompras(@Valid DetalleCompraDTO detalleCompraDTO) {
         //bd principal
@@ -185,78 +184,78 @@ public class ComprasController extends BaseController {
         imprimirFactura(detalleCompraDTO);
         return new ModelAndView("redirect:/compras/edicion.htm");
     }
-    
+
     @RequestMapping(value = "/ajax/avencer.htm")
     public ModelAndView buscarComprasAVencer(Long idProveedor) {
-        
+
         ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/comprasAVencer");
         List<Compras> compras = comprasService.comprasAVencer(getPropiedades().leerPropiedad(), 0, idProveedor);
         ComprasMapper comprasMapper = new ComprasMapper();
         List<ComprasDto> comprasPendientes = comprasMapper.comprasListaTOComprasDto(compras);
         mav.addObject("comprasPendientes", comprasPendientes);
-        
+
         return mav;
     }
 
     @RequestMapping(value = "/reportes/comprasTotales.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotales(@RequestParam(required = false, value = "mensaje") String mensaje) {
-        
+
         ModelAndView mav = new ModelAndView("reportes/compras/comprasTotales");
-        
+
         mav.addObject("fechaInicial", new Date());
         mav.addObject("fechaFinal", new Date());
         mav.addObject("titulo", "Reporte compras totales");
         mav.addObject("mensaje", mensaje);
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasTotalesProducto.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProducto(@RequestParam(required = false, value = "mensaje") String mensaje) {
-        
+
         ModelAndView mav = new ModelAndView("reportes/compras/compraTotalProducto");
-        
+
         mav.addObject("fechaInicial", new Date());
         mav.addObject("fechaFinal", new Date());
         mav.addObject("titulo", "Reporte compras totales producto");
         mav.addObject("mensaje", mensaje);
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasTotalesProveedores.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProveedores(@RequestParam(required = false, value = "mensaje") String mensaje) {
-        
+
         ModelAndView mav = new ModelAndView("reportes/compras/comprasTotalProveedores");
-        
+
         mav.addObject("fechaInicial", new Date());
         mav.addObject("fechaFinal", new Date());
         mav.addObject("titulo", "Reporte compras totales");
         mav.addObject("mensaje", mensaje);
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/cuentasPagarProveedor.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reportePagarProveedores(@RequestParam(required = false, value = "mensaje") String mensaje) {
-        
+
         ModelAndView mav = new ModelAndView("reportes/compras/cuentasPagarProveedor");
-        
+
         mav.addObject("fechaInicial", new Date());
         mav.addObject("fechaFinal", new Date());
         mav.addObject("titulo", "Reporte compras totales");
         mav.addObject("mensaje", mensaje);
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasTotalesProveedor.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProveedor(@RequestParam(required = false, value = "mensaje") String mensaje) {
-        
+
         ModelAndView mav = new ModelAndView("reportes/compras/comprasTotalesProveedor");
         //bd principal
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
         propiedades.setPropiedad(getPropiedadPrincipal());
-        
+
         List<ItemsDTO> proveedores = comprasService.listaProveedores(propiedades.leerPropiedad());
-        
+
         mav.addObject("fechaInicial", new Date());
         mav.addObject("fechaFinal", new Date());
         mav.addObject("proveedores", proveedores);
@@ -265,12 +264,12 @@ public class ComprasController extends BaseController {
         //setBasicModel(mav, comprasTotalesProveedorDTO);
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasProveedorFecha.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasProveedorFecha(@RequestParam(required = false, value = "mensaje") String mensaje) {
-        
+
         ModelAndView mav = new ModelAndView("reportes/compras/comprasProveedoresFecha");
-        
+
         mav.addObject("fechaInicial", new Date());
         mav.addObject("fechaFinal", new Date());
         mav.addObject("titulo", "Reporte compras proveedor fecha");
@@ -278,12 +277,12 @@ public class ComprasController extends BaseController {
         //setBasicModel(mav, comprasTotalesProveedorDTO);
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasProveedorFechaPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasProveedorFechaPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
         ModelAndView mav = null;
-        
+
         List<ComprasProveedorFechaDto> reporte = comprasService.reporteComprasProveedorFechaDto(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal);
         if (reporte != null) {
             if (reporte.size() > 0) {
@@ -298,15 +297,15 @@ public class ComprasController extends BaseController {
         }
         mav = new ModelAndView("redirect:/compras/reportes/comprasProveedorFecha.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
-        
+
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasTotalesPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
         ModelAndView mav = null;
-        
+
         List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotales(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal, "A");
         if (comprasTotales != null) {
             if (comprasTotales.size() > 0) {
@@ -321,10 +320,10 @@ public class ComprasController extends BaseController {
         }
         mav = new ModelAndView("redirect:/compras/reportes/comprasTotales.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
-        
+
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasTotalesProductoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProductoPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
@@ -343,10 +342,10 @@ public class ComprasController extends BaseController {
         }
         mav = new ModelAndView("redirect:/compras/reportes/comprasTotalesProducto.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
-        
+
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasTotalesProveedorPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
@@ -367,10 +366,10 @@ public class ComprasController extends BaseController {
         }
         mav = new ModelAndView("redirect:/compras/reportes/comprasTotalesProveedor.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
-        
+
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/comprasTotalXProveedorPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalXProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
@@ -391,10 +390,10 @@ public class ComprasController extends BaseController {
         }
         mav = new ModelAndView("redirect:/compras/reportes/comprasTotalesProveedores.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
-        
+
         return mav;
     }
-    
+
     @RequestMapping(value = "/reportes/cuentasPagarProveedorPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteCuentasPagarProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
@@ -415,7 +414,7 @@ public class ComprasController extends BaseController {
         }
         mav = new ModelAndView("redirect:/compras/reportes/cuentasPagarProveedor.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
-        
+
         return mav;
     }
 
@@ -433,7 +432,7 @@ public class ComprasController extends BaseController {
     @RequestMapping("/colombian/reportes/compraspdf.htm")
     public ModelAndView generarComprasColombian(@RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
         ModelAndView mav = null;
-        
+
         List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal));
         if (reporte != null) {
             if (reporte.size() > 0) {
@@ -449,8 +448,13 @@ public class ComprasController extends BaseController {
         }
         return mav;
     }
-    
-    private void imprimirFactura(DetalleCompraDTO detalleCompraDTO){
+
+    @RequestMapping("/ajax/impresoras.htm")
+    public ModelAndView jspImpresoras() {
+        return new ModelAndView("impresoras/printers");
+    }
+
+    private void imprimirFactura(DetalleCompraDTO detalleCompraDTO) {
         List<ItemFacturaDto> detalleFactura = FacturaMapper.stringFacturaToIteFacturaDto(detalleCompraDTO.getFactura());
         JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(detalleFactura);
         InputStream input = this.getClass().getResourceAsStream("/reportes/factura.jrxml");
@@ -461,7 +465,7 @@ public class ComprasController extends BaseController {
             parametros.put("usuario", securityService.getCurrentUser().getUsername());
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,
                     parametros, beanCollectionDataSource);
-            
+
             LectorPropiedades lector = new LectorPropiedades();
             PrintService selectedService = PrintUtil.findPrintService(detalleCompraDTO.getImpresora());
             if (selectedService != null) {
@@ -482,18 +486,18 @@ public class ComprasController extends BaseController {
             Logger.getLogger(ComprasController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @ModelAttribute("impresoras")
-    public List<String> listPrinter(){
+    public List<String> listPrinter() {
         return PrintUtil.getPrinterServiceNameList();
     }
-    
+
     @ModelAttribute("defaultPrinter")
-    public String defaultPrinter(){
+    public String defaultPrinter() {
         String pDefault = PrintUtil.getDefaultPrinter().getName();
         int indexName = pDefault.lastIndexOf("\\");
-        if(indexName!=-1){
-            pDefault = pDefault.substring(indexName+1);
+        if (indexName != -1) {
+            pDefault = pDefault.substring(indexName + 1);
         }
         return pDefault;
     }

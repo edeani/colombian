@@ -6,12 +6,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
+<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-confirm.css">
+<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-confirm.less">
 <script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"> </script>
 <script src="<%=request.getContextPath()%>/js/compras/compras.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"> </script>
-<script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"> </script>
+<script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
+<!--script src="<%=request.getContextPath()%>/js/jquery-confirm.js" type="text/javascript"></script-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 
 <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/guardar.htm" data-verificacion="${pageContext.servletContext.contextPath}/compras/ajax/verificar/compra.htm" >
     <div id="contenidoHome"> 
@@ -41,15 +46,7 @@
                     </c:import>
                 </select>
             </label>
-            <label>
-                Impresora
-            </label>
-            <select id="impresora" name="impresora">
-                <option value="">Seleccionar</option>
-                <c:forEach items="${impresoras}" var="printer">
-                    <option value="${printer}" <c:if test="${printer eq defaultPrinter}">selected="selected"</c:if>>${printer}</option>
-                </c:forEach>
-            </select>
+            <input type="hidden" id="impresora" name="impresora" value=""/>
         </div>
             
         <div class="clear"></div>
@@ -100,7 +97,10 @@
                         <td></td>
                         <td></td>
                         <td colspan="4" align="right">
-                            <input type="button" id="facturar" value="Facturar" >
+                            <input type="button" id="pre-facturar" value="Facturar" >
+                            <div style="display: none;">
+                                <input type="button" id="facturar" value="Facturar" >
+                            </div>
                             <!input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                 <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                 </td>

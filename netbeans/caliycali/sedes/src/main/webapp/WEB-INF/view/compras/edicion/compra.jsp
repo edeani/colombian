@@ -10,6 +10,8 @@
 <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 <div id="contenidoCompra">
     <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
     <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/guardar.htm" >
