@@ -4,6 +4,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="proveedor" class="java.lang.String"/>
+	<parameter name="numeroFactura" class="java.lang.String"/>
 	<field name="codigoProducto" class="java.lang.Integer"/>
 	<field name="descripcion" class="java.lang.String"/>
 	<field name="unidades" class="java.lang.Integer"/>
@@ -16,26 +18,43 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="53" splitType="Stretch">
+		<band height="75" splitType="Stretch">
 			<staticText>
-				<reportElement x="35" y="0" width="160" height="20" uuid="b3cabcc4-7228-4964-afd6-eeb08101c8d7"/>
+				<reportElement x="42" y="0" width="121" height="20" uuid="b3cabcc4-7228-4964-afd6-eeb08101c8d7"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Colombian Broaster]]></text>
+				<text><![CDATA[Ingreso Facturas]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="65" y="24" width="100" height="13" uuid="af666890-6d67-498a-b25c-5ed4e08b7a7a"/>
+				<reportElement x="1" y="39" width="204" height="13" uuid="af666890-6d67-498a-b25c-5ed4e08b7a7a"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="57" y="56" width="148" height="13" uuid="00fced4b-dfd4-4125-8934-723619c2fd41"/>
+				<textFieldExpression><![CDATA[$P{proveedor}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="25" y="37" width="180" height="15" uuid="46cd3d03-2163-45cb-84ac-d2b9b296bc91"/>
-				<textElement>
-					<font size="10"/>
-				</textElement>
-				<text><![CDATA[Nit. 23123125 Régimen Simplificado]]></text>
+				<reportElement x="1" y="56" width="52" height="13" uuid="5e796845-b479-4466-82a2-3b3aade0134e"/>
+				<text><![CDATA[Proveedor:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="20" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1926d026-0d8f-4baf-a696-a1d2c5247ce0"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="35" y="20" width="170" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="81252154-995b-4af2-9db4-e42659abdc82"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numeroFactura}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -192,14 +211,14 @@
 	<summary>
 		<band height="47" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="12" width="118" height="20" uuid="a9e678f7-fe46-475e-ae2f-913030a292ea"/>
+				<reportElement x="0" y="12" width="94" height="20" uuid="a9e678f7-fe46-475e-ae2f-913030a292ea"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total a Pagar - >]]></text>
 			</staticText>
 			<textField pattern="$#,##0">
-				<reportElement x="139" y="11" width="91" height="25" uuid="28148ec7-5c80-4662-9df7-491e1f4bf053"/>
+				<reportElement x="104" y="12" width="91" height="25" uuid="28148ec7-5c80-4662-9df7-491e1f4bf053"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>

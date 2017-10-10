@@ -231,6 +231,7 @@ $(document).ready(function () {
                     text: "aceptar",
                     action: function () {
                         $("#impresora").val($("#confirm-impresora").val());
+                        $("#nombreProveedor").val($("#codigoProveedor option:selected").text());
                         this.close();
                         $("#facturar").click();
                     }

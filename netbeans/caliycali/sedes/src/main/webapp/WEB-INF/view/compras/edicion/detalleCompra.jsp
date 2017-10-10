@@ -18,6 +18,7 @@
                 </label>
                 <form:input readonly="readonly" type="hidden" path="codigoProveedor"></form:input>
                 <input id="nameProveedor" value="${sproveedor}"/>
+                <input type="hidden" value="${sproveedor}" id="nombreProveedor" name="nombreProveedor"/>
                 <label>Sede
                     <select id="idsede" name="idsede" style="width: 155px;">
                         <option value="">Seleccionar</option>

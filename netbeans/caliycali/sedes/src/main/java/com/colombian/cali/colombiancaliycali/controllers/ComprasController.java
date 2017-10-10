@@ -36,12 +36,19 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.print.PrintService;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.HashPrintServiceAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.PrintServiceAttributeSet;
+import javax.print.attribute.standard.Copies;
+import javax.print.attribute.standard.PrinterName;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -49,6 +56,8 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
+import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -463,28 +472,35 @@ public class ComprasController extends BaseController {
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
             Map<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("usuario", securityService.getCurrentUser().getUsername());
+            parametros.put("proveedor",detalleCompraDTO.getNombreProveedor());
+            parametros.put("numeroFactura", detalleCompraDTO.getNumeroFactura());
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,
                     parametros, beanCollectionDataSource);
 
             LectorPropiedades lector = new LectorPropiedades();
             PrintService selectedService = PrintUtil.findPrintService(detalleCompraDTO.getImpresora());
-            if (selectedService != null) {
-                PrinterJob printerJob = PrinterJob.getPrinterJob();
-                try {
-                    printerJob.setPrintService(selectedService);
-                } catch (PrinterException ex) {
-                    Logger.getLogger(ComprasController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                boolean printSucceed = JasperPrintManager.printReport(jasperPrint, false);
-                if (printSucceed) {
-                    System.out.println("Imprimí");
-                } else {
-                    System.out.println("Try again");
-                }
-            }
+            
+            PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
+            // printRequestAttributeSet.add(MediaSizeName.ISO_A4); //setting page size
+            printRequestAttributeSet.add(new Copies(1));
+
+            PrinterName printerName = new PrinterName(selectedService.getName(), null); //gets printer 
+
+            PrintServiceAttributeSet printServiceAttributeSet = new HashPrintServiceAttributeSet();
+            printServiceAttributeSet.add(printerName);
+
+            JRPrintServiceExporter exporter = new JRPrintServiceExporter();
+
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRPrintServiceExporterParameter.PRINT_REQUEST_ATTRIBUTE_SET, printRequestAttributeSet);
+            exporter.setParameter(JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, printServiceAttributeSet);
+            exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
+            exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
+            exporter.exportReport();
         } catch (JRException ex) {
             Logger.getLogger(ComprasController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @ModelAttribute("impresoras")

@@ -34,6 +34,7 @@
                 <c:param name="proveedores" value="${proveedores}"/>
             </c:import>
             </form:select>
+            <input id="nombreProveedor" name="nombreProveedor" type="hidden" value=""/>
             <label>
                 Fecha Vencimiento
             </label>
