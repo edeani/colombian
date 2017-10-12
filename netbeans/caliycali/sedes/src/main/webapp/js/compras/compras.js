@@ -281,11 +281,11 @@ $(document).ready(function () {
                                 }
 
                                 $("#factura").val(factura);
-                                $.colorbox({
-                                    html: "<!DOCTYPE html><html><body><p id='mensaje'>Guardando</p></body></html>",
-                                    initialHeight: 50,
-                                    Height: 50,
-                                    width: "300px"
+                                $.dialog({
+                                    columnClass: 'ancho-confirm',
+                                    title: 'Mensaje',
+                                    content: 'Guardando',
+                                    closeIcon: false
                                 });
                                 $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
                                 $("#detalleCompraDTO").submit();
@@ -327,7 +327,7 @@ $(document).ready(function () {
         }
     });
     /*------------------------Actualizar Compra--------------------------*/
-    $("#pre-actualizar").live("click",function (e){
+    $("#pre-actualizar").live("click", function (e) {
         e.preventDefault();
         $.confirm({
             title: 'Seleccionar Impresora',
@@ -382,11 +382,11 @@ $(document).ready(function () {
                     }
 
                     $("#factura").val(factura);
-                    $.colorbox({
-                        html: "<!DOCTYPE html><html><body><p id='mensaje'>Guardando</p></body></html>",
-                        initialHeight: 50,
-                        Height: 50,
-                        width: "300px"
+                    $.dialog({
+                        columnClass: 'ancho-confirm',
+                        title: 'Mensaje',
+                        content: 'Guardando',
+                        closeIcon: false
                     });
                     $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
                     $("#detalleCompraDTO").submit();
