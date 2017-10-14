@@ -3,9 +3,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div id="contenidoCompra">
+
     <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
-    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/actualizar.htm" >
+    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/compraPdf.htm" target="_blank">
         <div id="contenidoHome"> 
             <div id="tituloPagina">${titulo}</div>
             <div id="campoNumeroFactura">
@@ -119,10 +119,10 @@
                             <td></td>
                             <td></td>
                             <td colspan="4" align="right">
-                                <input type="button" id="pre-actualizar" value="Actualizar" >
-                                <div style="display: none;">
+                                <input type="button" id="actualizar" value="Actualizar" />
+                                <!--div style="display: none;">
                                 <input type="button" id="actualizar" value="Actualizar" >
-                                </div>
+                                </div-->
                                 <!input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                     <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                     </td>
@@ -132,5 +132,5 @@
             </div>
         </div>
     </form:form>
-</div>
+
 

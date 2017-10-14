@@ -117,6 +117,11 @@
 	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:/reportes/comprasSedesColombian.jrxml"
 		p:reportDataKey="datos"/>
+        <bean id="comprasModificadas"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/factura.jrxml"
+		p:reportDataKey="datos"/>
+        
         
         <!-- Reporte de Estado Pérdida Ganancias  Subreportes-->
            

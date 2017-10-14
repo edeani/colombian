@@ -281,14 +281,31 @@ $(document).ready(function () {
                                 }
 
                                 $("#factura").val(factura);
-                                $.dialog({
+                                var dialogoGuardar = $.dialog({
                                     columnClass: 'ancho-confirm',
                                     title: 'Mensaje',
                                     content: 'Guardando',
                                     closeIcon: false
                                 });
                                 $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
-                                $("#detalleCompraDTO").submit();
+
+                                var parametrosForm = $("#detalleCompraDTO").serialize();
+                                $.ajax({
+                                    url: $("#urlGuardar").attr("url-guardar"),
+                                    timeout: 20000,
+                                    type: "POST",
+                                    data: parametrosForm,
+                                    success: function (result) {
+                                        dialogoGuardar.close();
+                                        $("#detalleCompraDTO").submit();
+                                        $("#contenidoCompra").html(result);
+                                        $(".fechaVencimiento").datepicker({
+                                            dateFormat: "yy-mm-dd"
+                                        });
+                                    }
+                                });
+
+
                             }
                         } else {
                             $.colorbox({
@@ -353,7 +370,7 @@ $(document).ready(function () {
     });
 
     $("#actualizar").live("click", function (e) {
-        //e.preventDefault();
+        e.preventDefault();
         //variables en el llamado
         type:"POST";
         var fila = $("#contenidoFactura").children();
@@ -382,13 +399,29 @@ $(document).ready(function () {
                     }
 
                     $("#factura").val(factura);
-                    $.dialog({
+                    var dialogoGuardar = $.dialog({
                         columnClass: 'ancho-confirm',
                         title: 'Mensaje',
                         content: 'Guardando',
                         closeIcon: false
                     });
                     $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
+                    var parametrosForm = $("#detalleCompraDTO").serialize();
+                    $.ajax({
+                        url: $("#urlGuardar").attr("url-guardar"),
+                        timeout: 20000,
+                        type: "POST",
+                        data: parametrosForm,
+                        success: function (result) {
+                            dialogoGuardar.close();
+                            $("#submit-form").val("S");
+                            $("#detalleCompraDTO").submit();
+                            $("#submit-form").val("N");
+                            $("#contenidoCompra").html(result);
+                        }
+                    });
+
+
                     $("#detalleCompraDTO").submit();
                     console.log(factura);
                 }
@@ -409,6 +442,16 @@ $(document).ready(function () {
             });
         }
     });
+    
+    $(document).on("submit","#detalleCompraDTO",function(){
+        if($("#submit-form").val() == "S"){
+            return true;
+        }else{
+            return false;
+        }
+        
+    });
+
     /*------------------------Buscar Compra--------------------------*/
     $(document).on('click', '#buscarCompra', function () {
         var url = $(this).data("url");

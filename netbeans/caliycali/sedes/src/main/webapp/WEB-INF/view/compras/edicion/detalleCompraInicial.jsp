@@ -3,18 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-confirm.css">
-<script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/compras/compras.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
-<div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/compras/ajax/actualizar.htm"></div>
-<input type="hidden" value="N" id="submit-form"/>
-<div id="contenidoCompra">
+
     <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
     <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/compraPdf.htm" target="_blank">
         <div id="contenidoHome"> 
@@ -91,5 +80,4 @@
             </div>
         </div>
     </form:form>
-</div>
 

@@ -168,27 +168,42 @@ public class ComprasController extends BaseController {
         return mav;
     }
 
-    @RequestMapping("/guardar.htm")
+    @RequestMapping("/ajax/guardar.htm")
     public ModelAndView guardarCompras(@Valid DetalleCompraDTO detalleCompraDTO) {
         //bd principal
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
         propiedades.setPropiedad(getPropiedadPrincipal());
-        comprasService.guardarCompra(propiedades.leerPropiedad(), detalleCompraDTO);
-        imprimirFactura(detalleCompraDTO);
-        return new ModelAndView("redirect:/compras/home.htm");
+        try {
+            //comprasService.guardarCompra(propiedades.leerPropiedad(), detalleCompraDTO);
+        } catch (Exception e) {
+            System.out.println("Error guardarCompras::" + e.getMessage());
+        }
+
+        //imprimirFactura(detalleCompraDTO);
+        ModelAndView mav = new ModelAndView("compras/detalleCompra");
+        detalleCompraDTO = new DetalleCompraDTO();
+
+        mav.addObject("titulo", titulo);
+        setBasicModel(mav, detalleCompraDTO);
+        return mav;
     }
 
-    @RequestMapping("/actualizar.htm")
+    @RequestMapping("/ajax/actualizar.htm")
     public ModelAndView actualizarCompras(@Valid DetalleCompraDTO detalleCompraDTO) {
         //bd principal
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
         propiedades.setPropiedad(getPropiedadPrincipal());
         String bd = propiedades.leerPropiedad();
-        comprasService.actualizarCompra(bd, detalleCompraDTO);
-        imprimirFactura(detalleCompraDTO);
-        return new ModelAndView("redirect:/compras/edicion.htm");
+        //comprasService.actualizarCompra(bd, detalleCompraDTO);
+        //imprimirFactura(detalleCompraDTO);
+        
+        detalleCompraDTO = new DetalleCompraDTO();
+        ModelAndView mav = new ModelAndView("compras/edicion/detalleCompraInicial");
+        mav.addObject("titulo", titulo);
+        setBasicModel(mav, detalleCompraDTO);
+        return mav;
     }
 
     @RequestMapping(value = "/ajax/avencer.htm")
@@ -455,6 +470,24 @@ public class ComprasController extends BaseController {
         return mav;
     }
 
+    @RequestMapping("/compraPdf.htm")
+    public ModelAndView compraFindedPdf(@Valid DetalleCompraDTO detalleCompraDTO) {
+        ModelAndView mav = null;
+        List<ItemFacturaDto> detalleFactura = FacturaMapper.stringFacturaToIteFacturaDto(detalleCompraDTO.getFactura());
+        if (detalleFactura != null) {
+            JRDataSource datos = new JRBeanCollectionDataSource(detalleFactura);
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("datos", datos);
+            parameterMap.put("usuario", securityService.getCurrentUser().getUsername());
+            parameterMap.put("proveedor", detalleCompraDTO.getNombreProveedor());
+            parameterMap.put("numeroFactura", detalleCompraDTO.getNumeroFactura());
+            mav = new ModelAndView("comprasModificadas", parameterMap);
+            return mav;
+        }
+
+        return mav;
+    }
+
     @RequestMapping("/ajax/impresoras.htm")
     public ModelAndView jspImpresoras() {
         return new ModelAndView("impresoras/printers");
@@ -515,7 +548,7 @@ public class ComprasController extends BaseController {
                 pDefault = pDefault.substring(indexName + 1);
             }
         } catch (Exception e) {
-            System.out.println("Error defaultPrinter::"+e.getMessage());
+            System.out.println("Error defaultPrinter::" + e.getMessage());
         }
 
         return pDefault;
