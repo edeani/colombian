@@ -26,8 +26,6 @@ import com.colombian.cali.colombiancaliycali.services.JasperService;
 import com.colombian.cali.colombiancaliycali.services.SecurityService;
 import com.colombian.cali.colombiancaliycali.services.colombianjsf.ComprasColombianService;
 import com.mycompany.dto.ReporteComprasSedeDto;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,7 +50,6 @@ import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -472,14 +469,14 @@ public class ComprasController extends BaseController {
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
             Map<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("usuario", securityService.getCurrentUser().getUsername());
-            parametros.put("proveedor",detalleCompraDTO.getNombreProveedor());
+            parametros.put("proveedor", detalleCompraDTO.getNombreProveedor());
             parametros.put("numeroFactura", detalleCompraDTO.getNumeroFactura());
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,
                     parametros, beanCollectionDataSource);
 
             LectorPropiedades lector = new LectorPropiedades();
             PrintService selectedService = PrintUtil.findPrintService(detalleCompraDTO.getImpresora());
-            
+
             PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
             // printRequestAttributeSet.add(MediaSizeName.ISO_A4); //setting page size
             printRequestAttributeSet.add(new Copies(1));
@@ -510,11 +507,17 @@ public class ComprasController extends BaseController {
 
     @ModelAttribute("defaultPrinter")
     public String defaultPrinter() {
-        String pDefault = PrintUtil.getDefaultPrinter().getName();
-        int indexName = pDefault.lastIndexOf("\\");
-        if (indexName != -1) {
-            pDefault = pDefault.substring(indexName + 1);
+        String pDefault = "";
+        try {
+            pDefault = PrintUtil.getDefaultPrinter().getName();
+            int indexName = pDefault.lastIndexOf("\\");
+            if (indexName != -1) {
+                pDefault = pDefault.substring(indexName + 1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error defaultPrinter::"+e.getMessage());
         }
+
         return pDefault;
     }
 }
