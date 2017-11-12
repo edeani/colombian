@@ -12,7 +12,7 @@
          <div class="actions_user">
              <p>Bienvenido
                  <a href="#" id="userLink"  >
-                     <secured:authentication property="principal.username"/> 
+                     <secured:authentication  property="principal.username"/> 
                  </a>
              </p>
           </div>
