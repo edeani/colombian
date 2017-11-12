@@ -9,70 +9,71 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author user
+ * @author EderArmando
  */
 @Entity
-@Table(name = "categoria")
-public class Categoria implements Serializable {
+@Table(name = "sedes")
+@NamedQueries({
+    @NamedQuery(name = "Sedes.findAll", query = "SELECT s FROM Sedes s")})
+public class Sedes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "cons")
-    private Integer cons;
+    @NotNull
+    @Column(name = "idsedes")
+    private Integer idsedes;
     @Size(max = 45)
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "sede")
+    private String sede;
 
-    public Categoria() {
+    public Sedes() {
     }
 
-    public Categoria(Integer cons) {
-        this.cons = cons;
+    public Sedes(Integer idsedes) {
+        this.idsedes = idsedes;
     }
 
-    public Integer getCons() {
-        return cons;
+    public Integer getIdsedes() {
+        return idsedes;
     }
 
-    public void setCons(Integer cons) {
-        this.cons = cons;
+    public void setIdsedes(Integer idsedes) {
+        this.idsedes = idsedes;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getSede() {
+        return sede;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setSede(String sede) {
+        this.sede = sede;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cons != null ? cons.hashCode() : 0);
+        hash += (idsedes != null ? idsedes.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categoria)) {
+        if (!(object instanceof Sedes)) {
             return false;
         }
-        Categoria other = (Categoria) object;
-        if ((this.cons == null && other.cons != null) || (this.cons != null && !this.cons.equals(other.cons))) {
+        Sedes other = (Sedes) object;
+        if ((this.idsedes == null && other.idsedes != null) || (this.idsedes != null && !this.idsedes.equals(other.idsedes))) {
             return false;
         }
         return true;
@@ -80,7 +81,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "com.administracion.entidad.Categoria[ cons=" + cons + " ]";
+        return "com.administracion.entidad.Sedes[ idsedes=" + idsedes + " ]";
     }
     
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <queries>
     <query id="UsuarioJpa.findXcorreo">
-        select u from Usuario u where u.correo=:correo
+        select u from Users u where u.username=:username
     </query>
 </queries>

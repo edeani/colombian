@@ -192,7 +192,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <base.datos>domicilios</base.datos>
+                <base.datos>principalgranestacion</base.datos>
                 <bd.user>root</bd.user>
                 <bd.password>compaq</bd.password>
                 <bd.ip>localhost:3306</bd.ip>

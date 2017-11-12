@@ -6,14 +6,10 @@
 package com.administracion.service.autorizacion;
 
 import com.administracion.dao.UsuarioDao;
-import com.administracion.dao.ValidacionUsuarioDao;
-import com.administracion.entidad.Usuario;
-import com.administracion.entidad.ValidacionUsuarios;
+import com.administracion.entidad.Users;
 import com.administracion.service.UsuarioService;
 import com.administracion.util.LeerXml;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import static java.util.regex.Pattern.matches;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +24,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -39,9 +34,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @Autowired
-    private ValidacionUsuarioDao validacionUsuarioDao;
     
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -59,21 +51,17 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
-        Usuario user = usuarioService.findUsuarioByCorreo(username);
+        Users user = usuarioService.findUsuarioByCorreo(username);
         if (user == null) {
             throw new BadCredentialsException("1000");
         }
-        String estado = user.getEstado();
-        if (estado.equals("I")) {
-
-            throw new DisabledException("1001");
-        }
+        
         if (!matches(password, user.getPassword())) {
             throw new BadCredentialsException("1000");
         }
 
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombrerol()));
+        grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombre()));
         //El object user que mando aqui puede ser cualquier objeto desde un string a uno con atributos
         return new UsernamePasswordAuthenticationToken(user, password, grantedAuths);
     }
@@ -84,49 +72,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     }
 
     @Override
-    public Usuario getCurrentUser() {
+    public Users getCurrentUser() {
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (principal instanceof String) {
                 return null;
             }
-            return (Usuario) principal;
+            return (Users) principal;
         } else {
             return null;
         }
 
     }
 
-    @Transactional
-    @Override
-    public void autenticarUsuarioRegistrado(String username, String token) {
-        Usuario usuario = usuarioService.findUsuarioByCorreo(username);
-        HashMap<String, Object> parametros = new HashMap<>();
-        parametros.put("idusuario", usuario.getIdusuario());
-        ValidacionUsuarios vu = validacionUsuarioDao.queryOpjectJpa(leerXml.getQuery("ValidacionUsuarioJpa.findXidusuario"), parametros);
-
-        if (vu != null) {
-            if (!token.equals(vu.getToken())) {
-                throw new SecurityException("1002");
-            }
-            usuario.setEstado(USUARIO_ACTIVO);
-            usuarioDao.Update(usuario);
-
-            vu.setEstado(USUARIO_ACTIVO);
-            vu.setFechaactivacion(new Date());
-            validacionUsuarioDao.Update(vu);
-            
-            List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + usuario.getIdrol().getNombrerol()));
-            
-           UsernamePasswordAuthenticationToken usuarioLogueado = new UsernamePasswordAuthenticationToken(usuario.getCorreo(), usuario.getPassword(), grantedAuths);
-           Authentication authentication = authenticationManager.authenticate(usuarioLogueado);
-           
-           
-           if(usuarioLogueado.isAuthenticated()){
-             SecurityContextHolder.getContext().setAuthentication(authentication);
-           }
-        }
-    }
+  
 
 }

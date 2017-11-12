@@ -5,13 +5,12 @@
  */
 package com.administracion.dao;
 
-import com.administracion.dto.UsuarioDto;
-import com.administracion.entidad.Usuario;
+import com.administracion.entidad.Users;
 
 /**
  *
  * @author user
  */
-public interface UsuarioDao extends GenericDao<Usuario>{
-    UsuarioDto findUsuarioXCorreoSql(String correo);
+public interface UsuarioDao extends GenericDao<Users>{
+   
 }

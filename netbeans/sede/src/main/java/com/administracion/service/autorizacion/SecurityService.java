@@ -5,13 +5,13 @@
  */
 package com.administracion.service.autorizacion;
 
-import com.administracion.entidad.Usuario;
+import com.administracion.entidad.Users;
+
 
 /**
  *
  * @author user
  */
 public interface SecurityService {
-    public Usuario getCurrentUser();
-    void autenticarUsuarioRegistrado(String username,String token);
+    public Users getCurrentUser();
 }
