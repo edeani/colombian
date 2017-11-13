@@ -14,7 +14,7 @@
     <http pattern="/img/**" security="none" />
     <http pattern="/fonts/**" security="none" />
     <http pattern="/font-awesome-4.3.0/**" security="none" />
-    <http use-expressions="true">
+    <http use-expressions="true"  entry-point-ref="authenticationEntryPoint">
         <csrf disabled="true"/>
         
         <intercept-url pattern="/signin.htm" access="permitAll()" />
@@ -24,19 +24,35 @@
         <intercept-url pattern="/usuarios/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/tipos-pago/**" access="hasRole('ROLE_ADMIN')" />
         <access-denied-handler error-page="/403.htm" />
- 
-        <form-login login-page='/signin.htm' login-processing-url="/j_spring_security_check" 
-                    default-target-url="/home.htm" always-use-default-target="false"
-                    authentication-failure-url="/signin.htm?error=true" username-parameter="username"
-                    password-parameter="password" />
- 
+        
+        <custom-filter ref="customAuthenticationFilter" position="FORM_LOGIN_FILTER" />
+        <!--form-login login-page='/signin.htm' login-processing-url="/j_spring_security_check" 
+        default-target-url="/home.htm" always-use-default-target="false"
+        authentication-failure-url="/signin.htm?error=true" username-parameter="username"
+        password-parameter="password" /-->
         <logout logout-url="/logout.htm" logout-success-url="/signin.htm"
                 delete-cookies="JSESSIONID" invalidate-session="true" />
         
     </http>
- 
+    
+    <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:constructor-arg name="loginFormUrl" value="/signin.htm" />
+    </beans:bean>
+    
+    <beans:bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/403.htm" />
+    </beans:bean>
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="customAuthenticationProvider" />
     </authentication-manager>
+    <beans:bean id="customAuthenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+        <beans:property name="filterProcessesUrl" value="/j_spring_security_check" />
+        <beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
+        <beans:property name="authenticationSuccessHandler" ref="customAuthenticationSuccessHandler" />
+        <beans:property name="authenticationDetailsSource">
+            <beans:bean class="com.administracion.service.autorizacion.CustomWebAuthenticationDetailsSource" />
+        </beans:property>
+    </beans:bean>
     
 </beans:beans>
