@@ -14,11 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
  * @author user
  */
 @Controller
-@RequestMapping()
+@RequestMapping("/{sede:[a-zA-Z]+}")
 public class HomeController{
     
     
-    @RequestMapping("home.htm")
+    @RequestMapping("/home.htm")
     public ModelAndView inicio(){
         ModelAndView mav = new ModelAndView("home");
         return mav;

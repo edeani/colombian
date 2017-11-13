@@ -21,13 +21,15 @@ import org.springframework.stereotype.Service;
 public class CustomAuthenticationSuccessHandler  implements AuthenticationSuccessHandler{
      @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        CustomWebAuthenticationDetails details = (CustomWebAuthenticationDetails) authentication.getDetails();
-        if(StringUtils.hasText(details.getItemId())) {
-            //TODO sanity and security check for itemId needed
-            System.out.println("Paso por aqui::::jejeje");
-            String redirectUrl = "/home.htm";
+
+            String path = (String) request.getSession().getAttribute("path");
+            String redirectUrl = "";
+            if(path!=null){
+                redirectUrl = request.getContextPath()+"/"+path+"/home.htm";
+            }else{
+                redirectUrl = request.getContextPath()+"/404.htm";
+            }
             response.sendRedirect(redirectUrl);
-        }
-        throw new IllegalStateException("itemId in authentication details not found");
+        
     }
 }
