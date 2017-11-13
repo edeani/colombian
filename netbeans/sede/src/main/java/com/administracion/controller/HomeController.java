@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author user
  */
 @Controller
+@RequestMapping()
 public class HomeController{
     
     
