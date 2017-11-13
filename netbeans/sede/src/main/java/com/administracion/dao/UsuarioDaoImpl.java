@@ -5,14 +5,10 @@
  */
 package com.administracion.dao;
 
-import com.administracion.dto.UsuarioDto;
 import com.administracion.entidad.Users;
 import com.administracion.util.LeerXml;
-import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
