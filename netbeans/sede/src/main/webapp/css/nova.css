@@ -242,7 +242,7 @@ h3.form-header {
 }
 
 .form-line-active input:focus,
-.form-line-active textarea:focus; {
+.form-line-active textarea:focus {
 	border:1px solid #FFD300;
 
 	-moz-box-shadow: 0 0 3px #FFF0AA;
