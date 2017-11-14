@@ -7,7 +7,6 @@ package com.administracion.service;
 
 import com.administracion.dao.SedesDao;
 import com.administracion.entidad.Sedes;
-import javafx.beans.property.ReadOnlyLongWrapper;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
