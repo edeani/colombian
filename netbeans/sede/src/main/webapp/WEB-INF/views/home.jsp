@@ -1,14 +1,3 @@
-<%-- 
-    Document   : signin
-    Created on : 12/08/2016, 10:10:23 PM
-    Author     : user
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
-<!DOCTYPE html>
-<html>
     <head>
         <title>Login Colombian</title>
         <!-- Custom Css 
@@ -40,4 +29,3 @@
         </div>
         <!-- Fin Contenido Login Registro -->
     </body>
-</html>
