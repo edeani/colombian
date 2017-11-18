@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="SubSedesJpa.findXIdSede">
+        select ss.* from subsedes ss
+        inner join sedes s on s.idsedes = ss.idsede
+        where s.idsedes=:idSede
+    </query>
+    <query id="SubSedesJpa.findLabelXIdSede">
+        select ss.id, ss.sede as label from subsedes ss
+        inner join sedes s on s.idsedes = ss.idsede
+        where s.idsedes=:idSede
+    </query>
+</queries>

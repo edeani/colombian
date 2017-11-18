@@ -56,6 +56,13 @@
         <property name="password" value="${paswordbd}"/>
     </bean>
     
+    <bean id="dataSourceSubSede" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://${serverbd}/${basededatos}"/>
+        <property name="username"  value="${usuariobd}"/>
+        <property name="password" value="${paswordbd}"/>
+    </bean>
+    
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource">

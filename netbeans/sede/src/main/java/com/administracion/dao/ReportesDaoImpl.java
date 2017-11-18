@@ -6,7 +6,9 @@
 package com.administracion.dao;
 
 import com.administracion.datasources.GenericDataSource;
+import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.ReporteConsolidadoDto;
+import com.administracion.entidad.ClasePago;
 import com.administracion.entidad.Sedes;
 import com.administracion.util.LeerXml;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class ReportesDaoImpl implements ReportesDao {
     private GenericDataSource genericDataSource;
 
     /**
-     * Inicialización de la conexción para este servicio
+     * Inicialización de la conexión para este servicio
      *
      * @param dataSourceSede
      */
@@ -74,7 +76,6 @@ public class ReportesDaoImpl implements ReportesDao {
          * La consulta debe haerse a cada una de las sedes
          */
         List<ReporteConsolidadoDto> reporte = new ArrayList<>();
-        LOGGER.info("CONSULLTA:: "+queryBuilder.toString());
         sedes.stream().filter((sede) -> (sede.getIdsedes() != 1)).map((Sedes sede) -> {
             /**
              * Cambio de conexión
@@ -107,5 +108,6 @@ public class ReportesDaoImpl implements ReportesDao {
         return reporte;
 
     }
+
 
 }
