@@ -5,6 +5,7 @@
  */
 package com.administracion.controller;
 
+import com.administracion.datasources.GenericDataSource;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.SedesService;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,9 @@ public class LoginController {
     @Autowired
     private SedesService sedesService;
     
+    @Autowired
+    private GenericDataSource genericDataSource;
+    
     @RequestMapping(value = "/signin.htm")
     public ModelAndView paginaLogin(HttpSession session) {
         session.setAttribute("path", base_datos_principal);
@@ -43,6 +47,7 @@ public class LoginController {
             return new ModelAndView("redirect:/404.htm");
         }else{
             request.getSession().setAttribute("path",sede);
+            genericDataSource.updateGenericDataSource(s);
         }
         
        return new ModelAndView("index");

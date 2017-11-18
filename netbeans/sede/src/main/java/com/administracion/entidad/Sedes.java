@@ -31,6 +31,16 @@ public class Sedes implements Serializable {
     @Size(max = 45)
     @Column(name = "sede")
     private String sede;
+    @Size(max = 45)
+    @Column(name = "username")
+    private String username;
+    @Size(max = 45)
+    @Column(name = "password")
+    private String password;
+    @Size(max = 500)
+    @Column(name = "url")
+    private String url;
+    
 
     public Sedes() {
     }
@@ -62,6 +72,30 @@ public class Sedes implements Serializable {
         return hash;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -74,6 +108,8 @@ public class Sedes implements Serializable {
         }
         return true;
     }
+
+    
 
     
 }
