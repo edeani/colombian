@@ -48,7 +48,8 @@ public class ConsolidadoController extends BaseController {
     public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
 
-        List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(fechaInicial, fechaFinal);
+        Integer idSede = (Integer) request.getSession().getAttribute("idsede");
+        List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(idSede,fechaInicial, fechaFinal);
         ModelAndView mav = null;
         if (reporte.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);

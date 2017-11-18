@@ -7,7 +7,9 @@ package com.administracion.service;
 
 import com.administracion.dao.ReportesDao;
 import com.administracion.dao.SedesDao;
+import com.administracion.dao.SubSedesDao;
 import com.administracion.dto.ReporteConsolidadoDto;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +24,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReporteServiceImpl implements ReporteService{
 
     @Autowired
-    private SedesDao sedesDao;
+    private SubSedesDao subSedesDao;
     
     @Autowired
     private ReportesDao reportesDao;
     
     @Override
     @Transactional(readOnly = true)
-    public List<ReporteConsolidadoDto> reporteConsolidado(String fechaInicial, String fechaFinal) {
-        List<Sedes> sedes = sedesDao.findAll();
-        return reportesDao.reporteConsolidado(sedes, fechaInicial, fechaFinal);
+    public List<ReporteConsolidadoDto> reporteConsolidado(Integer idSede,String fechaInicial, String fechaFinal) {
+        List<SubSedesDto> subSedes = subSedesDao.subsedesXIdSede(idSede);
+        return reportesDao.reporteConsolidado(subSedes, fechaInicial, fechaFinal);
     }
     
 }

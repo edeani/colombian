@@ -13,5 +13,5 @@ import java.util.List;
  * @author EderArmando
  */
 public interface ReporteService {
-    public List<ReporteConsolidadoDto> reporteConsolidado(String fechaInicial,String fechaFinal);
+    public List<ReporteConsolidadoDto> reporteConsolidado(Integer idSede,String fechaInicial,String fechaFinal);
 }

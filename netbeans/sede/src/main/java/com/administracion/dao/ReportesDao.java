@@ -6,7 +6,7 @@
 package com.administracion.dao;
 
 import com.administracion.dto.ReporteConsolidadoDto;
-import com.administracion.entidad.Sedes;
+import com.administracion.dto.SubSedesDto;
 import java.util.List;
 
 /**
@@ -14,5 +14,5 @@ import java.util.List;
  * @author EderArmando
  */
 public interface ReportesDao {
-    public List<ReporteConsolidadoDto> reporteConsolidado(List<Sedes> sedes,String fechaInicial,String fechaFinal); 
+    public List<ReporteConsolidadoDto> reporteConsolidado(List<SubSedesDto> subSedes,String fechaInicial,String fechaFinal); 
 }

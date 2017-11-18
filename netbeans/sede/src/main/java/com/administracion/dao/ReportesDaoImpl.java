@@ -8,10 +8,12 @@ package com.administracion.dao;
 import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.ReporteConsolidadoDto;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.ClasePago;
 import com.administracion.entidad.Sedes;
 import com.administracion.util.LeerXml;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -52,7 +54,7 @@ public class ReportesDaoImpl implements ReportesDao {
     private LeerXml leerXml;
 
     @Override
-    public List<ReporteConsolidadoDto> reporteConsolidado(List<Sedes> sedes, String fechaInicial, String fechaFinal) {
+    public List<ReporteConsolidadoDto> reporteConsolidado(List<SubSedesDto> subSedes, String fechaInicial, String fechaFinal) {
         /**
          * Construcción de la query
          */
@@ -76,12 +78,14 @@ public class ReportesDaoImpl implements ReportesDao {
          * La consulta debe haerse a cada una de las sedes
          */
         List<ReporteConsolidadoDto> reporte = new ArrayList<>();
-        sedes.stream().filter((sede) -> (sede.getIdsedes() != 1)).map((Sedes sede) -> {
+        
+        
+        subSedes.stream().filter((subSede) -> (subSede.getId() > 0)).map((SubSedesDto subSede) -> {
             /**
              * Cambio de conexión
              */
-            genericDataSource.updateGenericDataSource(sede);
-            this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(genericDataSource.getGenericDataSource());
+            genericDataSource.updateGenericDataSource(subSede);
+            this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(genericDataSource.getGenericDataSourceSubSede());
             /**
              * Ejecución de la consulta
              */
@@ -92,11 +96,11 @@ public class ReportesDaoImpl implements ReportesDao {
                 reporteConsolidadoDto.setConsignacion(totalesCaja.get(3));
                 reporteConsolidadoDto.setGastos(totalesCaja.get(4));
                 reporteConsolidadoDto.setVentas(totalesCaja.get(0) + totalesCaja.get(1) + totalesCaja.get(2));
-                reporteConsolidadoDto.setSede(sede.getSede());
+                reporteConsolidadoDto.setSede(subSede.getSede());
             } catch (DataAccessException e) {
                 reporteConsolidadoDto.setCompras(0L);
                 reporteConsolidadoDto.setConsignacion(0L);
-                reporteConsolidadoDto.setSede(sede.getSede() + ": No conecta ");
+                reporteConsolidadoDto.setSede(subSede.getSede() + ": No conecta ");
                 reporteConsolidadoDto.setVentas(0L);
                 reporteConsolidadoDto.setGastos(0L);
             }
