@@ -5,6 +5,7 @@
  */
 package com.administracion.controller;
 
+import com.administracion.dto.ComprobanteCierreSedesDto;
 import com.administracion.dto.ReporteConsolidadoDto;
 import com.administracion.service.ReporteService;
 import java.util.Date;
@@ -62,5 +63,19 @@ public class ConsolidadoController extends BaseController {
         }
         return mav;
     }
-
+    
+    @RequestMapping(value = "/comprobante/sede.htm")
+    public ModelAndView comprobanteConsolidadoSedeInicio() {
+        ModelAndView mav = new ModelAndView("contabilidad/cierres/cierreSede");
+        ComprobanteCierreSedesDto comprobanteCierreSedesDto = new ComprobanteCierreSedesDto();
+        setBasicModel(mav, comprobanteCierreSedesDto);
+        mav.addObject("comprobanteCierreSedesDto", comprobanteCierreSedesDto);
+        return mav;
+    }
+    
+    @RequestMapping(value = "/comprobante/reporte/sede.htm")
+    public ModelAndView reporteConsolidadoSedeInicio() {
+        ModelAndView mav = new ModelAndView("reportes/cierres/cierreSede");
+        return mav;
+    }
 }
