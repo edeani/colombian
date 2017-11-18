@@ -5,10 +5,20 @@
  */
 package com.administracion.controller;
 
+import com.administracion.dto.ReporteConsolidadoDto;
+import com.administracion.service.ReporteService;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/{sede:[a-zA-Z]+}/consolidado")
-public class ConsolidadoController extends BaseController{
+public class ConsolidadoController extends BaseController {
+    
+    @Autowired
+    private ReporteService reporteService;
     
     @RequestMapping(value = "/sede.htm")
     public ModelAndView index() {
@@ -29,6 +42,25 @@ public class ConsolidadoController extends BaseController{
         mav.addObject("titulo", " Reporte Consolidado ");
         return mav;
     }
-    
-  
+
+    @RequestMapping(value = "/consolidadoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response,
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+
+        List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(fechaInicial, fechaFinal);
+        ModelAndView mav = null;
+        if (reporte.size() > 0) {
+            JRDataSource datos = new JRBeanCollectionDataSource(reporte);
+            Map<String, Object> parameterMap = new HashMap<>();
+            parameterMap.put("datos", datos);
+            parameterMap.put("fechaInicial", fechaInicial);
+            parameterMap.put("fechaFinal", fechaFinal);
+            mav = new ModelAndView("consolidado", parameterMap);
+        } else {
+            mav = new ModelAndView("redirect:/consolidado/sede.htm");
+            mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
+        }
+        return mav;
+    }
+
 }

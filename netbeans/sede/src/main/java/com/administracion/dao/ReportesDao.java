@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.administracion.datasources;
+package com.administracion.dao;
 
+import com.administracion.dto.ReporteConsolidadoDto;
 import com.administracion.entidad.Sedes;
-import javax.sql.DataSource;
+import java.util.List;
 
 /**
  *
  * @author EderArmando
  */
-public interface GenericDataSource {
-    public void updateGenericDataSource(Sedes sede);
-    public DataSource getGenericDataSource();
+public interface ReportesDao {
+    public List<ReporteConsolidadoDto> reporteConsolidado(List<Sedes> sedes,String fechaInicial,String fechaFinal); 
 }

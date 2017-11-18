@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="LlevarSql.totalLlevarXFecha">
+        select case when total_llevar is null then 0 else total_llevar end as total_llevar from(
+        select sum(ll.valor_total) as total_llevar 
+        from 
+        llevar ll 
+        where ll.fecha_orden between :fechaInicial and :fechaFinal and ll.estado_orden='A'
+        )sub
+    </query>
+</queries>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="OrdenesSql.totalOrdenesXFecha">
+        select case when total_orden is null then 0 else total_orden end as total_orden from(
+        select sum(o.valor_total) as total_orden 
+        from orden o 
+        where o.fecha_orden between :fechaInicial and :fechaFinal and o.estado_orden='A'
+        )sub
+    </query>
+</queries>
