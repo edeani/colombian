@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
  * @author EderArmando
  */
 public class CustomWebAuthenticationDetails extends WebAuthenticationDetails{
-     private final String itemId;
+     //private final String itemId;
 
     public CustomWebAuthenticationDetails(HttpServletRequest request) {
         super(request);
-        itemId = request.getParameter("itemId");
+       // itemId = request.getParameter("itemId");
     }
 
-    public String getItemId() {
+   /* public String getItemId() {
         return itemId;
-    }
+    }*/
 
 
 }

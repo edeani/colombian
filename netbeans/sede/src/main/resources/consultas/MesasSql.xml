@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="MesasSql.totalMesasXFecha">
+        select case when total_mesas is null then 0 else total_mesas end as total_mesas from(
+        select sum(m.valor_total) as total_mesas 
+        from mesa m 
+        where m.fecha_orden between :fechaInicial and :fechaFinal and m.estado_orden='A'
+        )sub
+    </query>
+</queries>

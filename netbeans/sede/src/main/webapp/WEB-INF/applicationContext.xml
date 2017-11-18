@@ -76,6 +76,8 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
+    <import resource="classpath:jasper-views.xml" />
+    
     <mvc:resources mapping="/img-producto/**" location="/img-producto/" />
     <mvc:resources mapping="/img/**" location="/img/" />
     <mvc:resources mapping="/fonts/**" location="/fonts/" />

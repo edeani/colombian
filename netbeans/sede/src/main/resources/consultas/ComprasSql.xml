@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="ComprasSql.totalComprasXFecha">
+        select case when total_compras is null then 0 else total_compras end as total_compras from(
+        select SUM(detalle_factura.valor_producto) as total_compras 
+       from detalle_factura,   factura,   inventario  
+       WHERE ( factura.numero_factura = detalle_factura.numero_factura ) and  
+       ( inventario.codigo_producto_inventario = detalle_factura.codigo_producto_inventario ) and 
+       ( ( factura.fecha_factura  between :fechaInicial and :fechaFinal ) AND  
+       ( factura.estado_factura = 'A' ) )
+        ) sub 
+    </query>
+</queries>

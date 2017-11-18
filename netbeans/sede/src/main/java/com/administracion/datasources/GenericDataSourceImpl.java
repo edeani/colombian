@@ -6,6 +6,7 @@
 package com.administracion.datasources;
 
 import com.administracion.entidad.Sedes;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,11 @@ public class GenericDataSourceImpl implements GenericDataSource{
         dataSource_.setPassword(sede.getPassword());
         dataSource_.setUrl(sede.getUrl());
         dataSource_.setUsername(sede.getUsername());
+    }
+
+    @Override
+    public DataSource getGenericDataSource() {
+        return (DataSource)dataSource_;
     }
     
 }

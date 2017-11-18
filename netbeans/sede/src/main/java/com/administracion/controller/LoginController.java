@@ -33,12 +33,23 @@ public class LoginController {
     @Autowired
     private GenericDataSource genericDataSource;
     
+    /**
+     * Carga base de datos principal si no se le especifica sede
+     * @param session
+     * @return 
+     */
     @RequestMapping(value = "/signin.htm")
     public ModelAndView paginaLogin(HttpSession session) {
         session.setAttribute("path", base_datos_principal);
         return new ModelAndView("index");
     }
     
+    /**
+     * Cargar base de datos y sede seleccionada en el PATH
+     * @param request
+     * @param sede
+     * @return 
+     */
     @RequestMapping(value = "/{sede:[a-zA-Z]+}/signin.htm")
     public ModelAndView paginaLoginSede(HttpServletRequest request,@PathVariable String sede) {
         HttpSession session = request.getSession();

@@ -12,7 +12,8 @@ package com.administracion.enumeration;
 public enum ExtencionesEnum {
     JPG(".jpg"),
     PNG(".png"),
-    GIF(".gif");
+    GIF(".gif"),
+    XML(".xml");
     
     private final String ext; 
     private ExtencionesEnum(String extension) {   
