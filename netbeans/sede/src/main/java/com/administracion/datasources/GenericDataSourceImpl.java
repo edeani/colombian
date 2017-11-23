@@ -17,26 +17,28 @@ import org.springframework.stereotype.Service;
  * @author EderArmando
  */
 @Service
-public class GenericDataSourceImpl implements GenericDataSource{
+public class GenericDataSourceImpl implements GenericDataSource {
 
     private DriverManagerDataSource dataSource_;
-   private DriverManagerDataSource  dataSourceSub_;
-    @Autowired
-    public void init(DriverManagerDataSource dataSourceSede){
-        this.dataSource_=dataSourceSede;
-    }
+    private DriverManagerDataSource dataSourceSub_;
     
     @Autowired
-    public void initSubSede(DriverManagerDataSource dataSourceSubSede){
-        this.dataSourceSub_=dataSourceSubSede;
+    public void init(DriverManagerDataSource dataSourceSede) {
+        this.dataSource_ = dataSourceSede;
     }
+
+    @Autowired
+    public void initSubSede(DriverManagerDataSource dataSourceSubSede) {
+        this.dataSourceSub_ = dataSourceSubSede;
+    }
+
     @Override
     public void updateGenericDataSource(Sedes sede) {
         dataSource_.setPassword(sede.getPassword());
         dataSource_.setUrl(sede.getUrl());
         dataSource_.setUsername(sede.getUsername());
     }
-    
+
     @Override
     public void updateGenericDataSource(SubSedesDto subSede) {
         dataSourceSub_.setPassword(subSede.getPassword());
@@ -46,14 +48,12 @@ public class GenericDataSourceImpl implements GenericDataSource{
 
     @Override
     public DataSource getGenericDataSource() {
-        return (DataSource)this.dataSource_;
+        return (DataSource) this.dataSource_;
     }
 
     @Override
     public DataSource getGenericDataSourceSubSede() {
-        return (DataSource)this.dataSourceSub_;
+        return (DataSource) this.dataSourceSub_;
     }
 
-    
-    
 }

@@ -49,5 +49,11 @@ public class SubSedesDaoImpl extends GenericDaoImpl<SubSedes> implements SubSede
         MapSqlParameterSource params = new MapSqlParameterSource("idSede", idSede);
         return this.namedParameterJdbcTemplate.query(queryBuilder.toString(), params, new BeanPropertyRowMapper<>(ItemsDTO.class));
     }
+
+    @Override
+    public SubSedesDto findSubSedeByUser(Long cedula) {
+        MapSqlParameterSource params = new MapSqlParameterSource("cedula", cedula);
+        return this.namedParameterJdbcTemplate.queryForObject(leerXml.getQuery("SubSedesJpa.findLabelXIdSede"), params, new BeanPropertyRowMapper<>(SubSedesDto.class));
+    }
     
 }
