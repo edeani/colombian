@@ -14,7 +14,6 @@ import com.administracion.entidad.DetalleCajaMenor;
 import com.administracion.util.Formatos;
 import java.util.List;
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
