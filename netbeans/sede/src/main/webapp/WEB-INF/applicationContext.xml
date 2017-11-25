@@ -63,6 +63,9 @@
         <property name="password" value="${paswordbd}"/>
     </bean>
     
+    <bean id="accesosSubsedes_" class="com.administracion.service.autorizacion.AccesosSubsedes"></bean>
+    <bean id="pathEntry_" class="com.administracion.service.autorizacion.PathEntry"></bean>
+    
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource">

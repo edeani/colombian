@@ -37,7 +37,7 @@ public class SubSedesDaoImpl extends GenericDaoImpl<SubSedes> implements SubSede
     @Override
     public List<SubSedesDto> subsedesXIdSede(Integer idSede) {
         StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append(leerXml.getQuery("SubSedesJpa.findXIdSede"));
+        queryBuilder.append(leerXml.getQuery("SubSedesSql.findXIdSede"));
         MapSqlParameterSource params = new MapSqlParameterSource("idSede", idSede);
         return this.namedParameterJdbcTemplate.query(queryBuilder.toString(), params, new BeanPropertyRowMapper<>(SubSedesDto.class));
     }
@@ -45,7 +45,7 @@ public class SubSedesDaoImpl extends GenericDaoImpl<SubSedes> implements SubSede
     @Override
     public List<ItemsDTO> subsedesLabelXIdSede(Integer idSede) {
         StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append(leerXml.getQuery("SubSedesJpa.findLabelXIdSede"));
+        queryBuilder.append(leerXml.getQuery("SubSedesSql.findLabelXIdSede"));
         MapSqlParameterSource params = new MapSqlParameterSource("idSede", idSede);
         return this.namedParameterJdbcTemplate.query(queryBuilder.toString(), params, new BeanPropertyRowMapper<>(ItemsDTO.class));
     }
@@ -53,7 +53,7 @@ public class SubSedesDaoImpl extends GenericDaoImpl<SubSedes> implements SubSede
     @Override
     public SubSedesDto findSubSedeByUser(Long cedula) {
         MapSqlParameterSource params = new MapSqlParameterSource("cedula", cedula);
-        return this.namedParameterJdbcTemplate.queryForObject(leerXml.getQuery("SubSedesJpa.findLabelXIdSede"), params, new BeanPropertyRowMapper<>(SubSedesDto.class));
+        return this.namedParameterJdbcTemplate.queryForObject(leerXml.getQuery("SubSedesSql.findLabelXIdSede"), params, new BeanPropertyRowMapper<>(SubSedesDto.class));
     }
     
 }

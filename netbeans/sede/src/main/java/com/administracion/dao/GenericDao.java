@@ -22,6 +22,10 @@ public interface GenericDao <T>{
     T findById(Object id);
     T queryOpjectJpa(String queryString,HashMap<String,Object> parametros);
     List<T> queryJpa(String query,HashMap<String,Object> parametros);
-            
+    String selectJdbTemplate(String parametros, String tabla, String condiciones);
+    String updateJdbTemplate(String parametros, String tabla, String condiciones);
+    String insertJdbTemplate(String parametros, String tabla, String condiciones);
+    String deleteJdbTemplate(String tabla, String condiciones);   
+    String addInsertJdtbTemplate(String values1,String values2,int iteracion);
 
 }

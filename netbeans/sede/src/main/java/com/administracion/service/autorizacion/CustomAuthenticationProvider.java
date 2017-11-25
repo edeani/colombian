@@ -5,6 +5,7 @@
  */
 package com.administracion.service.autorizacion;
 
+import com.administracion.dao.SubSedesDao;
 import com.administracion.dao.UsuarioDao;
 import com.administracion.entidad.Users;
 import com.administracion.service.UsuarioService;
@@ -23,6 +24,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  *
@@ -42,6 +45,22 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
 
     @Autowired
     private LeerXml leerXml;
+    
+    @Autowired
+    private SubSedesDao subSedesDao;
+    
+    private AccesosSubsedes accesosSubsedes_;
+    private PathEntry pathEntry_;
+    
+    @Autowired
+    private void init(AccesosSubsedes accesosSubsedes_){
+        this.accesosSubsedes_=accesosSubsedes_;
+    }
+    
+    @Autowired
+    private void initPath(PathEntry pathEntry_){
+        this.pathEntry_=pathEntry_;
+    }
 
     private static final String PREFIJO_ROL = "ROLE_";
     private static final String USUARIO_ACTIVO = "A";
@@ -50,15 +69,23 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
+        
         Users user = usuarioService.findUsuarioByCorreo(username);
         if (user == null) {
+            throw new BadCredentialsException("1000");
+        }
+        String path = pathEntry_.getPath();
+        
+        if(!user.getIdsedes().getSede().equals(path)){
             throw new BadCredentialsException("1000");
         }
         
         if (!matches(password, user.getPassword())) {
             throw new BadCredentialsException("1000");
         }
-
+        
+        accesosSubsedes_.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
+        
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombre()));
         //El object user que mando aqui puede ser cualquier objeto desde un string a uno con atributos

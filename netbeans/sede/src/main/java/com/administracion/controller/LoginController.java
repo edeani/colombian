@@ -8,6 +8,7 @@ package com.administracion.controller;
 import com.administracion.datasources.GenericDataSource;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.SedesService;
+import com.administracion.service.autorizacion.PathEntry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class LoginController {
     
     @Autowired
     private GenericDataSource genericDataSource;
+    
+    @Autowired
+    private PathEntry pathEntry_;
+    
     
     /**
      * Carga base de datos principal si no se le especifica sede
@@ -58,6 +63,7 @@ public class LoginController {
             return new ModelAndView("redirect:/404.htm");
         }else{
             request.getSession().setAttribute("path",sede);
+            pathEntry_.setPath(sede);
             genericDataSource.updateGenericDataSource(s);
         }
         
