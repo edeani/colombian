@@ -6,17 +6,18 @@
 
 package com.adiministracion.mapper;
 
-import com.colombia.cali.colombiancaliycali.util.Formatos;
-import com.colombian.cali.colombiancaliycali.dto.DetallePagosCosolidadoSedeDto;
-import com.colombian.cali.colombiancaliycali.dto.DetallePagosProveedorDto;
-import com.colombian.cali.colombiancaliycali.dto.DetallePagosTercerosDto;
-import com.colombian.cali.colombiancaliycali.dto.PagosConsolidadoSedeDto;
-import com.colombian.cali.colombiancaliycali.dto.PagosProveedorDto;
-import com.colombian.cali.colombiancaliycali.dto.PagosTercerosDto;
-import com.colombian.cali.colombiancaliycali.entidades.DetallePagos;
-import com.colombian.cali.colombiancaliycali.entidades.DetallePorcentajeVentas;
-import com.colombian.cali.colombiancaliycali.entidades.Pagos;
-import com.colombian.cali.colombiancaliycali.entidades.PorcentajeVentas;
+
+import com.administracion.dto.DetallePagosCosolidadoSedeDto;
+import com.administracion.dto.DetallePagosProveedorDto;
+import com.administracion.dto.DetallePagosTercerosDto;
+import com.administracion.dto.PagosConsolidadoSedeDto;
+import com.administracion.dto.PagosProveedorDto;
+import com.administracion.dto.PagosTercerosDto;
+import com.administracion.entidad.DetallePagos;
+import com.administracion.entidad.DetallePorcentajeVentas;
+import com.administracion.entidad.Pagos;
+import com.administracion.entidad.PorcentajeVentas;
+import com.administracion.util.Formatos;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,36 +66,36 @@ public class PagosMapper {
         pagos.setFecha(Formatos.StringDateToDate(pagosConsolidadoSedeDto.getFechaPago()));
         pagos.setIdbeneficiario(pagosConsolidadoSedeDto.getIdBeneficiario());
         pagos.setIdpagos(pagosConsolidadoSedeDto.getSecuencia());
-        pagos.setTotal(pagosConsolidadoSedeDto.getTotal().doubleValue());
+        pagos.setTotal(pagosConsolidadoSedeDto.getTotal());
         
         return pagos;
     }
     
     public List<DetallePagos> detallePagosCosolidadoSedeDtosToDetallePagos(List<DetallePagosCosolidadoSedeDto> detallePagosCosolidadoSedeDtos){
-        List<DetallePagos> detalle = new ArrayList<DetallePagos>();
+        List<DetallePagos> detalle = new ArrayList<>();
         
-        for (DetallePagosCosolidadoSedeDto detallePagosCosolidadoSedeDto : detallePagosCosolidadoSedeDtos) {
-                DetallePagos detallePagos = new DetallePagos();
-                detallePagos.setDescripcion(detallePagosCosolidadoSedeDto.getDetalle());
-                detallePagos.setFecha(Formatos.StringDateToDate(detallePagosCosolidadoSedeDto.getFecha()));
-                detallePagos.setIdSede(detallePagosCosolidadoSedeDto.getIdSede());
-                detallePagos.setNumero(detallePagosCosolidadoSedeDto.getNumero());
-                detallePagos.setIdcuenta(detallePagosCosolidadoSedeDto.getIdCuenta());
-                detallePagos.setTotal(detallePagosCosolidadoSedeDto.getTotal().doubleValue());
-                detallePagos.setIdpago(detallePagosCosolidadoSedeDto.getIdPago());
-                
-                detalle.add(detallePagos);
-        }
+        detallePagosCosolidadoSedeDtos.stream().map((detallePagosCosolidadoSedeDto) -> {
+            DetallePagos detallePagos = new DetallePagos();
+            detallePagos.setDescripcion(detallePagosCosolidadoSedeDto.getDetalle());
+            detallePagos.setFecha(Formatos.StringDateToDate(detallePagosCosolidadoSedeDto.getFecha()));
+            detallePagos.setIdSede(detallePagosCosolidadoSedeDto.getIdSede());
+            detallePagos.setNumero(detallePagosCosolidadoSedeDto.getNumero());
+            detallePagos.setIdcuenta(detallePagosCosolidadoSedeDto.getIdCuenta());
+            detallePagos.setTotal(detallePagosCosolidadoSedeDto.getTotal());
+            detallePagos.setIdpago(detallePagosCosolidadoSedeDto.getIdPago());
+            return detallePagos;
+        }).forEachOrdered((detallePagos) -> {
+            detalle.add(detallePagos);
+        });
         
         return detalle;
     }
     
     public List<DetallePagos>  detallePagosTercerosDtoTodetallePagosTerceros(List<DetallePagosTercerosDto> detallePagosTercerosDtos){
         
-        List<DetallePagos> detallePagosTerceros = new ArrayList<DetallePagos>();
+        List<DetallePagos> detallePagosTerceros = new ArrayList<>();
         
-        for (DetallePagosTercerosDto elementoDetallePagosTercerosDto : detallePagosTercerosDtos) {
-            
+        detallePagosTercerosDtos.stream().map((elementoDetallePagosTercerosDto) -> {
             DetallePagos detallePagosTerceros1 = new DetallePagos();
             detallePagosTerceros1.setConsecutivo(elementoDetallePagosTercerosDto.getConsecutivo());
             detallePagosTerceros1.setDescripcion(elementoDetallePagosTercerosDto.getDetalle());
@@ -104,19 +105,19 @@ public class PagosMapper {
             detallePagosTerceros1.setNumero(elementoDetallePagosTercerosDto.getNumero());
             detallePagosTerceros1.setTotal(elementoDetallePagosTercerosDto.getTotal());
             detallePagosTerceros1.setIdpago(elementoDetallePagosTercerosDto.getIdpagotercero());
-            
+            return detallePagosTerceros1;            
+        }).forEachOrdered((detallePagosTerceros1) -> {
             detallePagosTerceros.add(detallePagosTerceros1);
-        }
+        });
         
         return detallePagosTerceros;
     }
     
     public List<DetallePagos>  detallePagosProveedorDtoTodetallePagosTerceros(List<DetallePagosProveedorDto> detallePagosProveedorDtos){
         
-        List<DetallePagos> detallePagosProveedor = new ArrayList<DetallePagos>();
+        List<DetallePagos> detallePagosProveedor = new ArrayList<>();
         
-        for (DetallePagosProveedorDto elementoDetallePagosProveedorDto : detallePagosProveedorDtos) {
-            
+        detallePagosProveedorDtos.stream().map((elementoDetallePagosProveedorDto) -> {
             DetallePagos detallePagosProveedor1 = new DetallePagos();
             detallePagosProveedor1.setConsecutivo(elementoDetallePagosProveedorDto.getConsecutivo());
             detallePagosProveedor1.setDescripcion(elementoDetallePagosProveedorDto.getDetalle());
@@ -127,9 +128,10 @@ public class PagosMapper {
             detallePagosProveedor1.setIdpago(elementoDetallePagosProveedorDto.getIdpagoproveedor());
             detallePagosProveedor1.setNumeroCompra(elementoDetallePagosProveedorDto.getNumeroCompra());
             detallePagosProveedor1.setFechaVencimiento(Formatos.StringDateToDate(elementoDetallePagosProveedorDto.getFechaVencimiento()));
-            
+            return detallePagosProveedor1;            
+        }).forEachOrdered((detallePagosProveedor1) -> {
             detallePagosProveedor.add(detallePagosProveedor1);
-        }
+        });
         
         return detallePagosProveedor;
     }
@@ -142,13 +144,12 @@ public class PagosMapper {
     }
     
     public List<DetallePagosCosolidadoSedeDto> detallePorcentajeVentaToDetallePagosCosolidadoSedeDto(List<DetallePorcentajeVentas> detallePorcentajeVentas){
-        List<DetallePagosCosolidadoSedeDto> detalles = new ArrayList<DetallePagosCosolidadoSedeDto>();
+        List<DetallePagosCosolidadoSedeDto> detalles = new ArrayList<>();
         
         if(detallePorcentajeVentas!=null){
-            for (DetallePorcentajeVentas detallePorcentaje : detallePorcentajeVentas) {
-                DetallePagosCosolidadoSedeDto detallePagosCosolidadoSedeDto = detallePorcentajeVentaToDetallePagosCosolidadoSedeDto(detallePorcentaje);
+            detallePorcentajeVentas.stream().map((detallePorcentaje) -> detallePorcentajeVentaToDetallePagosCosolidadoSedeDto(detallePorcentaje)).forEachOrdered((detallePagosCosolidadoSedeDto) -> {
                 detalles.add(detallePagosCosolidadoSedeDto);
-            }
+            });
         }
         return detalles;
     }

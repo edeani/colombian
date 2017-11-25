@@ -5,8 +5,9 @@
  */
 package com.adiministracion.mapper;
 
-import com.colombian.cali.colombiancaliycali.dto.ComprobanteConsolidadoSedeDto;
-import com.colombian.cali.colombiancaliycali.dto.MovimientoCajaDto;
+
+import com.administracion.dto.ComprobanteConsolidadoSedeDto;
+import com.administracion.dto.MovimientoCajaDto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class MovimientoCajaMapper {
     }
     
     public List<MovimientoCajaDto> comprobanteConsolidadoSedeDtoToMovimietoCajaMayorDto(List<ComprobanteConsolidadoSedeDto> comprobanteConsolidadoSedeDto) {
-        List<MovimientoCajaDto> movimientos = new ArrayList<MovimientoCajaDto>();
+        List<MovimientoCajaDto> movimientos = new ArrayList<>();
         Double saldoAcumulado = 0D;
         if (comprobanteConsolidadoSedeDto != null) {
             for (ComprobanteConsolidadoSedeDto comprobante : comprobanteConsolidadoSedeDto) {
@@ -67,7 +68,7 @@ public class MovimientoCajaMapper {
     }
     
     public List<MovimientoCajaDto> comprobanteConsolidadoSedeDtoToMovimietoCajaMenorDto(List<ComprobanteConsolidadoSedeDto> comprobanteConsolidadoSedeDto) {
-        List<MovimientoCajaDto> movimientos = new ArrayList<MovimientoCajaDto>();
+        List<MovimientoCajaDto> movimientos = new ArrayList<>();
         Double saldoAcumulado = 0D;
         if (comprobanteConsolidadoSedeDto != null) {
             for (ComprobanteConsolidadoSedeDto comprobante : comprobanteConsolidadoSedeDto) {

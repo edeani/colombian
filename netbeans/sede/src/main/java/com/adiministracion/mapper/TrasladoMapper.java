@@ -4,9 +4,10 @@
  */
 package com.adiministracion.mapper;
 
-import com.colombian.cali.colombiancaliycali.dto.DetalleFacturaDTO;
-import com.colombian.cali.colombiancaliycali.dto.DetalleFacturaTrasladoDTO;
-import com.colombian.cali.colombiancaliycali.entidades.Traslado;
+
+import com.administracion.dto.DetalleFacturaDTO;
+import com.administracion.dto.DetalleFacturaTrasladoDTO;
+import com.administracion.entidad.Traslado;
 import java.util.Date;
 
 /**

@@ -5,11 +5,12 @@
  */
 package com.adiministracion.mapper;
 
-import com.colombia.cali.colombiancaliycali.util.Formatos;
-import com.colombian.cali.colombiancaliycali.dto.ComprasDto;
-import com.colombian.cali.colombiancaliycali.dto.DetalleCompraDTO;
-import com.colombian.cali.colombiancaliycali.entidades.Compras;
-import com.colombian.cali.colombiancaliycali.entidades.FacturasCompras;
+
+import com.administracion.dto.ComprasDto;
+import com.administracion.dto.DetalleCompraDTO;
+import com.administracion.entidad.Compras;
+import com.administracion.entidad.FacturasCompras;
+import com.administracion.util.Formatos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +45,11 @@ public class ComprasMapper {
     }
 
     private List<Compras> comprasListaDtoTOCompras(List<ComprasDto> listaComprasDto) {
-        List<Compras> listaCompras = new ArrayList<Compras>();
+        List<Compras> listaCompras = new ArrayList<>();
         if (listaComprasDto != null) {
-            for (ComprasDto comprasDto : listaComprasDto) {
-                Compras compra = comprasDtoTOCompras(comprasDto);
+            listaComprasDto.stream().map((comprasDto) -> comprasDtoTOCompras(comprasDto)).forEachOrdered((compra) -> {
                 listaCompras.add(compra);
-            }
+            });
         }
         return listaCompras;
     }
@@ -76,12 +76,11 @@ public class ComprasMapper {
     }
 
     public List<ComprasDto> comprasListaTOComprasDto(List<Compras> listaCompras) {
-        List<ComprasDto> listaComprasDtos = new ArrayList<ComprasDto>();
+        List<ComprasDto> listaComprasDtos = new ArrayList<>();
         if (listaCompras != null) {
-            for (Compras compras : listaCompras) {
-                ComprasDto comprasDto = comprasTOComprasDto(compras);
+            listaCompras.stream().map((compras) -> comprasTOComprasDto(compras)).forEachOrdered((comprasDto) -> {
                 listaComprasDtos.add(comprasDto);
-            }
+            });
         }
         return listaComprasDtos;
     }

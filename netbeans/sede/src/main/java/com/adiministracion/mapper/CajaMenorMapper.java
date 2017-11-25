@@ -6,17 +6,16 @@
 
 package com.adiministracion.mapper;
 
-import com.colombia.cali.colombiancaliycali.util.Formatos;
-import com.colombian.cali.colombiancaliycali.dto.DetallePagosCosolidadoSedeDto;
-import com.colombian.cali.colombiancaliycali.dto.DetallePagosProveedorDto;
-import com.colombian.cali.colombiancaliycali.dto.DetallePagosTercerosDto;
-import com.colombian.cali.colombiancaliycali.dto.PagosConsolidadoSedeDto;
-import com.colombian.cali.colombiancaliycali.dto.PagosProveedorDto;
-import com.colombian.cali.colombiancaliycali.dto.PagosTercerosDto;
-import com.colombian.cali.colombiancaliycali.entidades.CajaMenor;
-import com.colombian.cali.colombiancaliycali.entidades.DetalleCajaMenor;
-import com.colombian.cali.colombiancaliycali.entidades.DetallePagos;
-import com.colombian.cali.colombiancaliycali.entidades.Pagos;
+
+import com.administracion.dto.DetallePagosCosolidadoSedeDto;
+import com.administracion.dto.DetallePagosProveedorDto;
+import com.administracion.dto.DetallePagosTercerosDto;
+import com.administracion.dto.PagosConsolidadoSedeDto;
+import com.administracion.dto.PagosProveedorDto;
+import com.administracion.dto.PagosTercerosDto;
+import com.administracion.entidad.CajaMenor;
+import com.administracion.entidad.DetalleCajaMenor;
+import com.administracion.util.Formatos;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,10 +44,9 @@ public class CajaMenorMapper {
     
     public List<DetalleCajaMenor>  detallePagosTercerosDtoToDetalleCajaMenor(List<DetallePagosTercerosDto> detallePagosTercerosDtos){
         
-        List<DetalleCajaMenor> detallePagosTerceros = new ArrayList<DetalleCajaMenor>();
+        List<DetalleCajaMenor> detallePagosTerceros = new ArrayList<>();
         
-        for (DetallePagosTercerosDto elementoDetallePagosTercerosDto : detallePagosTercerosDtos) {
-            
+        detallePagosTercerosDtos.stream().map((elementoDetallePagosTercerosDto) -> {
             DetalleCajaMenor detallePagosTerceros1 = new DetalleCajaMenor();
             detallePagosTerceros1.setConsecutivo(elementoDetallePagosTercerosDto.getConsecutivo());
             detallePagosTerceros1.setDescripcion(elementoDetallePagosTercerosDto.getDetalle());
@@ -58,9 +56,10 @@ public class CajaMenorMapper {
             detallePagosTerceros1.setNumero(elementoDetallePagosTercerosDto.getNumero());
             detallePagosTerceros1.setTotal(elementoDetallePagosTercerosDto.getTotal());
             detallePagosTerceros1.setIdcajamenor(elementoDetallePagosTercerosDto.getIdpagotercero());
-            
+            return detallePagosTerceros1;            
+        }).forEachOrdered((detallePagosTerceros1) -> {
             detallePagosTerceros.add(detallePagosTerceros1);
-        }
+        });
         
         return detallePagosTerceros;
     }
@@ -83,10 +82,9 @@ public class CajaMenorMapper {
     
     public List<DetalleCajaMenor>  detallePagosProveedorDtoTodetallePagosCajaMenor(List<DetallePagosProveedorDto> detallePagosProveedorDtos){
         
-        List<DetalleCajaMenor> detallePagosCajaMenor = new ArrayList<DetalleCajaMenor>();
+        List<DetalleCajaMenor> detallePagosCajaMenor = new ArrayList<>();
         
-        for (DetallePagosProveedorDto elementoDetallePagosProveedorDto : detallePagosProveedorDtos) {
-            
+        detallePagosProveedorDtos.stream().map((elementoDetallePagosProveedorDto) -> {
             DetalleCajaMenor detallePagosProveedor1 = new DetalleCajaMenor();
             detallePagosProveedor1.setConsecutivo(elementoDetallePagosProveedorDto.getConsecutivo());
             detallePagosProveedor1.setDescripcion(elementoDetallePagosProveedorDto.getDetalle());
@@ -97,9 +95,10 @@ public class CajaMenorMapper {
             detallePagosProveedor1.setIdcajamenor(elementoDetallePagosProveedorDto.getIdpagoproveedor());
             detallePagosProveedor1.setNumeroCompra(elementoDetallePagosProveedorDto.getNumeroCompra());
             detallePagosProveedor1.setFechaVencimiento(Formatos.StringDateToDate(elementoDetallePagosProveedorDto.getFechaVencimiento()));
-            
+            return detallePagosProveedor1;            
+        }).forEachOrdered((detallePagosProveedor1) -> {
             detallePagosCajaMenor.add(detallePagosProveedor1);
-        }
+        });
         
         return detallePagosCajaMenor;
     }
@@ -112,26 +111,27 @@ public class CajaMenorMapper {
         cajaMenor.setFecha(Formatos.StringDateToDate(pagosConsolidadoSedeDto.getFechaPago()));
         cajaMenor.setIdbeneficiario(pagosConsolidadoSedeDto.getIdBeneficiario());
         cajaMenor.setIdcajamenor(pagosConsolidadoSedeDto.getSecuencia());
-        cajaMenor.setTotal(pagosConsolidadoSedeDto.getTotal().doubleValue());
+        cajaMenor.setTotal(pagosConsolidadoSedeDto.getTotal());
         
         return cajaMenor;
     }
     
     public List<DetalleCajaMenor> detallePagosCosolidadoSedeDtosToDetalleCajaMenor(List<DetallePagosCosolidadoSedeDto> detallePagosCosolidadoSedeDtos){
-        List<DetalleCajaMenor> detalle = new ArrayList<DetalleCajaMenor>();
+        List<DetalleCajaMenor> detalle = new ArrayList<>();
         
-        for (DetallePagosCosolidadoSedeDto detallePagosCosolidadoSedeDto : detallePagosCosolidadoSedeDtos) {
-                DetalleCajaMenor detalleCajaMenor = new DetalleCajaMenor();
-                detalleCajaMenor.setDescripcion(detallePagosCosolidadoSedeDto.getDetalle());
-                detalleCajaMenor.setFecha(Formatos.StringDateToDate(detallePagosCosolidadoSedeDto.getFecha()));
-                detalleCajaMenor.setIdsede(detallePagosCosolidadoSedeDto.getIdSede());
-                detalleCajaMenor.setNumero(detallePagosCosolidadoSedeDto.getNumero());
-                detalleCajaMenor.setIdcuenta(detallePagosCosolidadoSedeDto.getIdCuenta());
-                detalleCajaMenor.setTotal(detallePagosCosolidadoSedeDto.getTotal().doubleValue());
-                detalleCajaMenor.setIdcajamenor(detallePagosCosolidadoSedeDto.getIdPago());
-                
-                detalle.add(detalleCajaMenor);
-        }
+        detallePagosCosolidadoSedeDtos.stream().map((detallePagosCosolidadoSedeDto) -> {
+            DetalleCajaMenor detalleCajaMenor = new DetalleCajaMenor();
+            detalleCajaMenor.setDescripcion(detallePagosCosolidadoSedeDto.getDetalle());
+            detalleCajaMenor.setFecha(Formatos.StringDateToDate(detallePagosCosolidadoSedeDto.getFecha()));
+            detalleCajaMenor.setIdsede(detallePagosCosolidadoSedeDto.getIdSede());
+            detalleCajaMenor.setNumero(detallePagosCosolidadoSedeDto.getNumero());
+            detalleCajaMenor.setIdcuenta(detallePagosCosolidadoSedeDto.getIdCuenta());
+            detalleCajaMenor.setTotal(detallePagosCosolidadoSedeDto.getTotal());
+            detalleCajaMenor.setIdcajamenor(detallePagosCosolidadoSedeDto.getIdPago());
+            return detalleCajaMenor;
+        }).forEachOrdered((detalleCajaMenor) -> {
+            detalle.add(detalleCajaMenor);
+        });
         
         return detalle;
     }

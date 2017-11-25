@@ -4,8 +4,9 @@
  */
 package com.adiministracion.mapper;
 
-import com.colombian.cali.colombiancaliycali.dto.DetalleFacturaDTO;
-import com.colombian.cali.colombiancaliycali.entidades.CambioSede;
+
+import com.administracion.dto.DetalleFacturaDTO;
+import com.administracion.entidad.CambioSede;
 import java.util.Date;
 
 /**

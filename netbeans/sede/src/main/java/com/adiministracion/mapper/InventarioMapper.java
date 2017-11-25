@@ -4,8 +4,10 @@
  */
 package com.adiministracion.mapper;
 
-import com.colombian.cali.colombiancaliycali.dto.InventarioDTO;
-import com.colombian.cali.colombiancaliycali.entidades.Inventario;
+import com.administracion.dto.InventarioDTO;
+import com.administracion.entidad.Inventario;
+
+
 
 /**
  *

@@ -6,9 +6,11 @@
 
 package com.adiministracion.mapper;
 
-import com.colombia.cali.colombiancaliycali.util.Formatos;
-import com.colombian.cali.colombiancaliycali.dto.ComprobanteCierreSedesDto;
-import com.colombian.cali.colombiancaliycali.entidades.CierreSedes;
+import com.administracion.dto.ComprobanteCierreSedesDto;
+import com.administracion.entidad.CierreSedes;
+import com.administracion.util.Formatos;
+
+
 
 /**
  *
