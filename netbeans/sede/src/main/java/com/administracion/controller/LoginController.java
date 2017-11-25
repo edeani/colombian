@@ -8,6 +8,7 @@ package com.administracion.controller;
 import com.administracion.datasources.GenericDataSource;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.SedesService;
+import com.administracion.service.autorizacion.AccesosSubsedes;
 import com.administracion.service.autorizacion.PathEntry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,7 +36,7 @@ public class LoginController {
     private GenericDataSource genericDataSource;
     
     @Autowired
-    private PathEntry pathEntry_;
+    private AccesosSubsedes accesosSubsedes_;
     
     
     /**
@@ -63,7 +64,7 @@ public class LoginController {
             return new ModelAndView("redirect:/404.htm");
         }else{
             request.getSession().setAttribute("path",sede);
-            pathEntry_.setPath(sede);
+            accesosSubsedes_.setPath(sede);
             genericDataSource.updateGenericDataSource(s);
         }
         

@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccesosSubsedes {
     private List<SubSedesDto> subsedes;
+    
+    private String path;
 
     public SubSedesDto findSubsedeXName(String subsede){
         for (SubSedesDto subsede1 : subsedes) {
@@ -34,5 +36,12 @@ public class AccesosSubsedes {
         this.subsedes = subsedes;
     }
     
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
     
 }
