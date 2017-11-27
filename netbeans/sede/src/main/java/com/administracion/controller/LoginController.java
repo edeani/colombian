@@ -9,7 +9,6 @@ import com.administracion.datasources.GenericDataSource;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
-import com.administracion.service.autorizacion.PathEntry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

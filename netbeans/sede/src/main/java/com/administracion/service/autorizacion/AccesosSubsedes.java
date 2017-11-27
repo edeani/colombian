@@ -5,8 +5,13 @@
  */
 package com.administracion.service.autorizacion;
 
+import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.SubSedesDto;
 import java.util.List;
+import javax.sql.DataSource;
+import org.bouncycastle.asn1.cmp.GenMsgContent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,10 +20,25 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AccesosSubsedes {
+    
+    @Autowired
+    private GenericDataSource genericDataSource;
+    
     private List<SubSedesDto> subsedes;
     
     private String path;
 
+    /**
+     * Obtiene las credenciales del dataSource
+     * @param nameDataSource
+     * @return 
+     */
+    public DataSource getDataSourceSubSede(String nameDataSource){
+        SubSedesDto subSedesDto = findSubsedeXName(nameDataSource);
+        genericDataSource.updateGenericDataSource(subSedesDto);
+        return genericDataSource.getGenericDataSourceSubSede();
+    }
+    
     public SubSedesDto findSubsedeXName(String subsede){
         for (SubSedesDto subsede1 : subsedes) {
             if(subsede1.getSede().equals(subsede)){
