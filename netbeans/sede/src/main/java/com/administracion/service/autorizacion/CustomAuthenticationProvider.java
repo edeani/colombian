@@ -7,6 +7,7 @@ package com.administracion.service.autorizacion;
 
 import com.administracion.dao.SubSedesDao;
 import com.administracion.dao.UsuarioDao;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Users;
 import com.administracion.service.UsuarioService;
 import com.administracion.util.LeerXml;
@@ -24,8 +25,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  *
@@ -80,6 +79,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         }
         
         accesosSubsedes_.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
+        
+        SubSedesDto subSedesDto = new SubSedesDto();
+        subSedesDto.setId(user.getIdsedes().getIdsedes());
+        subSedesDto.setIdsede(0);
+        subSedesDto.setPassword(user.getIdsedes().getPassword());
+        subSedesDto.setUsername(user.getIdsedes().getUsername());
+        subSedesDto.setSede(user.getIdsedes().getSede());
+        subSedesDto.setUrl(user.getIdsedes().getUrl());
+        
+        accesosSubsedes_.getSubsedes().add(0, subSedesDto);
         
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombre()));
