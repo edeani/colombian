@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 
-package com.colombian.cali.colombiancaliycali.services;
+package com.administracion.service;
 
-import com.colombian.cali.colombiancaliycali.dto.BeneficiarioAutocompletarDto;
-import com.colombian.cali.colombiancaliycali.dto.ItemsDTO;
+
+import com.administracion.dto.BeneficiarioAutocompletarDto;
+import com.administracion.dto.ItemsDTO;
 import java.util.List;
 
 /**

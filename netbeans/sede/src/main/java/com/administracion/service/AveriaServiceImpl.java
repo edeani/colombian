@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AveriaServiceImpl implements AveriasService{
 
-    private JdbcTemplate jdbctemplate;
 
     @Autowired
     private AveriasDao averiasDao;

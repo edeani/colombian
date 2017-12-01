@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 
-package com.colombian.cali.colombiancaliycali.services;
+package com.administracion.service;
 
-import com.colombia.cali.colombiancaliycali.dao.BeneficiariosDao;
-import com.colombian.cali.colombiancaliycali.dto.BeneficiarioAutocompletarDto;
-import com.colombian.cali.colombiancaliycali.dto.ItemsDTO;
+import com.administracion.dao.BeneficiariosDao;
+import com.administracion.dto.BeneficiarioAutocompletarDto;
+import com.administracion.dto.ItemsDTO;
+import com.administracion.service.autorizacion.AccesosSubsedes;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,15 +25,19 @@ public class BeneficiariosServiceImpl implements BeneficiariosService{
     @Autowired
     private BeneficiariosDao beneficiarioDao;
     
+    @Autowired
+    private AccesosSubsedes accesosSubsedes;
+    
     @Override
     @Transactional(readOnly = true)
     public List<BeneficiarioAutocompletarDto> buscarBeneficiarioLikeNombre(String nameDataSource, String nombre) {
-        return beneficiarioDao.buscarBeneficiarioLikeNombre(nameDataSource, nombre);
+        
+        return beneficiarioDao.buscarBeneficiarioLikeNombre(accesosSubsedes.getDataSourceSubSede(nameDataSource), nombre);
     }
 
     @Override
     public List<ItemsDTO> buscarBeneficiariosSelect(String nameDataSource) {
-        return beneficiarioDao.beneficiariosSelect(nameDataSource);
+        return beneficiarioDao.beneficiariosSelect(accesosSubsedes.getDataSourceSubSede(nameDataSource));
     }
     
 }
