@@ -30,7 +30,7 @@ public class AveriaServiceImpl implements AveriasService{
     @Autowired
     private AccesosSubsedes accesosSubsedes;
     
-   
+       
     @Override
     @Transactional
     public void guardarAveria(String nameDataSource, String detalleAveria, String valorTotal,String usuario) {

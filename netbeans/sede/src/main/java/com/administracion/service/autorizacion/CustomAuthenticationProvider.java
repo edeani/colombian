@@ -49,7 +49,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     private SubSedesDao subSedesDao;
     
     private AccesosSubsedes accesosSubsedes_;
-    private PathEntry pathEntry_;
     
     @Autowired
     private void init(AccesosSubsedes accesosSubsedes_){
@@ -80,6 +79,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         
         accesosSubsedes_.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
         
+        /**
+         * Agrego la sede principal
+         */
         SubSedesDto subSedesDto = new SubSedesDto();
         subSedesDto.setId(user.getIdsedes().getIdsedes());
         subSedesDto.setIdsede(0);
@@ -87,7 +89,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         subSedesDto.setUsername(user.getIdsedes().getUsername());
         subSedesDto.setSede(user.getIdsedes().getSede());
         subSedesDto.setUrl(user.getIdsedes().getUrl());
-        
+        /**
+         * Fin  agregar sede principal
+         */
         accesosSubsedes_.getSubsedes().add(0, subSedesDto);
         
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
