@@ -5,7 +5,9 @@
  */
 package com.administracion.service;
 
+import com.administracion.dto.ItemsDTO;
 import com.administracion.entidad.Sedes;
+import java.util.List;
 
 /**
  *
@@ -14,4 +16,7 @@ import com.administracion.entidad.Sedes;
 public interface SedesService {
     public Sedes findSedeXId(Long idSede);
     public Sedes findSedeXName(String sede);
+    public List<ItemsDTO> listaSedesOptions(String nameDatasource);
+    public List<Sedes> traerSedes(String nameDatasource);
+    public Sedes buscarSede(String nameDatasource,Long idSede);
 }

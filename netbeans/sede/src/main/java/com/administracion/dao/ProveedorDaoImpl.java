@@ -7,9 +7,12 @@
 package com.administracion.dao;
 
 
+import com.administracion.dto.ItemsDTO;
 import com.administracion.entidad.Proveedor;
+import com.administracion.util.LeerXml;
 import java.util.List;
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +26,9 @@ import org.springframework.stereotype.Repository;
 public class ProveedorDaoImpl extends GenericDaoImpl<Proveedor> implements ProveedoresDao{
     private JdbcTemplate jdbctemplate;
 
+    @Autowired
+    private LeerXml leerXml;
+    
     @Override
     public Proveedor getProveedor(DataSource nameDataSource, Long idproveedor) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
@@ -81,5 +87,11 @@ public class ProveedorDaoImpl extends GenericDaoImpl<Proveedor> implements Prove
         } catch (DataAccessException e) {
             System.out.println("ERROR::eliminarProveedor::"+e.getMessage());
         }
+    }
+
+    @Override
+    public List<ItemsDTO> proveedoresItems(DataSource nameDataSource) {
+        this.jdbctemplate = new JdbcTemplate(nameDataSource);
+        return this.jdbctemplate.query(leerXml.getQuery("ProveedoresSql.listProveedorItem"), new BeanPropertyRowMapper(ItemsDTO.class));
     }
 }

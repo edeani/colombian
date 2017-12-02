@@ -6,10 +6,15 @@
 package com.administracion.service;
 
 import com.administracion.dao.SedesDao;
+import com.administracion.dto.ItemsDTO;
 import com.administracion.entidad.Sedes;
-import javax.transaction.Transactional;
+import com.administracion.service.autorizacion.AccesosSubsedes;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -20,6 +25,8 @@ public class SedesServiceImpl implements SedesService{
 
     @Autowired
     private SedesDao sedesDao;
+    @Autowired
+    private AccesosSubsedes accesosSubsedes;
     
     @Transactional
     @Override
@@ -30,6 +37,24 @@ public class SedesServiceImpl implements SedesService{
     @Override
     public Sedes findSedeXName(String sede) {
         return sedesDao.findXName(sede);
+    }
+
+    @Override
+    @Transactional
+    public List<ItemsDTO> listaSedesOptions(String nameDatasource) {
+        return sedesDao.listaSedesOptions(accesosSubsedes.getDataSourceSubSede(nameDatasource));
+    }
+
+    @Override
+    @Transactional
+    public List<Sedes> traerSedes(String nameDatasource) {
+        return sedesDao.traerSedes(accesosSubsedes.getDataSourceSubSede(nameDatasource));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Sedes buscarSede(String nameDatasource, Long idSede) {
+       return sedesDao.buscarSede(accesosSubsedes.getDataSourceSubSede(nameDatasource), idSede);
     }
     
 }

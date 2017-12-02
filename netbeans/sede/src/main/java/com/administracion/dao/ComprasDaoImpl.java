@@ -12,13 +12,18 @@ import com.administracion.dto.ReporteComprasTotalesProvDTO;
 import com.administracion.dto.ReporteComprasTotalesXProveedorDTO;
 import com.administracion.entidad.Compras;
 import com.administracion.util.Formatos;
+import com.administracion.util.LeerXml;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -29,11 +34,16 @@ import org.springframework.stereotype.Repository;
 public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDao {
 
     private JdbcTemplate jdbctemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ComprasDaoImpl.class);
+    
 
     @Autowired
+    private LeerXml leerXml;
+    @Autowired
     private FacturasComprasDao facturasComprasDao;
-    private static final String estado_default_comprobante = "N";
-    private static final String estado_default_compra = "A";
+    private  final String estado_default_comprobante = "N";
+    private  final String estado_default_compra = "A";
 
     private static final String SQL_DETALLECOMPRA_DTO = "SELECT i.codigo_producto_inventario as codigo, "
             + "i.descripcion_producto as producto, "
@@ -53,7 +63,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
         try {
             compras = (Compras) jdbctemplate.queryForObject(selectJdbTemplate("*", "compras", "id_compra=" + idcompra.intValue()), new BeanPropertyRowMapper(Compras.class));
         } catch (DataAccessException e) {
-            System.out.println("COMPRAS::No se encontraron recursos");
+            LOGGER.error("COMPRAS::No se encontraron recursos");
         }
 
         return compras;
@@ -67,7 +77,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
         try {
             detalleCompra = jdbctemplate.query(SQL_DETALLECOMPRA_DTO, new Object[]{idcompra}, new BeanPropertyRowMapper(ComprasTotalesDTO.class));
         } catch (DataAccessException e) {
-            System.out.println("Error getDetalleCompraDTO::No se encontraron recursos");
+            LOGGER.error("Error getDetalleCompraDTO::No se encontraron recursos");
         }
 
         return detalleCompra;
@@ -82,7 +92,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
     @Override
     public void insertarCompra(DataSource nameDataSource, DetalleCompraDTO detalleCompraDTO) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
-        System.out.println("SQL::" + insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra,idsede", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
+        LOGGER.info("SQL::" + insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra,idsede", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
                 + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdsede()));
         this.jdbctemplate.execute(insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra,idsede", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
                 + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdFacturaCompra()+","+detalleCompraDTO.getIdsede()));
@@ -90,7 +100,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
     @Override
     public void insertarCompraSede(DataSource nameDataSource, DetalleCompraDTO detalleCompraDTO) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
-        System.out.println("SQL::" + insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
+        LOGGER.info("SQL::" + insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
                 + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()));
         this.jdbctemplate.execute(insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
                 + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdFacturaCompra()));
@@ -118,7 +128,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
         try {
             reporte = jdbctemplate.query(sql, new BeanPropertyRowMapper<>(ReporteComprasTotalesXProveedorDTO.class));
         } catch (DataAccessException e) {
-            System.out.println("ERROR::comprasTotalesXProveedor::" + e.getMessage());
+            LOGGER.error("ERROR::comprasTotalesXProveedor::" + e.getMessage());
         }
 
         return reporte;
@@ -134,7 +144,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
         try {
             reporte = jdbctemplate.query(sql, new BeanPropertyRowMapper<>(ReporteComprasTotalesProvDTO.class));
         } catch (DataAccessException e) {
-            System.out.println("ERROR::comprasTotalesProveedores::" + e.getMessage());
+            LOGGER.error("ERROR::comprasTotalesProveedores::" + e.getMessage());
         }
 
         return reporte;
@@ -150,7 +160,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
         try {
             total = jdbctemplate.queryForObject(sql,Long.class);
         } catch (DataAccessException e) {
-            System.out.println("ERROR::totalComprasPollo::" + e.getMessage());
+            LOGGER.error("ERROR::totalComprasPollo::" + e.getMessage());
         }
         return total;
     }
@@ -166,7 +176,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
                     + ",idsede="+compras.getIdsede(), "compras", "id_compra=" + compras.getIdCompra());
             this.jdbctemplate.execute(sql);
         } catch (DataAccessException e) {
-            System.out.println("Error actualizarCompra::" + e.getMessage());
+            LOGGER.error("Error actualizarCompra::" + e.getMessage());
         }
     }
 
@@ -182,10 +192,39 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
             String sql = selectJdbTemplate("*", "compras", "fecha_vencimiento is  not null and estado_compra_proveedor ='N' and codigo_proveedor=" + idProveedor + " " + condicionDias);
             compras = this.jdbctemplate.query(sql, new BeanPropertyRowMapper<>(Compras.class));
         } catch (DataAccessException e) {
-            System.out.println("Error comprasAVencer::" + e.getMessage());
+            LOGGER.error("Error comprasAVencer::" + e.getMessage());
         }
 
         return compras;
+    }
+
+    @Override
+    public List<ComprasTotalesDTO> comprasTotales(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(nameDataSource);
+        MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fechaInicial);
+        params.addValue("fechaFinal", fechaFinal);
+        params.addValue("estadoCompra", estadoCompra);
+        try {
+            return this.namedParameterJdbcTemplate.query(leerXml.getQuery("ComprasSql.comprasTotales"), params, new BeanPropertyRowMapper<>(ComprasTotalesDTO.class));
+        } catch (DataAccessException e) {
+            LOGGER.error("comprasTotales::"+e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<ComprasTotalesDTO> comprasTotalesProveedor(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(nameDataSource);
+        MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fechaInicial);
+        params.addValue("fechaFinal", fechaFinal);
+        params.addValue("estadoCompra", estadoCompra);
+        params.addValue("codigoProveedor", codigoProveedor);
+        try {
+            return this.namedParameterJdbcTemplate.query(leerXml.getQuery("ComprasSql.comprasTotalesProveedor"), params, new BeanPropertyRowMapper<>(ComprasTotalesDTO.class));
+        } catch (DataAccessException e) {
+            LOGGER.error("comprasTotales::"+e.getMessage());
+        }
+        return null;
     }
 
 }

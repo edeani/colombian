@@ -12,6 +12,8 @@ import com.administracion.dto.DetalleFacturaDTO;
 import com.administracion.dto.FacturaAutocompletarDto;
 import com.administracion.dto.FacturaReporteSedeDto;
 import com.administracion.dto.FacturaTotalReporteDto;
+import com.administracion.dto.FacturaVentaDTO;
+import com.administracion.dto.VentasTotalesDTO;
 import com.administracion.entidad.Factura;
 import java.util.List;
 import javax.sql.DataSource;
@@ -37,4 +39,8 @@ public interface FacturaDao {
     public void actualizarSedeFactura(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura);
     public void actualizarSedeDetalleFactura(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura);
     public List<FacturaAutocompletarDto> buscarFacturaAutocompletar(DataSource nameDataSource,String numeroFactura,Long idproveedor);
+    List<VentasTotalesDTO> ventasTotales(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra);
+    List<VentasTotalesDTO> ventasTotalesSede(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long idSede);
+    List<FacturaVentaDTO> detalleFacturaVenta(DataSource nameDataSource, Long numeroFactura);
+    Factura traaerFactura(DataSource nameDataSource, Long numeroFactura);
 }

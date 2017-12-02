@@ -34,4 +34,6 @@ public interface ComprasDao {
     public Long totalComprasPollo(DataSource nameDataSource,String fechaInicio,String fechaFin);
     public void actualizarCompra(DataSource nameDataSource,Compras compras);
     public List<Compras> comprasAVencer(DataSource nameDataSource,int numeroDias,Long idProveedor);
+    List<ComprasTotalesDTO> comprasTotales(DataSource nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra);
+    List<ComprasTotalesDTO> comprasTotalesProveedor(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor);
 }

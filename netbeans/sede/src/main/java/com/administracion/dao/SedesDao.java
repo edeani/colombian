@@ -5,7 +5,10 @@
  */
 package com.administracion.dao;
 
+import com.administracion.dto.ItemsDTO;
 import com.administracion.entidad.Sedes;
+import java.util.List;
+import javax.sql.DataSource;
 
 /**
  *
@@ -13,4 +16,7 @@ import com.administracion.entidad.Sedes;
  */
 public interface SedesDao extends GenericDao<Sedes>{
     Sedes findXName(String sede);
+    List<ItemsDTO> listaSedesOptions(DataSource nameDatasource);
+    List<Sedes> traerSedes(DataSource nameDatasource);
+    Sedes buscarSede(DataSource nameDatasource, Long idSede);
 }

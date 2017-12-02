@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="ProveedoresSql.listProveedorItem">
+        select idproveedor as id,nombre as label from proveedor order by 2
+    </query>
+</queries>

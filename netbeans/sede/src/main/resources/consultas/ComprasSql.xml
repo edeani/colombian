@@ -10,4 +10,34 @@
        ( factura.estado_factura = 'A' ) )
         ) sub 
     </query>
+    <query id="ComprasSql.comprasTotales">
+        select subCompras3.*,(subCompras3.valor/subCompras3.unidades) as promedio from (select subCompras2.codigo,subCompras2.producto, sum(subCompras2.unidades) as unidades, 
+        sum(subCompras2.valor) as valor 
+        from ( select subCompras.codigo as codigo,subCompras.producto as producto, case when subCompras.unidades is null then 0 else subCompras.unidades end as unidades, 
+        case when subCompras.estado_compra is null then :estadoCompra else subCompras.estado_compra end as estado_compra, 
+        case when subCompras.fecha_compra is null or subCompras.fecha_compra = '' then :fechaInicial else subCompras.fecha_compra end as fecha_compra  , 
+        case when subCompras.promedio is null then 0 else subCompras.promedio end as promedio, 
+        case when subCompras.valor is null then 0 else subCompras.valor end as valor 
+        from (select i.codigo_producto_inventario as codigo,i.descripcion_producto as producto, 
+        dc.numero_unidades as unidades,i.promedio as promedio,dc.valor_producto as valor,c.estado_compra ,dc.fecha_compra 
+        from inventario i inner join detalle_compra dc on i.codigo_producto_inventario = dc.codigo_producto_inventario 
+        inner join compras c on dc.numero_compra = c.id_compra order by 1)subCompras 
+        )subCompras2 where subCompras2.estado_compra = :estadoCompra and subCompras2.fecha_compra between :fechaInicial and :fechaFinal 
+        group by subCompras2.codigo,subCompras2.producto) subCompras3 order by 1
+    </query>
+    <query id="ComprasSql.comprasTotalesProveedor">
+        select subCompras3.*,(subCompras3.valor/subCompras3.unidades) as promedio from (select subCompras2.codigo,subCompras2.producto, sum(subCompras2.unidades) as unidades, 
+        sum(subCompras2.valor) as valor 
+        from ( select subCompras.codigo as codigo,subCompras.producto as producto, case when subCompras.unidades is null then 0 else subCompras.unidades end as unidades, 
+        case when subCompras.estado_compra is null then :estadoCompra else subCompras.estado_compra end as estado_compra, 
+        case when subCompras.fecha_compra is null or subCompras.fecha_compra = '' then :fechaInicial else subCompras.fecha_compra end as fecha_compra  , 
+        case when subCompras.promedio is null then 0 else subCompras.promedio end as promedio, 
+        case when subCompras.valor is null then 0 else subCompras.valor end as valor 
+        from (select i.codigo_producto_inventario as codigo,i.descripcion_producto as producto, 
+        dc.numero_unidades as unidades,i.promedio as promedio,dc.valor_producto as valor,c.estado_compra ,dc.fecha_compra 
+        from inventario i inner join detalle_compra dc on i.codigo_producto_inventario = dc.codigo_producto_inventario 
+        inner join compras c on dc.numero_compra = c.id_compra order by 1)subCompras 
+        )subCompras2 where subCompras2.estado_compra = :estadoCompra and subCompras2.fecha_compra between :fechaInicial and :fechaFinal 
+        group by subCompras2.codigo,subCompras2.producto) subCompras3 order by 1
+    </query>
 </queries>
