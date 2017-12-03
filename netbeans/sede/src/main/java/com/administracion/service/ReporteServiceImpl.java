@@ -6,11 +6,9 @@
 package com.administracion.service;
 
 import com.administracion.dao.ReportesDao;
-import com.administracion.dao.SedesDao;
 import com.administracion.dao.SubSedesDao;
 import com.administracion.dto.ReporteConsolidadoDto;
 import com.administracion.dto.SubSedesDto;
-import com.administracion.entidad.Sedes;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

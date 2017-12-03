@@ -325,7 +325,7 @@ public class ReportesDaoImpl implements ReportesDao {
                 + "select sum(dp.total) from detalle_pagos dp "
                 + "where dp.idcuenta like '5%' and dp.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
                 + "union all "
-		+" select sum(total) as total from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' "
+		+" select sum(total) as total +from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' "
                 + ")sub0 "
                 + ")sub1 "
                 + "union all "
