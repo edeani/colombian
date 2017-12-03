@@ -43,4 +43,6 @@ public interface ReportesDao {
     public List<BalanceDto> reporteBalance(DataSource nameDataSource,String fechInicial, String fechaFinal,Long idsede);
     public Long pagosContarjetaTotal(DataSource nameDataSource,String fecha);
     public Long pagosDescuentoTotal(DataSource nameDataSource,String fecha);
+
+    public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(String nameDataSource, String sfechaInicial, String sfechaFinal);
 }

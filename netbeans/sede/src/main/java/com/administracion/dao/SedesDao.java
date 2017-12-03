@@ -19,4 +19,8 @@ public interface SedesDao extends GenericDao<Sedes>{
     List<ItemsDTO> listaSedesOptions(DataSource nameDatasource);
     List<Sedes> traerSedes(DataSource nameDatasource);
     Sedes buscarSede(DataSource nameDatasource, Long idSede);
+
+    public Sedes findSede(Long idSede);
+
+    public List<Sedes> listSedes();
 }

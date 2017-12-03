@@ -96,8 +96,8 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
             /**
              * Cambio de conexión
              */
-            genericDataSource.updateGenericDataSource(subSede);
-            this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(genericDataSource.getGenericDataSourceSubSede());
+            
+            this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes.getDataSourceSubSede(subSede.getSede()));
             /**
              * Ejecución de la consulta
              */
@@ -540,6 +540,11 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
             LOGGER.error("Error pagosDescuentoTotal::"+e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(String nameDataSource, String sfechaInicial, String sfechaFinal) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -63,6 +63,16 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
         return sede;
     }
 
+    @Override
+    public Sedes findSede(Long idSede) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Sedes> listSedes() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
 }
