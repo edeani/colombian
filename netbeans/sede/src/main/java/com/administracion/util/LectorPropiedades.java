@@ -5,11 +5,13 @@
 package com.administracion.util;
 import java.io.IOException;
 import java.util.Properties;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author joseefren
  */
+@Component
 public class LectorPropiedades {
   
     //propiedad que deseo obtener
