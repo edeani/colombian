@@ -20,11 +20,12 @@
         <sitemesh:write property='head'/>
     </head>
     <body>
-        <input type="hidden" id="contextpath" value="${pageContext.servletContext.contextPath}"/>
         <div  id="cuerpo">
             <%@ include file="/WEB-INF/componentes/header.jsp" %>
             <sitemesh:write property='body'/>
             <%@ include file="/WEB-INF/componentes/footer.jsp" %>
         </div>
+        <input type="hidden" id="contextpath" value="${pageContext.servletContext.contextPath}"/>
+        <input type="hidden" id="idpath" value="${sessionScope.path}"/>
     </body>
 </html>

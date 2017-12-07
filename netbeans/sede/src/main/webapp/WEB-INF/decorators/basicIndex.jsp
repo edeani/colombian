@@ -20,9 +20,10 @@
         <div style="display: block">
             <img src="<%=request.getContextPath()%>/img/logo_caliycali.png" />
         </div> 
-        
         <sitemesh:write property='body'/>
         <%@ include file="/WEB-INF/componentes/footer.jsp" %>
+        <input type="hidden" id="contextpath" value="${pageContext.servletContext.contextPath}"/>
+        <input type="hidden" id="idpath" value="${sessionScope.path}"/>
         </div>
     </body>
 </html>
