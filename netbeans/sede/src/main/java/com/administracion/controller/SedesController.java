@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author edeani
  */
 @Controller
-@RequestMapping("/sedes")
+@RequestMapping("/{sede:[a-zA-Z]+}/sedes")
 public class SedesController extends BaseController {
 
     @Autowired

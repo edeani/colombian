@@ -32,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jose Efren
  */
 @Controller
-@RequestMapping("/traslados")
+@RequestMapping("/{sede:[a-zA-Z]+}/traslados")
 public class TrasladosController extends BaseController{
 
     @Autowired

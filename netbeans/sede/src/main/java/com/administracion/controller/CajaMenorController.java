@@ -40,7 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jose Efren
  */
 @Controller
-@RequestMapping("/cajamenor")
+@RequestMapping("/{sede:[a-zA-Z]+}/cajamenor")
 public class CajaMenorController extends BaseController {
 
     @Autowired

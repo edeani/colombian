@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author EderArmando
  */
 @Controller
-@RequestMapping("/porcentajeventas")
+@RequestMapping("/{sede:[a-zA-Z]+}/porcentajeventas")
 public class PorcentajeVentasController extends BaseController{
     @Autowired
     private PorcentajeVentasService porcentajeVentasService;

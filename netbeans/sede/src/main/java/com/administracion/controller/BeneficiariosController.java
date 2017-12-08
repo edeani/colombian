@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jose Efren
  */
 @Controller
-@RequestMapping("/beneficiarios")
+@RequestMapping("/{sede:[a-zA-Z]+}/beneficiarios")
 public class BeneficiariosController extends BaseController{
     
     @Autowired

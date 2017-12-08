@@ -39,7 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author edeani
  */
 @Controller
-@RequestMapping("/inventario")
+@RequestMapping("/{sede:[a-zA-Z]+}/inventario")
 public class InventarioController extends BaseController {
 
     private  final String titulo = "Formulario de Inventario";

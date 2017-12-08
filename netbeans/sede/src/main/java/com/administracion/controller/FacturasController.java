@@ -23,7 +23,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +44,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author edeani
  */
 @Controller
-@RequestMapping("/factura")
+@RequestMapping("/{sede:[a-zA-Z]+}/factura")
 public class FacturasController extends BaseController {
 
     @Autowired

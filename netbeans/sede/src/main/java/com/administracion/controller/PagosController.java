@@ -47,7 +47,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jose Efren
  */
 @Controller
-@RequestMapping("/pagos")
+@RequestMapping("/{sede:[a-zA-Z]+}/pagos")
 public class PagosController extends BaseController{
     
     @Autowired

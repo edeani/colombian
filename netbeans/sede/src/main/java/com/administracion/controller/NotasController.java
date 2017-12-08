@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author EderArmando
  */
 @Controller
-@RequestMapping("/notas")
+@RequestMapping("/{sede:[a-zA-Z]+}/notas")
 public class NotasController extends BaseController {
 
     @Autowired

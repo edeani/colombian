@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jose Efren
  */
 @Controller
-@RequestMapping("/cierre")
+@RequestMapping("/{sede:[a-zA-Z]+}/cierre")
 public class CierreController extends BaseController{
     
     @RequestMapping(value = "/index.do")

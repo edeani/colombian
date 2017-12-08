@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author user
  */
 @Controller
-@RequestMapping("/proveedor")
+@RequestMapping("/{sede:[a-zA-Z]+}/proveedor")
 public class ProveedorController extends BaseController{
     
     @Autowired

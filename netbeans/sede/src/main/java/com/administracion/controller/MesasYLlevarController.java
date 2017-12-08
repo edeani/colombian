@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author EderArmando
  */
 @Controller
-@RequestMapping("/mesasyllevar")
+@RequestMapping("/{sede:[a-zA-Z]+}/mesasyllevar")
 public class MesasYLlevarController extends BaseController {
 
     @Autowired

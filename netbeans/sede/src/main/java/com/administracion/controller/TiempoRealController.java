@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author EderArmando
  */
 @Controller
-@RequestMapping("/tiemporeal")
+@RequestMapping("/{sede:[a-zA-Z]+}/tiemporeal")
 public class TiempoRealController extends BaseController {
 
     @Autowired

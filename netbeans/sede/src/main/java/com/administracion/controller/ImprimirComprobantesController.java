@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jose Efren
  */
 @Controller
-@RequestMapping("/imprimir")
+@RequestMapping("/{sede:[a-zA-Z]+}/imprimir")
 public class ImprimirComprobantesController extends BaseController{
     @RequestMapping(value = "/comprobante/pago.htm")
     public ModelAndView indexImpresionProveedor(){

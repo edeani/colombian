@@ -71,7 +71,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author user
  */
 @Controller
-@RequestMapping("/compras")
+@RequestMapping("/{sede:[a-zA-Z]+}/compras")
 public class ComprasController extends BaseController {
 
     @Autowired
