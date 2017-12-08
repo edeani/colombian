@@ -12,9 +12,9 @@
 <%@ page import="java.util.*"%>
 
 <div id="contenidoHome">
-    <input type="hidden" value="<%=request.getContextPath()%>/img/loaders/" id="rutaLoader">
+    <input type="hidden" value="<%=request.getContextPath()%>/${sessionScope.path}/img/loaders/" id="rutaLoader">
     <div id="tituloPagina">${titulo}</div>
-    <div id="reporteInventario" data-url="<%=request.getContextPath()%>/inventario/ajax/inventarioSede.htm">
+    <div id="reporteInventario" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/inventarioSede.htm">
         <div id="formFechas">
             <label>Fecha
                 <input id="fecha" style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fecha}"/>"/>

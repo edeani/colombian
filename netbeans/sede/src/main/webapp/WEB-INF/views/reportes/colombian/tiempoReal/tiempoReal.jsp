@@ -28,7 +28,7 @@
     <div id="tituloPagina">Tiempo Real</div>
     <div class="contenedorEstructuraForm">
         <div class="contentFormSimple">
-            <form id="formCierreDiario" action="<%=request.getContextPath()%>/tiemporeal/ajax/calcular.htm">
+            <form id="formCierreDiario" action="<%=request.getContextPath()%>/${sessionScope.path}/tiemporeal/ajax/calcular.htm">
                 <label>Fecha
                     <input name="fecha" id="fecha" class="fecha contentRequired" style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fechaInicial}"/>"/>
                 </label>

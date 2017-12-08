@@ -23,10 +23,10 @@
 </script>
 <div id="contenidoHome">
     <div id="tituloPagina">${titulo}</div>
-    <div id="formFechas" data-url="<%=request.getContextPath()%>/compras/reportes/comprasTotalesPDF.htm">
+    <div id="formFechas" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotalesPDF.htm">
         <div class="contenedorEstructuraFormLarge">
         <div class="contentFormSimple">
-        <form target="_blank" action="<%=request.getContextPath()%>/compras/colombian/reportes/compraspdf.htm">
+        <form target="_blank" action="<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compraspdf.htm">
             <label>Fecha Inicial
                 <input name="fechaInicial" id="fechaInicial" class="fechaInicial" style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fechaInicial}"/>"/>
             </label>

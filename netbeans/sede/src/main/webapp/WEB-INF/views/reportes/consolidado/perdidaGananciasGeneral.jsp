@@ -26,7 +26,7 @@
 <div id="contenidoHome">
     <div id="tituloPagina">${titulo}</div>
     <div id="formFechas">
-        <form id="formulario" target="_blank" action="<%=request.getContextPath()%>/consolidado/reporte/general/perdidaganancias/pdf.htm" method="post">
+        <form id="formulario" target="_blank" action="<%=request.getContextPath()%>/${sessionScope.path}/consolidado/reporte/general/perdidaganancias/pdf.htm" method="post">
             <label>
                 Tipo reporte
                 <select id="tipoReporte" name="tipoReporte">

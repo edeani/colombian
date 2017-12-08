@@ -28,7 +28,7 @@
 <div id="contenidoHome">
     <div id="tituloPagina">${titulo}</div>
     <div id="formFechas">
-        <form id="formulario" target="_blank" action="<%=request.getContextPath()%>/pagos/ajax/comprobante/buscar.htm">
+        <form id="formulario" target="_blank" action="<%=request.getContextPath()%>/${sessionScope.path}/pagos/ajax/comprobante/buscar.htm">
             <label id="labelFechaInicial">Comprobantes por fecha
                 <input name="fechaInicial" id="fechaInicial" class="fechaInicial" style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fechaInicial}"/>"/>
             </label>

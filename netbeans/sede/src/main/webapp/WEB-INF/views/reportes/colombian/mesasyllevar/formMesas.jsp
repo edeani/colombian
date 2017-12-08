@@ -16,7 +16,7 @@
     <div id="tituloPagina">Mesas y Llevar Sede</div>
     <div class="contenedorEstructuraFormLarge">
         <div class="contentFormSimple">
-            <form id="formMesas" action="<%=request.getContextPath()%>/mesasyllevar/colombian/ajax/consultar.htm">
+            <form id="formMesas" action="<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/colombian/ajax/consultar.htm">
                 <label>Fecha Inicial
                     <input name="fechaInicial" id="fechaInicial" class="fechaInicial contentRequired" style="cursor: pointer;" type="text" value=""/>
                 </label>
