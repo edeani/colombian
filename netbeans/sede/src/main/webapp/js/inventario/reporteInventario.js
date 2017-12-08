@@ -17,7 +17,7 @@ $(document).ready(function() {
         var errorStatus = false;
         loader("cargador", "barra.gif");
         $.ajax({
-            url: $("#contextpath").val()+"/inventario/ajax/sede.htm",
+            url: $("#contextpath").val()+"/"+$("#idpath").val()+"/inventario/ajax/sede.htm",
             timeout: 20000,
             type: "POST",
             data: "fecha=" + $("#fecha").val() + "&sede=" + nombreSede,

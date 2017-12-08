@@ -330,7 +330,7 @@ $(document).ready(function(){
             var arrFacturas = facturasT.split("@");
             var factOrigen = arrFacturas[0];
             var factDest = arrFacturas[1];
-            var urlPdf=$("#contextpath").val()+"/factura/facturaVentaPDF.htm";
+            var urlPdf=$("#contextpath").val()+"/"+$("#idpath").val()+"/factura/facturaVentaPDF.htm";
             
             relocate(urlPdf,{'numeroFactura':factOrigen,'sede':sedeOrigen},"_blank");
             relocate(urlPdf,{'numeroFactura':factDest,'sede':sedeDestino},"_blank");
@@ -527,7 +527,7 @@ $(document).ready(function(){
         var numeroFactura = $("#numeroFactura").val();
         if($("#numeroFactura").val() != ""){
             loader("cargador", "barra.gif");
-            html = peticionAjaxProducto($("#contextpath").val()+"/factura/ajax/listaProductos.htm", "POST","numeroFactura="+numeroFactura);
+            html = peticionAjaxProducto($("#contextpath").val()+"/"+$("#idpath").val()+"/factura/ajax/listaProductos.htm", "POST","numeroFactura="+numeroFactura);
             $("#contenidoFactura").html(html);
             loader("cargador", "");
             if($("#numeroSede").val() == ""){

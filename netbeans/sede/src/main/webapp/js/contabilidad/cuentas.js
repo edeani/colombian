@@ -12,7 +12,7 @@ $(document).ready(function(){
     
      
     $("#codCta").autocomplete({
-        source: $("#contextpath").val()+"/cuentas/ajax/autocompletar.htm",
+        source: $("#contextpath").val()+"/"+$("#idpath").val()+"/cuentas/ajax/autocompletar.htm",
         select: function(event,ui){
             valorCampoIdCuenta = ui.item.idCuenta;
         }
@@ -30,7 +30,7 @@ $(document).ready(function(){
     
     $(document).on("click","#btnActualizarCuenta",function(event){
         event.preventDefault();
-        var url = $("#contextpath").val()+"/cuentas/ajax/actualizar.htm";
+        var url = $("#contextpath").val()+"/"+$("#idpath").val()+"/cuentas/ajax/actualizar.htm";
         var parametros = $("#cuentasPuc").serialize();
         var respuesta = peticionAjax(url,"post",parametros);
         $("#codCta").val("");

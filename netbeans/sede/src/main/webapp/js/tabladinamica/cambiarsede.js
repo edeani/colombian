@@ -443,7 +443,7 @@ $(document).ready(function(){
         var numeroFactura = $("#numeroFactura").val();
         if($("#numeroFactura").val() != ""){
             loader("cargador", "barra.gif");
-            html = peticionAjaxProducto($("#contextpath").val()+"/factura/ajax/listaProductos.htm", "POST","numeroFactura="+numeroFactura+"&cambiosede=S");
+            html = peticionAjaxProducto($("#contextpath").val()+"/"+$("#idpath").val()+"/factura/ajax/listaProductos.htm", "POST","numeroFactura="+numeroFactura+"&cambiosede=S");
             $("#contenidoFactura").html(html);
             loader("cargador", "");
             if($("#numeroSede").val() == ""){

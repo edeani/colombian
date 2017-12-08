@@ -224,7 +224,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.confirm({
             title: 'Seleccionar Impresora',
-            content: "url:" + $("#contextpath").val() + "/compras/ajax/impresoras.htm",
+            content: "url:" + $("#contextpath").val()+"/"+$("#idpath").val()+ "/compras/ajax/impresoras.htm",
             columnClass: 'ancho-confirm',
             buttons: {
                 aceptar: {
@@ -348,7 +348,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.confirm({
             title: 'Seleccionar Impresora',
-            content: "url:" + $("#contextpath").val() + "/compras/ajax/impresoras.htm",
+            content: "url:" + $("#contextpath").val()+"/"+$("#idpath").val() + "/compras/ajax/impresoras.htm",
             columnClass: 'ancho-confirm',
             buttons: {
                 aceptar: {
