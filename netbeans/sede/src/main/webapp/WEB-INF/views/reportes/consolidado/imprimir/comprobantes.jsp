@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody id="comprobantesImprimir">
-                <c:set var="urlComprobante" value="${pageContext.servletContext.contextPath}/pagos/proveedores/pdf/comprobante.htm"></c:set>
+                <c:set var="urlComprobante" value="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/proveedores/pdf/comprobante.htm"></c:set>
                 <c:forEach items="${pagos}" var="item" varStatus="indice">
                     <tr id="filaComprobante${indice.index}" style="background: green;">
                             <td>

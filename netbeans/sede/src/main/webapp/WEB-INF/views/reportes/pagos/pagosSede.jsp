@@ -16,7 +16,7 @@
 </head> 
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 <div id="formFactura">                                 
-    <form method="POST" target="_blank" id="formReportePagos" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/pdf/sede/todos.htm" >
+    <form method="POST" target="_blank" id="formReportePagos" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/pagos/pdf/sede/todos.htm" >
         <div id="contenidoHome"> 
             <input id="rutaLoader"  value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>

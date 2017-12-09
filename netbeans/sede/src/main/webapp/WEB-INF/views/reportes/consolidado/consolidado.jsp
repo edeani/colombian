@@ -22,7 +22,7 @@
 </script>
 <div id="contenidoHome">
     <div id="tituloPagina">${titulo}</div>
-    <div id="formFechas" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/consolidado/consolidadoPDF.htm">
+    <div id="formFechas" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/${sessionScope.path}/consolidado/consolidadoPDF.htm">
         <form target="_blank" method ="POST" action="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/consolidado/consolidadoPDF.htm">
             <label>Fecha Inicial
                 <input name="fechaInicial" id="fechaInicial" class="fechaInicial" style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fechaInicial}"/>"/>

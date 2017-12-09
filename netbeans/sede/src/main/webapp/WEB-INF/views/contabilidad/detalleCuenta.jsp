@@ -17,7 +17,7 @@
                     <th width="22">&nbsp;</th>
                 </tr>
             </thead>
-            <tbody id="contenidoFactura" data-url ="<%=request.getContextPath()%>/inventario/ajax/selectProducto.htm">
+            <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                 <tr>
                     <td>
                         <input id="nombreCta" name="nombreCta" value="${cuentasPuc.nombreCta}"/>

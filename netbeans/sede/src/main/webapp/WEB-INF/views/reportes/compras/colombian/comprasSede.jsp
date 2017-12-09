@@ -23,7 +23,7 @@
 </script>
 <div id="contenidoHome">
     <div id="tituloPagina">${titulo}</div>
-    <div id="formFechas" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotalesPDF.htm">
+    <div id="formFechas" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/compras/reportes/comprasTotalesPDF.htm">
         <div class="contenedorEstructuraFormLarge">
         <div class="contentFormSimple">
         <form target="_blank" action="<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compraspdf.htm">
