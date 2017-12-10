@@ -21,7 +21,7 @@ import java.util.List;
  */
 public interface ReporteService {
     public List<ReporteConsolidadoDto> reporteConsolidado(Integer idSede,String fechaInicial,String fechaFinal);
-    public List<ComprobanteConsolidadoSedeDto> comprobanteConsolidado(Long idSede,Date fecha);
+    public List<ComprobanteConsolidadoSedeDto> comprobanteConsolidado(String nameDataSourceSede,Integer idSubSede,Date fecha);
     public List<MovimientoCajaDto> movimientoCajaMayor(String nameDataSource,Date fechaInicial,Date fechaFinal);
     public List<MovimientoCajaDto> movimientoCajaMenor(String nameDataSource, String fechaInicial, String fechaFinal);
     public PagosConsolidadoSedeDto generarPagoConsolidadoSedePorcentaje(String nameDataSource,int mes);

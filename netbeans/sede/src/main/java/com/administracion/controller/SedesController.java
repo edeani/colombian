@@ -5,8 +5,10 @@
 package com.administracion.controller;
 
 import com.administracion.dto.ItemsDTO;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.SedesService;
+import com.administracion.service.autorizacion.AccesosSubsedes;
 import com.administracion.service.autorizacion.SecurityService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +35,8 @@ public class SedesController extends BaseController {
     private SedesService sedeService;
     @Autowired
     private SecurityService securityService;
-
+    @Autowired
+    private AccesosSubsedes accesosSubsedes_;
 
     @ModelAttribute("sedes")
     public String traerSedes(HttpSession session, HttpServletRequest request) {
@@ -47,14 +51,16 @@ public class SedesController extends BaseController {
         return idsede;
     }
 
-    //Carga las sedes en el select
+    /**
+     * @param session: contiene la sesión actual
+     * @param sede: Sede que hace el request
+     * @return 
+     */
     @RequestMapping("/ajax/listaSedeSelect.htm")
-    public ModelAndView cargarSedes(HttpSession session) {
+    public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("util/formSelect");
-        getPropiedades().setArchivo(getArchivo());
-        getPropiedades().setPropiedad(getPropiedadPrincipal());
-
-        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(getPropiedades().leerPropiedad());
+        Sedes ss = accesosSubsedes_.findSedeXName(sede);
+        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
         mav.addObject("datos", datosSedes);
 
         return mav;
@@ -67,8 +73,8 @@ public class SedesController extends BaseController {
         ModelAndView mav = new ModelAndView("util/formSelectSedes");
         getPropiedades().setArchivo(getArchivo());
         getPropiedades().setPropiedad(getPropiedadPrincipal());
-
-        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(getPropiedades().leerPropiedad());
+        SubSedesDto ss = accesosSubsedes_.findSubsedeXName((String)session.getAttribute("path"));
+        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(idSede.intValue());
         mav.addObject("datos", datosSedes);
         mav.addObject("sede", idSede);
         return mav;

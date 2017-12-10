@@ -16,7 +16,7 @@ import java.util.List;
 public interface SedesService {
     public Sedes findSedeXId(Long idSede);
     public Sedes findSedeXName(String sede);
-    public List<ItemsDTO> listaSedesOptions(String nameDatasource);
+    public List<ItemsDTO> listaSedesOptions(Integer idSede);
     public List<Sedes> traerSedes(String nameDatasource);
     public Sedes buscarSede(String nameDatasource,Long idSede);
 }

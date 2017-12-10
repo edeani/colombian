@@ -40,9 +40,9 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
     }
 
     @Override
-    public List<ItemsDTO> listaSedesOptions(DataSource nameDatasource) {
+    public List<ItemsDTO> listaSedesOptions(DataSource nameDatasource,Integer idSede) {
         this.jdbcTemplate = new JdbcTemplate(nameDatasource);
-        return jdbcTemplate.query("select idsedes as id, sede as label from sedes", new BeanPropertyRowMapper(ItemsDTO.class));
+        return jdbcTemplate.query("select ss.id,ss.sede as label from subsedes ss where ss.idsede ="+idSede, new BeanPropertyRowMapper(ItemsDTO.class));
     }
 
     @Override

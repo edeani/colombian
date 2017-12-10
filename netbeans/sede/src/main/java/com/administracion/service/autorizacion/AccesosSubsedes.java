@@ -7,11 +7,10 @@ package com.administracion.service.autorizacion;
 
 import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.SubSedesDto;
+import com.administracion.entidad.Sedes;
 import java.util.List;
 import javax.sql.DataSource;
-import org.bouncycastle.asn1.cmp.GenMsgContent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,6 +22,10 @@ public class AccesosSubsedes {
     
     @Autowired
     private GenericDataSource genericDataSource;
+    
+    private Sedes sedePrincipal;
+    
+    private List<Sedes> sedes;
     
     private List<SubSedesDto> subsedes;
     
@@ -48,6 +51,31 @@ public class AccesosSubsedes {
         return null;
     }
     
+    public Sedes findSedeXName(String sede){
+        for (Sedes sede1 : sedes) {
+            if(sede1.getSede().equals(sede)){
+                return sede1;
+            }
+        }
+        
+        return null;
+    }
+    /**
+     * Devuelvo el datasource de la conexión principal
+     * @return 
+     */
+    public DataSource getPrincipalDataSource(){
+        return genericDataSource.getDataSourcePrincipal();
+    }
+    /**
+     * Seteo la base de datos principal atraves de un objeto sede
+     * @param sede 
+     */
+    public void setPrincialDataSource(Sedes sede){
+        genericDataSource.getDataSourcePrincipal().setUsername(sede.getUsername());
+        genericDataSource.getDataSourcePrincipal().setPassword(sede.getPassword());
+        genericDataSource.getDataSourcePrincipal().setUrl(sede.getUrl());
+    }
     public List<SubSedesDto> getSubsedes() {
         return subsedes;
     }
@@ -62,6 +90,22 @@ public class AccesosSubsedes {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public List<Sedes> getSedes() {
+        return sedes;
+    }
+
+    public void setSedes(List<Sedes> sedes) {
+        this.sedes = sedes;
+    }
+
+    public Sedes getSedePrincipal() {
+        return sedePrincipal;
+    }
+
+    public void setSedePrincipal(Sedes sedePrincipal) {
+        this.sedePrincipal = sedePrincipal;
     }
     
 }

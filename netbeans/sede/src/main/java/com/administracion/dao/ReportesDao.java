@@ -16,6 +16,7 @@ import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.DetallePorcentajeVentas;
 import com.administracion.entidad.PorcentajeVentas;
 import com.administracion.entidad.Sedes;
+import com.administracion.entidad.SubSedes;
 import java.util.List;
 import javax.sql.DataSource;
 
@@ -27,9 +28,9 @@ public interface ReportesDao {
     public List<ReporteConsolidadoDto> reporteConsolidado(List<SubSedesDto> subSedes,String fechaInicial,String fechaFinal); 
     List<ReporteInventarioDTO> findInventarioXFechaFinal(DataSource nameSede,String fecha);
     public Long gastosConsolidadoSede(Sedes sede,String fecha);
-    public Long consignacionesConsolidadoSede(Sedes sede,String fecha);
+    public Long consignacionesConsolidadoSede(SubSedes subSedes,String fecha);
     public Long comprasConsolidadoSede(Sedes sede,String fecha);
-    public Long totalConsolidadoSede(Sedes sede,String fecha);
+    public Long totalConsolidadoSede(SubSedes subSed,String fecha);
     public Long pagosConsolidado(DataSource nameDataSource,String fecha);
     public List<ComprobanteConsolidadoSedeDto> buscarGastosXFecha(DataSource nameDataSource,String fecha);
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(DataSource nameDataSource,String fechaInicio,String fechaFin);

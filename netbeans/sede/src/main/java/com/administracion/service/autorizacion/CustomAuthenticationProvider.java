@@ -7,7 +7,7 @@ package com.administracion.service.autorizacion;
 
 import com.administracion.dao.SubSedesDao;
 import com.administracion.dao.UsuarioDao;
-import com.administracion.dto.SubSedesDto;
+import com.administracion.entidad.Sedes;
 import com.administracion.entidad.Users;
 import com.administracion.service.UsuarioService;
 import com.administracion.util.LeerXml;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static java.util.regex.Pattern.matches;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -54,6 +55,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     private void init(AccesosSubsedes accesosSubsedes_){
         this.accesosSubsedes_=accesosSubsedes_;
     }
+    
+    @Value("${usuariobd}")
+    private String usernamebd;
+    @Value("${paswordbd}")
+    private String passwordbd;
+    @Value("${serverbd}")
+    private String urlbd;
+    @Value("${basededatos}")
+    private String bd;
    
     private static final String PREFIJO_ROL = "ROLE_";
     private static final String USUARIO_ACTIVO = "A";
@@ -77,22 +87,29 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
             throw new BadCredentialsException("1000");
         }
         
-        accesosSubsedes_.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
         
         /**
-         * Agrego la sede principal
+         * Sede del usuario
          */
-        SubSedesDto subSedesDto = new SubSedesDto();
-        subSedesDto.setId(user.getIdsedes().getIdsedes());
-        subSedesDto.setIdsede(0);
-        subSedesDto.setPassword(user.getIdsedes().getPassword());
-        subSedesDto.setUsername(user.getIdsedes().getUsername());
-        subSedesDto.setSede(user.getIdsedes().getSede());
-        subSedesDto.setUrl(user.getIdsedes().getUrl());
+        accesosSubsedes_.setSedes(new ArrayList<>());
+        accesosSubsedes_.getSedes().add(user.getIdsedes());
         /**
-         * Fin  agregar sede principal
+         * Subsedes de la sede del usuario
          */
-        accesosSubsedes_.getSubsedes().add(0, subSedesDto);
+        accesosSubsedes_.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
+        /**
+         * agregar bd principal
+         */       
+        Sedes sedes = new Sedes();
+        sedes.setPassword(this.passwordbd);
+        sedes.setUsername(this.usernamebd);
+        sedes.setSede(this.bd);
+        sedes.setUrl("jdbc:mysql://"+this.urlbd+"/"+this.bd);
+        accesosSubsedes_.setSedePrincipal(sedes);
+        accesosSubsedes_.setPrincialDataSource(sedes);
+        /**
+         * Fin  agregar bd principal
+         */
         
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombre()));

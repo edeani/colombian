@@ -18,10 +18,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GenericDataSourceImpl implements GenericDataSource {
-
+    
+    private DriverManagerDataSource dataSourcePrincipal;
     private DriverManagerDataSource dataSource_;
     private DriverManagerDataSource dataSourceSub_;
     
+    @Autowired
+    public void initPrincipal(DriverManagerDataSource dataSource){
+        this.dataSourcePrincipal = dataSource;
+    }
     @Autowired
     public void init(DriverManagerDataSource dataSourceSede) {
         this.dataSource_ = dataSourceSede;
@@ -56,4 +61,9 @@ public class GenericDataSourceImpl implements GenericDataSource {
         return (DataSource) this.dataSourceSub_;
     }
 
+    @Override
+    public DriverManagerDataSource getDataSourcePrincipal() {
+        return this.dataSourcePrincipal;
+    }
+    
 }
