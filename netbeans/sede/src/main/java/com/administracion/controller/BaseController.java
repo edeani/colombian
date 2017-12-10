@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  *
@@ -20,8 +21,10 @@ import org.slf4j.LoggerFactory;
 public class BaseController {
     
     private final static Logger LOGGER = LoggerFactory.getLogger(BaseController.class);
-    private static String propiedadPrincipal="basedatos";
-    private static String archivo="/bd/basedatos.properties";
+    private static String propiedadPrincipal="basededatos";
+    private static String archivo="colombian.properties";
+    @Value("${basededatos}")
+    private String dataPrincipal;
     private LectorPropiedades propiedades;
     
     public BaseController(){
@@ -82,5 +85,13 @@ public class BaseController {
     public void setPropiedades(LectorPropiedades propiedades) {
         this.propiedades = propiedades;
     }
+
+    /**
+     * @return Retorna la base 
+     */
+    public String getDataPrincipal() {
+        return dataPrincipal;
+    }
+    
     
 }
