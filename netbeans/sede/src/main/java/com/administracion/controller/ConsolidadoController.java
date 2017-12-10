@@ -137,12 +137,13 @@ public class ConsolidadoController extends BaseController {
      * Guardar lo de consolidado porcentaje sedes
      *
      * @param comprobanteCierreSedesDto
-     * @return
+     * @param sedeEntry
+ty     * @return
      */
     @RequestMapping(value = "/ajax/comprobante/sede/guardar.htm")
     public @ResponseBody
-    String guardarComprobanteConsolidadoSede(@ModelAttribute ComprobanteCierreSedesDto comprobanteCierreSedesDto) {
-        cierreSedesService.guardarComprobanteCierreService(getPropiedades().leerPropiedad(), comprobanteCierreSedesDto);
+    String guardarComprobanteConsolidadoSede(@ModelAttribute ComprobanteCierreSedesDto comprobanteCierreSedesDto,@PathVariable(value = "sede") String sedeEntry) {
+        cierreSedesService.guardarComprobanteCierreService(sedeEntry, comprobanteCierreSedesDto);
         return comprobanteCierreSedesDto.getConsecutivo().toString();
     }
 

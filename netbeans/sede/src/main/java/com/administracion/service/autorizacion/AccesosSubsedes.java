@@ -11,6 +11,7 @@ import com.administracion.entidad.Sedes;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
  * @author EderArmando
  */
 @Component
+@Scope(value = "session")
 public class AccesosSubsedes {
     
     @Autowired
@@ -32,7 +34,7 @@ public class AccesosSubsedes {
     private String path;
 
     /**
-     * Obtiene las credenciales del dataSource
+     * Obtiene las credenciales del dataSource de la Subsede
      * @param nameDataSource
      * @return 
      */
@@ -41,7 +43,16 @@ public class AccesosSubsedes {
         genericDataSource.updateGenericDataSource(subSedesDto);
         return genericDataSource.getGenericDataSourceSubSede();
     }
-    
+    /**
+     * Obtiene las credenciales del datasource de la sede
+     * @param nameDataSource
+     * @return 
+     */
+    public DataSource getDataSourceSede(String nameDataSource){
+        Sedes puntoSede = findSedeXName(nameDataSource);
+        genericDataSource.updateGenericDataSource(puntoSede);
+        return genericDataSource.getGenericDataSource();
+    }
     public SubSedesDto findSubsedeXName(String subsede){
         for (SubSedesDto subsede1 : subsedes) {
             if(subsede1.getSede().equals(subsede)){

@@ -9,14 +9,18 @@ import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
  *
  * @author EderArmando
  */
-@Service
+@Component
+@Scope(value = "session",proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GenericDataSourceImpl implements GenericDataSource {
     
     private DriverManagerDataSource dataSourcePrincipal;

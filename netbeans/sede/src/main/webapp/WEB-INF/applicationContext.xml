@@ -63,7 +63,9 @@
         <property name="password" value="${paswordbd}"/>
     </bean>
     
-    <bean id="accesosSubsedes_" class="com.administracion.service.autorizacion.AccesosSubsedes"></bean>
+    <bean id="accesosSubsedes_" scope="session" class="com.administracion.service.autorizacion.AccesosSubsedes">
+        <aop:scoped-proxy/>
+    </bean>
     
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
