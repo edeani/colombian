@@ -5,6 +5,8 @@
 package com.administracion.util;
 import java.io.IOException;
 import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +20,7 @@ public class LectorPropiedades {
     private String propiedad;
     //Archivo que deseo leer
     private String archivo;
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(LectorPropiedades.class);
     //Leo la propiedad de un archivo propertie
     public String leerPropiedad()
     {
@@ -28,6 +30,7 @@ public class LectorPropiedades {
             propertie.load(LectorPropiedades.class.getResource(archivo).openStream());
             valorPropiedad = propertie.getProperty(propiedad);
         } catch (Exception e) {
+            LOGGER.error("leerPropiedad::"+e.getMessage());
         }
         return valorPropiedad;
     }
@@ -41,7 +44,7 @@ public class LectorPropiedades {
             propertie.load(LectorPropiedades.class.getResource(archivo).openStream());
             valorPropiedad = propertie.getProperty(propiedad);
         } catch (IOException e) {
-            System.out.println("Error leerPropiedad::"+e.getMessage());
+            LOGGER.error("Error leerPropiedad 2::"+e.getMessage());
         }
         return valorPropiedad;
     }
