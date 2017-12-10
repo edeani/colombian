@@ -22,7 +22,7 @@
             <label>
                 Sede
                 <select id="idsede">
-                <c:import url="/sedes/ajax/seleccionarSede.htm">
+                <c:import url="/${sessionScope.path}/sedes/ajax/seleccionarSede.htm">
                 </c:import>
                 </select>
             </label>

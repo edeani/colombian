@@ -15,8 +15,8 @@
     <script src="<%=request.getContextPath()%>/js/contabilidad/pagosConsolidadoSede.js" type="text/javascript"></script>
 </head> 
 <div id="tituloPagina">Procentaje Sedes Bancos</div>
-<div id="formPagoConsolidadoSede" data-urlconsecutivo="${pageContext.servletContext.contextPath}/cajamenor/ajax/secuencia.htm" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/cajamenor/ajax/consolidado/porcentaje/sede/generar.htm">                                 
-    <form:form target="_blank" commandName="${commandName}" path="PagosConsolidadoSedeDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/cajamenor/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/cajamenor/ajax/consolidado/sede/guardar.htm" >
+<div id="formPagoConsolidadoSede" data-urlconsecutivo="${pageContext.servletContext.contextPath}/${sessionScope.path}/cajamenor/ajax/secuencia.htm" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/cajamenor/ajax/consolidado/porcentaje/sede/generar.htm">                                 
+    <form:form target="_blank" commandName="${commandName}" path="PagosConsolidadoSedeDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/cajamenor/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/cajamenor/ajax/consolidado/sede/guardar.htm" >
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/${sessionScope.path}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>

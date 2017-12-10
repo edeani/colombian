@@ -17,7 +17,7 @@
 <div id="tituloPagina">Pagos Proveedor Bancos</div>
 <div id="formProveedor" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/cajamenor/ajax/secuencia.htm">     
     <input id="cuentaProveedores" value="${cuentaProveedores}" type="hidden">
-    <form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/cajamenor/proveedores/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/cajamenor/ajax/proveedor/guardar.htm" >
+    <form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/cajamenor/proveedores/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/cajamenor/ajax/proveedor/guardar.htm" >
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/${sessionScope.path}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>

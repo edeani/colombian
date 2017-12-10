@@ -17,7 +17,7 @@
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 <div id="tituloPagina">Pagos  Terceros Caja Mayor</div>
 <div id="formPago" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/secuencia.htm">                                 
-    <form:form target="_blank" commandName="${commandName}" path="PagosTercerosDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/pagos/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/pagos/ajax/terceros/guardar.htm" >
+    <form:form target="_blank" commandName="${commandName}" path="PagosTercerosDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/pagos/ajax/terceros/guardar.htm" >
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/${sessionScope.path}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
@@ -34,7 +34,7 @@
                 <label style="display: none;">
                     <form:select path="idSede">
                         <option value="">Seleccionar</option>
-                        <c:import url="/sedes/ajax/listaSedeSelect.htm"></c:import>
+                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"></c:import>
                     </form:select>
                     <form:input path="sede" type="hidden"/>
                 </label>

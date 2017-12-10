@@ -27,7 +27,7 @@
                     <c:set var="sedeSeleccionada" value="${sessionScope.idusuario}"></c:set>
                     <select id="sedeSession" name="sede" class="contentRequired">
                             <option value="">Seleccionar</option>
-                        <c:import url="/sedes/ajax/seleccionarSede.htm">
+                        <c:import url="/${sessionScope.path}/sedes/ajax/seleccionarSede.htm">
                             <c:param name="idSede" value="${sedeSeleccionada}"></c:param>
                         </c:import>
                     </select>

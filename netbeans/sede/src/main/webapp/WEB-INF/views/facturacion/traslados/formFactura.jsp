@@ -17,7 +17,7 @@
                 Sede Origen
                 <form:select path="sedeOrigen" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/seleccionarSede.htm">
                     <option value="">Seleccionar</option>
-                    <c:import url="/sedes/ajax/listaSedeSelect.htm">
+                    <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm">
                     </c:import>
                 </form:select>
             </label>
@@ -25,7 +25,7 @@
                 Sede Destino
                 <form:select path="sedeDestino" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/seleccionarSede.htm">
                     <option value="">Seleccionar</option>
-                    <c:import url="/sedes/ajax/listaSedeSelect.htm">
+                    <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm">
                     </c:import>
                 </form:select>
                 <div id="labelSede">
