@@ -67,7 +67,7 @@ public class ConsolidadoController extends BaseController {
     @Autowired
     private CuentasService cuentasService;
     @Autowired
-    private AccesosSubsedes accesosSubsedes_;
+    private AccesosSubsedes accesosSubsedes;
 
     @RequestMapping(value = "/sede.htm")
     public ModelAndView index() {
@@ -82,7 +82,7 @@ public class ConsolidadoController extends BaseController {
     @RequestMapping(value = "/consolidadoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response,HttpSession session,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
-        SubSedesDto ss = accesosSubsedes_.findSubsedeXName((String)session.getAttribute("path"));
+        SubSedesDto ss = accesosSubsedes.findSubsedeXName((String)session.getAttribute("path"));
         List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(ss.getId(), fechaInicial, fechaFinal);
         ModelAndView mav = null;
         if (reporte.size() > 0) {

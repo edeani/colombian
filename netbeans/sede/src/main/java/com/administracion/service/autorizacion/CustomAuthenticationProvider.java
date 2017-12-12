@@ -47,11 +47,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     @Autowired
     private SubSedesDao subSedesDao;
     
-    private AccesosSubsedes accesosSubsedes_;
+    private AccesosSubsedes accesosSubsedes;
     
     @Autowired
     private void init(AccesosSubsedes accesosSubsedes){
-        this.accesosSubsedes_=accesosSubsedes;
+        this.accesosSubsedes=accesosSubsedes;
     }
      
     private static final String PREFIJO_ROL = "ROLE_";
@@ -66,7 +66,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         if (user == null) {
             throw new BadCredentialsException("1000");
         }
-        String path = accesosSubsedes_.getPath();
+        String path = accesosSubsedes.getPath();
         if(!user.getIdsedes().getSede().equals(path)){
             throw new BadCredentialsException("1000");
         }
@@ -79,11 +79,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         /**
          * Sede del usuario
          */
-        accesosSubsedes_.getSedes().add(user.getIdsedes());
+        accesosSubsedes.getSedes().add(user.getIdsedes());
         /**
          * Subsedes de la sede del usuario
          */
-        accesosSubsedes_.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
+        accesosSubsedes.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
         
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombre()));

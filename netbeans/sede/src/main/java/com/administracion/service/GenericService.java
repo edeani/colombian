@@ -16,6 +16,6 @@ import org.springframework.stereotype.Service;
 @Service
 public abstract class GenericService {
     @Autowired
-    AccesosSubsedes accesosSubsedes_;
+    AccesosSubsedes accesosSubsedes;
     
 }

@@ -128,7 +128,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
             comprobante.add(comprobanteConsolidadoSedeDtoConsignaciones);
         }
         //Gastos
-        List<ComprobanteConsolidadoSedeDto> gastos = reportesDao.buscarGastosXFecha(accesosSubsedes_.getDataSourceSubSede(subSedes.getSede()), sfecha);
+        List<ComprobanteConsolidadoSedeDto> gastos = reportesDao.buscarGastosXFecha(accesosSubsedes.getDataSourceSubSede(subSedes.getSede()), sfecha);
         if (gastos != null) {
             gastos.stream().map((gasto) -> {
                 gasto.setIdSede(idSubSede.longValue());
@@ -144,7 +144,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         /**
          * Pagos con tarjeta
          */
-        DataSource ds =accesosSubsedes_.getDataSourceSubSede(subSedes.getSede());
+        DataSource ds =accesosSubsedes.getDataSourceSubSede(subSedes.getSede());
         ClasePago clasePago = clasePagoDao.findClasePagoById(1,ds);
         if (clasePago.getEstado().equals("A")) {
             Long pagosContarjeta = reportesDao.pagosContarjetaTotal(ds, sfecha);
@@ -189,7 +189,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
         String sfechaInicial = Formatos.dateTostring(fechaInicial);
         String sfechaFinal = Formatos.dateTostring(fechaFinal);
-        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMayor(accesosSubsedes_.getDataSourceSubSede(nameDataSource), sfechaInicial, sfechaFinal);
+        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMayor(accesosSubsedes.getDataSourceSubSede(nameDataSource), sfechaInicial, sfechaFinal);
 
         MovimientoCajaMapper movimientoCajaMayorMapper = new MovimientoCajaMapper();
         List<MovimientoCajaDto> movimientos = movimientoCajaMayorMapper.comprobanteConsolidadoSedeDtoToMovimietoCajaMayorDto(movs);
@@ -201,7 +201,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Transactional(readOnly = true)
     public List<MovimientoCajaDto> movimientoCajaMenor(String nameDataSource, String fechaInicial, String fechaFinal) {
 
-        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMenor(accesosSubsedes_.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal);
+        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMenor(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal);
 
         MovimientoCajaMapper movimientoCajaMapper = new MovimientoCajaMapper();
         List<MovimientoCajaDto> movimientos = movimientoCajaMapper.comprobanteConsolidadoSedeDtoToMovimietoCajaMenorDto(movs);
@@ -213,7 +213,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Transactional(readOnly = true)
     public PagosConsolidadoSedeDto generarPagoConsolidadoSedePorcentaje(String nameDataSource, int mes) {
         PagosMapper pagosMapper = new PagosMapper();
-        DataSource ds = accesosSubsedes_.getDataSourceSubSede(nameDataSource);
+        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
         PorcentajeVentas porcentajeVentas = reportesDao.buscarPagoConsolidadoMes(ds, mes);
         PagosConsolidadoSedeDto pagosConsolidadoSedeDto = pagosMapper.porcentajeVentaTopagosConsolidadoSedeDto(porcentajeVentas);
 
@@ -235,7 +235,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     public ReporteTotalCuentasXNivelDto reportePerdidaIngresoTotalXNivel(String nameDataSource, String fechInicial, String fechaFinal) {
         lectorPropiedades.setArchivo(propiedades_cuentas);
         int ingresos = Integer.parseInt(lectorPropiedades.leerPropiedad(propiedad_ingresos));
-        ReporteTotalCuentasXNivelDto ingresoxnivel = cierreSedesDao.totalCierreCuentaXNivel(accesosSubsedes_.getDataSourceSubSede(nameDataSource), ingresos, fechInicial, fechaFinal);
+        ReporteTotalCuentasXNivelDto ingresoxnivel = cierreSedesDao.totalCierreCuentaXNivel(accesosSubsedes.getDataSourceSubSede(nameDataSource), ingresos, fechInicial, fechaFinal);
         return ingresoxnivel;
     }
 
@@ -248,7 +248,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         List<Sedes> sedes = sedesDao.findAll();
         List<ReporteTotalCuentasXNivelDto> reporteIngresoxNivel = new ArrayList<>();
         sedes.stream().filter((sedes1) -> (!Objects.equals(sedes1.getIdsedes(), sedePrincipal))).map((Sedes sedes1) -> {
-            ReporteTotalCuentasXNivelDto ingresoxnivel = cierreSedesDao.totalCierreCuentaXNivelSede(accesosSubsedes_.getDataSourceSubSede(nameDataSource), sedes1.getIdsedes().longValue(), ingresos, fechInicial, fechaFinal);
+            ReporteTotalCuentasXNivelDto ingresoxnivel = cierreSedesDao.totalCierreCuentaXNivelSede(accesosSubsedes.getDataSourceSubSede(nameDataSource), sedes1.getIdsedes().longValue(), ingresos, fechInicial, fechaFinal);
             ingresoxnivel.setIdSede(sedes1.getIdsedes().longValue());
             ingresoxnivel.setSede(sedes1.getSede());
             return ingresoxnivel;
@@ -262,13 +262,13 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Override
     @Transactional(readOnly = true)
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(String nameDataSource, String fechInicial, String fechaFinal) {
-        return reportesDao.reporteEstadoPerdidaGananciaProvisional(accesosSubsedes_.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal);
+        return reportesDao.reporteEstadoPerdidaGananciaProvisional(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisionalXSede(String nameDataSource, String fechInicial, String fechaFinal, Long idSede) {
-        return reportesDao.reporteEstadoPerdidaGananciaProvisionalXSede(accesosSubsedes_.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal, idSede);
+        return reportesDao.reporteEstadoPerdidaGananciaProvisionalXSede(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal, idSede);
     }
 
     /**
@@ -283,7 +283,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Override
     @Transactional(readOnly = true)
     public List<BalanceDto> reporteBalanceService(String nameDataSource, String fechInicial, String fechaFinal, Long idsede) {
-        return reportesDao.reporteBalance(accesosSubsedes_.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal, idsede);
+        return reportesDao.reporteBalance(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal, idsede);
     }
 
     

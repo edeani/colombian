@@ -39,19 +39,19 @@ public class SedesServiceImpl extends GenericService implements SedesService{
     @Override
     @Transactional
     public List<ItemsDTO> listaSedesOptions(Integer idSede) {
-        return sedesDao.listaSedesOptions(accesosSubsedes_.getPrincipalDataSource(),idSede);
+        return sedesDao.listaSedesOptions(accesosSubsedes.getPrincipalDataSource(),idSede);
     }
 
     @Override
     @Transactional
     public List<Sedes> traerSedes(String nameDatasource) {
-        return sedesDao.traerSedes(accesosSubsedes_.getDataSourceSubSede(nameDatasource));
+        return sedesDao.traerSedes(accesosSubsedes.getDataSourceSubSede(nameDatasource));
     }
 
     @Override
     @Transactional(readOnly = true)
     public Sedes buscarSede(String nameDatasource, Long idSede) {
-       return sedesDao.buscarSede(accesosSubsedes_.getDataSourceSubSede(nameDatasource), idSede);
+       return sedesDao.buscarSede(accesosSubsedes.getDataSourceSubSede(nameDatasource), idSede);
     }
     
 }

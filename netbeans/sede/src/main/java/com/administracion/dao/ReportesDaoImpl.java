@@ -52,7 +52,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private AccesosSubsedes accesosSubsedes_;
+    private AccesosSubsedes accesosSubsedes;
 
     /**
      * Inicialización de la conexión para este servicio
@@ -98,7 +98,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
              * Cambio de conexión
              */
             
-            this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes_.getDataSourceSubSede(subSede.getSede()));
+            this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes.getDataSourceSubSede(subSede.getSede()));
             /**
              * Ejecución de la consulta
              */
@@ -135,7 +135,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
 
     @Override
     public Long gastosConsolidadoSede(Sedes sede, String fecha) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes_.getDataSourceSubSede(sede.getSede()));
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes.getDataSourceSubSede(sede.getSede()));
         Long gastos = 0L;
         MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fecha);
         params.addValue("fechaFinal", fecha);
@@ -149,7 +149,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
 
     @Override
     public Long consignacionesConsolidadoSede(SubSedes subSedes, String fecha) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes_.getDataSourceSubSede(subSedes.getSede()));
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes.getDataSourceSubSede(subSedes.getSede()));
         Long consignacion = 0L;
         MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fecha);
         params.addValue("fechaFinal", fecha);
@@ -163,7 +163,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
 
     @Override
     public Long comprasConsolidadoSede(Sedes sede, String fecha) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes_.getDataSourceSubSede(sede.getSede()));
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes.getDataSourceSubSede(sede.getSede()));
         Long compras = 0L;
         MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fecha);
         params.addValue("fechaFinal", fecha);
@@ -188,7 +188,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         params.addValue("fechaFinal", fecha);
 
         try {
-            this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes_.getDataSourceSubSede(subSede.getSede()));
+            this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(accesosSubsedes.getDataSourceSubSede(subSede.getSede()));
             List<Long> totales = this.namedParameterJdbcTemplate.queryForList(queryBuilder.toString(), params, Long.class);
             Long total = 0L;
             if (totales != null) {

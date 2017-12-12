@@ -35,13 +35,13 @@ public class CierreSedesServiceImpl implements CierreSedesService {
     @Autowired
     private SecuenciasMysqlDao secuenciasMyqlDao;
     @Autowired
-    private AccesosSubsedes accesosSubsedes_;
+    private AccesosSubsedes accesosSubsedes;
 
     @Override
     @Transactional
     public void guardarComprobanteCierreService(String nameDatasource, ComprobanteCierreSedesDto comprobanteCierreSedesDto) {
         Long secuencia = 0L;
-        DataSource ds = accesosSubsedes_.getDataSourceSede(nameDatasource);
+        DataSource ds = accesosSubsedes.getDataSourceSede(nameDatasource);
         CierreSedes cierreSedesFind = cierreSedesDao.buscarCabeceraComprobanteCierreXFechaXSede(ds, comprobanteCierreSedesDto.getFecha()
                 , comprobanteCierreSedesDto.getFecha(),comprobanteCierreSedesDto.getIdSede());
         //Si no existe queda con el autoincremental
@@ -78,25 +78,25 @@ public class CierreSedesServiceImpl implements CierreSedesService {
     @Override
     @Transactional(readOnly = true)
     public List<ReporteComprobanteCierreDto> buscarDetalleComprobanteCierreSedesView(String nameDataSource, Long idComprobanteCierre) {
-        return cierreSedesDao.buscarDetalleComprobanteCierreSedesView(accesosSubsedes_.getDataSourceSubSede(nameDataSource), idComprobanteCierre);
+        return cierreSedesDao.buscarDetalleComprobanteCierreSedesView(accesosSubsedes.getDataSourceSubSede(nameDataSource), idComprobanteCierre);
     }
 
     @Override
     @Transactional(readOnly = true)
     public CierreSedesDto buscarComprobanteCierreDto(String nameDataSource, Long idComprobanteCierre) {
-        return cierreSedesDao.buscarComprobanteCierreDto(accesosSubsedes_.getDataSourceSubSede(nameDataSource), idComprobanteCierre);
+        return cierreSedesDao.buscarComprobanteCierreDto(accesosSubsedes.getDataSourceSubSede(nameDataSource), idComprobanteCierre);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<CierreSedesDto> buscarComprobanteCierreDtoXFecha(String nameDataSource, String fechaInicial, String fechaFinal) {
-        return cierreSedesDao.buscarComprobanteCierreDtoXFecha(accesosSubsedes_.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal);
+        return cierreSedesDao.buscarComprobanteCierreDtoXFecha(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<CierreSedesDto> reporteComprobanteCierreSedesView(String nameDataSource, String fechaInicial, String fechaFinal, Long idsede) {
-        return cierreSedesDao.reporteComprobanteCierreSedesView(accesosSubsedes_.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, idsede);
+        return cierreSedesDao.reporteComprobanteCierreSedesView(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, idsede);
     }
 
 }

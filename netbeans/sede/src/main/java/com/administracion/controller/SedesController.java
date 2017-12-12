@@ -36,7 +36,7 @@ public class SedesController extends BaseController {
     @Autowired
     private SecurityService securityService;
     @Autowired
-    private AccesosSubsedes accesosSubsedes_;
+    private AccesosSubsedes accesosSubsedes;
 
     @ModelAttribute("sedes")
     public String traerSedes(HttpSession session, HttpServletRequest request) {
@@ -59,7 +59,7 @@ public class SedesController extends BaseController {
     @RequestMapping("/ajax/listaSedeSelect.htm")
     public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("util/formSelect");
-        Sedes ss = accesosSubsedes_.findSedeXName(sede);
+        Sedes ss = accesosSubsedes.findSedeXName(sede);
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
         mav.addObject("datos", datosSedes);
 
@@ -73,7 +73,7 @@ public class SedesController extends BaseController {
         ModelAndView mav = new ModelAndView("util/formSelectSedes");
         getPropiedades().setArchivo(getArchivo());
         getPropiedades().setPropiedad(getPropiedadPrincipal());
-        SubSedesDto ss = accesosSubsedes_.findSubsedeXName((String)session.getAttribute("path"));
+        SubSedesDto ss = accesosSubsedes.findSubsedeXName((String)session.getAttribute("path"));
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(idSede.intValue());
         mav.addObject("datos", datosSedes);
         mav.addObject("sede", idSede);
