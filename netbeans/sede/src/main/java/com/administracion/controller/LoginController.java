@@ -32,10 +32,7 @@ public class LoginController {
     private SedesService sedesService;
     
     @Autowired
-    private GenericDataSource genericDataSource;
-    
-    @Autowired
-    private AccesosSubsedes accesosSubsedes_;
+    private AccesosSubsedes accesosSubsedes;
     
     
     /**
@@ -63,8 +60,8 @@ public class LoginController {
             return new ModelAndView("redirect:/404.htm");
         }else{
             request.getSession().setAttribute("path",sede);
-            accesosSubsedes_.setPath(sede);
-            genericDataSource.updateGenericDataSource(s);
+            accesosSubsedes.setPath(sede);
+            accesosSubsedes.getSedes().add(s);
         }
         
        return new ModelAndView("index");

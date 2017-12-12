@@ -63,7 +63,7 @@
         <property name="password" value="${paswordbd}"/>
     </bean>
     
-    <bean id="accesosSubsedes_" scope="session" class="com.administracion.service.autorizacion.AccesosSubsedes">
+    <bean id="accesosSubsedes" scope="session"  class="com.administracion.service.autorizacion.AccesosSubsedes">
         <aop:scoped-proxy/>
     </bean>
     

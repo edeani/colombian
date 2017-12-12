@@ -9,7 +9,6 @@ import com.administracion.entidad.Averias;
 import com.administracion.util.Formatos;
 import java.util.Date;
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

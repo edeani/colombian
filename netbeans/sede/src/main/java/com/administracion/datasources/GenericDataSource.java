@@ -5,9 +5,6 @@
  */
 package com.administracion.datasources;
 
-import com.administracion.dto.SubSedesDto;
-import com.administracion.entidad.Sedes;
-import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
@@ -15,9 +12,5 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  * @author EderArmando
  */
 public interface GenericDataSource {
-    public void updateGenericDataSource(Sedes sede);
-    public void updateGenericDataSource(SubSedesDto sede);
-    public DataSource getGenericDataSource();
-    public DataSource getGenericDataSourceSubSede();
     public DriverManagerDataSource getDataSourcePrincipal();
 }
