@@ -11,12 +11,12 @@
     <form action="${pageContext.request.contextPath}/${urlLogin}" method="POST" id="formularioLogin" name="formularioLogin" class="formLogin">
         <ul>
             <li>
-                <label>Usuario:</label>  <input value="" id="username" name="username" size="20" type="text" class="contentRequired"/>
+                <label>Usuario:</label>  <input value="" id="loginname" name="loginname" size="20" type="text" class="contentRequired"/>
             </li>
             <li>
-                <label>Password: </label><input  id="password" name="password" size="20" type="password" class="contentRequired"/>
+                <label>Password: </label><input  id="passwordsede" name="passwordsede" size="20" type="password" class="contentRequired"/>
             </li>
-            <input type="hidden" id="rt" name="rt" value="${pageContext.request.contextPath}${rt}"/>
+            <input type="hidden" id="rt" name="rt" value="${rt}"/>
             <input type="hidden" id="sede" name="sede" value="${sedePath}"/>
             <li>
                 <input id="submit" type="submit"  class="buttonLogin" value="Login" />

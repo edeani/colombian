@@ -5,6 +5,7 @@
 package com.administracion.controller;
 
 import com.administracion.dto.ItemsDTO;
+import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.SedesService;
@@ -59,7 +60,7 @@ public class SedesController extends BaseController {
     @RequestMapping("/ajax/listaSedeSelect.htm")
     public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("util/formSelect");
-        Sedes ss = accesosSubsedes.findSedeXName(sede);
+        SedesDto ss = accesosSubsedes.findSedeXName(sede);
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
         mav.addObject("datos", datosSedes);
 

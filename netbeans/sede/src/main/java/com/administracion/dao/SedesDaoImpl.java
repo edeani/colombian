@@ -6,6 +6,7 @@
 package com.administracion.dao;
 
 import com.administracion.dto.ItemsDTO;
+import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.util.LeerXml;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -31,6 +34,12 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
     @Autowired
     private LeerXml leerXml;
     
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
+    @Autowired
+    private void init(DataSource dataSource){
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    }
     
     @Override
     public Sedes findXName(String sede) {
@@ -38,7 +47,12 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
         parametros.put("sede", sede);
         return queryOpjectJpa(leerXml.getQuery("SedesJpa.findXname"), parametros);
     }
-
+    
+    @Override
+    public SedesDto findXNameDto(String sede) {
+        MapSqlParameterSource params = new MapSqlParameterSource("sede", sede);
+        return this.namedParameterJdbcTemplate.queryForObject(leerXml.getQuery("SedesSql.findXname"), params, new BeanPropertyRowMapper<>(SedesDto.class));
+    }
     @Override
     public List<ItemsDTO> listaSedesOptions(DataSource nameDatasource,Integer idSede) {
         this.jdbcTemplate = new JdbcTemplate(nameDatasource);

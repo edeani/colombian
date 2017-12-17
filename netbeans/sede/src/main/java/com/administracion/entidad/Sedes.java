@@ -40,7 +40,6 @@ public class Sedes implements Serializable {
     @Size(max = 500)
     @Column(name = "url")
     private String url;
-    
 
     public Sedes() {
     }
@@ -108,8 +107,5 @@ public class Sedes implements Serializable {
         }
         return true;
     }
-
-    
-
     
 }

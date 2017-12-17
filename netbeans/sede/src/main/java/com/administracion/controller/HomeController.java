@@ -5,7 +5,10 @@
  */
 package com.administracion.controller;
 
+import com.administracion.service.autorizacion.AccesosSubsedes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,10 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/{sede:[a-zA-Z]+}")
 public class HomeController{
     
-    
+    @Autowired
+    private AccesosSubsedes accesosSubsedes;
     @RequestMapping("/home.htm")
-    public ModelAndView inicio(){
-        ModelAndView mav = new ModelAndView("home");
-        return mav;
+    public ModelAndView inicio(@PathVariable(value = "sede") String sedePath){
+        if(accesosSubsedes.getMultiple()){
+            ModelAndView mav = new ModelAndView("homeGeneric");
+            mav.addObject("userSede", accesosSubsedes.findUserNameXSede(sedePath));
+            return mav;
+        }else{
+            return new ModelAndView("home");
+        }
+        
     }
 }

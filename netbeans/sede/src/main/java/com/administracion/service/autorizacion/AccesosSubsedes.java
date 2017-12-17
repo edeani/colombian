@@ -6,6 +6,7 @@
 package com.administracion.service.autorizacion;
 
 import com.administracion.datasources.GenericDataSource;
+import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import java.util.ArrayList;
@@ -23,15 +24,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(value = "session",proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class AccesosSubsedes {
+public class AccesosSubsedes{
     
     @Autowired
     private GenericDataSource genericDataSource;
     
     private Sedes sedePrincipal;
-    private List<Sedes> sedes;
+    private List<SedesDto> sedes;
     private List<SubSedesDto> subsedes;   
     private String path;
+    private Boolean multiple;
     /**
      * Objetos de conexión para las sedes y subsedes
      */
@@ -41,6 +43,7 @@ public class AccesosSubsedes {
     public AccesosSubsedes(){
         //Inicializo lista de sedes
         this.sedes = new ArrayList<>();
+        multiple = Boolean.FALSE;
     }
     
     @Autowired
@@ -71,7 +74,7 @@ public class AccesosSubsedes {
      * @return 
      */
     public DataSource getDataSourceSede(String nameDataSource){
-        Sedes puntoSede = findSedeXName(nameDataSource);
+        SedesDto puntoSede = findSedeXName(nameDataSource);
         dataSource_.setPassword(puntoSede.getPassword());
         dataSource_.setUrl(puntoSede.getUrl());
         dataSource_.setUsername(puntoSede.getUsername());
@@ -92,14 +95,23 @@ public class AccesosSubsedes {
         return null;
     }
     
-    public Sedes findSedeXName(String sede){
-        for (Sedes sede1 : sedes) {
+    public SedesDto findSedeXName(String sede){
+        for (SedesDto sede1 : sedes) {
             if(sede1.getSede().equals(sede)){
                 return sede1;
             }
         }
         
         return null;
+    }
+    
+    public String findUserNameXSede(String sede){
+        for (SedesDto sede_ : sedes) {
+            if(sede_.getSede().equals(sede)){
+                return sede_.getUsersLogin();
+            }
+        }
+        return "";
     }
     /**
      * Devuelvo el datasource de la conexión principal
@@ -125,11 +137,11 @@ public class AccesosSubsedes {
         this.path = path;
     }
 
-    public List<Sedes> getSedes() {
+    public List<SedesDto>getSedes() {
         return sedes;
     }
 
-    public void setSedes(List<Sedes> sedes) {
+    public void setSedes(List<SedesDto> sedes) {
         this.sedes = sedes;
     }
 
@@ -139,6 +151,14 @@ public class AccesosSubsedes {
 
     public void setSedePrincipal(Sedes sedePrincipal) {
         this.sedePrincipal = sedePrincipal;
+    }
+
+    public Boolean getMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(Boolean multiple) {
+        this.multiple = multiple;
     }
     
 }

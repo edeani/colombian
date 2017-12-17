@@ -7,6 +7,7 @@ package com.administracion.service;
 
 import com.administracion.dao.SedesDao;
 import com.administracion.dto.ItemsDTO;
+import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.autorizacion.AccesosSubsedes;
 import java.util.List;
@@ -52,6 +53,12 @@ public class SedesServiceImpl extends GenericService implements SedesService{
     @Transactional(readOnly = true)
     public Sedes buscarSede(String nameDatasource, Long idSede) {
        return sedesDao.buscarSede(accesosSubsedes.getDataSourceSubSede(nameDatasource), idSede);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public SedesDto findSedeXNameDto(String sede) {
+        return sedesDao.findXNameDto(sede);
     }
     
 }

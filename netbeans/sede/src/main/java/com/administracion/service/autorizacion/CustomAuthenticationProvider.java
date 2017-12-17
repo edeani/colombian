@@ -6,15 +6,13 @@
 package com.administracion.service.autorizacion;
 
 import com.administracion.dao.SubSedesDao;
-import com.administracion.dao.UsuarioDao;
+import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Users;
 import com.administracion.service.UsuarioService;
-import com.administracion.util.LeerXml;
 import java.util.ArrayList;
 import java.util.List;
 import static java.util.regex.Pattern.matches;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,15 +34,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     private UsuarioService usuarioService;
     
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UsuarioDao usuarioDao;
-
-    @Autowired
-    private LeerXml leerXml;
-    
-    @Autowired
     private SubSedesDao subSedesDao;
     
     private AccesosSubsedes accesosSubsedes;
@@ -55,7 +44,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     }
      
     private static final String PREFIJO_ROL = "ROLE_";
-    private static final String USUARIO_ACTIVO = "A";
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -79,7 +67,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         /**
          * Sede del usuario
          */
-        accesosSubsedes.getSedes().add(user.getIdsedes());
+        SedesDto sedeDto = new SedesDto();
+        sedeDto.setIdsedes(user.getIdsedes().getIdsedes());
+        sedeDto.setUsername(user.getIdsedes().getUsername());
+        sedeDto.setPassword(user.getIdsedes().getPassword());
+        sedeDto.setUrl(user.getIdsedes().getUrl());
+        sedeDto.setSede(user.getIdsedes().getSede());
+        sedeDto.setUsersLogin(user.getUsername());
+        accesosSubsedes.getSedes().add(sedeDto);
         /**
          * Subsedes de la sede del usuario
          */
