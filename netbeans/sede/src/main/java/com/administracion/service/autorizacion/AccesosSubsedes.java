@@ -9,6 +9,7 @@ import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -23,8 +24,8 @@ import org.springframework.stereotype.Component;
  * @author EderArmando
  */
 @Component
-@Scope(value = "session",proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class AccesosSubsedes{
+@Scope(value = "session"/*,proxyMode = ScopedProxyMode.TARGET_CLASS*/)
+public class AccesosSubsedes implements Serializable{
     
     @Autowired
     private GenericDataSource genericDataSource;

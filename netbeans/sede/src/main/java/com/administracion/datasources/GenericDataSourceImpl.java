@@ -5,12 +5,8 @@
  */
 package com.administracion.datasources;
 
-import com.administracion.dto.SubSedesDto;
-import com.administracion.entidad.Sedes;
-import javax.sql.DataSource;
+import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author EderArmando
  */
 @Component
-public class GenericDataSourceImpl implements GenericDataSource {
+public class GenericDataSourceImpl implements GenericDataSource,Serializable {
     
     private DriverManagerDataSource dataSourcePrincipal;
     
