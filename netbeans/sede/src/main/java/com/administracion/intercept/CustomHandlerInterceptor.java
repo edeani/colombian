@@ -10,8 +10,6 @@ import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -20,8 +18,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * @author EderArmando
  */
 public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomHandlerInterceptor.class);
 
     @Autowired
     private AccesosSubsedes accesosSubsedes;
