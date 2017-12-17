@@ -29,6 +29,11 @@
     <context:component-scan base-package="com.administracion.datasources" />
     
     <mvc:annotation-driven/>
+    <!-- Logica para interceptar las peticiones web -->
+    <bean id="customHandlerInterceptor" class="com.administracion.intercept.CustomHandlerInterceptor" />
+    <mvc:interceptors>
+        <ref bean="customHandlerInterceptor"/>
+    </mvc:interceptors>
    
     <bean class="org.springframework.context.support.ResourceBundleMessageSource"
           id="messageSource">
@@ -88,7 +93,7 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
     <import resource="classpath:jasper-views.xml" />
-    
+     
     <mvc:resources mapping="/img-producto/**" location="/img-producto/" />
     <mvc:resources mapping="/img/**" location="/img/" />
     <mvc:resources mapping="/fonts/**" location="/fonts/" />
