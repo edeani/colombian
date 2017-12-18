@@ -14,15 +14,17 @@
     <http pattern="/img/**" security="none" />
     <http pattern="/fonts/**" security="none" />
     <http pattern="/font-awesome-4.3.0/**" security="none" />
-    <http use-expressions="true"  entry-point-ref="authenticationEntryPoint">
+    <http use-expressions="true"  entry-point-ref="authenticationEntryPoint" request-matcher="regex">
         <csrf disabled="true"/>
         
-        <intercept-url pattern="/signin.htm" access="permitAll()" />
-        <intercept-url pattern="/productos/**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/pedidos/**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/home.htm" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/usuarios/**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/tipos-pago/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/[a-zA-Z]+/signin.htm" access="permitAll()" />
+        <intercept-url pattern="/403.htm" access="permitAll()" />
+        <intercept-url pattern="/404.htm" access="permitAll()" />
+        <intercept-url pattern="/[a-zA-Z]+/productos/.*" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/[a-zA-Z]+/pedidos/.*" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/[a-zA-Z]+/home.htm" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/[a-zA-Z]+/usuarios/.*" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/[a-zA-Z]+/tipos-pago/.*" access="hasRole('ROLE_ADMIN')" />
         <access-denied-handler error-page="/403.htm" />
         
         <custom-filter ref="customAuthenticationFilter" position="FORM_LOGIN_FILTER" />
