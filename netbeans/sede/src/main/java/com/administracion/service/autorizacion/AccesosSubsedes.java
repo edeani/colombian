@@ -26,9 +26,6 @@ import org.springframework.stereotype.Component;
 @Scope(value = "session"/*,proxyMode = ScopedProxyMode.TARGET_CLASS*/)
 public class AccesosSubsedes implements Serializable {
 
-    @Autowired
-    private GenericDataSource genericDataSource;
-
     private Sedes sedePrincipal;
     private List<SedesDto> sedes;
     private List<SubSedesDto> subsedes;
@@ -124,15 +121,6 @@ public class AccesosSubsedes implements Serializable {
             }
         }
         return "";
-    }
-
-    /**
-     * Devuelvo el datasource de la conexión principal
-     *
-     * @return
-     */
-    public DataSource getPrincipalDataSource() {
-        return genericDataSource.getDataSourcePrincipal();
     }
 
     public List<SubSedesDto> getSubsedes() {
