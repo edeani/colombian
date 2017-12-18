@@ -5,6 +5,7 @@
  */
 package com.administracion.dao;
 
+import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Sedes;
@@ -33,12 +34,15 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
     private static final Logger LOGGER = LoggerFactory.getLogger(SedesDaoImpl.class);
     @Autowired
     private LeerXml leerXml;
+    @Autowired
+    private GenericDataSource genericDataSource;
     
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
     @Autowired
     private void init(DataSource dataSource){
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(genericDataSource.getDataSourcePrincipal());
+        this.jdbcTemplate = new JdbcTemplate(genericDataSource.getDataSourcePrincipal());
     }
     
     @Override
@@ -54,20 +58,17 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
         return this.namedParameterJdbcTemplate.queryForObject(leerXml.getQuery("SedesSql.findXname"), params, new BeanPropertyRowMapper<>(SedesDto.class));
     }
     @Override
-    public List<ItemsDTO> listaSedesOptions(DataSource nameDatasource,Integer idSede) {
-        this.jdbcTemplate = new JdbcTemplate(nameDatasource);
+    public List<ItemsDTO> listaSedesOptions(Integer idSede) {
         return jdbcTemplate.query("select ss.id,ss.sede as label from subsedes ss where ss.idsede ="+idSede, new BeanPropertyRowMapper(ItemsDTO.class));
     }
 
     @Override
-    public List<Sedes> traerSedes(DataSource nameDatasource) {
-        this.jdbcTemplate = new JdbcTemplate(nameDatasource);
+    public List<Sedes> traerSedes() {
         return jdbcTemplate.query("select * from sedes", new BeanPropertyRowMapper(Sedes.class));
     }
 
     @Override
-    public Sedes buscarSede(DataSource nameDatasource, Long idSede) {
-        this.jdbcTemplate = new JdbcTemplate(nameDatasource);
+    public Sedes buscarSede(Long idSede) {
         Sedes sede = null;
         try {
             sede = (Sedes) this.jdbcTemplate.queryForObject("select * from sedes where idsedes = ?", new Object[]{idSede}, new BeanPropertyRowMapper(Sedes.class));
@@ -85,6 +86,11 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
     @Override
     public List<Sedes> listSedes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<SedesDto> listSedesDto() {
+        return jdbcTemplate.query(leerXml.getQuery("SedesSql.list"), new BeanPropertyRowMapper<>(SedesDto.class));
     }
 
     

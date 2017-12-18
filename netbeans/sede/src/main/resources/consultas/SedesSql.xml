@@ -3,4 +3,7 @@
     <query id="SedesSql.findXname">
         select s.* from sedes s where s.sede=:sede
     </query>
+    <query id="SedesSql.list">
+        select s.* from sedes s
+    </query>
 </queries>

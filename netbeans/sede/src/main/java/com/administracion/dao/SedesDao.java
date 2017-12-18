@@ -9,7 +9,6 @@ import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Sedes;
 import java.util.List;
-import javax.sql.DataSource;
 
 /**
  *
@@ -18,11 +17,12 @@ import javax.sql.DataSource;
 public interface SedesDao extends GenericDao<Sedes>{
     Sedes findXName(String sede);
     SedesDto findXNameDto(String sede);
-    List<ItemsDTO> listaSedesOptions(DataSource nameDatasource,Integer idSede);
-    List<Sedes> traerSedes(DataSource nameDatasource);
-    Sedes buscarSede(DataSource nameDatasource, Long idSede);
+    List<ItemsDTO> listaSedesOptions(Integer idSede);
+    List<Sedes> traerSedes();
+    Sedes buscarSede( Long idSede);
 
     public Sedes findSede(Long idSede);
 
     public List<Sedes> listSedes();
+    List<SedesDto> listSedesDto();
 }

@@ -20,5 +20,6 @@ public interface SedesService {
     public SedesDto findSedeXNameDto(String sede);
     public List<ItemsDTO> listaSedesOptions(Integer idSede);
     public List<Sedes> traerSedes(String nameDatasource);
+    public List<SedesDto> traerSedesDtos();
     public Sedes buscarSede(String nameDatasource,Long idSede);
 }

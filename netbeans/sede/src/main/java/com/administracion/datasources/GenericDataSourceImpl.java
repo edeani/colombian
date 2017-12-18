@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author EderArmando
  */
 @Component
-public class GenericDataSourceImpl implements GenericDataSource,Serializable {
+public class GenericDataSourceImpl implements GenericDataSource {
     
     private DriverManagerDataSource dataSourcePrincipal;
     

@@ -6,10 +6,10 @@
 package com.administracion.service;
 
 import com.administracion.dao.SedesDao;
+import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Sedes;
-import com.administracion.service.autorizacion.AccesosSubsedes;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,6 @@ public class SedesServiceImpl extends GenericService implements SedesService{
     @Autowired
     private SedesDao sedesDao;
     
-    
     @Transactional
     @Override
     public Sedes findSedeXId(Long idSede) {
@@ -40,25 +39,31 @@ public class SedesServiceImpl extends GenericService implements SedesService{
     @Override
     @Transactional
     public List<ItemsDTO> listaSedesOptions(Integer idSede) {
-        return sedesDao.listaSedesOptions(accesosSubsedes.getPrincipalDataSource(),idSede);
+        return sedesDao.listaSedesOptions(idSede);
     }
 
     @Override
     @Transactional
     public List<Sedes> traerSedes(String nameDatasource) {
-        return sedesDao.traerSedes(accesosSubsedes.getDataSourceSubSede(nameDatasource));
+        return sedesDao.traerSedes();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Sedes buscarSede(String nameDatasource, Long idSede) {
-       return sedesDao.buscarSede(accesosSubsedes.getDataSourceSubSede(nameDatasource), idSede);
+       return sedesDao.buscarSede( idSede);
     }
 
     @Transactional(readOnly = true)
     @Override
     public SedesDto findSedeXNameDto(String sede) {
         return sedesDao.findXNameDto(sede);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<SedesDto> traerSedesDtos() {
+        return sedesDao.listSedesDto();
     }
     
 }
