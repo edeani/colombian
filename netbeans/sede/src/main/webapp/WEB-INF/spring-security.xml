@@ -29,12 +29,16 @@
         <!--form-login login-page='/signin.htm' login-processing-url="/j_spring_security_check" 
         default-target-url="/home.htm" always-use-default-target="false"
         authentication-failure-url="/signin.htm?error=true" username-parameter="username"
-        password-parameter="password" /-->
+        password-parameter="password" />
         <logout logout-url="/logout.htm" logout-success-url="/signin.htm"
-                delete-cookies="JSESSIONID" invalidate-session="true" />
+        delete-cookies="JSESSIONID" invalidate-session="true" /-->
+        <logout logout-url="/logout.htm" success-handler-ref="customLogoutSuccessHandler"
+        delete-cookies="JSESSIONID" invalidate-session="true" />
         
     </http>
-    
+    <!-- Conf custom success logout -->
+    <beans:bean id="customLogoutSuccessHandler" class="com.administracion.service.autorizacion.CustomLogoutSuccessHandler" />
+    <!-- Conf custom login -->
     <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
         <beans:constructor-arg name="loginFormUrl" value="/signin.htm" />
     </beans:bean>

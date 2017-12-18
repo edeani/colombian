@@ -10,8 +10,10 @@ import com.administracion.entidad.Users;
 import com.administracion.service.SedesService;
 import com.administracion.service.UsuarioService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.util.ManageCookies;
 import static java.util.regex.Pattern.matches;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,13 +34,13 @@ public class LoginController {
 
     @Value("${basededatos}")
     private String base_datos_principal;
-    
+
     @Value("${url.login}")
     private String login;
-    
+
     @Value("${url.login.generic}")
     private String login_generic;
-    
+
     @Autowired
     private SedesService sedesService;
 
@@ -77,25 +79,25 @@ public class LoginController {
             return new ModelAndView("redirect:/404.htm");
         } else {
             if (accesosSubsedes.getSedes().size() > 0) {
-                rutaLogin=login_generic;
+                rutaLogin = login_generic;
                 mav = new ModelAndView("indexGeneric");
             } else {
-                rutaLogin=login;
+                rutaLogin = login;
                 mav = new ModelAndView("index");
             }
             request.getSession().setAttribute("path", sede);
             accesosSubsedes.setPath(sede);
         }
-        
+
         mav.addObject("urlLogin", rutaLogin);
         mav.addObject("sedePath", sede);
-        mav.addObject("rt","/"+ sede + "/home.htm");
+        mav.addObject("rt", "/" + sede + "/home.htm");
         return mav;
     }
 
     @RequestMapping(value = "/generic_sec.htm", method = RequestMethod.POST)
     public ModelAndView loginGenericSede(@RequestParam String loginname, @RequestParam String passwordsede,
-            @RequestParam(value = "sede") String sedePath,@RequestParam String rt,HttpServletRequest request) {
+            @RequestParam(value = "sede") String sedePath, @RequestParam String rt, HttpServletRequest request) {
         SedesDto puntoSede = sedesService.findSedeXNameDto(sedePath);
         if (puntoSede != null) {
             Users users = usuarioService.findUsuarioByCorreo(loginname);
@@ -106,25 +108,38 @@ public class LoginController {
             if (!users.getIdsedes().getSede().equals(path)) {
                 throw new BadCredentialsException("1000");
             }
-            
+
             if (!matches(passwordsede, users.getPassword())) {
                 throw new BadCredentialsException("1000");
             }
-            if(rt.isEmpty()){
-                rt=request.getContextPath()+"/403.htm";
-            }else{
+            if (rt.isEmpty()) {
+                rt = request.getContextPath() + "/403.htm";
+            } else {
                 puntoSede.setUsersLogin(users.getUsername());
-                accesosSubsedes.getSedes().add(puntoSede); 
+                accesosSubsedes.getSedes().add(puntoSede);
                 accesosSubsedes.setMultiple(Boolean.TRUE);
-                
+
             }
-            
-            ModelAndView mav = new ModelAndView("redirect:"+rt);
-            
+
+            ModelAndView mav = new ModelAndView("redirect:" + rt);
+
             return mav;
-            
+
         } else {
             return new ModelAndView("redirect:/404.htm");
+        }
+    }
+
+    @RequestMapping(value = "/{sede:[a-zA-Z]+}/logout.htm")
+    public ModelAndView loutApp(@PathVariable String sede, HttpServletRequest request
+            , HttpServletResponse response) {
+        if (accesosSubsedes.getSedes().size() > 1) {
+            SedesDto sedesDto = accesosSubsedes.findSedeXName(sede);
+            accesosSubsedes.getSedes().remove(sedesDto);
+            return new ModelAndView("redirect:/" + sede + "/signin.htm");
+        }else{
+            ManageCookies.setCookie(response, "logoutpath", sede);
+            return new ModelAndView("redirect:/logout.htm");
         }
     }
 
