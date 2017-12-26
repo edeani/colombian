@@ -15,7 +15,7 @@
 <div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/compras/ajax/actualizar.htm"></div>
 <input type="hidden" value="N" id="submit-form"/>
 <div id="contenidoCompra">
-    <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/${sessionScope.path}/img/loaders/" type="hidden"/>
+    <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
     <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/compras/compraPdf.htm" target="_blank">
         <div id="contenidoHome"> 
             <div id="tituloPagina">${titulo}</div>

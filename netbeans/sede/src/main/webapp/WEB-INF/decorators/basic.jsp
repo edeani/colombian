@@ -16,13 +16,13 @@
         <link href="<%=request.getContextPath()%>/css/menu.css" rel="stylesheet" type="text/css">
         <script src="<%=request.getContextPath()%>/js/jquery-1.8.3.min.js" type="text/javascript"></script>
         <script src="<%=request.getContextPath()%>/js/cali.js" type="text/javascript"></script>
-        <title><sitemesh:write property='title'/> Colombian CaliyCali</title>
-        <sitemesh:write property='head'/>
+        <title><sitemesh:write property="title"/> Colombian CaliyCali</title>
+        <sitemesh:write property="head"/>
     </head>
     <body>
         <div  id="cuerpo">
             <%@ include file="/WEB-INF/componentes/header.jsp" %>
-            <sitemesh:write property='body'/>
+            <sitemesh:write property="body"/>
             <%@ include file="/WEB-INF/componentes/footer.jsp" %>
         </div>
         <input type="hidden" id="contextpath" value="${pageContext.servletContext.contextPath}"/>

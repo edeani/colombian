@@ -19,7 +19,7 @@
 <div id="formPago" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/secuencia.htm">                                 
     <form:form target="_blank" commandName="${commandName}" path="PagosTercerosDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/pagos/ajax/terceros/guardar.htm" >
         <div id="contenidoHome"> 
-            <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/${sessionScope.path}/img/loaders/" type="hidden"/>
+            <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
             <div id="campoNumeroFactura">
                 <label class="textoNegro" style="display: none;">

@@ -19,7 +19,7 @@
 <div id="formPago" >                                 
     <form:form commandName="${commandName}"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/notas/debito/guardar.htm">
         <div id="contenidoHome"> 
-            <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/${sessionScope.path}/img/loaders/" type="hidden"/>
+            <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
             <div id="campoNumeroFactura">
                 <label class="textoNegro" style="display: none;">

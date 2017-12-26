@@ -1,4 +1,3 @@
-<%@ taglib prefix="secured" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,11 +13,11 @@
     <script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/contabilidad/cuentasCierres.js" type="text/javascript"></script>
 </head> 
-<!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
+<!--  script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 <div id="formFactura" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/factura/ajax/formFactura.htm">                                 
     <form:form target="_blank" commandName="${commandName}" path="ComprobanteCierreSedesDto" data-urlcomprobantepdf="${pageContext.servletContext.contextPath}/consolidado/comprobante/sede/pdf.htm" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/consolidado/ajax/comprobante/sede/generar.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/consolidado/ajax/comprobante/sede/guardar.htm" >
         <div id="contenidoHome"> 
-            <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/${sessionScope.path}/img/loaders/" type="hidden"/>
+            <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
             <div>
                 <form:input type="hidden" path="consecutivo"/>
@@ -30,7 +29,7 @@
                     Sede
                     <form:select path="idSede" class="contentRequired">
                         <option value="">Seleccionar</option>
-                        <c:import url="http://localhost:8084/sede/sedes/ajax/listaSedeSelect.htm">
+                        <c:import url="/sede/puntos/ajax/listaPuntosSelect.htm" >
                             <c:param value="${sessionScope.path}" name="reqpath"/>
                         </c:import>
                     </form:select>

@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author edeani
  */
 @Controller
-@RequestMapping("/sedes")
+@RequestMapping("/puntos")
 public class SedesController extends BaseController {
 
     @Autowired
@@ -41,11 +41,9 @@ public class SedesController extends BaseController {
 
     @ModelAttribute("sedes")
     public String traerSedes(HttpSession session, HttpServletRequest request) {
-        String idsede = (String) session.getAttribute("sede");
-        System.out.println("Sede " + idsede);
+        String idsede = (String) session.getAttribute("path");
         if (idsede == null) {
             request.getSession().setAttribute("sede", "1");
-            System.out.println("Entro Sede " + idsede);
             idsede = "1";
         }
 
@@ -57,8 +55,8 @@ public class SedesController extends BaseController {
      * @param sede: Sede que hace el request
      * @return 
      */
-    @RequestMapping("/ajax/listaSedeSelect.htm")
-    public ModelAndView cargarSedes(HttpSession session,@RequestParam(required = false)  String reqpath) {
+    @RequestMapping("/ajax/listaPuntosSelect.htm")
+    public @ResponseBody ModelAndView cargarSedes(@RequestParam(required = false)  String reqpath) {
         ModelAndView mav = new ModelAndView("util/formSelect");
         SedesDto ss = connectsAuth.findSedeXName(reqpath);
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
