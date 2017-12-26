@@ -5,7 +5,7 @@
 package com.administracion.service.jsf;
 
 import com.administracion.entidad.Users;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.mycompany.util.Formatos;
 import com.mycompany.mapper.Inventario;
@@ -35,12 +35,12 @@ public class InventarioColombianServiceImpl implements InventarioColombianServic
     private JdbcTemplate jdbctemplate;
 
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
     @Override
     @Transactional(readOnly = true)
     public List<Inventario> traerInventario(Date Ffinal, Date Finicial) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(accesosSubsedes.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
         List<Inventario> inventario = new ArrayList<>();
         try {
             Formatos formato = new Formatos();

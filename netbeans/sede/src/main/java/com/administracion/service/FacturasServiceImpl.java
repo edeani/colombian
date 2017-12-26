@@ -30,7 +30,7 @@ import com.administracion.entidad.FacturasProcesadasCuentas;
 import com.administracion.entidad.Inventario;
 import com.administracion.entidad.Sedes;
 import com.administracion.entidad.Traslado;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.util.Formatos;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class FacturasServiceImpl implements FacturasService {
 
     private JdbcTemplate jdbctemplate;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
     @Autowired
     private InventarioDao inventarioDao;
     @Autowired
@@ -91,43 +91,43 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional(readOnly = true)
     public Inventario traerProducto(String nameDatasource, Long idProducto) {
-        return inventarioDao.traerProducto(accesosSubsedes.getDataSourceSubSede(nameDatasource), idProducto);
+        return inventarioDao.traerProducto(connectsAuth.getDataSourceSubSede(nameDatasource), idProducto);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<FacturaVentaDTO> traerProductosFactura(String datasource, Long idFactura) {
-        return inventarioDao.traerProductosFactura(accesosSubsedes.getDataSourceSubSede(datasource), idFactura);
+        return inventarioDao.traerProductosFactura(connectsAuth.getDataSourceSubSede(datasource), idFactura);
     }
 
     @Override
     @Transactional
     public List<VentasTotalesDTO> ventasTotales(String nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra) {
-        return facturaDao.ventasTotales(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra);
+        return facturaDao.ventasTotales(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra);
     }
 
     @Override
     @Transactional
     public List<VentasTotalesDTO> ventasTotalesSede(String nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long idSede) {
-        return facturaDao.ventasTotalesSede(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra, idSede);
+        return facturaDao.ventasTotalesSede(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra, idSede);
     }
 
     @Override
     @Transactional
     public List<FacturaVentaDTO> detalleFacturaVenta(String nameDataSource, Long numeroFactura) {
-        return facturaDao.detalleFacturaVenta(accesosSubsedes.getDataSourceSubSede(nameDataSource), numeroFactura);
+        return facturaDao.detalleFacturaVenta(connectsAuth.getDataSourceSubSede(nameDataSource), numeroFactura);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Factura findFactura(String nameDataSource, Long numeroFactura) {
-        return facturaDao.findFactura(accesosSubsedes.getDataSourceSubSede(nameDataSource), numeroFactura);
+        return facturaDao.findFactura(connectsAuth.getDataSourceSubSede(nameDataSource), numeroFactura);
     }
     
     @Override
     @Transactional
     public String borrarFactura(String nameDataSource, Long numeroFactura) {
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         facturaDao.borrarFactura(ds, numeroFactura);
         facturaDao.borrarDetalleFactura(ds, numeroFactura);
         return "true";
@@ -142,7 +142,7 @@ public class FacturasServiceImpl implements FacturasService {
         Long secuenciaActual = facturaDao.secuenciaDetalle(principalDataSource);
         facturaDao.insertarDetalle(principalDataSource, detalleFacturaDTO, detalleFacturaDTO.getSede(), ESTADO_FACTURA_DEFAULT, secuenciaActual);
         //Sede
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDatasource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDatasource);
         facturaDao.insertarFacturaSede(ds, detalleFacturaDTO, ESTADO_FACTURA_DEFAULT, secuenciaActual);
         facturaDao.insertarDetalleSede(ds, detalleFacturaDTO, ESTADO_FACTURA_DEFAULT, secuenciaActual);
         detalleFacturaDTO.setNumeroFactura("" + secuenciaActual);
@@ -176,7 +176,7 @@ public class FacturasServiceImpl implements FacturasService {
     @Transactional
     public void actualizarFactura(String nameDatasource, String nombreSede, String estadoFactura, DetalleFacturaDTO detalleFacturaDTO) {
         Long numeroFactura = Long.parseLong(detalleFacturaDTO.getNumeroFactura());
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDatasource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDatasource);
         //Traigo los consecutivos a actualizar
         List<FacturasProcesadasCuentas> facturasProcesadasCuentas = facturasProcesadasCuentasDao.buscarFacturaProcesada(ds, numeroFactura);
         
@@ -215,7 +215,7 @@ public class FacturasServiceImpl implements FacturasService {
         facturaDao.actualizarSedeDetalleFactura(principalDataSource, detalleFacturaDTO, estadoFactura);
         //actualizarFactura(nameDataSource, detalleFacturaDTO, estadoFactura);
         //Inserto en destino
-        DataSource dsDestino = accesosSubsedes.getDataSourceSubSede(sedeDestino.getSede());
+        DataSource dsDestino = connectsAuth.getDataSourceSubSede(sedeDestino.getSede());
         Long numeroFactura = Formatos.convertToLong(detalleFacturaDTO.getNumeroFactura());
         facturaDao.insertarFacturaSede(dsDestino, detalleFacturaDTO, estadoFactura,numeroFactura);
         facturaDao.insertarDetalleSede(dsDestino, detalleFacturaDTO, estadoFactura, numeroFactura);
@@ -225,10 +225,10 @@ public class FacturasServiceImpl implements FacturasService {
         CambioSedeMapper cambioSedeMapper = new CambioSedeMapper();
         CambioSede traslado = cambioSedeMapper.detalleDtoTOtraslado(detalleFacturaDTO);
         traslado.setSedeOrigen(sedeOrigen.getIdsedes().longValue());
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         cambioSedeDao.guardarCambioSede(ds, traslado);  
         //Borro en Origen
-        DataSource dsOrigen = accesosSubsedes.getDataSourceSubSede(sedeOrigen.getSede());
+        DataSource dsOrigen = connectsAuth.getDataSourceSubSede(sedeOrigen.getSede());
         facturaDao.borrarFactura(dsOrigen, numeroFactura);
         facturaDao.borrarDetalleFactura(dsOrigen, numeroFactura);
         
@@ -244,7 +244,7 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional
     public List<DetalleFacturaDTO> trasladarFactura(String nameDataSource, DetalleFacturaTrasladoDTO detalleFacturaTrasladoDTO) {
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         List<DetalleFacturaDTO> facturasTrasladadas = new ArrayList<>();
         /**
          * INSERTO EN BD PRINCIPAL*
@@ -274,24 +274,24 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional(readOnly = true)
     public List<FacturaReporteSedeDto> reporteFacturaCompraProveedor(String nameDataSource, Long idsede, String fechaInicio, String fechaFin) {
-        return facturaDao.reporteTotalFacturaXSede(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicio, fechaFin, idsede);
+        return facturaDao.reporteTotalFacturaXSede(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicio, fechaFin, idsede);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<FacturaTotalReporteDto> reporteFacturaCompra(String nameDataSource, String fechaInicio, String fechaFin) {
-        return facturaDao.reporteTotalFactura(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicio, fechaFin);
+        return facturaDao.reporteTotalFactura(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicio, fechaFin);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<TrasladosDto> reporteTraslados(String nameDataSource, Date fechaInicio, Date fechaFin) {
-        return trasladoDao.reporteTraslado(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicio, fechaFin);
+        return trasladoDao.reporteTraslado(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicio, fechaFin);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<FacturaAutocompletarDto> buscarFacturaAutocompletar(String nameDataSource, String numeroFactura, Long idproveedor) {
-        return facturaDao.buscarFacturaAutocompletar(accesosSubsedes.getDataSourceSubSede(nameDataSource), numeroFactura, idproveedor);
+        return facturaDao.buscarFacturaAutocompletar(connectsAuth.getDataSourceSubSede(nameDataSource), numeroFactura, idproveedor);
     }
 }

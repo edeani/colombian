@@ -14,7 +14,7 @@ import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.entidad.CajaMenor;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.DetalleCajaMenor;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +33,14 @@ public class CajaMenorServiceImpl implements CajaMenorService{
     @Autowired
     private ComprasDao comprasDao;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
     
     private final String estado_aprobado_comprobante = "S";
     
     @Override
     @Transactional
     public void guardarPagosTercerosCajaMenor(String nameDataSource, CajaMenor pagos, List<DetalleCajaMenor> detallePagos) {
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         cajaMenorDao.guardarPagosCajaMenor(ds, pagos);
         detallePagos.forEach((DetalleCajaMenor elementoDetallePagosTerceros) -> {
             cajaMenorDao.guardarDetallePagosTercerosCajaMenor(ds, elementoDetallePagosTerceros);
@@ -50,18 +50,18 @@ public class CajaMenorServiceImpl implements CajaMenorService{
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosTercerosDto> buscarDetallePagosTercerosCajaMenorDtos(String nameDataSource, Long idpago) {
-        return cajaMenorDao.buscarDetallePagosTercerosCajaMenorDtos(accesosSubsedes.getDataSourceSubSede(nameDataSource), idpago);
+        return cajaMenorDao.buscarDetallePagosTercerosCajaMenorDtos(connectsAuth.getDataSourceSubSede(nameDataSource), idpago);
     }
 
     @Override
     @Transactional(readOnly = true)
     public CajaMenor buscarPagoXIdPagoCajaMenor(String nameDataSource, Long idpago) {
-        return cajaMenorDao.buscarPagoXIdPagoCajaMenor(accesosSubsedes.getDataSourceSubSede(nameDataSource), idpago);
+        return cajaMenorDao.buscarPagoXIdPagoCajaMenor(connectsAuth.getDataSourceSubSede(nameDataSource), idpago);
     }
 
     @Override
     public void guardarPagosProveedorCajaMenor(String nameDataSource, CajaMenor pagosCajaMenor, List<DetalleCajaMenor> detalleCajaMenor) {
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         cajaMenorDao.guardarPagosCajaMenor(ds, pagosCajaMenor);
         detalleCajaMenor.stream().map((elementoDetalleCajaMenor) -> {
             Compras compra = comprasDao.getCompra(elementoDetalleCajaMenor.getNumeroCompra(), ds);
@@ -81,7 +81,7 @@ public class CajaMenorServiceImpl implements CajaMenorService{
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosProveedorDto> buscarDetallePagosDtos(String nameDataSource, Long idCajaMenor) {
-        return cajaMenorDao.buscarDetallePagosProveedorCajaMenorDtos(accesosSubsedes.getDataSourceSubSede(nameDataSource), idCajaMenor);
+        return cajaMenorDao.buscarDetallePagosProveedorCajaMenorDtos(connectsAuth.getDataSourceSubSede(nameDataSource), idCajaMenor);
     }
     
 }

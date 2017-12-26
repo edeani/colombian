@@ -6,7 +6,7 @@ package com.administracion.service.jsf;
 
 
 import com.administracion.entidad.Users;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.mycompany.dto.GastosColombianDto;
 import com.mycompany.dto.GastosReporteTotalColombialDto;
@@ -33,7 +33,7 @@ public class GastosColombianServiceImpl implements GastosColombianService {
     @Autowired
     private SecurityService securityService;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
 
     private JdbcTemplate jdbctemplate;
 
@@ -45,7 +45,7 @@ public class GastosColombianServiceImpl implements GastosColombianService {
     @Override
     public void gastos(Date fi, Date ff) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(accesosSubsedes.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
         List<GastosReporteTotalColombialDto> gastosTotales = new ArrayList<>();
         try {
             Formatos formato = new Formatos();

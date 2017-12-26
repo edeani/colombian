@@ -9,7 +9,7 @@ package com.administracion.service;
 import com.administracion.dao.ClasePagoDao;
 import com.administracion.entidad.ClasePago;
 import com.administracion.entidad.Users;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,19 +26,16 @@ public class ClasePagoServiceImpl implements ClasePagoService{
     private ClasePagoDao clasePagoDao;
     @Autowired
     private SecurityService securityService;
-    
-    private AccesosSubsedes accesosSubsedes;
-    
     @Autowired
-    private void init(AccesosSubsedes accesosSubsedes){
-        this.accesosSubsedes = accesosSubsedes;
-    }
+    private ConnectsAuth connectsAuth;
+    
+
     
     @Transactional(readOnly = true)
     @Override
     public ClasePago findClasePagoById(Integer idClasePago) {
         Users user = securityService.getCurrentUser();
-        return clasePagoDao.findClasePagoById(idClasePago,accesosSubsedes.getDataSourceSubSede(user.getIdsedes().getSede()));
+        return clasePagoDao.findClasePagoById(idClasePago,connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
     }
     
 }

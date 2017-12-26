@@ -15,7 +15,7 @@ import com.administracion.dto.ReportePagosDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.DetallePagos;
 import com.administracion.entidad.Pagos;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +34,19 @@ public class PagosServiceImpl implements PagosService {
     @Autowired
     private ComprasDao comprasDao;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
     private  final String estado_aprobado_comprobante = "S";
 
     @Override
     @Transactional(readOnly = true)
     public Long secuenciaPagos(String nameDataSource) {
-        return pagosDao.secuenciaPagos(accesosSubsedes.getDataSourceSubSede(nameDataSource));
+        return pagosDao.secuenciaPagos(connectsAuth.getDataSourceSubSede(nameDataSource));
     }
 
     @Override
     @Transactional
     public void guardarPagosTerceros(String nameDataSource, Pagos pagosTerceros, List<DetallePagos> detallePagosTerceros) {
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         pagosDao.guardarPagos(ds, pagosTerceros);
         detallePagosTerceros.forEach((elementoDetallePagosTerceros) -> {
             pagosDao.guardarDetallePagosTerceros(ds, elementoDetallePagosTerceros);
@@ -56,19 +56,19 @@ public class PagosServiceImpl implements PagosService {
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosTercerosDto> buscarDetallePagosTercerosDtos(String nameDataSource, Long idpagotercero) {
-        return pagosDao.buscarDetallePagosTercerosDtos(accesosSubsedes.getDataSourceSubSede(nameDataSource), idpagotercero);
+        return pagosDao.buscarDetallePagosTercerosDtos(connectsAuth.getDataSourceSubSede(nameDataSource), idpagotercero);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Pagos buscarPagoXIdPago(String nameDataSource, Long idpagotercero) {
-        return pagosDao.buscarPagoXIdPago(accesosSubsedes.getDataSourceSubSede(nameDataSource), idpagotercero);
+        return pagosDao.buscarPagoXIdPago(connectsAuth.getDataSourceSubSede(nameDataSource), idpagotercero);
     }
 
     @Override
     @Transactional
     public void guardarPagosProveedor(String nameDataSource, Pagos pagosProveedor, List<DetallePagos> detallePagosProveedor) {
-        DataSource ds =accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds =connectsAuth.getDataSourceSubSede(nameDataSource);
         pagosDao.guardarPagos(ds, pagosProveedor);
         detallePagosProveedor.stream().map((elementoDetallePagosProveedor) -> {
             Compras compra = comprasDao.getCompra(elementoDetallePagosProveedor.getNumeroCompra(), ds);
@@ -88,19 +88,19 @@ public class PagosServiceImpl implements PagosService {
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosProveedorDto> buscarDetallePagosDtos(String nameDataSource, Long idpagoproveedor) {
-        return pagosDao.buscarDetallePagosDtos(accesosSubsedes.getDataSourceSubSede(nameDataSource), idpagoproveedor);
+        return pagosDao.buscarDetallePagosDtos(connectsAuth.getDataSourceSubSede(nameDataSource), idpagoproveedor);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<PagosCabeceraDto> buscarPagosProveedorXFecha(String nameDataSource, String fecha) {
-        return pagosDao.buscarPagosXFecha(accesosSubsedes.getDataSourceSubSede(nameDataSource), fecha);
+        return pagosDao.buscarPagosXFecha(connectsAuth.getDataSourceSubSede(nameDataSource), fecha);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ReportePagosDto> reportePagos(String nameDataSource, String fechaInicial, String fechaFinal, Long idsede) {
-        return pagosDao.reportePagos(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial,fechaFinal,idsede);
+        return pagosDao.reportePagos(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial,fechaFinal,idsede);
     }
     
 }

@@ -80,6 +80,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
          */
         accesosSubsedes.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
         
+        
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombre()));
         //El object user que mando aqui puede ser cualquier objeto desde un string a uno con atributos

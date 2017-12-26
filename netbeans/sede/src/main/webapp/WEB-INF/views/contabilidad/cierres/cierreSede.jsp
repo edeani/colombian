@@ -25,11 +25,14 @@
             </div>
             <div class="clear"></div>
             <div>
+                
                 <label>
                     Sede
                     <form:select path="idSede" class="contentRequired">
                         <option value="">Seleccionar</option>
-                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"></c:import>
+                        <c:import url="http://localhost:8084/sede/sedes/ajax/listaSedeSelect.htm">
+                            <c:param value="${sessionScope.path}" name="reqpath"/>
+                        </c:import>
                     </form:select>
                     <form:input path="nombreSede" type="hidden"/>
                 </label>

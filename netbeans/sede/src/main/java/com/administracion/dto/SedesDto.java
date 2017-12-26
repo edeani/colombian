@@ -5,11 +5,13 @@
  */
 package com.administracion.dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author EderArmando
  */
-public class SedesDto {
+public class SedesDto implements Serializable{
     private Integer idsedes;
     private String sede,username,password,url;
     private String usersLogin;

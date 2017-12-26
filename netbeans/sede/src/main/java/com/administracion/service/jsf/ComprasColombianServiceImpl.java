@@ -6,7 +6,7 @@ package com.administracion.service.jsf;
 
 
 import com.administracion.entidad.Users;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.util.OperacionesUtil;
 import com.mycompany.dto.ReporteComprasSedeDto;
@@ -35,7 +35,7 @@ public class ComprasColombianServiceImpl implements ComprasColombianService{
     @Autowired
     private SecurityService securityService;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
     
     private static final Logger LOGGER = LoggerFactory.getLogger(ComprasColombianServiceImpl.class);
     
@@ -46,7 +46,7 @@ public class ComprasColombianServiceImpl implements ComprasColombianService{
     @Transactional(readOnly = true)
     public List<ReporteComprasSedeDto> listadoCompras(Date Finicial, Date Ffinal) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(accesosSubsedes.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
         List<ReporteComprasSedeDto> compras = new ArrayList<>();
         try {
             Formatos formato = new Formatos();

@@ -9,7 +9,7 @@ import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.SedesService;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author edeani
  */
 @Controller
-@RequestMapping("/{sede:[a-zA-Z]+}/sedes")
+@RequestMapping("/sedes")
 public class SedesController extends BaseController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class SedesController extends BaseController {
     @Autowired
     private SecurityService securityService;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
 
     @ModelAttribute("sedes")
     public String traerSedes(HttpSession session, HttpServletRequest request) {
@@ -58,9 +58,9 @@ public class SedesController extends BaseController {
      * @return 
      */
     @RequestMapping("/ajax/listaSedeSelect.htm")
-    public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede) {
+    public ModelAndView cargarSedes(HttpSession session,@RequestParam(required = false)  String reqpath) {
         ModelAndView mav = new ModelAndView("util/formSelect");
-        SedesDto ss = accesosSubsedes.findSedeXName(sede);
+        SedesDto ss = connectsAuth.findSedeXName(reqpath);
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
         mav.addObject("datos", datosSedes);
 
@@ -74,7 +74,7 @@ public class SedesController extends BaseController {
         ModelAndView mav = new ModelAndView("util/formSelectSedes");
         getPropiedades().setArchivo(getArchivo());
         getPropiedades().setPropiedad(getPropiedadPrincipal());
-        SubSedesDto ss = accesosSubsedes.findSubsedeXName((String)session.getAttribute("path"));
+        SubSedesDto ss = connectsAuth.findSubsedeXName((String)session.getAttribute("path"));
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(idSede.intValue());
         mav.addObject("datos", datosSedes);
         mav.addObject("sede", idSede);

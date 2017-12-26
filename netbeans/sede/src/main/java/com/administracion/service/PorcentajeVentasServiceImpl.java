@@ -12,7 +12,7 @@ import com.administracion.dao.ReportesDao;
 import com.administracion.dao.SecuenciasMysqlDao;
 import com.administracion.entidad.DetallePorcentajeVentas;
 import com.administracion.entidad.PorcentajeVentas;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
@@ -36,12 +36,12 @@ public class PorcentajeVentasServiceImpl implements PorcentajeVentasService {
     @Autowired
     private SecuenciasMysqlDao secuenciasMysqlDao;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
 
     @Override
     @Transactional
     public void generarDetallePorcentajeVentas(String nameDataSource, Integer mes) {
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         detallePorcentajeVentasDao.borrarDetallePorcentajeVentasAll(ds);
         List<DetallePorcentajeVentas> detallePorcentajesVentas = detallePorcentajeVentasDao.generarDetallePorcentajeVentas(ds, mes);
         PorcentajeVentas porcentajeVentas = reportesDao.buscarPagoConsolidadoMes(ds, mes);
@@ -63,7 +63,7 @@ public class PorcentajeVentasServiceImpl implements PorcentajeVentasService {
     @Override
     @Transactional
     public void generarPorcentajeVentas(String nameDataSource, Integer mes) {
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         porcentajeVentasDao.borrarPorcentajeVentas(ds, mes);
         Long consecutivo = secuenciasMysqlDao.secuenceTable(ds, "porcentaje_ventas");
         

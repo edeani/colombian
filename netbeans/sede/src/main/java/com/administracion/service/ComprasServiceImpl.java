@@ -26,7 +26,7 @@ import com.administracion.entidad.Compras;
 import com.administracion.entidad.FacturasCompras;
 import com.administracion.entidad.Proveedor;
 import com.administracion.entidad.Sedes;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.Formatos;
 import java.util.Date;
 import java.util.List;
@@ -64,12 +64,12 @@ public class ComprasServiceImpl implements ComprasService {
     @Autowired
     private FacturaDao facturaDao;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
 
     @Override
     @Transactional(readOnly = true)
     public List<ItemsDTO> listaProveedores(String nameDataSource) {
-        return proveedoreDao.proveedoresItems(accesosSubsedes.getDataSourceSubSede(nameDataSource));
+        return proveedoreDao.proveedoresItems(connectsAuth.getDataSourceSubSede(nameDataSource));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ComprasServiceImpl implements ComprasService {
     public void guardarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
         String[] fila = detalleCompraDTO.getFactura().split("@");
         Date fechacompra = null;
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         if(detalleCompraDTO.getFecha()==null){
             fechacompra = new Date();
             detalleCompraDTO.setFecha(Formatos.dateTostring(fechacompra));
@@ -152,25 +152,25 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional
     public List<ComprasTotalesDTO> comprasTotales(String nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra) {
-       return comprasDao.comprasTotales(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra);
+       return comprasDao.comprasTotales(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra);
     }
 
     @Override
     @Transactional
     public List<ComprasTotalesDTO> comprasTotalesProveedor(String nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor) {
-        return comprasDao.comprasTotalesProveedor(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra,codigoProveedor);
+        return comprasDao.comprasTotalesProveedor(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra,codigoProveedor);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra) {
-        return comprasDao.getDetalleCompraDTO(idcompra, accesosSubsedes.getDataSourceSubSede(nameDataSource));
+        return comprasDao.getDetalleCompraDTO(idcompra, connectsAuth.getDataSourceSubSede(nameDataSource));
     } 
 
     @Override
     @Transactional
     public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra) {
-        Compras compras = comprasDao.getCompra(idcompra, accesosSubsedes.getDataSourceSubSede(nameDataSource));
+        Compras compras = comprasDao.getCompra(idcompra, connectsAuth.getDataSourceSubSede(nameDataSource));
         ComprasMapper comprasMapper = new ComprasMapper();
         DetalleCompraDTO detalleCompraDTO = comprasMapper.comprasToDetalleCompraDto(compras);
         
@@ -180,14 +180,14 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional
     public Proveedor getProveedor(String nameDataSource, Long idproveedor) {
-        return proveedoreDao.getProveedor(accesosSubsedes.getDataSourceSubSede(nameDataSource), idproveedor);
+        return proveedoreDao.getProveedor(connectsAuth.getDataSourceSubSede(nameDataSource), idproveedor);
     }
 
     @Override
     @Transactional
     public void actualizarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
         String[] fila = detalleCompraDTO.getFactura().split("@");
-        DataSource ds = accesosSubsedes.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         this.jdbctemplate = new JdbcTemplate(ds);
         Long idcompra = Long.parseLong(detalleCompraDTO.getNumeroFactura());
         Compras compra = comprasDao.getCompra(idcompra, ds);
@@ -237,36 +237,36 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional(readOnly = true)
     public List<ReporteComprasTotalesXProveedorDTO> comprasTotalesXProveedor(String nameDatasource, Long idproveedor, String fechaInicio, String fechaFin) {
-        return comprasDao.comprasTotalesXProveedor(accesosSubsedes.getDataSourceSubSede(nameDatasource), idproveedor, fechaInicio, fechaFin);
+        return comprasDao.comprasTotalesXProveedor(connectsAuth.getDataSourceSubSede(nameDatasource), idproveedor, fechaInicio, fechaFin);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ReporteComprasTotalesProvDTO> comprasTotalesProveedores(String nameDatasource, String fechaInicio, String fechaFin) {
-        return comprasDao.comprasTotalesProveedores(accesosSubsedes.getDataSourceSubSede(nameDatasource), fechaInicio, fechaFin);
+        return comprasDao.comprasTotalesProveedores(connectsAuth.getDataSourceSubSede(nameDatasource), fechaInicio, fechaFin);
     }
 
     @Override
     @Transactional
     public void actualizarFactura(String nameDataSource, Compras compras) {
-        comprasDao.actualizarCompra(accesosSubsedes.getDataSourceSubSede(nameDataSource), compras);
+        comprasDao.actualizarCompra(connectsAuth.getDataSourceSubSede(nameDataSource), compras);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Compras> comprasAVencer(String nameDataSource,int numeroDias,Long idProveedor) {
-        return comprasDao.comprasAVencer(accesosSubsedes.getDataSourceSubSede(nameDataSource), numeroDias, idProveedor);
+        return comprasDao.comprasAVencer(connectsAuth.getDataSourceSubSede(nameDataSource), numeroDias, idProveedor);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ComprasProveedorFechaDto> reporteComprasProveedorFechaDto(String nameDataSource, String fechInicial, String fechaFinal) {
-        return reportesDao.reporteComprasProveedorFechaDto(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal);
+        return reportesDao.reporteComprasProveedorFechaDto(connectsAuth.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<CuentasPagarProveedoresDto> reporteCuentasPagarProveedoresDto(String nameDataSource, String fechaInicial, String fechaFinal, Long idProveedor) {
-        return reportesDao.reporteCuentasPagarProveedoresDto(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, idProveedor);
+        return reportesDao.reporteCuentasPagarProveedoresDto(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, idProveedor);
     }
 }

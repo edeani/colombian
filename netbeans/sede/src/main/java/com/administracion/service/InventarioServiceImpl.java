@@ -11,7 +11,7 @@ import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteInventarioDTO;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -36,7 +36,7 @@ public class InventarioServiceImpl implements InventarioService{
     private ReportesDao reportesDao;
     
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
     
     private JdbcTemplate jdbctemplate;
     
@@ -47,7 +47,7 @@ public class InventarioServiceImpl implements InventarioService{
         String[] fechas = fecha.split(",");
         List<ReporteInventarioDTO> reporteInventarioDTOs=null;
         try{
-        reporteInventarioDTOs= reportesDao.findInventarioXFechaFinal(accesosSubsedes.getDataSourceSubSede(nameDataSource), fechas[0]);
+        reporteInventarioDTOs= reportesDao.findInventarioXFechaFinal(connectsAuth.getDataSourceSubSede(nameDataSource), fechas[0]);
         
         }catch(DataAccessException e){
             System.out.println("Reporte Inventario: Se encontraron 0 registros");
@@ -61,7 +61,7 @@ public class InventarioServiceImpl implements InventarioService{
     
         List<InventarioDTO> inventarioDTO=null;
         try{
-        inventarioDTO= inventarioDao.listInventarioDto(accesosSubsedes.getDataSourceSubSede(nameDataSource));
+        inventarioDTO= inventarioDao.listInventarioDto(connectsAuth.getDataSourceSubSede(nameDataSource));
         
         }catch(DataAccessException e){
             System.out.println("Inventario: Se encontraron 0 registros");
@@ -73,7 +73,7 @@ public class InventarioServiceImpl implements InventarioService{
     @Transactional
     public void eliminarProducto(String dataSource, Long idProducto) {
         try {
-            inventarioDao.eliminarProducto(accesosSubsedes.getDataSourceSubSede(dataSource), idProducto);
+            inventarioDao.eliminarProducto(connectsAuth.getDataSourceSubSede(dataSource), idProducto);
         } catch (DataAccessException e) {
             System.out.println("No se eliminó el producto");
         }
@@ -83,49 +83,49 @@ public class InventarioServiceImpl implements InventarioService{
     @Override
     @Transactional
     public void insertarProducto(String nameDataSource, InventarioDTO inventarioDTO) {
-        inventarioDao.insertarProducto(accesosSubsedes.getDataSourceSubSede(nameDataSource), inventarioDTO);
+        inventarioDao.insertarProducto(connectsAuth.getDataSourceSubSede(nameDataSource), inventarioDTO);
     }
 
     @Override
     @Transactional
     public void actualizarProducto(String nameDataSource, InventarioDTO inventarioDTO) {
-        inventarioDao.actualizarProducto(accesosSubsedes.getDataSourceSubSede(nameDataSource), inventarioDTO);
+        inventarioDao.actualizarProducto(connectsAuth.getDataSourceSubSede(nameDataSource), inventarioDTO);
     }
 
     @Override
     @Transactional(readOnly=true)
     public InventarioDTO traerProducto(String nameDatasource, Long idProducto) {
-        return inventarioDao.traerProductoDto(accesosSubsedes.getDataSourceSubSede(nameDatasource), idProducto);
+        return inventarioDao.traerProductoDto(connectsAuth.getDataSourceSubSede(nameDatasource), idProducto);
     }
 
     @Override
     @Transactional
     public boolean actualizarPromedioInventario(String nameDatasource, Long idProducto, Double promedio) {
-       inventarioDao.actualizarPromedio(accesosSubsedes.getDataSourceSubSede(nameDatasource), idProducto, promedio);
+       inventarioDao.actualizarPromedio(connectsAuth.getDataSourceSubSede(nameDatasource), idProducto, promedio);
        return true;
     }
     
     @Override
     @Transactional(readOnly=true)
     public Double calcularPromedioInventario(String nameDatasource, Long idProducto,String fechaini,String fechafin){
-        return inventarioDao.promedioInventario(accesosSubsedes.getDataSourceSubSede(nameDatasource), idProducto, fechaini, fechafin);
+        return inventarioDao.promedioInventario(connectsAuth.getDataSourceSubSede(nameDatasource), idProducto, fechaini, fechafin);
     }
 
     @Override
     @Transactional(readOnly=true)
     public List<InventarioFinalDTO> reporteInventarioFinal(String nameDatasource, String fechaInicial, String fechaFinal) {
-        return inventarioDao.inventarioFinal(accesosSubsedes.getDataSourceSubSede(nameDatasource), fechaInicial, fechaFinal);
+        return inventarioDao.inventarioFinal(connectsAuth.getDataSourceSubSede(nameDatasource), fechaInicial, fechaFinal);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ItemsDTO> listaProductoOptions(String nameDatasource) {
-        return inventarioDao.listaProductoOptions(accesosSubsedes.getDataSourceSubSede(nameDatasource));
+        return inventarioDao.listaProductoOptions(connectsAuth.getDataSourceSubSede(nameDatasource));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ItemsDTO> listaProductosLabel(String nameDatasource) {
-        return inventarioDao.listaProductosLabel(accesosSubsedes.getDataSourceSubSede(nameDatasource));
+        return inventarioDao.listaProductosLabel(connectsAuth.getDataSourceSubSede(nameDatasource));
     }
 }

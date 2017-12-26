@@ -5,7 +5,7 @@
  */
 package com.administracion.service;
 
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,6 @@ import org.springframework.stereotype.Service;
 @Service
 public abstract class GenericService {
     @Autowired
-    AccesosSubsedes accesosSubsedes;
+    ConnectsAuth connectsAuth;
     
 }

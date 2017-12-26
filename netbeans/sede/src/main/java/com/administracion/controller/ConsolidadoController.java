@@ -24,6 +24,7 @@ import com.administracion.service.CierreSedesService;
 import com.administracion.service.CuentasService;
 import com.administracion.service.ReporteService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.util.Formatos;
 import java.util.ArrayList;
@@ -68,6 +69,8 @@ public class ConsolidadoController extends BaseController {
     private CuentasService cuentasService;
     @Autowired
     private AccesosSubsedes accesosSubsedes;
+    @Autowired
+    private ConnectsAuth connectsAuth;
 
     @RequestMapping(value = "/sede.htm")
     public ModelAndView index() {
@@ -82,7 +85,7 @@ public class ConsolidadoController extends BaseController {
     @RequestMapping(value = "/consolidadoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response,HttpSession session,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
-        SubSedesDto ss = accesosSubsedes.findSubsedeXName((String)session.getAttribute("path"));
+        SubSedesDto ss = connectsAuth.findSubsedeXName((String)session.getAttribute("path"));
         List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(ss.getId(), fechaInicial, fechaFinal);
         ModelAndView mav = null;
         if (reporte.size() > 0) {
@@ -138,7 +141,7 @@ public class ConsolidadoController extends BaseController {
      *
      * @param comprobanteCierreSedesDto
      * @param sedeEntry
-ty     * @return
+     * @return
      */
     @RequestMapping(value = "/ajax/comprobante/sede/guardar.htm")
     public @ResponseBody

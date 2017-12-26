@@ -10,6 +10,7 @@ import com.administracion.entidad.Users;
 import com.administracion.service.SedesService;
 import com.administracion.service.UsuarioService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.ManageCookies;
 import static java.util.regex.Pattern.matches;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +50,9 @@ public class LoginController {
 
     @Autowired
     private AccesosSubsedes accesosSubsedes;
+    
+    @Autowired
+    private ConnectsAuth connectsAuth;
 
     /**
      * Carga base de datos principal si no se le especifica sede
@@ -134,7 +138,7 @@ public class LoginController {
     public ModelAndView loutApp(@PathVariable String sede, HttpServletRequest request
             , HttpServletResponse response) {
         if (accesosSubsedes.getSedes().size() > 1) {
-            SedesDto sedesDto = accesosSubsedes.findSedeXName(sede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
             accesosSubsedes.getSedes().remove(sedesDto);
             return new ModelAndView("redirect:/" + sede + "/signin.htm");
         }else{

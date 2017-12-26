@@ -5,7 +5,7 @@
 package com.administracion.service.jsf;
 
 import com.administracion.entidad.Users;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.mycompany.util.Formatos;
 import com.mycompany.mapper.Mesasyllevar;
@@ -33,7 +33,7 @@ public class MesasyllevarColombianServiceImpl implements MesasyllevarColombianSe
     @Autowired
     private SecurityService securityService;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
+    private ConnectsAuth connectsAuth;
 
     private JdbcTemplate jdbctemplate;
     private static final Logger LOGGER = LoggerFactory.getLogger(MesasyllevarColombianServiceImpl.class);
@@ -43,7 +43,7 @@ public class MesasyllevarColombianServiceImpl implements MesasyllevarColombianSe
     @Transactional(readOnly = true)
     public List<Mesasyllevar> mesas(Date fi, Date ff) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(accesosSubsedes.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
         List<Mesasyllevar> mesasyllevar = new ArrayList<>();
         try {
             Formatos formato = new Formatos();
