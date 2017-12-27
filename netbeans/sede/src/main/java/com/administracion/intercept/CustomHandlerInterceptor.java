@@ -32,7 +32,6 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String arrUri[] = request.getRequestURI().split("/");
         final String slash = "/";
-        System.out.println(request.getRequestURI()+"::1");
         if (arrUri.length > 3 && !request.getRequestURI().contains("WEB-INF")) {
             //No hay logins
             if (!arrUri[2].equals("sedes")) {

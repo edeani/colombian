@@ -243,7 +243,7 @@
                 <bd.user>root</bd.user>
                 <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>/home/edeani/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
+                <path.img>/home/edeani/Documentos/</path.img>
                 <url.img></url.img>
             </properties>
         </profile>
@@ -254,7 +254,7 @@
                 <bd.user>root</bd.user>
                 <bd.password>YI15102206j</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/productos/</path.img>
+                <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/logos/</path.img>
                 <url.img>/estaticos/img/productos</url.img>
             </properties>
         </profile>

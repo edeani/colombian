@@ -23,4 +23,8 @@
         <property name="location" value="classpath:jasper-views.xml"/>
         <property name="order" value="0"/>
     </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="600000" />
+    </bean>
 </beans>
