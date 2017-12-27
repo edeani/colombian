@@ -41,7 +41,7 @@ public class PorcentajeVentasServiceImpl implements PorcentajeVentasService {
     @Override
     @Transactional
     public void generarDetallePorcentajeVentas(String nameDataSource, Integer mes) {
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSedeConnect(nameDataSource);
         detallePorcentajeVentasDao.borrarDetallePorcentajeVentasAll(ds);
         List<DetallePorcentajeVentas> detallePorcentajesVentas = detallePorcentajeVentasDao.generarDetallePorcentajeVentas(ds, mes);
         PorcentajeVentas porcentajeVentas = reportesDao.buscarPagoConsolidadoMes(ds, mes);
@@ -63,7 +63,7 @@ public class PorcentajeVentasServiceImpl implements PorcentajeVentasService {
     @Override
     @Transactional
     public void generarPorcentajeVentas(String nameDataSource, Integer mes) {
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSedeConnect(nameDataSource);
         porcentajeVentasDao.borrarPorcentajeVentas(ds, mes);
         Long consecutivo = secuenciasMysqlDao.secuenceTable(ds, "porcentaje_ventas");
         

@@ -5,8 +5,6 @@
  */
 package com.administracion.service;
 
-import org.springframework.stereotype.Service;
-
 /**
  *
  * @author EderArmando

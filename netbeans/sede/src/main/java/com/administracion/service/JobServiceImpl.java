@@ -5,9 +5,10 @@
  */
 package com.administracion.service;
 
+import com.administracion.dto.SedesDto;
 import com.administracion.util.Formatos;
-import com.administracion.util.LectorPropiedades;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -17,15 +18,14 @@ import org.springframework.stereotype.Service;
  * @author EderArmando
  */
 @Service
-public class JobServiceImpl implements JobService{
+public class JobServiceImpl implements JobService {
 
     @Autowired
     private PorcentajeVentasService porcentajeVentasService;
-    
-    private static final String archivo="/bd/basedatos.properties";
-    private static final String PROPIEDAD_BD="basedatos";
-   
-    
+
+    @Autowired
+    private SedesService sedesService;
+
     //
     /**
      * Se ejecuta los primeros de cada mes a las 2 AM
@@ -34,23 +34,22 @@ public class JobServiceImpl implements JobService{
     //@Scheduled(cron = "0 54 19 * * ?")
     @Scheduled(cron = "0 30 0 1 * *")
     public void jobPorcentajeVentas() {
-        //Archivo con credenciales de la bd principal
-        LectorPropiedades lectorPropiedades = new LectorPropiedades();
-        lectorPropiedades.setArchivo(archivo);
-        
+
         //Fecha actual
         Date fechaActual = new Date();
         int mes = Formatos.obtenerMes(fechaActual);
-        
+
         //Ejecucion del JOB
-        try {
-            String base_datos = lectorPropiedades.leerPropiedad(PROPIEDAD_BD);
-            //Pedimos reporte del mes anterior
-            porcentajeVentasService.generarPorcentajeVentas(base_datos, mes-1);
-            porcentajeVentasService.generarDetallePorcentajeVentas(base_datos, mes-1);
-        } catch (Exception e) {
-            System.out.println("ERROR::jobPorcentajeVentas"+e.getMessage());
-        }
+        List<SedesDto> sedesConn = sedesService.traerSedesDtos();
+        sedesConn.forEach((sedesDto) -> {
+            try {
+                //Pedimos reporte del mes anterior
+                porcentajeVentasService.generarPorcentajeVentas(sedesDto.getSede(), mes - 1);
+                porcentajeVentasService.generarDetallePorcentajeVentas(sedesDto.getSede(), mes - 1);
+            } catch (Exception e) {
+                System.out.println("ERROR::jobPorcentajeVentas::"+sedesDto.getSede()+"::" + e.getMessage());
+            }
+        });
     }
-    
+
 }

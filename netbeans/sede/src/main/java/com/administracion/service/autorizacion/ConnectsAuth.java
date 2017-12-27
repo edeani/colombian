@@ -20,19 +20,27 @@ import org.springframework.stereotype.Component;
  * @author EderArmando
  */
 @Component
-public class ConnectsAuth{
-    
+public class ConnectsAuth {
+
     @Autowired
     private SedesService sedesService;
     @Autowired
     private AccesosSubsedes accesosSubsedes;
-    
+
     private List<SedesDto> sedesConnect;
-    
-    
+
     @PostConstruct
-    private void loadConnectsAut(){
+    private void loadConnectsAut() {
         sedesConnect = sedesService.traerSedesDtos();
+    }
+
+    public DataSource getDataSourceSedeConnect(String nameDataSource) {
+        SedesDto puntoSedeConn = findSedeXName(nameDataSource);
+        DriverManagerDataSource dataSourceConn_ = new DriverManagerDataSource();
+        dataSourceConn_.setPassword(puntoSedeConn.getPassword());
+        dataSourceConn_.setUrl(puntoSedeConn.getUrl());
+        dataSourceConn_.setUsername(puntoSedeConn.getUsername());
+        return dataSourceConn_;
     }
 
     /**
@@ -49,6 +57,7 @@ public class ConnectsAuth{
         dataSource_.setUsername(puntoSede.getUsername());
         return dataSource_;
     }
+
     /**
      * Devuelve el datasource de la subsede
      *
@@ -64,7 +73,15 @@ public class ConnectsAuth{
         return dataSourceSub_;
     }
     
-    
+    public SedesDto findSedeXNameConn(String sede) {
+        for (SedesDto sede1 : sedesConnect) {
+            if (sede1.getSede().equals(sede)) {
+                return sede1;
+            }
+        }
+        return null;
+    }
+
     public SedesDto findSedeXName(String sede) {
         for (SedesDto sede1 : accesosSubsedes.getSedes()) {
             if (sede1.getSede().equals(sede)) {
@@ -73,6 +90,7 @@ public class ConnectsAuth{
         }
         return null;
     }
+
     /**
      * Devuelve los datos de conexión de las subsedes
      *
@@ -87,6 +105,7 @@ public class ConnectsAuth{
         }
         return null;
     }
+
     public String findUserNameXSede(String sede) {
         for (SedesDto sede_ : accesosSubsedes.getSedes()) {
             if (sede_.getSede().equals(sede)) {
@@ -95,7 +114,8 @@ public class ConnectsAuth{
         }
         return "";
     }
-    public String findSedeStringXName(String sede){
+
+    public String findSedeStringXName(String sede) {
         for (SedesDto sede_ : accesosSubsedes.getSedes()) {
             if (sede_.getSede().equals(sede)) {
                 return sede_.getSede();
@@ -103,6 +123,7 @@ public class ConnectsAuth{
         }
         return null;
     }
+
     public List<SedesDto> getSedesConnect() {
         return sedesConnect;
     }
@@ -110,6 +131,5 @@ public class ConnectsAuth{
     public void setSedesConnect(List<SedesDto> sedesConnect) {
         this.sedesConnect = sedesConnect;
     }
-    
-    
+
 }
