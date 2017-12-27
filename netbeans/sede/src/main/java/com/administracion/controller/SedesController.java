@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author edeani
  */
 @Controller
-@RequestMapping("/puntos")
+@RequestMapping("/{sede:[a-zA-Z]+}/sedes")
 public class SedesController extends BaseController {
 
     @Autowired
@@ -55,10 +55,10 @@ public class SedesController extends BaseController {
      * @param sede: Sede que hace el request
      * @return 
      */
-    @RequestMapping("/ajax/listaPuntosSelect.htm")
-    public @ResponseBody ModelAndView cargarSedes(@RequestParam(required = false)  String reqpath) {
+    @RequestMapping("/ajax/listaSedeSelect.htm")
+    public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("util/formSelect");
-        SedesDto ss = connectsAuth.findSedeXName(reqpath);
+        SedesDto ss = connectsAuth.findSedeXName(sede);
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
         mav.addObject("datos", datosSedes);
 

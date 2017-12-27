@@ -29,9 +29,7 @@
                     Sede
                     <form:select path="idSede" class="contentRequired">
                         <option value="">Seleccionar</option>
-                        <c:import url="/sede/puntos/ajax/listaPuntosSelect.htm" >
-                            <c:param value="${sessionScope.path}" name="reqpath"/>
-                        </c:import>
+                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"/>
                     </form:select>
                     <form:input path="nombreSede" type="hidden"/>
                 </label>
