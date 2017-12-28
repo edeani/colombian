@@ -6,6 +6,7 @@
 package com.administracion.controller;
 
 import com.administracion.enumeration.ExtencionesEnum;
+import com.administracion.service.autorizacion.AccesosSubsedes;
 import java.io.File;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/{sede:[a-zA-Z]+}/logo")
 public class LogoEmpresaController {
     
+    @Autowired
+    private AccesosSubsedes accesosSubsedes;
     @Value("${path.img}")
     private String PATH_IMG;
     

@@ -9,6 +9,7 @@ import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.service.SedesService;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,15 @@ public class ConnectsAuth {
         }
         return null;
     }
-
+    
+    public SedesDto findSedeXId(Integer sede) {
+        for (SedesDto sede1 : accesosSubsedes.getSedes()) {
+            if (Objects.equals(sede, sede1.getIdsedes())) {
+                return sede1;
+            }
+        }
+        return null;
+    }
     /**
      * Devuelve los datos de conexión de las subsedes
      *

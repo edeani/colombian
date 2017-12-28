@@ -5,7 +5,10 @@
  */
 package com.administracion.intercept;
 
+import com.administracion.dto.SedesDto;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
+import com.administracion.enumeration.ExtencionesEnum;
 import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
 import com.administracion.service.autorizacion.ConnectsAuth;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -56,7 +60,7 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
                         String sedeManage = existSedeAccesos(arrUri[2]);
                         if (sedeManage != null) {//Si esa sede esta logueada
                             session.setAttribute("path", arrUri[2]);
-                            return true;
+                            //return true;
                         } else {//Si esa sede NO esta logueada
                             Sedes sede = existSede(arrUri[2]);
                             if (sede == null) {//Not found
@@ -85,6 +89,21 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
         }
 
         return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        HttpSession session = request.getSession();
+        if (session != null) {
+            String sedeString = (String) session.getAttribute("path");
+            if (sedeString != null) {
+                SubSedesDto subSedesDto = connectsAuth.findSubsedeXName(sedeString);
+                if (subSedesDto != null) {
+                    SedesDto sedesDto = connectsAuth.findSedeXId(subSedesDto.getIdsede());
+                    session.setAttribute("foto", sedesDto.getSede().concat(ExtencionesEnum.JPG.getExt()));
+                }
+            }
+        }
     }
 
     private Sedes existSede(String nameSede) {
