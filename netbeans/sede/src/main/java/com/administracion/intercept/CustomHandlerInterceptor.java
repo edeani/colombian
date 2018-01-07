@@ -97,10 +97,12 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
         if (session != null) {
             String sedeString = (String) session.getAttribute("path");
             if (sedeString != null) {
-                SubSedesDto subSedesDto = connectsAuth.findSubsedeXName(sedeString);
-                if (subSedesDto != null) {
-                    SedesDto sedesDto = connectsAuth.findSedeXId(subSedesDto.getIdsede());
+                SedesDto sedesDto = connectsAuth.findSedeXName(sedeString);
+                if (sedesDto != null) {
                     session.setAttribute("foto", sedesDto.getSede().concat(ExtencionesEnum.JPG.getExt()));
+                    if (request.getRequestURI().contains("logout")) {
+                        accesosSubsedes.getSedes().remove(sedesDto);
+                    }
                 }
             }
         }

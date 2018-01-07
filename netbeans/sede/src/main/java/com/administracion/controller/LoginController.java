@@ -5,13 +5,18 @@
  */
 package com.administracion.controller;
 
+import com.adiministracion.mapper.UserMapper;
 import com.administracion.dto.SedesDto;
+import com.administracion.dto.SubSedesDto;
+import com.administracion.dto.UserItemDto;
 import com.administracion.entidad.Users;
 import com.administracion.service.SedesService;
+import com.administracion.service.SubSedesService;
 import com.administracion.service.UsuarioService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.ManageCookies;
+import java.util.Objects;
 import static java.util.regex.Pattern.matches;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,11 +51,14 @@ public class LoginController {
     private SedesService sedesService;
 
     @Autowired
+    private SubSedesService subSedesService;
+
+    @Autowired
     private UsuarioService usuarioService;
 
     @Autowired
     private AccesosSubsedes accesosSubsedes;
-    
+
     @Autowired
     private ConnectsAuth connectsAuth;
 
@@ -121,8 +129,9 @@ public class LoginController {
             } else {
                 puntoSede.setUsersLogin(users.getUsername());
                 accesosSubsedes.getSedes().add(puntoSede);
+                accesosSubsedes.getSubsedes().addAll(subSedesService.subSedesXIdSede(users.getIdsedes().getIdsedes()));
+                accesosSubsedes.getUserLog().add(UserMapper.userToUserItemDto(users));
                 accesosSubsedes.setMultiple(Boolean.TRUE);
-
             }
 
             ModelAndView mav = new ModelAndView("redirect:" + rt);
@@ -135,13 +144,31 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/{sede:[a-zA-Z]+}/logout.htm")
-    public ModelAndView loutApp(@PathVariable String sede, HttpServletRequest request
-            , HttpServletResponse response) {
+    public ModelAndView logoutApp(@PathVariable String sede, HttpServletRequest request,
+             HttpServletResponse response) {
         if (accesosSubsedes.getSedes().size() > 1) {
             SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-            accesosSubsedes.getSedes().remove(sedesDto);
+            UserItemDto userItemDto = connectsAuth.findUserItemXIdSede(sedesDto.getIdsedes());
+            /**
+             * Remuevo un usuario de la sede
+             */
+            accesosSubsedes.getUserLog().remove(userItemDto);
+            /**
+             * Si no existen mas usuarios con esa sede remuevo la sede con sus
+             * subsedes
+             */
+            if (connectsAuth.findUserItemXIdSede(sedesDto.getIdsedes()) == null) {
+                for (int i = 0; i < accesosSubsedes.getSubsedes().size(); i++) {
+                    if (Objects.equals(accesosSubsedes.getSubsedes().get(i).getIdsede(), sedesDto.getIdsedes())) {
+                        accesosSubsedes.getSubsedes().remove(i);
+                        i--;
+                    }
+                }
+                //accesosSubsedes.getSedes().remove(sedesDto);
+            }
+
             return new ModelAndView("redirect:/" + sede + "/signin.htm");
-        }else{
+        } else {
             ManageCookies.setCookie(response, "logoutpath", sede);
             return new ModelAndView("redirect:/logout.htm");
         }

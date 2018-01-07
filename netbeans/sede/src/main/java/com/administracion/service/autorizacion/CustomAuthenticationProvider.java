@@ -5,6 +5,7 @@
  */
 package com.administracion.service.autorizacion;
 
+import com.adiministracion.mapper.UserMapper;
 import com.administracion.dao.SubSedesDao;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Users;
@@ -79,7 +80,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
          * Subsedes de la sede del usuario
          */
         accesosSubsedes.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
-        
+        /**
+         * Usuario que se loguea
+         */
+        accesosSubsedes.getUserLog().add(UserMapper.userToUserItemDto(user));
         
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombre()));

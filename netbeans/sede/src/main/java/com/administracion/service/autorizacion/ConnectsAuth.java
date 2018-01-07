@@ -7,6 +7,7 @@ package com.administracion.service.autorizacion;
 
 import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
+import com.administracion.dto.UserItemDto;
 import com.administracion.service.SedesService;
 import java.util.List;
 import java.util.Objects;
@@ -130,6 +131,17 @@ public class ConnectsAuth {
                 return sede_.getSede();
             }
         }
+        return null;
+    }
+    
+    public UserItemDto findUserItemXIdSede(Integer idSede){
+        
+        for(UserItemDto user_ : accesosSubsedes.getUserLog()){
+            if(Objects.equals(idSede, user_.getIdSedeUser())){
+                return  user_;
+            }
+        }
+        
         return null;
     }
 

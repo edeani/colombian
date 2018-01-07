@@ -7,6 +7,7 @@ package com.administracion.service.autorizacion;
 
 import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
+import com.administracion.dto.UserItemDto;
 import com.administracion.entidad.Sedes;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 public class AccesosSubsedes implements Serializable {
 
     private Sedes sedePrincipal;
+    private List<UserItemDto> userLog;
     private List<SedesDto> sedes;
     private List<SubSedesDto> subsedes;
     private String path;
@@ -35,6 +37,8 @@ public class AccesosSubsedes implements Serializable {
     public AccesosSubsedes() {
         //Inicializo lista de sedes
         this.sedes = new ArrayList<>();
+        this.userLog = new ArrayList<>();
+        this.subsedes = new ArrayList<>();
         multiple = Boolean.FALSE;
     }
 
@@ -78,4 +82,13 @@ public class AccesosSubsedes implements Serializable {
         this.multiple = multiple;
     }
 
+    public List<UserItemDto> getUserLog() {
+        return userLog;
+    }
+
+    public void setUserLog(List<UserItemDto> userLog) {
+        this.userLog = userLog;
+    }
+
+    
 }
