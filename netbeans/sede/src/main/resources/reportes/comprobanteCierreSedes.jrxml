@@ -37,22 +37,6 @@
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="291" y="73" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="ba3781bb-deac-4513-ac22-3dddf9646bd0"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="10" y="10" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="3ff18a08-e09f-436f-9751-e14a741e8ed3"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="1" y="111" width="91" height="20" uuid="af06518a-6fa0-45e4-8e7d-3ae8352e7754"/>
 				<text><![CDATA[Comprobante No.]]></text>
 			</staticText>
@@ -80,12 +64,8 @@
 				<reportElement x="46" y="142" width="100" height="20" uuid="69b2df29-71ee-4ec2-8bdb-05efb50e3dc0"/>
 				<textFieldExpression><![CDATA[$P{sede}]]></textFieldExpression>
 			</textField>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="137" y="0" width="326" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
+				<reportElement x="2" y="25" width="326" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
 				<box leftPadding="80"/>
 				<textElement>
 					<font size="18"/>
@@ -93,6 +73,9 @@
 				<text><![CDATA[Comprobante Cierre]]></text>
 			</staticText>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">

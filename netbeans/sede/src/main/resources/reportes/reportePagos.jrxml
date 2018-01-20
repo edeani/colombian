@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="614" pageHeight="792" columnWidth="574" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcc6e83d-f602-4ea3-8cdd-80bf071a1a7c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="fechaInicial" class="java.util.Date"/>
 	<parameter name="sede" class="java.lang.String"/>
@@ -31,22 +31,6 @@
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="291" y="73" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="ba3781bb-deac-4513-ac22-3dddf9646bd0"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="10" y="10" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="3ff18a08-e09f-436f-9751-e14a741e8ed3"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="2" y="142" width="77" height="20" uuid="874a701a-24ec-42b8-873c-1cc29cfb88bf"/>
 				<text><![CDATA[Desde]]></text>
 			</staticText>
@@ -70,12 +54,8 @@
 				<reportElement x="200" y="142" width="77" height="20" uuid="145e2270-d8e5-49a6-acb7-38b7140c8534"/>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="173" y="1" width="228" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
+				<reportElement x="2" y="35" width="228" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
 				<box leftPadding="0"/>
 				<textElement>
 					<font size="18"/>
@@ -83,6 +63,9 @@
 				<text><![CDATA[Reporte de Pagos por Sede]]></text>
 			</staticText>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">

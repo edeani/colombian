@@ -28,22 +28,6 @@
 	<title>
 		<band height="128" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="9" y="9" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="d8b720a4-84ed-46e8-8bba-32cca68bf303"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="288" y="68" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="14c73eb2-0ac9-41f2-937b-d883f49f6154"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="9" y="99" width="34" height="20" uuid="8cdc470a-068d-4d89-8f29-9d95f50a3b7b"/>
 				<text><![CDATA[Desde]]></text>
 			</staticText>
@@ -67,12 +51,8 @@
 				<reportElement x="381" y="100" width="140" height="20" uuid="10e56ae5-04dd-4c15-a0e9-c1d88c2fff8a"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="89" y="0" width="326" height="35" uuid="e934bd02-7fcf-45c3-ad4a-efdcdc439ecb"/>
+				<reportElement x="0" y="20" width="326" height="35" uuid="e934bd02-7fcf-45c3-ad4a-efdcdc439ecb"/>
 				<box leftPadding="110"/>
 				<textElement>
 					<font size="18"/>
@@ -80,6 +60,9 @@
 				<text><![CDATA[Consolidado Sedes]]></text>
 			</staticText>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">

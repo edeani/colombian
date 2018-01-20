@@ -49,27 +49,7 @@
 				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="13" y="1" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="5825ab7c-ee90-4936-8f08-2ae2d8609f9b"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="309" y="48" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="1f925345-131d-45c7-a319-90d8bd32bff5"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
-			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="65" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Transparent" x="171" y="0" width="247" height="32" forecolor="#000000" backcolor="#FFFFFF" uuid="be3d02a3-a367-41ab-8253-0f5f5724a0e3"/>
+				<reportElement mode="Transparent" x="0" y="19" width="247" height="32" forecolor="#000000" backcolor="#FFFFFF" uuid="be3d02a3-a367-41ab-8253-0f5f5724a0e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -77,13 +57,16 @@
 				<text><![CDATA[Estado Pérdida Ganancias]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="229" y="32" width="113" height="33" uuid="3783521a-b957-43a4-85c1-ca52ee6ba455"/>
+				<reportElement x="283" y="19" width="113" height="33" uuid="3783521a-b957-43a4-85c1-ca52ee6ba455"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
 			</textField>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">

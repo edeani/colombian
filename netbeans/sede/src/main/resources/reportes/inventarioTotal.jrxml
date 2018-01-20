@@ -18,58 +18,42 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="107" splitType="Stretch">
+		<band height="66" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="291" y="73" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="41f8b566-5d2f-4cf4-b8ac-f8009be7810e"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+				<reportElement x="0" y="16" width="232" height="26" uuid="b4c13f61-2ed9-401c-832d-2fb638e4249a"/>
+				<textElement>
+					<font size="18"/>
 				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="10" y="10" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="c54f1e94-a56a-48a2-885b-64b6ef1c9268"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
+				<text><![CDATA[Informe Inventario Total]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="63" splitType="Stretch">
 			<staticText>
-				<reportElement x="353" y="43" width="68" height="20" uuid="dfdbf2a3-a98b-4d2c-82c1-82b5ccfc3a03"/>
+				<reportElement x="353" y="12" width="68" height="20" uuid="dfdbf2a3-a98b-4d2c-82c1-82b5ccfc3a03"/>
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="421" y="43" width="135" height="20" uuid="58c80e27-5493-4296-898a-15c80692d433"/>
+				<reportElement x="421" y="12" width="135" height="20" uuid="58c80e27-5493-4296-898a-15c80692d433"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="43" width="36" height="20" uuid="cbb232e8-632e-4d8a-85e2-4490247d169a"/>
+				<reportElement x="1" y="12" width="36" height="20" uuid="cbb232e8-632e-4d8a-85e2-4490247d169a"/>
 				<text><![CDATA[Desde]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="151" y="43" width="35" height="20" uuid="3bd6487b-141b-4eed-9f6b-a7766e51449f"/>
+				<reportElement x="151" y="12" width="35" height="20" uuid="3bd6487b-141b-4eed-9f6b-a7766e51449f"/>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="37" y="43" width="100" height="20" uuid="407ec5fc-c36b-4cdb-80e2-d4e5074b1ffc"/>
+				<reportElement x="37" y="12" width="100" height="20" uuid="407ec5fc-c36b-4cdb-80e2-d4e5074b1ffc"/>
 				<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="186" y="43" width="100" height="20" uuid="2ec41786-706b-441a-9394-45dead4b2b32"/>
+				<reportElement x="186" y="12" width="100" height="20" uuid="2ec41786-706b-441a-9394-45dead4b2b32"/>
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="187" y="0" width="232" height="26" uuid="b4c13f61-2ed9-401c-832d-2fb638e4249a"/>
-				<textElement>
-					<font size="18"/>
-				</textElement>
-				<text><![CDATA[Informe Inventario Total]]></text>
-			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>

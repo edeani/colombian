@@ -18,22 +18,13 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="102" splitType="Stretch">
+		<band height="78" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="1" y="0" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="3b86f436-7324-49b2-9cdd-faabc2ffc643"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+				<reportElement x="1" y="27" width="208" height="32" uuid="367c0ee9-ecb5-4a2b-b3b7-89329f0385a4"/>
+				<textElement>
+					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="282" y="63" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="180e18e6-3ae3-4c5b-9b08-1adf35b5dcfb"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
+				<text><![CDATA[Factura  Despachos Venta]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -72,13 +63,6 @@
 				<reportElement x="371" y="36" width="100" height="20" uuid="9bce4b95-62e7-4977-8457-24e6f2b0ba04"/>
 				<textFieldExpression><![CDATA[$P{fechaFactura}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="271" y="3" width="208" height="32" uuid="367c0ee9-ecb5-4a2b-b3b7-89329f0385a4"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Factura  Despachos Venta]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="1" y="67" width="30" height="20" uuid="6299797b-7364-4af1-a5c2-e1224a7a82ad"/>
 				<textElement>

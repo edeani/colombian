@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ventasTotales" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6970d0bc-5be9-49a0-b855-18a1a42aea41">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="31"/>
 	<parameter name="fechaInicial" class="java.lang.String"/>
 	<parameter name="fechaFinal" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.Long"/>
@@ -47,27 +47,7 @@
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="277" y="70" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="bed7d594-65a2-479d-9aab-f084ff4d9a0a"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="10" y="10" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="d77c8324-8d6e-45a8-a392-78adc1c74ad8"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
-			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="50" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Transparent" x="191" y="7" width="163" height="32" forecolor="#000000" backcolor="#FFFFFF" uuid="be3d02a3-a367-41ab-8253-0f5f5724a0e3"/>
+				<reportElement mode="Transparent" x="13" y="39" width="163" height="32" forecolor="#000000" backcolor="#FFFFFF" uuid="be3d02a3-a367-41ab-8253-0f5f5724a0e3"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -75,6 +55,9 @@
 				<text><![CDATA[Despachos Totales]]></text>
 			</staticText>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">

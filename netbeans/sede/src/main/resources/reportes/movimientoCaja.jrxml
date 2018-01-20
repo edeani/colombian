@@ -34,22 +34,6 @@
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="291" y="73" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="ba3781bb-deac-4513-ac22-3dddf9646bd0"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="10" y="10" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="3ff18a08-e09f-436f-9751-e14a741e8ed3"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="1" y="111" width="91" height="20" uuid="af06518a-6fa0-45e4-8e7d-3ae8352e7754"/>
 				<text><![CDATA[Fecha Inicio]]></text>
 			</staticText>
@@ -65,18 +49,17 @@
 				<reportElement x="92" y="111" width="100" height="20" uuid="b1cfac45-70fa-4ce6-8d57-aef3d8817b53"/>
 				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
 			</textField>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="37" splitType="Stretch">
 			<textField>
-				<reportElement x="111" y="0" width="351" height="37" uuid="04f0255d-ee1d-4b24-9981-6127485df7e9"/>
+				<reportElement x="0" y="28" width="351" height="37" uuid="04f0255d-ee1d-4b24-9981-6127485df7e9"/>
 				<textElement textAlignment="Center">
 					<font size="18"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">

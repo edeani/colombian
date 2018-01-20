@@ -68,34 +68,17 @@
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="291" y="73" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="1d31a0d7-831a-4ff9-b797-6126bfae032f"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Sencillamente mejor]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="10" y="10" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="89501c89-6bd3-4c51-9116-7c7dc27151b7"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Cali y Cali]]></text>
-			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="28" splitType="Stretch">
-			<staticText>
-				<reportElement x="10" y="0" width="431" height="24" uuid="5fa7c0cc-20a9-4cc4-a92b-a3d0034a71cb"/>
-				<box leftPadding="110"/>
+				<reportElement x="1" y="19" width="431" height="24" uuid="5fa7c0cc-20a9-4cc4-a92b-a3d0034a71cb"/>
+				<box leftPadding="0"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Listado Facturas compra por proveedor]]></text>
 			</staticText>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
