@@ -102,7 +102,7 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
             if (sedeString != null) {
                 SedesDto sedesDto = connectsAuth.findSedeXNameConn(sedeString);
                 if (sedesDto != null) {
-                    session.setAttribute("foto", rutaLogo+"/"+sedesDto.getSede().concat(ExtencionesEnum.JPG.getExt()));
+                    session.setAttribute("foto", rutaLogo+"/"+sedesDto.getSede().concat(ExtencionesEnum.PNG.getExt()));
                     if (request.getRequestURI().contains("logout")) {
                         accesosSubsedes.getSedes().remove(sedesDto);
                     }
