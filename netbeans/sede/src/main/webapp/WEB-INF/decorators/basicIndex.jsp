@@ -18,7 +18,7 @@
     <body>
         <div  id="cuerpo">
         <div style="display: block">
-            <img src="<%=request.getContextPath()%>/img/logo_caliycali.png" />
+            <img src="${sessionScope.foto}" />
         </div> 
         <sitemesh:write property='body'/>
         <%@ include file="/WEB-INF/componentes/footer.jsp" %>

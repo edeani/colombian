@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -29,8 +30,10 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
     private AccesosSubsedes accesosSubsedes;
     @Autowired
     private SedesService sedesService;
-    @Autowired
+    @Autowired 
     private ConnectsAuth connectsAuth;
+    @Value("${url.img}")
+    String rutaLogo;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -97,9 +100,9 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
         if (session != null) {
             String sedeString = (String) session.getAttribute("path");
             if (sedeString != null) {
-                SedesDto sedesDto = connectsAuth.findSedeXName(sedeString);
+                SedesDto sedesDto = connectsAuth.findSedeXNameConn(sedeString);
                 if (sedesDto != null) {
-                    session.setAttribute("foto", sedesDto.getSede().concat(ExtencionesEnum.JPG.getExt()));
+                    session.setAttribute("foto", rutaLogo+"/"+sedesDto.getSede().concat(ExtencionesEnum.JPG.getExt()));
                     if (request.getRequestURI().contains("logout")) {
                         accesosSubsedes.getSedes().remove(sedesDto);
                     }

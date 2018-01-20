@@ -28,7 +28,9 @@ public class ConnectsAuth {
     private SedesService sedesService;
     @Autowired
     private AccesosSubsedes accesosSubsedes;
-
+    /**
+     * Tiene todas las conexiones existentes
+     */
     private List<SedesDto> sedesConnect;
 
     @PostConstruct
@@ -74,7 +76,11 @@ public class ConnectsAuth {
         dataSourceSub_.setUsername(subSedesDto.getUsername());
         return dataSourceSub_;
     }
-    
+    /**
+     * Busca una conexión de las sedes a las que se puede conectar
+     * @param sede
+     * @return 
+     */
     public SedesDto findSedeXNameConn(String sede) {
         for (SedesDto sede1 : sedesConnect) {
             if (sede1.getSede().equals(sede)) {

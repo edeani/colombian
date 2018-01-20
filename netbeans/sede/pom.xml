@@ -220,8 +220,8 @@
                 <bd.user>root</bd.user>
                 <bd.password>compaq</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
-                <url.img>/administracion/img-producto</url.img>
+                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/sede/src/main/webapp/img/</path.img>
+                <url.img>/sede/img</url.img>
             </properties>
         </profile>
         <!-- Aquí se agregan mas perfiles de compilación -->
