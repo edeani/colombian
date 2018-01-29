@@ -30,11 +30,10 @@ public class Userxsede implements Serializable {
     @Column(name = "cons")
     private Integer cons;
     
-    @JoinColumn("idsede")
+    @JoinColumn(name = "idsede")
     @ManyToOne
     private Sedes idsede;
-    
-    @JoinColumn("iduser")
+    @JoinColumn(name = "iduser")
     @ManyToOne
     private Users iduser;
 
