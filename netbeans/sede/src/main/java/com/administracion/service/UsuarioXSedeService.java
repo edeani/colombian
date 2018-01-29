@@ -5,13 +5,12 @@
  */
 package com.administracion.service;
 
-import com.administracion.entidad.Users;
+import com.administracion.entidad.Userxsede;
 
 /**
  *
- * @author user
+ * @author edeani
  */
-public interface UsuarioService {
-    public Users findUsuarioByCorreo(String correo);
-    
+public interface UsuarioXSedeService {
+    Userxsede findUusarioByCorreoSede(String correo,String sede);
 }

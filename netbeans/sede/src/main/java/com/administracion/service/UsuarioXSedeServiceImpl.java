@@ -5,8 +5,8 @@
  */
 package com.administracion.service;
 
-import com.administracion.dao.UsuarioDao;
-import com.administracion.entidad.Users;
+import com.administracion.dao.UserXSedeDao;
+import com.administracion.entidad.Userxsede;
 import com.administracion.util.LeerXml;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +15,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author user
+ * @author edeani
  */
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioXSedeServiceImpl implements UsuarioXSedeService{
 
     @Autowired
-    private UsuarioDao usuarioDao;
-
+    private UserXSedeDao userXSedeDao;
     @Autowired
     private LeerXml leerXml;
-
-
+    
     @Transactional(readOnly = true)
     @Override
-    public Users findUsuarioByCorreo(String correo) {
+    public Userxsede findUusarioByCorreoSede(String correo, String nameSede) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("username", correo);
-        return usuarioDao.queryOpjectJpa(leerXml.getQuery("UsuarioJpa.findXcorreo"), parametros);
+        parametros.put("sede", nameSede);
+        return userXSedeDao.queryOpjectJpa(leerXml.getQuery("UsuarioJpa.findXcorreoSedeName"), parametros);
     }
-
-
+    
 }

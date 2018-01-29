@@ -10,9 +10,11 @@ import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.dto.UserItemDto;
 import com.administracion.entidad.Users;
+import com.administracion.entidad.Userxsede;
 import com.administracion.service.SedesService;
 import com.administracion.service.SubSedesService;
 import com.administracion.service.UsuarioService;
+import com.administracion.service.UsuarioXSedeService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.ManageCookies;
@@ -55,6 +57,9 @@ public class LoginController {
 
     @Autowired
     private UsuarioService usuarioService;
+    
+    @Autowired
+    private UsuarioXSedeService usuarioXSedeService;
 
     @Autowired
     private AccesosSubsedes accesosSubsedes;
@@ -111,26 +116,28 @@ public class LoginController {
     public ModelAndView loginGenericSede(@RequestParam String loginname, @RequestParam String passwordsede,
             @RequestParam(value = "sede") String sedePath, @RequestParam String rt, HttpServletRequest request) {
         SedesDto puntoSede = sedesService.findSedeXNameDto(sedePath);
+        
         if (puntoSede != null) {
-            Users users = usuarioService.findUsuarioByCorreo(loginname);
-            if (users == null) {
+            Userxsede userxsede = usuarioXSedeService.findUusarioByCorreoSede(loginname, sedePath);
+            if (userxsede == null) {
                 throw new BadCredentialsException("1000");
             }
             String path = sedePath;
-            if (!users.getIdsedes().getSede().equals(path)) {
+            if (!userxsede.getIdsede().getSede().equals(path)) {
                 throw new BadCredentialsException("1000");
             }
 
-            if (!matches(passwordsede, users.getPassword())) {
+            if (!matches(passwordsede, userxsede.getIduser().getPassword())) {
                 throw new BadCredentialsException("1000");
             }
             if (rt.isEmpty()) {
                 rt = request.getContextPath() + "/403.htm";
             } else {
+                Users users = userxsede.getIduser();
                 puntoSede.setUsersLogin(users.getUsername());
                 accesosSubsedes.getSedes().add(puntoSede);
-                accesosSubsedes.getSubsedes().addAll(subSedesService.subSedesXIdSede(users.getIdsedes().getIdsedes()));
-                accesosSubsedes.getUserLog().add(UserMapper.userToUserItemDto(users));
+                accesosSubsedes.getSubsedes().addAll(subSedesService.subSedesXIdSede(userxsede.getIdsede().getIdsedes()));
+                accesosSubsedes.getUserLog().add(UserMapper.userToUserItemDto(userxsede));
                 accesosSubsedes.setMultiple(Boolean.TRUE);
             }
 

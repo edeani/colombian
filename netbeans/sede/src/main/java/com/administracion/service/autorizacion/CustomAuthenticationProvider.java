@@ -9,7 +9,9 @@ import com.adiministracion.mapper.UserMapper;
 import com.administracion.dao.SubSedesDao;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Users;
+import com.administracion.entidad.Userxsede;
 import com.administracion.service.UsuarioService;
+import com.administracion.service.UsuarioXSedeService;
 import java.util.ArrayList;
 import java.util.List;
 import static java.util.regex.Pattern.matches;
@@ -31,8 +33,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider, SecurityService {
 
+    
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioXSedeService usuarioXSedeService;
     
     @Autowired
     private SubSedesDao subSedesDao;
@@ -51,39 +54,40 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
         
-        Users user = usuarioService.findUsuarioByCorreo(username);
-        if (user == null) {
-            throw new BadCredentialsException("1000");
-        }
         String path = accesosSubsedes.getPath();
-        if(!user.getIdsedes().getSede().equals(path)){
+        Userxsede userxsede = usuarioXSedeService.findUusarioByCorreoSede(username, path);
+        if (userxsede == null) {
+            throw new BadCredentialsException("1000");
+        }
+        if(!userxsede.getIdsede().getSede().equals(path)){
             throw new BadCredentialsException("1000");
         }
         
-        if (!matches(password, user.getPassword())) {
+        if (!matches(password, userxsede.getIduser().getPassword())) {
             throw new BadCredentialsException("1000");
         }
         
+        Users user = userxsede.getIduser();
         
         /**
          * Sede del usuario
          */
         SedesDto sedeDto = new SedesDto();
-        sedeDto.setIdsedes(user.getIdsedes().getIdsedes());
-        sedeDto.setUsername(user.getIdsedes().getUsername());
-        sedeDto.setPassword(user.getIdsedes().getPassword());
-        sedeDto.setUrl(user.getIdsedes().getUrl());
-        sedeDto.setSede(user.getIdsedes().getSede());
+        sedeDto.setIdsedes(userxsede.getIdsede().getIdsedes());
+        sedeDto.setUsername(userxsede.getIdsede().getUsername());
+        sedeDto.setPassword(userxsede.getIdsede().getPassword());
+        sedeDto.setUrl(userxsede.getIdsede().getUrl());
+        sedeDto.setSede(userxsede.getIdsede().getSede());
         sedeDto.setUsersLogin(user.getUsername());
         accesosSubsedes.getSedes().add(sedeDto);
         /**
          * Subsedes de la sede del usuario
          */
-        accesosSubsedes.setSubsedes(subSedesDao.subsedesXIdSede(user.getIdsedes().getIdsedes()));
+        accesosSubsedes.setSubsedes(subSedesDao.subsedesXIdSede(userxsede.getIdsede().getIdsedes()));
         /**
          * Usuario que se loguea
          */
-        accesosSubsedes.getUserLog().add(UserMapper.userToUserItemDto(user));
+        accesosSubsedes.getUserLog().add(UserMapper.userToUserItemDto(userxsede));
         
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority(PREFIJO_ROL + user.getIdrol().getNombre()));

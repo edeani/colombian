@@ -4,6 +4,6 @@
         select u from Users u where u.username=:username
     </query>
     <query id="UsuarioJpa.findXcorreoSedeName">
-        select u from Users u where u.username=:username
+        select u from Userxsede u where u.iduser.username=:username and u.idsede.sede=:sede
     </query>
 </queries>

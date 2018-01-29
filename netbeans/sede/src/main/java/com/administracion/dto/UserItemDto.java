@@ -15,6 +15,7 @@ public class UserItemDto implements Serializable{
     private String  userName;
     private Long idUser;
     private Integer idSedeUser;
+    private String nameSede;
 
     public String getUserName() {
         return userName;
@@ -38,6 +39,14 @@ public class UserItemDto implements Serializable{
 
     public void setIdSedeUser(Integer idSedeUser) {
         this.idSedeUser = idSedeUser;
+    }
+
+    public String getNameSede() {
+        return nameSede;
+    }
+
+    public void setNameSede(String nameSede) {
+        this.nameSede = nameSede;
     }
     
     

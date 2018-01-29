@@ -6,7 +6,6 @@
 package com.administracion.intercept;
 
 import com.administracion.dto.SedesDto;
-import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.enumeration.ExtencionesEnum;
 import com.administracion.service.SedesService;

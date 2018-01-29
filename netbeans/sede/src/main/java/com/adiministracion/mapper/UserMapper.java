@@ -7,18 +7,19 @@ package com.adiministracion.mapper;
 
 import com.administracion.dto.UserItemDto;
 import com.administracion.entidad.Users;
+import com.administracion.entidad.Userxsede;
 
 /**
  *
  * @author EderArmando
  */
 public class UserMapper {
-    public static UserItemDto userToUserItemDto(Users user){
+    public static UserItemDto userToUserItemDto(Userxsede userxsede){
         UserItemDto userItemDto = new UserItemDto();
-        userItemDto.setIdSedeUser(user.getIdsedes().getIdsedes());
-        userItemDto.setUserName(user.getUsername());
-        userItemDto.setIdUser(user.getCedula());
-        
+        userItemDto.setIdSedeUser(userxsede.getIdsede().getIdsedes());
+        userItemDto.setUserName(userxsede.getIduser().getUsername());
+        userItemDto.setIdUser(userxsede.getIduser().getCedula());
+        userItemDto.setNameSede(userxsede.getIdsede().getSede());
         return userItemDto;
     }
 }

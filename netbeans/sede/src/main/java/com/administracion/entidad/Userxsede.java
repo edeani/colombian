@@ -34,7 +34,8 @@ public class Userxsede implements Serializable {
     @ManyToOne
     private Sedes idsede;
     
-    @Column(name = "iduser")
+    @JoinColumn("iduser")
+    @ManyToOne
     private Users iduser;
 
     public Userxsede() {
@@ -68,29 +69,5 @@ public class Userxsede implements Serializable {
         this.iduser = iduser;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (cons != null ? cons.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Userxsede)) {
-            return false;
-        }
-        Userxsede other = (Userxsede) object;
-        if ((this.cons == null && other.cons != null) || (this.cons != null && !this.cons.equals(other.cons))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.administracion.entidad.Userxsede[ cons=" + cons + " ]";
-    }
     
 }

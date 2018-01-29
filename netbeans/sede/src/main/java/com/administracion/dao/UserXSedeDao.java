@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.administracion.service;
+package com.administracion.dao;
 
-import com.administracion.entidad.Users;
+import com.administracion.entidad.Userxsede;
 
 /**
  *
- * @author user
+ * @author edeani
  */
-public interface UsuarioService {
-    public Users findUsuarioByCorreo(String correo);
+public interface UserXSedeDao extends GenericDao<Userxsede>{
     
 }
