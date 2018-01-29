@@ -42,9 +42,9 @@ public class OrdenesDomiciliosColombianServiceImpl implements OrdenesDomiciliosC
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrdenesDomiciliosMapper> domiciliosordenes(Date fi, Date ff) {
+    public List<OrdenesDomiciliosMapper> domiciliosordenes(Date fi, Date ff,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         List<OrdenesDomiciliosMapper> domicilios = new ArrayList<>();
         try {
             Formatos formato = new Formatos();

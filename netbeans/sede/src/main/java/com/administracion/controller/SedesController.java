@@ -83,7 +83,7 @@ public class SedesController extends BaseController {
     public @ResponseBody   String setSedeReportesColombian(@RequestParam Long idSede) {
         try {
             Sedes sede = sedeService.buscarSede(getPropiedades().leerPropiedad(), idSede);
-            securityService.getCurrentUser().setIdsedes(sede); 
+            //securityService.getCurrentUser().setIdsedes(sede); 
         } catch (Exception e) {
             System.out.println("setSedeReportesColombian::"+e.getMessage());
             return "error";

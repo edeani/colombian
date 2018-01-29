@@ -452,16 +452,17 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping("/colombian/reportes/compraspdf.htm")
-    public ModelAndView generarComprasColombian(@RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+    public ModelAndView generarComprasColombian(@RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
+            @RequestParam (required = false) String sede) {
         ModelAndView mav = null;
 
-        List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal));
+        List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal),sede);
         if (reporte != null) {
             if (reporte.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
-                parameterMap.put("sede", securityService.getCurrentUser().getIdsedes().getSede());
+                parameterMap.put("sede", sede);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
                 mav = new ModelAndView("comprasSedesColombian", parameterMap);

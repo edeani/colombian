@@ -16,12 +16,12 @@ import java.util.List;
  */
 public interface CierreColombianService {
     
-    public Double cierreDiario(Date fechaCierre);
-    public Double cierreVentas(Date  fechaCierre);
-    public Double cierreGastos(Date  fechaCierre);
-    public Double cierreConsignaciones(Date  fechaCierre);
-    public Double cierrePagosConTarjetas(Date fechaCierre);
-    public Double cierreDescuentos(Date fechaCierre);
-    public List<Consignaciones> cierreListaConsignaciones(Date  fechaCierre);
+    public Double cierreDiario(Date fechaCierre,String subsede);
+    public Double cierreVentas(Date  fechaCierre,String subsede);
+    public Double cierreGastos(Date  fechaCierre,String subsede);
+    public Double cierreConsignaciones(Date  fechaCierre,String subsede);
+    public Double cierrePagosConTarjetas(Date fechaCierre,String subsede);
+    public Double cierreDescuentos(Date fechaCierre,String subsede);
+    public List<Consignaciones> cierreListaConsignaciones(Date  fechaCierre,String subsede);
     
 }

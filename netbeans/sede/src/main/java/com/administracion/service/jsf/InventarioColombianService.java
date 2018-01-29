@@ -14,5 +14,5 @@ import java.util.List;
  */
 public  interface InventarioColombianService {
     
-    public List<Inventario> traerInventario(Date Ffinal,Date Finicial);
+    public List<Inventario> traerInventario(Date Ffinal,Date Finicial,String subsede);
 }

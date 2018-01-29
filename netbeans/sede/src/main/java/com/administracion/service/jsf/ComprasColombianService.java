@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface ComprasColombianService {
     
-    public List<ReporteComprasSedeDto> listadoCompras(Date Finicial, Date Ffinal);
+    public List<ReporteComprasSedeDto> listadoCompras(Date Finicial, Date Ffinal,String subsede);
 }

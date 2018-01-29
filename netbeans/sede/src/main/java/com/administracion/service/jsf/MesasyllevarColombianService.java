@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface MesasyllevarColombianService {
     
-    public List<Mesasyllevar> mesas(Date fi, Date ff);
+    public List<Mesasyllevar> mesas(Date fi, Date ff,String subsede);
     public Double getTotalvalor();
 }

@@ -14,5 +14,5 @@ import com.administracion.entidad.ClasePago;
  * @author EderArmando
  */
 public interface ClasePagoService {
-    public ClasePago findClasePagoById(Integer idClasePago);
+    public ClasePago findClasePagoById(Integer idClasePago,String sede);
 }

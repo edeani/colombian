@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface CuadreColombianService {
     
- public List<Cuadre> cuadreDia(Date fi, Date ff);
+ public List<Cuadre> cuadreDia(Date fi, Date ff,String subsede);
  public Double getValorVentas();
  public Double getValorGastos();
  public Double getValorConsignaciones();

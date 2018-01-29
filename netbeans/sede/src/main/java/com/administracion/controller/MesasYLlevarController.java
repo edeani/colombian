@@ -33,9 +33,10 @@ public class MesasYLlevarController extends BaseController {
     }
 
     @RequestMapping(value = "/colombian/ajax/consultar.htm")
-    public ModelAndView paginaMesasyLlevar(@RequestParam String fechaInicial, @RequestParam String fechaFinal) {
+    public ModelAndView paginaMesasyLlevar(@RequestParam String fechaInicial, @RequestParam String fechaFinal
+    ,@RequestParam(required = false)String subsede) {
         
-        List<Mesasyllevar> mesas = mesasyllevarColombianService.mesas(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal));
+        List<Mesasyllevar> mesas = mesasyllevarColombianService.mesas(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal),subsede);
        
         ModelAndView mav = new ModelAndView("reportes/colombian/mesasyllevar/datosMesas");
         mav.addObject("mesas", mesas);

@@ -45,9 +45,9 @@ public class CierreColomianServiceImpl implements CierreColombianService {
     @Transactional
     ////@Async
     @Override
-    public Double cierreDiario(Date fechaCierre) {
+    public Double cierreDiario(Date fechaCierre,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         Double cajaInicial = 0D;
         try {
             Formatos formato = new Formatos();
@@ -64,9 +64,9 @@ public class CierreColomianServiceImpl implements CierreColombianService {
     @Transactional
     ////@Async
     @Override
-    public Double cierreVentas(Date fechaCierre) {
+    public Double cierreVentas(Date fechaCierre,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         Double ventas = 0D;
         try {
             DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
@@ -93,9 +93,9 @@ public class CierreColomianServiceImpl implements CierreColombianService {
     @Transactional
     ////@Async
     @Override
-    public Double cierreGastos(Date fechaCierre) {
+    public Double cierreGastos(Date fechaCierre,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         Double gastos = 0D;
         try {
             DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
@@ -116,9 +116,9 @@ public class CierreColomianServiceImpl implements CierreColombianService {
     @Transactional
     //@Async
     @Override
-    public Double cierreConsignaciones(Date fechaCierre) {
+    public Double cierreConsignaciones(Date fechaCierre,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         Double consignaciones = 0D;
         try {
             DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
@@ -138,11 +138,11 @@ public class CierreColomianServiceImpl implements CierreColombianService {
     @Transactional
     //@Async
     @Override
-    public List<Consignaciones> cierreListaConsignaciones(Date fechaCierre) {
+    public List<Consignaciones> cierreListaConsignaciones(Date fechaCierre,String subsede) {
         // EntityManagerFactory factory = Persistence.createEntityManagerFactory(user.getSede().getPersistencia());
         List<Consignaciones> listaConsignaciones = null;
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         try {
             DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
             Formatos formato = new Formatos();
@@ -160,12 +160,12 @@ public class CierreColomianServiceImpl implements CierreColombianService {
 
     @Transactional(readOnly = true)
     @Override
-    public Double cierrePagosConTarjetas(Date fechaCierre) {
+    public Double cierrePagosConTarjetas(Date fechaCierre,String subsede) {
         Users user = securityService.getCurrentUser();
         Double pagosConTarjeta = 0D;
         String sFecha = com.administracion.util.Formatos.dateTostring(fechaCierre);
         try {
-           pagosConTarjeta = reportesDao.pagosContarjetaTotal(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()),sFecha).doubleValue();
+           pagosConTarjeta = reportesDao.pagosContarjetaTotal(connectsAuth.getDataSourceSubSede(subsede),sFecha).doubleValue();
         } catch (Exception e) {
             LOGGER.error("Error cierrePagosConTarjetas::" + e.getMessage());
         }
@@ -175,12 +175,12 @@ public class CierreColomianServiceImpl implements CierreColombianService {
 
     @Transactional(readOnly = true)
     @Override
-    public Double cierreDescuentos(Date fechaCierre) {
+    public Double cierreDescuentos(Date fechaCierre,String subsede) {
         Users user = securityService.getCurrentUser();
         Double descuentos = 0D;
         String sFecha = com.administracion.util.Formatos.dateTostring(fechaCierre);
         try {
-           descuentos = reportesDao.pagosDescuentoTotal(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()),sFecha).doubleValue();
+           descuentos = reportesDao.pagosDescuentoTotal(connectsAuth.getDataSourceSubSede(subsede),sFecha).doubleValue();
         } catch (Exception e) {
             LOGGER.error("Error cierreDescuentos::" + e.getMessage());
         }

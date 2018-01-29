@@ -41,9 +41,9 @@ public class MesasyllevarColombianServiceImpl implements MesasyllevarColombianSe
 
     @Override
     @Transactional(readOnly = true)
-    public List<Mesasyllevar> mesas(Date fi, Date ff) {
+    public List<Mesasyllevar> mesas(Date fi, Date ff,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         List<Mesasyllevar> mesasyllevar = new ArrayList<>();
         try {
             Formatos formato = new Formatos();

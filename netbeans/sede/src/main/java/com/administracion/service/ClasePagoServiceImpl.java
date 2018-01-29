@@ -33,9 +33,9 @@ public class ClasePagoServiceImpl implements ClasePagoService{
     
     @Transactional(readOnly = true)
     @Override
-    public ClasePago findClasePagoById(Integer idClasePago) {
+    public ClasePago findClasePagoById(Integer idClasePago,String sede) {
         Users user = securityService.getCurrentUser();
-        return clasePagoDao.findClasePagoById(idClasePago,connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        return clasePagoDao.findClasePagoById(idClasePago,connectsAuth.getDataSourceSubSede(sede));
     }
     
 }

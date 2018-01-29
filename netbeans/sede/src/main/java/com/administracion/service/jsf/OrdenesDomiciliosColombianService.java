@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface OrdenesDomiciliosColombianService {
     
-        public List<OrdenesDomiciliosMapper> domiciliosordenes(Date fi, Date ff);
+        public List<OrdenesDomiciliosMapper> domiciliosordenes(Date fi, Date ff,String subsede);
         public Double getTotalvalor();
     
 }

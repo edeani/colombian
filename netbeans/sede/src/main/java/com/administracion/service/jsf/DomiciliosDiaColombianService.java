@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface DomiciliosDiaColombianService {
     
-    public List<OrdenesColombianDto> domicilioDia(Date fi, Date ff);
+    public List<OrdenesColombianDto> domicilioDia(Date fi, Date ff,String subsede);
     public Double getTotalDomicilios();
     public Long getTotalRegistros();
 }

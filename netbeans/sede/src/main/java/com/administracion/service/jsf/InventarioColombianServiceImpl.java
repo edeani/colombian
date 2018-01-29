@@ -38,9 +38,9 @@ public class InventarioColombianServiceImpl implements InventarioColombianServic
     private ConnectsAuth connectsAuth;
     @Override
     @Transactional(readOnly = true)
-    public List<Inventario> traerInventario(Date Ffinal, Date Finicial) {
+    public List<Inventario> traerInventario(Date Ffinal, Date Finicial,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         List<Inventario> inventario = new ArrayList<>();
         try {
             Formatos formato = new Formatos();

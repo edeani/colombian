@@ -44,9 +44,9 @@ public class ComprasColombianServiceImpl implements ComprasColombianService{
     
     @Override
     @Transactional(readOnly = true)
-    public List<ReporteComprasSedeDto> listadoCompras(Date Finicial, Date Ffinal) {
+    public List<ReporteComprasSedeDto> listadoCompras(Date Finicial, Date Ffinal,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         List<ReporteComprasSedeDto> compras = new ArrayList<>();
         try {
             Formatos formato = new Formatos();

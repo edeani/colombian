@@ -42,9 +42,9 @@ public class CuadreColombianServiceImpl implements CuadreColombianService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Cuadre> cuadreDia(Date fi, Date ff) {
+    public List<Cuadre> cuadreDia(Date fi, Date ff,String subsede) {
         Users user = securityService.getCurrentUser();
-        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(user.getIdsedes().getSede()));
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         List<Cuadre> cuadres = new ArrayList<>();
         try {
         Formatos formato = new Formatos();

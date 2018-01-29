@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface GastosColombianService {
     
-    public void gastos(Date fi,Date ff);
+    public void gastos(Date fi,Date ff,String subsede);
     public List<GastosMapper> getGastosNivel1();
     public List<GastosMapper> getGastosNivel2();
     public List<GastosMapper> getGastosNivel3();
