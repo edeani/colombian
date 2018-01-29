@@ -13,4 +13,5 @@ import com.administracion.entidad.Users;
  */
 public interface UsuarioService {
     public Users findUsuarioByCorreo(String correo);
+    Users findUusarioByCorreoSede(String correo,String sede);
 }

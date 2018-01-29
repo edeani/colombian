@@ -35,4 +35,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioDao.queryOpjectJpa(leerXml.getQuery("UsuarioJpa.findXcorreo"), parametros);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public Users findUusarioByCorreoSede(String correo, String nameSede) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("username", correo);
+        parametros.put("sede", nameSede);
+        return usuarioDao.queryOpjectJpa(leerXml.getQuery("UsuarioJpa.findXcorreoSedeName"), parametros);
+    }
+
 }

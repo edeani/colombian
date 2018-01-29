@@ -228,12 +228,12 @@
         <profile>
             <id>dev-pc</id>
             <properties>
-                <base.datos>domicilios</base.datos>
-                <bd.user>root</bd.user>
-                <bd.password></bd.password>
-                <bd.ip>localhost:3306</bd.ip>
-                <path.img></path.img>
-                <url.img></url.img>
+                <base.datos>credencials</base.datos>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>186.31.32.253:3306</bd.ip>
+                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/sede/src/main/webapp/img/</path.img>
+                <url.img>/sede/img</url.img>
             </properties>
         </profile>
         <profile>

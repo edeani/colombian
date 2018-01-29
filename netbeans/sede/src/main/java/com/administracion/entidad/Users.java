@@ -24,8 +24,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "users")
-@NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,9 +43,6 @@ public class Users implements Serializable {
     @JoinColumn(name = "IDROL")
     @ManyToOne
     private Rol idrol;
-    @ManyToOne
-    @JoinColumn(name = "IDSEDES")
-    private Sedes idsedes;
 
     public Users() {
     }
@@ -60,7 +55,6 @@ public class Users implements Serializable {
         this.cedula = cedula;
         this.username = username;
         this.idrol = idrol;
-        this.idsedes = idsedes;
     }
 
     public Long getCedula() {
@@ -93,14 +87,6 @@ public class Users implements Serializable {
 
     public void setIdrol(Rol idrol) {
         this.idrol = idrol;
-    }
-
-    public Sedes getIdsedes() {
-        return idsedes;
-    }
-
-    public void setIdsedes(Sedes idsedes) {
-        this.idsedes = idsedes;
     }
 
     @Override

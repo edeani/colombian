@@ -3,4 +3,7 @@
     <query id="UsuarioJpa.findXcorreo">
         select u from Users u where u.username=:username
     </query>
+    <query id="UsuarioJpa.findXcorreoSedeName">
+        select u from Users u where u.username=:username
+    </query>
 </queries>
