@@ -3,8 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/eliminarProducto.htm">
-    <form id="idInventario" action="<%=request.getContextPath()%>/inventario/ajax/insertarProducto.htm">
+<div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/eliminarProducto.htm">
+    <form id="idInventario" action="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/insertarProducto.htm">
         <table align="center" >
             <thead>
                 <tr>
@@ -49,8 +49,9 @@
                 <th>Promedio</th>
             </tr>
         </thead>
-        <tbody id="contenidoInventario" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/listInventario.htm" data-actualizar="<%=request.getContextPath()%>/inventario/ajax/actualizarProducto.htm">
-            <c:import url="/inventario/ajax/listInventario.htm">
+        <tbody id="contenidoInventario" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/listInventario.htm" 
+               data-actualizar="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/actualizarProducto.htm">
+            <c:import url="/${sessionScope.path}/inventario/ajax/listInventario.htm">
             </c:import>
         </tbody>
         <tfoot>

@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,17 +68,14 @@ public class InventarioController extends BaseController {
     }
 
     @RequestMapping("/reportes/inventario.htm")
-    public ModelAndView reporteInvetario() {
+    public ModelAndView reporteInvetario(@PathVariable String sede) {
         FormReporteInventarioDto formReporteInventarioDto = new FormReporteInventarioDto();
         ModelAndView mav = new ModelAndView("reportes/inventario/inventario");
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-        List<ItemsDTO> productos = inventarioService.listaProductosLabel(propiedades.leerPropiedad());
+        List<ItemsDTO> productos = inventarioService.listaProductosLabel(sede);
         mav.addObject("productos", productos);
         mav.addObject("fecha", new Date());
         mav.addObject("titulo", titulo);
-        mav.addObject("sedes", sedesService.traerSedes(propiedades.leerPropiedad()));
+        mav.addObject("sedes", sedesService.traerSedes(sede));
         return mav;
     }
 
@@ -110,26 +108,20 @@ public class InventarioController extends BaseController {
     }
 
     @RequestMapping(value = "/ajax/listInventario.htm")
-    public ModelAndView listarInventario() {
+    public ModelAndView listarInventario(@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("inventario/listInventario");
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
 
-        mav.addObject("inventarios", inventarioService.reporteInventario(propiedades.leerPropiedad()));
+        mav.addObject("inventarios", inventarioService.reporteInventario(sede));
 
         return mav;
     }
 
     @RequestMapping(value = "/ajax/eliminarProducto.htm")
     public @ResponseBody
-    String eliminarProducto(@RequestParam("idProducto") Long idProducto) {
+    String eliminarProducto(@RequestParam("idProducto") Long idProducto,
+            @PathVariable String sede) {
 
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-
-        inventarioService.eliminarProducto(propiedades.leerPropiedad(), idProducto);
+        inventarioService.eliminarProducto(sede, idProducto);
 
         return "";
     }
@@ -143,14 +135,14 @@ public class InventarioController extends BaseController {
             String stockHoy,
             String stockReal,
             String descripcionProducto,
-            String promedio) {
+            String promedio,@PathVariable String sede) {
 
         propiedades = new LectorPropiedades();
         propiedades.setArchivo(getArchivo());
         propiedades.setPropiedad(getPropiedadPrincipal());
 
         //consulto para ver si existe el producto
-        InventarioDTO inventarioDTO = inventarioService.traerProducto(propiedades.leerPropiedad(), Long.parseLong(codigoProductoInventario));
+        InventarioDTO inventarioDTO = inventarioService.traerProducto(sede, Long.parseLong(codigoProductoInventario));
 
         if (inventarioDTO == null) {
             inventarioDTO = new InventarioDTO();
@@ -164,9 +156,9 @@ public class InventarioController extends BaseController {
             inventarioDTO.setStockMinimo(stockMinimo);
             inventarioDTO.setStockReal(stockReal);
 
-            inventarioService.insertarProducto(propiedades.leerPropiedad(), inventarioDTO);
+            inventarioService.insertarProducto(sede, inventarioDTO);
 
-            return "";
+            return "OK";
         } else {
             return "El c&oacute;digo del producto ya existe";
         }
@@ -174,21 +166,18 @@ public class InventarioController extends BaseController {
 
     @RequestMapping(value = "/ajax/actualizarProducto.htm")
     public @ResponseBody
-    String actualizarProducto(@RequestParam("producto") String tramaProducto) {
+    String actualizarProducto(@RequestParam("producto") String tramaProducto,@PathVariable String sede) {
 
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
 
         InventarioDTO inventarioDTO = new InventarioDTO();
         InventarioMapper inventarioMapper = new InventarioMapper();
         inventarioDTO = inventarioMapper.tramaProductoToInventarioDTO(tramaProducto);
         //consulto para ver si existe el producto
-        InventarioDTO invDTO = inventarioService.traerProducto(propiedades.leerPropiedad(), Long.parseLong(inventarioDTO.getCodigoProductoInventario()));
+        InventarioDTO invDTO = inventarioService.traerProducto(sede, Long.parseLong(inventarioDTO.getCodigoProductoInventario()));
 
         if (invDTO != null) {
 
-            inventarioService.actualizarProducto(propiedades.leerPropiedad(), inventarioDTO);
+            inventarioService.actualizarProducto(sede, inventarioDTO);
 
             return "";
         } else {
@@ -210,10 +199,11 @@ public class InventarioController extends BaseController {
 
     @RequestMapping(value = "/reportes/inventarioTotalPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProveedorPDF(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
+            @PathVariable String sede,@RequestParam(required = false, value = "fechaFinal") String fechaFinal
     ) {
         ModelAndView mav = null;
-        List<InventarioFinalDTO> inventarioTotal = inventarioService.reporteInventarioFinal(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal);
+        List<InventarioFinalDTO> inventarioTotal = inventarioService.reporteInventarioFinal(sede, fechaInicial, fechaFinal);
         if (inventarioTotal.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(inventarioTotal);
             Map<String, Object> parameterMap = new HashMap<>();
@@ -229,18 +219,15 @@ public class InventarioController extends BaseController {
     }
 
     @RequestMapping("/ajax/selectProducto.htm")
-    public ModelAndView selectProducto(@RequestParam(value = "seleccion", required = false) Long seleccion){
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-
+    public ModelAndView selectProducto(@RequestParam(value = "seleccion", required = false) Long seleccion,
+            @PathVariable String sede){
         ModelAndView mav = new ModelAndView("util/formSelect");
 
         if (seleccion == null) {
             seleccion = 0L;
         }
 
-        mav.addObject("datos", inventarioService.listaProductoOptions(propiedades.leerPropiedad()));
+        mav.addObject("datos", inventarioService.listaProductoOptions(sede));
         mav.addObject("seleccion", seleccion);
         return mav;
     }

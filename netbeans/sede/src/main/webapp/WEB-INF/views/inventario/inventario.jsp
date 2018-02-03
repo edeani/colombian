@@ -18,7 +18,7 @@
 <div id="contenidoHome">
     <div id="tituloPagina">${titulo}</div>
     <div id ="formularioInventario">
-        <c:import url="/inventario/ajax/formularioInventario.htm">
+        <c:import url="/${sessionScope.path}/inventario/ajax/formularioInventario.htm">
         </c:import>
     </div>
 </div>

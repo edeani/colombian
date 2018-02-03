@@ -84,6 +84,22 @@
             <artifactId>gson</artifactId>
             <version>2.7</version>
         </dependency>
+        <!-- Jackson para spring -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.4</version>
+        </dependency>
         <!-- sitemesh --> 
         <dependency>
             <groupId>org.sitemesh</groupId>
@@ -254,8 +270,8 @@
                 <bd.user>root</bd.user>
                 <bd.password>YI15102206j</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/logos/</path.img>
-                <url.img>/estaticos/img/productos</url.img>
+                <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/</path.img>
+                <url.img>/estaticos/img/</url.img>
             </properties>
         </profile>
     </profiles>
