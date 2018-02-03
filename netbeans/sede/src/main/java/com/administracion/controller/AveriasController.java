@@ -12,6 +12,7 @@ import com.administracion.util.LectorPropiedades;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,13 +44,9 @@ public class AveriasController extends BaseController {
     }
 
     @RequestMapping("/guardar.htm")
-    public ModelAndView guardarAveria(@Valid DetalleAveriaDTO detalleAveriaDTO) {
+    public ModelAndView guardarAveria(@Valid DetalleAveriaDTO detalleAveriaDTO,@PathVariable String sede) {
 
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-
-        averiasService.guardarAveria(propiedades.leerPropiedad(), detalleAveriaDTO.getAveria(), detalleAveriaDTO.getTotalAveria(), securityService.getCurrentUser().getUsername());
+        averiasService.guardarAveria(sede, detalleAveriaDTO.getAveria(), detalleAveriaDTO.getTotalAveria(), securityService.getCurrentUser().getUsername());
         
         return new ModelAndView("redirect:/averia/home.htm");
     }

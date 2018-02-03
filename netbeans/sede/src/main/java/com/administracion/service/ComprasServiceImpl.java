@@ -69,7 +69,7 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional(readOnly = true)
     public List<ItemsDTO> listaProveedores(String nameDataSource) {
-        return proveedoreDao.proveedoresItems(connectsAuth.getDataSourceSubSede(nameDataSource));
+        return proveedoreDao.proveedoresItems(connectsAuth.getDataSourceSede(nameDataSource));
     }
 
     @Override

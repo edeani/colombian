@@ -125,7 +125,8 @@ public class CierreSedesDaoImpl extends GenericDaoImpl<CierreSedes> implements C
     }
 
     @Override
-    public ReporteTotalCuentasXNivelDto totalCierreCuentaXNivel(DataSource nameDataSource, int tipoCuenta, String fechaInicial, String fechaFinal) {
+    public ReporteTotalCuentasXNivelDto totalCierreCuentaXNivel(DataSource nameDataSource, int tipoCuenta
+            , String fechaInicial, String fechaFinal) {
         
         lectorPropiedades.setPropiedad("niveles_contabilidad");
         String caracteresxnivel = lectorPropiedades.leerPropiedad();

@@ -13,6 +13,7 @@ import com.administracion.util.LectorPropiedades;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,36 +42,27 @@ public class ProveedorController extends BaseController{
     }
     
     @RequestMapping("/ajax/proveedores.htm")
-    public ModelAndView proveedores(){
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
+    public ModelAndView proveedores(@PathVariable String sede){
         ModelAndView mav = new ModelAndView("proveedor/proveedores");
-        List<Proveedor> proveedores = proveedoresService.proveedores(propiedades.leerPropiedad());
+        List<Proveedor> proveedores = proveedoresService.proveedores(sede);
         mav.addObject("proveedores", proveedores);
         return mav;
     }
     
     @RequestMapping("/ajax/listaProveedores.htm")
-    public ModelAndView listaProvedores(){
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-        
-        List<ItemsDTO> proveedores = comprasService.listaProveedores(propiedades.leerPropiedad());
+    public ModelAndView listaProvedores(@PathVariable String sede){
+        List<ItemsDTO> proveedores = comprasService.listaProveedores(sede);
         ModelAndView mav = new ModelAndView("util/formSelect");
         mav.addObject("datos", proveedores);
         return mav;
     }
     
     @RequestMapping("/ajax/buscar/proveedor.htm")
-    public ModelAndView buscarProveedor(@RequestParam(value="idproveedor") Long idproveedor){
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-        
+    public ModelAndView buscarProveedor(@RequestParam(value="idproveedor") Long idproveedor,
+            @PathVariable String sede){
+
         ModelAndView mav = new ModelAndView("proveedor/formProveedor");
-        Proveedor proveedor = proveedoresService.proveedor(propiedades.leerPropiedad(), idproveedor);
+        Proveedor proveedor = proveedoresService.proveedor(sede, idproveedor);
         mav.addObject("proveedor", proveedor);
         return mav;
     }
@@ -86,10 +78,7 @@ public class ProveedorController extends BaseController{
     @RequestParam(value="direccion",required=true) String direccion,
     @RequestParam(value="telefono",required=false) String telefono,
     @RequestParam(value="correo",required=false) String correo,
-    @RequestParam(value="nit",required=false) String nit){
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
+    @RequestParam(value="nit",required=false) String nit,@PathVariable String sede){
         
         Proveedor proveedor = new Proveedor();
         
@@ -100,7 +89,7 @@ public class ProveedorController extends BaseController{
         proveedor.setNit(nit);
         
         try {
-            proveedoresService.guardarProveedor(propiedades.leerPropiedad(), proveedor);
+            proveedoresService.guardarProveedor(sede, proveedor);
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -113,10 +102,7 @@ public class ProveedorController extends BaseController{
     @RequestParam(value="direccion",required=true) String direccion,
     @RequestParam(value="telefono",required=false) String telefono,
     @RequestParam(value="correo",required=false) String correo,
-    @RequestParam(value="nit",required=false) String nit){
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
+    @RequestParam(value="nit",required=false) String nit,@PathVariable String sede){
         
         Proveedor proveedor = new Proveedor();
         proveedor.setIdproveedor(idproveedor);
@@ -126,20 +112,18 @@ public class ProveedorController extends BaseController{
         proveedor.setCorreo(correo);
         proveedor.setNit(nit);
         try {
-            proveedoresService.actualizarProveedor(propiedades.leerPropiedad(), proveedor);
+            proveedoresService.actualizarProveedor(sede, proveedor);
         } catch (Exception e) {
             return e.getMessage();
         }
         return "ok";
     }
     @RequestMapping("/ajax/eliminar/proveedor.htm")
-    public @ResponseBody String eliminarProveedor(@RequestParam(value="idproveedor") Long idproveedor){
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-        
+    public @ResponseBody String eliminarProveedor(@RequestParam(value="idproveedor") Long idproveedor,
+            @PathVariable String sede){
+
         try {
-            proveedoresService.eliminarProveedor(propiedades.leerPropiedad(), idproveedor);
+            proveedoresService.eliminarProveedor(sede, idproveedor);
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -150,9 +134,9 @@ public class ProveedorController extends BaseController{
     public ModelAndView reporteComprasTotalesXProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = true, value = "idproveedor") Long idproveedor,
             @RequestParam(required = true, value = "fechaInicial") String fechaInicial, @RequestParam(required = true, value = "fechaFinal") String fechaFinal
-    ) {
+    ,@PathVariable String sede) {
         ModelAndView mav = null;
-        List<ReporteComprasTotalesXProveedorDTO> reporte = (List<ReporteComprasTotalesXProveedorDTO>) comprasService.comprasTotalesXProveedor(getPropiedades().leerPropiedad(),idproveedor, fechaInicial, fechaFinal);
+        List<ReporteComprasTotalesXProveedorDTO> reporte = (List<ReporteComprasTotalesXProveedorDTO>) comprasService.comprasTotalesXProveedor(sede,idproveedor, fechaInicial, fechaFinal);
         if (reporte.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
             Map<String, Object> parameterMap = new HashMap<String, Object>();

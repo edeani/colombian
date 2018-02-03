@@ -29,7 +29,7 @@
                 Proveedores
             </label>
             <form:select path="codigoProveedor">
-            <c:import url="/proveedor/ajax/listaProveedores.htm">
+            <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm">
                 <c:param name="proveedores" value="${proveedores}"/>
             </c:import>
             </form:select>
@@ -72,7 +72,7 @@
                                 <option value="" >
                                     Seleccione   
                                 </option>
-                                <c:import url="/inventario/ajax/selectProducto.htm">
+                                <c:import url="/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                                 </c:import>
                             </select>
                             <input type="text" name="name" class="editable-select primerCampo2" id="name" autocomplete="off" style="width: 93px;" >
