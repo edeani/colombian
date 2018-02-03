@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/eliminarProducto.htm">
     <form id="idInventario" action="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/insertarProducto.htm">
-        <table align="center" >
+        <table align="center">
             <thead>
                 <tr>
                     <th>C&oacute;digo</th>
@@ -36,7 +36,7 @@
         <div>
             <br>
         </div>    
-    <table align="center" >
+    <table align="center" id="tablaInventario">
         <thead>
             <tr>
                 <th>C&oacute;digo</th>
@@ -47,6 +47,8 @@
                 <th>Inventario Final</th>
                 <th>Fecha Final</th>
                 <th>Promedio</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody id="contenidoInventario" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/listInventario.htm" 
@@ -54,24 +56,6 @@
             <c:import url="/${sessionScope.path}/inventario/ajax/listInventario.htm">
             </c:import>
         </tbody>
-        <tfoot>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>    
-                <td></td>
-                <td></td>
-                <td colspan="4" align="right">
-                    
-                    <!input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
-        <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
-        </td>
-        </tr>
-        </tfoot>
+        
     </table>
 </div>

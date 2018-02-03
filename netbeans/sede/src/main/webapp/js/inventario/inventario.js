@@ -1,5 +1,21 @@
 $(document).ready(function(){
-    
+    /*$('#tablaInventario').DataTable({
+            lengthMenu: [[50, 80, 100], [50, 80, 100]],
+            language: {
+                search: "Buscar:",
+                info: "Orden _START_ hasta _END_ de _TOTAL_",
+                lengthMenu: "Mostrar _MENU_",
+                loadingRecords: "Cargando...",
+                processing: "Procesando...",
+                zeroRecords: "No se encontraron elementos",
+                paginate: {
+                    first: "Primero",
+                    previous: "Ant.",
+                    next: "Sig.",
+                    last: "&Uacute;ltimo"
+                }
+            }
+        });*/
     //Asigno datepickers a los campos que necesito, en este caso por clase dentro del html
     $( ".fechaInicial" ).datepicker({
         dateFormat: "yy-mm-dd"
@@ -7,7 +23,7 @@ $(document).ready(function(){
     $( ".fechaFinal" ).datepicker({
         dateFormat: "yy-mm-dd"
     } );
-
+    
     $(".clsActualizarFila").live('click',function(){
         url = $("#contenidoInventario").data("actualizar");
         type="POST";
