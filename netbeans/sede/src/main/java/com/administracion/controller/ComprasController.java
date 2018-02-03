@@ -60,6 +60,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,14 +89,10 @@ public class ComprasController extends BaseController {
     private  final String titulo = "Entradas Compras";
 
     @RequestMapping("/home.htm")
-    public ModelAndView cargarCompras(HttpSession session) {
+    public ModelAndView cargarCompras(HttpSession session,@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("compras/compra");
-        //bd principal
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
 
-        List<ItemsDTO> proveedores = comprasService.listaProveedores(propiedades.leerPropiedad());
+        List<ItemsDTO> proveedores = comprasService.listaProveedores(sede);
         DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
 
         mav.addObject("titulo", titulo);
@@ -104,12 +101,8 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping("/edicion.htm")
-    public ModelAndView editarCompras() {
+    public ModelAndView editarCompras(@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("compras/edicion/compra");
-        //bd principal
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
 
         DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
 
@@ -122,12 +115,14 @@ public class ComprasController extends BaseController {
      * Este metodo verifica que una compa exista o n
      *
      * @param idcompra
+     * @param sede
      * @return Devuelve el String true si existe o false en caso contrario
      */
     @RequestMapping("/ajax/verificar/compra.htm")
     public @ResponseBody
-    String verificarCompra(@RequestParam(value = "idcompra") Long idcompra) {
-        ModelAndView mav = buscarCompras(idcompra);
+    String verificarCompra(@RequestParam(value = "idcompra") Long idcompra,
+            @PathVariable String sede) {
+        ModelAndView mav = buscarCompras(idcompra,sede);
         DetalleCompraDTO detalleCompraDTO = (DetalleCompraDTO) mav.getModelMap().get("detalleCompraDTO");
         if (detalleCompraDTO.getNumeroFactura() != null) {
             return "true";
@@ -137,21 +132,18 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping("/ajax/buscar/compra.htm")
-    public ModelAndView buscarCompras(@RequestParam(value = "idcompra") Long idcompra) {
+    public ModelAndView buscarCompras(@RequestParam(value = "idcompra") Long idcompra,
+            @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("compras/edicion/detalleCompra");
         //bd principal
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-        String bd = propiedades.leerPropiedad();
-        DetalleCompraDTO detalleCompraDTO = comprasService.getCompraDTO(bd, idcompra);
-        List<ComprasTotalesDTO> detalleCompras = comprasService.getDetalleCompraDTO(bd, idcompra);
+        DetalleCompraDTO detalleCompraDTO = comprasService.getCompraDTO(sede, idcompra);
+        List<ComprasTotalesDTO> detalleCompras = comprasService.getDetalleCompraDTO(sede, idcompra);
         int numeroCompras = 0;
         if (detalleCompras != null) {
             numeroCompras = detalleCompras.size();
         }
         if (numeroCompras > 0) {
-            Proveedor proveedor = comprasService.getProveedor(propiedades.leerPropiedad(), Long.parseLong(detalleCompraDTO.getCodigoProveedor()));
+            Proveedor proveedor = comprasService.getProveedor(sede, Long.parseLong(detalleCompraDTO.getCodigoProveedor()));
 
             mav.addObject("detalleCompraDTO", detalleCompraDTO);
             mav.addObject("detalleCompras", detalleCompras);
@@ -170,13 +162,10 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping("/ajax/guardar.htm")
-    public ModelAndView guardarCompras(@Valid DetalleCompraDTO detalleCompraDTO) {
-        //bd principal
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
+    public ModelAndView guardarCompras(@Valid DetalleCompraDTO detalleCompraDTO,
+            @PathVariable String sede) {
         try {
-            //comprasService.guardarCompra(propiedades.leerPropiedad(), detalleCompraDTO);
+            //comprasService.guardarCompra(sede, detalleCompraDTO);
         } catch (Exception e) {
             System.out.println("Error guardarCompras::" + e.getMessage());
         }
@@ -191,13 +180,9 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping("/ajax/actualizar.htm")
-    public ModelAndView actualizarCompras(@Valid DetalleCompraDTO detalleCompraDTO) {
-        //bd principal
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
-        String bd = propiedades.leerPropiedad();
-        //comprasService.actualizarCompra(bd, detalleCompraDTO);
+    public ModelAndView actualizarCompras(@Valid DetalleCompraDTO detalleCompraDTO,
+            @PathVariable String sede) {
+        //comprasService.actualizarCompra(sede, detalleCompraDTO);
         //imprimirFactura(detalleCompraDTO);
         
         detalleCompraDTO = new DetalleCompraDTO();
@@ -268,15 +253,12 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping(value = "/reportes/comprasTotalesProveedor.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView reporteComprasTotalesProveedor(@RequestParam(required = false, value = "mensaje") String mensaje) {
+    public ModelAndView reporteComprasTotalesProveedor(@RequestParam(required = false, value = "mensaje") String mensaje
+    ,@PathVariable String sede) {
 
         ModelAndView mav = new ModelAndView("reportes/compras/comprasTotalesProveedor");
-        //bd principal
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
 
-        List<ItemsDTO> proveedores = comprasService.listaProveedores(propiedades.leerPropiedad());
+        List<ItemsDTO> proveedores = comprasService.listaProveedores(sede);
 
         mav.addObject("fechaInicial", new Date());
         mav.addObject("fechaFinal", new Date());
