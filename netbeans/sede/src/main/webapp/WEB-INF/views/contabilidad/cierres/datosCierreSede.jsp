@@ -13,7 +13,7 @@
             <th>Haber</th>
         </tr>
     </thead>
-    <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
+    <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/selectProducto.htm">
         <c:set var="totalHaber" value="0"/>
         <c:set var="totalDeber" value="0"/>
         <c:forEach items="${comprobanteConsolidadoSedeDto}" var="item" varStatus="numero">

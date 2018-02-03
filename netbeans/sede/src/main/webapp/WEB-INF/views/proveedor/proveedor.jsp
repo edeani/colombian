@@ -13,7 +13,7 @@
 </head>
 <div id="contenidoHome"> 
     <div id="tituloPagina">Administraci&oacute;n de Proveedores</div>
-    <div id="divproveedores" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/proveedor/ajax/buscar/proveedor.htm">
+    <div id="divproveedores" data-url="<%=request.getContextPath()%>/${sessionScope.path}/proveedor/ajax/buscar/proveedor.htm">
         <label>
             Proveedores
             <select id="selectProveedor" data-cargarselect="<%=request.getContextPath()%>/proveedor/ajax/listaProveedores.htm">

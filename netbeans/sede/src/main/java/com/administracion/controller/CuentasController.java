@@ -15,6 +15,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -97,11 +98,11 @@ public class CuentasController extends BaseController {
 
     @RequestMapping(value = "/ajax/autocompletar.htm")
     public @ResponseBody
-    String autocompletarCuenta(@RequestParam String term) {
+    String autocompletarCuenta(@RequestParam String term,@PathVariable String sede) {
 
         Gson gson = new Gson();
         String json = "[]";
-        List<CuentasAutoCompletarDto> cuentasAutoCompletarDtos = cuentasService.autocompletarIdCuenta(term, getPropiedades().leerPropiedad());
+        List<CuentasAutoCompletarDto> cuentasAutoCompletarDtos = cuentasService.autocompletarIdCuenta(term, sede);
         JsonArray jsonArray = null;
         if (cuentasAutoCompletarDtos != null) {
             json = gson.toJson(cuentasAutoCompletarDtos);

@@ -14,7 +14,7 @@
 </head>
 <div id="contenidoHome"> 
 
-    <form:form commandName="${commandName}" path="cuentasPuc" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/cuentas/ajax/buscar.htm" >
+    <form:form commandName="${commandName}" path="cuentasPuc" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/cuentas/ajax/buscar.htm" >
         <label>
             Cuenta
             <form:input path="codCta" onkeypress="return validarNUM(event)"/>

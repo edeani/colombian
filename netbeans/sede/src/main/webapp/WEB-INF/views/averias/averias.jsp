@@ -10,14 +10,14 @@
     <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/averias/averias.js?id=0" type="text/javascript"></script>
 </head>
-<form:form commandName="${commandName}" path="DetalleAveriaDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/averia/guardar.htm" >
+<form:form commandName="${commandName}" path="DetalleAveriaDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/averia/guardar.htm" >
 <div id="contenidoHome">
     
     <div id="tituloPagina">${titulo}</div>
     <div class="clear"></div>
     <div class="clear"></div>
     <div class="clear"></div>
-    <div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/factura/ajax/producto.htm">
+    <div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/factura/ajax/producto.htm">
         <table id="tblDatos" align="center" >
             <form:input path="averia" type="hidden"/>
             <thead>
@@ -30,7 +30,7 @@
                     <th width="22">&nbsp;</th>
                 </tr>
             </thead>
-            <tbody id="contenidoAveria" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
+            <tbody id="contenidoAveria" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                 <tr>
                     <td>
                         <select class="clsAnchoTotal primerCampo">

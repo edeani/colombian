@@ -17,7 +17,7 @@
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 <div id="tituloPagina">Pagos  Terceros Caja Mayor</div>
 <div id="formPago" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/secuencia.htm">                                 
-    <form:form target="_blank" commandName="${commandName}" path="PagosTercerosDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/pagos/ajax/terceros/guardar.htm" >
+    <form:form target="_blank" commandName="${commandName}" path="PagosTercerosDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/terceros/guardar.htm" >
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
@@ -71,7 +71,7 @@
                             <th width="22">&nbsp;</th>
                         </tr>
                     </thead>
-                    <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
+                    <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                         <tr>
                             <td>
                                 <select data-numero="0" class="claseSelectSede" id="identificadorSede0" >

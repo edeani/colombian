@@ -18,7 +18,7 @@
                     <th width="22">&nbsp;</th>
                 </tr>
             </thead>
-            <tbody id="contenidoComprasPendientes" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
+            <tbody id="contenidoComprasPendientes" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                 
                     <c:forEach items="${comprasPendientes}" var="item" varStatus="fila">
                         <tr id="filaComprobante${fila.index}" data-identificadorcompra="${item.idCompra}">

@@ -17,7 +17,7 @@
 <div id="tituloPagina">Pagos Proveedor Caja Mayor</div>
 <div id="formProveedor" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/secuencia.htm">                              
     <input id="cuentaProveedores" value="${cuentaProveedores}" type="hidden">
-    <form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/proveedores/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/pagos/ajax/proveedor/guardar.htm" >
+    <form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/proveedores/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/proveedor/guardar.htm" >
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
@@ -69,7 +69,7 @@
                             <th width="22">&nbsp;</th>
                         </tr>
                     </thead>
-                    <tbody id="contenidoComprobante" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
+                    <tbody id="contenidoComprobante" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                         
                     </tbody>
                     <tfoot>

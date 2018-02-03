@@ -17,7 +17,7 @@
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 
 <div id="formPago" >                                 
-    <form:form commandName="${commandName}"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/notas/credito/guardar.htm">
+    <form:form commandName="${commandName}"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/credito/guardar.htm">
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
@@ -60,7 +60,7 @@
                             <th width="22">&nbsp;</th>
                         </tr>
                     </thead>
-                    <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
+                    <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                         <tr>
                             <td>
                                 <input data-numero="0" id="numerocuenta0" name="detallesNota[0].cuenta" value="" class="ui-autocomplete-input claseValidarNum claseCuenta" autocomplete="off"/>

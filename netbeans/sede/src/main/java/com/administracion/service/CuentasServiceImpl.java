@@ -33,32 +33,32 @@ public class CuentasServiceImpl implements CuentasService{
     @Override
     @Transactional(readOnly = true)
     public CuentasPuc buscarCuenta(String idCuenta, String nameDataSource) {
-        CuentasPuc cuentasPuc = cuentasPucDao.consultarCuentaPuc(idCuenta, connectsAuth.getDataSourceSubSede(nameDataSource));
+        CuentasPuc cuentasPuc = cuentasPucDao.consultarCuentaPuc(idCuenta, connectsAuth.getDataSourceSede(nameDataSource));
         return cuentasPuc;
     }
 
     @Override
     @Transactional
     public void actualizarCuenta(CuentasPuc cuentasPuc, String nameDataSource) {
-        cuentasPucDao.actualizarCuentaPuc(cuentasPuc,connectsAuth.getDataSourceSubSede(nameDataSource));
+        cuentasPucDao.actualizarCuentaPuc(cuentasPuc,connectsAuth.getDataSourceSede(nameDataSource));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<CuentasAutoCompletarDto> autocompletarIdCuenta(String idCuenta, String nameDataSource) {
-        return cuentasPucDao.buscarCuentaLikeId(idCuenta,connectsAuth.getDataSourceSubSede(nameDataSource));
+        return cuentasPucDao.buscarCuentaLikeId(idCuenta,connectsAuth.getDataSourceSede(nameDataSource));
     }
 
     @Override
     @Transactional
     public void guardarCuenta(CuentasPuc cuentasPuc, String nameDataSource) {
-        cuentasPucDao.insertarCuentaPuc(cuentasPuc,connectsAuth.getDataSourceSubSede(nameDataSource));
+        cuentasPucDao.insertarCuentaPuc(cuentasPuc,connectsAuth.getDataSourceSede(nameDataSource));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ItemsDTO> cuentasBase(String nameDataSource) {
-        return cuentasPucDao.cuentasBase(connectsAuth.getDataSourceSubSede(nameDataSource));
+        return cuentasPucDao.cuentasBase(connectsAuth.getDataSourceSede(nameDataSource));
     }
     
 }

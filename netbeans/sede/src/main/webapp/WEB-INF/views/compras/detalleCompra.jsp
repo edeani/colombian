@@ -7,7 +7,7 @@
 
 
 <div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/compras/ajax/guardar.htm"></div>
-<form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/compras/ajax/verificar/compra.htm" target="_blank">
+<form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/compras/ajax/verificar/compra.htm" target="_blank">
     <div id="contenidoHome"> 
         <div id="tituloPagina">${titulo}</div>
         <div id="campoNumeroFactura">
@@ -42,7 +42,7 @@
         <div class="clear"></div>
         <div class="clear"></div>
         <div class="clear"></div>
-        <div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/factura/ajax/producto.htm">
+        <div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/factura/ajax/producto.htm">
             <table id="tblDatos" align="center" >
                 <form:input path="factura" type="hidden"/>
                 <thead>
@@ -55,7 +55,7 @@
                         <th width="22">&nbsp;</th>
                     </tr>
                 </thead>
-                <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
+                <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                     <tr>
                         <td>
                             <select class="clsAnchoTotal primerCampo">

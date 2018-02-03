@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
-    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/${sessionScope.path}/compras/compraPdf.htm" target="_blank">
+    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" target="_blank">
         <div id="contenidoHome"> 
             <div id="tituloPagina">${titulo}</div>
             <div id="campoNumeroFactura">
@@ -28,7 +28,7 @@
                     </select>
                 </label>
                 <label>
-                    <input value="Buscar" type="button" id="buscarCompra" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/compras/ajax/buscar/compra.htm"/>
+                    <input value="Buscar" type="button" id="buscarCompra" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/ajax/buscar/compra.htm"/>
                 </label>
             </div>
             <div id="datosAdicionalesFactura">
@@ -46,7 +46,7 @@
                 <div class="clear"></div>
                 <div class="clear"></div>
                 <div class="clear"></div>
-                <div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/factura/ajax/producto.htm">
+                <div id="divContenedorTabla" data-url="<%=request.getContextPath()%>/${sessionScope.path}/factura/ajax/producto.htm">
                 <table id="tblDatos" align="center" >
                     <form:input path="factura" type="hidden"/>
                     <thead>
@@ -59,7 +59,7 @@
                             <th width="22">&nbsp;</th>
                         </tr>
                     </thead>
-                    <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/${sessionScope.path}/inventario/ajax/selectProducto.htm">
+                    <tbody id="contenidoFactura" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                         <c:set var="ind" value="0"/>
                         <c:choose>
                             <c:when test="${not empty detalleCompras}">
