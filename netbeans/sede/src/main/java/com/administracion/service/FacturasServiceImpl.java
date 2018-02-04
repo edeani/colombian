@@ -222,9 +222,10 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional
     public void cambiarSedeFactura(String nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura, Sedes sedeOrigen, Sedes sedeDestino) {
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
         //Actualizo en principal
-        facturaDao.actualizarSedeFactura(principalDataSource, detalleFacturaDTO, estadoFactura);
-        facturaDao.actualizarSedeDetalleFactura(principalDataSource, detalleFacturaDTO, estadoFactura);
+        facturaDao.actualizarSedeFactura(ds, detalleFacturaDTO, estadoFactura);
+        facturaDao.actualizarSedeDetalleFactura(ds, detalleFacturaDTO, estadoFactura);
         //actualizarFactura(nameDataSource, detalleFacturaDTO, estadoFactura);
         //Inserto en destino
         DataSource dsDestino = connectsAuth.getDataSourceSubSede(sedeDestino.getSede());
@@ -237,7 +238,6 @@ public class FacturasServiceImpl implements FacturasService {
         CambioSedeMapper cambioSedeMapper = new CambioSedeMapper();
         CambioSede traslado = cambioSedeMapper.detalleDtoTOtraslado(detalleFacturaDTO);
         traslado.setSedeOrigen(sedeOrigen.getIdsedes().longValue());
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
         cambioSedeDao.guardarCambioSede(ds, traslado);  
         //Borro en Origen
         DataSource dsOrigen = connectsAuth.getDataSourceSubSede(sedeOrigen.getSede());
@@ -256,7 +256,7 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional
     public List<DetalleFacturaDTO> trasladarFactura(String nameDataSource, DetalleFacturaTrasladoDTO detalleFacturaTrasladoDTO) {
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
         List<DetalleFacturaDTO> facturasTrasladadas = new ArrayList<>();
         /**
          * INSERTO EN BD PRINCIPAL*
