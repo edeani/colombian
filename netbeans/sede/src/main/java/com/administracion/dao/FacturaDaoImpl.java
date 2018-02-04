@@ -51,7 +51,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
     }
 
     @Override
-    public void insertarFactura(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura) {
+    public void insertarFacturaSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
         //Date fechaFactura = detalleFacturaDTO.get
         //Inserto en factura
@@ -65,7 +65,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
     }
     
     @Override
-    public void insertarDetalle(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura,Long idFactura) {
+    public void insertarDetalleSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura,Long idFactura) {
         FacturaMapper facturaMapper = new FacturaMapper();
         LOGGER.error("FECHA5::"+detalleFacturaDTO.getFechaFactura());
         String valores = facturaMapper.tramaToDetalleFactura(detalleFacturaDTO, idFactura, idsede);
@@ -92,7 +92,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
     }
 
     @Override
-    public void insertarFacturaSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura, Long idFactura) {
+    public void insertarFacturaSubSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura, Long idFactura) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
         //Inserto en factura
         String fecha = detalleFacturaDTO.getFechaFactura();
@@ -123,7 +123,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
     }
 
     @Override
-    public void insertarDetalleSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura, Long idFactura) {
+    public void insertarDetalleSubSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura, Long idFactura) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
         FacturaMapper facturaMapper= new FacturaMapper();
         

@@ -104,7 +104,7 @@ public class ComprasServiceImpl implements ComprasService {
             
             DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
             Long secuenciaActual = Long.parseLong(detalleCompraDTO.getNumeroFactura());
-            facturaDao.insertarFacturaSede(ds, factura, "A", secuenciaActual);
+            facturaDao.insertarFacturaSubSede(ds, factura, "A", secuenciaActual);
             facturaDao.insertarDetalleSede(ds, detalleCompraDTO, "A" , secuenciaActual);
         }
 
@@ -227,7 +227,7 @@ public class ComprasServiceImpl implements ComprasService {
             FacturaMapper facturaMapper = new FacturaMapper();
             
             DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
-            facturaDao.insertarFacturaSede(ds, factura, "A", idcompra);
+            facturaDao.insertarFacturaSubSede(ds, factura, "A", idcompra);
             facturaDao.insertarDetalleSede(ds, detalleCompraDTO, "A" , idcompra);
             
         }

@@ -25,10 +25,10 @@ import javax.sql.DataSource;
 public interface FacturaDao {
     
     public void insertarFacturaNueva(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura);
-    public void insertarDetalle(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura,Long idFactura);
-    public void insertarFactura(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura);
-    public void insertarFacturaSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura,Long idFactura);
-    public void insertarDetalleSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura,Long idFactura);
+    public void insertarDetalleSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura,Long idFactura);
+    public void insertarFacturaSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura);
+    public void insertarFacturaSubSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura,Long idFactura);
+    public void insertarDetalleSubSede(DataSource nameDataSource, DetalleFacturaDTO detalleFacturaDTO, String estadoFactura,Long idFactura);
     public void insertarDetalleSede(DataSource nameDataSource, DetalleCompraDTO detalleCompraDTO, String estadoFactura, Long idFactura);
     public Long secuenciaDetalle(DataSource nameDataSource);
     public Factura findFactura(DataSource nameDataSource,Long idfactura);

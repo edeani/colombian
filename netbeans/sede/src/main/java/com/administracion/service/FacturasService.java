@@ -32,10 +32,11 @@ public interface FacturasService {
     public List<VentasTotalesDTO> ventasTotales(String nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra);
     public List<VentasTotalesDTO> ventasTotalesSede(String nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra,Long idSede);
     public List<FacturaVentaDTO> detalleFacturaVenta(String nameDataSource,Long numeroFactura);
-    public Factura findFactura(String nameDataSource,Long numeroFactura);
+    public Factura findFacturaSede(String nameDataSource,Long numeroFactura);
     public List<DetalleFacturaDTO> trasladarFactura(String nameDataSource, DetalleFacturaTrasladoDTO detalleFacturaTrasladoDTO);
     public void cambiarSedeFactura(String nameDataSource, DetalleFacturaDTO detalleFacturaDTO,String estadoFactura,Sedes sedeOrigen,Sedes sedeDestino);
-    public String borrarFactura(String nameDataSource, Long numeroFactura);
+    public String borrarFacturaSede(String nameDataSource, Long numeroFactura);
+    public String borrarFacturaSubSede(String nameDataSource, Long numeroFactura);
     public List<FacturaReporteSedeDto> reporteFacturaCompraProveedor(String nameDataSource,Long idsede,String fechaInicio,String fechaFin);
     public List<FacturaTotalReporteDto> reporteFacturaCompra(String nameDataSource,String fechaInicio,String fechaFin);
     public List<TrasladosDto> reporteTraslados(String nameDataSource,Date fechaInicio,Date fechaFin);

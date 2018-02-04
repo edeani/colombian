@@ -33,6 +33,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,8 +89,9 @@ public class FacturasController extends BaseController {
 
     @RequestMapping("/ajax/producto.htm")
     public @ResponseBody
-    String traerProducto(@RequestParam("idProducto") Long idProducto) {
-        Inventario inventario = facturaService.traerProducto(getPropiedades().leerPropiedad(), idProducto);
+    String traerProducto(@RequestParam("idProducto") Long idProducto,
+            @PathVariable String sede) {
+        Inventario inventario = facturaService.traerProducto(sede, idProducto);
         if (inventario != null) {
             InventarioMapper productoMapper = new InventarioMapper();
             return productoMapper.FacturasToString(inventario);
@@ -118,16 +120,17 @@ public class FacturasController extends BaseController {
 
     @RequestMapping(value = "/ajax/actualizar.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView actualizarFactura(@Valid DetalleFacturaDTO detalleFacturaDTO, @RequestParam(value = "nombreSede", required = false) String nombreSede,
-            @RequestParam(value = "numeroSede", required = false) Long idSede, @RequestParam(value = "estadoFactura", required = false) String estadoFactura) {
-
-       // facturaService.actualizarFactura(getPropiedades().leerPropiedad(), nombreSede,estadoFactura, detalleFacturaDTO);
+            @RequestParam(value = "numeroSede", required = false) Long idSede, @RequestParam(value = "estadoFactura", required = false) String estadoFactura,
+            @PathVariable String sede) {
+        String sedeConexion = sede;
+       // facturaService.actualizarFactura(sedeConexion, nombreSede,estadoFactura, detalleFacturaDTO);
         Long numfac = Long.parseLong(detalleFacturaDTO.getNumeroFactura());
-        Factura factura = facturaService.findFactura(getPropiedades().leerPropiedad(), numfac);
+        Factura factura = facturaService.findFacturaSede(sedeConexion, numfac);
         detalleFacturaDTO.setFechaFactura(Formatos.dateTostring(factura.getFechaFactura()));
         //principal
-        facturaService.borrarFactura(getPropiedades().leerPropiedad(), numfac);
+        facturaService.borrarFacturaSede(sedeConexion, numfac);
         //Sede
-        facturaService.borrarFactura(nombreSede, numfac);
+        facturaService.borrarFacturaSubSede(nombreSede, numfac);
         
         facturaService.actualizarFactura(getPropiedades().leerPropiedad(), nombreSede, estadoFactura, detalleFacturaDTO);
         detalleFacturaDTO = null;
@@ -146,7 +149,7 @@ public class FacturasController extends BaseController {
             @RequestParam(required = false, value = "numeroFactura") Long numeroFactura, @RequestParam(required = false, value = "sede") Long sede) {
        
         //Servicio
-        Factura factura1 = facturaService.findFactura(getPropiedades().leerPropiedad(), numeroFactura);
+        Factura factura1 = facturaService.findFacturaSede(getPropiedades().leerPropiedad(), numeroFactura);
 
         List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(getPropiedades().leerPropiedad(), numeroFactura);
 
@@ -167,7 +170,7 @@ public class FacturasController extends BaseController {
             @RequestParam(required = false, value = "numeroFactura") Long numeroFactura, @RequestParam(required = false, value = "sede") Long sede) {
 
         //Servicio
-        Factura factura1 = facturaService.findFactura(getPropiedades().leerPropiedad(), numeroFactura);
+        Factura factura1 = facturaService.findFacturaSede(getPropiedades().leerPropiedad(), numeroFactura);
         System.out.println("OBJETO FACTURA::"+factura1);
         System.out.println("FECHA FACTURA::"+factura1.getFechaFactura());
 
