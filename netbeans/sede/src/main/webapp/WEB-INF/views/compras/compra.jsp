@@ -16,7 +16,7 @@
 <script src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
 
 <div id="contenidoCompra">
-<div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/compras/ajax/guardar.htm"></div>
+<div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/guardar.htm"></div>
 <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/compras/ajax/verificar/compra.htm" target="_blank">
     <div id="contenidoHome"> 
         <div id="tituloPagina">${titulo}</div>

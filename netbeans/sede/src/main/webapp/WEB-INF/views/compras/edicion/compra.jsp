@@ -12,7 +12,7 @@
 <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
-<div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/compras/ajax/actualizar.htm"></div>
+<div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/actualizar.htm"></div>
 <input type="hidden" value="N" id="submit-form"/>
 <div id="contenidoCompra">
     <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
@@ -57,7 +57,7 @@
                                     <option value="" >
                                         Seleccione   
                                     </option>
-                                    <c:import url="/inventario/ajax/selectProducto.htm">
+                                    <c:import url="/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                                     </c:import>
                                 </select>
                                 <input type="text" name="name" class="editable-select primerCampo2" id="name" autocomplete="off" style="width: 93px;" >
