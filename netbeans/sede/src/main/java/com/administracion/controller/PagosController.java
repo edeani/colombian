@@ -203,7 +203,7 @@ public class PagosController extends BaseController{
         
 
         List<ReportePagosDto> pagos = pagosService.reportePagos(sede, fechaInicial,fechaFinal, idsede);
-        Sedes sedes = sedesDao.findSede(idsede);
+        Sedes sedes = sedesDao.buscarSede(idsede);
         
         ModelAndView mav = null;
         if(pagos!=null){

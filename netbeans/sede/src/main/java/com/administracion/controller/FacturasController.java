@@ -253,7 +253,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("fechaFinal", fechaFinal);
             mav = new ModelAndView("ventasTotales", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/factura/reportes/ventasTotales.htm");
+            mav = new ModelAndView("redirect:"+sede+"/factura/reportes/ventasTotales.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -274,7 +274,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("fechaFinal", fechaFinal);
             mav = new ModelAndView("facturasTotal", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/factura/reportes/totalFacturas.htm");
+            mav = new ModelAndView("redirect:"+sede+"/factura/reportes/totalFacturas.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -297,7 +297,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("sede", sedeObj.getSede());
             mav = new ModelAndView("ventasTotalesSede", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/factura/reportes/ventasTotalesSede.htm");
+            mav = new ModelAndView("redirect:"+sede+"/factura/reportes/ventasTotalesSede.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -319,7 +319,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("nombreSede", sedeObj.getSede());
             mav = new ModelAndView("facturasTotalXSede", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/factura/reportes/totalFacturasSede.htm");
+            mav = new ModelAndView("redirect:"+sede+"/factura/reportes/totalFacturasSede.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;

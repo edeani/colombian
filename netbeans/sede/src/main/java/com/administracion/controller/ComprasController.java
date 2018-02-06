@@ -155,7 +155,7 @@ public class ComprasController extends BaseController {
             mav.addObject("detalleCompras", detalleCompras);
             mav.addObject("sproveedor", "");
             setBasicModel(mav, detalleCompraDTO);
-            //mav = new ModelAndView("redirect:/compras/edicion.htm");
+            //mav = new ModelAndView("redirect:"+sede+"/compras/edicion.htm");
         }
 
         return mav;
@@ -300,7 +300,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:/compras/reportes/comprasProveedorFecha.htm");
+        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasProveedorFecha.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -324,7 +324,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:/compras/reportes/comprasTotales.htm");
+        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasTotales.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -347,7 +347,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:/compras/reportes/comprasTotalesProducto.htm");
+        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasTotalesProducto.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -372,7 +372,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:/compras/reportes/comprasTotalesProveedor.htm");
+        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasTotalesProveedor.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -397,7 +397,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:/compras/reportes/comprasTotalesProveedores.htm");
+        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasTotalesProveedores.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -422,7 +422,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:/compras/reportes/cuentasPagarProveedor.htm");
+        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/cuentasPagarProveedor.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;

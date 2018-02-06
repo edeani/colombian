@@ -212,7 +212,7 @@ public class InventarioController extends BaseController {
             parameterMap.put("fechaFinal", fechaFinal);
             mav = new ModelAndView("inventarioTotal", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/inventario/reportes/inventarioTotal.htm");
+            mav = new ModelAndView("redirect:"+sede+"/inventario/reportes/inventarioTotal.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;

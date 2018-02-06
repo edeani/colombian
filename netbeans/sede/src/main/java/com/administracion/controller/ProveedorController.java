@@ -148,7 +148,7 @@ public class ProveedorController extends BaseController{
             /**
              * TO:DO MODIFICAR REDIRECT
              
-            mav = new ModelAndView("redirect:/inventario/reportes/inventarioTotal.htm");
+            mav = new ModelAndView("redirect:"+sede+"/inventario/reportes/inventarioTotal.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;

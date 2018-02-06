@@ -48,6 +48,6 @@ public class AveriasController extends BaseController {
 
         averiasService.guardarAveria(sede, detalleAveriaDTO.getAveria(), detalleAveriaDTO.getTotalAveria(), securityService.getCurrentUser().getUsername());
         
-        return new ModelAndView("redirect:/averia/home.htm");
+        return new ModelAndView("redirect:"+sede+"/averia/home.htm");
     }
 }

@@ -221,7 +221,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         List<DetallePagosCosolidadoSedeDto> detallePagosCosolidadoSedeDtos = pagosMapper.detallePorcentajeVentaToDetallePagosCosolidadoSedeDto(detallePorcentajeVentases);
         if (detallePagosCosolidadoSedeDtos != null) {
             detallePagosCosolidadoSedeDtos.forEach((detallePagosCosolidadoSedeDto) -> {
-                Sedes sedes = sedesDao.findSede(detallePagosCosolidadoSedeDto.getIdSede());
+                Sedes sedes = sedesDao.buscarSede(detallePagosCosolidadoSedeDto.getIdSede());
                 detallePagosCosolidadoSedeDto.setNombreSede(sedes.getSede());
             });
         }

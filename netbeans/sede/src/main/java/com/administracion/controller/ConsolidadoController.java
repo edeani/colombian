@@ -84,7 +84,8 @@ public class ConsolidadoController extends BaseController {
 
     @RequestMapping(value = "/consolidadoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response,HttpSession session,
-            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
+            @PathVariable String sede,@RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
         SubSedesDto ss = connectsAuth.findSubsedeXName((String)session.getAttribute("path"));
         List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(ss.getId(), fechaInicial, fechaFinal);
         ModelAndView mav = null;
@@ -96,7 +97,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaFinal", fechaFinal);
             mav = new ModelAndView("consolidado", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/consolidado/sede.htm");
+            mav = new ModelAndView("redirect:"+sede+"/consolidado/sede.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -166,7 +167,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             mav = new ModelAndView("comprobanteCierreSede", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/consolidado/comprobante/sede.htm");
+            mav = new ModelAndView("redirect:"+sede+"/consolidado/comprobante/sede.htm");
         }
 
         return mav;
@@ -177,7 +178,7 @@ public class ConsolidadoController extends BaseController {
             @PathVariable String sede) {
         List<CierreSedesDto> reporte = cierreSedesService.reporteComprobanteCierreSedesView(sede, fechaInicial,
                 fechaFinal,idsede);
-        Sedes sedeObj = sedesDao.findSede(idsede);
+        Sedes sedeObj = sedesDao.buscarSede(idsede);
         
         ModelAndView mav = null;
         if (reporte != null) {
@@ -191,7 +192,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             mav = new ModelAndView("reporteCierreSedes", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/consolidado/comprobante/sede.htm");
+            mav = new ModelAndView("redirect:"+sede+"/"+sede+"/consolidado/comprobante/sede.htm");
         }
 
         return mav;
@@ -289,7 +290,7 @@ public class ConsolidadoController extends BaseController {
             nombreSede = "";
         }
         ModelAndView mav = null;
-        if (!reporte.isEmpty()) {
+        if (reporte!=null && !reporte.isEmpty()) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
