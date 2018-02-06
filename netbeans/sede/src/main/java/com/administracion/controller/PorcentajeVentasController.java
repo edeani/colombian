@@ -8,6 +8,7 @@ package com.administracion.controller;
 import com.administracion.service.PorcentajeVentasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,10 +24,10 @@ public class PorcentajeVentasController extends BaseController{
     private PorcentajeVentasService porcentajeVentasService;
     
     @RequestMapping("/ajax/generar/detalle.htm")
-    public @ResponseBody String generarPorcentajeVentas(@RequestParam Integer mes){
+    public @ResponseBody String generarPorcentajeVentas(@RequestParam Integer mes,@PathVariable String sede){
         try {
-            porcentajeVentasService.generarPorcentajeVentas(getPropiedades().leerPropiedad(), mes);
-            porcentajeVentasService.generarDetallePorcentajeVentas(getPropiedades().leerPropiedad(), mes);
+            porcentajeVentasService.generarPorcentajeVentas(sede, mes);
+            porcentajeVentasService.generarDetallePorcentajeVentas(sede, mes);
         } catch (Exception e) {
             System.out.println("Error::generarPorcentajeVentas"+e.getMessage());
             return "Se produjo un error al ejecutar el proceso";

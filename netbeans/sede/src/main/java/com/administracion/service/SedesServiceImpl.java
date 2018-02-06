@@ -50,7 +50,7 @@ public class SedesServiceImpl extends GenericService implements SedesService{
 
     @Override
     @Transactional(readOnly = true)
-    public Sedes buscarSede(String nameDatasource, Long idSede) {
+    public Sedes buscarSede(Long idSede) {
        return sedesDao.buscarSede( idSede);
     }
 

@@ -11,6 +11,7 @@ import com.administracion.service.NotasDebitoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,11 +39,11 @@ public class NotasController extends BaseController {
 
     @RequestMapping("/debito/guardar.htm")
     public @ResponseBody
-    String guardarNotasDebito(@ModelAttribute NotasDto notasDto) {
+    String guardarNotasDebito(@ModelAttribute NotasDto notasDto,@PathVariable String sede) {
         try {
             getPropiedades().setArchivo(getArchivo());
             getPropiedades().setPropiedad(getPropiedadPrincipal());
-            notasDebitoService.guardarNotaDebito(getPropiedades().leerPropiedad(), notasDto);
+            notasDebitoService.guardarNotaDebito(sede, notasDto);
         } catch (Exception e) {
             System.out.println("Error guardarNotasDebito::" + e.getMessage());
             return "Error";
@@ -62,11 +63,11 @@ public class NotasController extends BaseController {
 
     @RequestMapping("/credito/guardar.htm")
     public @ResponseBody
-    String guardarNotasCredito(@ModelAttribute NotasDto notasDto) {
+    String guardarNotasCredito(@ModelAttribute NotasDto notasDto,@PathVariable String sede) {
         try {
             getPropiedades().setArchivo(getArchivo());
             getPropiedades().setPropiedad(getPropiedadPrincipal());
-            notasDebitoService.guardarNotaCredito(getPropiedades().leerPropiedad(), notasDto);
+            notasDebitoService.guardarNotaCredito(sede, notasDto);
         } catch (Exception e) {
             System.out.println("Error guardarNotasCredito::" + e.getMessage());
             return "Error";

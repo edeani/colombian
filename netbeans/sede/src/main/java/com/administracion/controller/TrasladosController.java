@@ -20,6 +20,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,12 +54,13 @@ public class TrasladosController extends BaseController{
     }
     
     @RequestMapping(value="/ajax/guardarTraslado.htm",method={RequestMethod.POST, RequestMethod.GET})
-    public @ResponseBody String guardarTraslado(@Valid DetalleFacturaTrasladoDTO detalleFacturaTrasladoDTO){
+    public @ResponseBody String guardarTraslado(@Valid DetalleFacturaTrasladoDTO detalleFacturaTrasladoDTO,
+            @PathVariable String sede){
         
         ModelAndView mav = new ModelAndView("facturacion/traslados/formFactura");
         //Hago el traslado
         List<DetalleFacturaDTO> facturasTrasladadas;
-        facturasTrasladadas = facturasService.trasladarFactura(getPropiedades().leerPropiedad(), detalleFacturaTrasladoDTO);
+        facturasTrasladadas = facturasService.trasladarFactura(sede, detalleFacturaTrasladoDTO);
         String facturas = facturasTrasladadas.get(0).getNumeroFactura()+"@"+facturasTrasladadas.get(1).getNumeroFactura();
         mav.addObject("titulo", "Traslados");
         setBasicModel(mav, detalleFacturaTrasladoDTO);
@@ -87,10 +89,11 @@ public class TrasladosController extends BaseController{
     
     @RequestMapping("/reporte/trasladosPDF.htm")
     public ModelAndView indexReporteTrasladosPDF(@RequestParam(required = false, value = "fechaInicial") String fechaInicial
-            , @RequestParam(required = false, value = "fechaFinal") String fechaFinal){
+            , @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
+            @PathVariable String sede){
         ModelAndView mav = null;
        
-        List<TrasladosDto> traslados = facturasService.reporteTraslados(getPropiedades().leerPropiedad(), Formatos.StringDateToDate(fechaInicial),Formatos.StringDateToDate(fechaFinal));
+        List<TrasladosDto> traslados = facturasService.reporteTraslados(sede, Formatos.StringDateToDate(fechaInicial),Formatos.StringDateToDate(fechaFinal));
         if (traslados != null) {
             if (traslados.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(traslados);

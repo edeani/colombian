@@ -193,10 +193,10 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping(value = "/ajax/avencer.htm")
-    public ModelAndView buscarComprasAVencer(Long idProveedor) {
+    public ModelAndView buscarComprasAVencer(Long idProveedor,@PathVariable String sede) {
 
         ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/comprasAVencer");
-        List<Compras> compras = comprasService.comprasAVencer(getPropiedades().leerPropiedad(), 0, idProveedor);
+        List<Compras> compras = comprasService.comprasAVencer(sede, 0, idProveedor);
         ComprasMapper comprasMapper = new ComprasMapper();
         List<ComprasDto> comprasPendientes = comprasMapper.comprasListaTOComprasDto(compras);
         mav.addObject("comprasPendientes", comprasPendientes);
@@ -284,10 +284,11 @@ public class ComprasController extends BaseController {
 
     @RequestMapping(value = "/reportes/comprasProveedorFechaPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasProveedorFechaPDF(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
+            @PathVariable String sede) {
         ModelAndView mav = null;
 
-        List<ComprasProveedorFechaDto> reporte = comprasService.reporteComprasProveedorFechaDto(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal);
+        List<ComprasProveedorFechaDto> reporte = comprasService.reporteComprasProveedorFechaDto(sede, fechaInicial, fechaFinal);
         if (reporte != null) {
             if (reporte.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
@@ -307,10 +308,11 @@ public class ComprasController extends BaseController {
 
     @RequestMapping(value = "/reportes/comprasTotalesPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesPDF(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
+            @RequestParam(required = false, value = "fechaFinal") String fechaFinal,@PathVariable String sede) {
         ModelAndView mav = null;
 
-        List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotales(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal, "A");
+        List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotales(sede, fechaInicial, fechaFinal, "A");
         if (comprasTotales != null) {
             if (comprasTotales.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(comprasTotales);
@@ -330,9 +332,10 @@ public class ComprasController extends BaseController {
 
     @RequestMapping(value = "/reportes/comprasTotalesProductoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProductoPDF(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial
+            , @RequestParam(required = false, value = "fechaFinal") String fechaFinal,@PathVariable String sede) {
         ModelAndView mav = null;
-        List<ReporteComprasTotalesProvDTO> compras = comprasService.comprasTotalesProveedores(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal);
+        List<ReporteComprasTotalesProvDTO> compras = comprasService.comprasTotalesProveedores(sede, fechaInicial, fechaFinal);
         if (compras != null) {
             if (compras.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(compras);
@@ -353,9 +356,10 @@ public class ComprasController extends BaseController {
     @RequestMapping(value = "/reportes/comprasTotalesProveedorPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
-            @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor, @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor) {
+            @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor
+            , @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor,@PathVariable String sede) {
         ModelAndView mav = null;
-        List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotalesProveedor(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal, "A", codigoProveedor);
+        List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotalesProveedor(sede, fechaInicial, fechaFinal, "A", codigoProveedor);
         if (comprasTotales != null) {
             if (comprasTotales.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(comprasTotales);
@@ -377,9 +381,10 @@ public class ComprasController extends BaseController {
     @RequestMapping(value = "/reportes/comprasTotalXProveedorPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalXProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
-            @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor, @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor) {
+            @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor,
+            @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor,@PathVariable String sede) {
         ModelAndView mav = null;
-        List<ReporteComprasTotalesXProveedorDTO> reporte = comprasService.comprasTotalesXProveedor(getPropiedades().leerPropiedad(), codigoProveedor, fechaInicial, fechaFinal);
+        List<ReporteComprasTotalesXProveedorDTO> reporte = comprasService.comprasTotalesXProveedor(sede, codigoProveedor, fechaInicial, fechaFinal);
         if (reporte != null) {
             if (reporte.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
@@ -401,9 +406,10 @@ public class ComprasController extends BaseController {
     @RequestMapping(value = "/reportes/cuentasPagarProveedorPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteCuentasPagarProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
-            @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor, @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor) {
+            @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor
+            , @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor,@PathVariable String sede) {
         ModelAndView mav = null;
-        List<CuentasPagarProveedoresDto> reporte = comprasService.reporteCuentasPagarProveedoresDto(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal, codigoProveedor);
+        List<CuentasPagarProveedoresDto> reporte = comprasService.reporteCuentasPagarProveedoresDto(sede, fechaInicial, fechaFinal, codigoProveedor);
         if (reporte != null) {
             if (reporte.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);

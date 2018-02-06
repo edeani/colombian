@@ -151,9 +151,9 @@ public class ConsolidadoController extends BaseController {
     }
 
     @RequestMapping(value = "/comprobante/sede/pdf.htm")
-    public ModelAndView generarComprobanteCierreSedePdf(@RequestParam Long idComprobanteCierre) {
-        List<ReporteComprobanteCierreDto> reporte = cierreSedesService.buscarDetalleComprobanteCierreSedesView(getPropiedades().leerPropiedad(), idComprobanteCierre);
-        CierreSedesDto cierreSedesDto = cierreSedesService.buscarComprobanteCierreDto(getPropiedades().leerPropiedad(), idComprobanteCierre);
+    public ModelAndView generarComprobanteCierreSedePdf(@RequestParam Long idComprobanteCierre,@PathVariable String sede) {
+        List<ReporteComprobanteCierreDto> reporte = cierreSedesService.buscarDetalleComprobanteCierreSedesView(sede, idComprobanteCierre);
+        CierreSedesDto cierreSedesDto = cierreSedesService.buscarComprobanteCierreDto(sede, idComprobanteCierre);
         ModelAndView mav = null;
         if (reporte != null) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
@@ -173,10 +173,11 @@ public class ConsolidadoController extends BaseController {
     }
 
     @RequestMapping(value = "/comprobante/reporte/sede/pdf.htm")
-    public ModelAndView generarReporteCierreSedePdf(@RequestParam Long idsede,@RequestParam String fechaInicial,@RequestParam String fechaFinal) {
-        List<CierreSedesDto> reporte = cierreSedesService.reporteComprobanteCierreSedesView(getPropiedades().leerPropiedad(), fechaInicial,
+    public ModelAndView generarReporteCierreSedePdf(@RequestParam Long idsede,@RequestParam String fechaInicial,@RequestParam String fechaFinal,
+            @PathVariable String sede) {
+        List<CierreSedesDto> reporte = cierreSedesService.reporteComprobanteCierreSedesView(sede, fechaInicial,
                 fechaFinal,idsede);
-        Sedes sede = sedesDao.findSede(idsede);
+        Sedes sedeObj = sedesDao.findSede(idsede);
         
         ModelAndView mav = null;
         if (reporte != null) {
@@ -184,7 +185,7 @@ public class ConsolidadoController extends BaseController {
             Map<String, Object> parameterMap = new HashMap<>();
 
             parameterMap.put("datos", datos);
-            parameterMap.put("sede", sede.getSede());
+            parameterMap.put("sede", sedeObj.getSede());
             parameterMap.put("fechaInicial", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFinal", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
@@ -205,10 +206,11 @@ public class ConsolidadoController extends BaseController {
     }
 
     @RequestMapping(value = "/comprobante/reporte/movimiento/cajamayor/pdf.htm")
-    public ModelAndView reporteCajaMayor(@RequestParam String fechaInicial, @RequestParam String fechaFinal) {
+    public ModelAndView reporteCajaMayor(@RequestParam String fechaInicial, @RequestParam String fechaFinal,
+            @PathVariable String sede) {
         Date objFechaInicio = Formatos.StringDateToDate(fechaInicial);
         Date objFechaFin = Formatos.StringDateToDate(fechaFinal);
-        List<MovimientoCajaDto> movimientos = reporteService.movimientoCajaMayor(getPropiedades().leerPropiedad(), objFechaInicio, objFechaFin);
+        List<MovimientoCajaDto> movimientos = reporteService.movimientoCajaMayor(sede, objFechaInicio, objFechaFin);
         ModelAndView mav = null;
         if (movimientos != null) {
             JRDataSource datos = new JRBeanCollectionDataSource(movimientos);
@@ -247,12 +249,12 @@ public class ConsolidadoController extends BaseController {
 
     @RequestMapping(value = "/reporte/perdidaganancias_old/pdf.htm")
     public ModelAndView reportePerdidaGanancias_old(@RequestParam Long tipoReporte, @RequestParam String fechaInicial,
-            @RequestParam String fechaFinal) {
+            @RequestParam String fechaFinal,@PathVariable String sede) {
 
         //Ingresos
         List<ReporteTotalCuentasXNivelDto> reporte = new ArrayList<ReporteTotalCuentasXNivelDto>();
         //List<ReporteTotalCuentasXNivelDto> subreporte = new ArrayList<ReporteTotalCuentasXNivelDto>();
-        reporte = reporteService.reportePerdidaIngresoTotalXNivelSede(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal);
+        reporte = reporteService.reportePerdidaIngresoTotalXNivelSede(sede, fechaInicial, fechaFinal);
 
         ModelAndView mav = null;
         if (!reporte.isEmpty()) {
@@ -272,15 +274,16 @@ public class ConsolidadoController extends BaseController {
 
     @RequestMapping(value = "/reporte/general/perdidaganancias/pdf.htm")
     public ModelAndView reportePerdidaGananciasProvisional(@RequestParam Long tipoReporte, @RequestParam String fechaInicial,
-            @RequestParam String fechaFinal, @RequestParam(required = false) Long sede, @RequestParam(required = false) String nombreSede) {
+            @RequestParam String fechaFinal, @RequestParam(required = false) Long sedeNumber
+            , @RequestParam(required = false) String nombreSede,@PathVariable String sede) {
 
         //Ingresos
         List<EstadoPerdidaGananciaProvisionalDto> reporte = new ArrayList<EstadoPerdidaGananciaProvisionalDto>();
         //List<ReporteTotalCuentasXNivelDto> subreporte = new ArrayList<ReporteTotalCuentasXNivelDto>();
         if (tipoReporte == 1L) {
-            reporte = reporteService.reporteEstadoPerdidaGananciaProvisional(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal);
+            reporte = reporteService.reporteEstadoPerdidaGananciaProvisional(sede, fechaInicial, fechaFinal);
         } else {
-            reporte = reporteService.reporteEstadoPerdidaGananciaProvisionalXSede(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal, sede);
+            reporte = reporteService.reporteEstadoPerdidaGananciaProvisionalXSede(sede, fechaInicial, fechaFinal, sedeNumber);
         }
         if (nombreSede == null) {
             nombreSede = "";
@@ -304,11 +307,12 @@ public class ConsolidadoController extends BaseController {
 
     @RequestMapping(value = "/reporte/perdidaganancias/pdf.htm")
     public  ModelAndView reportePerdidaGanancias(@RequestParam String fechaInicial,
-            @RequestParam String fechaFinal,@RequestParam(required = false) Long sede,@RequestParam (required = false) String nombreSede) {
+            @RequestParam String fechaFinal,@RequestParam(required = false) Long sedeNumber
+            ,@RequestParam (required = false) String nombreSede,@PathVariable String sede) {
         ModelAndView mav = null;
         try {
-            List<BalanceDto> reporte = reporteService.reporteBalanceService(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal,sede);
-            List<ItemsDTO> items =  cuentasService.cuentasBase(getPropiedades().leerPropiedad());
+            List<BalanceDto> reporte = reporteService.reporteBalanceService(sede, fechaInicial, fechaFinal,sedeNumber);
+            List<ItemsDTO> items =  cuentasService.cuentasBase(sede);
             
             /***********************************************/
             if (!reporte.isEmpty()) {

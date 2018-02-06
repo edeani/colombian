@@ -98,7 +98,7 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional(readOnly = true)
     public List<FacturaVentaDTO> traerProductosFactura(String datasource, Long idFactura) {
-        return inventarioDao.traerProductosFactura(connectsAuth.getDataSourceSubSede(datasource), idFactura);
+        return inventarioDao.traerProductosFactura(connectsAuth.getDataSourceSede(datasource), idFactura);
     }
 
     @Override
@@ -262,14 +262,14 @@ public class FacturasServiceImpl implements FacturasService {
          * INSERTO EN BD PRINCIPAL*
          */
         //Inserto en origen principal y sede
-        Sedes sedeOrigen = sedesService.buscarSede(nameDataSource, detalleFacturaTrasladoDTO.getSedeOrigen());
+        Sedes sedeOrigen = sedesService.buscarSede(detalleFacturaTrasladoDTO.getSedeOrigen());
         TrasladoMapper trasladoMapper = new TrasladoMapper();
         DetalleFacturaDTO detalleFacturaDTOOrigen = trasladoMapper.DetalleFacturaTrasladoDtoToDetalleFacturaDTO(detalleFacturaTrasladoDTO, "origen");
         guardarFactura(nameDataSource, sedeOrigen.getSede(), detalleFacturaDTOOrigen);
         facturasTrasladadas.add(detalleFacturaDTOOrigen);
 
         //Inserto en destino principal y sede
-        Sedes sedeDestino = sedesService.buscarSede(nameDataSource, detalleFacturaTrasladoDTO.getSedeDestino());
+        Sedes sedeDestino = sedesService.buscarSede(detalleFacturaTrasladoDTO.getSedeDestino());
         DetalleFacturaDTO detalleFacturaDTODestino = trasladoMapper.DetalleFacturaTrasladoDtoToDetalleFacturaDTO(detalleFacturaTrasladoDTO, "destino");
         guardarFactura(nameDataSource, sedeDestino.getSede(), detalleFacturaDTODestino);
         facturasTrasladadas.add(detalleFacturaDTODestino);

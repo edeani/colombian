@@ -82,7 +82,7 @@ public class SedesController extends BaseController {
     @RequestMapping(value = "/ajax/setSedeSession.htm")
     public @ResponseBody   String setSedeReportesColombian(@RequestParam Long idSede) {
         try {
-            Sedes sede = sedeService.buscarSede(getPropiedades().leerPropiedad(), idSede);
+            Sedes sede = sedeService.buscarSede(idSede);
             //securityService.getCurrentUser().setIdsedes(sede); 
         } catch (Exception e) {
             System.out.println("setSedeReportesColombian::"+e.getMessage());

@@ -232,7 +232,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <base.datos>principalgranestacion</base.datos>
+                <base.datos>credencials</base.datos>
                 <bd.user>root</bd.user>
                 <bd.password>compaq</bd.password>
                 <bd.ip>localhost:3306</bd.ip>

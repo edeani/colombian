@@ -110,17 +110,19 @@ public class FacturasController extends BaseController {
     }
 
     @RequestMapping(value = "/guardar.htm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView guardarFactura(@Valid DetalleFacturaDTO detalleFacturaDTO) {
-        Sedes sede = sedesService.buscarSede(getPropiedades().leerPropiedad(), detalleFacturaDTO.getSede());
+    public ModelAndView guardarFactura(@Valid DetalleFacturaDTO detalleFacturaDTO,@PathVariable String sede) {
+        Sedes sedeObj = sedesService.buscarSede(detalleFacturaDTO.getSede());
         detalleFacturaDTO.setFechaFactura(Formatos.dateTostring(new Date()));
-        facturaService.guardarFactura(getPropiedades().leerPropiedad(), sede.getSede(), detalleFacturaDTO);
-        ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(),Long.parseLong(detalleFacturaDTO.getNumeroFactura()),detalleFacturaDTO.getSede());
+        facturaService.guardarFactura(sede, sedeObj.getSede(), detalleFacturaDTO);
+        ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(),Long.parseLong(detalleFacturaDTO.getNumeroFactura()),detalleFacturaDTO.getSede(),
+                sede);
         return mav;
     }
 
     @RequestMapping(value = "/ajax/actualizar.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView actualizarFactura(@Valid DetalleFacturaDTO detalleFacturaDTO, @RequestParam(value = "nombreSede", required = false) String nombreSede,
-            @RequestParam(value = "numeroSede", required = false) Long idSede, @RequestParam(value = "estadoFactura", required = false) String estadoFactura,
+            @RequestParam(value = "numeroSede", required = false) Long idSede
+            , @RequestParam(value = "estadoFactura", required = false) String estadoFactura,
             @PathVariable String sede) {
         String sedeConexion = sede;
        // facturaService.actualizarFactura(sedeConexion, nombreSede,estadoFactura, detalleFacturaDTO);
@@ -132,7 +134,7 @@ public class FacturasController extends BaseController {
         //Sede
         facturaService.borrarFacturaSubSede(nombreSede, numfac);
         
-        facturaService.actualizarFactura(getPropiedades().leerPropiedad(), nombreSede, estadoFactura, detalleFacturaDTO);
+        facturaService.actualizarFactura(sede, nombreSede, estadoFactura, detalleFacturaDTO);
         detalleFacturaDTO = null;
         ModelAndView mav = new ModelAndView("facturacion/edicion/formFactura");
         DetalleFacturaDTO detalleFacturaDTO_ = new DetalleFacturaDTO();
@@ -146,16 +148,17 @@ public class FacturasController extends BaseController {
 
     @RequestMapping(value = "/facturaVentaPDF.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView facturaVenta(@RequestParam(required = false, value = "factura") String factura,
-            @RequestParam(required = false, value = "numeroFactura") Long numeroFactura, @RequestParam(required = false, value = "sede") Long sede) {
+            @RequestParam(required = false, value = "numeroFactura") Long numeroFactura,
+            @RequestParam(required = false, value = "sede") Long sedeNumber,@PathVariable String sede) {
        
         //Servicio
-        Factura factura1 = facturaService.findFacturaSede(getPropiedades().leerPropiedad(), numeroFactura);
+        Factura factura1 = facturaService.findFacturaSede(sede, numeroFactura);
 
-        List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(getPropiedades().leerPropiedad(), numeroFactura);
+        List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(sede, numeroFactura);
 
         JRDataSource datos = new JRBeanCollectionDataSource(detalleFactura);
         Map<String, Object> parameterMap = new HashMap<>();
-        Sedes sedes = sedesService.buscarSede(getPropiedades().leerPropiedad(), sede);
+        Sedes sedes = sedesService.buscarSede(sedeNumber);
         parameterMap.put("datos", datos);
         parameterMap.put("numeroFactura", numeroFactura);
         parameterMap.put("fechaFactura", Formatos.dateTostring(factura1.getFechaFactura()));
@@ -167,18 +170,19 @@ public class FacturasController extends BaseController {
     
     @RequestMapping(value = "/facturaVentaActualizadaPDF.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView facturaVentaActualizada(HttpServletRequest request, @RequestParam(required = false, value = "factura") String factura,
-            @RequestParam(required = false, value = "numeroFactura") Long numeroFactura, @RequestParam(required = false, value = "sede") Long sede) {
+            @RequestParam(required = false, value = "numeroFactura") Long numeroFactura
+            , @RequestParam(required = false, value = "sede") Long sedeNumber,@PathVariable String sede) {
 
         //Servicio
-        Factura factura1 = facturaService.findFacturaSede(getPropiedades().leerPropiedad(), numeroFactura);
+        Factura factura1 = facturaService.findFacturaSede(sede, numeroFactura);
         System.out.println("OBJETO FACTURA::"+factura1);
         System.out.println("FECHA FACTURA::"+factura1.getFechaFactura());
 
-        List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(getPropiedades().leerPropiedad(), numeroFactura);
+        List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(sede, numeroFactura);
         System.out.println("FECHA FACTURA DESPUES::"+factura1.getFechaFactura());
         JRDataSource datos = new JRBeanCollectionDataSource(detalleFactura);
         Map<String, Object> parameterMap = new HashMap<>();
-        Sedes sedes = sedesService.buscarSede(getPropiedades().leerPropiedad(), sede);
+        Sedes sedes = sedesService.buscarSede(sedeNumber);
         parameterMap.put("datos", datos);
         parameterMap.put("numeroFactura", numeroFactura);
         parameterMap.put("fechaFactura", Formatos.dateTostring(factura1.getFechaFactura()));
@@ -236,9 +240,10 @@ public class FacturasController extends BaseController {
     
     @RequestMapping(value = "/reportes/ventasTotalesPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteVentasTotalesPDF(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial
+            , @RequestParam(required = false, value = "fechaFinal") String fechaFinal,@PathVariable String sede) {
 
-        List<VentasTotalesDTO> ventasTotales = facturaService.ventasTotales(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal, "A");
+        List<VentasTotalesDTO> ventasTotales = facturaService.ventasTotales(sede, fechaInicial, fechaFinal, "A");
         ModelAndView mav = null;
         if (ventasTotales.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(ventasTotales);
@@ -256,9 +261,10 @@ public class FacturasController extends BaseController {
     
     @RequestMapping(value = "/reportes/totalFacturasPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteFacturasTotalesPDF(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial
+            , @RequestParam(required = false, value = "fechaFinal") String fechaFinal,@PathVariable String sede) {
 
-        List<FacturaTotalReporteDto> reporte = facturaService.reporteFacturaCompra(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal);
+        List<FacturaTotalReporteDto> reporte = facturaService.reporteFacturaCompra(sede, fechaInicial, fechaFinal);
         ModelAndView mav = null;
         if (reporte.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
@@ -278,18 +284,17 @@ public class FacturasController extends BaseController {
     @RequestMapping(value = "/reportes/ventasTotalesSedePDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteVentasTotalesSedePDF(HttpServletRequest request,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
-            @RequestParam(required = false, value = "sede") Long idSede) {
+            @RequestParam(required = false, value = "sede") Long idSede,@PathVariable String sede) {
         ModelAndView mav = null;
-        String dataSource = getPropiedades().leerPropiedad();
-        List<VentasTotalesDTO> ventasTotales = facturaService.ventasTotalesSede(dataSource, fechaInicial, fechaFinal, "A", idSede);
-        Sedes sede = sedesService.buscarSede(dataSource, idSede);
+        List<VentasTotalesDTO> ventasTotales = facturaService.ventasTotalesSede(sede, fechaInicial, fechaFinal, "A", idSede);
+        Sedes sedeObj = sedesService.buscarSede(idSede);
         if (ventasTotales.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(ventasTotales);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
-            parameterMap.put("sede", sede.getSede());
+            parameterMap.put("sede", sedeObj.getSede());
             mav = new ModelAndView("ventasTotalesSede", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/factura/reportes/ventasTotalesSede.htm");
@@ -301,18 +306,17 @@ public class FacturasController extends BaseController {
     @RequestMapping(value = "/reportes/totalFacturasSedePDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteTotalFacturasSedePDF(HttpServletRequest request,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
-            @RequestParam(required = false, value = "sede") Long idSede) {
+            @RequestParam(required = false, value = "sede") Long idSede,@PathVariable String sede) {
         ModelAndView mav = null;
-        String dataSource = getPropiedades().leerPropiedad();
-        List<FacturaReporteSedeDto> reporte = facturaService.reporteFacturaCompraProveedor(dataSource, idSede, fechaInicial, fechaFinal);
-        Sedes sede = sedesService.buscarSede(dataSource, idSede);
+        List<FacturaReporteSedeDto> reporte = facturaService.reporteFacturaCompraProveedor(sede, idSede, fechaInicial, fechaFinal);
+        Sedes sedeObj = sedesService.buscarSede(idSede);
         if (reporte.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
-            parameterMap.put("nombreSede", sede.getSede());
+            parameterMap.put("nombreSede", sedeObj.getSede());
             mav = new ModelAndView("facturasTotalXSede", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/factura/reportes/totalFacturasSede.htm");
@@ -323,21 +327,21 @@ public class FacturasController extends BaseController {
 
     @RequestMapping(value = "/ajax/listaProductos.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView listaProductos(@RequestParam(required = false, value = "numeroFactura") Long numeroFactura,
-    @RequestParam(required = false, value = "cambiosede") String cambiosede) {
+    @RequestParam(required = false, value = "cambiosede") String cambiosede,
+    @PathVariable String sede) {
         ModelAndView mav = null;
         if(cambiosede==null){
             mav = new ModelAndView("facturacion/detalleFactura");
         }else{
             mav = new ModelAndView("facturacion/sede/detalleFactura");
         }
-        String dataSource = getPropiedades().leerPropiedad();
-        List<FacturaVentaDTO> detalle = facturaService.traerProductosFactura(dataSource, numeroFactura);
-        Sedes sede = null;
-        if (!detalle.isEmpty()) {
+        List<FacturaVentaDTO> detalle = facturaService.traerProductosFactura(sede, numeroFactura);
+        Sedes sedeObj = null;
+        if (detalle!=null && !detalle.isEmpty()) {
             Long idSede = detalle.get(0).getIdsede();
             String estadoFactura = detalle.get(0).getEstado();
-            sede = sedesService.buscarSede(dataSource, idSede);
-            mav.addObject("sede", sede);
+            sedeObj = sedesService.buscarSede(idSede);
+            mav.addObject("sede", sedeObj);
             mav.addObject("productos", detalle);
             mav.addObject("totalFactura", calcularTotalFactura(detalle));
             mav.addObject("estadoFactura", estadoFactura);
@@ -367,14 +371,16 @@ public class FacturasController extends BaseController {
     
     @RequestMapping(value="/guardarCambioSede.htm",method={RequestMethod.POST, RequestMethod.GET})
     public ModelAndView guardarCambioSede(@Valid DetalleFacturaDTO detalleFacturaDTO,@RequestParam(value="numeroSede", required=false) Long idSedeOrigen 
-                                    ,@RequestParam(value="estadoFactura", required=false)String estadoFactura){
+                                    ,@RequestParam(value="estadoFactura", required=false)String estadoFactura
+    ,@PathVariable String sede){
         //Traigo las sedes
-        Sedes sedeOrigen = sedesService.buscarSede(getPropiedades().leerPropiedad(), idSedeOrigen);
-        Sedes sedeDestino = sedesService.buscarSede(getPropiedades().leerPropiedad(), detalleFacturaDTO.getSede());
+        Sedes sedeOrigen = sedesService.buscarSede(idSedeOrigen);
+        Sedes sedeDestino = sedesService.buscarSede(detalleFacturaDTO.getSede());
         
         //Hago el traslado
-        facturaService.cambiarSedeFactura(getPropiedades().leerPropiedad(), detalleFacturaDTO, estadoFactura, sedeOrigen, sedeDestino);
-        ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(),Long.parseLong(detalleFacturaDTO.getNumeroFactura()),detalleFacturaDTO.getSede());
+        facturaService.cambiarSedeFactura(sede, detalleFacturaDTO, estadoFactura, sedeOrigen, sedeDestino);
+        ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(),Long.parseLong(detalleFacturaDTO.getNumeroFactura()),detalleFacturaDTO.getSede(),
+                sede);
         return mav;
     }
     
@@ -388,8 +394,9 @@ public class FacturasController extends BaseController {
         return mav;
     }
     @RequestMapping("/ajax/proveedor/autocompletar.htm")
-    public @ResponseBody String autocompletarFacturaProveedor(@RequestParam String term,@RequestParam Long idproveedor){
-        List<FacturaAutocompletarDto> busqueda = facturaService.buscarFacturaAutocompletar(getPropiedades().leerPropiedad(),term , idproveedor);
+    public @ResponseBody String autocompletarFacturaProveedor(@RequestParam String term,@RequestParam Long idproveedor,
+            @PathVariable String sede){
+        List<FacturaAutocompletarDto> busqueda = facturaService.buscarFacturaAutocompletar(sede,term , idproveedor);
         JsonArray jsonArray = null;
         Gson gson = new Gson();
         String json = "[]";

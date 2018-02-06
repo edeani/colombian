@@ -21,5 +21,5 @@ public interface SedesService {
     public List<ItemsDTO> listaSedesOptions(Integer idSede);
     public List<Sedes> traerSedes(String nameDatasource);
     public List<SedesDto> traerSedesDtos();
-    public Sedes buscarSede(String nameDatasource,Long idSede);
+    public Sedes buscarSede(Long idSede);
 }

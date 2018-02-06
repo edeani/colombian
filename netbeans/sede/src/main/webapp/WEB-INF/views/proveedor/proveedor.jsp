@@ -18,7 +18,7 @@
             Proveedores
             <select id="selectProveedor" data-cargarselect="<%=request.getContextPath()%>/proveedor/ajax/listaProveedores.htm">
                 <option value="">Seleccione Proveedor</option>
-                <c:import url="/proveedor/ajax/listaProveedores.htm">
+                <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm">
                 </c:import>
             </select>
         </label>

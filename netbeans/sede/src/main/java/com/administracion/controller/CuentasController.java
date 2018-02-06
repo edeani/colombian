@@ -43,11 +43,11 @@ public class CuentasController extends BaseController {
 
     @RequestMapping(value = "/ajax/actualizar.htm")
     public @ResponseBody
-    String actualizarCuenta(@Valid CuentasPuc cuentasPuc) {
+    String actualizarCuenta(@Valid CuentasPuc cuentasPuc,@PathVariable String sede) {
         ModelAndView mav = null;
 
         try {
-            cuentasService.actualizarCuenta(cuentasPuc, getPropiedades().leerPropiedad());
+            cuentasService.actualizarCuenta(cuentasPuc, sede);
         } catch (Exception e) {
             System.out.println("Controller:actualizarCuenta:" + e.getMessage());
             return "";
@@ -67,11 +67,11 @@ public class CuentasController extends BaseController {
 
     @RequestMapping(value = "/ajax/guardar.htm")
     public @ResponseBody
-    String guardarCuenta(@Valid CuentasPuc cuentasPuc) {
+    String guardarCuenta(@Valid CuentasPuc cuentasPuc,@PathVariable String sede) {
         ModelAndView mav = null;
 
         try {
-            cuentasService.guardarCuenta(cuentasPuc, getPropiedades().leerPropiedad());
+            cuentasService.guardarCuenta(cuentasPuc, sede);
         } catch (Exception e) {
             System.out.println("Controller:guardarCuenta:" + e.getMessage());
             return "";
@@ -80,11 +80,12 @@ public class CuentasController extends BaseController {
     }
 
     @RequestMapping(value = "/ajax/buscar.htm")
-    public ModelAndView buscarCuenta(@RequestParam(value = "idCuenta") Long idCuenta) {
+    public ModelAndView buscarCuenta(@RequestParam(value = "idCuenta") Long idCuenta,
+            @PathVariable String sede) {
 
         ModelAndView mav = null;
         boolean haycuenta = false;
-        CuentasPuc cuentasPuc = cuentasService.buscarCuenta("" + idCuenta, getPropiedades().leerPropiedad());
+        CuentasPuc cuentasPuc = cuentasService.buscarCuenta("" + idCuenta,sede);
         if (cuentasPuc != null) {
             haycuenta = true;
             mav = new ModelAndView("contabilidad/detalleCuenta");

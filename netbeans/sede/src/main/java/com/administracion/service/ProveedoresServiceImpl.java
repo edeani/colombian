@@ -34,7 +34,7 @@ public class ProveedoresServiceImpl implements ProveedoresService {
     @Override
     @Transactional(readOnly = true)
     public Proveedor proveedor(String nameDatasource, Long idproveedor) {
-        return proveedoresDao.getProveedor(connectsAuth.getDataSourceSubSede(nameDatasource), idproveedor);
+        return proveedoresDao.getProveedor(connectsAuth.getDataSourceSede(nameDatasource), idproveedor);
     }
 
     @Override
