@@ -245,7 +245,7 @@ public class FacturasController extends BaseController {
 
         List<VentasTotalesDTO> ventasTotales = facturaService.ventasTotales(sede, fechaInicial, fechaFinal, "A");
         ModelAndView mav = null;
-        if (ventasTotales.size() > 0) {
+        if (ventasTotales!=null && ventasTotales.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(ventasTotales);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
@@ -253,7 +253,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("fechaFinal", fechaFinal);
             mav = new ModelAndView("ventasTotales", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:"+sede+"/factura/reportes/ventasTotales.htm");
+            mav = new ModelAndView("redirect:/"+sede+"/factura/reportes/ventasTotales.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -266,7 +266,7 @@ public class FacturasController extends BaseController {
 
         List<FacturaTotalReporteDto> reporte = facturaService.reporteFacturaCompra(sede, fechaInicial, fechaFinal);
         ModelAndView mav = null;
-        if (reporte.size() > 0) {
+        if (reporte!=null && reporte.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
@@ -274,7 +274,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("fechaFinal", fechaFinal);
             mav = new ModelAndView("facturasTotal", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:"+sede+"/factura/reportes/totalFacturas.htm");
+            mav = new ModelAndView("redirect:/"+sede+"/factura/reportes/totalFacturas.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -288,7 +288,7 @@ public class FacturasController extends BaseController {
         ModelAndView mav = null;
         List<VentasTotalesDTO> ventasTotales = facturaService.ventasTotalesSede(sede, fechaInicial, fechaFinal, "A", idSede);
         Sedes sedeObj = sedesService.buscarSede(idSede);
-        if (ventasTotales.size() > 0) {
+        if (ventasTotales!=null && ventasTotales.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(ventasTotales);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
@@ -297,7 +297,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("sede", sedeObj.getSede());
             mav = new ModelAndView("ventasTotalesSede", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:"+sede+"/factura/reportes/ventasTotalesSede.htm");
+            mav = new ModelAndView("redirect:/"+sede+"/factura/reportes/ventasTotalesSede.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -310,7 +310,7 @@ public class FacturasController extends BaseController {
         ModelAndView mav = null;
         List<FacturaReporteSedeDto> reporte = facturaService.reporteFacturaCompraProveedor(sede, idSede, fechaInicial, fechaFinal);
         Sedes sedeObj = sedesService.buscarSede(idSede);
-        if (reporte.size() > 0) {
+        if (reporte!=null && reporte.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
@@ -319,7 +319,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("nombreSede", sedeObj.getSede());
             mav = new ModelAndView("facturasTotalXSede", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:"+sede+"/factura/reportes/totalFacturasSede.htm");
+            mav = new ModelAndView("redirect:/"+sede+"/factura/reportes/totalFacturasSede.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -371,7 +371,7 @@ public class FacturasController extends BaseController {
     
     @RequestMapping(value="/guardarCambioSede.htm",method={RequestMethod.POST, RequestMethod.GET})
     public ModelAndView guardarCambioSede(@Valid DetalleFacturaDTO detalleFacturaDTO,@RequestParam(value="numeroSede", required=false) Long idSedeOrigen 
-                                    ,@RequestParam(value="estadoFactura", required=false)String estadoFactura
+    ,@RequestParam(value="estadoFactura", required=false)String estadoFactura
     ,@PathVariable String sede){
         //Traigo las sedes
         Sedes sedeOrigen = sedesService.buscarSede(idSedeOrigen);

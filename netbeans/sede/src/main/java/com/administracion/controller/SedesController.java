@@ -68,12 +68,12 @@ public class SedesController extends BaseController {
     //Seteo la sede en Sesión
     @RequestMapping(value = "/ajax/seleccionarSede.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView seleccionarSede(HttpSession session, HttpServletRequest request,
-            @RequestParam(value = "idSede", required = false) Long idSede, @RequestParam(value = "nombreSede", required = false) String nombreSede) {
+            @RequestParam(value = "idSede", required = false) Long idSede,
+            @RequestParam(value = "nombreSede", required = false) String nombreSede,@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("util/formSelectSedes");
-        getPropiedades().setArchivo(getArchivo());
-        getPropiedades().setPropiedad(getPropiedadPrincipal());
-        SubSedesDto ss = connectsAuth.findSubsedeXName((String)session.getAttribute("path"));
-        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(idSede.intValue());
+        //SubSedesDto ss = connectsAuth.findSubsedeXName((String)session.getAttribute("path"));
+        SedesDto sedesDto= connectsAuth.findSedeXName(sede);
+        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(sedesDto.getIdsedes());
         mav.addObject("datos", datosSedes);
         mav.addObject("sede", idSede);
         return mav;

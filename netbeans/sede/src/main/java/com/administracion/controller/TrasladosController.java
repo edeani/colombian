@@ -105,7 +105,7 @@ public class TrasladosController extends BaseController{
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:"+sede+"/traslados/reporte/traslados.htm");
+        mav = new ModelAndView("redirect:/"+sede+"/traslados/reporte/traslados.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;

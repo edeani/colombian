@@ -121,7 +121,7 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
     public List<InventarioFinalDTO> inventarioFinal(DataSource nameDatasource, String fechaInicial, String fechaFinal) {
         MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fechaInicial);
         params.addValue("fechaFinal", fechaFinal);
-
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(nameDatasource);
         return namedParameterJdbcTemplate.query(leerXml.getQuery("InventarioSql.invenarioFinal"), params, new BeanPropertyRowMapper(InventarioFinalDTO.class));
     }
 

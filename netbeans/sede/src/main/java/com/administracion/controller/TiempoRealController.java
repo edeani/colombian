@@ -38,10 +38,10 @@ public class TiempoRealController extends BaseController {
     }
 
     @RequestMapping("/ajax/calcular.htm")
-    public ModelAndView calcularTiempoReal(@RequestParam String fecha,@PathVariable String sede,@RequestParam(required = false) String subsede) {
+    public ModelAndView calcularTiempoReal(@RequestParam String fecha,@PathVariable String sede,@RequestParam(required = false,value = "sede") String subsede) {
         ModelAndView mav = new ModelAndView("reportes/colombian/tiempoReal/datosTiempoReal");
 
-        TiempoRealDto cierreDiario = new TiempoRealDto();
+        TiempoRealDto cierreDiario = new TiempoRealDto();   
         Double cajaInicial = cierreColombianService.cierreDiario(Formatos.StringDateToDate(fecha),subsede);
         cierreDiario.setCajaInicial(cajaInicial);
         cierreDiario.setVentas(cierreColombianService.cierreVentas(Formatos.StringDateToDate(fecha),subsede));

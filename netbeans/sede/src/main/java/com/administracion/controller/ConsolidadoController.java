@@ -97,7 +97,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaFinal", fechaFinal);
             mav = new ModelAndView("consolidado", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:"+sede+"/consolidado/sede.htm");
+            mav = new ModelAndView("redirect:/"+sede+"/consolidado/sede.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -167,7 +167,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             mav = new ModelAndView("comprobanteCierreSede", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:"+sede+"/consolidado/comprobante/sede.htm");
+            mav = new ModelAndView("redirect:/"+sede+"/consolidado/comprobante/sede.htm");
         }
 
         return mav;
@@ -192,7 +192,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             mav = new ModelAndView("reporteCierreSedes", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:"+sede+"/"+sede+"/consolidado/comprobante/sede.htm");
+            mav = new ModelAndView("redirect:/"+sede+"/"+sede+"/consolidado/comprobante/sede.htm");
         }
 
         return mav;

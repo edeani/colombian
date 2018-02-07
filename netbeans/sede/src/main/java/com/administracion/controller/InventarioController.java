@@ -212,7 +212,7 @@ public class InventarioController extends BaseController {
             parameterMap.put("fechaFinal", fechaFinal);
             mav = new ModelAndView("inventarioTotal", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:"+sede+"/inventario/reportes/inventarioTotal.htm");
+            mav = new ModelAndView("redirect:/"+sede+"/inventario/reportes/inventarioTotal.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -239,7 +239,7 @@ public class InventarioController extends BaseController {
     
     @RequestMapping(value = "/colombian/ajax/consultar.htm")
     public ModelAndView consultarInventarioColombian(@RequestParam String fechaInicial,@RequestParam String fechaFinal,
-    @RequestParam(required = false )String subsede){
+    @RequestParam(required = false,value="sede" )String subsede){
         ModelAndView mav = new ModelAndView("reportes/colombian/inventario/datosInventario");
         List<Inventario> inventario = inventarioColombianService.traerInventario(Formatos.StringDateToDate(fechaFinal), Formatos.StringDateToDate(fechaInicial),subsede);
         mav.addObject("inventario", inventario); 

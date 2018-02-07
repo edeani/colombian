@@ -7,7 +7,8 @@ $(document).ready(function () {
         var estadoFormulario = validarFormulario("#formCierreDiario");
         if (estadoFormulario==="") {
             loader("cargador", "barra.gif");
-            var html = peticionAjax($("#formCierreDiario").attr("action"), "POST", "fecha=" + $("#fecha").val());
+            var html = peticionAjax($("#formCierreDiario").attr("action"), "POST", "fecha=" + $("#fecha").val()+
+                    "&sede="+$("#sedeSession").find("option:selected").text());
             loader("cargador", "");
             $("#cierreDiario").html(html);
         }else{

@@ -16,11 +16,13 @@ import com.administracion.dto.ItemFacturaDto;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteComprasTotalesProvDTO;
 import com.administracion.dto.ReporteComprasTotalesXProveedorDTO;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.Proveedor;
 import com.administracion.service.ComprasService;
 import com.administracion.service.InventarioService;
 import com.administracion.service.JasperService;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.service.jsf.ComprasColombianService;
 import com.administracion.util.Formatos;
@@ -85,6 +87,8 @@ public class ComprasController extends BaseController {
     private JasperService jasperService;
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private ConnectsAuth connectsAuth;
     private LectorPropiedades propiedades;
     private  final String titulo = "Entradas Compras";
 
@@ -155,7 +159,7 @@ public class ComprasController extends BaseController {
             mav.addObject("detalleCompras", detalleCompras);
             mav.addObject("sproveedor", "");
             setBasicModel(mav, detalleCompraDTO);
-            //mav = new ModelAndView("redirect:"+sede+"/compras/edicion.htm");
+            //mav = new ModelAndView("redirect:/"+sede+"/compras/edicion.htm");
         }
 
         return mav;
@@ -300,7 +304,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasProveedorFecha.htm");
+        mav = new ModelAndView("redirect:/"+sede+"/compras/reportes/comprasProveedorFecha.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -324,7 +328,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasTotales.htm");
+        mav = new ModelAndView("redirect:/"+sede+"/compras/reportes/comprasTotales.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -347,7 +351,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasTotalesProducto.htm");
+        mav = new ModelAndView("redirect:/"+sede+"/compras/reportes/comprasTotalesProducto.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -372,7 +376,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasTotalesProveedor.htm");
+        mav = new ModelAndView("redirect:/"+sede+"/compras/reportes/comprasTotalesProveedor.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -397,7 +401,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/comprasTotalesProveedores.htm");
+        mav = new ModelAndView("redirect:/"+sede+"/compras/reportes/comprasTotalesProveedores.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -422,7 +426,7 @@ public class ComprasController extends BaseController {
                 return mav;
             }
         }
-        mav = new ModelAndView("redirect:"+sede+"/compras/reportes/cuentasPagarProveedor.htm");
+        mav = new ModelAndView("redirect:/"+sede+"/compras/reportes/cuentasPagarProveedor.htm");
         mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
 
         return mav;
@@ -441,10 +445,10 @@ public class ComprasController extends BaseController {
 
     @RequestMapping("/colombian/reportes/compraspdf.htm")
     public ModelAndView generarComprasColombian(@RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
-            @RequestParam (required = false) String sede) {
+            @RequestParam (required = false,value="sede") String sede) {
         ModelAndView mav = null;
-
-        List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal),sede);
+         SubSedesDto subSedesDto = connectsAuth.findSubsedeXId(Integer.valueOf(sede));
+        List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal),subSedesDto.getSede());
         if (reporte != null) {
             if (reporte.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);

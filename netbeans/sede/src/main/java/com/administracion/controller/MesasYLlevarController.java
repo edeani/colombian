@@ -34,7 +34,7 @@ public class MesasYLlevarController extends BaseController {
 
     @RequestMapping(value = "/colombian/ajax/consultar.htm")
     public ModelAndView paginaMesasyLlevar(@RequestParam String fechaInicial, @RequestParam String fechaFinal
-    ,@RequestParam(required = false)String subsede) {
+    ,@RequestParam(required = false,value="sede")String subsede) {
         
         List<Mesasyllevar> mesas = mesasyllevarColombianService.mesas(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal),subsede);
        

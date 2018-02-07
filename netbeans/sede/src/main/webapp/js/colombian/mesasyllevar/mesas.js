@@ -11,7 +11,8 @@ $(document).ready(function(){
         var estadoFormulario = validarFormulario("#formMesas");
         if (estadoFormulario==="") {
             loader("cargador", "barra.gif");
-            var html = peticionAjax($("#formMesas").attr("action"), "POST", "fechaInicial=" + $("#fechaInicial").val()+"&fechaFinal="+$("#fechaFinal").val());
+            var html = peticionAjax($("#formMesas").attr("action"), "POST", "fechaInicial=" + $("#fechaInicial").val()+"&fechaFinal="+$("#fechaFinal").val()
+                    +"&sede="+$("#sedeSession").find("option:selected").text());
             loader("cargador", "");
             $("#listaMesas").html(html);
         }else{

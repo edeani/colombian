@@ -34,7 +34,7 @@
                 Proveedores
             </label>
             <select id="codigoProveedor" name="codigoProveedor">
-                <c:import url="/proveedor/ajax/listaProveedores.htm">
+                <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm">
                     <c:param name="proveedores" value="${proveedores}"/>
                 </c:import>
             </select>
