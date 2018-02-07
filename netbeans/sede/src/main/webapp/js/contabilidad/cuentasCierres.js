@@ -40,7 +40,7 @@ $(document).ready(function() {
 
                 var urlComprobante = $("#comprobanteCierreSedesDto").data("urlcomprobantepdf");
                 //Genero el PDF
-                var body = document.body;
+                var body_ = document.body;
                 var form = document.createElement('form');
                 form.method = 'POST';
                 form.action = urlComprobante;
@@ -53,10 +53,10 @@ $(document).ready(function() {
                 input.id = "idComprobanteCierre";
                 input.value = consecutivo;
                 form.appendChild(input);
-                body.appendChild(form);
+                body_.appendChild(form);
                 form.submit();
-                var urlLocal = window.location.href;
-                window.location.href = urlLocal;
+                //var urlLocal = window.location.href;
+                //window.location.href = urlLocal;
             }
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");

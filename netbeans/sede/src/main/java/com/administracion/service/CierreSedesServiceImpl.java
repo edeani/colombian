@@ -78,13 +78,13 @@ public class CierreSedesServiceImpl implements CierreSedesService {
     @Override
     @Transactional(readOnly = true)
     public List<ReporteComprobanteCierreDto> buscarDetalleComprobanteCierreSedesView(String nameDataSource, Long idComprobanteCierre) {
-        return cierreSedesDao.buscarDetalleComprobanteCierreSedesView(connectsAuth.getDataSourceSubSede(nameDataSource), idComprobanteCierre);
+        return cierreSedesDao.buscarDetalleComprobanteCierreSedesView(connectsAuth.getDataSourceSede(nameDataSource), idComprobanteCierre);
     }
 
     @Override
     @Transactional(readOnly = true)
     public CierreSedesDto buscarComprobanteCierreDto(String nameDataSource, Long idComprobanteCierre) {
-        return cierreSedesDao.buscarComprobanteCierreDto(connectsAuth.getDataSourceSubSede(nameDataSource), idComprobanteCierre);
+        return cierreSedesDao.buscarComprobanteCierreDto(connectsAuth.getDataSourceSede(nameDataSource), idComprobanteCierre);
     }
 
     @Override
