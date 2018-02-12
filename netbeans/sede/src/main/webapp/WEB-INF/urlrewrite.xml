@@ -2,7 +2,7 @@
 <urlrewrite>
 <rule>
         <from>^/([a-zA-Z]+)$</from>
-        <to type="redirect">/$1/signin.htm</to>
+        <to type="redirect">/sede/$1/signin.htm</to>
 </rule>
 <!--
 
