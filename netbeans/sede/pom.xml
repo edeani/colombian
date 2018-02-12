@@ -152,6 +152,12 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Tuckey urlrewrite -->
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>4.0.3</version>
+        </dependency>
         <dependency>
             <groupId>com.mycompany</groupId>
             <artifactId>colombian-jsf</artifactId>
