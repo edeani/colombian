@@ -20,13 +20,21 @@
 	<title>
 		<band height="65" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="14" y="16" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="f1c50710-9775-4e76-bb4c-d7fe1cef27af"/>
+				<reportElement mode="Transparent" x="10" y="38" width="233" height="27" forecolor="#000000" backcolor="#FFFFFF" uuid="f1c50710-9775-4e76-bb4c-d7fe1cef27af"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Total Utilidades]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="30" y="2" width="512" height="35" forecolor="#000000" backcolor="#FFFFFF" uuid="b1ec422d-33e5-4247-a30e-165f4112ba42"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

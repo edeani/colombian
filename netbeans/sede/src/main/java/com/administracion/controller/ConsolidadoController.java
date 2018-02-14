@@ -95,6 +95,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
+            parameterMap.put("nombresede", sede);
             mav = new ModelAndView("consolidado", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/"+sede+"/consolidado/sede.htm");
@@ -165,6 +166,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("comprobante", cierreSedesDto.getConsecutivo());
             parameterMap.put("fecha", cierreSedesDto.getFecha());
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
+            parameterMap.put("nombresedereporte", sede);
             mav = new ModelAndView("comprobanteCierreSede", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/"+sede+"/consolidado/comprobante/sede.htm");
@@ -190,6 +192,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaInicial", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFinal", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
+            parameterMap.put("nombresedereporte", sede);
             mav = new ModelAndView("reporteCierreSedes", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/"+sede+"/"+sede+"/consolidado/comprobante/sede.htm");
@@ -222,6 +225,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaFin", objFechaFin);
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             parameterMap.put("titulo", "Libro Auxiliar de Caja Mayor");
+            parameterMap.put("nombresede", sede);
             mav = new ModelAndView("movimientoCaja", parameterMap);
         }
 
@@ -266,6 +270,7 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaInicio", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFin", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
+            parameterMap.put("nombresede", sede);
             //mav =  new ModelAndView("estadoPerdidaGanancias");
             mav = new ModelAndView("estadoPerdidaGananciasSede", parameterMap);
         }

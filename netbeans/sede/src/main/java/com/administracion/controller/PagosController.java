@@ -190,6 +190,7 @@ public class PagosController extends BaseController{
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdpagos());
                 parameterMap.put("titulo", "Comprobante Terceros Caja Mayor");
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprobanteBeneficiario", parameterMap);
                 return mav;
             }
@@ -236,6 +237,7 @@ public class PagosController extends BaseController{
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdpagos());
                 parameterMap.put("fecha", cabecera.getFecha());
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprobanteProveedor", parameterMap);
                 return mav;
             }

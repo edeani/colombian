@@ -5,6 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="fechaInicial" class="java.lang.String"/>
 	<parameter name="fechaFinal" class="java.lang.String"/>
+	<parameter name="nombresede" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.Long"/>
 	<field name="producto" class="java.lang.String"/>
 	<field name="inicial" class="java.lang.Long"/>
@@ -20,12 +21,20 @@
 	<title>
 		<band height="66" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="16" width="232" height="26" uuid="b4c13f61-2ed9-401c-832d-2fb638e4249a"/>
+				<reportElement x="0" y="40" width="232" height="26" uuid="b4c13f61-2ed9-401c-832d-2fb638e4249a"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Informe Inventario Total]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="30" y="2" width="512" height="38" forecolor="#000000" backcolor="#FFFFFF" uuid="31bb5ae4-142c-4197-9dd9-ac859a1411ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

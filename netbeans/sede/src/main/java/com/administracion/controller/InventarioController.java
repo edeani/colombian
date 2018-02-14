@@ -210,6 +210,7 @@ public class InventarioController extends BaseController {
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
+            parameterMap.put("nombresede", sede);
             mav = new ModelAndView("inventarioTotal", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/"+sede+"/inventario/reportes/inventarioTotal.htm");

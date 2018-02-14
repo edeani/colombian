@@ -99,6 +99,7 @@ public class CajaMenorController extends BaseController {
                 parameterMap.put("usuario", security.getCurrentUser().getUsername());
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdcajamenor());
+                parameterMap.put("nombresede", sede);
                 if(titulo.isEmpty()){
                    parameterMap.put("titulo", "Comprobante Terceros Bancos");
                 }else{
@@ -158,6 +159,7 @@ public class CajaMenorController extends BaseController {
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdcajamenor());
                 parameterMap.put("fecha", cabecera.getFecha());
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprobanteProveedor", parameterMap);
                 return mav;
             }
@@ -232,6 +234,7 @@ public class CajaMenorController extends BaseController {
             parameterMap.put("fechaFin", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             parameterMap.put("titulo", "Libro Movimiento Bancos");
+            parameterMap.put("nombresede", sede);
             mav = new ModelAndView("movimientoCaja", parameterMap);
 
         }

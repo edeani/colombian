@@ -101,6 +101,7 @@ public class TrasladosController extends BaseController{
                 parameterMap.put("datos", datos);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("traslados", parameterMap);
                 return mav;
             }

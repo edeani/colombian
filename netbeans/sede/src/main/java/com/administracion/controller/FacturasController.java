@@ -251,6 +251,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
+            parameterMap.put("nombresede", sede);
             mav = new ModelAndView("ventasTotales", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/"+sede+"/factura/reportes/ventasTotales.htm");
@@ -272,6 +273,7 @@ public class FacturasController extends BaseController {
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
+            parameterMap.put("nombreSede", sede);
             mav = new ModelAndView("facturasTotal", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/"+sede+"/factura/reportes/totalFacturas.htm");

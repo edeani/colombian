@@ -300,6 +300,7 @@ public class ComprasController extends BaseController {
                 parameterMap.put("datos", datos);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprasProveedorFecha", parameterMap);
                 return mav;
             }
@@ -324,6 +325,7 @@ public class ComprasController extends BaseController {
                 parameterMap.put("datos", datos);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprasTotales", parameterMap);
                 return mav;
             }
@@ -347,6 +349,7 @@ public class ComprasController extends BaseController {
                 parameterMap.put("datos", datos);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprasTotalProducto", parameterMap);
                 return mav;
             }
@@ -372,6 +375,7 @@ public class ComprasController extends BaseController {
                 parameterMap.put("nombreProveedor", nombreProveedor);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprasTotalesProveedor", parameterMap);
                 return mav;
             }
@@ -397,6 +401,7 @@ public class ComprasController extends BaseController {
                 parameterMap.put("nombreProveedor", nombreProveedor);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprasTotalXProveedor", parameterMap);
                 return mav;
             }
@@ -422,6 +427,7 @@ public class ComprasController extends BaseController {
                 parameterMap.put("nombreProveedor", nombreProveedor);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
+                parameterMap.put("nombresede", sede);
                 mav = new ModelAndView("comprasCuentasPagarProveedor", parameterMap);
                 return mav;
             }
@@ -465,7 +471,7 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping("/compraPdf.htm")
-    public ModelAndView compraFindedPdf(@Valid DetalleCompraDTO detalleCompraDTO) {
+    public ModelAndView compraFindedPdf(@Valid DetalleCompraDTO detalleCompraDTO,@PathVariable String sede) {
         ModelAndView mav = null;
         List<ItemFacturaDto> detalleFactura = FacturaMapper.stringFacturaToIteFacturaDto(detalleCompraDTO.getFactura());
         if (detalleFactura != null) {

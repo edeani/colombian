@@ -6,6 +6,7 @@
 	<parameter name="comprobante" class="java.lang.Long"/>
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="nombresede" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -45,12 +46,20 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{comprobante}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="130" y="19" width="337" height="37" uuid="1e3fbbfc-4b9a-4fde-a78b-bd7c61a3ec4f"/>
-				<textElement textAlignment="Center">
-					<font size="20"/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="10" y="67" width="337" height="37" forecolor="#000000" backcolor="#FFFFFF" uuid="1e3fbbfc-4b9a-4fde-a78b-bd7c61a3ec4f"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="11" width="502" height="41" uuid="fee9bc60-3b47-440f-a8d4-bb4f6e89f754"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

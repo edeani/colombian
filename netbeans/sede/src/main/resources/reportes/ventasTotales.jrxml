@@ -5,6 +5,7 @@
 	<property name="ireport.y" value="31"/>
 	<parameter name="fechaInicial" class="java.lang.String"/>
 	<parameter name="fechaFinal" class="java.lang.String"/>
+	<parameter name="nombresede" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.Long"/>
 	<field name="producto" class="java.lang.String"/>
 	<field name="unidades" class="java.lang.Long"/>
@@ -47,13 +48,21 @@
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="13" y="39" width="163" height="32" forecolor="#000000" backcolor="#FFFFFF" uuid="be3d02a3-a367-41ab-8253-0f5f5724a0e3"/>
+				<reportElement mode="Transparent" x="13" y="69" width="163" height="32" forecolor="#000000" backcolor="#FFFFFF" uuid="be3d02a3-a367-41ab-8253-0f5f5724a0e3"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Despachos Totales]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="30" y="18" width="512" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="47785b94-0f7e-4094-9c19-f19998f0b41b"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

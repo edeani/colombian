@@ -6,7 +6,6 @@ package com.administracion.controller;
 
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.SedesDto;
-import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.ConnectsAuth;

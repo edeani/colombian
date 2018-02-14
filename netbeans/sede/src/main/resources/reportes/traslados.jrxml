@@ -9,6 +9,7 @@
 	<parameter name="fechaFinal" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="nombresede" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -47,13 +48,21 @@
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="2" y="16" width="326" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
+				<reportElement x="0" y="41" width="326" height="26" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
 				<box leftPadding="0"/>
 				<textElement verticalAlignment="Top">
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Traslados]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="35" y="1" width="502" height="40" forecolor="#000000" backcolor="#FFFFFF" uuid="58231dc7-73dd-4c91-8858-b1fabe791afe"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
