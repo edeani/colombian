@@ -8,6 +8,7 @@
 	<parameter name="fecha" class="java.util.Date"/>
 	<parameter name="sede" class="java.lang.String"/>
 	<parameter name="nombresedereporte" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -74,12 +75,19 @@
 				<text><![CDATA[Comprobante Cierre]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="35" y="8" width="502" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="97feb3fb-9aab-49f0-ae3f-fc863859ee2a"/>
+				<reportElement mode="Transparent" x="1" y="0" width="306" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="97feb3fb-9aab-49f0-ae3f-fc863859ee2a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombresedereporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="21" width="265" height="20" uuid="20b31e27-cf2d-49ce-8c28-6de58ad608c0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

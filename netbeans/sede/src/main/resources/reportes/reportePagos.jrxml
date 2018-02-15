@@ -7,6 +7,8 @@
 	<parameter name="fechaInicial" class="java.util.Date"/>
 	<parameter name="sede" class="java.lang.String"/>
 	<parameter name="fechaFinal" class="java.util.Date"/>
+	<parameter name="nombresede" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -55,13 +57,28 @@
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="35" width="228" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
+				<reportElement x="0" y="66" width="228" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
 				<box leftPadding="0"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Reporte de Pagos por Sede]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="2" y="0" width="306" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="7459a6b2-feff-4274-b7a3-2a19387d7825"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="21" width="266" height="20" uuid="114e8a2c-5b9c-4fb2-95b3-584386882c27"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

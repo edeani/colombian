@@ -12,6 +12,7 @@
 	<parameter name="fechaInicial" class="java.util.Date"/>
 	<parameter name="fechaFinal" class="java.util.Date"/>
 	<parameter name="nombreSede" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<field name="id" class="java.lang.Long"/>
 	<field name="label" class="java.lang.String"/>
 	<background>
@@ -28,12 +29,19 @@
 				<text><![CDATA[Total Utilidades]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="30" y="2" width="512" height="35" forecolor="#000000" backcolor="#FFFFFF" uuid="b1ec422d-33e5-4247-a30e-165f4112ba42"/>
+				<reportElement mode="Transparent" x="1" y="3" width="306" height="35" forecolor="#000000" backcolor="#FFFFFF" uuid="b1ec422d-33e5-4247-a30e-165f4112ba42"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="307" y="18" width="265" height="20" uuid="a558892a-cf92-41a7-bbed-0f098eaed953"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -6,6 +6,7 @@
 	<parameter name="fechaInicial" class="java.lang.String"/>
 	<parameter name="fechaFinal" class="java.lang.String"/>
 	<parameter name="nombresede" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<field name="sede" class="java.lang.String"/>
 	<field name="compras" class="java.lang.Long"/>
 	<field name="ventas" class="java.lang.Long"/>
@@ -61,12 +62,19 @@
 				<text><![CDATA[Consolidado Sedes]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="35" y="8" width="502" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="7167b5cf-69a9-46d8-a39c-86cc554484e8"/>
+				<reportElement mode="Transparent" x="0" y="0" width="306" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="7167b5cf-69a9-46d8-a39c-86cc554484e8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="307" y="21" width="265" height="20" uuid="00ef9487-ab1b-465e-a877-150b24df8109"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -7,6 +7,7 @@
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="nombresede" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -55,11 +56,18 @@
 				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="35" y="11" width="502" height="41" uuid="fee9bc60-3b47-440f-a8d4-bb4f6e89f754"/>
+				<reportElement x="0" y="0" width="306" height="42" uuid="fee9bc60-3b47-440f-a8d4-bb4f6e89f754"/>
 				<textElement textAlignment="Center">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="306" y="22" width="261" height="20" uuid="4cae234c-68ce-4799-9a7c-4430b44bdbf8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

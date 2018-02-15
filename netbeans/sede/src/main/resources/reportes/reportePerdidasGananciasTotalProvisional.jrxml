@@ -7,6 +7,7 @@
 	<parameter name="fechaFin" class="java.util.Date"/>
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="nombreSede" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="totalCuenta" class="java.lang.Double"/>
 	<variable name="totalValor" class="java.lang.Double" calculation="Sum">
@@ -49,19 +50,27 @@
 				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="19" width="247" height="32" forecolor="#000000" backcolor="#FFFFFF" uuid="be3d02a3-a367-41ab-8253-0f5f5724a0e3"/>
+				<reportElement mode="Transparent" x="0" y="47" width="247" height="32" forecolor="#000000" backcolor="#FFFFFF" uuid="be3d02a3-a367-41ab-8253-0f5f5724a0e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Estado Pérdida Ganancias]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="283" y="19" width="113" height="33" uuid="3783521a-b957-43a4-85c1-ca52ee6ba455"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="306" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="3783521a-b957-43a4-85c1-ca52ee6ba455"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="306" y="21" width="266" height="20" uuid="de375390-7dc2-4e5b-904b-7a55bbf34efe"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

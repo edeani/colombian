@@ -5,7 +5,6 @@
  */
 package com.administracion.controller;
 
-
 import com.adiministracion.mapper.CajaMenorMapper;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
@@ -13,12 +12,16 @@ import com.administracion.dto.MovimientoCajaDto;
 import com.administracion.dto.PagosConsolidadoSedeDto;
 import com.administracion.dto.PagosProveedorDto;
 import com.administracion.dto.PagosTercerosDto;
+import com.administracion.dto.SedesDto;
 import com.administracion.entidad.CajaMenor;
 import com.administracion.entidad.DetalleCajaMenor;
+import com.administracion.entidad.TextosSloganSedeDto;
 import com.administracion.service.CajaMenorService;
 import com.administracion.service.MysqlService;
 import com.administracion.service.ReporteService;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
+import com.administracion.util.Conexion;
 import com.administracion.util.Formatos;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,57 +55,65 @@ public class CajaMenorController extends BaseController {
     private SecurityService security;
     @Autowired
     private CajaMenorService cajaMenorService;
-    private  final String cuentaProveedores = "220505";
+    @Autowired
+    private ConnectsAuth connectsAuth;
+
+    private final String cuentaProveedores = "220505";
+
     /**
      * Pagos terceros de la caja menor
-     * @return 
+     *
+     * @return
      */
     @RequestMapping(value = "/terceros/index.htm")
-    public ModelAndView inicioPagosTercerosCajaMenor(){
+    public ModelAndView inicioPagosTercerosCajaMenor() {
         ModelAndView mav = new ModelAndView("contabilidad/cajaMenor/terceros/administracionpagos");
         PagosTercerosDto pagosTercerosDto = new PagosTercerosDto();
         setBasicModel(mav, pagosTercerosDto);
         mav.addObject("pagosTercerosDto", pagosTercerosDto);
         return mav;
     }
-    
+
     /**
-     * 
+     *
      * @param pagosTercerosDto
-     * @return 
+     * @return
      */
     @RequestMapping("/ajax/terceros/guardar.htm")
-    public @ResponseBody String guardarPagoTerceros(@ModelAttribute PagosTercerosDto pagosTercerosDto,
-            @PathVariable String sede){
+    public @ResponseBody
+    String guardarPagoTerceros(@ModelAttribute PagosTercerosDto pagosTercerosDto,
+            @PathVariable String sede) {
         CajaMenorMapper cajaMenorMapper = new CajaMenorMapper();
         CajaMenor pagosTerceros = cajaMenorMapper.pagosTercerosDtoToPagoCabecera(pagosTercerosDto);
         List<DetalleCajaMenor> detallePagosTerceros = cajaMenorMapper.detallePagosTercerosDtoToDetalleCajaMenor(pagosTercerosDto.getDetallePagosTerceros());
-        
+
         cajaMenorService.guardarPagosTercerosCajaMenor(sede, pagosTerceros, detallePagosTerceros);
-        
+
         return "ok";
     }
-    
+
     @RequestMapping(value = "/terceros/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView comprobanteTerceroPDF(@RequestParam Long idpagotercero,@RequestParam(required = false) String titulo,
-            @PathVariable String sede){
-        if(titulo==null){
-            titulo="";
+    public ModelAndView comprobanteTerceroPDF(@RequestParam Long idpagotercero, @RequestParam(required = false) String titulo,
+            @PathVariable String sede) {
+        if (titulo == null) {
+            titulo = "";
         }
         List<DetallePagosTercerosDto> detalle = cajaMenorService.buscarDetallePagosTercerosCajaMenorDtos(sede, idpagotercero);
         CajaMenor cabecera = cajaMenorService.buscarPagoXIdPagoCajaMenor(sede, idpagotercero);
         ModelAndView mav = null;
-        if(detalle!=null){
-            if(detalle.size()>0){
+        if (detalle != null) {
+            if (detalle.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(detalle);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("usuario", security.getCurrentUser().getUsername());
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdcajamenor());
-                parameterMap.put("nombresede", sede);
-                if(titulo.isEmpty()){
-                   parameterMap.put("titulo", "Comprobante Terceros Bancos");
-                }else{
+                SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("slogan", sedesDto.getSlogan());
+                if (titulo.isEmpty()) {
+                    parameterMap.put("titulo", "Comprobante Terceros Bancos");
+                } else {
                     parameterMap.put("titulo", titulo);
                 }
                 mav = new ModelAndView("comprobanteBeneficiario", parameterMap);
@@ -111,13 +122,14 @@ public class CajaMenorController extends BaseController {
         }
         return mav;
     }
-    
+
     /**
      * Pagos Caja Menor Proveedor
-     * @return 
+     *
+     * @return
      */
     @RequestMapping(value = "/proveedor/index.htm")
-    public ModelAndView inicioPagosProveedor(){
+    public ModelAndView inicioPagosProveedor() {
         ModelAndView mav = new ModelAndView("contabilidad/cajaMenor/proveedor/administracionpagosproveedor");
         PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
         setBasicModel(mav, pagosProveedorDto);
@@ -125,54 +137,59 @@ public class CajaMenorController extends BaseController {
         mav.addObject("cuentaProveedores", cuentaProveedores);
         return mav;
     }
-    
+
     /**
      * Guardar Pagos Proveedor
+     *
      * @param pagosProveedorDto
      * @param sede
-     * @return 
+     * @return
      */
     @RequestMapping("/ajax/proveedor/guardar.htm")
-    public @ResponseBody String guardarPagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto,
-            @PathVariable String sede){
+    public @ResponseBody
+    String guardarPagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto,
+            @PathVariable String sede) {
         CajaMenorMapper cajaMenorMapper = new CajaMenorMapper();
         //to do: Hacer los mappers de las clases
         CajaMenor cajaMenor = cajaMenorMapper.pagoProveedorDtoToCajaMenorCabecera(pagosProveedorDto);
         List<DetalleCajaMenor> detallePagosCajaMenor = cajaMenorMapper.detallePagosProveedorDtoTodetallePagosCajaMenor(pagosProveedorDto.getDetallePagosProveedor());
-        
-        cajaMenorService.guardarPagosProveedorCajaMenor(sede,cajaMenor , detallePagosCajaMenor);
-        
+
+        cajaMenorService.guardarPagosProveedorCajaMenor(sede, cajaMenor, detallePagosCajaMenor);
+
         return "ok";
     }
-    
+
     @RequestMapping(value = "/proveedores/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView comprobanteProveedorPDF(Long idpagoproveedor,@PathVariable String sede){
-        
+    public ModelAndView comprobanteProveedorPDF(Long idpagoproveedor, @PathVariable String sede) {
+
         List<DetallePagosProveedorDto> detalle = cajaMenorService.buscarDetallePagosDtos(sede, idpagoproveedor);
         CajaMenor cabecera = cajaMenorService.buscarPagoXIdPagoCajaMenor(sede, idpagoproveedor);
         ModelAndView mav = null;
-        if(detalle!=null){
-            if(detalle.size()>0){
+        if (detalle != null) {
+            if (detalle.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(detalle);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("usuario", security.getCurrentUser().getUsername());
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdcajamenor());
                 parameterMap.put("fecha", cabecera.getFecha());
-                parameterMap.put("nombresede", sede);
+                SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprobanteProveedor", parameterMap);
                 return mav;
             }
         }
         return mav;
     }
-    
+
     /**
      * Pagos porcentages sedes Caja Menor
-     * @return 
+     *
+     * @return
      */
     @RequestMapping(value = "/sede/consolidado/index.htm")
-    public ModelAndView inicioPagoSedesConsolidadoCajaMenor(){
+    public ModelAndView inicioPagoSedesConsolidadoCajaMenor() {
         ModelAndView mav = new ModelAndView("contabilidad/cajaMenor/pagosconsolidado/pagosConsolidado");
         PagosConsolidadoSedeDto pagosConsolidadoSedeDto = new PagosConsolidadoSedeDto();
         Date fechaDate = new Date();
@@ -181,34 +198,33 @@ public class CajaMenorController extends BaseController {
         mav.addObject("pagosConsolidadoSedeDto", pagosConsolidadoSedeDto);
         return mav;
     }
-    
+
     @RequestMapping(value = "/ajax/consolidado/porcentaje/sede/generar.htm")
     public ModelAndView traerComprobanteConsolidadoSede(@PathVariable String sede) {
         ModelAndView mav = null;
         Date fecha = new Date();
         int mes = Formatos.obtenerMes(fecha);
-        PagosConsolidadoSedeDto pagosConsolidadoSedeDtos = reporteService.generarPagoConsolidadoSedePorcentaje(sede, mes-1);
+        PagosConsolidadoSedeDto pagosConsolidadoSedeDtos = reporteService.generarPagoConsolidadoSedePorcentaje(sede, mes - 1);
         mav = new ModelAndView("contabilidad/cajaMenor/pagosconsolidado/datosPagoConsolidado");
         mav.addObject("detallePagosCosolidadoSedeDto", pagosConsolidadoSedeDtos.getDetallePagosCosolidadoSedeDtos());
         mav.addObject("fechaActual", Formatos.dateTostring(fecha));
-               
+
         return mav;
     }
-    
-    
+
     @RequestMapping("/ajax/consolidado/sede/guardar.htm")
-    public @ResponseBody String guardarPagoConsolidadoSede(@ModelAttribute PagosConsolidadoSedeDto pagosConsolidadoSedeDto,
-            @PathVariable String sede){
+    public @ResponseBody
+    String guardarPagoConsolidadoSede(@ModelAttribute PagosConsolidadoSedeDto pagosConsolidadoSedeDto,
+            @PathVariable String sede) {
         CajaMenorMapper cajaMenorMapper = new CajaMenorMapper();
         CajaMenor pagosCajaMenor = cajaMenorMapper.pagoConsolidadoSedeDtoToCajaMenorCabecera(pagosConsolidadoSedeDto);
         List<DetalleCajaMenor> detallePagosCajaMenor = cajaMenorMapper.detallePagosCosolidadoSedeDtosToDetalleCajaMenor(pagosConsolidadoSedeDto.getDetallePagosCosolidadoSedeDtos());
-        
+
         cajaMenorService.guardarPagosTercerosCajaMenor(sede, pagosCajaMenor, detallePagosCajaMenor);
-        
+
         return "ok";
     }
-    
-    
+
     @RequestMapping(value = "/reporte/index.htm")
     public ModelAndView indexReporteCajaMenor() {
         ModelAndView mav = new ModelAndView("reportes/consolidado/cajamenor/cajaMenor");
@@ -234,19 +250,23 @@ public class CajaMenorController extends BaseController {
             parameterMap.put("fechaFin", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             parameterMap.put("titulo", "Libro Movimiento Bancos");
-            parameterMap.put("nombresede", sede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("nombresede", sedesDto.getTitulo());
+            parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("movimientoCaja", parameterMap);
 
         }
         return mav;
     }
-    
+
     @RequestMapping(value = "/ajax/secuencia.htm")
-    public @ResponseBody String secuenciaPago(@PathVariable String sede){
+    public @ResponseBody
+    String secuenciaPago(@PathVariable String sede) {
         Long secuencia = mysqlService.secuenciaTabla(sede, "caja_menor");
-        if(secuencia!=null)
+        if (secuencia != null) {
             return secuencia.toString();
-        
+        }
+
         return "";
     }
 }

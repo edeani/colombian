@@ -6,6 +6,8 @@
 	<parameter name="numeroFactura" class="java.lang.Long"/>
 	<parameter name="fechaFactura" class="java.lang.String"/>
 	<parameter name="nombreSede" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.Long"/>
 	<field name="producto" class="java.lang.String"/>
 	<field name="unidades" class="java.lang.Long"/>
@@ -20,12 +22,27 @@
 	<title>
 		<band height="78" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="27" width="208" height="32" uuid="367c0ee9-ecb5-4a2b-b3b7-89329f0385a4"/>
+				<reportElement x="1" y="43" width="208" height="32" uuid="367c0ee9-ecb5-4a2b-b3b7-89329f0385a4"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Factura  Despachos Venta]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="1" y="0" width="306" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="b2a3f76f-a91e-45be-975a-34d92b238bb2"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="23" width="265" height="20" uuid="57ac73f9-8ce8-4bbd-94b0-7ee47a875c1f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

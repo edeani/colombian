@@ -9,6 +9,8 @@
 	<parameter name="fechaFinal" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="nombreSede" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -49,13 +51,28 @@
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="22" width="326" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
-				<box leftPadding="110"/>
+				<reportElement x="0" y="40" width="326" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
+				<box leftPadding="0"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Listado facturas venta]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="307" height="40" forecolor="#000000" backcolor="#FFFFFF" uuid="dcd40471-a9b7-43c6-9e14-e0bf0bfe7ca5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="20" width="265" height="20" uuid="dbf17db9-f379-465c-a372-31c28bbb13b6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

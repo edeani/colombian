@@ -10,6 +10,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="nombresede" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -56,12 +57,19 @@
 				<text><![CDATA[Traslados]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="35" y="1" width="502" height="40" forecolor="#000000" backcolor="#FFFFFF" uuid="58231dc7-73dd-4c91-8858-b1fabe791afe"/>
+				<reportElement mode="Transparent" x="0" y="0" width="306" height="40" forecolor="#000000" backcolor="#FFFFFF" uuid="58231dc7-73dd-4c91-8858-b1fabe791afe"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="306" y="21" width="266" height="20" uuid="4ef39a2f-cb5b-42a8-9c2d-01790ae6a241"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

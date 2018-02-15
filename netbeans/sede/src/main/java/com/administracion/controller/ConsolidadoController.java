@@ -17,6 +17,7 @@ import com.administracion.dto.MovimientoCajaDto;
 import com.administracion.dto.ReporteComprobanteCierreDto;
 import com.administracion.dto.ReporteConsolidadoDto;
 import com.administracion.dto.ReporteTotalCuentasXNivelDto;
+import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.entidad.SubSedes;
@@ -54,7 +55,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/{sede:[a-zA-Z]+}/consolidado")
 public class ConsolidadoController extends BaseController {
-    
+
     @Autowired
     private ReporteService reporteService;
     @Autowired
@@ -83,10 +84,10 @@ public class ConsolidadoController extends BaseController {
     }
 
     @RequestMapping(value = "/consolidadoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response,HttpSession session,
+    public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response, HttpSession session,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
-            @PathVariable String sede,@RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
-        SubSedesDto ss = connectsAuth.findSubsedeXName((String)session.getAttribute("path"));
+            @PathVariable String sede, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+        SubSedesDto ss = connectsAuth.findSubsedeXName((String) session.getAttribute("path"));
         List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(ss.getId(), fechaInicial, fechaFinal);
         ModelAndView mav = null;
         if (reporte.size() > 0) {
@@ -95,10 +96,12 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
-            parameterMap.put("nombresede", sede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("nombresede", sedesDto.getTitulo());
+            parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("consolidado", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/"+sede+"/consolidado/sede.htm");
+            mav = new ModelAndView("redirect:/" + sede + "/consolidado/sede.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -111,19 +114,19 @@ public class ConsolidadoController extends BaseController {
         setBasicModel(mav, comprobanteCierreSedesDto);
         mav.addObject("comprobanteCierreSedesDto", comprobanteCierreSedesDto);
         return mav;
-    }       
-    
+    }
+
     @RequestMapping(value = "/comprobante/reporte/sede.htm")
     public ModelAndView reporteConsolidadoSedeInicio() {
         ModelAndView mav = new ModelAndView("reportes/cierres/cierreSede");
         return mav;
     }
-    
+
     @RequestMapping(value = "/ajax/comprobante/sede/generar.htm")
-    public ModelAndView traerComprobanteConsolidadoSede(@RequestParam Integer idSede, @RequestParam(value = "fecha") String sfecha,@PathVariable(value = "sede") String sedePath) {
+    public ModelAndView traerComprobanteConsolidadoSede(@RequestParam Integer idSede, @RequestParam(value = "fecha") String sfecha, @PathVariable(value = "sede") String sedePath) {
         ModelAndView mav;
         Date fecha = Formatos.StringDateToDate(sfecha);
-        List<ComprobanteConsolidadoSedeDto> comprobanteConsolidadoSedeDto = reporteService.comprobanteConsolidado(sedePath,idSede, fecha);
+        List<ComprobanteConsolidadoSedeDto> comprobanteConsolidadoSedeDto = reporteService.comprobanteConsolidado(sedePath, idSede, fecha);
         if (comprobanteConsolidadoSedeDto == null || comprobanteConsolidadoSedeDto.isEmpty()) {
             SubSedes sede = subSedesDao.findById(idSede);
             mav = new ModelAndView("contabilidad/cierres/datosCierreSedeAgregar");
@@ -147,13 +150,13 @@ public class ConsolidadoController extends BaseController {
      */
     @RequestMapping(value = "/ajax/comprobante/sede/guardar.htm")
     public @ResponseBody
-    String guardarComprobanteConsolidadoSede(@ModelAttribute ComprobanteCierreSedesDto comprobanteCierreSedesDto,@PathVariable(value = "sede") String sedeEntry) {
+    String guardarComprobanteConsolidadoSede(@ModelAttribute ComprobanteCierreSedesDto comprobanteCierreSedesDto, @PathVariable(value = "sede") String sedeEntry) {
         cierreSedesService.guardarComprobanteCierreService(sedeEntry, comprobanteCierreSedesDto);
         return comprobanteCierreSedesDto.getConsecutivo().toString();
     }
 
     @RequestMapping(value = "/comprobante/sede/pdf.htm")
-    public ModelAndView generarComprobanteCierreSedePdf(@RequestParam Long idComprobanteCierre,@PathVariable String sede) {
+    public ModelAndView generarComprobanteCierreSedePdf(@RequestParam Long idComprobanteCierre, @PathVariable String sede) {
         List<ReporteComprobanteCierreDto> reporte = cierreSedesService.buscarDetalleComprobanteCierreSedesView(sede, idComprobanteCierre);
         CierreSedesDto cierreSedesDto = cierreSedesService.buscarComprobanteCierreDto(sede, idComprobanteCierre);
         ModelAndView mav = null;
@@ -166,22 +169,24 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("comprobante", cierreSedesDto.getConsecutivo());
             parameterMap.put("fecha", cierreSedesDto.getFecha());
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
-            parameterMap.put("nombresedereporte", sede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("nombresedereporte", sedesDto.getTitulo());
+            parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("comprobanteCierreSede", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/"+sede+"/consolidado/comprobante/sede.htm");
+            mav = new ModelAndView("redirect:/" + sede + "/consolidado/comprobante/sede.htm");
         }
 
         return mav;
     }
 
     @RequestMapping(value = "/comprobante/reporte/sede/pdf.htm")
-    public ModelAndView generarReporteCierreSedePdf(@RequestParam Long idsede,@RequestParam String fechaInicial,@RequestParam String fechaFinal,
+    public ModelAndView generarReporteCierreSedePdf(@RequestParam Long idsede, @RequestParam String fechaInicial, @RequestParam String fechaFinal,
             @PathVariable String sede) {
         List<CierreSedesDto> reporte = cierreSedesService.reporteComprobanteCierreSedesView(sede, fechaInicial,
-                fechaFinal,idsede);
+                fechaFinal, idsede);
         Sedes sedeObj = sedesDao.buscarSede(idsede);
-        
+
         ModelAndView mav = null;
         if (reporte != null) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
@@ -192,14 +197,17 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaInicial", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFinal", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
-            parameterMap.put("nombresedereporte", sede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("nombresedereporte", sedesDto.getTitulo());
+            parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("reporteCierreSedes", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/"+sede+"/"+sede+"/consolidado/comprobante/sede.htm");
+            mav = new ModelAndView("redirect:/" + sede + "/" + sede + "/consolidado/comprobante/sede.htm");
         }
 
         return mav;
     }
+
     @RequestMapping(value = "/comprobante/cajamayor.htm")
     public ModelAndView comprobanteCajaMayor() {
         ModelAndView mav = new ModelAndView("reportes/consolidado/cajaMayor");
@@ -225,7 +233,9 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaFin", objFechaFin);
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             parameterMap.put("titulo", "Libro Auxiliar de Caja Mayor");
-            parameterMap.put("nombresede", sede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("nombresede", sedesDto.getTitulo());
+            parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("movimientoCaja", parameterMap);
         }
 
@@ -241,7 +251,7 @@ public class ConsolidadoController extends BaseController {
         mav.addObject("fechaFinal", fecha);
         return mav;
     }
-    
+
     @RequestMapping(value = "/reporte/perdidaganancias.htm")
     public ModelAndView reportePerdidaGanancias() {
         ModelAndView mav = new ModelAndView("reportes/consolidado/perdidaGanancias");
@@ -254,7 +264,7 @@ public class ConsolidadoController extends BaseController {
 
     @RequestMapping(value = "/reporte/perdidaganancias_old/pdf.htm")
     public ModelAndView reportePerdidaGanancias_old(@RequestParam Long tipoReporte, @RequestParam String fechaInicial,
-            @RequestParam String fechaFinal,@PathVariable String sede) {
+            @RequestParam String fechaFinal, @PathVariable String sede) {
 
         //Ingresos
         List<ReporteTotalCuentasXNivelDto> reporte = new ArrayList<ReporteTotalCuentasXNivelDto>();
@@ -270,7 +280,9 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaInicio", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFin", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
-            parameterMap.put("nombresede", sede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("nombresede", sedesDto.getTitulo());
+            parameterMap.put("slogan", sedesDto.getSlogan());
             //mav =  new ModelAndView("estadoPerdidaGanancias");
             mav = new ModelAndView("estadoPerdidaGananciasSede", parameterMap);
         }
@@ -280,8 +292,8 @@ public class ConsolidadoController extends BaseController {
 
     @RequestMapping(value = "/reporte/general/perdidaganancias/pdf.htm")
     public ModelAndView reportePerdidaGananciasProvisional(@RequestParam Long tipoReporte, @RequestParam String fechaInicial,
-            @RequestParam String fechaFinal, @RequestParam(required = false) Long sedeNumber
-            , @RequestParam(required = false) String nombreSede,@PathVariable String sede) {
+            @RequestParam String fechaFinal, @RequestParam(required = false) Long sedeNumber,
+            @RequestParam(required = false) String nombreSede, @PathVariable String sede) {
 
         //Ingresos
         List<EstadoPerdidaGananciaProvisionalDto> reporte = new ArrayList<EstadoPerdidaGananciaProvisionalDto>();
@@ -295,7 +307,7 @@ public class ConsolidadoController extends BaseController {
             nombreSede = "";
         }
         ModelAndView mav = null;
-        if (reporte!=null && !reporte.isEmpty()) {
+        if (reporte != null && !reporte.isEmpty()) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
@@ -303,7 +315,9 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaInicio", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFin", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
-            parameterMap.put("nombreSede", nombreSede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("nombreSede", sedesDto.getTitulo());
+            parameterMap.put("slogan", sedesDto.getSlogan());
             //mav =  new ModelAndView("estadoPerdidaGanancias");
             mav = new ModelAndView("estadoPerdidaGananciasProvisional", parameterMap);
         }
@@ -312,32 +326,35 @@ public class ConsolidadoController extends BaseController {
     }
 
     @RequestMapping(value = "/reporte/perdidaganancias/pdf.htm")
-    public  ModelAndView reportePerdidaGanancias(@RequestParam String fechaInicial,
-            @RequestParam String fechaFinal,@RequestParam(required = false) Long sedeNumber
-            ,@RequestParam (required = false) String nombreSede,@PathVariable String sede) {
+    public ModelAndView reportePerdidaGanancias(@RequestParam String fechaInicial,
+            @RequestParam String fechaFinal, @RequestParam(required = false) Long sedeNumber,
+            @RequestParam(required = false) String nombreSede, @PathVariable String sede) {
         ModelAndView mav = null;
         try {
-            List<BalanceDto> reporte = reporteService.reporteBalanceService(sede, fechaInicial, fechaFinal,sedeNumber);
-            List<ItemsDTO> items =  cuentasService.cuentasBase(sede);
-            
-            /***********************************************/
+            List<BalanceDto> reporte = reporteService.reporteBalanceService(sede, fechaInicial, fechaFinal, sedeNumber);
+            List<ItemsDTO> items = cuentasService.cuentasBase(sede);
+
+            /**
+             * ********************************************
+             */
             if (!reporte.isEmpty()) {
-            JRDataSource datos = new JRBeanCollectionDataSource(reporte);
-            Map<String, Object> parameterMap = new HashMap<>();
-            parameterMap.put("datos", items);
-            parameterMap.put("usuario", security.getCurrentUser().getUsername());
-            parameterMap.put("fechaInicial", Formatos.StringDateToDate(fechaInicial));
-            parameterMap.put("fechaFinal", Formatos.StringDateToDate(fechaFinal));
-            parameterMap.put("nombreSede", nombreSede);
-            parameterMap.put("JasperCustomSubReportDatasource", datos);
-            mav = new ModelAndView("reporteUtilidades", parameterMap);
-        }
+                JRDataSource datos = new JRBeanCollectionDataSource(reporte);
+                Map<String, Object> parameterMap = new HashMap<>();
+                parameterMap.put("datos", items);
+                parameterMap.put("usuario", security.getCurrentUser().getUsername());
+                parameterMap.put("fechaInicial", Formatos.StringDateToDate(fechaInicial));
+                parameterMap.put("fechaFinal", Formatos.StringDateToDate(fechaFinal));
+                SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+                parameterMap.put("nombreSede", sedesDto.getTitulo());
+                parameterMap.put("slogan", sedesDto.getSlogan());
+                parameterMap.put("JasperCustomSubReportDatasource", datos);
+                mav = new ModelAndView("reporteUtilidades", parameterMap);
+            }
         } catch (Exception e) {
-            System.out.println("ERROR::"+e.getMessage());
+            System.out.println("ERROR::" + e.getMessage());
         }
-        
-        
-    return mav;
-    
+
+        return mav;
+
     }
 }
