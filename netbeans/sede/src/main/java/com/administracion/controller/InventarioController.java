@@ -11,8 +11,10 @@ import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteInventarioDTO;
+import com.administracion.dto.SedesDto;
 import com.administracion.service.InventarioService;
 import com.administracion.service.SedesService;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.jsf.InventarioColombianService;
 import com.administracion.util.Formatos;
 import com.administracion.util.LectorPropiedades;
@@ -49,7 +51,8 @@ public class InventarioController extends BaseController {
     SedesService sedesService;
     @Autowired
     InventarioService inventarioService;
-    private LectorPropiedades propiedades;
+    @Autowired
+    private ConnectsAuth connectsAuth;
     @Autowired
     private InventarioColombianService inventarioColombianService;
 
@@ -82,9 +85,6 @@ public class InventarioController extends BaseController {
     @RequestMapping(value = "/ajax/inventarioSede.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteInventarioSede(@RequestParam("fecha") String fecha, @RequestParam("sede") String sede) {
         ModelAndView mav = new ModelAndView("reportes/inventario/inventarioSede");
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
         mav.addObject("fecha", fecha);
         mav.addObject("sede", sede);
         return mav;
@@ -137,9 +137,6 @@ public class InventarioController extends BaseController {
             String descripcionProducto,
             String promedio,@PathVariable String sede) {
 
-        propiedades = new LectorPropiedades();
-        propiedades.setArchivo(getArchivo());
-        propiedades.setPropiedad(getPropiedadPrincipal());
 
         //consulto para ver si existe el producto
         InventarioDTO inventarioDTO = inventarioService.traerProducto(sede, Long.parseLong(codigoProductoInventario));
@@ -210,7 +207,9 @@ public class InventarioController extends BaseController {
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
-            parameterMap.put("nombresede", sede);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("nombresede", sedesDto.getTitulo());
+            parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("inventarioTotal", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/"+sede+"/inventario/reportes/inventarioTotal.htm");

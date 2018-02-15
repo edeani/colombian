@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.administracion.controller;
-
 
 import com.adiministracion.mapper.PagosMapper;
 import com.administracion.dao.SedesDao;
@@ -17,12 +15,14 @@ import com.administracion.dto.PagosConsolidadoSedeDto;
 import com.administracion.dto.PagosProveedorDto;
 import com.administracion.dto.PagosTercerosDto;
 import com.administracion.dto.ReportePagosDto;
+import com.administracion.dto.SedesDto;
 import com.administracion.entidad.DetallePagos;
 import com.administracion.entidad.Pagos;
 import com.administracion.entidad.Sedes;
 import com.administracion.service.BeneficiariosService;
 import com.administracion.service.PagosService;
 import com.administracion.service.ReporteService;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.util.Formatos;
 import com.google.gson.Gson;
@@ -49,8 +49,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/{sede:[a-zA-Z]+}/pagos")
-public class PagosController extends BaseController{
-    
+public class PagosController extends BaseController {
+
     @Autowired
     private BeneficiariosService beneficiariosService;
     @Autowired
@@ -61,26 +61,32 @@ public class PagosController extends BaseController{
     private ReporteService reportesService;
     @Autowired
     private SedesDao sedesDao;
-    
-    private  final String cuentaProveedores = "220505";
+    @Autowired
+    private ConnectsAuth connectsAuth;
+
+    private final String cuentaProveedores = "220505";
+
     /**
      * Pagos Terceros
-     * @return 
+     *
+     * @return
      */
     @RequestMapping(value = "/terceros/index.htm")
-    public ModelAndView inicioPagos(){
+    public ModelAndView inicioPagos() {
         ModelAndView mav = new ModelAndView("contabilidad/pagosterceros/administracionpagos");
         PagosTercerosDto pagosTercerosDto = new PagosTercerosDto();
         setBasicModel(mav, pagosTercerosDto);
         mav.addObject("pagosTercerosDto", pagosTercerosDto);
         return mav;
     }
+
     /**
      * Pagos Proveedor
-     * @return 
+     *
+     * @return
      */
     @RequestMapping(value = "/proveedor/index.htm")
-    public ModelAndView inicioPagosProveedor(){
+    public ModelAndView inicioPagosProveedor() {
         ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/administracionpagosproveedor");
         PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
         setBasicModel(mav, pagosProveedorDto);
@@ -88,20 +94,22 @@ public class PagosController extends BaseController{
         mav.addObject("cuentaProveedores", cuentaProveedores);
         return mav;
     }
-    
+
     @RequestMapping(value = "/ajax/comprobante/buscar.htm")
-    public ModelAndView buscarPagos(@RequestParam String fechaInicial,@PathVariable String sede){
+    public ModelAndView buscarPagos(@RequestParam String fechaInicial, @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("reportes/consolidado/imprimir/comprobantes");
         List<PagosCabeceraDto> pagosProveedor = pagosService.buscarPagosProveedorXFecha(sede, fechaInicial);
         mav.addObject("pagos", pagosProveedor);
         return mav;
     }
+
     /**
      * Pagos porcentages sedes
-     * @return 
+     *
+     * @return
      */
     @RequestMapping(value = "/sede/consolidado/index.htm")
-    public ModelAndView inicioPagoSedesConsolidado(){
+    public ModelAndView inicioPagoSedesConsolidado() {
         ModelAndView mav = new ModelAndView("contabilidad/pagosconconsolidado/pagosConsolidado");
         PagosConsolidadoSedeDto pagosConsolidadoSedeDto = new PagosConsolidadoSedeDto();
         Date fechaDate = new Date();
@@ -110,21 +118,23 @@ public class PagosController extends BaseController{
         mav.addObject("pagosConsolidadoSedeDto", pagosConsolidadoSedeDto);
         return mav;
     }
-   @RequestMapping(value = "/ajax/consolidado/porcentaje/sede/generar.htm")
+
+    @RequestMapping(value = "/ajax/consolidado/porcentaje/sede/generar.htm")
     public ModelAndView traerComprobanteConsolidadoSede(@PathVariable String sede) {
         ModelAndView mav = null;
         Date fecha = new Date();
         int mes = Formatos.obtenerMes(fecha);
-        PagosConsolidadoSedeDto pagosConsolidadoSedeDtos = reportesService.generarPagoConsolidadoSedePorcentaje(sede, mes-1);
+        PagosConsolidadoSedeDto pagosConsolidadoSedeDtos = reportesService.generarPagoConsolidadoSedePorcentaje(sede, mes - 1);
         mav = new ModelAndView("contabilidad/pagosconconsolidado/datosPagoConsolidado");
         mav.addObject("detallePagosCosolidadoSedeDto", pagosConsolidadoSedeDtos.getDetallePagosCosolidadoSedeDtos());
         mav.addObject("fechaActual", Formatos.dateTostring(fecha));
-               
+
         return mav;
     }
-    
+
     @RequestMapping(value = "/ajax/autocompletar/terceros.htm")
-    public @ResponseBody String  autocompletarBeneficiarios(@RequestParam String term,@PathVariable String sede){
+    public @ResponseBody
+    String autocompletarBeneficiarios(@RequestParam String term, @PathVariable String sede) {
         Gson gson = new Gson();
         String json = "[]";
         List<BeneficiarioAutocompletarDto> beneficiarios = beneficiariosService.buscarBeneficiarioLikeNombre(sede, term);
@@ -135,80 +145,87 @@ public class PagosController extends BaseController{
 
         return json;
     }
-    
+
     @RequestMapping("/ajax/consolidado/sede/guardar.htm")
-    public @ResponseBody String guardarPagoConsolidadoSede(@ModelAttribute PagosConsolidadoSedeDto pagosConsolidadoSedeDto,
-            @PathVariable String sede){
+    public @ResponseBody
+    String guardarPagoConsolidadoSede(@ModelAttribute PagosConsolidadoSedeDto pagosConsolidadoSedeDto,
+            @PathVariable String sede) {
         PagosMapper pagosMapper = new PagosMapper();
         Pagos pagosTerceros = pagosMapper.pagoConsolidadoSedeDtoToPagoCabecera(pagosConsolidadoSedeDto);
         List<DetallePagos> detallePagosTerceros = pagosMapper.detallePagosCosolidadoSedeDtosToDetallePagos(pagosConsolidadoSedeDto.getDetallePagosCosolidadoSedeDtos());
-        
+
         pagosService.guardarPagosTerceros(sede, pagosTerceros, detallePagosTerceros);
-        
+
         return "ok";
     }
+
     @RequestMapping(value = "/reporte/sede/todos.htm")
     public ModelAndView reporteConsolidadoSedeInicio() {
         ModelAndView mav = new ModelAndView("reportes/pagos/pagosSede");
         return mav;
     }
+
     @RequestMapping("/ajax/terceros/guardar.htm")
-    public @ResponseBody String guardarPagoTerceros(@ModelAttribute PagosTercerosDto pagosTercerosDto,
-            @PathVariable String sede){
+    public @ResponseBody
+    String guardarPagoTerceros(@ModelAttribute PagosTercerosDto pagosTercerosDto,
+            @PathVariable String sede) {
         PagosMapper pagosMapper = new PagosMapper();
         Pagos pagosTerceros = pagosMapper.pagoBeneficiarioDtoToPagoCabecera(pagosTercerosDto);
         List<DetallePagos> detallePagosTerceros = pagosMapper.detallePagosTercerosDtoTodetallePagosTerceros(pagosTercerosDto.getDetallePagosTerceros());
-        
+
         pagosService.guardarPagosTerceros(sede, pagosTerceros, detallePagosTerceros);
-        
+
         return "ok";
     }
+
     @RequestMapping("/ajax/proveedor/guardar.htm")
-    public @ResponseBody String guardarPagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto,
-            @PathVariable String sede){
+    public @ResponseBody
+    String guardarPagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto,
+            @PathVariable String sede) {
         PagosMapper pagosMapper = new PagosMapper();
         //to do: Hacer los mappers de las clases
         Pagos pagosProveedor = pagosMapper.pagoProveedorDtoToPagoCabecera(pagosProveedorDto);
         List<DetallePagos> detallePagosProveedor = pagosMapper.detallePagosProveedorDtoTodetallePagosTerceros(pagosProveedorDto.getDetallePagosProveedor());
-        
+
         pagosService.guardarPagosProveedor(sede, pagosProveedor, detallePagosProveedor);
-        
-        
+
         return "ok";
     }
+
     @RequestMapping(value = "/terceros/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView comprobanteTerceroPDF(Long idpagotercero,@PathVariable String sede){
-        
+    public ModelAndView comprobanteTerceroPDF(Long idpagotercero, @PathVariable String sede) {
+
         List<DetallePagosTercerosDto> detalle = pagosService.buscarDetallePagosTercerosDtos(sede, idpagotercero);
         Pagos cabecera = pagosService.buscarPagoXIdPago(sede, idpagotercero);
         ModelAndView mav = null;
-        if(detalle!=null){
-            if(detalle.size()>0){
+        if (detalle != null) {
+            if (detalle.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(detalle);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("usuario", security.getCurrentUser().getUsername());
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdpagos());
                 parameterMap.put("titulo", "Comprobante Terceros Caja Mayor");
-                parameterMap.put("nombresede", sede);
+                SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprobanteBeneficiario", parameterMap);
                 return mav;
             }
         }
         return mav;
     }
-    
-    @RequestMapping(value = "/pdf/sede/todos.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView reportePagosPDF(@RequestParam String fechaInicial
-            , @RequestParam String fechaFinal,@RequestParam Long idsede,@PathVariable String sede){
-        
 
-        List<ReportePagosDto> pagos = pagosService.reportePagos(sede, fechaInicial,fechaFinal, idsede);
+    @RequestMapping(value = "/pdf/sede/todos.htm", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView reportePagosPDF(@RequestParam String fechaInicial,
+            @RequestParam String fechaFinal, @RequestParam Long idsede, @PathVariable String sede) {
+
+        List<ReportePagosDto> pagos = pagosService.reportePagos(sede, fechaInicial, fechaFinal, idsede);
         Sedes sedes = sedesDao.buscarSede(idsede);
-        
+
         ModelAndView mav = null;
-        if(pagos!=null){
-            if(pagos.size()>0){
+        if (pagos != null) {
+            if (pagos.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(pagos);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("usuario", security.getCurrentUser().getUsername());
@@ -222,39 +239,45 @@ public class PagosController extends BaseController{
         }
         return mav;
     }
-    
-     @RequestMapping(value = "/proveedores/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView comprobanteProveedorPDF(Long idpagoproveedor,@PathVariable String sede){
-        
+
+    @RequestMapping(value = "/proveedores/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView comprobanteProveedorPDF(Long idpagoproveedor, @PathVariable String sede) {
+
         List<DetallePagosProveedorDto> detalle = pagosService.buscarDetallePagosDtos(sede, idpagoproveedor);
         Pagos cabecera = pagosService.buscarPagoXIdPago(sede, idpagoproveedor);
         ModelAndView mav = null;
-        if(detalle!=null){
-            if(detalle.size()>0){
+        if (detalle != null) {
+            if (detalle.size() > 0) {
                 JRDataSource datos = new JRBeanCollectionDataSource(detalle);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("usuario", security.getCurrentUser().getUsername());
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdpagos());
                 parameterMap.put("fecha", cabecera.getFecha());
-                parameterMap.put("nombresede", sede);
+                SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprobanteProveedor", parameterMap);
                 return mav;
             }
         }
         return mav;
     }
+
     @RequestMapping(value = "/ajax/secuencia.htm")
-    public @ResponseBody String secuenciaPago(@PathVariable String sede){
+    public @ResponseBody
+    String secuenciaPago(@PathVariable String sede) {
         Long secuencia = pagosService.secuenciaPagos(sede);
-        if(secuencia!=null)
+        if (secuencia != null) {
             return secuencia.toString();
-        
+        }
+
         return "";
     }
-    
+
     @RequestMapping(value = "/ajax/fecha.htm")
-    public @ResponseBody String fechaActual(){
+    public @ResponseBody
+    String fechaActual() {
         Date fecha = new Date();
         return Formatos.dateTostring(fecha);
     }

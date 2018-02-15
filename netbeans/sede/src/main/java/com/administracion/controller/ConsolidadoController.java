@@ -69,8 +69,6 @@ public class ConsolidadoController extends BaseController {
     @Autowired
     private CuentasService cuentasService;
     @Autowired
-    private AccesosSubsedes accesosSubsedes;
-    @Autowired
     private ConnectsAuth connectsAuth;
 
     @RequestMapping(value = "/sede.htm")
