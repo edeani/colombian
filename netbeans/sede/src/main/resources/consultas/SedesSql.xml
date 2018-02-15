@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <queries>
     <query id="SedesSql.findXname">
-        select s.* from sedes s where s.sede=:sede
+        select s.*,sxs.titulo,sxs.slogan from sedes s 
+        inner join sloganxsede sxs on sxs.idsede = s.idsedes
+        where s.sede=:sede
     </query>
     <query id="SedesSql.list">
         select s.* from sedes s

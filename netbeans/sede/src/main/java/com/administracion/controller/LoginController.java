@@ -7,11 +7,11 @@ package com.administracion.controller;
 
 import com.adiministracion.mapper.UserMapper;
 import com.administracion.dto.SedesDto;
-import com.administracion.dto.SubSedesDto;
 import com.administracion.dto.UserItemDto;
 import com.administracion.entidad.Users;
 import com.administracion.entidad.Userxsede;
 import com.administracion.service.SedesService;
+import com.administracion.service.SloganSedeService;
 import com.administracion.service.SubSedesService;
 import com.administracion.service.UsuarioService;
 import com.administracion.service.UsuarioXSedeService;
@@ -56,7 +56,7 @@ public class LoginController {
     private SubSedesService subSedesService;
 
     @Autowired
-    private UsuarioService usuarioService;
+    private SloganSedeService sloganSedeService;
     
     @Autowired
     private UsuarioXSedeService usuarioXSedeService;
