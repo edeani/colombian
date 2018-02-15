@@ -13,9 +13,8 @@ import java.io.Serializable;
  */
 public class SedesDto implements Serializable{
     private Integer idsedes;
-    private String sede,username,password,url;
+    private String sede,username,password,url,titulo,slogan;
     private String usersLogin;
-
 
     public Integer getIdsedes() {
         return idsedes;
@@ -63,6 +62,22 @@ public class SedesDto implements Serializable{
 
     public void setUsersLogin(String usersLogin) {
         this.usersLogin = usersLogin;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
     
     

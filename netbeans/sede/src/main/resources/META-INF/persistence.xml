@@ -5,5 +5,6 @@
     <class>com.administracion.entidad.Sedes</class>
     <class>com.administracion.entidad.Rol</class>
     <class>com.administracion.entidad.Userxsede</class>
+    <class>com.administracion.entidad.Sloganxsede</class>
   </persistence-unit>
 </persistence>

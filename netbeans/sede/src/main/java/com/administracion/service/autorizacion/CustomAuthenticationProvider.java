@@ -8,8 +8,10 @@ package com.administracion.service.autorizacion;
 import com.adiministracion.mapper.UserMapper;
 import com.administracion.dao.SubSedesDao;
 import com.administracion.dto.SedesDto;
+import com.administracion.entidad.TextosSloganSedeDto;
 import com.administracion.entidad.Users;
 import com.administracion.entidad.Userxsede;
+import com.administracion.service.SloganSedeService;
 import com.administracion.service.UsuarioXSedeService;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
     
     @Autowired
     private UsuarioXSedeService usuarioXSedeService;
+    
+    @Autowired
+    private SloganSedeService sloganSedeService;
     
     @Autowired
     private SubSedesDao subSedesDao;
@@ -67,7 +72,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         }
         
         Users user = userxsede.getIduser();
-        
+        //Slogan de la sede
+        TextosSloganSedeDto textos = sloganSedeService.findSloganXIdSede(userxsede.getIdsede().getIdsedes());
         /**
          * Sede del usuario
          */
@@ -78,6 +84,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         sedeDto.setUrl(userxsede.getIdsede().getUrl());
         sedeDto.setSede(userxsede.getIdsede().getSede());
         sedeDto.setUsersLogin(user.getUsername());
+        sedeDto.setTitulo(textos.getTitulo());
+        sedeDto.setSlogan(textos.getSlogan());
         accesosSubsedes.getSedes().add(sedeDto);
         /**
          * Subsedes de la sede del usuario
