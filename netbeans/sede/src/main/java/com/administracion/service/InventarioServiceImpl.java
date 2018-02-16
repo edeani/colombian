@@ -47,7 +47,7 @@ public class InventarioServiceImpl implements InventarioService{
         String[] fechas = fecha.split(",");
         List<ReporteInventarioDTO> reporteInventarioDTOs=null;
         try{
-        reporteInventarioDTOs= reportesDao.findInventarioXFechaFinal(connectsAuth.getDataSourceSede(nameDataSource), fechas[0]);
+        reporteInventarioDTOs= reportesDao.findInventarioXFechaFinal(connectsAuth.getDataSourceSubSede(nameDataSource), fechas[0]);
         
         }catch(DataAccessException e){
             System.out.println("Reporte Inventario: Se encontraron 0 registros");
