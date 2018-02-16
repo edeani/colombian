@@ -85,8 +85,8 @@ public class ConsolidadoController extends BaseController {
     public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response, HttpSession session,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
             @PathVariable String sede, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
-        SubSedesDto ss = connectsAuth.findSubsedeXName((String) session.getAttribute("path"));
-        List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(ss.getId(), fechaInicial, fechaFinal);
+        SedesDto ss = connectsAuth.findSedeXName(sede);
+        List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(ss.getIdsedes(), fechaInicial, fechaFinal);
         ModelAndView mav = null;
         if (reporte.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);

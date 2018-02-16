@@ -104,7 +104,7 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional
     public List<VentasTotalesDTO> ventasTotales(String nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra) {
-        return facturaDao.ventasTotales(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra);
+        return facturaDao.ventasTotales(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra);
     }
 
     @Override
@@ -292,7 +292,7 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional(readOnly = true)
     public List<FacturaTotalReporteDto> reporteFacturaCompra(String nameDataSource, String fechaInicio, String fechaFin) {
-        return facturaDao.reporteTotalFactura(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicio, fechaFin);
+        return facturaDao.reporteTotalFactura(connectsAuth.getDataSourceSede(nameDataSource), fechaInicio, fechaFin);
     }
 
     @Override

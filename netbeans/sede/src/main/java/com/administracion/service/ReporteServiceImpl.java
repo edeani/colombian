@@ -21,6 +21,7 @@ import com.administracion.dto.MovimientoCajaDto;
 import com.administracion.dto.PagosConsolidadoSedeDto;
 import com.administracion.dto.ReporteConsolidadoDto;
 import com.administracion.dto.ReporteTotalCuentasXNivelDto;
+import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.ClasePago;
 import com.administracion.entidad.DetallePorcentajeVentas;
