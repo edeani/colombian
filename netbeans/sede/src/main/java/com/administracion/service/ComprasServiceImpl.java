@@ -237,13 +237,13 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional(readOnly = true)
     public List<ReporteComprasTotalesXProveedorDTO> comprasTotalesXProveedor(String nameDatasource, Long idproveedor, String fechaInicio, String fechaFin) {
-        return comprasDao.comprasTotalesXProveedor(connectsAuth.getDataSourceSubSede(nameDatasource), idproveedor, fechaInicio, fechaFin);
+        return comprasDao.comprasTotalesXProveedor(connectsAuth.getDataSourceSede(nameDatasource), idproveedor, fechaInicio, fechaFin);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ReporteComprasTotalesProvDTO> comprasTotalesProveedores(String nameDatasource, String fechaInicio, String fechaFin) {
-        return comprasDao.comprasTotalesProveedores(connectsAuth.getDataSourceSubSede(nameDatasource), fechaInicio, fechaFin);
+        return comprasDao.comprasTotalesProveedores(connectsAuth.getDataSourceSede(nameDatasource), fechaInicio, fechaFin);
     }
 
     @Override
