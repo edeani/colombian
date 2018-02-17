@@ -6,6 +6,8 @@
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="proveedor" class="java.lang.String"/>
 	<parameter name="numeroFactura" class="java.lang.String"/>
+	<parameter name="nombresede" class="java.lang.String"/>
+	<parameter name="slogan" class="java.lang.String"/>
 	<field name="codigoProducto" class="java.lang.Integer"/>
 	<field name="descripcion" class="java.lang.String"/>
 	<field name="unidades" class="java.lang.Integer"/>
