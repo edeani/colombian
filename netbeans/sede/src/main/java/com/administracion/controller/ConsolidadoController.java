@@ -181,7 +181,8 @@ public class ConsolidadoController extends BaseController {
     @RequestMapping(value = "/comprobante/reporte/sede/pdf.htm")
     public ModelAndView generarReporteCierreSedePdf(@RequestParam Long idsede, @RequestParam String fechaInicial, @RequestParam String fechaFinal,
             @PathVariable String sede) {
-        List<CierreSedesDto> reporte = cierreSedesService.reporteComprobanteCierreSedesView(sede, fechaInicial,
+        SubSedesDto subSedesDto = connectsAuth.findSubsedeXId(idsede.intValue());
+        List<CierreSedesDto> reporte = cierreSedesService.reporteComprobanteCierreSedesView(subSedesDto.getSede(), fechaInicial,
                 fechaFinal, idsede);
         Sedes sedeObj = sedesDao.buscarSede(idsede);
 
@@ -194,13 +195,13 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("sede", sedeObj.getSede());
             parameterMap.put("fechaInicial", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFinal", Formatos.StringDateToDate(fechaFinal));
-            parameterMap.put("usuario", security.getCurrentUser().getUsername());
             SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("usuario", sedesDto.getUsersLogin());
             parameterMap.put("nombresedereporte", sedesDto.getTitulo());
             parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("reporteCierreSedes", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/" + sede + "/" + sede + "/consolidado/comprobante/sede.htm");
+            mav = new ModelAndView("redirect:/" + sede + "/consolidado/comprobante/sede.htm");
         }
 
         return mav;
