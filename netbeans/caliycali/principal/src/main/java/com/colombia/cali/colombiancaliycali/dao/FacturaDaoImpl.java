@@ -50,7 +50,6 @@ public class FacturaDaoImpl implements FacturaDao{
     @Override
     public void insertarFactura(String nameDatasource, DetalleFacturaDTO detalleFacturaDTO, Long idsede, String estadoFactura) {
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDatasource));
-        //Date fechaFactura = detalleFacturaDTO.get
         //Inserto en factura
         try {
             String sql = caliycaliDao.insertJdbTemplate("fecha_factura,estado_factura,valor_total,codigo_proveedor,idsede,numero_factura", "factura", "'" + detalleFacturaDTO.getFechaFactura() + "','" + estadoFactura + "'," + detalleFacturaDTO.getTotalFactura() + ",1," + idsede.longValue()+","+detalleFacturaDTO.getNumeroFactura());

@@ -14,4 +14,5 @@ public interface SedesDao {
     public void guardarSede(Sedes sede);
     public List<Sedes> listSedes();
     public Sedes findSede(Long idSede);
+    Sedes findSedeByName(String nameDataSource,String nombresede);
 }

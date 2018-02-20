@@ -27,14 +27,14 @@
     <class>com.colombian.cali.colombiancaliycali.entidades.DetalleCierreSedes</class>
     <class>com.colombian.cali.colombiancaliycali.entidades.DetallePorcentajeVentas</class>
     <class>com.colombian.cali.colombiancaliycali.entidades.PorcentajeVentas</class>
+    <class>com.colombian.cali.colombiancaliycali.entidades.Subprincipal</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    
     <!-- Nuevo -->
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://179.43.112.217:3306/x022vm01_caliycali?zeroDateTimeBehavior=convertToNullcaliycali?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="29toguLEri"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/buffalosluzprincipal?zeroDateTimeBehavior=convertToNullcaliycali?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="compaq"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="oRryyDB7bYb6"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
     </properties>
     <!-- Viejo -->
     <!--properties>

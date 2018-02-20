@@ -4,11 +4,16 @@
  */
 package com.colombia.cali.colombiancaliycali.dao;
 
+import com.colombia.cali.colombiancaliycali.dataSource.ProjectsDao;
 import com.colombian.cali.colombiancaliycali.entidades.Sedes;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,6 +24,10 @@ import org.springframework.stereotype.Repository;
 public class SedesDaoImpl implements SedesDao {
 
     private EntityManager entityManager;
+    private JdbcTemplate jdbcTemplate;
+    
+    @Autowired
+    private ProjectsDao projectsDao;
 
     public EntityManager getEntityManager() {
         return entityManager;
@@ -62,6 +71,17 @@ public class SedesDaoImpl implements SedesDao {
             System.out.println("Error findSede::"+e.getMessage());
         }
         return sede;
+    }
+
+    @Override
+    public Sedes findSedeByName(String nameDataSource,String nombresede) {
+        this.jdbcTemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
+        try {
+            return this.jdbcTemplate.queryForObject("select * from sedes where sede='"+nombresede+"'", new BeanPropertyRowMapper<Sedes>(Sedes.class));
+        } catch (DataAccessException e) {
+            System.out.println("Error findSedeByName");
+        }
+        return null;
     }
 
 }

@@ -13,7 +13,7 @@
 <script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.js" type="text/javascript"> </script>
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 <div id="formFactura" data-url="${pageContext.servletContext.contextPath}/factura/ajax/formFactura.htm">
-    <form:form target="_blank" commandName="${commandName}" path="DetalleFacturaDTO" action="${pageContext.servletContext.contextPath}/factura/guardar.htm" >
+    <form:form target="_self" commandName="${commandName}" path="DetalleFacturaDTO" action="${pageContext.servletContext.contextPath}/factura/guardar.htm" >
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>

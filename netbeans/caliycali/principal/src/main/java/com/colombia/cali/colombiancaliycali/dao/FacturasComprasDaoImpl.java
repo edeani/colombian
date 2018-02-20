@@ -5,7 +5,6 @@
  */
 package com.colombia.cali.colombiancaliycali.dao;
 
-import com.colombia.cali.colombiancaliycali.dao.generic.CaliycaliDao;
 import com.colombia.cali.colombiancaliycali.dao.generic.DataGenericDao;
 import com.colombia.cali.colombiancaliycali.dataSource.ProjectsDao;
 import com.colombia.cali.colombiancaliycali.util.Formatos;

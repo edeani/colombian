@@ -115,8 +115,8 @@ public class FacturasController extends BaseController {
         Sedes sede = sedesService.buscarSede(getPropiedades().leerPropiedad(), detalleFacturaDTO.getSede());
         detalleFacturaDTO.setFechaFactura(Formatos.dateTostring(new Date()));
         facturaService.guardarFactura(getPropiedades().leerPropiedad(), sede.getSede(), detalleFacturaDTO);
-        ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(),Long.parseLong(detalleFacturaDTO.getNumeroFactura()),detalleFacturaDTO.getSede());
-        return mav;
+        //ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(),Long.parseLong(detalleFacturaDTO.getNumeroFactura()),detalleFacturaDTO.getSede());
+        return new ModelAndView("redirect:/factura/home.htm");
     }
 
     @RequestMapping(value = "/ajax/actualizar.htm", method = {RequestMethod.GET, RequestMethod.POST})
