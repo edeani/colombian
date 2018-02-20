@@ -41,7 +41,7 @@ public class FacturaDaoImpl implements FacturaDao{
 
         //Inserto en factura
         try {
-            this.jdbctemplate.execute(caliycaliDao.insertJdbTemplate("fecha_factura,estado_factura,valor_total,codigo_proveedor,idsede", "factura", "'" + Formatos.dateTostring(new Date()) + "','" + estadoFactura + "'," + detalleFacturaDTO.getTotalFactura() + ",1," + idsede));
+            this.jdbctemplate.execute(caliycaliDao.insertJdbTemplate("fecha_factura,estado_factura,valor_total,codigo_proveedor,idsede", "factura", "'" + Formatos.dateTostring(new Date()) + "','" + estadoFactura + "'," + detalleFacturaDTO.getTotalFactura() + ",1000," + idsede));
         } catch (DataAccessException e) {
             System.out.println("ERROR FacturaService guardarFactura: inserción factura " + e.getMessage());
         }
