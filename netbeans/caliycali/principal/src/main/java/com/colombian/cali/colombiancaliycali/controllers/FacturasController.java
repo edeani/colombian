@@ -15,6 +15,7 @@ import com.colombian.cali.colombiancaliycali.dto.VentasTotalesDTO;
 import com.colombian.cali.colombiancaliycali.entidades.Factura;
 import com.colombian.cali.colombiancaliycali.entidades.Inventario;
 import com.colombian.cali.colombiancaliycali.entidades.Sedes;
+import com.colombian.cali.colombiancaliycali.entidades.Subprincipal;
 import com.colombian.cali.colombiancaliycali.mapper.InventarioMapper;
 import com.colombian.cali.colombiancaliycali.services.FacturasService;
 import com.colombian.cali.colombiancaliycali.services.SedesService;
@@ -115,8 +116,9 @@ public class FacturasController extends BaseController {
         Sedes sede = sedesService.buscarSede(getPropiedades().leerPropiedad(), detalleFacturaDTO.getSede());
         detalleFacturaDTO.setFechaFactura(Formatos.dateTostring(new Date()));
         facturaService.guardarFactura(getPropiedades().leerPropiedad(), sede.getSede(), detalleFacturaDTO);
-        //ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(),Long.parseLong(detalleFacturaDTO.getNumeroFactura()),detalleFacturaDTO.getSede());
-        return new ModelAndView("redirect:/factura/home.htm");
+        ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(),Long.parseLong(detalleFacturaDTO.getNumeroFactura()),detalleFacturaDTO.getSede());
+        return mav;
+        //return new ModelAndView("redirect:/factura/home.htm");
     }
 
     @RequestMapping(value = "/ajax/actualizar.htm", method = {RequestMethod.GET, RequestMethod.POST})
@@ -148,14 +150,15 @@ public class FacturasController extends BaseController {
     public ModelAndView facturaVenta(@RequestParam(required = false, value = "factura") String factura,
             @RequestParam(required = false, value = "numeroFactura") Long numeroFactura, @RequestParam(required = false, value = "sede") Long sede) {
        
+        Subprincipal subprincipal = sedesService.findSubPrincipalByIdsede(getPropiedades().leerPropiedad(), sede.intValue());
         //Servicio
-        Factura factura1 = facturaService.findFactura(getPropiedades().leerPropiedad(), numeroFactura);
+        Factura factura1 = facturaService.findFactura(subprincipal.getNombre(), numeroFactura);
 
-        List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(getPropiedades().leerPropiedad(), numeroFactura);
+        List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(subprincipal.getNombre(), numeroFactura);
 
         JRDataSource datos = new JRBeanCollectionDataSource(detalleFactura);
         Map<String, Object> parameterMap = new HashMap<String, Object>();
-        Sedes sedes = sedesService.buscarSede(getPropiedades().leerPropiedad(), sede);
+        Sedes sedes = sedesService.buscarSede(subprincipal.getNombre(), sede);
         parameterMap.put("datos", datos);
         parameterMap.put("numeroFactura", numeroFactura);
         parameterMap.put("fechaFactura", Formatos.dateTostring(factura1.getFechaFactura()));

@@ -20,5 +20,5 @@ public interface SedesService {
     public List<Sedes> traerSedes(String nameDatasource);
     public Sedes buscarSede(String nameDatasource,Long idSede);
     public Sedes buscarSedeXNombre(String nameDatasource,String nombresede);
-    //Subprincipal findSubPrincipalByIdsede(String nameDatasource,Integer idSede);
+    Subprincipal findSubPrincipalByIdsede(String nameDatasource,Integer idSede);
 }

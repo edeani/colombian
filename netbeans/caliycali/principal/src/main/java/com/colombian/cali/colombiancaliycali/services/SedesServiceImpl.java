@@ -29,8 +29,8 @@ public class SedesServiceImpl implements SedesService {
     private ProjectsDao projectsDao;
     @Autowired
     private SedesDao sedesDao;
-    /*@Autowired
-    private SubPrincipalDao subPrincipalDao;*/
+    @Autowired
+    private SubPrincipalDao subPrincipalDao;
     @Override
     @Transactional
     public List<ItemsDTO> listaSedesOptions(String nameDatasource) {
@@ -58,11 +58,11 @@ public class SedesServiceImpl implements SedesService {
         return sede;
     }
     
-    /*@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     @Override
     public Subprincipal findSubPrincipalByIdsede(String nameDatasource, Integer idSede) {
         return subPrincipalDao.findSubPrincipalByIdsede(nameDatasource, idSede);
-    }*/
+    }
     @Transactional(readOnly = true)
     @Override
     public Sedes buscarSedeXNombre(String nameDatasource, String nombresede) {
