@@ -150,15 +150,14 @@ public class FacturasController extends BaseController {
     public ModelAndView facturaVenta(@RequestParam(required = false, value = "factura") String factura,
             @RequestParam(required = false, value = "numeroFactura") Long numeroFactura, @RequestParam(required = false, value = "sede") Long sede) {
        
-        Subprincipal subprincipal = sedesService.findSubPrincipalByIdsede(getPropiedades().leerPropiedad(), sede.intValue());
         //Servicio
-        Factura factura1 = facturaService.findFactura(subprincipal.getNombre(), numeroFactura);
+        Factura factura1 = facturaService.findFactura(getPropiedades().leerPropiedad(), numeroFactura);
 
-        List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(subprincipal.getNombre(), numeroFactura);
+        List<FacturaVentaDTO> detalleFactura = facturaService.detalleFacturaVenta(getPropiedades().leerPropiedad(), numeroFactura);
 
         JRDataSource datos = new JRBeanCollectionDataSource(detalleFactura);
         Map<String, Object> parameterMap = new HashMap<String, Object>();
-        Sedes sedes = sedesService.buscarSede(subprincipal.getNombre(), sede);
+        Sedes sedes = sedesService.buscarSede(getPropiedades().leerPropiedad(), sede);
         parameterMap.put("datos", datos);
         parameterMap.put("numeroFactura", numeroFactura);
         parameterMap.put("fechaFactura", Formatos.dateTostring(factura1.getFechaFactura()));

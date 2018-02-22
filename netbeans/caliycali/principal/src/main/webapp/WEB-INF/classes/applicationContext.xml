@@ -36,9 +36,9 @@
     <!--bean id="principal"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/x022vm01_principalsedes"
-      p:username="llmdvi"
-      p:password="YI15102206j" /-->   
+      p:url="jdbc:mysql://localhost:3306/x022vm01_principalsedes"
+      p:username="root"
+      p:password="compaq" /-->   
     <!-- Viejo -->
     <!--bean id="principal"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -50,60 +50,60 @@
     <bean id="Principal"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/buffalosluzprincipal"
-      p:username="llmdvi"
-      p:password="YI15102206j"/>  
+      p:url="jdbc:mysql://localhost:3306/buffalosluzprincipal"
+      p:username="root"
+      p:password="compaq"/>  
     
     <bean id="Principal Gran Estacion"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/buffalosgranestacion"
-      p:username="llmdvi"
-      p:password="YI15102206j"/>   
+      p:url="jdbc:mysql://localhost:3306/buffalosgranestacion"
+      p:username="root"
+      p:password="compaq"/>   
     
     <!--bean id="caldas"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/caldas"
-      p:username="llmdvi"
-      p:password="YI15102206j"/--> 
+      p:url="jdbc:mysql://localhost:3306/caldas"
+      p:username="root"
+      p:password="compaq"/--> 
     
     <bean id="Principal Cartagena"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/cartagenabuffalosprincipal"
-      p:username="llmdvi"
-      p:password="YI15102206j"/>    
+      p:url="jdbc:mysql://localhost:3306/cartagenabuffalosprincipal"
+      p:username="root"
+      p:password="compaq"/>    
     
     
     <bean id="Principal Ibague"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/ibaguebuffalosprincipal"
-      p:username="llmdvi"
-      p:password="YI15102206j"/> 
+      p:url="jdbc:mysql://localhost:3306/ibaguebuffalosprincipal"
+      p:username="root"
+      p:password="compaq"/> 
     
     <bean id="Gran Estacion"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/granestacion"
-     p:username="llmdvi"
-      p:password="YI15102206j"/> 
+      p:url="jdbc:mysql://localhost:3306/granestacion"
+     p:username="root"
+      p:password="compaq"/> 
     
     <bean id="Cartagena Buffalos"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/cartagenabuffalos"
-     p:username="llmdvi"
-      p:password="YI15102206j"/> 
+      p:url="jdbc:mysql://localhost:3306/cartagenabuffalos"
+     p:username="root"
+      p:password="compaq"/> 
     
     
     <bean id="Ibague Buffalos"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://192.168.0.22:3306/ibaguebuffalos"
-     p:username="llmdvi"
-      p:password="YI15102206j"/> 
+      p:url="jdbc:mysql://localhost:3306/ibaguebuffalos"
+     p:username="root"
+      p:password="compaq"/> 
     
      <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect " />
     

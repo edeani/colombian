@@ -31,10 +31,10 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <!-- Nuevo -->
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/buffalosluzprincipal?zeroDateTimeBehavior=convertToNullcaliycali?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/buffalosluzprincipal?zeroDateTimeBehavior=convertToNullcaliycali?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="compaq"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="llmdvi"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
     </properties>
     <!-- Viejo -->
     <!--properties>
@@ -45,10 +45,10 @@
     </properties-->
     <!-- Local -->
     <!--properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://192.168.0.22:3306/pruebascali?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://locahost:3306/pruebascali?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="compaq"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="YI15102206j"/>
+      <property name="javax.persistence.jdbc.user" value="compaq"/>
     </properties-->
   </persistence-unit>
 </persistence>

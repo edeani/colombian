@@ -222,43 +222,70 @@ public class FacturasServiceImpl implements FacturasService {
     public void guardarFactura(String nameDatasource, String nombreSede, DetalleFacturaDTO detalleFacturaDTO) {
         
         //Principal
-        /*facturaDao.insertarFacturaNueva(nameDatasource, detalleFacturaDTO, detalleFacturaDTO.getSede(), ESTADO_FACTURA_DEFAULT);
+        facturaDao.insertarFacturaNueva(nameDatasource, detalleFacturaDTO, detalleFacturaDTO.getSede(), ESTADO_FACTURA_DEFAULT);
         Long secuenciaPrincipal = facturaDao.secuenciaDetalle(nameDatasource);
-        facturaDao.insertarDetalle(nameDatasource, detalleFacturaDTO, detalleFacturaDTO.getSede(), ESTADO_FACTURA_DEFAULT, secuenciaPrincipal);*/
-        //Principal Sede
+        facturaDao.insertarDetalle(nameDatasource, detalleFacturaDTO, detalleFacturaDTO.getSede(), ESTADO_FACTURA_DEFAULT, secuenciaPrincipal);
+        detalleFacturaDTO.setNumeroFactura("" + secuenciaPrincipal);
+        //Principal Sede 
         Subprincipal subprincipal = subPrincipalDao.findSubPrincipalByIdsede(nameDatasource, detalleFacturaDTO.getSede().intValue());
         DetalleFacturaDTO detalleFacturaDTOPrincipalSede = new DetalleFacturaDTO();
         detalleFacturaDTOPrincipalSede.setFactura(detalleFacturaDTO.getFactura());
         detalleFacturaDTOPrincipalSede.setFechaFactura(detalleFacturaDTO.getFechaFactura());
-        detalleFacturaDTOPrincipalSede.setNumeroFactura(detalleFacturaDTO.getNumeroFactura());
+        detalleFacturaDTOPrincipalSede.setNumeroFactura("");
         Sedes sedesPrincipalSede = sedesService.buscarSedeXNombre(subprincipal.getNombre(), nombreSede);
         detalleFacturaDTOPrincipalSede.setSede(sedesPrincipalSede.getIdsedes());
-        detalleFacturaDTOPrincipalSede.setTotalFactura(detalleFacturaDTO.getTotalFactura());
+        detalleFacturaDTOPrincipalSede.setTotalFactura("0");
 
         facturaDao.insertarFacturaNueva(subprincipal.getNombre(), detalleFacturaDTOPrincipalSede, detalleFacturaDTOPrincipalSede.getSede(), ESTADO_FACTURA_DEFAULT);
         Long secuenciaPrincipalSede = facturaDao.secuenciaDetalle(subprincipal.getNombre());
         facturaDao.insertarDetalle(subprincipal.getNombre(), detalleFacturaDTOPrincipalSede, detalleFacturaDTOPrincipalSede.getSede(), ESTADO_FACTURA_DEFAULT, secuenciaPrincipalSede);
         //Sede  
+        detalleFacturaDTOPrincipalSede.setTotalFactura(detalleFacturaDTO.getTotalFactura());
         facturaDao.insertarFacturaSede(nombreSede, detalleFacturaDTOPrincipalSede, ESTADO_FACTURA_DEFAULT, secuenciaPrincipalSede);
         facturaDao.insertarDetalleSede(nombreSede, detalleFacturaDTOPrincipalSede, ESTADO_FACTURA_DEFAULT, secuenciaPrincipalSede);
         detalleFacturaDTOPrincipalSede.setNumeroFactura("" + secuenciaPrincipalSede);
-        detalleFacturaDTO.setNumeroFactura("" + secuenciaPrincipalSede);
         
         DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
         detalleCompraDTO.setCodigoProveedor(codigo_proveedor_luz);
         detalleCompraDTO.setEstadoCompraProveedor("N");
         detalleCompraDTO.setFactura(detalleFacturaDTO.getFactura());
         detalleCompraDTO.setFechaVencimiento(detalleFacturaDTO.getFechaFactura());
-        detalleCompraDTO.setNumeroFactura(""+secuenciaPrincipalSede);
+        Long secuenciaCompra = secuenciasMysqlDao.secuenceTable(subprincipal.getNombre(), "compras");
+        detalleCompraDTO.setNumeroFactura(""+(9999150+secuenciaCompra));
         detalleCompraDTO.setTotalFactura(detalleFacturaDTO.getTotalFactura());
         detalleCompraDTO.setSaldo(Double.valueOf(detalleFacturaDTO.getTotalFactura()));
         
-        comprasService.guardarCompra(nameDatasource, detalleCompraDTO);
+        comprasService.guardarCompra(subprincipal.getNombre(), detalleCompraDTO);
         /**
+         * FACTURAS COMPRAS
          * **********************************************************************************************************************
          */
-        Long secuenciFacturaComprasPrincipalSede = secuenciasMysqlDao.secuenceTable(subprincipal.getNombre(), "facturas_compras");
+        //PRINCIPAL
+        Long secuFacturasComprasPrincipal = secuenciasMysqlDao.secuenceTable(nameDatasource, "facturas_compras");
         FacturaMapper facturaMapper = new FacturaMapper();
+        FacturasCompras facturasComprasPrincipal = facturaMapper.facturaToFacturaCompras(detalleFacturaDTO);
+        facturasComprasPrincipal.setIdcuenta(cuenta_facturas_compras_sede);
+        facturasComprasDao.guardarFacturaComprasDao(nameDatasource, facturasComprasPrincipal);
+        
+        facturasComprasPrincipal.setConsecutivo(secuFacturasComprasPrincipal);
+        FacturasProcesadasCuentas facturasProcesadasSedePrincipal = facturaMapper.facturasComprasToFacturasProcesadasCuentas(facturasComprasPrincipal);
+        facturasProcesadasSedePrincipal.setTipo(tipo_sede);
+        facturasProcesadasCuentasDao.guardarFacturaProcesada(nameDatasource, facturasProcesadasSedePrincipal);
+        //2
+        //secuFacturasComprasPrincipal = secuenciasMysqlDao.secuenceTable(nameDatasource, "facturas_compras"); 
+        facturasComprasPrincipal.setTotal(facturasComprasPrincipal.getTotal()*-1); 
+        facturasComprasPrincipal.setIdsede(id_sede_principal); 
+        facturasComprasPrincipal.setIdcuenta(cuenta_facturas_compras_principal); 
+        facturasComprasDao.guardarFacturaComprasDao(nameDatasource, facturasComprasPrincipal); 
+        
+        
+        /*facturasComprasPrincipal.setConsecutivo(secuFacturasComprasPrincipal);
+        facturasProcesadasSedePrincipal = facturaMapper.facturasComprasToFacturasProcesadasCuentas(facturasComprasPrincipal);
+        facturasProcesadasSedePrincipal.setTipo(tipo_sede);
+        facturasProcesadasCuentasDao.guardarFacturaProcesada(nameDatasource, facturasProcesadasSedePrincipal);*/
+        //SEDE PRINCIPAL
+        detalleFacturaDTOPrincipalSede.setTotalFactura("0");
+        Long secuenciFacturaComprasPrincipalSede = secuenciasMysqlDao.secuenceTable(subprincipal.getNombre(), "facturas_compras");
         FacturasCompras facturasComprasPrincipalSede = facturaMapper.facturaToFacturaCompras(detalleFacturaDTOPrincipalSede);
         facturasComprasPrincipalSede.setIdcuenta(cuenta_facturas_compras_sede);
         facturasComprasDao.guardarFacturaComprasDao(subprincipal.getNombre(), facturasComprasPrincipalSede);
@@ -269,17 +296,17 @@ public class FacturasServiceImpl implements FacturasService {
         facturasProcesadasCuentasDao.guardarFacturaProcesada(subprincipal.getNombre(), facturasProcesadasSedePrincipalSede);
         
         //Inserto en facturas_compras el registro de la principal 
-        secuenciFacturaComprasPrincipalSede = secuenciasMysqlDao.secuenceTable(subprincipal.getNombre(), "facturas_compras"); 
+        //secuenciFacturaComprasPrincipalSede = secuenciasMysqlDao.secuenceTable(subprincipal.getNombre(), "facturas_compras"); 
         facturasComprasPrincipalSede.setTotal(facturasComprasPrincipalSede.getTotal()*-1); 
         facturasComprasPrincipalSede.setIdsede(id_sede_principal); 
         facturasComprasPrincipalSede.setIdcuenta(cuenta_facturas_compras_principal); 
         facturasComprasDao.guardarFacturaComprasDao(subprincipal.getNombre(), facturasComprasPrincipalSede); 
          
-        facturasComprasPrincipalSede.setConsecutivo(secuenciFacturaComprasPrincipalSede); 
+        /*facturasComprasPrincipalSede.setConsecutivo(secuenciFacturaComprasPrincipalSede); 
         FacturasProcesadasCuentas facturasProcesadasPrincipal = facturaMapper.facturasComprasToFacturasProcesadasCuentas(facturasComprasPrincipalSede); 
         facturasProcesadasSedePrincipalSede.setTipo(tipo_principal); 
-        facturasProcesadasCuentasDao.guardarFacturaProcesada(subprincipal.getNombre(), facturasProcesadasPrincipal); 
-
+        facturasProcesadasCuentasDao.guardarFacturaProcesada(subprincipal.getNombre(), facturasProcesadasPrincipal); */
+        
     }
 
     @Override
