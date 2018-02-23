@@ -6,4 +6,6 @@
 /netbeans/administracion/target/
 /netbeans/colombian/target/
 /netbeans/sede/target/
+*.svn-base
+
 netbeans/caliycali/colombian-jsf/\.svn/
