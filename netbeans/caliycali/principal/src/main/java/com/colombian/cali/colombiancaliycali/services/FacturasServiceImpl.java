@@ -254,9 +254,10 @@ public class FacturasServiceImpl implements FacturasService {
         detalleCompraDTO.setNumeroFactura(""+(9999150+secuenciaCompra));
         detalleCompraDTO.setTotalFactura(detalleFacturaDTO.getTotalFactura());
         detalleCompraDTO.setSaldo(Double.valueOf(detalleFacturaDTO.getTotalFactura()));
+        detalleCompraDTO.setIdsede(detalleFacturaDTO.getSede().intValue());
         
         comprasService.guardarCompra(subprincipal.getNombre(), detalleCompraDTO);
-        /**
+        /**1
          * FACTURAS COMPRAS
          * **********************************************************************************************************************
          */

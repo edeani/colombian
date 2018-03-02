@@ -43,7 +43,7 @@ public class FacturaMapper {
         for (int i = 0; i < fila.length; i++) {
             String[] datosFila = fila[i].split(",");
             if (i == 0) {
-                valores = caliycaliDao.insertJdbTemplate("secuencial_factura,numero_factura,fecha_factura,codigo_producto_inventario,valor_producto,numero_unidades,codigo_proveedor,idsede", "detalle_factura", (i + 1) + "," + idFactura + "," + "'" + detalleFacturaDTO.getFechaFactura() + "'," + datosFila[0] + "," + datosFila[4] + "," + datosFila[2] + ",1," + idsede);
+                valores = caliycaliDao.insertJdbTemplate("secuencial_factura,numero_factura,fecha_factura,codigo_producto_inventario,valor_producto,numero_unidades,codigo_proveedor,idsede", "detalle_factura", (i + 1) + "," + idFactura + "," + "'" + detalleFacturaDTO.getFechaFactura() + "'," + datosFila[0] + "," + datosFila[4] + "," + datosFila[2] + ",1000," + idsede);
             } else {
                 valores = caliycaliDao.addInsertJdtbTemplate(valores, (i + 1) + "," + idFactura + "," + "'" + detalleFacturaDTO.getFechaFactura() + "'," + datosFila[0] + "," + datosFila[4] + "," + datosFila[2] + ",1000," + idsede, i);
             }

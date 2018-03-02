@@ -84,11 +84,17 @@ public class ComprasDaoImpl implements ComprasDao {
 
     @Override
     public void insertarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
+        String campoIdSede="",valorIdSede="";
+        if(detalleCompraDTO.getIdsede()!=null){
+            campoIdSede=",idsede";
+            valorIdSede=","+detalleCompraDTO.getIdsede();
+        }
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
-        System.out.println("SQL::" + caliycaliDao.insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
-                + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()));
-        this.jdbctemplate.execute(caliycaliDao.insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
-                + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdFacturaCompra()));
+        System.out.println("SQL::" + caliycaliDao.insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra"+campoIdSede, "compras", 
+                detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
+                + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+valorIdSede));
+        this.jdbctemplate.execute(caliycaliDao.insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra"+campoIdSede, "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
+                + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdFacturaCompra()+valorIdSede));
     }
 
     @Override

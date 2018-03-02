@@ -19,6 +19,7 @@ public class DetalleCompraDTO {
     private String estadoCompraProveedor;
     private Double saldo;
     private Long idFacturaCompra;
+    private Integer idsede;
     /**
      * @return the compra
      */
@@ -113,6 +114,14 @@ public class DetalleCompraDTO {
 
     public void setIdFacturaCompra(Long idFacturaCompra) {
         this.idFacturaCompra = idFacturaCompra;
+    }
+
+    public Integer getIdsede() {
+        return idsede;
+    }
+
+    public void setIdsede(Integer idsede) {
+        this.idsede = idsede;
     }
     
 }
