@@ -18,6 +18,7 @@
     <!--bean id="propertyConfigurer"
     class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
     p:location="/WEB-INF/jdbc.properties" /-->
+    <context:property-placeholder location="classpath:bd/basedatos.properties"/>
     <bean id="entityManagerFactory"
       class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="Principal" />
@@ -36,74 +37,74 @@
     <!--bean id="principal"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/x022vm01_principalsedes"
-      p:username="root"
-      p:password="compaq" /-->   
+      p:url="jdbc:mysql://${url}/x022vm01_principalsedes"
+      p:username="${user}"
+      p:password="${password}" /-->   
     <!-- Viejo -->
     <!--bean id="principal"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://200.58.112.133:3306/x022vm01_caliycali"
+      p:url="jdbc:mysql://200.58.112.133/x022vm01_caliycali"
       p:username="x022vm01"
       p:password="taYzLzk4hqx"/-->
     <!-- Nuevo -->
     <bean id="Principal"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/buffalosluzprincipal"
-      p:username="root"
-      p:password="compaq"/>  
+      p:url="jdbc:mysql://${url}/buffalosluzprincipal"
+      p:username="${user}"
+      p:password="${password}"/>  
     
     <bean id="Principal Gran Estacion"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/buffalosgranestacion"
-      p:username="root"
-      p:password="compaq"/>   
+      p:url="jdbc:mysql://${url}/buffalosgranestacion"
+      p:username="${user}"
+      p:password="${password}"/>   
     
     <!--bean id="caldas"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/caldas"
-      p:username="root"
-      p:password="compaq"/--> 
+      p:url="jdbc:mysql://${url}/caldas"
+      p:username="${user}"
+      p:password="${password}"/--> 
     
     <bean id="Principal Cartagena"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/cartagenabuffalosprincipal"
-      p:username="root"
-      p:password="compaq"/>    
+      p:url="jdbc:mysql://${url}/cartagenabuffalosprincipal"
+      p:username="${user}"
+      p:password="${password}"/>    
     
     
     <bean id="Principal Ibague"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/ibaguebuffalosprincipal"
-      p:username="root"
-      p:password="compaq"/> 
+      p:url="jdbc:mysql://${url}/ibaguebuffalosprincipal"
+      p:username="${user}"
+      p:password="${password}"/> 
     
     <bean id="Gran Estacion"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/granestacion"
-     p:username="root"
-      p:password="compaq"/> 
+      p:url="jdbc:mysql://${url}/granestacion"
+     p:username="${user}"
+      p:password="${password}"/> 
     
     <bean id="Cartagena Buffalos"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/cartagenabuffalos"
-     p:username="root"
-      p:password="compaq"/> 
+      p:url="jdbc:mysql://${url}/cartagenabuffalos"
+     p:username="${user}"
+      p:password="${password}"/> 
     
     
     <bean id="Ibague Buffalos"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       p:driverClassName="com.mysql.jdbc.Driver"
-      p:url="jdbc:mysql://localhost:3306/ibaguebuffalos"
-     p:username="root"
-      p:password="compaq"/> 
+      p:url="jdbc:mysql://${url}/ibaguebuffalos"
+     p:username="${user}"
+      p:password="${password}"/> 
     
      <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect " />
     

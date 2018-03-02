@@ -288,7 +288,42 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <bd.user>root</bd.user>
+                <bd.password>compaq</bd.password>
+                <bd.ip>localhost:3306</bd.ip>
+            </properties>
+        </profile>
+        <profile>
+            <id>pre-prod</id>
+            <properties>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>186.31.32.253:3306</bd.ip>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>192.168.0.22:3306</bd.ip>
+            </properties>
+        </profile>
+    </profiles>
     <repositories>
         <repository>
             <url>http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
