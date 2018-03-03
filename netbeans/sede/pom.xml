@@ -272,7 +272,7 @@
         <profile>
             <id>prod</id>
             <properties>
-                <base.datos>domicilios</base.datos>
+                <base.datos>credencials</base.datos>
                 <bd.user>root</bd.user>
                 <bd.password>YI15102206j</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
