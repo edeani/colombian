@@ -76,7 +76,7 @@ public class LoginController {
     @RequestMapping(value = "/signin.htm")
     public ModelAndView paginaLogin(HttpSession session) {
         session.setAttribute("path", base_datos_principal);
-        return new ModelAndView("index");
+        return new ModelAndView("indexSelect");
     }
 
     /**
