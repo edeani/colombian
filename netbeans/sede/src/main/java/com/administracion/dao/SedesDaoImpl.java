@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -91,6 +92,12 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
     @Override
     public List<SedesDto> listSedesDto() {
         return jdbcTemplate.query(leerXml.getQuery("SedesSql.list"), new BeanPropertyRowMapper<>(SedesDto.class));
+    }
+
+    @Override
+    public List<ItemsDTO> listaSedesOptionsByUsername(String username) {
+        MapSqlParameterSource params = new MapSqlParameterSource("username", username);
+        return this.namedParameterJdbcTemplate.query(leerXml.getQuery("SedesSql.listaSedesOptByUser"), params, new BeanPropertyRowMapper<>(ItemsDTO.class));
     }
 
     

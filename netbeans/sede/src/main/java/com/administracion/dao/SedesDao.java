@@ -25,4 +25,5 @@ public interface SedesDao extends GenericDao<Sedes>{
 
     public List<Sedes> listSedes();
     List<SedesDto> listSedesDto();
+    List<ItemsDTO> listaSedesOptionsByUsername(String username);
 }

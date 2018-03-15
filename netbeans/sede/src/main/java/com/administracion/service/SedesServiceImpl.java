@@ -6,7 +6,6 @@
 package com.administracion.service;
 
 import com.administracion.dao.SedesDao;
-import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Sedes;
@@ -64,6 +63,11 @@ public class SedesServiceImpl extends GenericService implements SedesService{
     @Transactional(readOnly = true)
     public List<SedesDto> traerSedesDtos() {
         return sedesDao.listSedesDto();
+    }
+
+    @Override
+    public List<ItemsDTO> listaSedesOptionByUsername(String username) {
+        return sedesDao.listaSedesOptionsByUsername(username);
     }
     
 }
