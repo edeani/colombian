@@ -14,8 +14,10 @@
                 <label>Usuario:</label>  <input value="" id="username" name="username" size="20" type="text" class="contentRequired"/>
             </li>
             <li id="lsede">
-                <label>Sede:</label>  <select disabled="disabled" value="" id="sede" class="contentRequired">
+                <label>Sede:</label>  
+                <select disabled="disabled" value="" id="sede" class="contentRequired" data-url="<%=request.getContextPath()%>/principal/sedes/ajax/byuser.do">
                     <!-- Sedes del Usuario -->
+                    <option value="">Seleccionar Sede</option>
                 </select>
             </li>
             <li id="lpass" style="display: none;">

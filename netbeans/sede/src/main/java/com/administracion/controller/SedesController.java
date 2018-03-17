@@ -89,5 +89,11 @@ public class SedesController extends BaseController {
         }
         return "ok";
     }
-
+    
+    @RequestMapping("/ajax/byuser.do") 
+    public ModelAndView buscarSedesXUsuario(@RequestParam String username){
+        ModelAndView mav = new ModelAndView("util/formSelect");
+        mav.addObject("datos", sedeService.listaSedesOptionByUsername(username));
+        return mav;
+    }
 }
