@@ -4,7 +4,6 @@
  */
 package com.administracion.service;
 
-
 import com.adiministracion.mapper.ComprasMapper;
 import com.adiministracion.mapper.FacturaMapper;
 import com.administracion.dao.ComprasDao;
@@ -22,6 +21,8 @@ import com.administracion.dto.DetalleFacturaDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteComprasTotalesProvDTO;
 import com.administracion.dto.ReporteComprasTotalesXProveedorDTO;
+import com.administracion.dto.SedesDto;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.FacturasCompras;
 import com.administracion.entidad.Proveedor;
@@ -75,59 +76,61 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional
     public void guardarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
-        String[] fila = detalleCompraDTO.getFactura().split("@");
-        Date fechacompra = null;
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
-        if(detalleCompraDTO.getFecha()==null){
-            fechacompra = new Date();
-            detalleCompraDTO.setFecha(Formatos.dateTostring(fechacompra));
-        }else if(detalleCompraDTO.getFecha().equals("")){
-            fechacompra = new Date();
-            detalleCompraDTO.setFecha(Formatos.dateTostring(fechacompra));
-        }
-        Long secuenciFacturaCompras = secuenciasMysqlDao.secuenceTable(ds, "facturas_compras");
-        detalleCompraDTO.setIdFacturaCompra(secuenciFacturaCompras);
-        comprasDao.insertarCompra(ds, detalleCompraDTO);
-        for (int i = 0; i < fila.length; i++) {
-            String[] datosFila = fila[i].split(",");
-            comprasDao.insertarDetalleCompra(ds, i, detalleCompraDTO.getNumeroFactura(), datosFila, detalleCompraDTO.getCodigoProveedor(),fechacompra);
-            actualizarPromedioInventario(nameDataSource, datosFila[0]);
-        }
+        SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
+        if (!subSede.getSede().contains("Principal")) {
+            String[] fila = detalleCompraDTO.getFactura().split("@");
+            Date fechacompra = null;
+            DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
+            SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
+            if (detalleCompraDTO.getFecha() == null) {
+                fechacompra = new Date();
+                detalleCompraDTO.setFecha(Formatos.dateTostring(fechacompra));
+            } else if (detalleCompraDTO.getFecha().equals("")) {
+                fechacompra = new Date();
+                detalleCompraDTO.setFecha(Formatos.dateTostring(fechacompra));
+            }
+            Long secuenciFacturaCompras = secuenciasMysqlDao.secuenceTable(ds, "facturas_compras");
+            detalleCompraDTO.setIdFacturaCompra(secuenciFacturaCompras);
+            comprasDao.insertarCompra(ds, detalleCompraDTO);
+            for (int i = 0; i < fila.length; i++) {
+                String[] datosFila = fila[i].split(",");
+                comprasDao.insertarDetalleCompra(ds, i, detalleCompraDTO.getNumeroFactura(), datosFila, detalleCompraDTO.getCodigoProveedor(), fechacompra);
+                actualizarPromedioInventario(nameDataSource, datosFila[0]);
+            }
 
-        //Insercion de la compra en una sede, se convierte en factura
-        if (detalleCompraDTO.getIdsede() != 1L) {
-            
-            Sedes sede = sedesDao.findById(detalleCompraDTO.getIdsede());
-            String dataSourceSede = sede.getSede();
-            
-            FacturaMapper facturaMapper = new FacturaMapper();
-            
-            DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
-            Long secuenciaActual = Long.parseLong(detalleCompraDTO.getNumeroFactura());
-            facturaDao.insertarFacturaSubSede(ds, factura, "A", secuenciaActual);
-            facturaDao.insertarDetalleSede(ds, detalleCompraDTO, "A" , secuenciaActual);
-        }
+            //Insercion de la compra en una sede, se convierte en factura
+            //El tipo de sede 1 es una sede normal.
+            if (sedesDto.getTipo_sede() == 1) {
 
-        ComprasMapper comprasMapper = new ComprasMapper();
-        FacturasCompras facturasCompras = comprasMapper.detalleCompraDTOToFacturasComprasDto(detalleCompraDTO);
-        facturasComprasDao.guardarFacturaComprasDao(ds, facturasCompras);
-        
+                ds = connectsAuth.getDataSourceSubSede(subSede.getSede());
+                FacturaMapper facturaMapper = new FacturaMapper();
+
+                DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
+                Long secuenciaActual = Long.parseLong(detalleCompraDTO.getNumeroFactura());
+                facturaDao.insertarFacturaSubSede(ds, factura, "A", secuenciaActual);
+                facturaDao.insertarDetalleSede(ds, detalleCompraDTO, "A", secuenciaActual);
+            }
+
+            ComprasMapper comprasMapper = new ComprasMapper();
+            FacturasCompras facturasCompras = comprasMapper.detalleCompraDTOToFacturasComprasDto(detalleCompraDTO);
+            facturasComprasDao.guardarFacturaComprasDao(ds, facturasCompras);
+        }
     }
-    
+
     public boolean actualizarPromedioInventario(String dataSource, String codigoProductoInventario) {
         //Armo el intervalo de fechas
         Date fecha = new Date();
         String anio = "" + Formatos.obtenerAnio(fecha);
         String mes = "" + Formatos.obtenerMes(fecha);
         String dia = "" + Formatos.obtenerDia(fecha);
-        
+
         Date date = Formatos.lunesSemana();
         String fechainicial = Formatos.dateTostring(date);
         String fechafinal = Formatos.sumarFechasDias(date, 6);
         //String fechainicial = anio + "-" + mes + "-01";
         //String fechafinal = anio + "-" + mes + "-" + dia;
         try {
-            
+
             //Calculo el promedio
             Double promedio = inventarioService.calcularPromedioInventario(dataSource, Long.parseLong(codigoProductoInventario), fechainicial, fechafinal);
             /*if(Long.parseLong(codigoProductoInventario) == 1 ){
@@ -139,10 +142,10 @@ public class ComprasServiceImpl implements ComprasService {
             promedio = Double.parseDouble(Formatos.formatearNumeros("####.###", promedio));
             //Actualizo el promedio en inventario
             inventarioService.actualizarPromedioInventario(dataSource, Long.parseLong(codigoProductoInventario), promedio);
-            
+
         } catch (NumberFormatException e) {
-            
-            System.out.println("ERROR::"+e.getMessage());
+
+            System.out.println("ERROR::" + e.getMessage());
             return false;
         }
 
@@ -151,21 +154,21 @@ public class ComprasServiceImpl implements ComprasService {
 
     @Override
     @Transactional
-    public List<ComprasTotalesDTO> comprasTotales(String nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra) {
-       return comprasDao.comprasTotales(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra);
+    public List<ComprasTotalesDTO> comprasTotales(String nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra) {
+        return comprasDao.comprasTotales(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra);
     }
 
     @Override
     @Transactional
     public List<ComprasTotalesDTO> comprasTotalesProveedor(String nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor) {
-        return comprasDao.comprasTotalesProveedor(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra,codigoProveedor);
+        return comprasDao.comprasTotalesProveedor(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial, fechaFinal, estadoCompra, codigoProveedor);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra) {
         return comprasDao.getDetalleCompraDTO(idcompra, connectsAuth.getDataSourceSubSede(nameDataSource));
-    } 
+    }
 
     @Override
     @Transactional
@@ -173,7 +176,7 @@ public class ComprasServiceImpl implements ComprasService {
         Compras compras = comprasDao.getCompra(idcompra, connectsAuth.getDataSourceSubSede(nameDataSource));
         ComprasMapper comprasMapper = new ComprasMapper();
         DetalleCompraDTO detalleCompraDTO = comprasMapper.comprasToDetalleCompraDto(compras);
-        
+
         return detalleCompraDTO;
     }
 
@@ -186,52 +189,52 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional
     public void actualizarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
-        String[] fila = detalleCompraDTO.getFactura().split("@");
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
-        this.jdbctemplate = new JdbcTemplate(ds);
-        Long idcompra = Long.parseLong(detalleCompraDTO.getNumeroFactura());
-        Compras compra = comprasDao.getCompra(idcompra, ds);
-        Long idFacturaCompra = compra.getIdFacturaCompra();
-        Double canceladoFactura = compra.getValorTotal() - compra.getSaldo();
-        comprasDao.borrarCompra(idcompra, ds);
-        comprasDao.borrarDetalleCompra(idcompra, ds);
-        
-        //Nuevo Saldo
-        detalleCompraDTO.setSaldo(Double.parseDouble(detalleCompraDTO.getTotalFactura()) - canceladoFactura);
-        detalleCompraDTO.setIdFacturaCompra(idFacturaCompra);
-        comprasDao.insertarCompra(ds, detalleCompraDTO);
-        
-        String filasCompra [] = detalleCompraDTO.getFactura().split("@");
-        for (int i = 0; i < filasCompra.length; i++) {
-            String datosFilaCompra[]  = filasCompra[i].split(",");
-            
-            comprasDao.insertarDetalleCompra(ds, i,idcompra.toString(), datosFilaCompra, compra.getCodigoProveedor().toString(),Formatos.StringDateToDate(detalleCompraDTO.getFecha()));
+        SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
+        if (!subSede.getSede().contains("Principal")) {
+            String[] fila = detalleCompraDTO.getFactura().split("@");
+            DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
+            SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
+            this.jdbctemplate = new JdbcTemplate(ds);
+            Long idcompra = Long.parseLong(detalleCompraDTO.getNumeroFactura());
+            Compras compra = comprasDao.getCompra(idcompra, ds);
+            Long idFacturaCompra = compra.getIdFacturaCompra();
+            Double canceladoFactura = compra.getValorTotal() - compra.getSaldo();
+            comprasDao.borrarCompra(idcompra, ds);
+            comprasDao.borrarDetalleCompra(idcompra, ds);
+
+            //Nuevo Saldo
+            detalleCompraDTO.setSaldo(Double.parseDouble(detalleCompraDTO.getTotalFactura()) - canceladoFactura);
+            detalleCompraDTO.setIdFacturaCompra(idFacturaCompra);
+            comprasDao.insertarCompra(ds, detalleCompraDTO);
+
+            String filasCompra[] = detalleCompraDTO.getFactura().split("@");
+            for (int i = 0; i < filasCompra.length; i++) {
+                String datosFilaCompra[] = filasCompra[i].split(",");
+
+                comprasDao.insertarDetalleCompra(ds, i, idcompra.toString(), datosFilaCompra, compra.getCodigoProveedor().toString(), Formatos.StringDateToDate(detalleCompraDTO.getFecha()));
+            }
+
+            ComprasMapper comprasMapper = new ComprasMapper();
+            FacturasCompras facturasCompras = comprasMapper.detalleCompraDTOToFacturasComprasDto(detalleCompraDTO);
+            facturasComprasDao.actualizarFacturaComprasDao(ds, facturasCompras);
+
+            //Inserción en la sede escogida
+            if (sedesDto.getTipo_sede() == 1) {
+                ds = connectsAuth.getDataSourceSede(subSede.getSede());
+                /**
+                 * Se toma el id de compra para buscar en factura
+                 */
+                facturaDao.borrarFactura(ds, idcompra);
+                facturaDao.borrarDetalleFactura(ds, idcompra);
+
+                FacturaMapper facturaMapper = new FacturaMapper();
+
+                DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
+                facturaDao.insertarFacturaSubSede(ds, factura, "A", idcompra);
+                facturaDao.insertarDetalleSede(ds, detalleCompraDTO, "A", idcompra);
+
+            }
         }
-        
-        ComprasMapper comprasMapper = new ComprasMapper();
-        FacturasCompras facturasCompras = comprasMapper.detalleCompraDTOToFacturasComprasDto(detalleCompraDTO);
-        facturasComprasDao.actualizarFacturaComprasDao(ds, facturasCompras);
-        
-        //Inserción en la sede escogida
-        if (detalleCompraDTO.getIdsede() != 1L) {
-            
-            Sedes sede = sedesDao.findById(detalleCompraDTO.getIdsede());
-            String dataSourceSede = sede.getSede();
-            
-            /**
-             * Se toma el id de compra para buscar en factura
-             */
-            facturaDao.borrarFactura(ds, idcompra);
-            facturaDao.borrarDetalleFactura(ds, idcompra);
-            
-            FacturaMapper facturaMapper = new FacturaMapper();
-            
-            DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
-            facturaDao.insertarFacturaSubSede(ds, factura, "A", idcompra);
-            facturaDao.insertarDetalleSede(ds, detalleCompraDTO, "A" , idcompra);
-            
-        }
-        
     }
 
     @Override
@@ -254,7 +257,7 @@ public class ComprasServiceImpl implements ComprasService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Compras> comprasAVencer(String nameDataSource,int numeroDias,Long idProveedor) {
+    public List<Compras> comprasAVencer(String nameDataSource, int numeroDias, Long idProveedor) {
         return comprasDao.comprasAVencer(connectsAuth.getDataSourceSubSede(nameDataSource), numeroDias, idProveedor);
     }
 

@@ -40,6 +40,9 @@ public class Sedes implements Serializable {
     @Size(max = 500)
     @Column(name = "url")
     private String url;
+    @Size(max = 1)
+    @Column(name = "tipo_sede")
+    private Integer tipo_sede;
 
     public Sedes() {
     }
@@ -94,6 +97,13 @@ public class Sedes implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+    public Integer getTipo_sede() {
+        return tipo_sede;
+    }
+
+    public void setTipo_sede(Integer tipo_sede) {
+        this.tipo_sede = tipo_sede;
+    }
     
     @Override
     public boolean equals(Object object) {
@@ -107,5 +117,5 @@ public class Sedes implements Serializable {
         }
         return true;
     }
-    
+
 }

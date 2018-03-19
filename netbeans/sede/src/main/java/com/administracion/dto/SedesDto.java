@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author EderArmando
  */
 public class SedesDto implements Serializable{
-    private Integer idsedes;
+    private Integer idsedes,tipo_sede;
     private String sede,username,password,url,titulo,slogan;
     private String usersLogin;
 
@@ -78,6 +78,14 @@ public class SedesDto implements Serializable{
 
     public void setSlogan(String slogan) {
         this.slogan = slogan;
+    }
+
+    public Integer getTipo_sede() {
+        return tipo_sede;
+    }
+
+    public void setTipo_sede(Integer tipo_sede) {
+        this.tipo_sede = tipo_sede;
     }
     
     

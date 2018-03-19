@@ -167,7 +167,7 @@ public class ComprasController extends BaseController {
     public ModelAndView guardarCompras(@Valid DetalleCompraDTO detalleCompraDTO,
             @PathVariable String sede) {
         try {
-            //comprasService.guardarCompra(sede, detalleCompraDTO);
+            comprasService.guardarCompra(sede, detalleCompraDTO);
         } catch (Exception e) {
             System.out.println("Error guardarCompras::" + e.getMessage());
         }
