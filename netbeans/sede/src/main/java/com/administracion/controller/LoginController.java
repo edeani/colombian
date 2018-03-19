@@ -57,7 +57,7 @@ public class LoginController {
 
     @Autowired
     private SloganSedeService sloganSedeService;
-    
+
     @Autowired
     private UsuarioXSedeService usuarioXSedeService;
 
@@ -76,7 +76,18 @@ public class LoginController {
     @RequestMapping(value = "/signin.htm")
     public ModelAndView paginaLogin(HttpSession session) {
         session.setAttribute("path", base_datos_principal);
-        return new ModelAndView("indexSelect");
+        String rutaLogin = "";
+        ModelAndView mav;
+        if (accesosSubsedes.getSedes().size() > 0) {
+            rutaLogin = login_generic;
+            mav = new ModelAndView("indexSelectGeneric");
+        } else {
+            rutaLogin = login;
+            mav = new ModelAndView("indexSelect");
+        }
+        
+        mav.addObject("urlLogin", rutaLogin);
+        return mav;
     }
 
     /**
@@ -116,7 +127,7 @@ public class LoginController {
     public ModelAndView loginGenericSede(@RequestParam String loginname, @RequestParam String passwordsede,
             @RequestParam(value = "sede") String sedePath, @RequestParam String rt, HttpServletRequest request) {
         SedesDto puntoSede = sedesService.findSedeXNameDto(sedePath);
-        
+
         if (puntoSede != null) {
             Userxsede userxsede = usuarioXSedeService.findUusarioByCorreoSede(loginname, sedePath);
             if (userxsede == null) {
@@ -152,7 +163,7 @@ public class LoginController {
 
     @RequestMapping(value = "/{sede:[a-zA-Z]+}/logout.htm")
     public ModelAndView logoutApp(@PathVariable String sede, HttpServletRequest request,
-             HttpServletResponse response) {
+            HttpServletResponse response) {
         if (accesosSubsedes.getSedes().size() > 1) {
             SedesDto sedesDto = connectsAuth.findSedeXName(sede);
             UserItemDto userItemDto = connectsAuth.findUserItemXIdSede(sedesDto.getIdsedes());
@@ -171,7 +182,7 @@ public class LoginController {
                         i--;
                     }
                 }
-                //accesosSubsedes.getSedes().remove(sedesDto);
+                accesosSubsedes.getSedes().remove(sedesDto);
             }
 
             return new ModelAndView("redirect:/" + sede + "/signin.htm");

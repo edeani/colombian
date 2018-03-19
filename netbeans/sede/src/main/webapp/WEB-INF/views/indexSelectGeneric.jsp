@@ -14,21 +14,21 @@
     <form action="${pageContext.request.contextPath}/${urlLogin}" method="POST" id="formularioLogin" name="formularioLogin" class="formLogin">
         <ul>
             <li>
-                <label>Usuario:</label>  <input value="" id="username" name="username" size="20" type="text" class="contentRequired"/>
+                <label>Usuario:</label>  <input value="" id="loginname" name="loginname" size="20" type="text" class="contentRequired"/>
             </li>
             <li id="lsede">
                 <label>Sede:</label>  
-                <select value="" id="selectSede" class="contentRequired" data-url="<%=request.getContextPath()%>/sedes/ajax/byuser.htm"
+                <select value="" id="selectSedeGeneric" class="contentRequired" data-url="<%=request.getContextPath()%>/sedes/ajax/byuser.htm"
                         data-url-change="<%=request.getContextPath()%>/sedes/ajax/setSedeSession.htm">
                     <!-- Sedes del Usuario -->
                     <option value="">Seleccionar Sede</option>
                 </select>
             </li>
             <li id="lpass" style="display: none;" data-view="N">
-                <label>Password: </label><input  id="password" name="password" size="20" type="password" class="contentRequired"/>
+                <label>Password: </label><input  id="passwordsede" name="passwordsede" size="20" type="password" class="contentRequired"/>
             </li>
-            <input type="hidden" id="rt" name="rt" value="${pageContext.request.contextPath}${rt}"/>
-            <input type="hidden" id="sede" name="sede" value="${sedePath}"/>
+            <input type="hidden" id="rt" name="rt" value=""/>
+            <input type="hidden" id="sede" name="sede" value=""/>
             <li>
                 <input id="submit" type="submit"  class="buttonLogin" value="Login" />
             </li>
