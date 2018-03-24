@@ -16,7 +16,7 @@
             <li>
                 <label>Usuario:</label>  <input value="" id="loginname" name="loginname" size="20" type="text" class="contentRequired"/>
             </li>
-            <li id="lsede">
+            <li id="lsede" data-alert="N">
                 <label>Sede:</label>  
                 <select value="" id="selectSedeGeneric" class="contentRequired" data-url="<%=request.getContextPath()%>/sedes/ajax/byuser.htm"
                         data-url-change="<%=request.getContextPath()%>/sedes/ajax/setSedeSession.htm">

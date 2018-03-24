@@ -1,11 +1,15 @@
 $(document).ready(function () {
 
     $("#selectSede").focusin(function () {
+        var viewAlertUsername = $("#lsede").attr("data-alert");
         var user = $("#username").val();
         if (user !== "") {
             cargarSedes(user);
         } else {
-            alert("Ingrese su nombre de usuario");
+            if(viewAlertUsername==="N"){
+                alert("Ingrese su nombre de usuario");
+                $("#lsede").attr("data-alert","S");
+            }
         }
     });
 
@@ -25,13 +29,24 @@ $(document).ready(function () {
             }
         });
     });
-
+    
+    $("#username").focusin(function(){
+        var viewAlertUsername = $("#lsede").attr("data-alert");
+        if(viewAlertUsername==="S"){
+            $("#lsede").attr("data-alert","N");
+        }
+    });
+    
     $("#selectSedeGeneric").focusin(function () {
         var user = $("#loginname").val();
+        var viewAlertUsername = $("#lsede").attr("data-alert");
         if (user !== "") {
             cargarSedesGeneric(user);
         } else {
-            alert("Ingrese su nombre de usuario");
+            if(viewAlertUsername==="N"){
+                alert("Ingrese su nombre de usuario");
+                $("#lsede").attr("data-alert","S");
+            }
         }
     });
 
