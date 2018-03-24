@@ -46,6 +46,7 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
                     if (!arrUri[arrUri.length - 1].equals("signin.htm")) {
                         if (existSede(arrUri[2]) != null) {
                             response.sendRedirect(request.getContextPath() + slash + arrUri[2] + "/signin.htm");
+                            session.setAttribute("path", arrUri[2]);
                         } else {
                             response.sendRedirect(request.getContextPath() + slash + "404.htm");
                         }
@@ -55,6 +56,8 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
                         if (sedeManage == null) {
                             response.sendRedirect(request.getContextPath() + slash + "404.htm");
                             return false;
+                        }else{
+                            session.setAttribute("path", arrUri[2]);
                         }
                     }
                 } else {//Hay Logins
