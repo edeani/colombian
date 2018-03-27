@@ -32,12 +32,12 @@ public class BeneficiariosServiceImpl implements BeneficiariosService{
     @Transactional(readOnly = true)
     public List<BeneficiarioAutocompletarDto> buscarBeneficiarioLikeNombre(String nameDataSource, String nombre) {
         
-        return beneficiarioDao.buscarBeneficiarioLikeNombre(connectsAuth.getDataSourceSubSede(nameDataSource), nombre);
+        return beneficiarioDao.buscarBeneficiarioLikeNombre(connectsAuth.getDataSourceSede(nameDataSource), nombre);
     }
 
     @Override
     public List<ItemsDTO> buscarBeneficiariosSelect(String nameDataSource) {
-        return beneficiarioDao.beneficiariosSelect(connectsAuth.getDataSourceSubSede(nameDataSource));
+        return beneficiarioDao.beneficiariosSelect(connectsAuth.getDataSourceSede(nameDataSource));
     }
     
 }

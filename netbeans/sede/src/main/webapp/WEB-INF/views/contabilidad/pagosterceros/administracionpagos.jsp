@@ -121,5 +121,10 @@
             </div>
         </div>
     </form:form>
+    <div style="display: none;">
+        <form id="ver_pdf_terceros" action="<%=request.getContextPath()%>/${sessionScope.path}/pagos/terceros/pdf/comprobante.htm" target="_blank">
+            <input type="hidden" value="" id="idpagotercero" name="idpagotercero"/>
+        </form>
+    </div>
 </div>
 

@@ -40,13 +40,13 @@ public class PagosServiceImpl implements PagosService {
     @Override
     @Transactional(readOnly = true)
     public Long secuenciaPagos(String nameDataSource) {
-        return pagosDao.secuenciaPagos(connectsAuth.getDataSourceSubSede(nameDataSource));
+        return pagosDao.secuenciaPagos(connectsAuth.getDataSourceSede(nameDataSource));
     }
 
     @Override
     @Transactional
     public void guardarPagosTerceros(String nameDataSource, Pagos pagosTerceros, List<DetallePagos> detallePagosTerceros) {
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
         pagosDao.guardarPagos(ds, pagosTerceros);
         detallePagosTerceros.forEach((elementoDetallePagosTerceros) -> {
             pagosDao.guardarDetallePagosTerceros(ds, elementoDetallePagosTerceros);
@@ -56,19 +56,19 @@ public class PagosServiceImpl implements PagosService {
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosTercerosDto> buscarDetallePagosTercerosDtos(String nameDataSource, Long idpagotercero) {
-        return pagosDao.buscarDetallePagosTercerosDtos(connectsAuth.getDataSourceSubSede(nameDataSource), idpagotercero);
+        return pagosDao.buscarDetallePagosTercerosDtos(connectsAuth.getDataSourceSede(nameDataSource), idpagotercero);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Pagos buscarPagoXIdPago(String nameDataSource, Long idpagotercero) {
-        return pagosDao.buscarPagoXIdPago(connectsAuth.getDataSourceSubSede(nameDataSource), idpagotercero);
+        return pagosDao.buscarPagoXIdPago(connectsAuth.getDataSourceSede(nameDataSource), idpagotercero);
     }
 
     @Override
     @Transactional
     public void guardarPagosProveedor(String nameDataSource, Pagos pagosProveedor, List<DetallePagos> detallePagosProveedor) {
-        DataSource ds =connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource ds =connectsAuth.getDataSourceSede(nameDataSource);
         pagosDao.guardarPagos(ds, pagosProveedor);
         detallePagosProveedor.stream().map((elementoDetallePagosProveedor) -> {
             Compras compra = comprasDao.getCompra(elementoDetallePagosProveedor.getNumeroCompra(), ds);
@@ -88,19 +88,19 @@ public class PagosServiceImpl implements PagosService {
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosProveedorDto> buscarDetallePagosDtos(String nameDataSource, Long idpagoproveedor) {
-        return pagosDao.buscarDetallePagosDtos(connectsAuth.getDataSourceSubSede(nameDataSource), idpagoproveedor);
+        return pagosDao.buscarDetallePagosDtos(connectsAuth.getDataSourceSede(nameDataSource), idpagoproveedor);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<PagosCabeceraDto> buscarPagosProveedorXFecha(String nameDataSource, String fecha) {
-        return pagosDao.buscarPagosXFecha(connectsAuth.getDataSourceSubSede(nameDataSource), fecha);
+        return pagosDao.buscarPagosXFecha(connectsAuth.getDataSourceSede(nameDataSource), fecha);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ReportePagosDto> reportePagos(String nameDataSource, String fechaInicial, String fechaFinal, Long idsede) {
-        return pagosDao.reportePagos(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial,fechaFinal,idsede);
+        return pagosDao.reportePagos(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial,fechaFinal,idsede);
     }
     
 }

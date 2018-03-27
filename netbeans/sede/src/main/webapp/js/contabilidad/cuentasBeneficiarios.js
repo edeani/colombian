@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var nombreBeneficiario = "";
     var idBeneficiario = "";
     var nombreProveedor = "";
@@ -11,29 +11,29 @@ $(document).ready(function() {
 
     $(".fechaInicial").datepicker({
         dateFormat: "yy-mm-dd",
-        onClose: function(fechaSeleccionada) {
+        onClose: function (fechaSeleccionada) {
             var fechaActual = $(this).val();
             fechaProximoCampo(this);
             /**Actualizo la fecha en los campos**/
             var filasTblDatos = $("#tblDatos").find("tbody tr");
             var numeroFilas = filasTblDatos.length;
-            for(i=0;i<numeroFilas;i++){
-                $("#fechaPago"+i).val(fechaActual);
+            for (i = 0; i < numeroFilas; i++) {
+                $("#fechaPago" + i).val(fechaActual);
             }
         }
     });
 
-    $(document).on("keyup", ".claseCuenta", function(event) {
+    $(document).on("keyup", ".claseCuenta", function (event) {
         if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete("instance").menu.active) {
             event.preventDefault();
         } else {
             $(this).autocomplete({
-                source: $("#contextpath").val()+"/"+$("#idpath").val()+"/cuentas/ajax/autocompletar.htm",
-                select: function(event, ui) {
+                source: $("#contextpath").val() + "/" + $("#idpath").val() + "/cuentas/ajax/autocompletar.htm",
+                select: function (event, ui) {
                     valorCampoIdCuenta = ui.item.idCuenta;
                     valorCampoNombreCuenta = ui.item.nombreCuenta;
                 }
-                , close: function(event, ui) {
+                , close: function (event, ui) {
                     if (valorCampoIdCuenta.length >= 6) {
                         $(this).val(valorCampoIdCuenta);
                         var numberRow = $(this).data("numero");
@@ -54,21 +54,21 @@ $(document).ready(function() {
             });
         }
     });
-    $(document).on("keyup", ".claseCompra", function(event) {
+    $(document).on("keyup", ".claseCompra", function (event) {
         if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete("instance").menu.active) {
             event.preventDefault();
         } else {
             $(this).autocomplete({
-                source: $("#contextpath").val()+"/"+$("#idpath").val()+"/factura/ajax/proveedor/autocompletar.htm?idproveedor=" + $("#idProveedor").val(),
-                select: function(event, ui) {
+                source: $("#contextpath").val() + "/" + $("#idpath").val() + "/factura/ajax/proveedor/autocompletar.htm?idproveedor=" + $("#idProveedor").val(),
+                select: function (event, ui) {
                     valorCampoIdFactura = ui.item.value;
                     valorFechaFactura = ui.item.fechaFactura;
                     valorFactura = ui.item.valorTotal;
                 }
-                , close: function(event, ui) {
+                , close: function (event, ui) {
                     var facturaDigitada = $(this).val();
                     $(this).val(valorCampoIdFactura);
-                    if(valorCampoIdFactura!==""){
+                    if (valorCampoIdFactura !== "") {
                         var numberRow = $(this).data("numero");
                         var refCmpDetalle = "#detalle" + numberRow;
                         var refCmpFechaPago = "#fechaPago" + numberRow;
@@ -77,20 +77,20 @@ $(document).ready(function() {
                         $(refCmpFechaPago).val($("#fechaPago").val());
                         $(refCmpFechaFactura).val(valorFechaFactura);
                         $(refCmpSaldo).val(valorFactura);
-                        $(refCmpSaldo).attr("data-valorfactura",valorFactura);
+                        $(refCmpSaldo).attr("data-valorfactura", valorFactura);
                         $(refCmpDetalle).attr("disabled", false);
                         //$(refCmpIdCuenta).removeClass("campError");
                         //$(refCmpDetalle).addClass("campError");
                         $(refCmpDetalle).focus();
-                        valorCampoIdFactura="";
-                    }else{
-                        lightboxMensaje("La factura "+ facturaDigitada +" no existe o ya se encuentra cancelada")
+                        valorCampoIdFactura = "";
+                    } else {
+                        lightboxMensaje("La factura " + facturaDigitada + " no existe o ya se encuentra cancelada")
                     }
                 }
             });
         }
     });
-    $(document).on("change", "#nombreBeneficiario", function() {
+    $(document).on("change", "#nombreBeneficiario", function () {
         nombreBeneficiario = $(this).text();
         idBeneficiario = $(this).val();
         //Completo los valores del beneficiario
@@ -103,8 +103,11 @@ $(document).ready(function() {
         $('#secuencia').attr('readonly', true);
         $("#cmpSecuencia").show();
         //coloco la fecha
-        var urlFecha = $("#contextpath").val()+"/"+$("#idpath").val()+"/pagos/ajax/fecha.htm";
+        var urlFecha = $("#contextpath").val() + "/" + $("#idpath").val() + "/pagos/ajax/fecha.htm";
         var fecha = peticionAjax(urlFecha, "post", "");
+        var urlTabla = $("#contextpath").val() + "/" + $("#idpath").val() + "/pagos/ajax/terceros/tabla.htm";
+        var html_tabla = peticionAjax(urlTabla, "post", "");
+        $("#divContenedorTabla").html(html_tabla);
         //preparo para mostrar campo fecha
         $("#fechaPago").val(fecha);
         $('#fechaPago').attr('readonly', true);
@@ -123,7 +126,7 @@ $(document).ready(function() {
         //$("#numerocuenta0").addClass("campError");
         $("#identificadorSede0").html($("#idSede").html());
     });
-    $(document).on("change", "#nombreProveedor", function() {
+    $(document).on("change", "#nombreProveedor", function () {
         nombreProveedor = $(this).text();
         idProveedor = $(this).val();
         //Completo los valores del beneficiario
@@ -136,7 +139,7 @@ $(document).ready(function() {
         $('#secuencia').attr('readonly', true);
         $("#cmpSecuencia").show();
         //coloco la fecha
-        var urlFecha = $("#contextpath").val()+"/"+$("#idpath").val()+"/pagos/ajax/fecha.htm";
+        var urlFecha = $("#contextpath").val() + "/" + $("#idpath").val() + "/pagos/ajax/fecha.htm";
         var fecha = peticionAjax(urlFecha, "post", "");
         //preparo para mostrar campo fecha
         $("#fechaPago").val(fecha);
@@ -148,8 +151,8 @@ $(document).ready(function() {
         $("#cmpFecha").show();
         $("#lnkRows").show();
         //Traigo las pendientes del proveedor
-        var urlPendientes = $("#contextpath").val()+"/"+$("#idpath").val()+"/compras/ajax/avencer.htm";
-        var htmlComprasPendientes = peticionAjax(urlPendientes,"post","idProveedor="+idProveedor);
+        var urlPendientes = $("#contextpath").val() + "/" + $("#idpath").val() + "/compras/ajax/avencer.htm";
+        var htmlComprasPendientes = peticionAjax(urlPendientes, "post", "idProveedor=" + idProveedor);
         $("#divContenedorTabla2").html(htmlComprasPendientes);
         //Muestro capa de los pendientes
         $("#divContenedorTabla2").show();
@@ -161,12 +164,12 @@ $(document).ready(function() {
         //Focus en el primer Campo
         $("#numeroCompra0").focus();
     });
-    $(document).on("change", ".claseSelectSede", function() {
+    $(document).on("change", ".claseSelectSede", function () {
         var rowNum = $(this).data("numero");
         $("#inputIdentificadorSede" + rowNum).val($(this).val());
         $("#numerocuenta" + rowNum).focus();
     });
-    $(document).on("keypress", ".claseCompra", function(evento) {
+    $(document).on("keypress", ".claseCompra", function (evento) {
         var code = evento.keyCode || evento.which;
         if (code === 13) {
             var numero = $(this).data("numero");
@@ -174,7 +177,7 @@ $(document).ready(function() {
             $("#detalle" + numero).focus();
         }
     });
-    $(document).on("click", "#generar", function(e) {
+    $(document).on("click", "#generar", function (e) {
         e.preventDefault();
         loader("cargador", "barra.gif");
         var continuar = validarCamposTabla("tblDatos");
@@ -185,32 +188,21 @@ $(document).ready(function() {
             var parametros = $("#pagosTercerosDto").serialize();
             var html = peticionAjax(url, "post", parametros);
             //Genero el PDF
-            var body = document.body;
-            var form = document.createElement('form');
-            form.method = 'POST';
-            form.action = $("#pagosTercerosDto").data("urlcomprobante");
-            form.name = 'jsform';
-            form.id = 'jsform';
-            form.target = "_blank";
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = "idpagotercero";
-            input.id = "idpagotercero";
-            input.value = $("#secuencia").val();
-            form.appendChild(input);
-            body.appendChild(form);
-            form.submit();
-            var urlLocal = window.location.href;
-            window.location.href = urlLocal;
+            $("#idpagotercero").val($("#secuencia").val());
+            $("#ver_pdf_terceros").submit();
+
+            var urlTabla = $("#contextpath").val() + "/" + $("#idpath").val() + "/pagos/ajax/terceros/tabla.htm";
+            var html_tabla = peticionAjax(urlTabla, "post", "");
+            $("#divContenedorTabla").html(html_tabla);
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");
         }
-         loader("cargador", "");
+        loader("cargador", "");
     });
     /**
      * Guardar comprobantes de proveedor
      */
-    $(document).on("click", "#generarComprobanteProveedor", function(event) {
+    $(document).on("click", "#generarComprobanteProveedor", function (event) {
         event.preventDefault();
         loader("cargador", "barra.gif");
         var continuar = validarCamposTabla("tblDatos");
@@ -242,14 +234,14 @@ $(document).ready(function() {
         }
         loader("cargador", "");
     });
-    $(document).on("click", ".clsEliminarFila", function() {
+    $(document).on("click", ".clsEliminarFila", function () {
         var celda = $(this).parent();
         var fila = $(celda).parent();
         $(fila).remove();
         var filasTr = $('#tblDatos tbody tr');
         var indice = 0;
         console.log(filasTr.length);
-        $(filasTr).each(function(index) {
+        $(filasTr).each(function (index) {
             var cells = $(this).children().find("select,input");
             //CeldaSede.
             var celdaSedeSelect = cells[0];
@@ -289,37 +281,37 @@ $(document).ready(function() {
             indice++;
         });
     });
-    $(document).on("click", ".clsEliminarFilaProveedor", function() {
+    $(document).on("click", ".clsEliminarFilaProveedor", function () {
         var celda = $(this).parent();
         var fila = $(celda).parent();
-        
+
         var numeroFilaElminada = $(this).data("numero");
         var numeroComprasPendientes = $('#tblDatos2 tbody tr').length;
         //Muestro si va a ser la primera compra en las endientes
         var contadorCompra = numeroComprasPendientesaAgregar();
-        if(contadorCompra===0){
+        if (contadorCompra === 0) {
             $("#tblDatos2").show();
         }
         //Oculto si elimino la ultima compra en el comprobante
-        var nc = "" +$("#numeroCompra"+numeroFilaElminada).val();
-        for(i=0;i<numeroComprasPendientes;i++){
-            var fc = "" +$("#filaComprobante"+i).data("identificadorcompra");
-            if(nc === fc){
-                $("#filaComprobante"+i).show();
-                i=numeroComprasPendientes;
+        var nc = "" + $("#numeroCompra" + numeroFilaElminada).val();
+        for (i = 0; i < numeroComprasPendientes; i++) {
+            var fc = "" + $("#filaComprobante" + i).data("identificadorcompra");
+            if (nc === fc) {
+                $("#filaComprobante" + i).show();
+                i = numeroComprasPendientes;
             }
         }
-        
+
         $(fila).remove();
         var filasTr = $('#tblDatos tbody tr');
         var numeroComprasAgregadas = filasTr.length;
-        
-        if(numeroComprasAgregadas === 0){
+
+        if (numeroComprasAgregadas === 0) {
             $("#divContenedorTabla").hide();
         }
-        
+
         var indice = 0;
-        $(filasTr).each(function(index) {
+        $(filasTr).each(function (index) {
             var cells = $(this).children().find("select,input");
             //Columna 1
             var celdaidpagoproveedor = cells[0];
@@ -361,7 +353,7 @@ $(document).ready(function() {
             celdafechaPago.name = "detallePagosProveedor[" + indice + "].fecha";
             //Columna 7
             var celdabtnEliminar = cells[10];
-            $(celdabtnEliminar).attr("data-numero",indice);
+            $(celdabtnEliminar).attr("data-numero", indice);
             var celdanumero = cells[11];
             celdanumero.id = "numero" + indice;
             celdanumero.name = "detallePagosProveedor[" + indice + "].numero";
@@ -370,10 +362,10 @@ $(document).ready(function() {
         });
     });
 
-    $(document).on("keyup", ".claseTotal", function(event) {
+    $(document).on("keyup", ".claseTotal", function (event) {
         var total = 0;
         var tempTotal = "";
-        $(".claseTotal").each(function(index) {
+        $(".claseTotal").each(function (index) {
             tempTotal = $(this).val();
             //si viene valor en blanco coloco cero
             if (tempTotal === "") {
@@ -387,10 +379,10 @@ $(document).ready(function() {
         $("#totalPago").val(total);
     });
 });
-$(document).on("keyup", ".claseTotalProveedor", function(e) {
+$(document).on("keyup", ".claseTotalProveedor", function (e) {
     var total = 0;
     var tempTotal = "";
-    $(".claseTotalProveedor").each(function(index) {
+    $(".claseTotalProveedor").each(function (index) {
         tempTotal = $(this).val();
         //si viene valor en blanco coloco cero
         if (tempTotal === "") {
@@ -413,10 +405,10 @@ $(document).on("keyup", ".claseTotalProveedor", function(e) {
     if (isNaN(totalFacturaFila))
         totalFacturaFila = "0";
     /*if (cantidadSaldo === "") {
-        cantidadSaldo = 0;
-    }*/
-    var temporal = $("#saldoTemporal"+rowNum).val();
-    cantidadSaldo = parseInt(temporal); 
+     cantidadSaldo = 0;
+     }*/
+    var temporal = $("#saldoTemporal" + rowNum).val();
+    cantidadSaldo = parseInt(temporal);
     cantidadSaldo = cantidadSaldo - parseInt(totalFacturaFila);
     //coloco la puntiacion del numero
     var num = field.value;
@@ -436,27 +428,27 @@ $(document).on("keyup", ".claseTotalProveedor", function(e) {
     $("#totalPago").val(total);
 });
 
-$(document).on("click",".clsAgregarFilaProveedor",function(e){
-    
+$(document).on("click", ".clsAgregarFilaProveedor", function (e) {
+
     //var cantidadTotalCompras = $("#contenidoComprasPendientes tr").length;
-    var contadorCompras =0;
-    
-    
+    var contadorCompras = 0;
+
+
     var filaCompra = $(this).data("numero");
-    $("#filaComprobante"+filaCompra).hide();
+    $("#filaComprobante" + filaCompra).hide();
     contadorCompras = numeroComprasPendientesaAgregar();
-    if(contadorCompras===0){
+    if (contadorCompras === 0) {
         $("#tblDatos2").hide();
     }
     addRowPagosProveedor("contenidoComprobante");
     var numeroFilasDetalle = $("#tblDatos tbody tr").length;
-    
-    $("#numeroCompra"+(numeroFilasDetalle-1)).val($("#idCompraPendiente"+filaCompra).val());
-    $("#fechaFactura"+(numeroFilasDetalle-1)).val($("#fechaCompraPendiente"+filaCompra).val());
-    $("#fechaVencimiento"+(numeroFilasDetalle-1)).val($("#fechaVencimientoPendiente"+filaCompra).val());
-    $("#saldo"+(numeroFilasDetalle-1)).val($("#saldoPendiente"+filaCompra).val());
-    $("#saldoTemporal"+(numeroFilasDetalle-1)).val($("#saldoPendiente"+filaCompra).val());
-    
+
+    $("#numeroCompra" + (numeroFilasDetalle - 1)).val($("#idCompraPendiente" + filaCompra).val());
+    $("#fechaFactura" + (numeroFilasDetalle - 1)).val($("#fechaCompraPendiente" + filaCompra).val());
+    $("#fechaVencimiento" + (numeroFilasDetalle - 1)).val($("#fechaVencimientoPendiente" + filaCompra).val());
+    $("#saldo" + (numeroFilasDetalle - 1)).val($("#saldoPendiente" + filaCompra).val());
+    $("#saldoTemporal" + (numeroFilasDetalle - 1)).val($("#saldoPendiente" + filaCompra).val());
+
     $("#divContenedorTabla").show();
 });
 /*Manejo de tabla para Beneficiarios*/
@@ -639,10 +631,10 @@ function addRowPagosProveedor(tableID) {
     $(cmpFechaVencimiento).attr("readonly", true);
     cellFechaVencimiento.appendChild(cmpFechaVencimiento);
     /*$(cmpFechaVencimiento).datepicker({dateFormat: "yy-mm-dd"
-        , onClose: function(fechaSeleccionada) {
-            fechaProximoCampo(this);
-        }
-    });*/
+     , onClose: function(fechaSeleccionada) {
+     fechaProximoCampo(this);
+     }
+     });*/
 
     /**
      * Quinta Columna: Saldo
@@ -654,7 +646,7 @@ function addRowPagosProveedor(tableID) {
     $(cmpSaldo).attr("readonly", "readonly");
     $(cmpSaldo).addClass("claseproximocampo claseValidarNum claseFormatDec");
     var cmpSaldoTemporal = document.createElement("input");
-    cmpSaldoTemporal.type="hidden";
+    cmpSaldoTemporal.type = "hidden";
     cmpSaldoTemporal.id = "saldoTemporal" + rowCount;
     cellSaldo.appendChild(cmpSaldo);
     cellSaldo.appendChild(cmpSaldoTemporal);
@@ -685,7 +677,7 @@ function addRowPagosProveedor(tableID) {
     var btnEliminar = document.createElement("input");
     btnEliminar.type = "button";
     btnEliminar.value = "-";
-    $(btnEliminar).attr("data-numero",rowCount);
+    $(btnEliminar).attr("data-numero", rowCount);
     $(btnEliminar).addClass("clsEliminarFilaProveedor");
     var cmpNumero = document.createElement("input");
     cmpNumero.id = "numero" + rowCount;
@@ -714,11 +706,11 @@ function fechaProximoCampo(campo) {
     }
 }
 
-function numeroComprasPendientesaAgregar(){
+function numeroComprasPendientesaAgregar() {
     var cantidadTotalCompras = $("#contenidoComprasPendientes tr").length;
-    var contadorCompras =0;
-    for(j=0;j<cantidadTotalCompras;j++){
-        if(!$("#filaComprobante"+j).is(":hidden")){
+    var contadorCompras = 0;
+    for (j = 0; j < cantidadTotalCompras; j++) {
+        if (!$("#filaComprobante" + j).is(":hidden")) {
             contadorCompras++;
         }
     }

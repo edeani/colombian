@@ -23,4 +23,5 @@ public interface SedesService {
     public List<SedesDto> traerSedesDtos();
     public Sedes buscarSede(Long idSede);
     public List<ItemsDTO> listaSedesOptionByUsername(String username);
+    public List<ItemsDTO> listaSedesOptionsPoint(String sedePoint);
 }

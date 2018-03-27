@@ -58,7 +58,7 @@ public class SedesController extends BaseController {
     public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("util/formSelect");
         SedesDto ss = connectsAuth.findSedeXName(sede);
-        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
+        List<ItemsDTO> datosSedes = sedeService.listaSedesOptionsPoint(sede);
         mav.addObject("datos", datosSedes);
 
         return mav;

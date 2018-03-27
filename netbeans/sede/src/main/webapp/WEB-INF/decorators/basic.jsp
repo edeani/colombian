@@ -16,7 +16,7 @@
         <link href="<%=request.getContextPath()%>/css/menu.css" rel="stylesheet" type="text/css">
         <script src="<%=request.getContextPath()%>/js/jquery-1.8.3.min.js" type="text/javascript"></script>
         <script src="<%=request.getContextPath()%>/js/cali.js" type="text/javascript"></script>
-        <title><sitemesh:write property="title"/> Colombian CaliyCali</title>
+        <title>${sessionScope.path} <sitemesh:write property="title"/> </title>
         <sitemesh:write property="head"/>
     </head>
     <body>

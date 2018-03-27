@@ -9,6 +9,7 @@ import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Sedes;
 import java.util.List;
+import javax.sql.DataSource;
 
 /**
  *
@@ -26,4 +27,10 @@ public interface SedesDao extends GenericDao<Sedes>{
     public List<Sedes> listSedes();
     List<SedesDto> listSedesDto();
     List<ItemsDTO> listaSedesOptionsByUsername(String username);
+    /**
+     * Busca los datos en el punto de la sede y no en la bd credentials
+     * @param ds
+     * @return 
+     */
+    List<ItemsDTO> listaSedesOptionsPoint(DataSource ds);
 }

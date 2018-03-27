@@ -80,6 +80,10 @@ public class PagosController extends BaseController {
         return mav;
     }
 
+    @RequestMapping("/ajax/terceros/tabla.htm")
+    public ModelAndView tablaPagosTerceros(){
+        return new ModelAndView("contabilidad/pagosterceros/tablaPagosTerceros");
+    }
     /**
      * Pagos Proveedor
      *

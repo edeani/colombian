@@ -190,7 +190,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
         String sfechaInicial = Formatos.dateTostring(fechaInicial);
         String sfechaFinal = Formatos.dateTostring(fechaFinal);
-        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMayor(connectsAuth.getDataSourceSubSede(nameDataSource), sfechaInicial, sfechaFinal);
+        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMayor(connectsAuth.getDataSourceSede(nameDataSource), sfechaInicial, sfechaFinal);
 
         MovimientoCajaMapper movimientoCajaMayorMapper = new MovimientoCajaMapper();
         List<MovimientoCajaDto> movimientos = movimientoCajaMayorMapper.comprobanteConsolidadoSedeDtoToMovimietoCajaMayorDto(movs);
