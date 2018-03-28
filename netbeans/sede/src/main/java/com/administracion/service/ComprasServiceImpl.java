@@ -258,7 +258,7 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional(readOnly = true)
     public List<Compras> comprasAVencer(String nameDataSource, int numeroDias, Long idProveedor) {
-        return comprasDao.comprasAVencer(connectsAuth.getDataSourceSubSede(nameDataSource), numeroDias, idProveedor);
+        return comprasDao.comprasAVencer(connectsAuth.getDataSourceSede(nameDataSource), numeroDias, idProveedor);
     }
 
     @Override
