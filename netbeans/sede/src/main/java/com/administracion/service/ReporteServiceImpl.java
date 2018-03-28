@@ -214,7 +214,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Transactional(readOnly = true)
     public PagosConsolidadoSedeDto generarPagoConsolidadoSedePorcentaje(String nameDataSource, int mes) {
         PagosMapper pagosMapper = new PagosMapper();
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
         PorcentajeVentas porcentajeVentas = reportesDao.buscarPagoConsolidadoMes(ds, mes);
         PagosConsolidadoSedeDto pagosConsolidadoSedeDto = pagosMapper.porcentajeVentaTopagosConsolidadoSedeDto(porcentajeVentas);
 

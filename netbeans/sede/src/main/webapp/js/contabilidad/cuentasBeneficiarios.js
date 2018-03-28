@@ -211,6 +211,8 @@ $(document).ready(function () {
             var url = $("#pagosProveedorDto").attr("action");
             var parametros = $("#pagosProveedorDto").serialize();
             var html = peticionAjax(url, "post", parametros);
+            $("#divContenedorTabla2").html("");
+            $("#secuencia").val("");
             //Genero el PDF
             var body = document.body;
             var form = document.createElement('form');
@@ -227,8 +229,6 @@ $(document).ready(function () {
             form.appendChild(input);
             body.appendChild(form);
             form.submit();
-            var urlLocal = window.location.href;
-            window.location.href = urlLocal;
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");
         }
