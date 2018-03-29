@@ -35,7 +35,7 @@
                     Proveedor
                     <form:select path="nombreProveedor">
                         <option value="">Seleccionar</option>
-                        <c:import url="/proveedor/ajax/listaProveedores.htm"></c:import>
+                        <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm"></c:import>
                     </form:select>    
                     <form:input path="idProveedor" type="hidden"/>
                 </label>

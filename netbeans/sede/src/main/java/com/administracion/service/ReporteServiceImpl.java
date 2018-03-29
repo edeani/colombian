@@ -263,13 +263,13 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Override
     @Transactional(readOnly = true)
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(String nameDataSource, String fechInicial, String fechaFinal) {
-        return reportesDao.reporteEstadoPerdidaGananciaProvisional(connectsAuth.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal);
+        return reportesDao.reporteEstadoPerdidaGananciaProvisional(connectsAuth.getDataSourceSede(nameDataSource), fechInicial, fechaFinal);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisionalXSede(String nameDataSource, String fechInicial, String fechaFinal, Long idSede) {
-        return reportesDao.reporteEstadoPerdidaGananciaProvisionalXSede(connectsAuth.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal, idSede);
+        return reportesDao.reporteEstadoPerdidaGananciaProvisionalXSede(connectsAuth.getDataSourceSede(nameDataSource), fechInicial, fechaFinal, idSede);
     }
 
     /**

@@ -27,7 +27,7 @@ public class MysqlServiceImpl implements MysqlService{
     @Override
     @Transactional(readOnly = true)
     public Long secuenciaTabla(String nameDataSource, String tabla) {
-        return secuenciasMysqlDao.secuenceTable(connectsAuth.getDataSourceSubSede(nameDataSource), tabla);
+        return secuenciasMysqlDao.secuenceTable(connectsAuth.getDataSourceSede(nameDataSource), tabla);
     }
     
 }

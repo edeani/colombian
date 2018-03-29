@@ -26,7 +26,7 @@
                     Beneficiario
                     <form:select path="nombreBeneficiario">
                         <option value="">Seleccionar</option>
-                        <c:import url="/beneficiarios/ajax/select.htm"></c:import>
+                        <c:import url="/${sessionScope.path}/beneficiarios/ajax/select.htm"></c:import>
                     </form:select>    
                     <form:input path="idBeneficiario" type="hidden"/>
                 </label>

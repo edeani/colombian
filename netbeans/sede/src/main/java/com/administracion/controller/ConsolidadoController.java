@@ -291,7 +291,7 @@ public class ConsolidadoController extends BaseController {
 
     @RequestMapping(value = "/reporte/general/perdidaganancias/pdf.htm")
     public ModelAndView reportePerdidaGananciasProvisional(@RequestParam Long tipoReporte, @RequestParam String fechaInicial,
-            @RequestParam String fechaFinal, @RequestParam(required = false) Long sedeNumber,
+            @RequestParam String fechaFinal, @RequestParam(value = "sede",required = false) Long sedeNumber,
             @RequestParam(required = false) String nombreSede, @PathVariable String sede) {
 
         //Ingresos
