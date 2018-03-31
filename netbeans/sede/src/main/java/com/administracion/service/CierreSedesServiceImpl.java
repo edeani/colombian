@@ -13,6 +13,7 @@ import com.administracion.dto.CierreSedesDto;
 import com.administracion.dto.ComprobanteCierreSedesDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.ReporteComprobanteCierreDto;
+import com.administracion.dto.SedesDto;
 import com.administracion.entidad.CierreSedes;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.Formatos;
@@ -41,9 +42,10 @@ public class CierreSedesServiceImpl implements CierreSedesService {
     @Transactional
     public void guardarComprobanteCierreService(String nameDatasource, ComprobanteCierreSedesDto comprobanteCierreSedesDto) {
         Long secuencia = 0L;
+        SedesDto sedePrincipalActual = connectsAuth.findSedeXName(nameDatasource);
         DataSource ds = connectsAuth.getDataSourceSede(nameDatasource);
         CierreSedes cierreSedesFind = cierreSedesDao.buscarCabeceraComprobanteCierreXFechaXSede(ds, comprobanteCierreSedesDto.getFecha()
-                , comprobanteCierreSedesDto.getFecha(),comprobanteCierreSedesDto.getIdSede());
+                , comprobanteCierreSedesDto.getFecha(),comprobanteCierreSedesDto.getIdsedepoint().longValue());
         //Si no existe queda con el autoincremental
         if (cierreSedesFind == null) {
             secuencia = secuenciasMyqlDao.secuenceTable(ds, "cierre_sedes");

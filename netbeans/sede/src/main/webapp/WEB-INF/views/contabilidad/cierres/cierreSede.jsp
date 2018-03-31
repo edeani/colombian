@@ -29,9 +29,10 @@
                     Sede
                     <form:select path="idSede" class="contentRequired">
                         <option value="">Seleccionar</option>
-                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"/>
+                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm"/>
                     </form:select>
                     <form:input path="nombreSede" type="hidden"/>
+                    <form:hidden path="idsedepoint"  data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
                 </label>
                 <label id="cmpFecha">
                     Fecha

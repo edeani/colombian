@@ -94,7 +94,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeDtoVentas = new ComprobanteConsolidadoSedeDto();
         String sfecha = Formatos.dateTostring(fecha);
         comprobanteConsolidadoSedeDtoVentas.setFecha(sfecha);
-        comprobanteConsolidadoSedeDtoVentas.setIdSede(idSubSede.longValue());
+        comprobanteConsolidadoSedeDtoVentas.setIdSede(subSedes.getIdsedepoint().longValue());
         comprobanteConsolidadoSedeDtoVentas.setSede(subSedes.getSede());
 
         Long totalVentas = reportesDao.totalConsolidadoSede(subSedes, sfecha);
@@ -106,7 +106,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         //Consignaciones
         ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeDtoConsignaciones = new ComprobanteConsolidadoSedeDto();
         comprobanteConsolidadoSedeDtoConsignaciones.setFecha(sfecha);
-        comprobanteConsolidadoSedeDtoConsignaciones.setIdSede(idSubSede.longValue());
+        comprobanteConsolidadoSedeDtoConsignaciones.setIdSede(subSedes.getIdsedepoint().longValue());
         comprobanteConsolidadoSedeDtoConsignaciones.setSede(subSedes.getSede());
 
         Long consignaciones = reportesDao.consignacionesConsolidadoSede(subSedes, sfecha);
@@ -132,7 +132,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         List<ComprobanteConsolidadoSedeDto> gastos = reportesDao.buscarGastosXFecha(connectsAuth.getDataSourceSubSede(subSedes.getSede()), sfecha);
         if (gastos != null) {
             gastos.stream().map((gasto) -> {
-                gasto.setIdSede(idSubSede.longValue());
+                gasto.setIdSede(subSedes.getIdsedepoint().longValue());
                 return gasto;
             }).forEachOrdered((gasto) -> {
                 gasto.setSede(subSedes.getSede());
@@ -156,7 +156,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
                     comprobantePagosConTarjeta.setConcepto("Pagos con Tarjeta " + subSedes.getSede());
                     comprobantePagosConTarjeta.setFecha(sfecha);
                     comprobantePagosConTarjeta.setIdCuenta(cuenta_pagos_con_tarjeta);
-                    comprobantePagosConTarjeta.setIdSede(idSubSede.longValue());
+                    comprobantePagosConTarjeta.setIdSede(subSedes.getIdsedepoint().longValue());
                     comprobantePagosConTarjeta.setSede(subSedes.getSede());
                     comprobante.add(comprobantePagosConTarjeta);
                 }
@@ -175,7 +175,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
                     comprobantePagosDescuento.setConcepto("Descuentos " + subSedes.getSede());
                     comprobantePagosDescuento.setFecha(sfecha);
                     comprobantePagosDescuento.setIdCuenta(cuenta_descuentos);
-                    comprobantePagosDescuento.setIdSede(idSubSede.longValue());
+                    comprobantePagosDescuento.setIdSede(subSedes.getIdsedepoint().longValue());
                     comprobantePagosDescuento.setSede(subSedes.getSede());
                     comprobante.add(comprobantePagosDescuento);
                 }
@@ -284,7 +284,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Override
     @Transactional(readOnly = true)
     public List<BalanceDto> reporteBalanceService(String nameDataSource, String fechInicial, String fechaFinal, Long idsede) {
-        return reportesDao.reporteBalance(connectsAuth.getDataSourceSubSede(nameDataSource), fechInicial, fechaFinal, idsede);
+        return reportesDao.reporteBalance(connectsAuth.getDataSourceSede(nameDataSource), fechInicial, fechaFinal, idsede);
     }
 
     

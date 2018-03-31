@@ -135,7 +135,11 @@ $(document).ready(function() {
         field = document.getElementById("totalDeber");
         formatoNumeroDecimal(field);
     });
-
+    $(document).on("change","#idSede",function (){
+        var valorIdSede=$("#idSede option:selected" ).val();
+        var idSedePoint = peticionAjax($("#idsedepoint").attr("data-url"), "post", "idSede="+valorIdSede);
+        $("#idsedepoint").val(idSedePoint);
+    });
 });
 
 function actualizarHaberDeber() {

@@ -121,6 +121,11 @@ public class ConnectsAuth {
         }
         return null;
     }
+    /**
+     * Busca una subsede por el id
+     * @param idsubsede
+     * @return 
+     */
     public SubSedesDto findSubsedeXId(Integer idsubsede) {
         for (SubSedesDto subsede1 : accesosSubsedes.getSubsedes()) {
             if (Objects.equals(subsede1.getId(), idsubsede)) {
@@ -129,6 +134,24 @@ public class ConnectsAuth {
         }
         return null;
     }
+    /**
+     * Busca una subsede por el id de la sede
+     * @param idSede
+     * @return 
+     */
+    public SubSedesDto finSubsedeXIdCreencials(Integer idSede){
+        for (SubSedesDto subsede1 : accesosSubsedes.getSubsedes()) {
+            if (Objects.equals(subsede1.getIdsede(), idSede)) {
+                return subsede1;
+            }
+        }
+        return null;
+    }
+    /**
+     * Trae el usuario logueado en una sede
+     * @param sede
+     * @return 
+     */
     public String findUserNameXSede(String sede) {
         for (SedesDto sede_ : accesosSubsedes.getSedes()) {
             if (sede_.getSede().equals(sede)) {
@@ -137,7 +160,11 @@ public class ConnectsAuth {
         }
         return "";
     }
-
+    /**
+     * Encuentra una sede por su nombre en base de datos
+     * @param sede
+     * @return 
+     */
     public String findSedeStringXName(String sede) {
         for (SedesDto sede_ : accesosSubsedes.getSedes()) {
             if (sede_.getSede().equals(sede)) {

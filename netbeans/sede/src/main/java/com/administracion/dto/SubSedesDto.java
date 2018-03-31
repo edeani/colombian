@@ -18,6 +18,7 @@ public class SubSedesDto implements Serializable{
     private String password;
     private String url;
     private Integer idsede;
+    private Integer idsedepoint;
 
     public Integer getId() {
         return id;
@@ -65,6 +66,14 @@ public class SubSedesDto implements Serializable{
 
     public void setIdsede(Integer idsede) {
         this.idsede = idsede;
+    }
+
+    public Integer getIdsedepoint() {
+        return idsedepoint;
+    }
+
+    public void setIdsedepoint(Integer idsedepoint) {
+        this.idsedepoint = idsedepoint;
     }
     
     

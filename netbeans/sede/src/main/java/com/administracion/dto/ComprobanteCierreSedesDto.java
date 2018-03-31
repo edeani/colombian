@@ -19,6 +19,7 @@ public class ComprobanteCierreSedesDto {
     private Long idSede;
     private Double totalHaber;
     private Double totalDeber;
+    private Integer idsedepoint;
     
     private List<ComprobanteConsolidadoSedeDto> comprobanteConsolidadoSedeDto;
 
@@ -76,6 +77,14 @@ public class ComprobanteCierreSedesDto {
 
     public void setTotalDeber(Double totalDeber) {
         this.totalDeber = totalDeber;
+    }
+
+    public Integer getIdsedepoint() {
+        return idsedepoint;
+    }
+
+    public void setIdsedepoint(Integer idsedepoint) {
+        this.idsedepoint = idsedepoint;
     }
     
 }

@@ -57,13 +57,21 @@ public class SedesController extends BaseController {
     @RequestMapping("/ajax/listaSedeSelect.htm")
     public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("util/formSelect");
-        SedesDto ss = connectsAuth.findSedeXName(sede);
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptionsPoint(sede);
         mav.addObject("datos", datosSedes);
 
         return mav;
     }
+    
+    @RequestMapping("/ajax/listaSedeSelectCredencial.htm")
+    public ModelAndView cargarSedesCredencials(HttpSession session,@PathVariable String sede) {
+        ModelAndView mav = new ModelAndView("util/formSelect");
+        SedesDto ss = connectsAuth.findSedeXName(sede);
+        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
+        mav.addObject("datos", datosSedes);
 
+        return mav;
+    }
     //Seteo la sede en Sesión
     @RequestMapping(value = "/ajax/seleccionarSede.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView seleccionarSede(HttpSession session, HttpServletRequest request,
@@ -90,4 +98,9 @@ public class SedesController extends BaseController {
         return "ok";
     }
     
+    @RequestMapping(value = "/ajax/find/idsedepoint.htm")
+    @ResponseBody
+    public String findIdSedePoint(@RequestParam Integer idSede){
+        return connectsAuth.findSubsedeXId(idSede).getIdsedepoint()+"";
+    }
 }

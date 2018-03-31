@@ -44,6 +44,8 @@ public class SubSedes implements Serializable{
     @ManyToOne
     @JoinColumn(name = "idsede")
     private Sedes idsede;
+    @Column(name = "idsedepoint",nullable = false)
+    private Integer idsedepoint;
 
     public Integer getId() {
         return id;
@@ -91,6 +93,14 @@ public class SubSedes implements Serializable{
 
     public void setIdsede(Sedes idsede) {
         this.idsede = idsede;
+    }
+
+    public Integer getIdsedepoint() {
+        return idsedepoint;
+    }
+
+    public void setIdsedepoint(Integer idsedepoint) {
+        this.idsedepoint = idsedepoint;
     }
     
     

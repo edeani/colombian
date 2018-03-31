@@ -24,7 +24,7 @@ public class CierreSedesMapper {
         cierreSedes.setConsecutivo(comprobanteCierreSedesDto.getConsecutivo());
         
         cierreSedes.setFecha(Formatos.StringDateToDate(comprobanteCierreSedesDto.getFecha()));
-        cierreSedes.setIdsede(comprobanteCierreSedesDto.getIdSede());
+        cierreSedes.setIdsede(comprobanteCierreSedesDto.getIdsedepoint().longValue());
         cierreSedes.setTotaldeber(comprobanteCierreSedesDto.getTotalDeber());
         cierreSedes.setTotalhaber(comprobanteCierreSedesDto.getTotalHaber());
         

@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,7 +82,8 @@ public class CajaMenorController extends BaseController {
     }
     
     @RequestMapping(value = "/terceros/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView comprobanteTerceroPDF(@RequestParam Long idpagotercero,@RequestParam(required = false) String titulo){
+    public ModelAndView comprobanteTerceroPDF(@RequestParam Long idpagotercero,@RequestParam(required = false) String titulo
+    ,@PathVariable String sede){
         if(titulo==null){
             titulo="";
         }
@@ -127,7 +129,8 @@ public class CajaMenorController extends BaseController {
      * @return 
      */
     @RequestMapping("/ajax/proveedor/guardar.htm")
-    public @ResponseBody String guardarPagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto){
+    public @ResponseBody String guardarPagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto
+    ,@PathVariable String sede){
         CajaMenorMapper cajaMenorMapper = new CajaMenorMapper();
         //to do: Hacer los mappers de las clases
         CajaMenor cajaMenor = cajaMenorMapper.pagoProveedorDtoToCajaMenorCabecera(pagosProveedorDto);
@@ -139,7 +142,7 @@ public class CajaMenorController extends BaseController {
     }
     
     @RequestMapping(value = "/proveedores/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView comprobanteProveedorPDF(Long idpagoproveedor){
+    public ModelAndView comprobanteProveedorPDF(Long idpagoproveedor,@PathVariable String sede){
         
         List<DetallePagosProveedorDto> detalle = cajaMenorService.buscarDetallePagosDtos(getPropiedades().leerPropiedad(), idpagoproveedor);
         CajaMenor cabecera = cajaMenorService.buscarPagoXIdPagoCajaMenor(getPropiedades().leerPropiedad(), idpagoproveedor);
@@ -175,7 +178,7 @@ public class CajaMenorController extends BaseController {
     }
     
     @RequestMapping(value = "/ajax/consolidado/porcentaje/sede/generar.htm")
-    public ModelAndView traerComprobanteConsolidadoSede() {
+    public ModelAndView traerComprobanteConsolidadoSede(@PathVariable String sede) {
         ModelAndView mav = null;
         Date fecha = new Date();
         int mes = Formatos.obtenerMes(fecha);
@@ -189,7 +192,8 @@ public class CajaMenorController extends BaseController {
     
     
     @RequestMapping("/ajax/consolidado/sede/guardar.htm")
-    public @ResponseBody String guardarPagoConsolidadoSede(@ModelAttribute PagosConsolidadoSedeDto pagosConsolidadoSedeDto){
+    public @ResponseBody String guardarPagoConsolidadoSede(@ModelAttribute PagosConsolidadoSedeDto pagosConsolidadoSedeDto
+    ,@PathVariable String sede){
         CajaMenorMapper cajaMenorMapper = new CajaMenorMapper();
         CajaMenor pagosCajaMenor = cajaMenorMapper.pagoConsolidadoSedeDtoToCajaMenorCabecera(pagosConsolidadoSedeDto);
         List<DetalleCajaMenor> detallePagosCajaMenor = cajaMenorMapper.detallePagosCosolidadoSedeDtosToDetalleCajaMenor(pagosConsolidadoSedeDto.getDetallePagosCosolidadoSedeDtos());
@@ -210,7 +214,8 @@ public class CajaMenorController extends BaseController {
     }
 
     @RequestMapping(value = "/reporte/pdf.htm")
-    public ModelAndView generarReportePdfCajaMenor(@RequestParam String fechaInicial, @RequestParam String fechaFinal) {
+    public ModelAndView generarReportePdfCajaMenor(@RequestParam String fechaInicial, @RequestParam String fechaFinal
+    ,@PathVariable String sede) {
 
         List<MovimientoCajaDto> movimientos = reporteService.movimientoCajaMenor(getPropiedades().leerPropiedad(), fechaInicial, fechaFinal);
         ModelAndView mav = null;
@@ -231,7 +236,7 @@ public class CajaMenorController extends BaseController {
     }
     
     @RequestMapping(value = "/ajax/secuencia.htm")
-    public @ResponseBody String secuenciaPago(){
+    public @ResponseBody String secuenciaPago(@PathVariable String sede){
         Long secuencia = mysqlService.secuenciaTabla(getPropiedades().leerPropiedad(), "caja_menor");
         if(secuencia!=null)
             return secuencia.toString();
