@@ -21,7 +21,6 @@ import com.administracion.entidad.Compras;
 import com.administracion.entidad.Proveedor;
 import com.administracion.service.ComprasService;
 import com.administracion.service.InventarioService;
-import com.administracion.service.JasperService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.service.jsf.ComprasColombianService;

@@ -227,7 +227,7 @@ public class ComprasServiceImpl implements ComprasService {
 
             //Inserción en la sede escogida
             if (sedesDto.getTipo_sede() == 1) {
-                DataSource dsSubSede = connectsAuth.getDataSourceSede(subSede.getSede());
+                DataSource dsSubSede = connectsAuth.getDataSourceSubSede(subSede.getSede());
                 /**
                  * Se toma el id de compra para buscar en factura
                  */
