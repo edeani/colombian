@@ -108,7 +108,7 @@ public class ComprasController extends BaseController {
 
         DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
 
-        mav.addObject("titulo", titulo);
+        mav.addObject("titulo", "Editar Compras");
         setBasicModel(mav, detalleCompraDTO);
         return mav;
     }
@@ -184,7 +184,7 @@ public class ComprasController extends BaseController {
     @RequestMapping("/ajax/actualizar.htm")
     public ModelAndView actualizarCompras(@Valid DetalleCompraDTO detalleCompraDTO,
             @PathVariable String sede) {
-        //comprasService.actualizarCompra(sede, detalleCompraDTO);
+        comprasService.actualizarCompra(sede, detalleCompraDTO);
         //imprimirFactura(detalleCompraDTO);
 
         detalleCompraDTO = new DetalleCompraDTO();

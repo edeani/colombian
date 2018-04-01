@@ -93,9 +93,9 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
     public void insertarCompra(DataSource nameDataSource, DetalleCompraDTO detalleCompraDTO) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
         LOGGER.info("SQL::" + insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra,idsede", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
-                + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdsede()));
+                + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdsedepoint()));
         this.jdbctemplate.execute(insertJdbTemplate("id_compra,fecha_compra,estado_compra,valor_total,codigo_proveedor,estado_compra_proveedor,fecha_vencimiento,saldo,idfacturacompra,idsede", "compras", detalleCompraDTO.getNumeroFactura() + ",'" + detalleCompraDTO.getFecha() + "','" + estado_default_compra + "'," + detalleCompraDTO.getTotalFactura()
-                + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdFacturaCompra()+","+detalleCompraDTO.getIdsede()));
+                + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdFacturaCompra()+","+detalleCompraDTO.getIdsedepoint()));
     }
     @Override
     public void insertarCompraSede(DataSource nameDataSource, DetalleCompraDTO detalleCompraDTO) {

@@ -13,7 +13,6 @@ import com.administracion.entidad.Userxsede;
 import com.administracion.service.SedesService;
 import com.administracion.service.SloganSedeService;
 import com.administracion.service.SubSedesService;
-import com.administracion.service.UsuarioService;
 import com.administracion.service.UsuarioXSedeService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
 import com.administracion.service.autorizacion.ConnectsAuth;

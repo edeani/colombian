@@ -281,12 +281,12 @@ $(document).ready(function () {
                                 }
 
                                 $("#factura").val(factura);
-                                var dialogoGuardar = $.dialog({
+                                /*var dialogoGuardar = $.dialog({
                                     columnClass: 'ancho-confirm',
                                     title: 'Mensaje',
                                     content: 'Guardando',
                                     closeIcon: false
-                                });
+                                });*/
                                 $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
 
                                 var parametrosForm = $("#detalleCompraDTO").serialize();
@@ -296,7 +296,7 @@ $(document).ready(function () {
                                     type: "POST",
                                     data: parametrosForm,
                                     success: function (result) {
-                                        dialogoGuardar.close();
+                                        //dialogoGuardar.close();
                                         $("#detalleCompraDTO").submit();
                                         $("#contenidoCompra").html(result);
                                         $(".fechaVencimiento").datepicker({
@@ -399,12 +399,12 @@ $(document).ready(function () {
                     }
 
                     $("#factura").val(factura);
-                    var dialogoGuardar = $.dialog({
+                    /*var dialogoGuardar = $.dialog({
                         columnClass: 'ancho-confirm',
                         title: 'Mensaje',
                         content: 'Guardando',
                         closeIcon: false
-                    });
+                    });*/
                     $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
                     var parametrosForm = $("#detalleCompraDTO").serialize();
                     $.ajax({
@@ -413,7 +413,7 @@ $(document).ready(function () {
                         type: "POST",
                         data: parametrosForm,
                         success: function (result) {
-                            dialogoGuardar.close();
+                            //dialogoGuardar.close();
                             $("#submit-form").val("S");
                             $("#detalleCompraDTO").submit();
                             $("#submit-form").val("N");
@@ -465,7 +465,16 @@ $(document).ready(function () {
         $("#cargador").html("");
         $("#contenidoCompra").html(compraHTML);
     });
-
+    $(document).on("change","#idSede",function (){
+        var valorIdSede=$("#idSede option:selected" ).val();
+        var idSedePoint = peticionAjax($("#idsedepoint").attr("data-url"), "post", "idSede="+valorIdSede);
+        $("#idsedepoint").val(idSedePoint);
+    });
+    $(document).on("change","#idsede",function (){
+        var valorIdSede=$("#idsede option:selected" ).val();
+        var idSedePoint = peticionAjax($("#idsedepoint").attr("data-url"), "post", "idSede="+valorIdSede);
+        $("#idsedepoint").val(idSedePoint);
+    });
     /*------------------------Reporte de compras totales--------------------------*/
     $(document).on('click', '#reporteComprasTotalesProveedor', function (e) {
 

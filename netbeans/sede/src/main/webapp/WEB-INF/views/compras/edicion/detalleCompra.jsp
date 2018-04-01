@@ -26,6 +26,7 @@
                             <c:param name="idSede">${detalleCompraDTO.idsede}</c:param>
                         </c:import>
                     </select>
+                    <form:hidden path="idsedepoint" />
                 </label>
                 <label>
                     <input value="Buscar" type="button" id="buscarCompra" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/ajax/buscar/compra.htm"/>

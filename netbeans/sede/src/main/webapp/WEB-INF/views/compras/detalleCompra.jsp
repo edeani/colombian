@@ -19,7 +19,7 @@
                 Proveedores
             </label>
             <form:select path="codigoProveedor">
-            <c:import url="/proveedor/ajax/listaProveedores.htm">
+            <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm">
                 <c:param name="proveedores" value="${proveedores}"/>
             </c:import>
             </form:select>
@@ -32,9 +32,9 @@
             <label>Sede
                 <select id="idsede" name="idsede" style="width: 155px;">
                     <option value="">Seleccionar</option>
-                    <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm">
-                    </c:import>
+                    <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm"/>
                 </select>
+                <input type="hidden" id="idsedepoint" name="idsedepoint" value="" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
             </label>
             <input type="hidden" id="impresora" name="impresora" value=""/>
         </div>

@@ -22,6 +22,7 @@ public class DetalleCompraDTO {
     private Double saldo;
     private Long idFacturaCompra;
     private Long idsede;
+    private Integer idsedepoint;
     /**
      * @return the compra
      */
@@ -140,6 +141,14 @@ public class DetalleCompraDTO {
 
     public void setNombreProveedor(String nombreProveedor) {
         this.nombreProveedor = nombreProveedor;
+    }
+
+    public Integer getIdsedepoint() {
+        return idsedepoint;
+    }
+
+    public void setIdsedepoint(Integer idsedepoint) {
+        this.idsedepoint = idsedepoint;
     }
         
 }

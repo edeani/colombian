@@ -17,7 +17,7 @@
 
 <div id="contenidoCompra">
 <div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/guardar.htm"></div>
-<form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/compras/ajax/verificar/compra.htm" target="_blank">
+<form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/verificar/compra.htm" target="_blank">
     <div id="contenidoHome"> 
         <div id="tituloPagina">${titulo}</div>
         <div id="campoNumeroFactura">
@@ -42,9 +42,9 @@
             <label>Sede
                 <select id="idsede" name="idsede" style="width: 155px;">
                     <option value="">Seleccionar</option>
-                    <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm">
-                    </c:import>
+                    <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm"/>
                 </select>
+                <input type="hidden" id="idsedepoint" name="idsedepoint" value="" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
             </label>
             <input type="hidden" id="impresora" name="impresora" value=""/>
         </div>

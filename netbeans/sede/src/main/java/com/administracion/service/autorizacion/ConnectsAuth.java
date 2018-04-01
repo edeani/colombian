@@ -139,13 +139,25 @@ public class ConnectsAuth {
      * @param idSede
      * @return 
      */
-    public SubSedesDto finSubsedeXIdCreencials(Integer idSede){
+    public SubSedesDto finSubsedeXIdCredencials(Integer idSede,Integer idSubSedePoint){
         for (SubSedesDto subsede1 : accesosSubsedes.getSubsedes()) {
-            if (Objects.equals(subsede1.getIdsede(), idSede)) {
+            if (Objects.equals(subsede1.getIdsede(), idSede) && Objects.equals(idSubSedePoint, subsede1.getIdsedepoint())) {
                 return subsede1;
             }
         }
         return null;
+    }
+    /**
+     * Devuelve el id de la subsede en la bd credentials
+     * @param nameSedePrincipal
+     * @param idSubSedePoint
+     * @return 
+     */
+    public Integer getIdSedePoint(String nameSedePrincipal,Integer idSubSedePoint){
+        SedesDto sedePrincipalDto = findSedeXName(nameSedePrincipal);
+        SubSedesDto subSedePrincipalDto = finSubsedeXIdCredencials(sedePrincipalDto.getIdsedes(), 
+                idSubSedePoint);
+        return subSedePrincipalDto.getId();
     }
     /**
      * Trae el usuario logueado en una sede

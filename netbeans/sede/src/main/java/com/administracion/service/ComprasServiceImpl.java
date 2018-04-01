@@ -76,6 +76,9 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional
     public void guardarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
+        /**
+         * Subsede de la base de datos de credentials
+         */
         SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
         if (!subSede.getSede().contains("Principal")) {
             String[] fila = detalleCompraDTO.getFactura().split("@");
@@ -102,13 +105,13 @@ public class ComprasServiceImpl implements ComprasService {
             //El tipo de sede 1 es una sede normal.
             if (sedesDto.getTipo_sede() == 1) {
 
-                ds = connectsAuth.getDataSourceSubSede(subSede.getSede());
+                DataSource dsSubsede = connectsAuth.getDataSourceSubSede(subSede.getSede());
                 FacturaMapper facturaMapper = new FacturaMapper();
 
                 DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
                 Long secuenciaActual = Long.parseLong(detalleCompraDTO.getNumeroFactura());
-                facturaDao.insertarFacturaSubSede(ds, factura, "A", secuenciaActual);
-                facturaDao.insertarDetalleSede(ds, detalleCompraDTO, "A", secuenciaActual);
+                facturaDao.insertarFacturaSubSede(dsSubsede, factura, "A", secuenciaActual);
+                facturaDao.insertarDetalleSede(dsSubsede, detalleCompraDTO, "A", secuenciaActual);
             }
 
             ComprasMapper comprasMapper = new ComprasMapper();
@@ -167,23 +170,27 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional(readOnly = true)
     public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra) {
-        return comprasDao.getDetalleCompraDTO(idcompra, connectsAuth.getDataSourceSubSede(nameDataSource));
+        return comprasDao.getDetalleCompraDTO(idcompra, connectsAuth.getDataSourceSede(nameDataSource));
     }
 
     @Override
     @Transactional
     public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra) {
-        Compras compras = comprasDao.getCompra(idcompra, connectsAuth.getDataSourceSubSede(nameDataSource));
+        Compras compras = comprasDao.getCompra(idcompra, connectsAuth.getDataSourceSede(nameDataSource));
         ComprasMapper comprasMapper = new ComprasMapper();
         DetalleCompraDTO detalleCompraDTO = comprasMapper.comprasToDetalleCompraDto(compras);
-
+        if (detalleCompraDTO.getIdsedepoint() != null) {
+            detalleCompraDTO.setIdsede(connectsAuth.getIdSedePoint(nameDataSource,
+                    detalleCompraDTO.getIdsedepoint()).longValue());
+        }
         return detalleCompraDTO;
+
     }
 
     @Override
     @Transactional
     public Proveedor getProveedor(String nameDataSource, Long idproveedor) {
-        return proveedoreDao.getProveedor(connectsAuth.getDataSourceSubSede(nameDataSource), idproveedor);
+        return proveedoreDao.getProveedor(connectsAuth.getDataSourceSede(nameDataSource), idproveedor);
     }
 
     @Override
@@ -220,18 +227,18 @@ public class ComprasServiceImpl implements ComprasService {
 
             //Inserción en la sede escogida
             if (sedesDto.getTipo_sede() == 1) {
-                ds = connectsAuth.getDataSourceSede(subSede.getSede());
+                DataSource dsSubSede = connectsAuth.getDataSourceSede(subSede.getSede());
                 /**
                  * Se toma el id de compra para buscar en factura
                  */
-                facturaDao.borrarFactura(ds, idcompra);
-                facturaDao.borrarDetalleFactura(ds, idcompra);
+                facturaDao.borrarFactura(dsSubSede, idcompra);
+                facturaDao.borrarDetalleFactura(dsSubSede, idcompra);
 
                 FacturaMapper facturaMapper = new FacturaMapper();
 
                 DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
-                facturaDao.insertarFacturaSubSede(ds, factura, "A", idcompra);
-                facturaDao.insertarDetalleSede(ds, detalleCompraDTO, "A", idcompra);
+                facturaDao.insertarFacturaSubSede(dsSubSede, factura, "A", idcompra);
+                facturaDao.insertarDetalleSede(dsSubSede, detalleCompraDTO, "A", idcompra);
 
             }
         }

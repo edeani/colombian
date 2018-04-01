@@ -36,9 +36,11 @@ public class ComprasMapper {
             detalleCompraDTO.setSaldo(compra.getSaldo());
             detalleCompraDTO.setEstadoCompraProveedor(compra.getEstadoCompraProveedor());
             if(compra.getIdsede()!=null){
-                detalleCompraDTO.setIdsede(compra.getIdsede());
+                //detalleCompraDTO.setIdsede(compra.getIdsede());
+                detalleCompraDTO.setIdsedepoint(compra.getIdsede().intValue());
             }else{
                 detalleCompraDTO.setIdsede(0L);
+                detalleCompraDTO.setIdsedepoint(0);
             }
         }
         return detalleCompraDTO;
@@ -110,7 +112,7 @@ public class ComprasMapper {
         facturasCompras.setConsecutivo(detalleCompraDTO.getIdFacturaCompra());
         facturasCompras.setFecha(Formatos.StringDateToDate(detalleCompraDTO.getFecha()));
         facturasCompras.setReferencia(Long.parseLong(detalleCompraDTO.getNumeroFactura()));
-        facturasCompras.setIdsede(detalleCompraDTO.getIdsede());
+        facturasCompras.setIdsede(detalleCompraDTO.getIdsedepoint()==null?null:detalleCompraDTO.getIdsedepoint().longValue());
         facturasCompras.setTotal(Double.parseDouble(detalleCompraDTO.getTotalFactura()));
         facturasCompras.setIdcuenta(cuenta_facturas_compras);
 
