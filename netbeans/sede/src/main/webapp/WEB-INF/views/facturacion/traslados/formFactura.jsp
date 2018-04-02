@@ -59,7 +59,7 @@
                             <option value="" >
                                 Seleccione   
                             </option>
-                            <c:import url="/inventario/ajax/selectProducto.htm">
+                            <c:import url="/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                             </c:import>
                         </select>
                         <input type="text" name="name" id="name" autocomplete="off" style="width: 93px;" class="primerCampo2">
