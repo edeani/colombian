@@ -263,16 +263,17 @@ public class FacturasServiceImpl implements FacturasService {
          * INSERTO EN BD PRINCIPAL*
          */
         //Inserto en origen principal y sede
-        Sedes sedeOrigen = sedesService.buscarSede(detalleFacturaTrasladoDTO.getSedeOrigen());
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(nameDataSource);
+        SubSedesDto subSedePrincipalOrigen = connectsAuth.finSubsedeXIdCredencials(sedePrincipal.getIdsedes(), detalleFacturaTrasladoDTO.getSedeOrigen().intValue());
         TrasladoMapper trasladoMapper = new TrasladoMapper();
         DetalleFacturaDTO detalleFacturaDTOOrigen = trasladoMapper.DetalleFacturaTrasladoDtoToDetalleFacturaDTO(detalleFacturaTrasladoDTO, "origen");
-        guardarFactura(nameDataSource, sedeOrigen.getSede(), detalleFacturaDTOOrigen);
+        guardarFactura(nameDataSource, subSedePrincipalOrigen.getSede(), detalleFacturaDTOOrigen);
         facturasTrasladadas.add(detalleFacturaDTOOrigen);
 
         //Inserto en destino principal y sede
-        Sedes sedeDestino = sedesService.buscarSede(detalleFacturaTrasladoDTO.getSedeDestino());
+        SubSedesDto subSedePrincipalDestino = connectsAuth.finSubsedeXIdCredencials(sedePrincipal.getIdsedes(), detalleFacturaTrasladoDTO.getSedeDestino().intValue());
         DetalleFacturaDTO detalleFacturaDTODestino = trasladoMapper.DetalleFacturaTrasladoDtoToDetalleFacturaDTO(detalleFacturaTrasladoDTO, "destino");
-        guardarFactura(nameDataSource, sedeDestino.getSede(), detalleFacturaDTODestino);
+        guardarFactura(nameDataSource, subSedePrincipalDestino.getSede(), detalleFacturaDTODestino);
         facturasTrasladadas.add(detalleFacturaDTODestino);
         //Traslado
         Traslado traslado = trasladoMapper.detalleFacturaTrasladoDtoToTraslado(detalleFacturaTrasladoDTO);
