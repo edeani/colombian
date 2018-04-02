@@ -19,7 +19,7 @@
                     <option value="" >
                         Seleccione   
                     </option>
-                    <c:import url="/inventario/ajax/selectProducto.htm">
+                    <c:import url="/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                     </c:import>
                 </select>
                 <input type="text" name="name" id="name" autocomplete="off" style="width: 93px;" class="primerCampo2"/>
@@ -34,8 +34,8 @@
     </c:when>
     <c:otherwise>
         <tr>
-             <input id="numeroSede" name="numeroSede" type="hidden" value="${sede.idsedes}"/>
-             <input id="nombreSede" name="nombreSede" type="hidden" value="${sede.sede}"/>
+             <input id="numeroSede" name="numeroSede" type="hidden" value="${subsede.idsedepoint}"/>
+             <input id="nombreSede" name="nombreSede" type="hidden" value="${subsede.sede}"/>
              <input id="totalFact" type="hidden" value="${totalFactura}"/>
              <input id="estadoFactura" name="estadoFactura" type="hidden" value="${estadoFactura}"/>
         </tr>
@@ -46,7 +46,7 @@
                         <option value="" >
                             Seleccione   
                         </option>
-                        <c:import url="/inventario/ajax/selectProducto.htm">
+                        <c:import url="/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                         </c:import>
                     </select>
                     <input type="text" name="name" id="name" autocomplete="off" style="width: 93px;" class="primerCampo2" value="${producto.codigo}" />

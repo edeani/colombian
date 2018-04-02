@@ -153,7 +153,7 @@ public class ConnectsAuth {
      * @param idSubSedePoint
      * @return 
      */
-    public Integer getIdSedePoint(String nameSedePrincipal,Integer idSubSedePoint){
+    public Integer getIdSubSedePrincpipal(String nameSedePrincipal,Integer idSubSedePoint){
         SedesDto sedePrincipalDto = findSedeXName(nameSedePrincipal);
         SubSedesDto subSedePrincipalDto = finSubsedeXIdCredencials(sedePrincipalDto.getIdsedes(), 
                 idSubSedePoint);

@@ -11,6 +11,7 @@ import com.administracion.dto.FacturaReporteSedeDto;
 import com.administracion.dto.FacturaTotalReporteDto;
 import com.administracion.dto.FacturaVentaDTO;
 import com.administracion.dto.SedesDto;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.dto.VentasTotalesDTO;
 import com.administracion.entidad.Factura;
 import com.administracion.entidad.Inventario;
@@ -19,7 +20,6 @@ import com.administracion.service.FacturasService;
 import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.Formatos;
-import com.administracion.util.LectorPropiedades;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import java.util.Date;
@@ -112,9 +112,10 @@ public class FacturasController extends BaseController {
 
     @RequestMapping(value = "/guardar.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView guardarFactura(@Valid DetalleFacturaDTO detalleFacturaDTO, @PathVariable String sede) {
-        Sedes sedeObj = sedesService.buscarSede(detalleFacturaDTO.getSede());
+        SedesDto sedePrincipalObj = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipalObj= connectsAuth.finSubsedeXIdCredencials(sedePrincipalObj.getIdsedes(), detalleFacturaDTO.getSede().intValue());
         detalleFacturaDTO.setFechaFactura(Formatos.dateTostring(new Date()));
-        facturaService.guardarFactura(sede, sedeObj.getSede(), detalleFacturaDTO);
+        facturaService.guardarFactura(sede, subSedePrincipalObj.getSede(), detalleFacturaDTO);
         ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(), Long.parseLong(detalleFacturaDTO.getNumeroFactura()), detalleFacturaDTO.getSede(),
                 sede);
         return mav;
@@ -133,6 +134,9 @@ public class FacturasController extends BaseController {
         //principal
         facturaService.borrarFacturaSede(sedeConexion, numfac);
         //Sede
+        SedesDto sedePrincipalObj = connectsAuth.findSedeXName(sedeConexion);
+        SubSedesDto subSedePrincipalObj=connectsAuth.finSubsedeXIdCredencials(sedePrincipalObj.getIdsedes(), idSede.intValue());
+        nombreSede =subSedePrincipalObj.getSede();
         facturaService.borrarFacturaSubSede(nombreSede, numfac);
 
         facturaService.actualizarFactura(sede, nombreSede, estadoFactura, detalleFacturaDTO);
@@ -159,11 +163,12 @@ public class FacturasController extends BaseController {
 
         JRDataSource datos = new JRBeanCollectionDataSource(detalleFactura);
         Map<String, Object> parameterMap = new HashMap<>();
-        Sedes sedes = sedesService.buscarSede(sedeNumber);
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipal = connectsAuth.finSubsedeXIdCredencials(sedePrincipal.getIdsedes(),sedeNumber.intValue());
         parameterMap.put("datos", datos);
         parameterMap.put("numeroFactura", numeroFactura);
         parameterMap.put("fechaFactura", Formatos.dateTostring(factura1.getFechaFactura()));
-        parameterMap.put("nombreSede", sedes.getSede());
+        parameterMap.put("nombreSede", subSedePrincipal.getSede());
         SedesDto sedesDto = connectsAuth.findSedeXName(sede);
         parameterMap.put("titulo", sedesDto.getTitulo());
         parameterMap.put("slogan", sedesDto.getSlogan());
@@ -351,12 +356,13 @@ public class FacturasController extends BaseController {
             mav = new ModelAndView("facturacion/sede/detalleFactura");
         }
         List<FacturaVentaDTO> detalle = facturaService.traerProductosFactura(sede, numeroFactura);
-        Sedes sedeObj = null;
+        SedesDto sedePrincipalObj = connectsAuth.findSedeXName(sede);
         if (detalle != null && !detalle.isEmpty()) {
             Long idSede = detalle.get(0).getIdsede();
+            SubSedesDto subSedePrincipalObj = connectsAuth.finSubsedeXIdCredencials(sedePrincipalObj.getIdsedes(),idSede.intValue());
             String estadoFactura = detalle.get(0).getEstado();
-            sedeObj = sedesService.buscarSede(idSede);
-            mav.addObject("sede", sedeObj);
+            
+            mav.addObject("subsede", subSedePrincipalObj);
             mav.addObject("productos", detalle);
             mav.addObject("totalFactura", calcularTotalFactura(detalle));
             mav.addObject("estadoFactura", estadoFactura);
@@ -385,15 +391,16 @@ public class FacturasController extends BaseController {
     }
 
     @RequestMapping(value = "/guardarCambioSede.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView guardarCambioSede(@Valid DetalleFacturaDTO detalleFacturaDTO, @RequestParam(value = "numeroSede", required = false) Long idSedeOrigen,
+    public ModelAndView guardarCambioSede(@Valid DetalleFacturaDTO detalleFacturaDTO, @RequestParam(value = "numeroSede", required = false) Integer idSedeOrigen,
              @RequestParam(value = "estadoFactura", required = false) String estadoFactura,
              @PathVariable String sede) {
         //Traigo las sedes
-        Sedes sedeOrigen = sedesService.buscarSede(idSedeOrigen);
-        Sedes sedeDestino = sedesService.buscarSede(detalleFacturaDTO.getSede());
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipalOrigen = connectsAuth.finSubsedeXIdCredencials(sedePrincipal.getIdsedes(), idSedeOrigen);
+        SubSedesDto subSedePrincipalDestino = connectsAuth.finSubsedeXIdCredencials(sedePrincipal.getIdsedes(), detalleFacturaDTO.getSede().intValue());
 
         //Hago el traslado
-        facturaService.cambiarSedeFactura(sede, detalleFacturaDTO, estadoFactura, sedeOrigen, sedeDestino);
+        facturaService.cambiarSedeFactura(sede, detalleFacturaDTO, estadoFactura, subSedePrincipalOrigen, subSedePrincipalDestino);
         ModelAndView mav = facturaVenta(detalleFacturaDTO.getNumeroFactura(), Long.parseLong(detalleFacturaDTO.getNumeroFactura()), detalleFacturaDTO.getSede(),
                 sede);
         return mav;

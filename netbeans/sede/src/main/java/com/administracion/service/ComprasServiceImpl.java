@@ -180,7 +180,7 @@ public class ComprasServiceImpl implements ComprasService {
         ComprasMapper comprasMapper = new ComprasMapper();
         DetalleCompraDTO detalleCompraDTO = comprasMapper.comprasToDetalleCompraDto(compras);
         if (detalleCompraDTO.getIdsedepoint() != null) {
-            detalleCompraDTO.setIdsede(connectsAuth.getIdSedePoint(nameDataSource,
+            detalleCompraDTO.setIdsede(connectsAuth.getIdSubSedePrincpipal(nameDataSource,
                     detalleCompraDTO.getIdsedepoint()).longValue());
         }
         return detalleCompraDTO;

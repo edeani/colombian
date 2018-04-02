@@ -10,6 +10,7 @@ import com.administracion.dto.FacturaAutocompletarDto;
 import com.administracion.dto.FacturaReporteSedeDto;
 import com.administracion.dto.FacturaTotalReporteDto;
 import com.administracion.dto.FacturaVentaDTO;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.dto.TrasladosDto;
 import com.administracion.dto.VentasTotalesDTO;
 import com.administracion.entidad.Factura;
@@ -34,7 +35,7 @@ public interface FacturasService {
     public List<FacturaVentaDTO> detalleFacturaVenta(String nameDataSource,Long numeroFactura);
     public Factura findFacturaSede(String nameDataSource,Long numeroFactura);
     public List<DetalleFacturaDTO> trasladarFactura(String nameDataSource, DetalleFacturaTrasladoDTO detalleFacturaTrasladoDTO);
-    public void cambiarSedeFactura(String nameDataSource, DetalleFacturaDTO detalleFacturaDTO,String estadoFactura,Sedes sedeOrigen,Sedes sedeDestino);
+    public void cambiarSedeFactura(String nameDataSource, DetalleFacturaDTO detalleFacturaDTO,String estadoFactura,SubSedesDto sedeOrigen,SubSedesDto sedeDestino);
     public String borrarFacturaSede(String nameDataSource, Long numeroFactura);
     public String borrarFacturaSubSede(String nameDataSource, Long numeroFactura);
     public List<FacturaReporteSedeDto> reporteFacturaCompraProveedor(String nameDataSource,Long idsede,String fechaInicio,String fechaFin);

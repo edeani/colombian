@@ -26,8 +26,8 @@
     </c:when>
     <c:otherwise>
         <tr>
-             <input id="numeroSede" name="numeroSede" type="hidden" value="${sede.idsedes}"/>
-             <input id="nombreSede" name="nombreSede" type="hidden" value="${sede.sede}"/>
+             <input id="numeroSede" name="numeroSede" type="hidden" value="${subsede.idsedepoint}"/>
+             <input id="nombreSede" name="nombreSede" type="hidden" value="${subsede.sede}"/>
              <input id="totalFact" type="hidden" value="${totalFactura}"/>
              <input id="estadoFactura" name="estadoFactura" type="hidden" value="${estadoFactura}"/>
         </tr>
