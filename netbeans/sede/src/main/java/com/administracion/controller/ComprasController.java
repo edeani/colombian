@@ -20,7 +20,6 @@ import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.Proveedor;
 import com.administracion.service.ComprasService;
-import com.administracion.service.InventarioService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.service.jsf.ComprasColombianService;
@@ -81,8 +80,6 @@ public class ComprasController extends BaseController {
     @Autowired
     private ComprasColombianService comprasColombianService;
     @Autowired
-    private InventarioService inventarioService;
-    @Autowired
     private SecurityService securityService;
     @Autowired
     private ConnectsAuth connectsAuth;
@@ -92,8 +89,6 @@ public class ComprasController extends BaseController {
     @RequestMapping("/home.htm")
     public ModelAndView cargarCompras(HttpSession session, @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("compras/compra");
-
-        List<ItemsDTO> proveedores = comprasService.listaProveedores(sede);
         DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
 
         mav.addObject("titulo", titulo);
@@ -287,7 +282,7 @@ public class ComprasController extends BaseController {
     public ModelAndView reporteComprasProveedorFechaPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
             @PathVariable String sede) {
-        ModelAndView mav = null;
+        ModelAndView mav;
 
         List<ComprasProveedorFechaDto> reporte = comprasService.reporteComprasProveedorFechaDto(sede, fechaInicial, fechaFinal);
         if (reporte != null) {
@@ -314,7 +309,7 @@ public class ComprasController extends BaseController {
     public ModelAndView reporteComprasTotalesPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
             @RequestParam(required = false, value = "fechaFinal") String fechaFinal, @PathVariable String sede) {
-        ModelAndView mav = null;
+        ModelAndView mav;
 
         List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotales(sede, fechaInicial, fechaFinal, "A");
         if (comprasTotales != null) {
@@ -341,7 +336,7 @@ public class ComprasController extends BaseController {
     public ModelAndView reporteComprasTotalesProductoPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
              @RequestParam(required = false, value = "fechaFinal") String fechaFinal, @PathVariable String sede) {
-        ModelAndView mav = null;
+        ModelAndView mav;
         List<ReporteComprasTotalesProvDTO> compras = comprasService.comprasTotalesProveedores(sede, fechaInicial, fechaFinal);
         if (compras != null) {
             if (compras.size() > 0) {
@@ -368,7 +363,7 @@ public class ComprasController extends BaseController {
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
             @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor,
              @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor, @PathVariable String sede) {
-        ModelAndView mav = null;
+        ModelAndView mav;
         List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotalesProveedor(sede, fechaInicial, fechaFinal, "A", codigoProveedor);
         if (comprasTotales != null) {
             if (comprasTotales.size() > 0) {
@@ -396,7 +391,7 @@ public class ComprasController extends BaseController {
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
             @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor,
             @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor, @PathVariable String sede) {
-        ModelAndView mav = null;
+        ModelAndView mav;
         List<ReporteComprasTotalesXProveedorDTO> reporte = comprasService.comprasTotalesXProveedor(sede, codigoProveedor, fechaInicial, fechaFinal);
         if (reporte != null) {
             if (reporte.size() > 0) {
@@ -424,7 +419,7 @@ public class ComprasController extends BaseController {
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
             @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor,
              @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor, @PathVariable String sede) {
-        ModelAndView mav = null;
+        ModelAndView mav;
         List<CuentasPagarProveedoresDto> reporte = comprasService.reporteCuentasPagarProveedoresDto(sede, fechaInicial, fechaFinal, codigoProveedor);
         if (reporte != null) {
             if (reporte.size() > 0) {
@@ -477,7 +472,6 @@ public class ComprasController extends BaseController {
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
                 mav = new ModelAndView("comprasSedesColombian", parameterMap);
-                return mav;
             }
         }
         return mav;
