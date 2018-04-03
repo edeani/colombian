@@ -41,8 +41,6 @@ public class NotasController extends BaseController {
     public @ResponseBody
     String guardarNotasDebito(@ModelAttribute NotasDto notasDto,@PathVariable String sede) {
         try {
-            getPropiedades().setArchivo(getArchivo());
-            getPropiedades().setPropiedad(getPropiedadPrincipal());
             notasDebitoService.guardarNotaDebito(sede, notasDto);
         } catch (Exception e) {
             System.out.println("Error guardarNotasDebito::" + e.getMessage());
@@ -65,8 +63,6 @@ public class NotasController extends BaseController {
     public @ResponseBody
     String guardarNotasCredito(@ModelAttribute NotasDto notasDto,@PathVariable String sede) {
         try {
-            getPropiedades().setArchivo(getArchivo());
-            getPropiedades().setPropiedad(getPropiedadPrincipal());
             notasDebitoService.guardarNotaCredito(sede, notasDto);
         } catch (Exception e) {
             System.out.println("Error guardarNotasCredito::" + e.getMessage());

@@ -28,13 +28,13 @@ public class NotasDebitoServiceImpl implements NotasDebitoService{
     @Transactional
     @Override
     public void guardarNotaDebito(String dataSource, NotasDto notasDebito) {
-        notasDebitoDao.guardarNotaDebito(connectsAuth.getDataSourceSubSede(dataSource), notasDebito);
+        notasDebitoDao.guardarNotaDebito(connectsAuth.getDataSourceSede(dataSource), notasDebito);
     }
 
     @Transactional
     @Override
     public void guardarNotaCredito(String dataSource, NotasDto notasDebito) {
-         notasDebitoDao.guardarNotaCredito(connectsAuth.getDataSourceSubSede(dataSource), notasDebito);
+         notasDebitoDao.guardarNotaCredito(connectsAuth.getDataSourceSede(dataSource), notasDebito);
     }
     
 }
