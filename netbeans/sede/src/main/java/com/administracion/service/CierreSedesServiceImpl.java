@@ -98,7 +98,7 @@ public class CierreSedesServiceImpl implements CierreSedesService {
     @Override
     @Transactional(readOnly = true)
     public List<CierreSedesDto> reporteComprobanteCierreSedesView(String nameDataSource, String fechaInicial, String fechaFinal, Long idsede) {
-        return cierreSedesDao.reporteComprobanteCierreSedesView(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal, idsede);
+        return cierreSedesDao.reporteComprobanteCierreSedesView(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial, fechaFinal, idsede);
     }
 
 }

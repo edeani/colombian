@@ -26,7 +26,7 @@
                     Sede
                     <select name="idsede" id="idsede" class="contentRequired">
                         <option value="">Seleccionar</option>
-                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"></c:import>
+                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm"></c:import>
                     <select>
                 </label>
                 <label id="cmpFechaInicial">

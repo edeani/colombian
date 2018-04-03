@@ -181,10 +181,10 @@ public class ConsolidadoController extends BaseController {
     @RequestMapping(value = "/comprobante/reporte/sede/pdf.htm")
     public ModelAndView generarReporteCierreSedePdf(@RequestParam Long idsede, @RequestParam String fechaInicial, @RequestParam String fechaFinal,
             @PathVariable String sede) {
+        SedesDto sedesDto = connectsAuth.findSedeXName(sede);
         SubSedesDto subSedesDto = connectsAuth.findSubsedeXId(idsede.intValue());
-        List<CierreSedesDto> reporte = cierreSedesService.reporteComprobanteCierreSedesView(subSedesDto.getSede(), fechaInicial,
-                fechaFinal, idsede);
-        Sedes sedeObj = sedesDao.buscarSede(idsede);
+        List<CierreSedesDto> reporte = cierreSedesService.reporteComprobanteCierreSedesView(sede, fechaInicial,
+                fechaFinal, subSedesDto.getIdsedepoint().longValue());
 
         ModelAndView mav = null;
         if (reporte != null) {
@@ -192,10 +192,9 @@ public class ConsolidadoController extends BaseController {
             Map<String, Object> parameterMap = new HashMap<>();
 
             parameterMap.put("datos", datos);
-            parameterMap.put("sede", sedeObj.getSede());
+            parameterMap.put("sede", subSedesDto.getSede());
             parameterMap.put("fechaInicial", Formatos.StringDateToDate(fechaInicial));
             parameterMap.put("fechaFinal", Formatos.StringDateToDate(fechaFinal));
-            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
             parameterMap.put("usuario", sedesDto.getUsersLogin());
             parameterMap.put("nombresedereporte", sedesDto.getTitulo());
             parameterMap.put("slogan", sedesDto.getSlogan());

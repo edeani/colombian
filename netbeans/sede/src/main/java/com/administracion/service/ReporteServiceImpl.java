@@ -202,7 +202,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Transactional(readOnly = true)
     public List<MovimientoCajaDto> movimientoCajaMenor(String nameDataSource, String fechaInicial, String fechaFinal) {
 
-        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMenor(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal);
+        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMenor(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial, fechaFinal);
 
         MovimientoCajaMapper movimientoCajaMapper = new MovimientoCajaMapper();
         List<MovimientoCajaDto> movimientos = movimientoCajaMapper.comprobanteConsolidadoSedeDtoToMovimietoCajaMenorDto(movs);
