@@ -119,10 +119,10 @@ public class ComprasServiceImpl implements ComprasService {
 
     public boolean actualizarPromedioInventario(String dataSource, String codigoProductoInventario) {
         //Armo el intervalo de fechas
-        Date fecha = new Date();
-        String anio = "" + Formatos.obtenerAnio(fecha);
-        String mes = "" + Formatos.obtenerMes(fecha);
-        String dia = "" + Formatos.obtenerDia(fecha);
+        //Date fecha = new Date();
+        //String anio = "" + Formatos.obtenerAnio(fecha);
+        //String mes = "" + Formatos.obtenerMes(fecha);
+        //String dia = "" + Formatos.obtenerDia(fecha);
 
         Date date = Formatos.lunesSemana();
         String fechainicial = Formatos.dateTostring(date);
