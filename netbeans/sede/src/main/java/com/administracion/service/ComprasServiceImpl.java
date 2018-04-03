@@ -26,15 +26,12 @@ import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.FacturasCompras;
 import com.administracion.entidad.Proveedor;
-import com.administracion.entidad.Sedes;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.Formatos;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,14 +74,14 @@ public class ComprasServiceImpl implements ComprasService {
     @Transactional
     public void guardarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
         /**
-         * Subsede de la base de datos de credentials
+         * Subsede y seded de la base de datos de credencials
          */
         SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
-        if (!subSede.getSede().contains("Principal")) {
+        SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
+        if ((subSede.getSede().contains("Principal") && sedesDto.getTipo_sede()==2)||(!subSede.getSede().contains("Principal"))) {
             String[] fila = detalleCompraDTO.getFactura().split("@");
             Date fechacompra = null;
             DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
-            SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
             if (detalleCompraDTO.getFecha() == null) {
                 fechacompra = new Date();
                 detalleCompraDTO.setFecha(Formatos.dateTostring(fechacompra));
@@ -256,11 +253,6 @@ public class ComprasServiceImpl implements ComprasService {
         return comprasDao.comprasTotalesProveedores(connectsAuth.getDataSourceSede(nameDatasource), fechaInicio, fechaFin);
     }
 
-    @Override
-    @Transactional
-    public void actualizarFactura(String nameDataSource, Compras compras) {
-        comprasDao.actualizarCompra(connectsAuth.getDataSourceSubSede(nameDataSource), compras);
-    }
 
     @Override
     @Transactional(readOnly = true)

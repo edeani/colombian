@@ -42,8 +42,6 @@ public interface ComprasService {
 
     public List<ReporteComprasTotalesProvDTO> comprasTotalesProveedores(String nameDatasource, String fechaInicio, String fechaFin);
     
-    public void actualizarFactura(String nameDataSource,Compras compras);
-    
     public List<Compras> comprasAVencer(String nameDataSource,int numeroDias,Long idProveedor);
     
     public List<ComprasProveedorFechaDto> reporteComprasProveedorFechaDto(String nameDataSource, String fechInicial, String fechaFinal);
