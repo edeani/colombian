@@ -40,18 +40,18 @@ public class ProveedoresServiceImpl implements ProveedoresService {
     @Override
     @Transactional
     public void guardarProveedor(String nameDatasource, Proveedor proveedor) {
-        proveedoresDao.guardarProveedor(connectsAuth.getDataSourceSubSede(nameDatasource), proveedor);
+        proveedoresDao.guardarProveedor(connectsAuth.getDataSourceSede(nameDatasource), proveedor);
     }
 
     @Override
     @Transactional
     public void actualizarProveedor(String nameDatasource, Proveedor proveedor) {
-        proveedoresDao.actualizarProveedor(connectsAuth.getDataSourceSubSede(nameDatasource), proveedor);
+        proveedoresDao.actualizarProveedor(connectsAuth.getDataSourceSede(nameDatasource), proveedor);
     }
 
     @Override
     @Transactional
     public void eliminarProveedor(String nameDatasource, Long idproveedor) {
-        proveedoresDao.eliminarProveedor(connectsAuth.getDataSourceSubSede(nameDatasource), idproveedor);
+        proveedoresDao.eliminarProveedor(connectsAuth.getDataSourceSede(nameDatasource), idproveedor);
     }
 }

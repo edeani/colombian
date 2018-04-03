@@ -16,7 +16,7 @@
     <div id="divproveedores" data-url="<%=request.getContextPath()%>/${sessionScope.path}/proveedor/ajax/buscar/proveedor.htm">
         <label>
             Proveedores
-            <select id="selectProveedor" data-cargarselect="<%=request.getContextPath()%>/proveedor/ajax/listaProveedores.htm">
+            <select id="selectProveedor" data-cargarselect="<%=request.getContextPath()%>/${sessionScope.path}/proveedor/ajax/listaProveedores.htm">
                 <option value="">Seleccione Proveedor</option>
                 <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm">
                 </c:import>
@@ -39,7 +39,7 @@
                         <th>Nit</th>
                     </tr>
                 </thead>
-                <tbody id="proveedores" data-nuevo="<%=request.getContextPath()%>/proveedor/ajax/contenido/nuevo/proveedor.htm" data-guardar="<%=request.getContextPath()%>/proveedor/ajax/guardar/proveedor.htm" data-actualizar="<%=request.getContextPath()%>/proveedor/ajax/actualizar/proveedor.htm" data-eliminar="<%=request.getContextPath()%>/proveedor/ajax/eliminar/proveedor.htm">
+                <tbody id="proveedores" data-nuevo="<%=request.getContextPath()%>/${sessionScope.path}/proveedor/ajax/contenido/nuevo/proveedor.htm" data-guardar="<%=request.getContextPath()%>/${sessionScope.path}/proveedor/ajax/guardar/proveedor.htm" data-actualizar="<%=request.getContextPath()%>/proveedor/ajax/actualizar/proveedor.htm" data-eliminar="<%=request.getContextPath()%>/proveedor/ajax/eliminar/proveedor.htm">
                 </tbody>
             </table>
         </div>
