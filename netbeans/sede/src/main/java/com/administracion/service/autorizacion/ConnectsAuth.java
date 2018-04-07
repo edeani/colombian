@@ -76,10 +76,12 @@ public class ConnectsAuth {
         dataSourceSub_.setUsername(subSedesDto.getUsername());
         return dataSourceSub_;
     }
+
     /**
      * Busca una conexión de las sedes a las que se puede conectar
+     *
      * @param sede
-     * @return 
+     * @return
      */
     public SedesDto findSedeXNameConn(String sede) {
         for (SedesDto sede1 : sedesConnect) {
@@ -98,7 +100,7 @@ public class ConnectsAuth {
         }
         return null;
     }
-    
+
     public SedesDto findSedeXId(Integer sede) {
         for (SedesDto sede1 : accesosSubsedes.getSedes()) {
             if (Objects.equals(sede, sede1.getIdsedes())) {
@@ -107,6 +109,7 @@ public class ConnectsAuth {
         }
         return null;
     }
+
     /**
      * Devuelve los datos de conexión de las subsedes
      *
@@ -122,9 +125,24 @@ public class ConnectsAuth {
         return null;
     }
     /**
-     * Busca una subsede por el id
-     * @param idsubsede
+     * Encuuentra una subsede por el idpadre de credencials
+     * @param idSede
      * @return 
+     */
+    public SubSedesDto findSubSedeXIdSede(Integer idSede) {
+        for (SubSedesDto subsede1 : accesosSubsedes.getSubsedes()) {
+            if (subsede1.getIdsede().equals(idSede)) {
+                return subsede1;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Busca una subsede por el id
+     *
+     * @param idsubsede
+     * @return
      */
     public SubSedesDto findSubsedeXId(Integer idsubsede) {
         for (SubSedesDto subsede1 : accesosSubsedes.getSubsedes()) {
@@ -134,12 +152,14 @@ public class ConnectsAuth {
         }
         return null;
     }
+
     /**
      * Busca una subsede por el id de la sede
+     *
      * @param idSede
-     * @return 
+     * @return
      */
-    public SubSedesDto finSubsedeXIdCredencials(Integer idSede,Integer idSubSedePoint){
+    public SubSedesDto finSubsedeXIdCredencials(Integer idSede, Integer idSubSedePoint) {
         for (SubSedesDto subsede1 : accesosSubsedes.getSubsedes()) {
             if (Objects.equals(subsede1.getIdsede(), idSede) && Objects.equals(idSubSedePoint, subsede1.getIdsedepoint())) {
                 return subsede1;
@@ -147,22 +167,26 @@ public class ConnectsAuth {
         }
         return null;
     }
+
     /**
      * Devuelve el id de la subsede en la bd credentials
+     *
      * @param nameSedePrincipal
      * @param idSubSedePoint
-     * @return 
+     * @return
      */
-    public Integer getIdSubSedePrincpipal(String nameSedePrincipal,Integer idSubSedePoint){
+    public Integer getIdSubSedePrincpipal(String nameSedePrincipal, Integer idSubSedePoint) {
         SedesDto sedePrincipalDto = findSedeXName(nameSedePrincipal);
-        SubSedesDto subSedePrincipalDto = finSubsedeXIdCredencials(sedePrincipalDto.getIdsedes(), 
+        SubSedesDto subSedePrincipalDto = finSubsedeXIdCredencials(sedePrincipalDto.getIdsedes(),
                 idSubSedePoint);
         return subSedePrincipalDto.getId();
     }
+
     /**
      * Trae el usuario logueado en una sede
+     *
      * @param sede
-     * @return 
+     * @return
      */
     public String findUserNameXSede(String sede) {
         for (SedesDto sede_ : accesosSubsedes.getSedes()) {
@@ -172,10 +196,12 @@ public class ConnectsAuth {
         }
         return "";
     }
+
     /**
      * Encuentra una sede por su nombre en base de datos
+     *
      * @param sede
-     * @return 
+     * @return
      */
     public String findSedeStringXName(String sede) {
         for (SedesDto sede_ : accesosSubsedes.getSedes()) {
@@ -185,15 +211,15 @@ public class ConnectsAuth {
         }
         return null;
     }
-    
-    public UserItemDto findUserItemXIdSede(Integer idSede){
-        
-        for(UserItemDto user_ : accesosSubsedes.getUserLog()){
-            if(Objects.equals(idSede, user_.getIdSedeUser())){
-                return  user_;
+
+    public UserItemDto findUserItemXIdSede(Integer idSede) {
+
+        for (UserItemDto user_ : accesosSubsedes.getUserLog()) {
+            if (Objects.equals(idSede, user_.getIdSedeUser())) {
+                return user_;
             }
         }
-        
+
         return null;
     }
 

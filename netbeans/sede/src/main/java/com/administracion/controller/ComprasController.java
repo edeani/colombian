@@ -90,8 +90,11 @@ public class ComprasController extends BaseController {
     public ModelAndView cargarCompras(HttpSession session, @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("compras/compra");
         DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
-
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipal = connectsAuth.findSubSedeXIdSede(sedePrincipal.getIdsedes());
         mav.addObject("titulo", titulo);
+        mav.addObject("tipo_sede", sedePrincipal.getTipo_sede());
+        mav.addObject("subSedePrincipal", subSedePrincipal);
         setBasicModel(mav, detalleCompraDTO);
         return mav;
     }
@@ -138,6 +141,11 @@ public class ComprasController extends BaseController {
         if (detalleCompras != null) {
             numeroCompras = detalleCompras.size();
         }
+        
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipal = connectsAuth.findSubSedeXIdSede(sedePrincipal.getIdsedes());
+        mav.addObject("tipo_sede", sedePrincipal.getTipo_sede());
+        mav.addObject("subSedePrincipal", subSedePrincipal);
         if (numeroCompras > 0) {
             Proveedor proveedor = comprasService.getProveedor(sede, Long.parseLong(detalleCompraDTO.getCodigoProveedor()));
 
@@ -165,9 +173,13 @@ public class ComprasController extends BaseController {
         } catch (Exception e) {
             System.out.println("Error guardarCompras::" + e.getMessage());
         }
-
+        
         //imprimirFactura(detalleCompraDTO);
         ModelAndView mav = new ModelAndView("compras/detalleCompra");
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipal = connectsAuth.findSubSedeXIdSede(sedePrincipal.getIdsedes());
+        mav.addObject("tipo_sede", sedePrincipal.getTipo_sede());
+        mav.addObject("subSedePrincipal", subSedePrincipal);
         detalleCompraDTO = new DetalleCompraDTO();
 
         mav.addObject("titulo", titulo);

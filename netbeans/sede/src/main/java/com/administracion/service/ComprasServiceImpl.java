@@ -26,10 +26,12 @@ import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.FacturasCompras;
 import com.administracion.entidad.Proveedor;
+import com.administracion.enumeration.TipoSedeEnum;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.Formatos;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -78,7 +80,8 @@ public class ComprasServiceImpl implements ComprasService {
          */
         SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
         SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
-        if ((subSede.getSede().contains("Principal") && sedesDto.getTipo_sede()==2)||(!subSede.getSede().contains("Principal"))) {
+        if ((subSede.getSede().contains("Principal") && sedesDto.getTipo_sede() == TipoSedeEnum.PRINCIPAL.getTipo_sede())
+                || (!subSede.getSede().contains("Principal"))) {
             String[] fila = detalleCompraDTO.getFactura().split("@");
             Date fechacompra = null;
             DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
@@ -91,7 +94,11 @@ public class ComprasServiceImpl implements ComprasService {
             }
             Long secuenciFacturaCompras = secuenciasMysqlDao.secuenceTable(ds, "facturas_compras");
             detalleCompraDTO.setIdFacturaCompra(secuenciFacturaCompras);
-            comprasDao.insertarCompra(ds, detalleCompraDTO);
+            if (sedesDto.getTipo_sede() == TipoSedeEnum.NORMAL.getTipo_sede()) {
+                comprasDao.insertarCompra(ds, detalleCompraDTO);
+            } else {
+                comprasDao.insertarCompraSede(ds, detalleCompraDTO);
+            }
             for (int i = 0; i < fila.length; i++) {
                 String[] datosFila = fila[i].split(",");
                 comprasDao.insertarDetalleCompra(ds, i, detalleCompraDTO.getNumeroFactura(), datosFila, detalleCompraDTO.getCodigoProveedor(), fechacompra);
@@ -100,7 +107,7 @@ public class ComprasServiceImpl implements ComprasService {
 
             //Insercion de la compra en una sede, se convierte en factura
             //El tipo de sede 1 es una sede normal.
-            if (sedesDto.getTipo_sede() == 1) {
+            if (sedesDto.getTipo_sede() == TipoSedeEnum.NORMAL.getTipo_sede()) {
 
                 DataSource dsSubsede = connectsAuth.getDataSourceSubSede(subSede.getSede());
                 FacturaMapper facturaMapper = new FacturaMapper();
@@ -177,9 +184,12 @@ public class ComprasServiceImpl implements ComprasService {
         ComprasMapper comprasMapper = new ComprasMapper();
         DetalleCompraDTO detalleCompraDTO = comprasMapper.comprasToDetalleCompraDto(compras);
         if (detalleCompraDTO.getIdsedepoint() != null) {
-            detalleCompraDTO.setIdsede(connectsAuth.getIdSubSedePrincpipal(nameDataSource,
-                    detalleCompraDTO.getIdsedepoint()).longValue());
+            if (detalleCompraDTO.getIdsedepoint() != 0) {
+                detalleCompraDTO.setIdsede(connectsAuth.getIdSubSedePrincpipal(nameDataSource,
+                        detalleCompraDTO.getIdsedepoint()).longValue());
+            }
         }
+
         return detalleCompraDTO;
 
     }
@@ -194,10 +204,11 @@ public class ComprasServiceImpl implements ComprasService {
     @Transactional
     public void actualizarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
         SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
-        if (!subSede.getSede().contains("Principal")) {
+        SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
+        if ((subSede.getSede().contains("Principal") && Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.PRINCIPAL.getTipo_sede()))
+                || !subSede.getSede().contains("Principal")) {
             String[] fila = detalleCompraDTO.getFactura().split("@");
             DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
-            SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
             this.jdbctemplate = new JdbcTemplate(ds);
             Long idcompra = Long.parseLong(detalleCompraDTO.getNumeroFactura());
             Compras compra = comprasDao.getCompra(idcompra, ds);
@@ -209,7 +220,11 @@ public class ComprasServiceImpl implements ComprasService {
             //Nuevo Saldo
             detalleCompraDTO.setSaldo(Double.parseDouble(detalleCompraDTO.getTotalFactura()) - canceladoFactura);
             detalleCompraDTO.setIdFacturaCompra(idFacturaCompra);
-            comprasDao.insertarCompra(ds, detalleCompraDTO);
+            if (Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.NORMAL.getTipo_sede())) {
+                comprasDao.insertarCompra(ds, detalleCompraDTO);
+            } else {
+                comprasDao.insertarCompraSede(ds, detalleCompraDTO);
+            }
 
             String filasCompra[] = detalleCompraDTO.getFactura().split("@");
             for (int i = 0; i < filasCompra.length; i++) {
@@ -223,7 +238,7 @@ public class ComprasServiceImpl implements ComprasService {
             facturasComprasDao.actualizarFacturaComprasDao(ds, facturasCompras);
 
             //Inserción en la sede escogida
-            if (sedesDto.getTipo_sede() == 1) {
+            if (Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.NORMAL.getTipo_sede())) {
                 DataSource dsSubSede = connectsAuth.getDataSourceSubSede(subSede.getSede());
                 /**
                  * Se toma el id de compra para buscar en factura
@@ -252,7 +267,6 @@ public class ComprasServiceImpl implements ComprasService {
     public List<ReporteComprasTotalesProvDTO> comprasTotalesProveedores(String nameDatasource, String fechaInicio, String fechaFin) {
         return comprasDao.comprasTotalesProveedores(connectsAuth.getDataSourceSede(nameDatasource), fechaInicio, fechaFin);
     }
-
 
     @Override
     @Transactional(readOnly = true)
