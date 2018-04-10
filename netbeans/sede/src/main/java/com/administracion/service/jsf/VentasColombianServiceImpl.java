@@ -5,32 +5,31 @@
 package com.administracion.service.jsf;
 
 
+import com.administracion.dao.VentasDao;
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.mycompany.mapper.VentasMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author joseefren
  */
+@Service
 public class VentasColombianServiceImpl implements VentasColombianService {
 
-    
-
-    private List<VentasMapper> ventasMesa = new ArrayList<VentasMapper>();
-    private List<VentasMapper> ventasDomicilio = new ArrayList<VentasMapper>();
-    private List<VentasMapper> ventasMostrador = new ArrayList<VentasMapper>();
-    private List<VentasMapper> ventas = new ArrayList<VentasMapper>();
-
-    private Double totalVenta;
-    private Double totalDomicilios;
-    private Double totalMesa;
-    private Double totalMostrador;
+    @Autowired
+    private ConnectsAuth connectsAuth;
+    @Autowired
+    private VentasDao ventasDao;
 
     @Override
-    public void ventas(Date fi, Date ff) {
-
+    public List<VentasMapper> ventasMesa(String nameDataSource,Date fi, Date ff) {
+        
+        return  ventasDao.getVentasMesa(connectsAuth.getDataSourceSede(nameDataSource), fi, ff);
         /*
         conexion.establecerConexion(user.getSede());
         connection = conexion.getConexion();
@@ -106,13 +105,13 @@ public class VentasColombianServiceImpl implements VentasColombianService {
 
                     if (rs.getString("tipo").equals("DOMICILIOS")) {
                         totalDomicilios += rs.getDouble("valor_producto") * rs.getLong("numero_unidades");
-                        getVentasDomicilio().add(v);
+                        ventasDomicilio().add(v);
                     } else if (rs.getString("tipo").equals("MESAS")) {
                         totalMesa += rs.getDouble("valor_producto") * rs.getLong("numero_unidades");
                         getVentasMesa().add(v);
                     } else if (rs.getString("tipo").equals("MOSTRADOR")) {
                         totalMostrador += rs.getDouble("valor_producto") * rs.getLong("numero_unidades");
-                        getVentasMostrador().add(v);
+                        ventasMostrador().add(v);
                     }
 
                     // totalVenta+=rs.getDouble("valor_producto") * rs.getLong("numero_unidades");
@@ -151,70 +150,34 @@ public class VentasColombianServiceImpl implements VentasColombianService {
 
     }
 
-   
-
-
-    /**
-     * @return the totalVenta
-     */
-    @Override
-    public Double getTotalVenta() {
-        return totalVenta;
-    }
-
-    /**
-     * @return the totalDomicilios
-     */
-    @Override
-    public Double getTotalDomicilios() {
-        return totalDomicilios;
-    }
-
-    /**
-     * @return the totalMesa
-     */
-    @Override
-    public Double getTotalMesa() {
-        return totalMesa;
-    }
-
-    /**
-     * @return the totalMostrador
-     */
-    @Override
-    public Double getTotalMostrador() {
-        return totalMostrador;
-    }
-
-    /**
-     * @return the ventasMesa
-     */
-    public List<VentasMapper> getVentasMesa() {
-        return ventasMesa;
-    }
-
     /**
      * @return the ventasDomicilio
      */
     @Override
-    public List<VentasMapper> getVentasDomicilio() {
-        return ventasDomicilio;
+    public List<VentasMapper> ventasDomicilio(String nameDataSource,Date fi, Date ff) {
+        return  ventasDao.getVentasDomicilio(connectsAuth.getDataSourceSede(nameDataSource), fi, ff);
     }
 
     /**
+     * @param nameDataSource
+     * @param fi
+     * @param ff
      * @return the ventasMostrador
      */
     @Override
-    public List<VentasMapper> getVentasMostrador() {
-        return ventasMostrador;
+    public List<VentasMapper> ventasMostrador(String nameDataSource,Date fi, Date ff) {
+        return  ventasDao.getVentasMostrador(connectsAuth.getDataSourceSede(nameDataSource), fi, ff);
     }
 
     /**
+     * @param nameDataSource
+     * @param fi
+     * @param ff
      * @return the ventas
      */
     @Override
-    public List<VentasMapper> getVentas() {
-        return ventas;
+    public List<VentasMapper> totalVentas(String nameDataSource,Date fi, Date ff) {
+        return  ventasDao.getVentasMostrador(connectsAuth.getDataSourceSede(nameDataSource), fi, ff);
     }
 
 }

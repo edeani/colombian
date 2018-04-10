@@ -13,13 +13,8 @@ import java.util.List;
  * @author joseefren
  */
 public interface VentasColombianService {
-    public void ventas(Date fi,Date ff);
-    public Double getTotalVenta();
-    public Double getTotalDomicilios();
-    public Double getTotalMesa();
-    public Double getTotalMostrador();
-    public List<VentasMapper> getVentasMesa();
-    public List<VentasMapper> getVentasDomicilio();
-    public List<VentasMapper> getVentasMostrador();
-    public List<VentasMapper> getVentas();
+    public List<VentasMapper> ventasMesa(String nameDataSource,Date fi,Date ff);
+    public List<VentasMapper> ventasDomicilio(String nameDataSource,Date fi,Date ff);
+    public List<VentasMapper> ventasMostrador(String nameDataSource,Date fi,Date ff);
+    public List<VentasMapper> totalVentas(String nameDataSource,Date fi,Date ff);
 }
