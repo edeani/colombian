@@ -49,11 +49,11 @@ public class TiempoRealController extends BaseController {
         cierreDiario.setConsignaciones(cierreColombianService.cierreConsignaciones(Formatos.StringDateToDate(fecha),subsede));
         cierreDiario.setListaConsignaciones(cierreColombianService.cierreListaConsignaciones(Formatos.StringDateToDate(fecha),subsede));
         cierreDiario.setCajaFinal(cierreDiario.getVentas() + cierreDiario.getCajaInicial() - cierreDiario.getConsignaciones() - cierreDiario.getGastos());
-        if (clasePagoService.findClasePagoById(1,sede).getEstado().equals("A")) {
+        if (clasePagoService.findClasePagoById(1,subsede).getEstado().equals("A")) {
             cierreDiario.setPagosTarjetas(cierreColombianService.cierrePagosConTarjetas(Formatos.StringDateToDate(fecha),subsede));
             cierreDiario.setCajaFinal(cierreDiario.getCajaFinal() - cierreDiario.getPagosTarjetas());
         }
-        if (clasePagoService.findClasePagoById(2,sede).getEstado().equals("A")) {
+        if (clasePagoService.findClasePagoById(2,subsede).getEstado().equals("A")) {
             cierreDiario.setDescuentos(cierreColombianService.cierreDescuentos(Formatos.StringDateToDate(fecha),subsede));
             cierreDiario.setCajaFinal(cierreDiario.getCajaFinal() - cierreDiario.getDescuentos());
         }
