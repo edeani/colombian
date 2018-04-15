@@ -8,7 +8,6 @@ package com.administracion.service.jsf;
 import com.administracion.dao.VentasDao;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.mycompany.mapper.VentasMapper;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class VentasColombianServiceImpl implements VentasColombianService {
     @Override
     public List<VentasMapper> ventasMesa(String nameDataSource,Date fi, Date ff) {
         
-        return  ventasDao.getVentasMesa(connectsAuth.getDataSourceSede(nameDataSource), fi, ff);
+        return  ventasDao.getVentasMesa(connectsAuth.getDataSourceSubSede(nameDataSource), fi, ff);
         /*
         conexion.establecerConexion(user.getSede());
         connection = conexion.getConexion();
@@ -155,7 +154,7 @@ public class VentasColombianServiceImpl implements VentasColombianService {
      */
     @Override
     public List<VentasMapper> ventasDomicilio(String nameDataSource,Date fi, Date ff) {
-        return  ventasDao.getVentasDomicilio(connectsAuth.getDataSourceSede(nameDataSource), fi, ff);
+        return  ventasDao.getVentasDomicilio(connectsAuth.getDataSourceSubSede(nameDataSource), fi, ff);
     }
 
     /**
@@ -166,7 +165,7 @@ public class VentasColombianServiceImpl implements VentasColombianService {
      */
     @Override
     public List<VentasMapper> ventasMostrador(String nameDataSource,Date fi, Date ff) {
-        return  ventasDao.getVentasMostrador(connectsAuth.getDataSourceSede(nameDataSource), fi, ff);
+        return  ventasDao.getVentasMostrador(connectsAuth.getDataSourceSubSede(nameDataSource), fi, ff);
     }
 
     /**
@@ -177,7 +176,7 @@ public class VentasColombianServiceImpl implements VentasColombianService {
      */
     @Override
     public List<VentasMapper> totalVentas(String nameDataSource,Date fi, Date ff) {
-        return  ventasDao.getVentasMostrador(connectsAuth.getDataSourceSede(nameDataSource), fi, ff);
+        return  ventasDao.getTotalVentas(connectsAuth.getDataSourceSubSede(nameDataSource), fi, ff);
     }
 
 }

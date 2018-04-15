@@ -30,7 +30,7 @@
                 </td>
                 <td>
                     <c:if test="${item.idCuenta != '414015'}">
-                        $<input name="comprobanteConsolidadoSedeDto[${numero.index}].total" value="<fmt:formatNumber type="number  " pattern="###,##0" value="${item.total}"/>" readonly="readonly" class="claseFormatDecPoint"/>
+                        $<input name="comprobanteConsolidadoSedeDto[${numero.index}].total" value="<fmt:formatNumber type="number" pattern="###,##0" value="${item.total}"/>" readonly="readonly" class="claseFormatDecPoint"/>
                          <c:set var="totalDeber" value="${totalDeber + item.total}"/>
                     </c:if>
                 </td>    

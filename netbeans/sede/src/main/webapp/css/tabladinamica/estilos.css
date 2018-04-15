@@ -20,6 +20,10 @@ table{
     border-top:none;
     padding:10px;
 }
+.divContenedorTabla table{
+    width: 100%;
+    margin: 0px;
+}
 table caption{
     text-indent:15px;
     background:#ff0000 url(/colombianCaliyCali/img/contraer.png) left center no-repeat;
@@ -48,6 +52,30 @@ table caption{
     margin: 0 10% 0 10%;
     height: 100%;
     position: relative;
+}
+.divContenedorTabla{
+    padding:4px;
+    float: top;
+    margin: 0 10% 0 10%;
+    height: 100%;
+    position: relative;
+}
+.divContenedorTabla tbody tr{
+    background-color: green;
+}
+.divContenedorTabla .contenedorResumen{
+    float: right;
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.divContenedorTabla .resumen{
+    float: right;
+    position: relative;
+    border-top: 2px  solid green;
+    border-bottom: 2px  solid green; 
+    margin: 0px 10px;
 }
 #divCali{
     position:fixed;

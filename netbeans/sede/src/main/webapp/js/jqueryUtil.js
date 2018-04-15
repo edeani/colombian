@@ -118,7 +118,32 @@ function loader(idDiv, load)
         $("#" + idDiv).html("");
     }
 }
-
+function peticionAjaxAsync(url, type, parametros) {
+    var codigo = "";
+    if (parametros !== null && parametros !== "") {
+        $.ajax({
+            url: url,
+            timeout: 20000,
+            type: type,
+            data: parametros,
+            async: false,
+            success: function(result) {
+                codigo = result;
+            }
+        });
+    } else {
+        $.ajax({
+            url: url,
+            timeout: 20000,
+            type: type,
+            async: false,
+            success: function(result) {
+                codigo = result;
+            }
+        });
+    }
+    return codigo;
+}
 function peticionAjax(url, type, parametros) {
     var codigo = "";
     if (parametros !== null && parametros !== "") {
