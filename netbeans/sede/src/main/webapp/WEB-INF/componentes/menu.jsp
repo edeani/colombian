@@ -89,6 +89,7 @@
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/reporte/inventarios.htm'><span>Inventario</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compras.htm'><span>Compras</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/ordenes.htm'><span>Mesas y Llevar</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/ventas/index-ventas.htm'><span>Ventas</span></a></li>
             </ul>
         </li>
     </ul>
