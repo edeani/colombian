@@ -222,8 +222,9 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         List<DetallePagosCosolidadoSedeDto> detallePagosCosolidadoSedeDtos = pagosMapper.detallePorcentajeVentaToDetallePagosCosolidadoSedeDto(detallePorcentajeVentases);
         if (detallePagosCosolidadoSedeDtos != null) {
             detallePagosCosolidadoSedeDtos.forEach((detallePagosCosolidadoSedeDto) -> {
-                Sedes sedes = sedesDao.buscarSede(detallePagosCosolidadoSedeDto.getIdSede());
-                detallePagosCosolidadoSedeDto.setNombreSede(sedes.getSede());
+                Integer idSubSedeCred = connectsAuth.getIdSubSedePrincpipal(nameDataSource, detallePagosCosolidadoSedeDto.getIdSede().intValue());
+                SubSedesDto subSede = connectsAuth.findSubsedeXId(idSubSedeCred);
+                detallePagosCosolidadoSedeDto.setNombreSede(subSede.getSede());
             });
         }
         pagosConsolidadoSedeDto.setDetallePagosCosolidadoSedeDtos(detallePagosCosolidadoSedeDtos);
@@ -244,7 +245,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Transactional(readOnly = true)
     public List<ReporteTotalCuentasXNivelDto> reportePerdidaIngresoTotalXNivelSede(String nameDataSource, String fechInicial, String fechaFinal) {
         lectorPropiedades.setArchivo(propiedades_cuentas);
-        int ingresos = Integer.parseInt(lectorPropiedades.leerPropiedad(propiedad_ingresos));
+        Integer ingresos = Integer.parseInt(lectorPropiedades.leerPropiedad(propiedad_ingresos));
         Long sedePrincipal = Long.parseLong(lectorPropiedades.leerPropiedad(propiedad_bdprincipal));
         List<Sedes> sedes = sedesDao.findAll();
         List<ReporteTotalCuentasXNivelDto> reporteIngresoxNivel = new ArrayList<>();

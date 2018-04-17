@@ -94,6 +94,7 @@ $(document).ready(function() {
             var url = $("#pagosConsolidadoSedeDto").attr("action");
             var parametros = $("#pagosConsolidadoSedeDto").serialize();
             var html = peticionAjax(url, "post", parametros);
+            
             //Genero el PDF
             var body = document.body;
             var form = document.createElement('form');
@@ -110,8 +111,19 @@ $(document).ready(function() {
             form.appendChild(input);
             body.appendChild(form);
             form.submit();
-            var urlLocal = window.location.href;
-            window.location.href = urlLocal;
+            $("#divContenedorTabla").html("");
+            $("#cmpSecuencia").hide();
+            $("#secuencia").val("");
+            $("#cmpFecha").hide();
+            $("#fechaPago").val("");
+            $("#cmpCuentaConsolidado").hide();
+            $("#idCuentaConsolidado").val("");
+            $("#cmpDetalle").hide();
+            $("#detalleConsolidado").val("");
+            $("#cmpTotalPagar").hide();
+            $("#totalPagar").val("");
+            //var urlLocal = window.location.href;
+            //window.location.href = urlLocal;
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");
         }
