@@ -211,8 +211,6 @@ $(document).ready(function () {
             var url = $("#pagosProveedorDto").attr("action");
             var parametros = $("#pagosProveedorDto").serialize();
             var html = peticionAjax(url, "post", parametros);
-            $("#divContenedorTabla2").html("");
-            $("#secuencia").val("");
             //Genero el PDF
             var body = document.body;
             var form = document.createElement('form');
@@ -229,6 +227,17 @@ $(document).ready(function () {
             form.appendChild(input);
             body.appendChild(form);
             form.submit();
+            $("#cmpSecuencia").hide();
+            $("#secuencia").val("");
+            $("#cmpFecha").hide();
+            $("#fechaPago").val("");
+            
+            $("#divContenedorTabla").hide();
+            $("#contenidoComprobante").html("");
+            
+            $("#divContenedorTabla2").hide("");
+            $("#divContenedorTabla2").html("");
+            
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");
         }
