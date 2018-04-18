@@ -57,6 +57,11 @@ $(document).ready(function() {
                 form.submit();
                 //var urlLocal = window.location.href;
                 //window.location.href = urlLocal;
+                
+                //reiniciar campos
+                $("#idSede").val("");
+                $("#fecha").val("");
+                $("#divContenedorTabla").html("");
             }
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");

@@ -194,6 +194,14 @@ $(document).ready(function () {
             var urlTabla = $("#contextpath").val() + "/" + $("#idpath").val() + "/pagos/ajax/terceros/tabla.htm";
             var html_tabla = peticionAjax(urlTabla, "post", "");
             $("#divContenedorTabla").html(html_tabla);
+            
+            //Reiniciar campos
+            $("#cmpSecuencia").hide();
+            $("#secuencia").val("");
+            $("#cmpFecha").hide();
+            $("#fechaPago").val("");
+            $("#lnkRows").hide();
+            $("#nombreBeneficiario").val("");
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");
         }
@@ -237,7 +245,7 @@ $(document).ready(function () {
             
             $("#divContenedorTabla2").hide("");
             $("#divContenedorTabla2").html("");
-            
+            $("#nombreProveedor").val("");
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");
         }
