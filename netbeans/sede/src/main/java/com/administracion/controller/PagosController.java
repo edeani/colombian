@@ -211,7 +211,8 @@ public class PagosController extends BaseController {
                 parameterMap.put("comprobante", cabecera.getIdpagos());
                 parameterMap.put("titulo", "Comprobante Terceros Caja Mayor");
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("msjtitulo", sedesDto.getTitulo());
+                parameterMap.put("nombresede",sede);
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprobanteBeneficiario", parameterMap);
                 return mav;
@@ -259,7 +260,8 @@ public class PagosController extends BaseController {
                 parameterMap.put("comprobante", cabecera.getIdpagos());
                 parameterMap.put("fecha", cabecera.getFecha());
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("titulo", sedesDto.getTitulo());
+                parameterMap.put("nombresede", sede);
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprobanteProveedor", parameterMap);
                 return mav;

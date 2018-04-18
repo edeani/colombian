@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteUtilidadesTotal" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="042338d2-989c-43b3-a0a4-ea7b3345bc53">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\EderArmando\\Documents\\NetBeansProjects\\colombianCaliyCali_v2\\src\\main\\resources\\reportes\\"]]></defaultValueExpression>
 	</parameter>
@@ -13,15 +13,17 @@
 	<parameter name="fechaFinal" class="java.util.Date"/>
 	<parameter name="nombreSede" class="java.lang.String"/>
 	<parameter name="slogan" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="sedereporte" class="java.lang.String"/>
 	<field name="id" class="java.lang.Long"/>
 	<field name="label" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="65" splitType="Stretch">
+		<band height="102" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="10" y="38" width="233" height="27" forecolor="#000000" backcolor="#FFFFFF" uuid="f1c50710-9775-4e76-bb4c-d7fe1cef27af"/>
+				<reportElement mode="Transparent" x="1" y="75" width="233" height="27" forecolor="#000000" backcolor="#FFFFFF" uuid="f1c50710-9775-4e76-bb4c-d7fe1cef27af"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -29,19 +31,27 @@
 				<text><![CDATA[Total Utilidades]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="1" y="3" width="306" height="35" forecolor="#000000" backcolor="#FFFFFF" uuid="b1ec422d-33e5-4247-a30e-165f4112ba42"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				<reportElement mode="Transparent" x="247" y="75" width="311" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="b1ec422d-33e5-4247-a30e-165f4112ba42"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="307" y="18" width="265" height="20" uuid="a558892a-cf92-41a7-bbed-0f098eaed953"/>
+				<reportElement x="307" y="55" width="265" height="20" uuid="a558892a-cf92-41a7-bbed-0f098eaed953"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="1" y="0" width="445" height="55" forecolor="#000000" backcolor="#FFFFFF" uuid="e35299eb-61ea-47d6-bdec-0c75f125401a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="36" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -128,8 +138,11 @@
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="432" y="1" width="140" height="20" uuid="5acd71f1-78e8-46d4-8bff-4f731519eef4"/>
-				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
+				<reportElement x="432" y="1" width="140" height="20" uuid="76db7be7-2804-44a8-b8d1-c34607022474"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sedereporte}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

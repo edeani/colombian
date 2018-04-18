@@ -8,6 +8,7 @@
 	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="nombresede" class="java.lang.String"/>
 	<parameter name="slogan" class="java.lang.String"/>
+	<parameter name="msjtitulo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -48,26 +49,35 @@
 				<textFieldExpression><![CDATA[$P{comprobante}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="10" y="67" width="337" height="37" forecolor="#000000" backcolor="#FFFFFF" uuid="1e3fbbfc-4b9a-4fde-a78b-bd7c61a3ec4f"/>
+				<reportElement mode="Transparent" x="10" y="67" width="344" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="1e3fbbfc-4b9a-4fde-a78b-bd7c61a3ec4f"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="306" height="42" uuid="fee9bc60-3b47-440f-a8d4-bb4f6e89f754"/>
-				<textElement textAlignment="Center">
-					<font size="24" isBold="true"/>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="364" y="67" width="208" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="fee9bc60-3b47-440f-a8d4-bb4f6e89f754"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="306" y="22" width="261" height="20" uuid="4cae234c-68ce-4799-9a7c-4430b44bdbf8"/>
+				<reportElement x="311" y="47" width="261" height="20" uuid="4cae234c-68ce-4799-9a7c-4430b44bdbf8"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="400" height="47" forecolor="#000000" backcolor="#FFFFFF" uuid="fc804383-0ac0-4be5-b4fe-9b4709998116"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="36" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{msjtitulo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

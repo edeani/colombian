@@ -314,7 +314,9 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaFin", Formatos.StringDateToDate(fechaFinal));
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-            parameterMap.put("nombreSede", sedesDto.getTitulo());
+            parameterMap.put("titulo", sedesDto.getTitulo());
+            parameterMap.put("nombreSede", sede);
+            parameterMap.put("sedereporte", nombreSede);
             parameterMap.put("slogan", sedesDto.getSlogan());
             //mav =  new ModelAndView("estadoPerdidaGanancias");
             mav = new ModelAndView("estadoPerdidaGananciasProvisional", parameterMap);
@@ -343,7 +345,9 @@ public class ConsolidadoController extends BaseController {
                 parameterMap.put("fechaInicial", Formatos.StringDateToDate(fechaInicial));
                 parameterMap.put("fechaFinal", Formatos.StringDateToDate(fechaFinal));
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombreSede", sedesDto.getTitulo());
+                parameterMap.put("titulo", sedesDto.getTitulo());
+                parameterMap.put("nombreSede", sede);
+                parameterMap.put("sedereporte", nombreSede);
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 parameterMap.put("JasperCustomSubReportDatasource", datos);
                 mav = new ModelAndView("reporteUtilidades", parameterMap);

@@ -109,7 +109,8 @@ public class CajaMenorController extends BaseController {
                 parameterMap.put("datos", detalle);
                 parameterMap.put("comprobante", cabecera.getIdcajamenor());
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("nombresede",sede);
+                parameterMap.put("titulo",  sedesDto.getTitulo());
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 if (titulo.isEmpty()) {
                     parameterMap.put("titulo", "Comprobante Terceros Bancos");
