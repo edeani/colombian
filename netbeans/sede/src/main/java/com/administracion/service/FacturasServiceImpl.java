@@ -288,7 +288,7 @@ public class FacturasServiceImpl implements FacturasService {
     @Override
     @Transactional(readOnly = true)
     public List<FacturaReporteSedeDto> reporteFacturaCompraProveedor(String nameDataSource, Long idsede, String fechaInicio, String fechaFin) {
-        return facturaDao.reporteTotalFacturaXSede(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicio, fechaFin, idsede);
+        return facturaDao.reporteTotalFacturaXSede(connectsAuth.getDataSourceSede(nameDataSource), fechaInicio, fechaFin, idsede);
     }
 
     @Override
