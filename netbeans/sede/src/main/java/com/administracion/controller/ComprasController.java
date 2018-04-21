@@ -122,6 +122,7 @@ public class ComprasController extends BaseController {
     String verificarCompra(@RequestParam(value = "idcompra") Long idcompra,
             @PathVariable String sede) {
         ModelAndView mav = buscarCompras(idcompra, sede);
+        System.out.println("verificarCompra::idcompra="+idcompra+" sede "+sede);
         DetalleCompraDTO detalleCompraDTO = (DetalleCompraDTO) mav.getModelMap().get("detalleCompraDTO");
         if (detalleCompraDTO.getNumeroFactura() != null) {
             return "true";
@@ -332,7 +333,8 @@ public class ComprasController extends BaseController {
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("nombresede", sede);
+                parameterMap.put("titulo", sedesDto.getTitulo());
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprasTotales", parameterMap);
                 return mav;
@@ -358,7 +360,8 @@ public class ComprasController extends BaseController {
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("titulo", sedesDto.getTitulo());
+                parameterMap.put("nombresede", sede);
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprasTotalProducto", parameterMap);
                 return mav;
@@ -386,7 +389,8 @@ public class ComprasController extends BaseController {
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("titulo", sedesDto.getTitulo());
+                parameterMap.put("nombresede", sede);
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprasTotalesProveedor", parameterMap);
                 return mav;
@@ -414,7 +418,8 @@ public class ComprasController extends BaseController {
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("titulo", sedesDto.getTitulo());
+                parameterMap.put("nombresede", sede);
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprasTotalXProveedor", parameterMap);
                 return mav;

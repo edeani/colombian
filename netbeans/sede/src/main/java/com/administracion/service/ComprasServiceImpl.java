@@ -180,7 +180,9 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional
     public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra) {
+        System.out.println("getCompraDTO:: "+nameDataSource+" "+idcompra);
         Compras compras = comprasDao.getCompra(idcompra, connectsAuth.getDataSourceSede(nameDataSource));
+        System.out.println("getCompraDTO::compras "+compras);
         ComprasMapper comprasMapper = new ComprasMapper();
         DetalleCompraDTO detalleCompraDTO = comprasMapper.comprasToDetalleCompraDto(compras);
         if (detalleCompraDTO.getIdsedepoint() != null) {
