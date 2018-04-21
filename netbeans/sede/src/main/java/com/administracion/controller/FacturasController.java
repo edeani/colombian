@@ -330,16 +330,19 @@ public class FacturasController extends BaseController {
             @RequestParam(required = false, value = "sede") Long idSede, @PathVariable String sede) {
         ModelAndView mav = null;
         List<FacturaReporteSedeDto> reporte = facturaService.reporteFacturaCompraProveedor(sede, idSede, fechaInicial, fechaFinal);
-        Sedes sedeObj = sedesService.buscarSede(idSede);
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
         if (reporte != null && reporte.size() > 0) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
-            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-            parameterMap.put("nombreSede", sedesDto.getTitulo());
-            parameterMap.put("slogan", sedesDto.getSlogan());
+            SubSedesDto subSedesDto = connectsAuth.finSubsedeXIdCredencials(sedePrincipal.getIdsedes(),
+                    idSede.intValue());
+            parameterMap.put("nombreSede", sede);
+            parameterMap.put("sedeReporte", subSedesDto.getSede());
+            parameterMap.put("titulo", sedePrincipal.getTitulo());
+            parameterMap.put("slogan", sedePrincipal.getSlogan());
             mav = new ModelAndView("facturasTotalXSede", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/" + sede + "/factura/reportes/totalFacturasSede.htm");
