@@ -1,31 +1,31 @@
-$(document).ready(function() {
-    $(document).on("keypress", ".claseValidarNum", function(e) {
+$(document).ready(function () {
+    $(document).on("keypress", ".claseValidarNum", function (e) {
         return validarNUM(e);
     });
-    $(document).on("keyup", ".claseFormatDec", function(e) {
+    $(document).on("keyup", ".claseFormatDec", function (e) {
         var field = this;
         formatoNumeroDecimal(field);
     });
-    $(document).on("keypress", ".claseproximocampo", function(e) {
+    $(document).on("keypress", ".claseproximocampo", function (e) {
         proximoCampo(e, this, "");
     });
-    $(document).on("keyup", ".claseTotalColumna", function(e) {
+    $(document).on("keyup", ".claseTotalColumna", function (e) {
         sumaColumna(e, "claseTotalColumna", "totalColumna");
     });
 
     /**
      * Funcion para setear la sede en sesion
      */
-    $(document).on("change","#sedeSession", function(){
+    $(document).on("change", "#sedeSession", function () {
         loader("cargador", "barra.gif");
-        var respuesta = peticionAjax($("#contextpath").val()+"/"+$("#idpath").val()+"/sedes/ajax/setSedeSession.htm","POST","idSede="+$("#sedeSession").val());
+        var respuesta = peticionAjax($("#contextpath").val() + "/" + $("#idpath").val() + "/sedes/ajax/setSedeSession.htm", "POST", "idSede=" + $("#sedeSession").val());
         loader("cargador", "");
     });
 });
 
 function formatoNumeroDecimal(field) {
     var num = field.value;
-        num = num.toString().replace(/\$|\,/g, '');
+    num = num.toString().replace(/\$|\,/g, '');
     if (isNaN(num))
         num = "0";
     sign = (num === (num = Math.abs(num)));
@@ -113,7 +113,7 @@ function proximoCampoSinEvento(campo, clase) {
 function loader(idDiv, load)
 {
     if (load !== "") {
-        $("#" + idDiv).html("<div style=' float: left; margin-left:40%;' ><img src='"+$("#contextpath").val()+"/"+$("#idpath").val()+"/img/loaders/" + load + "' /><br>Cargando ...</div>");
+        $("#" + idDiv).html("<div style=' float: left; margin-left:40%;' ><img src='" + $("#contextpath").val() + "/" + $("#idpath").val() + "/img/loaders/" + load + "' /><br>Cargando ...</div>");
     } else {
         $("#" + idDiv).html("");
     }
@@ -127,7 +127,7 @@ function peticionAjaxAsync(url, type, parametros) {
             type: type,
             data: parametros,
             async: false,
-            success: function(result) {
+            success: function (result) {
                 codigo = result;
             }
         });
@@ -137,7 +137,7 @@ function peticionAjaxAsync(url, type, parametros) {
             timeout: 20000,
             type: type,
             async: false,
-            success: function(result) {
+            success: function (result) {
                 codigo = result;
             }
         });
@@ -153,7 +153,7 @@ function peticionAjax(url, type, parametros) {
             type: type,
             data: parametros,
             async: false,
-            success: function(result) {
+            success: function (result) {
                 codigo = result;
             }
         });
@@ -163,7 +163,7 @@ function peticionAjax(url, type, parametros) {
             timeout: 20000,
             type: type,
             async: false,
-            success: function(result) {
+            success: function (result) {
                 codigo = result;
             }
         });
@@ -173,7 +173,7 @@ function peticionAjax(url, type, parametros) {
 
 function validarFormulario(formulario) {
     var estadoFormulario = "";
-    $(formulario).find('input,select').each(function() {
+    $(formulario).find('input,select').each(function () {
         var elemento = this;
         if ($(this).val() === "") {
             if ($(this).is(".contentRequired")) {
@@ -198,6 +198,17 @@ function lightboxMensaje(mensaje) {
     });
 }
 
+function dialogMessage(msg) {
+    $.dialog({
+        title: 'Aviso',
+        content: msg,
+        boxWidth: '300px',
+        useBootstrap: false,
+        escapeKey: true,
+        backgroundDismiss: true
+    });
+}
+
 /**
  * Los campos deben estar en el body de la tabla
  * @param {type} idtabla
@@ -207,7 +218,7 @@ function validarCamposTabla(idtabla) {
     var inputsTbody = $("#" + idtabla + " tbody").find("input,select");
     var aprobado = true;
     if (inputsTbody.length > 0) {
-        $(inputsTbody).each(function(index) {
+        $(inputsTbody).each(function (index) {
             if ($(this).val() === undefined) {
                 aprobado = false;
                 $(this).addClass("campError");
@@ -218,7 +229,7 @@ function validarCamposTabla(idtabla) {
                 $(this).removeClass("campError");
             }
         });
-    }else{
+    } else {
         aprobado = false;
     }
     return aprobado;
@@ -226,7 +237,7 @@ function validarCamposTabla(idtabla) {
 
 function prepararCamposDecimales() {
     //Preparar campos decimales
-    $(".claseFormatDec").each(function(index) {
+    $(".claseFormatDec").each(function (index) {
         while ($(this).val().indexOf(",") !== -1) {
             $(this).val($(this).val().replace(",", ""));
         }
@@ -235,7 +246,7 @@ function prepararCamposDecimales() {
 
 function prepararCamposDecimalesPoint() {
     //Preparar campos decimales
-    $(".claseFormatDecPoint").each(function(index) {
+    $(".claseFormatDecPoint").each(function (index) {
         while ($(this).val().indexOf(".") !== -1) {
             $(this).val($(this).val().replace(".", ""));
         }
@@ -243,7 +254,7 @@ function prepararCamposDecimalesPoint() {
 }
 function prepararCamposDecimalesClase(clase) {
     //Preparar campos decimales
-    $("." + clase).each(function(index) {
+    $("." + clase).each(function (index) {
         while ($(this).val().indexOf(",") !== -1) {
             $(this).val($(this).val().replace(",", ""));
         }

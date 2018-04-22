@@ -14,8 +14,10 @@
         <link href="<%=request.getContextPath()%>/css/estructura.css" rel="stylesheet" type="text/css">
         <link href="<%=request.getContextPath()%>/css/estilos.css" rel="stylesheet" type="text/css">
         <link href="<%=request.getContextPath()%>/css/menu.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-confirm.css">
         <script src="<%=request.getContextPath()%>/js/jquery-1.8.3.min.js" type="text/javascript"></script>
         <script src="<%=request.getContextPath()%>/js/cali.js" type="text/javascript"></script>
+        <script src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
         <title>${sessionScope.path} <sitemesh:write property="title"/> </title>
         <sitemesh:write property="head"/>
     </head>

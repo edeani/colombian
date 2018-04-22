@@ -3,12 +3,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
 <head>
     <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/home/home_login.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-confirm.css">
     <script src="<%=request.getContextPath()%>/js/jquery-1.9.0.js" type="text/javascript"> </script>
     <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/home/home_login.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/home/home_select_login.js" type="text/javascript"></script>
-    <script src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
 </head>
 <div>
     <form action="${pageContext.request.contextPath}/${urlLogin}" method="POST" id="formularioLogin" name="formularioLogin" class="formLogin">
