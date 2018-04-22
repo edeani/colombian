@@ -22,7 +22,7 @@
         <c:choose>
             <c:when test="${viewlogo eq 'I'}">
                 <div class="title-login">
-                    Bienvenido a la Aplicaci&oacute;n
+                    Bienvenido a la Plataforma
                 </div> 
             </c:when>
             <c:otherwise>
