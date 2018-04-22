@@ -4,17 +4,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<head>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-confirm.css">
 <script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/compras/compras.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
 
+</head>
 <div id="contenidoCompra">
     <div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/guardar.htm"></div>
     <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/verificar/compra.htm" target="_blank">

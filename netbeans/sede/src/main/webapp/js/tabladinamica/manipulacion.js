@@ -101,7 +101,7 @@ $(document).ready(function(){
         /*obtener el cuerpo de la tabla; contamos cuantas filas (tr) tiene
 		si queda solamente una fila le preguntamos al usuario si desea eliminarla*/
         var objCuerpo=$(this).parents().get(2);
-        if($(objCuerpo).find('tr').length==2){
+        if($(objCuerpo).find('tr').length==1){
             alert('No se puede eliminar la ultima fila');
             return;
 				

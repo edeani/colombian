@@ -224,7 +224,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.confirm({
             title: 'Seleccionar Impresora',
-            content: "url:" + $("#contextpath").val()+"/"+$("#idpath").val()+ "/compras/ajax/impresoras.htm",
+            content: "url:" + $("#contextpath").val() + "/" + $("#idpath").val() + "/compras/ajax/impresoras.htm",
             columnClass: 'ancho-confirm',
             buttons: {
                 aceptar: {
@@ -282,11 +282,11 @@ $(document).ready(function () {
 
                                 $("#factura").val(factura);
                                 /*var dialogoGuardar = $.dialog({
-                                    columnClass: 'ancho-confirm',
-                                    title: 'Mensaje',
-                                    content: 'Guardando',
-                                    closeIcon: false
-                                });*/
+                                 columnClass: 'ancho-confirm',
+                                 title: 'Mensaje',
+                                 content: 'Guardando',
+                                 closeIcon: false
+                                 });*/
                                 $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
 
                                 var parametrosForm = $("#detalleCompraDTO").serialize();
@@ -302,6 +302,10 @@ $(document).ready(function () {
                                         $(".fechaVencimiento").datepicker({
                                             dateFormat: "yy-mm-dd"
                                         });
+                                       dialogMessage("Compra guardada");
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        dialogMessage("Error al guardar la compra");
                                     }
                                 });
 
@@ -348,7 +352,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.confirm({
             title: 'Seleccionar Impresora',
-            content: "url:" + $("#contextpath").val()+"/"+$("#idpath").val() + "/compras/ajax/impresoras.htm",
+            content: "url:" + $("#contextpath").val() + "/" + $("#idpath").val() + "/compras/ajax/impresoras.htm",
             columnClass: 'ancho-confirm',
             buttons: {
                 aceptar: {
@@ -400,11 +404,11 @@ $(document).ready(function () {
 
                     $("#factura").val(factura);
                     /*var dialogoGuardar = $.dialog({
-                        columnClass: 'ancho-confirm',
-                        title: 'Mensaje',
-                        content: 'Guardando',
-                        closeIcon: false
-                    });*/
+                     columnClass: 'ancho-confirm',
+                     title: 'Mensaje',
+                     content: 'Guardando',
+                     closeIcon: false
+                     });*/
                     $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
                     var parametrosForm = $("#detalleCompraDTO").serialize();
                     $.ajax({
@@ -442,14 +446,14 @@ $(document).ready(function () {
             });
         }
     });
-    
-    $(document).on("submit","#detalleCompraDTO",function(){
-        if($("#submit-form").val() == "S"){
+
+    $(document).on("submit", "#detalleCompraDTO", function () {
+        if ($("#submit-form").val() == "S") {
             return true;
-        }else{
+        } else {
             return false;
         }
-        
+
     });
 
     /*------------------------Buscar Compra--------------------------*/
@@ -465,14 +469,14 @@ $(document).ready(function () {
         $("#cargador").html("");
         $("#contenidoCompra").html(compraHTML);
     });
-    $(document).on("change","#idSede",function (){
-        var valorIdSede=$("#idSede option:selected" ).val();
-        var idSedePoint = peticionAjax($("#idsedepoint").attr("data-url"), "post", "idSede="+valorIdSede);
+    $(document).on("change", "#idSede", function () {
+        var valorIdSede = $("#idSede option:selected").val();
+        var idSedePoint = peticionAjax($("#idsedepoint").attr("data-url"), "post", "idSede=" + valorIdSede);
         $("#idsedepoint").val(idSedePoint);
     });
-    $(document).on("change","#idsede",function (){
-        var valorIdSede=$("#idsede option:selected" ).val();
-        var idSedePoint = peticionAjax($("#idsedepoint").attr("data-url"), "post", "idSede="+valorIdSede);
+    $(document).on("change", "#idsede", function () {
+        var valorIdSede = $("#idsede option:selected").val();
+        var idSedePoint = peticionAjax($("#idsedepoint").attr("data-url"), "post", "idSede=" + valorIdSede);
         $("#idsedepoint").val(idSedePoint);
     });
     /*------------------------Reporte de compras totales--------------------------*/

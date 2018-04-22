@@ -6,8 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/compras/ajax/guardar.htm"></div>
-<form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/compras/ajax/verificar/compra.htm" target="_blank">
+<div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/guardar.htm"></div>
+<form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/verificar/compra.htm" target="_blank">
     <div id="contenidoHome"> 
         <div id="tituloPagina">${titulo}</div>
         <div id="campoNumeroFactura">
@@ -75,7 +75,7 @@
                                 <option value="" >
                                     Seleccione   
                                 </option>
-                                <c:import url="/inventario/ajax/selectProducto.htm">
+                                <c:import url="/${sessionScope.path}/inventario/ajax/selectProducto.htm">
                                 </c:import>
                             </select>
                             <input type="text" name="name" class="editable-select primerCampo2" id="name" autocomplete="off" style="width: 93px;" >
