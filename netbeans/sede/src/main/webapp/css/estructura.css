@@ -19,7 +19,7 @@
 
 #selectSedes{
     margin: 0% 0% 0% 0%;
-    
+
 }
 
 .textoNegro{
@@ -44,17 +44,33 @@
     float: top;
     width: 50%;
 }
-
+.content-form-login{
+    width: 100%;
+    border: 1px solid;
+    height: 200px;
+    box-shadow: 1px 1px 1px 1px #71B00C;
+    background: #F79634;
+}
+.title-login{
+    font-family: cursive;
+    text-align: center;
+    font-size: 21px;
+    font-weight: bold;
+    border: 1px black solid;
+    border-radius: 3px;
+    width: 100%;
+    height: 30px;
+}
 /*Estilo para botÃ³n de cerrar del colobox*/
- #cboxClose{
-  background: none repeat scroll 0 0 green;
-  color: white;
-  cursor: pointer;
-  float: left;
-  font-size: 16px;
-  font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
-  text-align: center;
-  width: 300px;
+#cboxClose{
+    background: none repeat scroll 0 0 green;
+    color: white;
+    cursor: pointer;
+    float: left;
+    font-size: 16px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    text-align: center;
+    width: 300px;
 }
 
 /*Estilos para botones*/
@@ -76,7 +92,7 @@
     max-width: 100%;
 }
 .contentFormSimple > label {
-  margin: 0 10px;
+    margin: 0 10px;
 }
 
 .contentFormCol{
@@ -84,22 +100,22 @@
 }
 
 .contentFormCol li {
-  float: left;
-  margin: 0 20px;
-  padding: 5px;
-  width: 180px;
-  height: 25px;
-  list-style: outside none none;
+    float: left;
+    margin: 0 20px;
+    padding: 5px;
+    width: 180px;
+    height: 25px;
+    list-style: outside none none;
 }
 /*Estilos para una tabla general*/
 .tablaDatosInfo {
-  background: black none repeat scroll 0 0;
-  border: medium solid black;
-  border-radius: 3px;
-  color: white;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
+    background: black none repeat scroll 0 0;
+    border: medium solid black;
+    border-radius: 3px;
+    color: white;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
 }
 
 .tablaDatosInfo thead tr{

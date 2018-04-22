@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 form#formularioLogin {
   float: left;
-  margin: 20px 335px;
+  margin: 20px 38%;
 }
 
 form#formularioLogin ul li{
@@ -19,6 +19,13 @@ form#formularioLogin ul li{
 
 form#formularioLogin ul li input{
     height: 20px;
+}
+
+form#formularioLogin ul li select{
+    height: 20px;
+    float: right;
+    border-radius: 2px;
+    width: 173px;
 }
 
 form#formularioLogin ul li label{

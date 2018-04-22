@@ -10,6 +10,7 @@ import com.administracion.dto.SedesDto;
 import com.administracion.dto.UserItemDto;
 import com.administracion.entidad.Users;
 import com.administracion.entidad.Userxsede;
+import com.administracion.enumeration.EstadosEnum;
 import com.administracion.service.SedesService;
 import com.administracion.service.SloganSedeService;
 import com.administracion.service.SubSedesService;
@@ -86,6 +87,7 @@ public class LoginController {
         }
         
         mav.addObject("urlLogin", rutaLogin);
+        mav.addObject("viewlogo", EstadosEnum.Inactivo.getEstado());
         return mav;
     }
 
@@ -119,6 +121,7 @@ public class LoginController {
         mav.addObject("urlLogin", rutaLogin);
         mav.addObject("sedePath", sede);
         mav.addObject("rt", "/" + sede + "/home.htm");
+        mav.addObject("viewlogo", EstadosEnum.Activo.getEstado());
         return mav;
     }
 

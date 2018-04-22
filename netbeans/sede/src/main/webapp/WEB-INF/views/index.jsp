@@ -7,7 +7,7 @@
     <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/home/home_login.js" type="text/javascript"></script>
 </head>
-<div>
+<div class="content-form-login">
     <form action="${pageContext.request.contextPath}/${urlLogin}" method="POST" id="formularioLogin" name="formularioLogin" class="formLogin">
         <ul>
             <li>
