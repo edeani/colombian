@@ -18,7 +18,7 @@ $(document).ready(function() {
             $("#divContenedorTabla").html(repuestaHtml);
             loader("cargador", "");
         } else {
-            lightboxMensaje(validacionFormulario);
+            dialogMessage(validacionFormulario);
         }
 
     });
@@ -29,7 +29,7 @@ $(document).ready(function() {
         var continuar = validarCamposTabla("tblDatos");
         if (continuar) {
             if ($("#totalDeber").val() !== $("#totalHaber").val()) {
-                lightboxMensaje("Las sumas deben ser iguales");
+                dialogMessage("Las sumas deben ser iguales");
             } else {
                 prepararCamposDecimalesPoint();
                 prepararCamposDecimales();

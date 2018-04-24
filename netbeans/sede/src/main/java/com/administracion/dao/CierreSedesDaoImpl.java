@@ -238,7 +238,15 @@ public class CierreSedesDaoImpl extends GenericDaoImpl<CierreSedes> implements C
             System.out.println("Error borrarComprobanteCierre::" + e.getMessage());
         }
     }
-
+    @Override
+    public void borrarComprobanteCierreXDia(DataSource nameDataSource,String fecha, Integer idSedePoint) {
+        try {
+            this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+            this.jdbcTemplate.execute(deleteJdbTemplate("cierre_sedes", "fecha='" + fecha+"' and idsede="+idSedePoint));
+        } catch (DataAccessException e) {
+            System.out.println("Error borrarComprobanteCierre::" + e.getMessage());
+        }
+    }
     @Override
     public void borrarDetalleComprobanteCierre(DataSource nameDataSource, Long idComprobanteCierre) {
         try {
@@ -248,7 +256,15 @@ public class CierreSedesDaoImpl extends GenericDaoImpl<CierreSedes> implements C
             System.out.println("Error borrarDetalleComprobanteCierre::" + e.getMessage());
         }
     }
-
+    @Override
+    public void borrarDetalleComprobanteCierreXDia(DataSource nameDataSource,String fecha, Integer idSedePoint) {
+        try {
+            this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+            this.jdbcTemplate.execute(deleteJdbTemplate("detalle_cierre_sedes", "fecha='" + fecha+"' and idsede="+idSedePoint));
+        } catch (DataAccessException e) {
+            System.out.println("Error borrarDetalleComprobanteCierre::" + e.getMessage());
+        }
+    }
     @Override
     public CierreSedes buscarCabeceraComprobanteCierreXFechaXSede(DataSource nameDataSource, String fechaInicial, String fechaFinal, Long idSede) {
         CierreSedes cierreSedes = null;

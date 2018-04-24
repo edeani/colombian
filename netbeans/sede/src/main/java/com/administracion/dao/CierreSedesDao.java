@@ -28,7 +28,9 @@ public interface CierreSedesDao extends GenericDao<CierreSedes>{
     public ReporteTotalCuentasXNivelDto totalCierreCuentaXNivel(DataSource nameDataSource,int tipoCuenta,String fechaInicial,String fechaFinal);
     public ReporteTotalCuentasXNivelDto totalCierreCuentaXNivelSede(DataSource nameDataSource,Long idsede,int tipoCuenta,String fechaInicial,String fechaFinal);
     public void borrarComprobanteCierre(DataSource nameDataSource,Long idComprobanteCierre);
+    public void borrarComprobanteCierreXDia(DataSource nameDataSource,String fecha,Integer idSedePoint);
     public void borrarDetalleComprobanteCierre(DataSource nameDataSource,Long idComprobanteCierre);
+    public void borrarDetalleComprobanteCierreXDia(DataSource nameDataSource,String fecha,Integer idSedePoint);
     public CierreSedes buscarCabeceraComprobanteCierreXFechaXSede(DataSource nameDataSource, String fechaInicial, String fechaFinal,Long idSede);
     public List<CierreSedesDto> reporteComprobanteCierreSedesView(DataSource nameDataSource, String fechaInicial, String fechaFinal,Long idsede);
 }

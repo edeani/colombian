@@ -53,8 +53,8 @@ public class CierreSedesServiceImpl implements CierreSedesService {
         }else{//Si existe se le dejala misma secuencia
             secuencia = cierreSedesFind.getConsecutivo();
             comprobanteCierreSedesDto.setConsecutivo(secuencia);
-            cierreSedesDao.borrarDetalleComprobanteCierre(ds, secuencia);
-            cierreSedesDao.borrarComprobanteCierre(ds, secuencia);
+            cierreSedesDao.borrarDetalleComprobanteCierreXDia(ds, comprobanteCierreSedesDto.getFecha(),comprobanteCierreSedesDto.getIdsedepoint());
+            cierreSedesDao.borrarComprobanteCierreXDia(ds, comprobanteCierreSedesDto.getFecha(),comprobanteCierreSedesDto.getIdsedepoint());
         }
         
 
