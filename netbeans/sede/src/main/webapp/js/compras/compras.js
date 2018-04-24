@@ -70,13 +70,7 @@ $(document).ready(function () {
                     focusNextInputField(0, $(this));
                 }
             } else {
-
-                $.colorbox({
-                    html: "<p id='mensaje'>" + tramaProducto + "</p>",
-                    initialHeight: 50,
-                    Height: 50,
-                    width: "300px"
-                });
+               dialogMessage(tramaProducto); 
 
             }
         } else {
@@ -382,12 +376,7 @@ $(document).ready(function () {
         if ($("#codigoProveedor").val() != "") {
             if ($("#numeroFactura").val() != "") {
                 if ($("#totalFactura").val() == "") {
-                    $.colorbox({
-                        html: "<!DOCTYPE html><html><body><p id='mensaje'>Compra Vacia</p></body></html>",
-                        initialHeight: 50,
-                        Height: 50,
-                        width: "300px"
-                    });
+                    dialogMessage("Compra Vacia");
                 } else {
                     for (i = 0; i < fila.length; i++) {
                         var valor = fila[i].children[2].children[0].value
@@ -422,6 +411,7 @@ $(document).ready(function () {
                             $("#detalleCompraDTO").submit();
                             $("#submit-form").val("N");
                             $("#contenidoCompra").html(result);
+                            dialogMessage("Guardado Exitosamente");
                         }
                     });
 
@@ -430,12 +420,8 @@ $(document).ready(function () {
                     console.log(factura);
                 }
             } else {
-                $.colorbox({
-                    html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe ingresar n&uacute;mero de Factura</p></body></html>",
-                    initialHeight: 50,
-                    Height: 50,
-                    width: "300px"
-                });
+                dialogMessage("Debe ingresar n&uacute;mero de Factura");
+
             }
         } else {
             $.colorbox({

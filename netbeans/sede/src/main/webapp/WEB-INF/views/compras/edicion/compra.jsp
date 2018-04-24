@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<head>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
 <script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/compras/compras.js" type="text/javascript"></script>
@@ -10,6 +11,7 @@
 <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
+</head>
 <div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/actualizar.htm"></div>
 <input type="hidden" value="N" id="submit-form"/>
 <div id="contenidoCompra">
