@@ -52,7 +52,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
             + "dc.valor_producto as valor "
             + "FROM detalle_compra dc "
             + "inner join inventario i on i.codigo_producto_inventario = dc.codigo_producto_inventario "
-            + "where dc.numero_compra = ?";
+            + "where dc.numero_compra = ? and dc.codigo_proveedor= ?";
 
     @Override
     public Compras getCompra(Long idcompra, DataSource nameDataSource) {
@@ -71,11 +71,11 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
 
     @Override
     @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch"})
-    public List<ComprasTotalesDTO> getDetalleCompraDTO(Long idcompra, DataSource nameDataSource) {
+    public List<ComprasTotalesDTO> getDetalleCompraDTO(Long idcompra,Integer codigProveedor, DataSource nameDataSource) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
         List<ComprasTotalesDTO> detalleCompra = null;
         try {
-            detalleCompra = jdbctemplate.query(SQL_DETALLECOMPRA_DTO, new Object[]{idcompra}, new BeanPropertyRowMapper(ComprasTotalesDTO.class));
+            detalleCompra = jdbctemplate.query(SQL_DETALLECOMPRA_DTO, new Object[]{idcompra,codigProveedor}, new BeanPropertyRowMapper(ComprasTotalesDTO.class));
         } catch (DataAccessException e) {
             LOGGER.error("Error getDetalleCompraDTO::No se encontraron recursos");
         }
@@ -84,9 +84,9 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
     }
 
     @Override
-    public void borrarDetalleCompra(Long idcompra, DataSource nameDataSource) {
+    public void borrarDetalleCompra(Long idcompra,Integer codigoProveedor, DataSource nameDataSource) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
-        this.jdbctemplate.execute(deleteJdbTemplate("detalle_compra", "numero_compra=" + idcompra));
+        this.jdbctemplate.execute(deleteJdbTemplate("detalle_compra", "numero_compra=" + idcompra+" and codigo_proveedor="+codigoProveedor));
     }
     
     @Override
@@ -106,9 +106,9 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
                 + "," + detalleCompraDTO.getCodigoProveedor() + ",'" + estado_default_comprobante + "','" + detalleCompraDTO.getFechaVencimiento() + "'," + detalleCompraDTO.getTotalFactura()+","+detalleCompraDTO.getIdFacturaCompra()));
     }
     @Override
-    public void borrarCompra(Long idcompra, DataSource nameDataSource) {
+    public void borrarCompra(Long idcompra,Integer codigoProveedor, DataSource nameDataSource) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
-        this.jdbctemplate.execute(deleteJdbTemplate("compras", "id_compra=" + idcompra));
+        this.jdbctemplate.execute(deleteJdbTemplate("compras", "id_compra=" + idcompra+" and codigo_proveedor="+codigoProveedor));
     }
 
     @Override
@@ -228,7 +228,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
     }
 
     @Override
-    public Compras getCompraXProveedor(DataSource dataSource, Integer idCompra, Integer codigoProveedor) {
+    public Compras getCompraXProveedor(DataSource dataSource, Long idCompra, Integer codigoProveedor) {
         final String query = leerXml.getQuery("ComprasSql.getCompraXIproveedor");
         MapSqlParameterSource params = new MapSqlParameterSource("id_compra", idCompra);
         params.addValue("codigo_proveedor", codigoProveedor);

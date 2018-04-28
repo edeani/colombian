@@ -70,7 +70,7 @@ $(document).ready(function () {
                     focusNextInputField(0, $(this));
                 }
             } else {
-               dialogMessage(tramaProducto); 
+                dialogMessage(tramaProducto);
 
             }
         } else {
@@ -296,7 +296,7 @@ $(document).ready(function () {
                                         $(".fechaVencimiento").datepicker({
                                             dateFormat: "yy-mm-dd"
                                         });
-                                       dialogMessage("Compra guardada");
+                                        dialogMessage("Compra guardada");
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
                                         dialogMessage("Error al guardar la compra");
@@ -446,14 +446,25 @@ $(document).ready(function () {
     $(document).on('click', '#buscarCompra', function () {
         var url = $(this).data("url");
         var idcompra = $("#numeroFactura").val();
+        var codigoProveedor_ = $("#codigoProveedor").val();
         var tipo = "POST";
-        var params = "idcompra=" + idcompra;
-        console.log(url);
-        console.log(idcompra);
-        loader("cargador", "barra.gif");
-        var compraHTML = peticionAjaxProducto(url, tipo, params);
-        $("#cargador").html("");
-        $("#contenidoCompra").html(compraHTML);
+        if (idcompra !== "" && codigoProveedor_ !== "") {
+            var params = "idcompra=" + idcompra + "&codigoProveedor=" + codigoProveedor_;
+            console.log(url);
+            console.log(idcompra);
+            loader("cargador", "barra.gif");
+            var compraHTML = peticionAjaxProducto(url, tipo, params);
+            $("#cargador").html("");
+            $("#contenidoCompra").html(compraHTML);
+        } else {
+            var msjError = "";
+            if(idcompra===""){
+                msjError="Favor ingresar el numero de factura";
+            }else if(codigoProveedor_===""){
+                msjError="Seleccione el proveedor";
+            }
+            dialogMessage(msjError);
+        }
     });
     $(document).on("change", "#idSede", function () {
         var valorIdSede = $("#idSede option:selected").val();

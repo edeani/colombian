@@ -119,7 +119,7 @@ public class ComprasController extends BaseController {
      */
     @RequestMapping("/ajax/verificar/compra.htm")
     public @ResponseBody
-    String verificarCompra(@RequestParam(value = "idcompra") Integer idcompra,
+    String verificarCompra(@RequestParam(value = "idcompra") Long idcompra,
             @RequestParam  Integer codigoProveedor,
             @PathVariable String sede) {
         Compras compras = comprasService.getCompraXIDproveedor(sede, idcompra, codigoProveedor);
@@ -132,11 +132,12 @@ public class ComprasController extends BaseController {
 
     @RequestMapping("/ajax/buscar/compra.htm")
     public ModelAndView buscarCompras(@RequestParam(value = "idcompra") Long idcompra,
+            @RequestParam Integer codigoProveedor,
             @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("compras/edicion/detalleCompra");
         //bd principal
-        DetalleCompraDTO detalleCompraDTO = comprasService.getCompraDTO(sede, idcompra);
-        List<ComprasTotalesDTO> detalleCompras = comprasService.getDetalleCompraDTO(sede, idcompra);
+        DetalleCompraDTO detalleCompraDTO = comprasService.getCompraDTO(sede, idcompra,codigoProveedor);
+        List<ComprasTotalesDTO> detalleCompras = comprasService.getDetalleCompraDTO(sede, idcompra,codigoProveedor);
         int numeroCompras = 0;
         if (detalleCompras != null) {
             numeroCompras = detalleCompras.size();

@@ -19,6 +19,7 @@
                 Proveedores
             </label>
             <form:select path="codigoProveedor">
+                <option value="">Seleccione Proveedor</option>
                 <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm">
                     <c:param name="proveedores" value="${proveedores}"/>
                 </c:import>
@@ -29,26 +30,25 @@
             </label>
             <form:input path="fechaVencimiento" class="fechaVencimiento"/>
             </br>
-                <c:choose>
-                    <c:when test="${tipo_sede eq 1}">
-                        <label>Sede
-                            <select id="idsede" name="idsede" style="width: 155px;">
-                                <option value="">Seleccionar</option>
-                                <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm"/>
-                            </select>
-                            <input type="hidden" id="idsedepoint" name="idsedepoint" value="" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
-                        </label>
-                    </c:when>
-                    <c:otherwise>
-                        <div style="display: none;">
-                            <select  id="idsede" name="idsede" >
-                                <option value="${subSedePrincipal.id}" selected="selected" >${subSedePrincipal.sede}</option>
-                            </select>
-                        </div>
-                        <input type="hidden" id="idsedepoint" name="idsedepoint" value="${subSedePrincipal.idsedepoint}" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
-                    </c:otherwise>
-                </c:choose>
-            </label>
+            <c:choose>
+                <c:when test="${tipo_sede eq 1}">
+                    <label>Sede
+                        <select id="idsede" name="idsede" style="width: 155px;">
+                            <option value="">Seleccionar</option>
+                            <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm"/>
+                        </select>
+                        <input type="hidden" id="idsedepoint" name="idsedepoint" value="" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
+                    </label>
+                </c:when>
+                <c:otherwise>
+                    <div style="display: none;">
+                        <select  id="idsede" name="idsede" >
+                            <option value="${subSedePrincipal.id}" selected="selected" >${subSedePrincipal.sede}</option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="idsedepoint" name="idsedepoint" value="${subSedePrincipal.idsedepoint}" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
+                </c:otherwise>
+            </c:choose>
             <input type="hidden" id="impresora" name="impresora" value=""/>
         </div>
 
@@ -113,4 +113,3 @@
         </div>
     </div>
 </form:form>
-

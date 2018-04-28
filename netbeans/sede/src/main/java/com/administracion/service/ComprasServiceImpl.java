@@ -170,15 +170,16 @@ public class ComprasServiceImpl implements ComprasService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra) {
-        return comprasDao.getDetalleCompraDTO(idcompra, connectsAuth.getDataSourceSede(nameDataSource));
+    public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra,Integer codigProveedor) {
+        return comprasDao.getDetalleCompraDTO(idcompra,codigProveedor, connectsAuth.getDataSourceSede(nameDataSource));
     }
 
     @Override
     @Transactional
-    public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra) {
+    public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra,Integer codigoProveedor) {
         System.out.println("getCompraDTO:: "+nameDataSource+" "+idcompra);
-        Compras compras = comprasDao.getCompra(idcompra, connectsAuth.getDataSourceSede(nameDataSource));
+        Compras compras = comprasDao.getCompraXProveedor(connectsAuth.getDataSourceSede(nameDataSource),
+                idcompra, codigoProveedor);
         System.out.println("getCompraDTO::compras "+compras);
         ComprasMapper comprasMapper = new ComprasMapper();
         DetalleCompraDTO detalleCompraDTO = comprasMapper.comprasToDetalleCompraDto(compras);
@@ -209,11 +210,12 @@ public class ComprasServiceImpl implements ComprasService {
             String[] fila = detalleCompraDTO.getFactura().split("@");
             DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
             Long idcompra = Long.parseLong(detalleCompraDTO.getNumeroFactura());
-            Compras compra = comprasDao.getCompra(idcompra, ds);
+            Integer codigoProveedor=Integer.valueOf(detalleCompraDTO.getCodigoProveedor());
+            Compras compra = comprasDao.getCompraXProveedor(ds,idcompra, codigoProveedor);
             Long idFacturaCompra = compra.getIdFacturaCompra();
             Double canceladoFactura = compra.getValorTotal() - compra.getSaldo();
-            comprasDao.borrarCompra(idcompra, ds);
-            comprasDao.borrarDetalleCompra(idcompra, ds);
+            comprasDao.borrarCompra(idcompra,codigoProveedor, ds);
+            comprasDao.borrarDetalleCompra(idcompra,codigoProveedor, ds);
 
             //Nuevo Saldo
             detalleCompraDTO.setSaldo(Double.parseDouble(detalleCompraDTO.getTotalFactura()) - canceladoFactura);
@@ -286,7 +288,7 @@ public class ComprasServiceImpl implements ComprasService {
 
     @Override
     @Transactional(readOnly = true)
-    public Compras getCompraXIDproveedor(String nameDataSource, Integer idCompra, Integer codigopProveedor) {
+    public Compras getCompraXIDproveedor(String nameDataSource, Long idCompra, Integer codigopProveedor) {
         return comprasDao.getCompraXProveedor(connectsAuth.getDataSourceSede(nameDataSource), idCompra, codigopProveedor);
     }
 }

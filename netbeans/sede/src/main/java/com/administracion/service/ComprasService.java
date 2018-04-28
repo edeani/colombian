@@ -32,9 +32,9 @@ public interface ComprasService {
 
     public List<ComprasTotalesDTO> comprasTotalesProveedor(String nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor);
 
-    public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra);
+    public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra,Integer codigoProveedor);
 
-    public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra);
+    public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra,Integer codigoProveedor);
 
     public void actualizarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO);
 
@@ -48,5 +48,5 @@ public interface ComprasService {
     
     public List<CuentasPagarProveedoresDto> reporteCuentasPagarProveedoresDto(String nameDataSource, String fechaInicial, String fechaFinal, Long idProveedor);
     
-    public Compras getCompraXIDproveedor(String  nameDataSource,Integer idCompra,Integer codigopProveedor);
+    public Compras getCompraXIDproveedor(String  nameDataSource,Long idCompra,Integer codigopProveedor);
 }

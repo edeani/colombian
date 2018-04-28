@@ -4,13 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
-<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
-<script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/compras/edicionCompras.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
+    <script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/compras/edicionCompras.js" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
 </head>
 <div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/actualizar.htm"></div>
 <input type="hidden" value="N" id="submit-form"/>
@@ -27,9 +27,14 @@
                 <label>
                     Proveedor
                 </label>
-                <form:input readonly="readonly" type="text" path="codigoProveedor"></form:input>
-                    <label>
-                        <input value="Buscar" type="button" id="buscarCompra" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/ajax/buscar/compra.htm"/>
+                <form:select path="codigoProveedor">
+                    <option value="">Seleccione Proveedor</option>
+                    <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm">
+                        <c:param name="proveedores" value="${proveedores}"/>
+                    </c:import>
+                </form:select>
+                <label>
+                    <input value="Buscar" type="button" id="buscarCompra" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/ajax/buscar/compra.htm"/>
                 </label>
             </div>
             <div id="cargador"></div>
@@ -83,9 +88,9 @@
                             <td colspan="4" align="right">
                                 <input type="button" id="actualizar" value="Actualizar" >
                                 <!--input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
-                    <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
-                    </td>
-                    </tr>
+                                <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
+                            </td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>

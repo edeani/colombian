@@ -23,9 +23,9 @@ import javax.sql.DataSource;
 public interface ComprasDao {
     
     public Compras getCompra(Long idcompra,DataSource nameDataSource);
-    public List<ComprasTotalesDTO> getDetalleCompraDTO(Long idcompra,DataSource nameDataSource);    
-    public void borrarDetalleCompra(Long idcompra,DataSource nameDataSource);
-    public void borrarCompra(Long idcompra,DataSource nameDataSource);
+    public List<ComprasTotalesDTO> getDetalleCompraDTO(Long idcompra,Integer codigProveedor,DataSource nameDataSource);    
+    public void borrarDetalleCompra(Long idcompra,Integer codigoProveedor,DataSource nameDataSource);
+    public void borrarCompra(Long idcompra,Integer codigoProveedor,DataSource nameDataSource);
     public void insertarCompra(DataSource nameDataSource, DetalleCompraDTO detalleCompraDTO);
     public void insertarCompraSede(DataSource nameDataSource, DetalleCompraDTO detalleCompraDTO);
     public void insertarDetalleCompra(DataSource nameDataSource,int i, String numeroFactura, String[] datosFila, String codigoProveedor,Date fechacompra);
@@ -36,5 +36,5 @@ public interface ComprasDao {
     public List<Compras> comprasAVencer(DataSource nameDataSource,int numeroDias,Long idProveedor);
     List<ComprasTotalesDTO> comprasTotales(DataSource nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra);
     List<ComprasTotalesDTO> comprasTotalesProveedor(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor);
-    Compras getCompraXProveedor(DataSource dataSource,Integer idCompra,Integer codigoProveedor);
+    Compras getCompraXProveedor(DataSource dataSource,Long idCompra,Integer codigoProveedor);
 }
