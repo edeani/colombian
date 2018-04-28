@@ -191,12 +191,13 @@ public class FacturasController extends BaseController {
         System.out.println("FECHA FACTURA DESPUES::" + factura1.getFechaFactura());
         JRDataSource datos = new JRBeanCollectionDataSource(detalleFactura);
         Map<String, Object> parameterMap = new HashMap<>();
-        Sedes sedes = sedesService.buscarSede(sedeNumber);
+        SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedesDto = connectsAuth.finSubsedeXIdCredencials(sedesDto.getIdsedes(), sedeNumber.intValue());
         parameterMap.put("datos", datos);
         parameterMap.put("numeroFactura", numeroFactura);
         parameterMap.put("fechaFactura", Formatos.dateTostring(factura1.getFechaFactura()));
-        parameterMap.put("nombreSede", sedes.getSede());
-        SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+        parameterMap.put("nombreSede", subSedesDto.getSede());
+        parameterMap.put("reporteSede", subSedesDto.getSede());
         parameterMap.put("titulo", sedesDto.getTitulo());
         parameterMap.put("slogan", sedesDto.getSlogan());
         ModelAndView mav = new ModelAndView("facturaVenta", parameterMap);

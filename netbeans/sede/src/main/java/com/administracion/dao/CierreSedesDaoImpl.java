@@ -271,7 +271,13 @@ public class CierreSedesDaoImpl extends GenericDaoImpl<CierreSedes> implements C
 
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-            cierreSedes = this.jdbcTemplate.queryForObject(selectJdbTemplate("*", "cierre_sedes", "idsede=" + idSede + " and fecha between '" + fechaInicial + "' and '" + fechaFinal + "'"), new BeanPropertyRowMapper<>(CierreSedes.class));
+            List<CierreSedes> cierreSedeList = null;
+            cierreSedeList = this.jdbcTemplate.query(selectJdbTemplate("*", "cierre_sedes", "idsede=" + idSede + " and fecha between '" + fechaInicial + "' and '" + fechaFinal + "'"), new BeanPropertyRowMapper<>(CierreSedes.class));
+            if(cierreSedeList != null){
+                if(cierreSedeList.size()>0){
+                    cierreSedes = cierreSedeList.get(0);
+                }
+            }
         } catch (DataAccessException e) {
             System.out.println("Error buscarCabeceraComprobanteCierreXFecha::" + e.getMessage());
         }
