@@ -42,7 +42,7 @@
             </c:choose>
 
             <label>
-                <input value="Buscar" type="button" id="buscarCompra" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/ajax/buscar/compra.htm"/>
+                <input value="Nueva búsqueda" type="button" id="limpiar" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/ajax/limpiar/compra.htm"/>
             </label>
         </div>
         <div id="datosAdicionalesFactura">

@@ -120,7 +120,7 @@ public class ComprasController extends BaseController {
     @RequestMapping("/ajax/verificar/compra.htm")
     public @ResponseBody
     String verificarCompra(@RequestParam(value = "idcompra") Long idcompra,
-            @RequestParam  Integer codigoProveedor,
+            @RequestParam Integer codigoProveedor,
             @PathVariable String sede) {
         Compras compras = comprasService.getCompraXIDproveedor(sede, idcompra, codigoProveedor);
         if (compras != null) {
@@ -130,35 +130,48 @@ public class ComprasController extends BaseController {
         }
     }
 
+    @RequestMapping("/ajax/limpiar/compra.htm")
+    public ModelAndView limpiarCompras(@PathVariable String sede) {
+        ModelAndView mav = new ModelAndView("compras/edicion/detalleCompraInicial");
+        DetalleCompraDTO detalleCompraDTO = new DetalleCompraDTO();
+
+        mav.addObject("titulo", "Editar Compras");
+        setBasicModel(mav, detalleCompraDTO);
+        return mav;
+    }
+
     @RequestMapping("/ajax/buscar/compra.htm")
     public ModelAndView buscarCompras(@RequestParam(value = "idcompra") Long idcompra,
             @RequestParam Integer codigoProveedor,
             @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("compras/edicion/detalleCompra");
         //bd principal
-        DetalleCompraDTO detalleCompraDTO = comprasService.getCompraDTO(sede, idcompra,codigoProveedor);
-        List<ComprasTotalesDTO> detalleCompras = comprasService.getDetalleCompraDTO(sede, idcompra,codigoProveedor);
+        DetalleCompraDTO detalleCompraDTO = comprasService.getCompraDTO(sede, idcompra, codigoProveedor);
+        List<ComprasTotalesDTO> detalleCompras = comprasService.getDetalleCompraDTO(sede, idcompra, codigoProveedor);
         int numeroCompras = 0;
         if (detalleCompras != null) {
             numeroCompras = detalleCompras.size();
         }
-        
+
         SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
         SubSedesDto subSedePrincipal = connectsAuth.findSubSedeXIdSede(sedePrincipal.getIdsedes());
-        mav.addObject("tipo_sede", sedePrincipal.getTipo_sede());
-        mav.addObject("subSedePrincipal", subSedePrincipal);
         if (numeroCompras > 0) {
             Proveedor proveedor = comprasService.getProveedor(sede, Long.parseLong(detalleCompraDTO.getCodigoProveedor()));
-
+            mav.addObject("tipo_sede", sedePrincipal.getTipo_sede());
+            mav.addObject("subSedePrincipal", subSedePrincipal);
             mav.addObject("detalleCompraDTO", detalleCompraDTO);
             mav.addObject("detalleCompras", detalleCompras);
             mav.addObject("sproveedor", proveedor.getNombre());
             mav.addObject("titulo", titulo);
             setBasicModel(mav, detalleCompraDTO);
         } else {
+            mav = new ModelAndView("compras/edicion/detalleCompraInicial");
+            mav.addObject("tipo_sede", sedePrincipal.getTipo_sede());
+            mav.addObject("subSedePrincipal", subSedePrincipal);
             mav.addObject("detalleCompraDTO", detalleCompraDTO);
             mav.addObject("detalleCompras", detalleCompras);
             mav.addObject("sproveedor", "");
+            mav.addObject("titulo", "Editar Compras");
             setBasicModel(mav, detalleCompraDTO);
             //mav = new ModelAndView("redirect:/"+sede+"/compras/edicion.htm");
         }
@@ -174,7 +187,7 @@ public class ComprasController extends BaseController {
         } catch (Exception e) {
             System.out.println("Error guardarCompras::" + e.getMessage());
         }
-        
+
         //imprimirFactura(detalleCompraDTO);
         ModelAndView mav = new ModelAndView("compras/detalleCompra");
         SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
@@ -263,7 +276,7 @@ public class ComprasController extends BaseController {
 
     @RequestMapping(value = "/reportes/comprasTotalesProveedor.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProveedor(@RequestParam(required = false, value = "mensaje") String mensaje,
-             @PathVariable String sede) {
+            @PathVariable String sede) {
 
         ModelAndView mav = new ModelAndView("reportes/compras/comprasTotalesProveedor");
 
@@ -349,7 +362,7 @@ public class ComprasController extends BaseController {
     @RequestMapping(value = "/reportes/comprasTotalesProductoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProductoPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
-             @RequestParam(required = false, value = "fechaFinal") String fechaFinal, @PathVariable String sede) {
+            @RequestParam(required = false, value = "fechaFinal") String fechaFinal, @PathVariable String sede) {
         ModelAndView mav;
         List<ReporteComprasTotalesProvDTO> compras = comprasService.comprasTotalesProveedores(sede, fechaInicial, fechaFinal);
         if (compras != null) {
@@ -377,7 +390,7 @@ public class ComprasController extends BaseController {
     public ModelAndView reporteComprasTotalesProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
             @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor,
-             @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor, @PathVariable String sede) {
+            @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor, @PathVariable String sede) {
         ModelAndView mav;
         List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotalesProveedor(sede, fechaInicial, fechaFinal, "A", codigoProveedor);
         if (comprasTotales != null) {
@@ -435,7 +448,7 @@ public class ComprasController extends BaseController {
     public ModelAndView reporteCuentasPagarProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
             @RequestParam(required = false, value = "nombreProveedor") String nombreProveedor,
-             @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor, @PathVariable String sede) {
+            @RequestParam(required = false, value = "codigoProveedor") Long codigoProveedor, @PathVariable String sede) {
         ModelAndView mav;
         List<CuentasPagarProveedoresDto> reporte = comprasService.reporteCuentasPagarProveedoresDto(sede, fechaInicial, fechaFinal, codigoProveedor);
         if (reporte != null) {
@@ -482,7 +495,7 @@ public class ComprasController extends BaseController {
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
                 parameterMap.put("sede", subSedesDto.getSede());
-                
+
                 SedesDto sedesDto = connectsAuth.findSedeXId(subSedesDto.getIdsede());
                 parameterMap.put("nombresede", sedesDto.getTitulo());
                 parameterMap.put("slogan", sedesDto.getSlogan());

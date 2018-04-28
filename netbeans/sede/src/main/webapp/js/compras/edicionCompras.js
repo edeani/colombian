@@ -28,6 +28,13 @@ $(document).ready(function () {
             return patron.test(te);
         }
     });
+    $(document).on("click","#limpiar",function (e){
+        e.preventDefault();
+        var urlAjax = $(this).attr("data-url");
+        var html = peticionAjax(urlAjax,"POST","");
+        $("#contenidoCompra").html(html);
+        
+    });
     $(document).on("keydown", ".primerCampo2", function (e) {
         var code = e.keyCode || e.which;
         if (code == '9') {
