@@ -227,4 +227,18 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
         return null;
     }
 
+    @Override
+    public Compras getCompraXProveedor(DataSource dataSource, Integer idCompra, Integer codigoProveedor) {
+        final String query = leerXml.getQuery("ComprasSql.getCompraXIproveedor");
+        MapSqlParameterSource params = new MapSqlParameterSource("id_compra", idCompra);
+        params.addValue("codigo_proveedor", codigoProveedor);
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        try {
+            return this.namedParameterJdbcTemplate.queryForObject(query, params, new BeanPropertyRowMapper<>(Compras.class));
+        } catch (Exception e) {
+            System.out.println("Error getCompraXProveedor "+e.getMessage());
+            return null;
+        }
+    }
+
 }

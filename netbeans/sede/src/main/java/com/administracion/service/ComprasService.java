@@ -47,4 +47,6 @@ public interface ComprasService {
     public List<ComprasProveedorFechaDto> reporteComprasProveedorFechaDto(String nameDataSource, String fechInicial, String fechaFinal);
     
     public List<CuentasPagarProveedoresDto> reporteCuentasPagarProveedoresDto(String nameDataSource, String fechaInicial, String fechaFinal, Long idProveedor);
+    
+    public Compras getCompraXIDproveedor(String  nameDataSource,Integer idCompra,Integer codigopProveedor);
 }

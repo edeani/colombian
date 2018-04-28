@@ -3,11 +3,11 @@
     <query id="ComprasSql.totalComprasXFecha">
         select case when total_compras is null then 0 else total_compras end as total_compras from(
         select SUM(detalle_factura.valor_producto) as total_compras 
-       from detalle_factura,   factura,   inventario  
-       WHERE ( factura.numero_factura = detalle_factura.numero_factura ) and  
-       ( inventario.codigo_producto_inventario = detalle_factura.codigo_producto_inventario ) and 
-       ( ( factura.fecha_factura  between :fechaInicial and :fechaFinal ) AND  
-       ( factura.estado_factura = 'A' ) )
+        from detalle_factura,   factura,   inventario  
+        WHERE ( factura.numero_factura = detalle_factura.numero_factura ) and  
+        ( inventario.codigo_producto_inventario = detalle_factura.codigo_producto_inventario ) and 
+        ( ( factura.fecha_factura  between :fechaInicial and :fechaFinal ) AND  
+        ( factura.estado_factura = 'A' ) )
         ) sub 
     </query>
     <query id="ComprasSql.comprasTotales">
@@ -39,5 +39,9 @@
         inner join compras c on dc.numero_compra = c.id_compra and c.codigo_proveedor = :codigoProveedor order by 1)subCompras 
         )subCompras2 where subCompras2.estado_compra = :estadoCompra and subCompras2.fecha_compra between :fechaInicial and :fechaFinal 
         group by subCompras2.codigo,subCompras2.producto) subCompras3 order by 1
+    </query>
+    <query id="ComprasSql.getCompraXIproveedor">
+        select * from compras 
+        where id_compra = :id_compra and codigo_proveedor = :codigo_proveedor
     </query>
 </queries>

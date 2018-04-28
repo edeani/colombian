@@ -119,12 +119,11 @@ public class ComprasController extends BaseController {
      */
     @RequestMapping("/ajax/verificar/compra.htm")
     public @ResponseBody
-    String verificarCompra(@RequestParam(value = "idcompra") Long idcompra,
+    String verificarCompra(@RequestParam(value = "idcompra") Integer idcompra,
+            @RequestParam  Integer codigoProveedor,
             @PathVariable String sede) {
-        ModelAndView mav = buscarCompras(idcompra, sede);
-        System.out.println("verificarCompra::idcompra="+idcompra+" sede "+sede);
-        DetalleCompraDTO detalleCompraDTO = (DetalleCompraDTO) mav.getModelMap().get("detalleCompraDTO");
-        if (detalleCompraDTO.getNumeroFactura() != null) {
+        Compras compras = comprasService.getCompraXIDproveedor(sede, idcompra, codigoProveedor);
+        if (compras != null) {
             return "true";
         } else {
             return "false";

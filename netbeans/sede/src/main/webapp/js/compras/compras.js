@@ -70,7 +70,7 @@ $(document).ready(function () {
                     focusNextInputField(0, $(this));
                 }
             } else {
-               dialogMessage(tramaProducto); 
+                dialogMessage(tramaProducto);
 
             }
         } else {
@@ -239,14 +239,30 @@ $(document).ready(function () {
             }
         });
     });
+    $(document).on("change","#codigoProveedor",function(){
+        if ($("#numeroFactura").val() !== "" && $("#codigoProveedor").val() !== "") {
+            var existe = verificarCompras();
+            if (existe == "true") {
+                dialogMessage("La compra " + $(this).val() + ", ya existe para este proveedor");
+            }
+        }
+    });
+    $(document).on("focusout", "#numeroFactura", function () {
+        if ($(this).val() !== "" && $("#codigoProveedor").val() !== "") {
+            var existe = verificarCompras();
+            if (existe == "true") {
+                dialogMessage("La compra " + $(this).val() + ", ya existe para este proveedor");
+            }
+        }
+    });
     $("#facturar").live("click", function (e) {
         //e.preventDefault();
         //variables en el llamado
         var type = "POST";
         var fila = $("#contenidoFactura").children();
         var factura = "";
-        var urlVerificacion = $("#detalleCompraDTO").attr("data-verificacion");
-        var respuestaVerificacion = peticionAjax(urlVerificacion, type, "idcompra=" + $("#numeroFactura").val());
+
+        var respuestaVerificacion = verificarCompras();
         if (respuestaVerificacion === "false") {
             if ($("#codigoProveedor").val() != "") {
                 if ($("#numeroFactura").val() != "") {
@@ -296,7 +312,7 @@ $(document).ready(function () {
                                         $(".fechaVencimiento").datepicker({
                                             dateFormat: "yy-mm-dd"
                                         });
-                                       dialogMessage("Compra guardada");
+                                        dialogMessage("Compra guardada");
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
                                         dialogMessage("Error al guardar la compra");
@@ -530,7 +546,12 @@ $(document).ready(function () {
         }
 
     });
-
+    function verificarCompras() {
+        var urlVerificacion = $("#detalleCompraDTO").attr("data-verificacion");
+        var respuesta = peticionAjax(urlVerificacion, "POST", "idcompra=" + $("#numeroFactura").val()
+                +"&codigoProveedor="+$("#codigoProveedor").val());
+        return respuesta;
+    }
     function peticionAjaxProducto(url, type, parametros) {
         var codigo = "";
         $.ajax({

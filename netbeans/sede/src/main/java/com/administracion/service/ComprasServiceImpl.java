@@ -45,7 +45,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ComprasServiceImpl implements ComprasService {
 
-    private JdbcTemplate jdbctemplate;
 
     @Autowired
     private InventarioService inventarioService;
@@ -59,8 +58,6 @@ public class ComprasServiceImpl implements ComprasService {
     private SecuenciasMysqlDao secuenciasMysqlDao;
     @Autowired
     private ReportesDao reportesDao;
-    @Autowired
-    private SedesDao sedesDao;
     @Autowired
     private FacturaDao facturaDao;
     @Autowired
@@ -211,7 +208,6 @@ public class ComprasServiceImpl implements ComprasService {
                 || !subSede.getSede().contains("Principal")) {
             String[] fila = detalleCompraDTO.getFactura().split("@");
             DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
-            this.jdbctemplate = new JdbcTemplate(ds);
             Long idcompra = Long.parseLong(detalleCompraDTO.getNumeroFactura());
             Compras compra = comprasDao.getCompra(idcompra, ds);
             Long idFacturaCompra = compra.getIdFacturaCompra();
@@ -286,5 +282,11 @@ public class ComprasServiceImpl implements ComprasService {
     @Transactional(readOnly = true)
     public List<CuentasPagarProveedoresDto> reporteCuentasPagarProveedoresDto(String nameDataSource, String fechaInicial, String fechaFinal, Long idProveedor) {
         return reportesDao.reporteCuentasPagarProveedoresDto(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial, fechaFinal, idProveedor);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Compras getCompraXIDproveedor(String nameDataSource, Integer idCompra, Integer codigopProveedor) {
+        return comprasDao.getCompraXProveedor(connectsAuth.getDataSourceSede(nameDataSource), idCompra, codigopProveedor);
     }
 }

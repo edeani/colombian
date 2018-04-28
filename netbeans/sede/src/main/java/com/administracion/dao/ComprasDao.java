@@ -36,4 +36,5 @@ public interface ComprasDao {
     public List<Compras> comprasAVencer(DataSource nameDataSource,int numeroDias,Long idProveedor);
     List<ComprasTotalesDTO> comprasTotales(DataSource nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra);
     List<ComprasTotalesDTO> comprasTotalesProveedor(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor);
+    Compras getCompraXProveedor(DataSource dataSource,Integer idCompra,Integer codigoProveedor);
 }
