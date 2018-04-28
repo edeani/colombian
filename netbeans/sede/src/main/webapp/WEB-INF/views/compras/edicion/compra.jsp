@@ -6,7 +6,7 @@
 <head>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
 <script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/compras/compras.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/js/compras/edicionCompras.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
