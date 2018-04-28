@@ -30,7 +30,7 @@ public class AveriaServiceImpl implements AveriasService{
     @Override
     @Transactional
     public void guardarAveria(String nameDataSource, String detalleAveria, String valorTotal,String usuario) {
-        DataSource dataSource = connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource dataSource = connectsAuth.getDataSourceSede(nameDataSource);
         averiasDao.guardarAveria(dataSource, valorTotal, usuario);
         Long numeroAveria = averiasDao.secuenciaAveria(dataSource);
         averiasDao.guardarDetalleAveria(dataSource, detalleAveria, valorTotal, usuario, numeroAveria);
