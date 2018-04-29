@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="SedesJpa.findXname">
+        select s from Sedes s where s.sede=:sede
+    </query>
+</queries>

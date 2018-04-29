@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="SubSedesSql.findXIdSede">
+        select ss.* from subsedes ss
+        inner join sedes s on s.idsedes = ss.idsede
+        where s.idsedes=:idSede
+    </query>
+    <query id="SubSedesSql.findLabelXIdSede">
+        select ss.id, ss.sede as label from subsedes ss
+        inner join sedes s on s.idsedes = ss.idsede
+        where s.idsedes=:idSede
+    </query>
+    <query id="SubSedesSql.findLabelXIdSede">
+        select ss.* from users u
+        inner join userxsede uxs on uxs.iduser=u.cedula
+        inner join sedes s on s.idsedes = uxs.idsede
+        left join subsedes ss on ss.idsede = s.idsedes
+        left join userxsubsede uxss on uxss.idsubsede = ss.id
+        where u.cedula = :cedula
+    </query>
+</queries>

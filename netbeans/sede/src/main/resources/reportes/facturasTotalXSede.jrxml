@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprasTotalesProveedor" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9ea2d24-09c7-4b3c-a37f-3ed02e33c9d2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="estadoFactura" class="java.lang.String">
+		<defaultValueExpression><![CDATA['A']]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[2013-01-31]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[2013-01-01]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombreSede" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{nombreSede}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="slogan" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="sedeReporte" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="numero_factura" class="java.lang.Long"/>
+	<field name="fecha_factura" class="java.util.Date"/>
+	<field name="valor_total" class="java.lang.Long"/>
+	<variable name="totalValor" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<staticText>
+				<reportElement x="370" y="105" width="62" height="20" uuid="a7d266bc-6972-413c-adf8-de328e606047"/>
+				<text><![CDATA[Generado el]]></text>
+			</staticText>
+			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="432" y="105" width="140" height="20" uuid="48bc90f1-d5a2-4f54-9d61-67685609e004"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="105" width="34" height="20" uuid="bfd1f8d2-67ac-4208-a35a-30d0be188c00"/>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="105" width="34" height="20" uuid="5303ea8f-b0d2-4a9b-aba7-eedbc489ac3f"/>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="38" y="105" width="100" height="20" uuid="44c1e9f0-57db-446b-9ef7-e1971b4fe912"/>
+				<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="105" width="100" height="20" uuid="4f2eb333-26d1-4c7d-80b1-34681df59745"/>
+				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="79" width="223" height="24" uuid="5fa7c0cc-20a9-4cc4-a92b-a3d0034a71cb"/>
+				<box leftPadding="0"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Listado Facturas venta a: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="4" y="50" width="217" height="28" forecolor="#000000" backcolor="#FFFFFF" uuid="388b9d7e-37b4-4031-b577-0f6c72829195"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="222" y="51" width="349" height="18" uuid="3e1af302-2f75-49e8-b97f-1649c690cb8e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="473" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="fb6b36e6-ae2d-4f92-954e-394dac490155"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="36" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="238" y="79" width="315" height="24" forecolor="#000000" backcolor="#FFFFFF" uuid="8b6191b0-93ab-4ca1-a488-d3691ed485b9"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sedeReporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="323" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b3096ec1-d161-4a64-992d-3294b1d2c659"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="123" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="f3f645dd-25b1-4a5c-8628-a3ccb8e62f7f"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="0" width="100" height="20" uuid="37c45876-ef55-4629-8eed-9e0f450aa62d"/>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="223" y="0" width="100" height="20" uuid="3a3df0f3-bbb7-4592-8686-dec8ffc4138e"/>
+				<box leftPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{numero_factura}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="123" y="0" width="100" height="20" uuid="ed8b983d-7857-4ee9-bd6b-60a71d9dea4b"/>
+				<box leftPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{fecha_factura}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="323" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d7afd8d0-ea0b-4cbc-9758-6c1f5e85928e"/>
+				<box leftPadding="4">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="338" y="21" width="100" height="20" uuid="3ba30f6e-3e80-406d-b12e-8889e2f20502"/>
+				<box topPadding="3" bottomPadding="0"/>
+				<text><![CDATA[Total Valor]]></text>
+			</staticText>
+			<line>
+				<reportElement x="38" y="21" width="500" height="1" uuid="5edbae75-2eff-4e65-8c92-385e26e59844"/>
+			</line>
+			<line>
+				<reportElement x="38" y="40" width="500" height="1" uuid="03120208-c6ea-467e-8947-43cb81143f4d"/>
+			</line>
+			<textField pattern="$#,##0" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="438" y="22" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="fa842d69-ca78-4391-a9b5-65de0b484dec"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalValor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

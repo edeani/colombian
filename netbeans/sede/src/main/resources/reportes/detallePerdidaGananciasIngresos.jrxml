@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detallePerdidaGananciasIngresos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b43488b4-e9d5-44f8-9ec7-3f3585d626f5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="idcuenta" class="java.lang.Long"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="total" class="java.lang.Double"/>
+	<variable name="totalCuentas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="106" y="1" width="100" height="20" uuid="7f2787c1-b4bf-44e2-ad04-f5d1f0393681"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[No. cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="1" width="100" height="20" uuid="485460d8-8097-4244-90b5-ba0c6f8fae7d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="1" width="100" height="20" uuid="882d1782-25dc-4fbd-866b-191bcffd7348"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="106" y="0" width="100" height="20" uuid="10349acf-5f95-4993-8cae-2a72869421ea"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{idcuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="206" y="0" width="100" height="20" uuid="9ca2cb38-bb15-40d5-a1c8-d9ecec5d5d4a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$#,##0">
+				<reportElement x="306" y="0" width="100" height="20" uuid="e307e9f4-9120-4aa0-a65d-8e406f2f23a1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="13" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="0" width="100" height="20" uuid="80880d21-1b0b-4a89-b8a6-4327b4a60c40"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="$#,##0">
+				<reportElement x="306" y="0" width="100" height="20" uuid="40e0d062-7b24-49ab-ac12-7e65d01de958"/>
+				<textFieldExpression><![CDATA[$V{totalCuentas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

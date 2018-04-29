@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="GastosSql.totalGastosXFecha">
+        select case when gastos is null then 0 else gastos end as gastos from(
+        select sum(g.gas_valor) as gastos 
+        from gastos g 
+        where g.gas_fecha between :fechaInicial and :fechaFinal
+        )sub
+    </query>
+</queries>

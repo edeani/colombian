@@ -28,6 +28,11 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${springframework.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
         <!-- Spring Orm-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -50,6 +55,7 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>${springsecurity.version}</version>
         </dependency>
+        
         <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -77,6 +83,22 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.7</version>
+        </dependency>
+        <!-- Jackson para spring -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.4</version>
         </dependency>
         <!-- sitemesh --> 
         <dependency>
@@ -113,10 +135,34 @@
             <version>1.2.17</version>
         </dependency>
         <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>5.5.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.12</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- Tuckey urlrewrite -->
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>colombian-jsf</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 
@@ -192,46 +238,46 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <base.datos>domicilios</base.datos>
+                <base.datos>credencials</base.datos>
                 <bd.user>root</bd.user>
                 <bd.password>compaq</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
-                <url.img>/administracion/img-producto</url.img>
+                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/sede/src/main/webapp/img/</path.img>
+                <url.img>/sede/img</url.img>
             </properties>
         </profile>
         <!-- Aquí se agregan mas perfiles de compilación -->
         <profile>
             <id>dev-pc</id>
             <properties>
-                <base.datos>domicilios</base.datos>
-                <bd.user>root</bd.user>
-                <bd.password></bd.password>
-                <bd.ip>localhost:3306</bd.ip>
-                <path.img></path.img>
-                <url.img></url.img>
+                <base.datos>credencials</base.datos>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>186.31.32.253:3306</bd.ip>
+                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/sede/src/main/webapp/img/</path.img>
+                <url.img>/sede/img</url.img>
             </properties>
         </profile>
         <profile>
             <id>dev-pc-linux</id>
             <properties>
-                <base.datos>domicilios</base.datos>
+                <base.datos>principalgranestacion</base.datos>
                 <bd.user>root</bd.user>
                 <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>/home/edeani/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
+                <path.img>/home/edeani/Documentos/</path.img>
                 <url.img></url.img>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
-                <base.datos>domicilios</base.datos>
-                <bd.user>root</bd.user>
+                <base.datos>credencials</base.datos>
+                <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
-                <bd.ip>localhost:3306</bd.ip>
-                <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/productos/</path.img>
-                <url.img>/estaticos/img/productos</url.img>
+                <bd.ip>192.168.0.23:3306</bd.ip>
+                <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/</path.img>
+                <url.img>/estaticos/img</url.img>
             </properties>
         </profile>
     </profiles>

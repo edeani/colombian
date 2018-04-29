@@ -8,6 +8,7 @@ package com.colombia.cali.colombiancaliycali.dao;
 import com.colombia.cali.colombiancaliycali.dataSource.ProjectsDao;
 import com.colombian.cali.colombiancaliycali.entidades.ClasePago;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,7 +32,7 @@ public class ClasePagoDaoImpl implements ClasePagoDao{
         try {
             clasesDePago = this.jdbcTemplate.queryForObject("select * from clase_pago where id="+idClasePago, 
                     new BeanPropertyRowMapper<ClasePago>(ClasePago.class));
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
             System.out.println("ERROR listAllClasesPago::"+e.getMessage());
         }
         

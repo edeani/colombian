@@ -6,66 +6,91 @@
 package com.administracion.entidad;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author user
+ * @author EderArmando
  */
 @Entity
 @Table(name = "rol")
+@NamedQueries({
+    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r")})
 public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idrol")
-    private Integer idrol;
-    @Size(max = 45)
-    @Column(name = "nombrerol")
-    private String nombrerol;
-    @OneToMany(mappedBy = "idrol")
-    private List<Usuario> usuarioList;
+    @Column(name = "ROLEID")
+    private Integer roleid;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "NOMBRE")
+    private String nombre;
 
     public Rol() {
     }
 
-    public Rol(Integer idrol) {
-        this.idrol = idrol;
+    public Rol(Integer roleid) {
+        this.roleid = roleid;
     }
 
-    public Integer getIdrol() {
-        return idrol;
+    public Rol(Integer roleid, String nombre) {
+        this.roleid = roleid;
+        this.nombre = nombre;
     }
 
-    public void setIdrol(Integer idrol) {
-        this.idrol = idrol;
+    public Integer getRoleid() {
+        return roleid;
     }
 
-    public String getNombrerol() {
-        return nombrerol;
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
     }
 
-    public void setNombrerol(String nombrerol) {
-        this.nombrerol = nombrerol;
+    public String getNombre() {
+        return nombre;
     }
 
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (roleid != null ? roleid.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Rol)) {
+            return false;
+        }
+        Rol other = (Rol) object;
+        if ((this.roleid == null && other.roleid != null) || (this.roleid != null && !this.roleid.equals(other.roleid))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.administracion.entidad.Rol[ roleid=" + roleid + " ]";
     }
     
 }

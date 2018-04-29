@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="InventarioSql.list">
+        select * from inventario
+    </query>
+    <query id="InventarioSql.promedio">
+        SELECT detalle_compra_valor_producto/numero_unidades as promedio
+        FROM( SELECT inventario.codigo_producto_inventario,  
+        inventario.descripcion_producto,SUM(detalle_compra.valor_producto) detalle_compra_valor_producto,
+        sum(detalle_compra.numero_unidades) numero_unidades   FROM detalle_compra,  
+        compras, inventario 
+        WHERE ( compras.id_compra = detalle_compra.numero_compra ) and 
+        ( inventario.codigo_producto_inventario = detalle_compra.codigo_producto_inventario ) and 
+        ( ( compras.fecha_compra between ? and ? ) AND 
+        ( compras.estado_compra = 'A' ) )   and inventario.codigo_producto_inventario = ? 
+        group by inventario.codigo_producto_inventario,inventario.descripcion_producto ) a
+    </query>
+    <query id="InventarioSql.promedio">
+        SELECT detalle_compra_valor_producto/numero_unidades as promedio
+        FROM( SELECT inventario.codigo_producto_inventario,  
+        inventario.descripcion_producto,SUM(detalle_compra.valor_producto) detalle_compra_valor_producto,
+        sum(detalle_compra.numero_unidades) numero_unidades   FROM detalle_compra,  
+        compras, inventario 
+        WHERE ( compras.id_compra = detalle_compra.numero_compra ) and 
+        ( inventario.codigo_producto_inventario = detalle_compra.codigo_producto_inventario ) and 
+        ( ( compras.fecha_compra between ? and ? ) AND 
+        ( compras.estado_compra = 'A' ) )   and inventario.codigo_producto_inventario = ? 
+        group by inventario.codigo_producto_inventario,inventario.descripcion_producto ) a
+    </query>
+    <query id="InventarioSql.invenarioFinal">
+        select niveli.*,niveli.fisico - niveli.ifinal as diferencia from(
+                select nivelh.codigo,nivelh.producto,nivelh.inicial,nivelh.compras,  nivelh.ventas,nivelh.averias, nivelh.inicial + nivelh.compras - nivelh.ventas - nivelh.averias as ifinal,
+                nivelh.stock_real as fisico  
+                from ( select nivelg.codigo,nivelg.producto,nivelg.inicial,nivelg.stock_real,nivelg.ventas,nivelg.compras, 
+                case when nivelg.averias is null then 0 else nivelg.averias end averias  
+                from ( select nivelf.*,sum(da.numero_unidades) as averias from ( 
+                select nivele.codigo,nivele.producto,nivele.inicial,nivele.stock_real,nivele.ventas, 
+                case when nivele.compras is null then 0 else nivele.compras end as compras  
+                from ( select niveld.*,sum(dc.numero_unidades) as compras 
+                from ( select nivelc.codigo,nivelc.producto,nivelc.inicial, 
+                nivelc.stock_real,case when nivelc.ventas is null then 0 else nivelc.ventas end as ventas  
+                from (select nivelb.*,sum(df.numero_unidades) as ventas 
+                from( select nivela.codigo,nivela.producto,  case when nivela.inicial is null then 0 else nivela.inicial end as inicial, 
+                case when nivela.stock_real is null then 0 else nivela.stock_real end as stock_real  
+                from( select i.codigo_producto_inventario as codigo,i.descripcion_producto as producto, 
+                (select inv.stock_hoy from inventario inv where inv.codigo_producto_inventario = i.codigo_producto_inventario and inv.fecha_inicial=:fechaInicial) as inicial, 
+                (select inv.stock_real from inventario inv where inv.codigo_producto_inventario = i.codigo_producto_inventario and inv.fecha_final=:fechaFinal) as stock_real  
+                from inventario i )nivela )nivelb left join (select df.* from factura f inner join detalle_factura df on df.numero_factura = f.numero_factura 
+                where f.fecha_factura between :fechaInicial and :fechaFinal AND f.estado_factura= 'A'  ) df on df.codigo_producto_inventario = nivelb.codigo 
+                group by nivelb.codigo,nivelb.producto,nivelb.inicial,nivelb.stock_real 
+                )nivelc )niveld left join (select dc.* from compras c inner join detalle_compra dc on c.id_compra = dc.numero_compra and c.fecha_compra  between :fechaInicial and :fechaFinal and c.estado_compra = 'A' ) dc 
+                on dc.codigo_producto_inventario = niveld.codigo 
+                group by niveld.codigo,niveld.producto,niveld.inicial,niveld.stock_real 
+                )nivele )nivelf left join(select da.* from averias a inner join detalle_averias da on a.numero_averia=da.numero_averia and a.fecha_averia between :fechaInicial and :fechaFinal and a.estado_averia = 'A') da 
+                on da.codigo_producto = nivelf.codigo  
+                group by nivelf.codigo,nivelf.producto,nivelf.inicial,nivelf.stock_real 
+                )nivelg  )nivelh )niveli
+    </query>
+    
+    <query id="InventarioSql.productoItemDto">
+        select codigo_producto_inventario as id,cast(concat(codigo_producto_inventario,' ',descripcion_producto) as char)
+        as label from inventario order by descripcion_producto
+    </query>
+    
+    <query id="InventarioSql.productoItemDtoOrderId">
+        select codigo_producto_inventario as id,descripcion_producto 
+        as label from inventario order by codigo_producto_inventario
+    </query>
+</queries>

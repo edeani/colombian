@@ -5,6 +5,7 @@
  */
 package com.administracion.util;
 
+import com.administracion.enumeration.ExtencionesEnum;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -28,14 +29,13 @@ import org.xml.sax.SAXException;
 public class LeerXml {
 
     private static final String FOLDER_CONSULTAS = "consultas/";
-    private static final String EXT_XML = ".xml";
     public  String getQuery(String nameQuery) {
         
         try {
             String nombreArchivo = nameQuery.split("\\.")[0];
             
             ClassLoader classLoader = getClass().getClassLoader();
-            String path= classLoader.getResource(FOLDER_CONSULTAS.concat(nombreArchivo).concat(EXT_XML)).getFile();
+            String path= classLoader.getResource(FOLDER_CONSULTAS.concat(nombreArchivo).concat(ExtencionesEnum.XML.getExt())).getFile();
             path = URLDecoder.decode(path, "utf-8");
             path = new File(path).getPath();
             File fXmlFile = new File(path);

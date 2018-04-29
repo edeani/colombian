@@ -1,0 +1,22 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/11/2014, 07:30:37 PM
+    Author     : Jose Efren
+*/
+.claseContenedorImprimir table{
+    margin: 0 90px;
+}
+.claseContenedorImprimir table tbody tr{
+    width: 100%;
+}
+.claseContenedorImprimir table tbody tr td{
+    width: 30%;
+}
+.claseContenedorImprimir table tbody tr td a{
+    color: white;
+    text-decoration: none;
+}
