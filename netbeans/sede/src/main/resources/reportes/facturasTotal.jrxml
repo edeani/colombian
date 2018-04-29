@@ -11,6 +11,7 @@
 	</parameter>
 	<parameter name="nombreSede" class="java.lang.String"/>
 	<parameter name="slogan" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -27,31 +28,31 @@
 	<title>
 		<band height="132" splitType="Stretch">
 			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss">
-				<reportElement x="415" y="90" width="140" height="20" uuid="adbd9524-75da-4beb-81ac-6ef2932787a7"/>
+				<reportElement x="415" y="111" width="140" height="20" uuid="adbd9524-75da-4beb-81ac-6ef2932787a7"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="341" y="90" width="62" height="20" uuid="8e6f48ad-020d-4b6b-97ce-91c9f372cf13"/>
+				<reportElement x="341" y="111" width="62" height="20" uuid="8e6f48ad-020d-4b6b-97ce-91c9f372cf13"/>
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="90" width="34" height="20" uuid="3ee12e6a-0c6c-401d-807e-5407e127d51e"/>
+				<reportElement x="0" y="111" width="34" height="20" uuid="3ee12e6a-0c6c-401d-807e-5407e127d51e"/>
 				<text><![CDATA[Desde]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="134" y="90" width="34" height="20" uuid="ea79d004-88bb-45bc-889a-d314cea8fc9a"/>
+				<reportElement x="134" y="111" width="34" height="20" uuid="ea79d004-88bb-45bc-889a-d314cea8fc9a"/>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="34" y="90" width="100" height="20" uuid="6aad06fc-acf3-4b6e-b0f7-d0c089f9db6d"/>
+				<reportElement x="34" y="111" width="100" height="20" uuid="6aad06fc-acf3-4b6e-b0f7-d0c089f9db6d"/>
 				<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="168" y="90" width="100" height="20" uuid="ebac6648-e952-481b-bd45-686de33f88ea"/>
+				<reportElement x="168" y="111" width="100" height="20" uuid="ebac6648-e952-481b-bd45-686de33f88ea"/>
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="40" width="326" height="35" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
+				<reportElement x="0" y="84" width="239" height="24" uuid="7682c895-1d84-4db5-b2c6-fa934617691f"/>
 				<box leftPadding="0"/>
 				<textElement>
 					<font size="18"/>
@@ -59,19 +60,27 @@
 				<text><![CDATA[Listado facturas venta]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="0" width="307" height="40" forecolor="#000000" backcolor="#FFFFFF" uuid="dcd40471-a9b7-43c6-9e14-e0bf0bfe7ca5"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				<reportElement mode="Transparent" x="268" y="84" width="180" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="dcd40471-a9b7-43c6-9e14-e0bf0bfe7ca5"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="307" y="20" width="265" height="20" uuid="dbf17db9-f379-465c-a372-31c28bbb13b6"/>
+				<reportElement x="307" y="53" width="265" height="20" uuid="dbf17db9-f379-465c-a372-31c28bbb13b6"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="448" height="53" forecolor="#000000" backcolor="#FFFFFF" uuid="74c5ffd1-e08f-4dd2-a74f-f994e4163680"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="36" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

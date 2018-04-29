@@ -7,6 +7,7 @@
 	<parameter name="fechaFinal" class="java.lang.String"/>
 	<parameter name="nombresede" class="java.lang.String"/>
 	<parameter name="slogan" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
 	<field name="sede" class="java.lang.String"/>
 	<field name="compras" class="java.lang.Long"/>
 	<field name="ventas" class="java.lang.Long"/>
@@ -30,51 +31,59 @@
 	<title>
 		<band height="128" splitType="Stretch">
 			<staticText>
-				<reportElement x="9" y="99" width="34" height="20" uuid="8cdc470a-068d-4d89-8f29-9d95f50a3b7b"/>
+				<reportElement x="9" y="107" width="34" height="20" uuid="8cdc470a-068d-4d89-8f29-9d95f50a3b7b"/>
 				<text><![CDATA[Desde]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="158" y="100" width="34" height="20" uuid="6a21e04d-4774-4892-92aa-22a5ccb48793"/>
+				<reportElement x="158" y="108" width="34" height="20" uuid="6a21e04d-4774-4892-92aa-22a5ccb48793"/>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="43" y="99" width="100" height="20" uuid="eda22a87-83f9-4796-9e79-ad9cb7367993"/>
+				<reportElement x="43" y="107" width="100" height="20" uuid="eda22a87-83f9-4796-9e79-ad9cb7367993"/>
 				<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="192" y="100" width="100" height="20" uuid="0f02ecc2-f801-4e25-b3d8-62cd47e59e0a"/>
+				<reportElement x="192" y="108" width="100" height="20" uuid="0f02ecc2-f801-4e25-b3d8-62cd47e59e0a"/>
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="307" y="100" width="62" height="20" uuid="222318dc-0d59-4f21-9707-671aafa115eb"/>
+				<reportElement x="307" y="108" width="62" height="20" uuid="222318dc-0d59-4f21-9707-671aafa115eb"/>
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss">
-				<reportElement x="381" y="100" width="140" height="20" uuid="10e56ae5-04dd-4c15-a0e9-c1d88c2fff8a"/>
+				<reportElement x="381" y="108" width="140" height="20" uuid="10e56ae5-04dd-4c15-a0e9-c1d88c2fff8a"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="56" width="326" height="35" uuid="e934bd02-7fcf-45c3-ad4a-efdcdc439ecb"/>
-				<box leftPadding="110"/>
-				<textElement>
+				<reportElement x="0" y="81" width="224" height="26" uuid="e934bd02-7fcf-45c3-ad4a-efdcdc439ecb"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Center">
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Consolidado Sedes]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="0" width="306" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="7167b5cf-69a9-46d8-a39c-86cc554484e8"/>
+				<reportElement mode="Transparent" x="244" y="81" width="224" height="28" forecolor="#000000" backcolor="#FFFFFF" uuid="7167b5cf-69a9-46d8-a39c-86cc554484e8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="307" y="21" width="265" height="20" uuid="00ef9487-ab1b-465e-a877-150b24df8109"/>
+				<reportElement x="307" y="61" width="265" height="20" uuid="00ef9487-ab1b-465e-a877-150b24df8109"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="468" height="61" forecolor="#000000" backcolor="#FFFFFF" uuid="4b401d4c-0bae-4a79-b596-365989150b4b"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="36" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

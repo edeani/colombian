@@ -7,6 +7,7 @@
 	<parameter name="fechaFinal" class="java.lang.String"/>
 	<parameter name="nombresede" class="java.lang.String"/>
 	<parameter name="slogan" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.Long"/>
 	<field name="producto" class="java.lang.String"/>
 	<field name="inicial" class="java.lang.Long"/>
@@ -20,58 +21,65 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="66" splitType="Stretch">
+		<band height="113" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="40" width="232" height="26" uuid="b4c13f61-2ed9-401c-832d-2fb638e4249a"/>
+				<reportElement x="7" y="67" width="232" height="26" uuid="b4c13f61-2ed9-401c-832d-2fb638e4249a"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Informe Inventario Total]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="2" width="306" height="38" forecolor="#000000" backcolor="#FFFFFF" uuid="31bb5ae4-142c-4197-9dd9-ac859a1411ec"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				<reportElement mode="Transparent" x="253" y="67" width="185" height="23" forecolor="#000000" backcolor="#FFFFFF" uuid="31bb5ae4-142c-4197-9dd9-ac859a1411ec"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="306" y="20" width="266" height="20" uuid="e03c83c0-e117-4f69-b355-d899fcd2ef09"/>
+				<reportElement x="306" y="47" width="266" height="20" uuid="e03c83c0-e117-4f69-b355-d899fcd2ef09"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
 			</textField>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="63" splitType="Stretch">
 			<staticText>
-				<reportElement x="353" y="12" width="68" height="20" uuid="dfdbf2a3-a98b-4d2c-82c1-82b5ccfc3a03"/>
+				<reportElement x="352" y="93" width="68" height="20" uuid="dfdbf2a3-a98b-4d2c-82c1-82b5ccfc3a03"/>
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="421" y="12" width="135" height="20" uuid="58c80e27-5493-4296-898a-15c80692d433"/>
+				<reportElement x="420" y="93" width="135" height="20" uuid="58c80e27-5493-4296-898a-15c80692d433"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="12" width="36" height="20" uuid="cbb232e8-632e-4d8a-85e2-4490247d169a"/>
+				<reportElement x="0" y="93" width="36" height="20" uuid="cbb232e8-632e-4d8a-85e2-4490247d169a"/>
 				<text><![CDATA[Desde]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="151" y="12" width="35" height="20" uuid="3bd6487b-141b-4eed-9f6b-a7766e51449f"/>
+				<reportElement x="150" y="93" width="35" height="20" uuid="3bd6487b-141b-4eed-9f6b-a7766e51449f"/>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="37" y="12" width="100" height="20" uuid="407ec5fc-c36b-4cdb-80e2-d4e5074b1ffc"/>
+				<reportElement x="36" y="93" width="100" height="20" uuid="407ec5fc-c36b-4cdb-80e2-d4e5074b1ffc"/>
 				<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="186" y="12" width="100" height="20" uuid="2ec41786-706b-441a-9394-45dead4b2b32"/>
+				<reportElement x="185" y="93" width="100" height="20" uuid="2ec41786-706b-441a-9394-45dead4b2b32"/>
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="447" height="47" forecolor="#000000" backcolor="#FFFFFF" uuid="c908032e-242e-47a2-8b15-4c493f131789"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="36" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="37" splitType="Stretch">

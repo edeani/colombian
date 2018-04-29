@@ -95,7 +95,8 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
             SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-            parameterMap.put("nombresede", sedesDto.getTitulo());
+            parameterMap.put("titulo", sedesDto.getTitulo());
+            parameterMap.put("nombresede", sede);
             parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("consolidado", parameterMap);
         } else {

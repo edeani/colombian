@@ -289,7 +289,8 @@ public class FacturasController extends BaseController {
             parameterMap.put("fechaInicial", fechaInicial);
             parameterMap.put("fechaFinal", fechaFinal);
             SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-            parameterMap.put("nombreSede", sedesDto.getTitulo());
+            parameterMap.put("titulo", sedesDto.getTitulo());
+            parameterMap.put("nombreSede", sede);
             parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("facturasTotal", parameterMap);
         } else {
