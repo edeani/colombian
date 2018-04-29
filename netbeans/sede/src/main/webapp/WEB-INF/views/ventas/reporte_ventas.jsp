@@ -136,7 +136,7 @@
             </div>
             <input id="totalTotal" type="hidden" value="" class="decimaltotal"/>
             <div class="contenedorResumen">
-                TOTAL LLEVAR
+                TOTAL VENTAS
                 <label id="totalTotalLabel" class="resumen">
                     $0
                 </label> 

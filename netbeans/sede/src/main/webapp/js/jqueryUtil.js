@@ -58,6 +58,7 @@ function sumaColumna(evento, clase, idViewTotal) {
         sumaTotal += parseInt(valor);
     }
     $("#" + idViewTotal).val(sumaTotal);
+    return sumaTotal;
 }
 function proximoCampo(evento, campo, clase) {
     var code = evento.keyCode || evento.which;
