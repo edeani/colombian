@@ -3,34 +3,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
+<c:set var="total_" value="0"/>
 <table id="datosGastos" class="">
     <tbody>
-        <c:set var="nombreant" value=""/>
-        <c:set var="nombreant2" value=""/>
-        <c:forEach items="${gastos}" var="detalleGastos" varStatus="indice">
-            <c:if test="${detalleGastos.nivel1 eq 1 and detalleGastos.nombre1 ne nombreant}">
-                <tr data-tt-id="${detalleGastos.cod1}">
-                    <td>${detalleGastos.nombre1}</td>
+        <c:forEach var="item" items="${gastos}">
+            <c:set var="total_" value="${total_ + item.valor_gastos}"/>
+            <tr data-tt-id="${item.cod}">
+                <td>
+                    ${item.nombre} <em>$<fmt:formatNumber type="number" pattern="###,##0" value="${item.valor_gastos}"/></em>
+                </td> 
+            </tr>
+            <c:forEach var="item2" items="${item.nivel2}">
+                <tr data-tt-id="${item2.cod}" data-tt-parent-id="${item2.padre}">
+                    <td>
+                        ${item2.nombre} $<fmt:formatNumber type="number" pattern="###,##0" value="${item2.valor_gastos}"/>
+                    </td> 
                 </tr>
-                <c:forEach items="${gastos2}" var="detalleGastos2" varStatus="indice">
-                    <c:if test="${detalleGastos2.nivel2 eq 2 and detalleGastos2.nombre2 ne nombreant2 and detalleGastos2.padre2 eq detalleGastos.cod1}">
-                        <tr data-tt-id="${detalleGastos.cod2}" data-tt-parent-id="${detalleGastos.padre2}">
-                            <td>${detalleGastos.nombre2}</td>
-                        </tr>
-                    </c:if>
-                    <c:set var="nombreant2" value="${detalleGastos.nombre2}"/>
+                <c:forEach  var="item3" items="${item2.nivel3}">
+                    <tr data-tt-id="${item3.cod}" data-tt-parent-id="${item3.padre}">
+                        <td>
+                            ${item3.nombre} $<fmt:formatNumber type="number" pattern="###,##0" value="${item3.valor_gastos}"/>
+                        </td> 
+                    </tr>
                 </c:forEach>
-            </c:if>
-            <c:set var="nombreant" value="${detalleGastos.nombre1}"/>
+            </c:forEach>
         </c:forEach>
-        
-        <c:forEach items="${gastos}" var="detalleGastos">
-            <c:if test="${detalleGastos.nivel3 eq 3}">
-                <tr data-tt-id="${detalleGastos.cod3}" data-tt-parent-id="${detalleGastos.padre3}">
-                    <td>${detalleGastos.nombre3}</td>
-                </tr>
-            </c:if>
-        </c:forEach>
+        <tr>
+            <td>TOTAL $<fmt:formatNumber type="number" pattern="###,##0" value="${total_}"/></td>
+        </tr>
     </tbody>
 </table>

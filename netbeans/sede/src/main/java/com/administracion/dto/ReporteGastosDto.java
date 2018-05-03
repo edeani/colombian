@@ -25,6 +25,9 @@ public class ReporteGastosDto {
     private String nivel3;
     private String padre3;
 
+    private Double valor_gastos;
+    private Integer cantidad;
+    
     public String getCod1() {
         return cod1;
     }
@@ -119,6 +122,22 @@ public class ReporteGastosDto {
 
     public void setPadre3(String padre3) {
         this.padre3 = padre3;
+    }
+
+    public Double getValor_gastos() {
+        return valor_gastos;
+    }
+
+    public void setValor_gastos(Double valor_gastos) {
+        this.valor_gastos = valor_gastos;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
     
     

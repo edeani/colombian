@@ -124,6 +124,18 @@ public class ConnectsAuth {
         }
         return null;
     }
+    
+    public SubSedesDto findSubsedePrincipalXIdSede(Integer idSede) {
+        for (SubSedesDto subsede1 : accesosSubsedes.getSubsedes()) {
+            if (Objects.equals(subsede1.getIdsede(), idSede)) {
+                if (subsede1.getSede().contains("Principal")) {
+                    return subsede1;
+                }
+            }
+        }
+        return null;
+    }
+    
     /**
      * Encuuentra una subsede por el idpadre de credencials
      * @param idSede

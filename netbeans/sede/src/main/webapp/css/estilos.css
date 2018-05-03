@@ -111,3 +111,11 @@
     width: 100px !important;
     z-index: 0;
 }
+
+#datosGastos tr td{
+    background: white;
+}
+
+#datosGastos span{
+    background: green;
+}

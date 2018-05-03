@@ -4,7 +4,7 @@
         select s.*,sxs.titulo,sxs.slogan from sedes s 
         inner join sloganxsede sxs on sxs.idsede = s.idsedes
         where s.sede=:sede
-    </query>
+    </query>z
     <query id="SedesSql.list">
         select s.*,sxs.titulo,sxs.slogan from sedes s
         inner join sloganxsede sxs on sxs.idsede = s.idsedes

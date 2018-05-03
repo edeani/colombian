@@ -5,6 +5,7 @@
  */
 package com.administracion.controller;
 
+import com.administracion.dto.GastosDto;
 import com.administracion.dto.ReporteGastosDto;
 import com.administracion.service.jsf.GastosColombianService;
 import java.util.Date;
@@ -40,10 +41,8 @@ public class GastosController {
             @RequestParam(value = "nombreSede") String subSedeCredencial,
             @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("/reportes/colombian/gastos/datosGastos");
-        List<ReporteGastosDto> gastos =gastosColombianService.gastos(fechaInicial, fechaFinal, subSedeCredencial);
+        List<GastosDto> gastos =gastosColombianService.gastos(fechaInicial, fechaFinal, subSedeCredencial);
         mav.addObject("gastos", gastos);
-        mav.addObject("gastos2", gastos);
-        mav.addObject("gastos3", gastos);
         
         return mav;
     }

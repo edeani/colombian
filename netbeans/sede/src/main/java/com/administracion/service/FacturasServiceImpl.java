@@ -174,7 +174,8 @@ public class FacturasServiceImpl implements FacturasService {
         secuenciFacturaCompras = secuenciasMysqlDao.secuenceTable(ds, "facturas_compras");
         facturasCompras.setTotal(facturasCompras.getTotal()*-1);
         SedesDto sedesDto = connectsAuth.findSedeXName(nameDatasource);
-        facturasCompras.setIdsede(sedesDto.getIdsedes().longValue());
+        SubSedesDto subSedesDto = connectsAuth.findSubsedePrincipalXIdSede(sedesDto.getIdsedes());
+        facturasCompras.setIdsede(subSedesDto.getIdsedepoint().longValue());
         facturasCompras.setIdcuenta(cuenta_facturas_compras_principal);
         facturasComprasDao.guardarFacturaComprasDao(ds, facturasCompras);
         

@@ -11,7 +11,7 @@ $(document).ready(function () {
         var url = $("#formGastos").attr("action");
         var html = peticionAjax(url,"POST",$("#formGastos").serialize());
         $("#reporteGastos").html(html);
-        //$("#datosGastos").treetable({ expandable: true });
+        $("#datosGastos").treetable({ expandable: true });
     });
     
     $("#idSede").change(function(){

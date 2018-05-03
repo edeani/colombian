@@ -4,9 +4,7 @@
  */
 package com.administracion.service.jsf;
 
-import com.administracion.dto.ReporteGastosDto;
-import com.mycompany.mapper.GastosMapper;
-import java.util.Date;
+import com.administracion.dto.GastosDto;
 import java.util.List;
 
 /**
@@ -15,5 +13,5 @@ import java.util.List;
  */
 public interface GastosColombianService {
     
-    public  List<ReporteGastosDto> gastos(String fi,String ff,String subsede);
+    public  List<GastosDto> gastos(String fi,String ff,String subsede);
 }
