@@ -10,5 +10,6 @@ package com.administracion.service;
  * @author EderArmando
  */
 public interface JobService {
-    public void jobPorcentajeVentas();
+    public void jobPorcentajeVentas(Integer mes);
+    public void jobPorcentajeVentasXSedeXMes(String nameSede,Integer mes);
 }

@@ -51,7 +51,7 @@ public class PorcentajeVentasServiceImpl implements PorcentajeVentasService {
             detallePorcentajesVentas.stream().map((elementoDPV) -> {
                 elementoDPV.setIdporcentajeventa(porcentajeVentas.getConsecutivo());
                 return elementoDPV;
-            }).map((elementoDPV) -> {
+            }).map((DetallePorcentajeVentas elementoDPV) -> {
                 elementoDPV.setPorcentajeVenta(elementoDPV.getTotal() / total);
                 return elementoDPV;
             }).forEachOrdered((DetallePorcentajeVentas elementoDPV) -> {

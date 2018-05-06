@@ -39,7 +39,7 @@ public class ConnectsAuth {
     }
 
     public DataSource getDataSourceSedeConnect(String nameDataSource) {
-        SedesDto puntoSedeConn = findSedeXName(nameDataSource);
+        SedesDto puntoSedeConn = findSedeXNameConn(nameDataSource);
         DriverManagerDataSource dataSourceConn_ = new DriverManagerDataSource();
         dataSourceConn_.setPassword(puntoSedeConn.getPassword());
         dataSourceConn_.setUrl(puntoSedeConn.getUrl());

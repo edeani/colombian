@@ -40,7 +40,7 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
         final String slash = "/";
         if (arrUri.length > 3 && !request.getRequestURI().contains("WEB-INF")) {
             //No hay logins
-            if (!arrUri[2].equals("sedes")) {
+            if (!arrUri[2].equals("sedes") && !arrUri[2].equals("jobs")) {
                 HttpSession session = request.getSession();
                 if (accesosSubsedes.getSedes().isEmpty()) {
                     if (!arrUri[arrUri.length - 1].equals("signin.htm")) {
