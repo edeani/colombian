@@ -49,7 +49,7 @@ public class ConsolidadoSedesServiceImpl implements ConsolidadoSedesService {
             Connection connection=null;
             //Me conecto a la base de datos
             Conexion conexion = new Conexion();
-            
+            conexion.setUser(user.getSede().getUsuario());
             conexion.setPassword(sedes.get(i).getPassword());
             
             conexion.setServer(sedes.get(i).getIdentificador() + "/" + sedes.get(i).getBd());

@@ -70,4 +70,27 @@
       <property name="eclipselink.canonicalmodel.subpackage" value="twentytwoo"/>
     </properties>
   </persistence-unit>
+    <persistence-unit name="tejar" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mycompany.entidades.Barrios</class>
+    <class>com.mycompany.entidades.CierreDiario</class>
+    <class>com.mycompany.entidades.Clientes</class>
+    <class>com.mycompany.entidades.Consignaciones</class>
+    <class>com.mycompany.entidades.DetalleFactura</class>
+    <class>com.mycompany.entidades.Factura</class>
+    <class>com.mycompany.entidades.Gastos</class>
+    <class>com.mycompany.entidades.Llevar</class>
+    <class>com.mycompany.entidades.Mesa</class>
+    <class>com.mycompany.entidades.Orden</class>
+    <class>com.mycompany.entidades.Sedes</class>
+    <class>com.mycompany.entidades.Usuario</class>
+    <class>com.mycompany.entidades.ClasePago</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://201.232.118.148:3306/super_broaster?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="25012908"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="ten"/>
+    </properties>
+  </persistence-unit>
 </persistence>

@@ -41,6 +41,9 @@ public class Sedes implements Serializable {
     
     @Column(name="password")
     private String password;
+    
+    @Column(name = "usuario")
+    private String usuario;
     /**
      * @return the sed_cod
      */
@@ -151,6 +154,14 @@ public class Sedes implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
     
 }
