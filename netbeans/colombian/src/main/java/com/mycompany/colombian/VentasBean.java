@@ -69,11 +69,13 @@ public class VentasBean {
         ventasMostrador=ventaService.getVentasMostrador();
         ventas=ventaService.getVentas();
         
-        totalVenta=formato.numeroToStringFormato(ventaService.getTotalVenta());
+        Double totalDomiciliosNumber = ventaService.getTotalDomicilios();
+        Double totalMesaNumber = ventaService.getTotalMesa();
+        Double totalMostradorNumber = ventaService.getTotalMostrador();
         totalDomicilios=formato.numeroToStringFormato(ventaService.getTotalDomicilios());
         totalMesa=formato.numeroToStringFormato(ventaService.getTotalMesa());
         totalMostrador=formato.numeroToStringFormato(ventaService.getTotalMostrador());
-        
+        totalVenta=formato.numeroToStringFormato(totalDomiciliosNumber+totalMesaNumber+totalMostradorNumber);
         
     }
     
