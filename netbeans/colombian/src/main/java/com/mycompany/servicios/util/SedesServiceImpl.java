@@ -80,6 +80,7 @@ public class SedesServiceImpl implements SedesService,Serializable{
              sede.setSed_nombre(rs.getString("sed_nombre"));
              sede.setSed_telefono(rs.getString("sed_telefono"));
              sede.setSed_cod(rs.getLong("sed_cod"));
+             sede.setUsuario(rs.getString("usuario"));
              sedes.add(sede);
             }
         } catch (Exception e) {

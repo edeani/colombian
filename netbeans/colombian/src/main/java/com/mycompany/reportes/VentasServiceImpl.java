@@ -45,6 +45,7 @@ public class VentasServiceImpl implements VentasService{
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if(password == null){
             conexion.setPassword("");
         } else{

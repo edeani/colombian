@@ -7,6 +7,7 @@ package com.mycompany.reportes;
 import com.mycompani.bean.util.UserSessionBean;
 import com.mycompany.dao.ConsignacionesJpaController;
 import com.mycompany.entidades.Consignaciones;
+import com.mycompany.entidades.Sedes;
 import com.mycompany.util.Conexion;
 import com.mycompany.util.Formatos;
 import java.sql.Connection;
@@ -41,6 +42,7 @@ public class CierreServiceImpl implements CierreService {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if(password == null){
             conexion.setPassword("");
         } else{
@@ -98,6 +100,7 @@ public class CierreServiceImpl implements CierreService {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if(password == null){
             conexion.setPassword("");
         } else{
@@ -163,6 +166,7 @@ public class CierreServiceImpl implements CierreService {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if(password == null){
             conexion.setPassword("");
         } else{
@@ -221,6 +225,7 @@ public class CierreServiceImpl implements CierreService {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if(password == null){
             conexion.setPassword("");
         } else{
@@ -286,6 +291,7 @@ public class CierreServiceImpl implements CierreService {
         Connection connection=null;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if(password == null){
             conexion.setPassword("");
         } else{
@@ -327,6 +333,7 @@ public class CierreServiceImpl implements CierreService {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if(password == null){
             conexion.setPassword("");
         } else{
@@ -395,6 +402,7 @@ public class CierreServiceImpl implements CierreService {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if(password == null){
             conexion.setPassword("");
         } else{
