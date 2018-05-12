@@ -48,7 +48,7 @@
                 from inventario i )nivela )nivelb left join (select df.* from factura f inner join detalle_factura df on df.numero_factura = f.numero_factura 
                 where f.fecha_factura between :fechaInicial and :fechaFinal AND f.estado_factura= 'A'  ) df on df.codigo_producto_inventario = nivelb.codigo 
                 group by nivelb.codigo,nivelb.producto,nivelb.inicial,nivelb.stock_real 
-                )nivelc )niveld left join (select dc.* from compras c inner join detalle_compra dc on c.id_compra = dc.numero_compra and c.fecha_compra  between :fechaInicial and :fechaFinal and c.estado_compra = 'A' ) dc 
+                )nivelc )niveld left join (select distinct dc.* from compras c inner join detalle_compra dc on c.id_compra = dc.numero_compra and dc.fecha_compra  between :fechaInicial and :fechaFinal and c.estado_compra = 'A' ) dc 
                 on dc.codigo_producto_inventario = niveld.codigo 
                 group by niveld.codigo,niveld.producto,niveld.inicial,niveld.stock_real 
                 )nivele )nivelf left join(select da.* from averias a inner join detalle_averias da on a.numero_averia=da.numero_averia and a.fecha_averia between :fechaInicial and :fechaFinal and a.estado_averia = 'A') da 

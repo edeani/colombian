@@ -18,11 +18,12 @@
         case when subCompras.fecha_compra is null or subCompras.fecha_compra = '' then :fechaInicial else subCompras.fecha_compra end as fecha_compra  , 
         case when subCompras.promedio is null then 0 else subCompras.promedio end as promedio, 
         case when subCompras.valor is null then 0 else subCompras.valor end as valor 
-        from (select i.codigo_producto_inventario as codigo,i.descripcion_producto as producto, 
-        dc.numero_unidades as unidades,i.promedio as promedio,dc.valor_producto as valor,c.estado_compra ,c.fecha_compra 
+        from (select distinct i.codigo_producto_inventario as codigo,i.descripcion_producto as producto, 
+        dc.numero_unidades as unidades,i.promedio as promedio,dc.valor_producto as valor,c.estado_compra ,STR_TO_DATE(dc.fecha_compra, '%Y-%m-%d') as fecha_compra
         from inventario i inner join detalle_compra dc on i.codigo_producto_inventario = dc.codigo_producto_inventario 
-        inner join compras c on dc.numero_compra = c.id_compra order by 1)subCompras 
-        )subCompras2 where subCompras2.estado_compra = :estadoCompra and subCompras2.fecha_compra between :fechaInicial and :fechaFinal 
+        inner join compras c on dc.numero_compra = c.id_compra 
+        where dc.fecha_compra between  :fechaInicial and :fechaFinal order by 1)subCompras 
+        )subCompras2 where subCompras2.estado_compra = :estadoCompra  
         group by subCompras2.codigo,subCompras2.producto) subCompras3 order by 1
     </query>
     <query id="ComprasSql.comprasTotalesProveedor">
