@@ -18,5 +18,7 @@ import javax.sql.DataSource;
 public interface DetallePorcentajeVentasDao {
     public List<DetallePorcentajeVentas> generarDetallePorcentajeVentas(DataSource nameDataSource,int mes);
     public void borrarDetallePorcentajeVentasAll(DataSource nameDataSource);
+    public void borrarDetallePorcentajeVentasXMes(DataSource nameDataSource,Integer mes,Integer anio);
     public void insertarDetallePorcentajeVenta(DataSource nameDataSource,DetallePorcentajeVentas detallePorcentajeVentas);
+    public void borrarDetallePorcentajeVentasXIdPorcenajeVenta(DataSource nameDataSource,Long consecutivo);
 }

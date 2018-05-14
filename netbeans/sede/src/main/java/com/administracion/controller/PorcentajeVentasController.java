@@ -27,7 +27,6 @@ public class PorcentajeVentasController extends BaseController{
     public @ResponseBody String generarPorcentajeVentas(@RequestParam Integer mes,@PathVariable String sede){
         try {
             porcentajeVentasService.generarPorcentajeVentas(sede, mes);
-            porcentajeVentasService.generarDetallePorcentajeVentas(sede, mes);
         } catch (Exception e) {
             System.out.println("Error::generarPorcentajeVentas"+e.getMessage());
             return "Se produjo un error al ejecutar el proceso";

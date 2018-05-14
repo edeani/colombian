@@ -9,6 +9,7 @@ import com.administracion.dto.SedesDto;
 import com.administracion.util.Formatos;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,23 +28,22 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void jobPorcentajeVentas(Integer mes) {
-        Integer mes_;
+        Integer mes_=0;
         if (mes == null) {
             //Fecha actual
             //Pedimos reporte del mes anterior
             Date fechaActual = new Date();
             mes_ = Formatos.obtenerMes(fechaActual);
-            mes_ = mes - 1 < 0 ? 11 : mes - 1;
+            mes_ = mes_ - 1 < 0 ? 11 : mes_ - 1;
         }else{
             mes_=mes;
         }
+        final Integer mesFinal = mes_;
         //Ejecucion del JOB
         List<SedesDto> sedesConn = sedesService.traerSedesDtos();
-        sedesConn.forEach((sedesDto) -> {
-            try {
-                
-                porcentajeVentasService.generarPorcentajeVentas(sedesDto.getSede(), mes);
-                porcentajeVentasService.generarDetallePorcentajeVentas(sedesDto.getSede(), mes);
+        sedesConn.forEach((SedesDto sedesDto) -> {
+            try {      
+                porcentajeVentasService.generarPorcentajeVentas(sedesDto.getSede(), mesFinal);
             } catch (Exception e) {
                 System.out.println("ERROR::jobPorcentajeVentas::" + sedesDto.getSede() + "::" + e.getMessage());
             }
@@ -62,7 +62,6 @@ public class JobServiceImpl implements JobService {
             }
 
             porcentajeVentasService.generarPorcentajeVentas(nameSede, mes);
-            porcentajeVentasService.generarDetallePorcentajeVentas(nameSede, mes);
         } catch (Exception e) {
             System.out.println("ERROR::jobPorcentajeVentas::" + nameSede + "::" + e.getMessage());
         }

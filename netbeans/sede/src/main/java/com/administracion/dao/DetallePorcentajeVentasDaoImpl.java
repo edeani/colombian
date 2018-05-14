@@ -65,5 +65,32 @@ public class DetallePorcentajeVentasDaoImpl extends GenericDaoImpl<DetallePorcen
             System.out.println("Error insertarDetallePorcentajeVenta::"+e.getMessage());
         }
     }
+
+    @Override
+    public void borrarDetallePorcentajeVentasXMes(DataSource nameDataSource, Integer mes, Integer anio) {
+        this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+        String sql = "delete from detalle_porcentaje_ventas " +
+                    "where idporcentajeventa in ( " +
+                    "select consecutivo from porcentaje_ventas where mes ="+mes+" and year(fecha) = " +anio +
+                    "))";
+
+        try {
+           this.jdbcTemplate.execute(sql);
+        } catch (DataAccessException e) {
+            System.out.println("Error borrarDetallePorcentajeVentasAll::"+e.getMessage());
+        }
+    }
+
+    @Override
+    public void borrarDetallePorcentajeVentasXIdPorcenajeVenta(DataSource nameDataSource, Long consecutivo) {
+         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+        String sql = "delete from detalle_porcentaje_ventas where idporcentajeventa="+consecutivo;
+
+        try {
+           this.jdbcTemplate.execute(sql);
+        } catch (DataAccessException e) {
+            System.out.println("Error borrarDetallePorcentajeVentasAll::"+e.getMessage());
+        }
+    }
     
 }

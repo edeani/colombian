@@ -10,6 +10,6 @@ package com.administracion.service;
  * @author EderArmando
  */
 public interface PorcentajeVentasService {
-    public void generarDetallePorcentajeVentas(String nameDataSource,Integer mes);
+    public void generarDetallePorcentajeVentas(String nameDataSource,Long consecutivo,Integer mes);
     public void generarPorcentajeVentas(String nameDataSource,Integer mes);
 }

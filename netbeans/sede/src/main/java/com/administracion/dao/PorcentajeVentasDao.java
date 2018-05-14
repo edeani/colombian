@@ -18,4 +18,5 @@ public interface PorcentajeVentasDao {
      public Double PorcentajeVentasDaoImpl(DataSource nameDataSource,int mes);
      public void insertarPorcetajeVentas(DataSource nameDataSource,PorcentajeVentas porcentajeVentas);
      public void borrarPorcentajeVentas(DataSource nameDataSource,Integer mes);
+     public PorcentajeVentas getPorcentajeVentasXMes(DataSource nameDataSource,Integer mes,Integer anio);
 }

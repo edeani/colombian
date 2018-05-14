@@ -12,6 +12,7 @@ import com.administracion.util.Formatos;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -68,5 +69,18 @@ public class PorcentajeVentasDaoImpl extends GenericDaoImpl<PorcentajeVentas> im
         } catch (DataAccessException e) {
             System.out.println("Error borrarPorcentajeVentas::" + e.getMessage());
         }
+    }
+
+    @Override
+    public PorcentajeVentas getPorcentajeVentasXMes(DataSource nameDataSource, Integer mes, Integer anio) {
+        this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+        try {
+            String sql = "select pv.* from porcentaje_ventas pv where pv.mes ="+mes+" and year(fecha) = " +anio ;
+            return this.jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(PorcentajeVentas.class));
+        } catch (Exception e) {
+            System.out.println("Error getPorcentajeVentasXMes::"+e.getMessage());
+        }
+        
+        return null;
     }
 }
