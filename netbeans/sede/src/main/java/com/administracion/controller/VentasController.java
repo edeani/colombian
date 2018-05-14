@@ -75,6 +75,7 @@ public class VentasController {
         ModelAndView mav = new ModelAndView("ventas/tabla_ventas");
         mav.addObject("titulo", "Reporte Venta Total");
         mav.addObject("clase", "Total");
+        mav.addObject("reporte", "total");
         mav.addObject("datosVenta", ventasColombianService.totalVentas(connectsAuth.findSubsedeXId(idSubsede).getSede(),
                  fi, ff));
         return mav;

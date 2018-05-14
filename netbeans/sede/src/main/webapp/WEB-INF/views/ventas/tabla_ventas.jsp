@@ -6,7 +6,15 @@
         <td>${itemVenta.descripcion_producto}</td>
         <td>${itemVenta.numero_unidades}</td>
         <td>$<fmt:formatNumber type="number" pattern="###,##0" value="${itemVenta.valor_producto}"/></td>
-        <c:set value="${itemVenta.numero_unidades * itemVenta.valor_producto}" var="totalProducto" />
+        <c:choose>
+            <c:when test="${reporte eq 'total'}">
+                <c:set value="${itemVenta.total_producto}" var="totalProducto" />
+            </c:when>
+            <c:otherwise>
+                <c:set value="${itemVenta.numero_unidades * itemVenta.valor_producto}" var="totalProducto" />
+            </c:otherwise>
+        </c:choose>
+        
         <td>
             $<fmt:formatNumber type="number" pattern="###,##0" value="${totalProducto}"/>
             <input type="hidden" value="${totalProducto}" class="cmpResumen${clase}"/>
