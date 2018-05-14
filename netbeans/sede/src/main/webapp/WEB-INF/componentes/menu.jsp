@@ -91,6 +91,7 @@
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/ordenes.htm'><span>Mesas y Llevar</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/ventas/index-ventas.htm'><span>Ventas</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/gastos/index.htm'><span>Gastos</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/domicilios/index-domicilios.htm'><span>Ventas</span></a></li>
             </ul>
         </li>
     </ul>
