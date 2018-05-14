@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="contenidoHome">
-        <div class="tituloPagina">Reporte Domicilios </div>
+        <div class="tituloPagina">Reporte Ordenes Domicilios </div>
         <div class="contenedorEstructuraFormLarge">
             <div class="contentFormSimple">
                 <form id="formDomicilios" action="<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/colombian/ajax/consultar.htm">
