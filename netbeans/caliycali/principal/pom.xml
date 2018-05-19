@@ -302,9 +302,9 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <bd.user>root</bd.user>
-                <bd.password>compaq</bd.password>
-                <bd.ip>localhost:3306</bd.ip>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>192.168.0.23:3306</bd.ip>
             </properties>
         </profile>
         <profile>
