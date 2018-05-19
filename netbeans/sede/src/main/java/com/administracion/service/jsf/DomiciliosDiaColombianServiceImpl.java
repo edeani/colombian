@@ -36,7 +36,7 @@ public class DomiciliosDiaColombianServiceImpl implements DomiciliosDiaColombian
 
     private JdbcTemplate jdbctemplate;
 
-    private Double totalDomicilios;
+    private Long totalDomicilios;
     private Long totalRegistros;
 
     @Override
@@ -70,7 +70,7 @@ public class DomiciliosDiaColombianServiceImpl implements DomiciliosDiaColombian
      * @param ordenes 
      */
     public void calcularResumenDomicilios(List<OrdenesColombianDto> ordenes) {
-        totalDomicilios=0D;
+        totalDomicilios=0L;
         totalRegistros=0L;
         if (ordenes != null) {
             ordenes.stream().map((orden) -> {
@@ -86,7 +86,7 @@ public class DomiciliosDiaColombianServiceImpl implements DomiciliosDiaColombian
      * @return the totalDomicilios
      */
     @Override
-    public Double getTotalDomicilios() {
+    public Long getTotalDomicilios() {
         return totalDomicilios;
     }
 

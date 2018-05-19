@@ -4,11 +4,12 @@
     <tr>  
         <td><fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${item.fecha}"/></td>
         <td>${item.dia}</td>
-        <td>${item.domicilios}</td>
-        <td>${item.cliente}</td>
+        <td>${item.domicilios}
+            <input type="hidden" value="${item.domicilios}" class="cmpResumenDomiciliosCant"/>
+        </td>
         <td>
-            $<fmt:formatNumber type="number" pattern="###,##0" value="${item.valor}"/>
-            <input type="hidden" value="${item.valor}" class="cmpResumenDomicilios"/>
+            $<fmt:formatNumber type="number" pattern="###,##0" value="${item.valor_total}"/>
+            <input type="hidden" value="${item.valor_total}" class="cmpResumenDomicilios"/>
         </td>
     </tr>
 </c:forEach>

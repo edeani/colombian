@@ -36,7 +36,7 @@
         </div>
 
         <div class="divContenedorTabla">
-            <div id="contDomicilios" data-url="<%=request.getContextPath()%>/${sessionScope.path}/domicilios/ajax/consultar.htm">
+            <div id="contDomicilios" data-url="<%=request.getContextPath()%>/${sessionScope.path}/domicilios/ajax/consultar-dia.htm">
                 <table align="center" id="tabladomicilios">
                     <thead>
                         <tr>
@@ -53,11 +53,22 @@
                 </table>
             </div>
             <input id="totalDomicilios" type="hidden" value="" class="decimaldomicilios"/>
+            <input id="totalCantDomicilios" type="hidden" value="" />
             <div class="contenedorResumen">
-                TOTAL ORDENES DOMICILIO
                 <label id="totalDomiciliosLabel" class="resumen">
                     $0
-                </label> 
+                </label>
+                <label class="resumen">
+                TOTAL ORDENES DOMICILIO
+                </label>
+                
+                <label id="totalCantDomiciliosLabel" class="resumen">
+                    0
+                </label>
+                <label class="resumen">
+                DOMICILIOS
+                </label>
+                
             </div>
         </div>
 
