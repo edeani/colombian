@@ -5,7 +5,7 @@ function validarNUM(e) {
         return true;
     if (tecla == 0)
         return true;
-    patron = /[1234567890]/;
+    patron = /[1234567890\.]/;
     te = String.fromCharCode(tecla);
     return patron.test(te);
 }
