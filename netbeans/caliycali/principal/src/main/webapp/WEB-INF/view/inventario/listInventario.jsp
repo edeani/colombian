@@ -13,7 +13,7 @@
         <td><input type="text" style="cursor: pointer;" class="clsAnchoTotal2 fechaInicial" value="${inventario.fechaInicial}"/></td>
         <td><input class="clsAnchoTotal2" type="text" onkeypress="return validarNUM(event)" value="${inventario.stockReal}"/></td>
         <td><input class="clsAnchoTotal2 fechaFinal" style="cursor: pointer;" type="text" value="${inventario.fechaFinal}"/></td>
-        <td><input class="clsAnchoTotal2" onkeypress="return validarNUM(event)"type="text" readonly="readonly" value="${inventario.promedio}"/></td>
+        <td><input class="clsAnchoTotal2" onkeypress="return validarNUM(event)"type="text" value="${inventario.promedio}"/></td>
         <td align="right"><input type="image" src="<%=request.getContextPath()%>/img/refresh.jpg" value="" alt=Actualizar" class="clsActualizarFila"></td>
         <td align="right"><input type="button" alt="Eliminar" tit value="-" class="clsEliminarFila"></td>
     </tr>
