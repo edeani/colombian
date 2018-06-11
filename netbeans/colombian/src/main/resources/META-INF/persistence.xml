@@ -18,7 +18,7 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/principal?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
+      <property name="javax.persistence.jdbc.password" value="YI15102206j."/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="llmdvi"/>
     </properties>
@@ -41,7 +41,7 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/colombian_2012?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
+      <property name="javax.persistence.jdbc.password" value="YI15102206j."/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="llmdvi"/>
       <property name="eclipselink.canonicalmodel.subpackage" value="four"/>
@@ -64,7 +64,7 @@
     <class>com.mycompany.entidades.ClasePago</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/2015?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
+      <property name="javax.persistence.jdbc.password" value="YI15102206j."/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="llmdvi"/>
       <property name="eclipselink.canonicalmodel.subpackage" value="twentytwoo"/>
@@ -86,10 +86,10 @@
     <class>com.mycompany.entidades.Usuario</class>
     <class>com.mycompany.entidades.ClasePago</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://201.232.118.148:3306/super_broaster?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="25012908"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/super_broaster?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="YI15102206j."/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.user" value=""/>
       <property name="eclipselink.canonicalmodel.subpackage" value="ten"/>
     </properties>
   </persistence-unit>
