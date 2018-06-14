@@ -83,7 +83,7 @@ public class VentasServiceImpl implements VentasService {
                     + " GROUP BY productos.codigo_producto, productos.descripcion_producto, "
                     + " detalle_llevar.valor_producto  ORDER BY 1, 2, 3";
 
-            String query2 = "select tipo,codigo_producto,descripcion_producto, valor_producto,sum(numero_unidades) as numero_unidades,sum(total) as total from(SELECT 'DOMICILIOS' tipo,productos.codigo_producto,   productos.descripcion_producto,   detalle_orden.valor_producto,detalle_orden.numero_unidades, detalle_orden.numero_unidades * detalle_orden.valor_producto as total "
+            String query2 = "select codigo_producto,descripcion_producto, valor_producto,sum(numero_unidades) as numero_unidades,sum(total) as total from(SELECT 'DOMICILIOS' tipo,productos.codigo_producto,   productos.descripcion_producto,   detalle_orden.valor_producto,detalle_orden.numero_unidades, detalle_orden.numero_unidades * detalle_orden.valor_producto as total "
                     + " FROM detalle_orden,   orden,   productos   WHERE ( orden.numero_orden = detalle_orden.numero_orden ) and  ( orden.numero_telefono = detalle_orden.numero_telefono ) and   "
                     + "( productos.codigo_producto = detalle_orden.codigo_producto ) and  ( ( orden.fecha_orden BETWEEN '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "') AND      ( orden.estado_orden = 'A' ) )    "
                     + " UNION ALL SELECT  'MESAS', productos.codigo_producto,   productos.descripcion_producto,   detalle_mesa.valor_producto, detalle_mesa.numero_unidades ,detalle_mesa.numero_unidades * detalle_mesa.valor_producto as total "
@@ -95,7 +95,7 @@ public class VentasServiceImpl implements VentasService {
                     + " FROM detalle_llevar,   llevar,   productos   WHERE ( llevar.numero_orden = detalle_llevar.numero_orden ) and  "
                     + " ( productos.codigo_producto = detalle_llevar.codigo_producto ) and  "
                     + " ( ( llevar.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "') AND  ( llevar.estado_orden = 'A' ) )    "
-                    + " )a group by tipo,codigo_producto,descripcion_producto,valor_producto "
+                    + " )a group by codigo_producto,descripcion_producto,valor_producto "
                     + "order by 1,2,3";
             Statement st = null;
             Statement st2 = null;
@@ -144,7 +144,7 @@ public class VentasServiceImpl implements VentasService {
                     v.setCodigo_proucto(rs2.getLong("codigo_producto"));
                     v.setDescripcion_producto(rs2.getString("descripcion_producto"));
                     v.setNumero_unidades(formato.numeroToStringFormato(rs2.getLong("numero_unidades")));
-                    v.setTipo(rs2.getString("tipo"));
+                    v.setTipo("");
                     v.setValor_producto(formato.numeroToStringFormato(rs2.getDouble("valor_producto")));
                     v.setTotal_producto(formato.numeroToStringFormato(rs2.getDouble("valor_producto") * rs2.getLong("numero_unidades")));
 
