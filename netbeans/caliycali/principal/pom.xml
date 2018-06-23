@@ -319,7 +319,7 @@
             <id>prod</id>
             <properties>
                 <bd.user>llmdvi</bd.user>
-                <bd.password>YI15102206j</bd.password>
+                <bd.password>YI15102206j.</bd.password>
                 <bd.ip>192.168.0.22:3306</bd.ip>
             </properties>
         </profile>
