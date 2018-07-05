@@ -39,7 +39,7 @@ public class SedesServiceImpl implements SedesService,Serializable{
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
         conexion.setBd("principal");
-        conexion.setPassword("YI15102206j.");
+        conexion.setPassword("YI15102206j");
         conexion.setServer("192.168.0.22:3306"+"/principal");
         conexion.setUser("llmdvi");
         conexion.establecerConexion();
