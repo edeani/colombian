@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/colombian">
-  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="colombian_jdbc" password="" type="javax.sql.DataSource" url="jdbc:mysql://192.168.0.23:3306/colombian?zeroDateTimeBehavior=convertToNull" username="root"/>
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="colombian_jdbc" password="" type="javax.sql.DataSource" url="jdbc:mysql://192.168.0.22:3306/colombian?zeroDateTimeBehavior=convertToNull" username="root"/>
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="mellaRepublica" password="" type="javax.sql.DataSource" url="jdbc:mysql://brasaysaborlama.dyndns.org:3306/super_broaster?zeroDateTimeBehavior=convertToNull" username="root"/>
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="brasaysaborlama.dyndns.org" password="" type="javax.sql.DataSource" url="jdbc:mysql://brasaysaborlama.dyndns.org:3306/super_broaster?zeroDateTimeBehavior=convertToNull" username="root"/>
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="Mella" password="" type="javax.sql.DataSource" url="jdbc:mysql://brasaysaborlama.dyndns.org:3306/super_broaster?zeroDateTimeBehavior=convertToNull" username="root"/>

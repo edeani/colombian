@@ -20,7 +20,7 @@ private Connection conexion;
     private String bd = "colombian_2012";
     private String user = "llmdvi";
     private String password = "YI15102206j";
-    private String server = "jdbc:mysql://192.168.0.23:3306/" + bd;
+    private String server = "jdbc:mysql://192.168.0.22:3306/" + bd;
     public int estado;
 
     /**

@@ -583,7 +583,7 @@ public class ComprasController extends BaseController {
     @ModelAttribute("defaultPrinter")
     public String defaultPrinter() {
         String pDefault = "";
-        try {
+       /* try {
             pDefault = PrintUtil.getDefaultPrinter().getName();
             int indexName = pDefault.lastIndexOf("\\");
             if (indexName != -1) {
@@ -591,7 +591,7 @@ public class ComprasController extends BaseController {
             }
         } catch (Exception e) {
             System.out.println("Error defaultPrinter::" + e.getMessage());
-        }
+        }*/
 
         return pDefault;
     }

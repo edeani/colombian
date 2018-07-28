@@ -27,9 +27,10 @@
             <td>${producto.ventas}</td>
             <td>${producto.averias}</td>
             <td>${producto.traslados}</td>
-            <td>${producto.inventarioFinal}</td>
+            <c:set var="total_final" value="${producto.compras+producto.inicial-producto.ventas-producto.averias-producto.traslados}"/>
+            <td>${total_final}</td>
             <td>${producto.fisico}</td>
-            <td>${producto.diferencia}</td>
+            <td>${producto.fisico - total_final}</td>
         </tr>    
     </c:forEach>
 </tbody>
