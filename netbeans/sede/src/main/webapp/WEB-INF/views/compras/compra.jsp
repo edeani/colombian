@@ -110,7 +110,7 @@
                             <td></td>
                             <td></td>
                             <td colspan="4" align="right">
-                                <input type="button" id="facturar" value="Facturar" >
+                                <input type="submit" id="facturar" value="Facturar" >
                                 <!--div style="display: none;">
                                     <input type="button" id="facturar" value="Facturar" >
                                 </div-->

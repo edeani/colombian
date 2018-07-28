@@ -423,7 +423,6 @@ $(document).ready(function () {
                     });
 
 
-                    $("#detalleCompraDTO").submit();
                     console.log(factura);
                 }
             } else {

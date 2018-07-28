@@ -256,7 +256,7 @@ $(document).ready(function () {
         }
     });
     $("#facturar").live("click", function (e) {
-        //e.preventDefault();
+        e.preventDefault();
         //variables en el llamado
         var type = "POST";
         var fila = $("#contenidoFactura").children();
@@ -289,25 +289,27 @@ $(document).ready(function () {
                                 $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
 
                                 var parametrosForm = $("#detalleCompraDTO").serialize();
+                                var estadoRespuesta ="S";
                                 $.ajax({
                                     url: $("#urlGuardar").attr("url-guardar"),
                                     timeout: 20000,
                                     type: "POST",
                                     data: parametrosForm,
                                     success: function (result) {
-                                        //dialogoGuardar.close();
                                         $("#detalleCompraDTO").submit();
-                                        $("#contenidoCompra").html(result);
+                                       
                                         $(".fechaVencimiento").datepicker({
                                             dateFormat: "yy-mm-dd"
                                         });
+                                         $("#contenidoCompra").html(result);
                                         dialogMessage("Compra guardada");
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
+                                        estadoRespuesta="N";
                                         dialogMessage("Error al guardar la compra");
                                     }
                                 });
-
+                                
 
                             }
                         } else {
@@ -333,14 +335,14 @@ $(document).ready(function () {
     });
 
  
-    $(document).on("submit", "#detalleCompraDTO", function () {
+    /*$(document).on("submit", "#detalleCompraDTO", function () {
         if ($("#submit-form").val() == "S") {
             return true;
         } else {
             return false;
         }
 
-    });
+    });*/
 
     $(document).on("change", "#idSede", function () {
         var valorIdSede = $("#idSede option:selected").val();
