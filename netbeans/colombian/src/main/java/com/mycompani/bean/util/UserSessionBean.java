@@ -38,6 +38,7 @@ public class UserSessionBean implements Serializable{
     private SedesService sedesService;
     //Base de datos
     private Sedes sede;
+    private String anulaciones;
     public static UserSessionBean getInstance(){
         if(BeanNavigator.getSessionAttribute("userSessionBean")!=null){
             return (UserSessionBean) BeanNavigator.getSessionAttribute("userSessionBean");
@@ -246,5 +247,13 @@ public class UserSessionBean implements Serializable{
      */
     public void setS(Long s) {
         this.s = s;
+    }
+
+    public String getAnulaciones() {
+        return anulaciones;
+    }
+
+    public void setAnulaciones(String anulaciones) {
+        this.anulaciones = anulaciones;
     }
 }

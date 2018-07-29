@@ -18,4 +18,5 @@ public interface DomiciliosDiaService {
     public List<Ordenes> domicilioDia(Date fi, Date ff);
     public Double getTotalDomicilios();
     public Long getTotalRegistros();
+    public void anularDomicilio(Long idDomicilio);
 }

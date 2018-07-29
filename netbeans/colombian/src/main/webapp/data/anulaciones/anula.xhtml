@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Reportes Cuadres Diario</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/estructuraSesion.xhtml">
+            <ui:param name="titulo" value="Anulaciones de Ordenes" /> 
+            <ui:define name="contenido">
+                <div>
+                    <div id="tituloCierre">Anulaciones de Ordenes <div>#{userSessionBean.sede.sed_nombre}</div></div>
+                </div>
+                <p:growl  showDetail="true"  />
+                <h:form id="anularOrden_">
+                    <h:panelGrid columns="7" cellpadding="5">
+                        <h:outputText value="Tipo de Orden: " />
+                        <p:selectOneMenu value="#{anulacionesBean.tipoSeleccionado}" id="tipoOrdenSelect" editable="false" style="width: 100px;">
+                            <f:selectItems  value="#{anulacionesBean.tiposOrden}" var="t" itemLabel="#{t.label}" itemValue="#{t.id}"/>
+                        </p:selectOneMenu> 
+                        <h:outputText value="Número de la orden"/>
+                        <p:inputText value="#{anulacionesBean.idOrden}" />
+                        <p:commandButton   value="Anular" onclick="dialogoAnular.show()">
+                           
+                        </p:commandButton>
+                        
+                    </h:panelGrid>
+                    <h:outputLabel id="mensaje0" for=""> <div id="estadoMensaje">#{anulacionesBean.mensaje}</div></h:outputLabel>
+                    <p:confirmDialog  widgetVar="dialogoAnular" header="Confirmación" message="¿Estas seguro de quiere anular la Orden?" >
+                        <p:commandButton update="anularOrden_" actionListener="#{anulacionesBean.anularOrden()}" oncomplete="dialogoAnular.hide()" value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  />
+                        <p:commandButton onclick="dialogoAnular.hide()" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+                    </p:confirmDialog>               
+                </h:form>
+                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
