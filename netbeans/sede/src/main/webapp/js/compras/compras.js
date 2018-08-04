@@ -296,12 +296,14 @@ $(document).ready(function () {
                                     type: "POST",
                                     data: parametrosForm,
                                     success: function (result) {
+                                        $("#submit-form").val("S");
                                         $("#detalleCompraDTO").submit();
-                                       
+                                        $("#submit-form").val("N");
+                                        $("#contenidoCompra").html(result);
                                         $(".fechaVencimiento").datepicker({
                                             dateFormat: "yy-mm-dd"
                                         });
-                                         $("#contenidoCompra").html(result);
+                                         
                                         dialogMessage("Compra guardada");
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
@@ -323,7 +325,7 @@ $(document).ready(function () {
                 }
             } else {
                 $.colorbox({
-                    html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe seleccionar un proveedor/p></body></html>",
+                    html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe seleccionar un proveedor</p></body></html>",
                     initialHeight: 50,
                     Height: 50,
                     width: "300px"
@@ -334,11 +336,24 @@ $(document).ready(function () {
         }
     });
 
- 
+
     /*$(document).on("submit", "#detalleCompraDTO", function () {
-        if ($("#submit-form").val() == "S") {
+        if ($("#submit-form").val() === "S") {
+            console.log("generar");
             return true;
         } else {
+            console.log("sin generar");
+            return false;
+        }
+
+    });*/
+    
+    /*$(document).on("submit", "#facturar", function () {
+        if ($("#submit-form").val() === "S") {
+            console.log("generar");
+            return true;
+        } else {
+            console.log("sin generar");
             return false;
         }
 

@@ -15,9 +15,10 @@
 <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
 
 </head>
+<input type="hidden" value="N" id="submit-form"/>
 <div id="contenidoCompra">
     <div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/guardar.htm"></div>
-    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/verificar/compra.htm" target="_blank">
+    <form:form  commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/${sessionScope.path}/compras/ajax/verificar/compra.htm" target="_blank">
         <div id="contenidoHome"> 
             <div id="tituloPagina">${titulo}</div>
             <div id="campoNumeroFactura">
@@ -110,7 +111,7 @@
                             <td></td>
                             <td></td>
                             <td colspan="4" align="right">
-                                <input type="submit" id="facturar" value="Facturar" >
+                                <input type="button" id="facturar" value="Facturar" />
                                 <!--div style="display: none;">
                                     <input type="button" id="facturar" value="Facturar" >
                                 </div-->
