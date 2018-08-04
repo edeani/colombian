@@ -56,9 +56,18 @@
             </div>
             <input id="totalDomicilios" type="hidden" value="" class="decimaldomicilios"/>
             <div class="contenedorResumen">
-                TOTAL ORDENES DOMICILIO
                 <label id="totalDomiciliosLabel" class="resumen">
                     $0
+                </label>
+                <label class="resumen">
+                TOTAL ORDENES DOMICILIO
+                </label>
+                
+                <label id="totalCantDomiciliosLabel" class="resumen">
+                    0
+                </label>
+                <label class="resumen">
+                DOMICILIOS
                 </label> 
             </div>
         </div>

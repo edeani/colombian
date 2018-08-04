@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<input type="hidden" id="totalDom"  value="${totalDom}"/>
 <c:forEach items="${datos}" var="item">
     <tr>  
         <td>${item.orden}</td>

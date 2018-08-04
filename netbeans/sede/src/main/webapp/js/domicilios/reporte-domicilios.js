@@ -19,6 +19,7 @@ $(document).ready(function(){
         formatCurrencyFieldText(document.getElementById("totalDomicilios"));
         $("#totalDomiciliosLabel").html($("#totalDomicilios").val());
         
+        $("#totalCantDomiciliosLabel").html($("#totalDom").val());
 
     });
 });

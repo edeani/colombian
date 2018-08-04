@@ -8,7 +8,9 @@ package com.administracion.controller;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.jsf.DomiciliosDiaColombianService;
 import com.administracion.service.jsf.OrdenesDomiciliosColombianService;
+import com.mycompany.mapper.OrdenesDomiciliosMapper;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -43,7 +45,9 @@ public class DomiciliosController {
              @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date ff, @RequestParam Integer idSubsede, @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("reportes/colombian/domicilios/tabla_domicilios");
         mav.addObject("clase", "Domicilios");
-        mav.addObject("datos", ordenesDomiciliosColombianService.domiciliosordenes(fi, ff, connectsAuth.findSubsedeXId(idSubsede).getSede()));
+        List<OrdenesDomiciliosMapper> ordenesDOm = ordenesDomiciliosColombianService.domiciliosordenes(fi, ff, connectsAuth.findSubsedeXId(idSubsede).getSede());
+        mav.addObject("datos", ordenesDOm);
+        mav.addObject("totalDom", ordenesDOm == null?0:ordenesDOm.size());
         return mav;
     }
     
