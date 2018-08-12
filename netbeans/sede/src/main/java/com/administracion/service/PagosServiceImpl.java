@@ -52,7 +52,20 @@ public class PagosServiceImpl implements PagosService {
             pagosDao.guardarDetallePagosTerceros(ds, elementoDetallePagosTerceros);
         });
     }
-
+    
+    @Transactional
+    @Override
+    public void actualizarPagosTerceros(String nameDataSource,Pagos pagosTerceros, List<DetallePagos> detallePagosTerceros){
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
+        //Borramos todos los pagos
+        pagosDao.borrarDetallePagos(ds, pagosTerceros.getIdpagos());
+        pagosDao.borrarPagos(ds, pagosTerceros.getIdpagos());
+        //Insertamos las nuevas modificaciones
+        pagosDao.guardarPagos(ds, pagosTerceros);
+        detallePagosTerceros.forEach((elementoDetallePagosTerceros) -> {
+            pagosDao.guardarDetallePagosTerceros(ds, elementoDetallePagosTerceros);
+        });
+    }
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosTercerosDto> buscarDetallePagosTercerosDtos(String nameDataSource, Long idpagotercero) {

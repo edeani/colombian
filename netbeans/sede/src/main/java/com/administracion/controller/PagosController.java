@@ -206,6 +206,19 @@ public class PagosController extends BaseController {
         return "ok";
     }
 
+    @RequestMapping("/ajax/terceros/actualizar.htm")
+    public @ResponseBody
+    String actualizarPagoTerceros(@ModelAttribute PagosTercerosDto pagosTercerosDto,
+            @PathVariable String sede) {
+        PagosMapper pagosMapper = new PagosMapper();
+        Pagos pagosTerceros = pagosMapper.pagoBeneficiarioDtoToPagoCabecera(pagosTercerosDto);
+        List<DetallePagos> detallePagosTerceros = pagosMapper.detallePagosTercerosDtoTodetallePagosTerceros(pagosTercerosDto.getDetallePagosTerceros());
+
+        pagosService.actualizarPagosTerceros(sede, pagosTerceros, detallePagosTerceros);
+
+        return "ok";
+    }
+    
     @RequestMapping("/ajax/proveedor/guardar.htm")
     public @ResponseBody
     String guardarPagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto,

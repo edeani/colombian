@@ -220,12 +220,15 @@ function validarCamposTabla(idtabla) {
     var aprobado = true;
     if (inputsTbody.length > 0) {
         $(inputsTbody).each(function (index) {
+            console.log("campo "+$(this).attr("id"));
             if ($(this).val() === undefined) {
                 aprobado = false;
                 $(this).addClass("campError");
+                console.log("indefinido "+$(this).val());
             } else if ($.trim($(this).val()) === "") {
                 aprobado = false;
                 $(this).addClass("campError");
+                console.log("vacio "+$(this).val());
             } else {
                 $(this).removeClass("campError");
             }

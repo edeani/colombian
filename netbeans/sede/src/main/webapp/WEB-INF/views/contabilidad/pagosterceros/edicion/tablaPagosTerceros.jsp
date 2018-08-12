@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<form:form target="_blank" commandName="${commandName}" path="PagosTercerosDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/terceros/guardar.htm" >
+<form:form target="_blank" commandName="${commandName}" path="PagosTercerosDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/terceros/actualizar.htm" >
     <div id="campoNumeroFactura">
         <label class="textoNegro" style="display: none;">
             No. Factura 
@@ -67,7 +67,7 @@
                         <input type="hidden" id="inputIdentificadorSede${indice.index}" name="detallePagosTerceros[${indice.index}].idSede" value="${itemPago.idSede}"/>
                     </td>
                     <td>
-                        <input id="idpagotercero${indice.index}" name="detallePagosTerceros[${indice.index}].idpagotercero" value="" type="hidden"/>
+                        <input id="idpagotercero${indice.index}" name="detallePagosTerceros[${indice.index}].idpagotercero" value="${itemPago.idpagotercero}" type="hidden"/>
                     <input data-numero="${indice.index}" id="numerocuenta${indice.index}" name="detallePagosTerceros[${indice.index}].idCuenta" value="${itemPago.idCuenta}" class="ui-autocomplete-input claseValidarNum claseCuenta" autocomplete="off"/>
                     </td>
                     <td>
@@ -79,7 +79,7 @@
                     <td>
                         <fmt:formatNumber type="number" pattern="###,##0" value="${itemPago.total}" var="totalFormat"/>
                         <input class="claseValidarNum claseFormatDec claseTotalProveedor" id="total${indice.index}" name="detallePagosTerceros[${indice.index}].total" value="${fn:replace(totalFormat,'.',',')}"/>
-                        <input id="fechaPago${indice.index}" name="detallePagosTerceros[${indice.index}].fecha" value="" type="hidden"/>
+                        <input id="fechaPago${indice.index}" name="detallePagosTerceros[${indice.index}].fecha" value="${itemPago.fecha}" type="hidden"/>
                     </td>
                     <td>
                         <input type="button" value="-" class="clsEliminarFila">

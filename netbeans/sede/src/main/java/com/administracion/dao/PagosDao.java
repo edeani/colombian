@@ -25,6 +25,8 @@ import javax.sql.DataSource;
 public interface PagosDao extends GenericDao<Pagos>{
     public Long secuenciaPagos(DataSource nameDataSource);
     public void guardarPagos(DataSource nameDataSource, Pagos pagosTerceros);
+    public void borrarPagos(DataSource nameDataSource,Long idpago);
+    public void borrarDetallePagos(DataSource nameDataSource,Long idpago);
     public void guardarDetallePagosTerceros(DataSource nameDataSource,DetallePagos detallePagosTerceros);
     public void guardarDetallePagosProveedor(DataSource nameDataSource,DetallePagos detallePagosProveedor);
     public Pagos buscarPagoXIdPago(DataSource nameDataSource,Long idpagotercero);

@@ -219,11 +219,14 @@ $(document).ready(function () {
             $("#divContenedorTabla").html(html_tabla);
 
             //Reiniciar campos
-            $("#cmpSecuencia").hide();
+            //$("#cmpSecuencia").hide();
+            $("#cmpBeneficiario").hide();
             $("#secuencia").val("");
             $("#cmpFecha").hide();
             $("#fechaPago").val("");
             $("#lnkRows").hide();
+            $("#lnkRows2").hide();
+            $("#buscarPago").show();
             $("#nombreBeneficiario").val("");
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");
@@ -758,8 +761,8 @@ function numeroComprasPendientesaAgregar() {
 }
 
 function limpiarPagos() {
-    $("#divContenedorTabla").hide();
-    $("#cmpSecuencia").val("");
+    $("#divContenedorTabla").hide()
+    $("#secuencia").val("");
     $("#cmpBeneficiario").hide();
     $("#buscarPago").show();
     $("#cmpFecha").hide();

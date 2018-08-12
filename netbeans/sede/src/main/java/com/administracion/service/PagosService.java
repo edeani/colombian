@@ -28,6 +28,7 @@ public interface PagosService {
     public Long secuenciaPagos(String nameDataSource);
     public void guardarPagosTerceros(String nameDataSource,Pagos pagosTerceros, List<DetallePagos> detallePagosTerceros);
     public void guardarPagosProveedor(String nameDataSource,Pagos pagosProveedor, List<DetallePagos> detallePagosProveedor);
+    public void actualizarPagosTerceros(String nameDataSource,Pagos pagosTerceros, List<DetallePagos> detallePagosTerceros);
     public List<DetallePagosTercerosDto> buscarDetallePagosTercerosDtos(String nameDataSource,Long idpagotercero);
     public List<DetallePagosProveedorDto> buscarDetallePagosDtos(String nameDataSource,Long idpagoproveedor);
     public Pagos buscarPagoXIdPago(String nameDataSource,Long idpagotercero);
