@@ -55,11 +55,12 @@ public class SedesController extends BaseController {
      * @return 
      */
     @RequestMapping("/ajax/listaSedeSelect.htm")
-    public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede) {
+    public ModelAndView cargarSedes(HttpSession session,@PathVariable String sede,
+            @RequestParam(required = false) Long seleccion) {
         ModelAndView mav = new ModelAndView("util/formSelect");
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptionsPoint(sede);
         mav.addObject("datos", datosSedes);
-
+        mav.addObject("seleccion", seleccion);
         return mav;
     }
     

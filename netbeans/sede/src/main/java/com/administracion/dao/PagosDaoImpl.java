@@ -292,7 +292,30 @@ private LectorPropiedades lectorPropiedades;
         
         return pagos;
     }
-
+    
+    @Override
+    public PagosCabeceraDto buscarPagosXId(DataSource nameDataSource, Long idpago) {
+        
+        String sql = "select distinct p.idpagos ,p.idbeneficiario as idproveedor, "
+                + "case when b.nombre is null then prov.nombre else b.nombre end  as nombreProveedor,p.fecha as fecha, "
+                + "p.total from detalle_pagos dpp "
+                + "inner join sedes s on s.idsedes = dpp.idsede "
+                + "inner join cuentas_puc cp on cp.cod_cta = dpp.idcuenta "
+                + "inner join pagos p on p.idpagos  = dpp.idpago "
+                + "left join beneficiarios b on b.id = p.idbeneficiario "
+                + "left join proveedor prov on prov.idproveedor = p.idbeneficiario "
+                + "where p.idpagos = "+idpago;
+        PagosCabeceraDto pagos = null;
+        try {
+            this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+            pagos =  this.jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(PagosCabeceraDto.class));
+        } catch (DataAccessException e) {
+            System.out.println("Error buscarPagosXId::"+e.getMessage());
+        }
+        
+        return pagos;
+    }
+    
     @Override
     public List<ReportePagosDto> reportePagos(DataSource nameDataSource, String fechaInicial, String fechaFinal, Long idsede) {
         String sql = "select pro.nombre,dpa.idcuenta,dpa.total,pa.fecha from pagos pa " +

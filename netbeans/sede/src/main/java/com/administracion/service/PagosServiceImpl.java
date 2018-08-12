@@ -96,7 +96,13 @@ public class PagosServiceImpl implements PagosService {
     public List<PagosCabeceraDto> buscarPagosProveedorXFecha(String nameDataSource, String fecha) {
         return pagosDao.buscarPagosXFecha(connectsAuth.getDataSourceSede(nameDataSource), fecha);
     }
-
+    
+    @Override
+    @Transactional(readOnly = true)
+    public PagosCabeceraDto buscarPagosProveedorXId(String nameDataSource, Long idpago) {
+        return pagosDao.buscarPagosXId(connectsAuth.getDataSourceSede(nameDataSource), idpago);
+    }
+    
     @Override
     @Transactional(readOnly = true)
     public List<ReportePagosDto> reportePagos(String nameDataSource, String fechaInicial, String fechaFinal, Long idsede) {

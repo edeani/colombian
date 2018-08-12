@@ -10,6 +10,7 @@ package com.adiministracion.mapper;
 import com.administracion.dto.DetallePagosCosolidadoSedeDto;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
+import com.administracion.dto.PagosCabeceraDto;
 import com.administracion.dto.PagosConsolidadoSedeDto;
 import com.administracion.dto.PagosProveedorDto;
 import com.administracion.dto.PagosTercerosDto;
@@ -41,6 +42,19 @@ public class PagosMapper {
         pagosTerceros.setIdbeneficiario(pagosTercerosDto.getIdBeneficiario());
         pagosTerceros.setTotal(pagosTercerosDto.getTotalPago());
         return  pagosTerceros;
+    }
+    
+    public PagosTercerosDto pagoCabeceraDtoToPagosTercerosDto(PagosCabeceraDto pago){
+        PagosTercerosDto pagosTercerosDto = new PagosTercerosDto();
+        pagosTercerosDto.setFechaPago(pago.getFecha());
+        pagosTercerosDto.setIdBeneficiario(pago.getIdProveedor());
+        pagosTercerosDto.setNombreBeneficiario(pago.getNombreProveedor());
+        pagosTercerosDto.setIdSede(pago.getIdSede());
+        pagosTercerosDto.setSecuencia(pago.getIdpagos());
+        pagosTercerosDto.setTotalPago(pago.getTotal());
+        pagosTercerosDto.setSede(pago.getSede());
+        
+        return  pagosTercerosDto;
     }
     
     public Pagos pagoProveedorDtoToPagoCabecera(PagosProveedorDto pagosProveedorDto){

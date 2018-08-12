@@ -84,6 +84,30 @@ public class PagosController extends BaseController {
     public ModelAndView tablaPagosTerceros(){
         return new ModelAndView("contabilidad/pagosterceros/tablaPagosTerceros");
     }
+    
+    @RequestMapping(value = "/terceros/edicion/index.htm")
+    public ModelAndView inicioPagosEdicion() {
+        ModelAndView mav = new ModelAndView("contabilidad/pagosterceros/edicion/administracionpagos");
+        PagosTercerosDto pagosTercerosDto = new PagosTercerosDto();
+        setBasicModel(mav, pagosTercerosDto);
+        mav.addObject("pagosTercerosDto", pagosTercerosDto);
+        return mav;
+    }
+    
+    @RequestMapping(value = "/ajax/terceros/buscar.htm")
+    public ModelAndView inicioPagosEdicion(@PathVariable String sede,@RequestParam Long idpagotercero){
+        ModelAndView mav = new ModelAndView("contabilidad/pagosterceros/edicion/tablaPagosTerceros");
+        List<DetallePagosTercerosDto> detalle = pagosService.buscarDetallePagosTercerosDtos(sede, idpagotercero);
+        PagosCabeceraDto pagosProveedor = pagosService.buscarPagosProveedorXId(sede, idpagotercero);
+        
+        PagosMapper pagosMapper = new PagosMapper();
+        PagosTercerosDto pagosTercerosDto = pagosMapper.pagoCabeceraDtoToPagosTercerosDto(pagosProveedor);
+        pagosTercerosDto.setDetallePagosTerceros(detalle);
+        
+        setBasicModel(mav, pagosTercerosDto);
+        mav.addObject("pagosTercerosDto", pagosTercerosDto);
+        return mav;
+    }
     /**
      * Pagos Proveedor
      *
