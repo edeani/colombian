@@ -35,7 +35,12 @@
                 <li class='has-sub'><a href='#'><span>Tesorer&iacute;a</span></a>
                     <ul>
                         <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/reporte/sede.htm'><span>Reporte Comprobante Sedes</span></a></li>
-                        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/pagos/terceros/index.htm'><span>Pagos Terceros</span></a></li>
+                        <li class='has-sub'><a href='#'><span>Pagos Terceros</span></a>
+                            <ul>
+                                <a href='<%=request.getContextPath()%>/${sessionScope.path}/pagos/terceros/index.htm'><span>Pagos Terceros</span></a>
+                                <a href='<%=request.getContextPath()%>/${sessionScope.path}/pagos/terceros/edicion/index.htm'><span>Editar Pagos Terceros</span></a>
+                            </ul>
+                        </li>
                         <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/pagos/proveedor/index.htm'><span>Pagos Proveedor</span></a></li>
                         <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/pagos/sede/consolidado/index.htm'><span>Pagos Porcentaje Sedes</span></a></li>
                         <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/cajamayor.htm'><span>Caja Mayor</span></a></li>
