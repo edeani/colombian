@@ -92,7 +92,7 @@ private LectorPropiedades lectorPropiedades;
                 + "dpt.idpago as idpagotercero,s.idsedes as idsede, s.sede as nombreSede from detalle_pagos dpt "
                 + "inner join cuentas_puc cp on cp.cod_cta = dpt.idcuenta "
                 + "inner join sedes s on s.idsedes = dpt.idsede "
-                + "where dpt.idpago =" + idpagotercero;
+                + "where dpt.idpago =" + idpagotercero +" and dpt.numero_compra is null";
 
         try {
             detalle = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DetallePagosTercerosDto.class));
@@ -304,7 +304,7 @@ private LectorPropiedades lectorPropiedades;
                 + "inner join pagos p on p.idpagos  = dpp.idpago "
                 + "left join beneficiarios b on b.id = p.idbeneficiario "
                 + "left join proveedor prov on prov.idproveedor = p.idbeneficiario "
-                + "where p.idpagos = "+idpago;
+                + "where p.idpagos = "+idpago+" and dpp.numero_compra is null";
         PagosCabeceraDto pagos = null;
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
