@@ -14,22 +14,25 @@ $(document).ready(function () {
 
         var urlBuscarPago = $(this).attr("data-url");
         var htmlPago = peticionAjax(urlBuscarPago, "POST", "idpagotercero=" + $("#secuencia").val());
+        if (htmlPago !== "") {
+            $("#contenidoFormularioPago").html(htmlPago);
 
-        $("#contenidoFormularioPago").html(htmlPago);
-
-        $(".fechaInicial").datepicker({
-            dateFormat: "yy-mm-dd",
-            onClose: function (fechaSeleccionada) {
-                var fechaActual = $(this).val();
-                fechaProximoCampo(this);
-                /**Actualizo la fecha en los campos**/
-                var filasTblDatos = $("#tblDatos").find("tbody tr");
-                var numeroFilas = filasTblDatos.length;
-                for (i = 0; i < numeroFilas; i++) {
-                    $("#fechaPago" + i).val(fechaActual);
+            $(".fechaInicial").datepicker({
+                dateFormat: "yy-mm-dd",
+                onClose: function (fechaSeleccionada) {
+                    var fechaActual = $(this).val();
+                    fechaProximoCampo(this);
+                    /**Actualizo la fecha en los campos**/
+                    var filasTblDatos = $("#tblDatos").find("tbody tr");
+                    var numeroFilas = filasTblDatos.length;
+                    for (i = 0; i < numeroFilas; i++) {
+                        $("#fechaPago" + i).val(fechaActual);
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            dialogMessage("Pago tercero no encontrado");
+        }
     });
 
     $(".fechaInicial").datepicker({
