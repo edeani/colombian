@@ -100,6 +100,7 @@ public class ComprasMapper {
             comprasDto.setValorTotal(compras.getValorTotal());
             comprasDto.setFechaVencimiento(Formatos.dateTostring(compras.getFechaVencimiento()));
             comprasDto.setIdSede(compras.getIdsede());
+            comprasDto.setConsecutivo(compras.getConsecutivo());
             if (compras.getIdFacturaCompra() != null) {
                 comprasDto.setIdFacturaCompra(compras.getIdFacturaCompra());
             }

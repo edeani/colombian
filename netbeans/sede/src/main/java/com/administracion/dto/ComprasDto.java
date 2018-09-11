@@ -21,6 +21,7 @@ public class ComprasDto {
     private String fechaVencimiento;
     private Long idFacturaCompra;
     private Long idSede;
+    private Long consecutivo;
 
     /**
      * @return the idCompra
@@ -148,5 +149,13 @@ public class ComprasDto {
 
     public void setIdSede(Long idSede) {
         this.idSede = idSede;
+    }
+
+    public Long getConsecutivo() {
+        return consecutivo;
+    }
+
+    public void setConsecutivo(Long consecutivo) {
+        this.consecutivo = consecutivo;
     }
 }

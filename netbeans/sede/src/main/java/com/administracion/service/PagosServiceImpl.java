@@ -82,9 +82,9 @@ public class PagosServiceImpl implements PagosService {
     @Transactional
     public void guardarPagosProveedor(String nameDataSource, Pagos pagosProveedor, List<DetallePagos> detallePagosProveedor) {
         DataSource ds =connectsAuth.getDataSourceSede(nameDataSource);
-        pagosDao.guardarPagos(ds, pagosProveedor);
+        pagosDao.guardarPagos(ds, pagosProveedor);  
         detallePagosProveedor.stream().map((elementoDetallePagosProveedor) -> {
-            Compras compra = comprasDao.getCompra(elementoDetallePagosProveedor.getNumeroCompra(), ds);
+            Compras compra = comprasDao.getCompraXConsecutivo(elementoDetallePagosProveedor.getConsecutivo(), ds);
             pagosDao.guardarDetallePagosProveedor(ds, elementoDetallePagosProveedor);
             compra.setSaldo(compra.getSaldo() - elementoDetallePagosProveedor.getTotal());
             return compra;
@@ -93,8 +93,8 @@ public class PagosServiceImpl implements PagosService {
                 compra.setEstadoCompraProveedor(estado_aprobado_comprobante);
             }
             return compra;
-        }).forEachOrdered((compra) -> {
-            comprasDao.actualizarCompra(ds, compra);
+        }).forEachOrdered((Compras compra) -> {
+            comprasDao.actualizarCompraXConsecutivo(ds, compra);
         });
     }
 

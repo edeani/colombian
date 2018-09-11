@@ -68,7 +68,35 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
 
         return compras;
     }
+    
+    public Compras getCompraXConsecutivo(Long consecutivo, DataSource nameDataSource){
+        this.jdbctemplate = new JdbcTemplate(nameDataSource);
 
+        Compras compras = null;
+
+        try {
+            compras = (Compras) jdbctemplate.queryForObject(selectJdbTemplate("*", "compras", "consecutivo=" + consecutivo), new BeanPropertyRowMapper(Compras.class));
+        } catch (DataAccessException e) {
+            LOGGER.error("getCompraXConsecutivo::No se encontraron recursos");
+        }
+
+        return compras;
+    }
+    
+    @Override
+    public Compras getCompraXProveedor(Long idcompra,Long id_proveedor, DataSource nameDataSource) {
+        this.jdbctemplate = new JdbcTemplate(nameDataSource);
+
+        Compras compras = null;
+
+        try {
+            compras = (Compras) jdbctemplate.queryForObject(selectJdbTemplate("*", "compras", "id_compra=" + idcompra.intValue()), new BeanPropertyRowMapper(Compras.class));
+        } catch (DataAccessException e) {
+            LOGGER.error("COMPRAS::No se encontraron recursos");
+        }
+
+        return compras;
+    }
     @Override
     @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch"})
     public List<ComprasTotalesDTO> getDetalleCompraDTO(Long idcompra,Integer codigProveedor, DataSource nameDataSource) {
@@ -173,7 +201,22 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
                     + "',estado_compra='" + compras.getEstadoCompra() + "',valor_total=" + compras.getValorTotal()
                     + ",codigo_proveedor=" + compras.getCodigoProveedor() + ",estado_compra_proveedor='" + compras.getEstadoCompraProveedor()
                     + "',saldo=" + compras.getSaldo() + ",fecha_vencimiento='" + Formatos.dateTostring(compras.getFechaVencimiento()) + "'"
-                    + ",idsede="+compras.getIdsede(), "compras", "id_compra=" + compras.getIdCompra());
+                    + ",idsede="+compras.getIdsede(), "compras", "id_compra=" + compras.getIdCompra() + " and codigo_proveedor=" + compras.getCodigoProveedor());
+            this.jdbctemplate.execute(sql);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error actualizarCompra::" + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void actualizarCompraXConsecutivo(DataSource nameDataSource, Compras compras) {
+        this.jdbctemplate = new JdbcTemplate(nameDataSource);
+        try {
+            String sql = updateJdbTemplate("fecha_compra='" + Formatos.dateTostring(compras.getFechaCompra())
+                    + "',estado_compra='" + compras.getEstadoCompra() + "',valor_total=" + compras.getValorTotal()
+                    + ",codigo_proveedor=" + compras.getCodigoProveedor() + ",estado_compra_proveedor='" + compras.getEstadoCompraProveedor()
+                    + "',saldo=" + compras.getSaldo() + ",fecha_vencimiento='" + Formatos.dateTostring(compras.getFechaVencimiento()) + "'"
+                    + ",idsede="+compras.getIdsede(), "compras", "consecutivo=" + compras.getConsecutivo());
             this.jdbctemplate.execute(sql);
         } catch (DataAccessException e) {
             LOGGER.error("Error actualizarCompra::" + e.getMessage());

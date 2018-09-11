@@ -460,12 +460,13 @@ $(document).on("click", ".clsAgregarFilaProveedor", function (e) {
     addRowPagosProveedor("contenidoComprobante");
     var numeroFilasDetalle = $("#tblDatos tbody tr").length;
 
+    $("#consecutivo" + (numeroFilasDetalle - 1)).val($("#consecutivointerno" + filaCompra).val());
     $("#numeroCompra" + (numeroFilasDetalle - 1)).val($("#idCompraPendiente" + filaCompra).val());
     $("#fechaFactura" + (numeroFilasDetalle - 1)).val($("#fechaCompraPendiente" + filaCompra).val());
     $("#fechaVencimiento" + (numeroFilasDetalle - 1)).val($("#fechaVencimientoPendiente" + filaCompra).val());
     $("#saldo" + (numeroFilasDetalle - 1)).val($("#saldoPendiente" + filaCompra).val());
     $("#saldoTemporal" + (numeroFilasDetalle - 1)).val($("#saldoPendiente" + filaCompra).val());
-
+    
     $("#divContenedorTabla").show();
 });
 /*Manejo de tabla para Beneficiarios*/
@@ -608,12 +609,16 @@ function addRowPagosProveedor(tableID) {
     $(cmpNumeroCompra).attr("autocomplete", "off");
     $(cmpNumeroCompra).attr("readonly", true);
     $(cmpNumeroCompra).attr("data-numero", "" + rowCount);
-
+    var cmpConsecutivoInterno = document.createElement("input");
+    cmpConsecutivoInterno.id = "consecutivo" + rowCount;
+    cmpConsecutivoInterno.name = "detallePagosProveedor[" + rowCount + "].consecutivo";
+    cmpConsecutivoInterno.type = "hidden";
+    
     //Agrego la primera columna
     cellNumeroCompra.appendChild(cmpIdPagoProveedor);
     cellNumeroCompra.appendChild(cmpNumeroCuenta);
     cellNumeroCompra.appendChild(cmpNumeroCompra);
-
+    cellNumeroCompra.appendChild(cmpConsecutivoInterno);
     /**
      * Segunda Columna: Fecha de Factura
      */

@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,6 +28,10 @@ public class Compras implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "consecutivo")
+    private Long consecutivo;
+    
     @Column(name="id_compra")
     @Basic(optional=false)
     private Long idCompra;
@@ -165,6 +171,14 @@ public class Compras implements Serializable {
 
     public void setIdsede(Long idsede) {
         this.idsede = idsede;
+    }
+
+    public Long getConsecutivo() {
+        return consecutivo;
+    }
+
+    public void setConsecutivo(Long consecutivo) {
+        this.consecutivo = consecutivo;
     }
     
     
