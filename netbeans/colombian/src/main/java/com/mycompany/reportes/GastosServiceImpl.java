@@ -39,12 +39,15 @@ public class GastosServiceImpl implements GastosService {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if (password == null) {
             conexion.setPassword("");
         } else {
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador() + "/" + user.getSede().getBd());
+        conexion.establecerConexion();
+
         connection = conexion.getConexion();
         if (connection != null) {
 

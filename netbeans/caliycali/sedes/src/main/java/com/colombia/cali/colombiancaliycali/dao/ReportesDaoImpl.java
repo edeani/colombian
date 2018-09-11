@@ -178,52 +178,30 @@ public class ReportesDaoImpl implements ReportesDao {
         }
         return compras;
     }
-
+    
     @Override
-    public Long ordenesConsolidadoSede(Sedes sede, String fecha) {
+    public Long totalConsolidadoSede(Sedes sede, String fecha) {
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(sede.getSede()));
         Long ordenes = 0L;
         try {
-            String queryOrdenes = "select sum(o.valor_total) as total_orden "
+            String queryConsolidado = "select sum(total) as total from( select sum(o.valor_total) as total "
                     + "from orden o "
-                    + "where o.fecha_orden = '" + fecha + "' and o.estado_orden='A'";
-            ordenes = this.jdbctemplate.queryForLong(queryOrdenes);
+                    + "where o.fecha_orden = '" + fecha + "' and o.estado_orden='A' "
+                    + "union select sum(ll.valor_total) as total "
+                    + "from "
+                    + "llevar ll "
+                    + "where ll.fecha_orden = '" + fecha + "' and ll.estado_orden='A' "
+                    + "union select sum(m.valor_total) as total "
+                    + "from mesa m "
+                    + "where m.fecha_orden = '" + fecha + "' and m.estado_orden='A')A";
+            ordenes = this.jdbctemplate.queryForLong(queryConsolidado);
         } catch (Exception e) {
-            System.out.println("Error ordenesConsolidadoSede::" + e.getMessage());
+            System.out.println("Error totalConsolidadoSede::" + e.getMessage());
         }
         return ordenes;
     }
+    
 
-    @Override
-    public Long mesasConsolidadoSede(Sedes sede, String fecha) {
-        this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(sede.getSede()));
-        Long mesas = 0L;
-        try {
-            String queryMesas = "select sum(m.valor_total) as total_mesas "
-                    + "from mesa m "
-                    + "where m.fecha_orden = '" + fecha + "' and m.estado_orden='A'";
-            mesas = this.jdbctemplate.queryForLong(queryMesas);
-        } catch (Exception e) {
-            System.out.println("Error mesasConsolidadoSede::" + e.getMessage());
-        }
-        return mesas;
-    }
-
-    @Override
-    public Long llevarConsolidadoSede(Sedes sede, String fecha) {
-        this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(sede.getSede()));
-        Long llevar = 0L;
-        try {
-            String queryllevar = "select sum(ll.valor_total) as total_llevar "
-                    + "from "
-                    + "llevar ll "
-                    + "where ll.fecha_orden = '" + fecha + "' and ll.estado_orden='A'";
-            llevar = this.jdbctemplate.queryForLong(queryllevar);
-        } catch (DataAccessException e) {
-            System.out.println("Error llevarConsolidadoSede::" + e.getMessage());
-        }
-        return llevar;
-    }
 
     @Override
     public Long pagosConsolidado(String nameDataSource, String fecha) {
@@ -277,9 +255,18 @@ public class ReportesDaoImpl implements ReportesDao {
         try {
             String sql = "select a.* from(" + caliycaliDao.selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idcajamenor as idComprobante",
                     "detalle_caja_menor", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
-                    + " union all "
+                    + " union "
                     + caliycaliDao.selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idpago",
                             "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11051001'")
+                    + " union "
+                    + " select consecutivo,idcuenta,concepto,total,fecha,idcomprobantecierre "
+                    + " from detalle_cierre_sedes where fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11201010'"
+                    + " union "
+                    + " select cons as consecutivo,'11201010' as idcuenta,concepto,total,fecha,cons "
+                    + " from notas_credito where fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
+                    + " union "
+                    + " select cons as consecutivo,cuenta as idcuenta,concepto,total,fecha,cons "
+                    + " from notas_debito where fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
                     + ")a order by fecha,idComprobante");
             movimientos = this.jdbctemplate.query(sql, new BeanPropertyRowMapper<ComprobanteConsolidadoSedeDto>(ComprobanteConsolidadoSedeDto.class));
         } catch (DataAccessException e) {
@@ -321,8 +308,13 @@ public class ReportesDaoImpl implements ReportesDao {
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(String nameDataSource, String fechaInicial, String fechaFinal) {
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
         String sql = "select 'Ingresos'as nombre,case when sub0.total_ingresos is null then 0 else sub0.total_ingresos end as totalCuenta from( "
-                + "select sum(dcs.total) as total_ingresos from detalle_cierre_sedes dcs "
+                + "select sum(si.total) as total_ingresos from( "
+                + "select 'Ingresos' as nombre, dcs.total as total  from detalle_cierre_sedes dcs "
                 + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
+                + " union all "
+                + " select 'Notas Debito' as nombre, total from notas_debito "
+                + " where fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
+                + ")si "
                 + ")sub0 "
                 + "union all "
                 + "select 'Pagos',-1*sum(sub1.total) as total from( "
@@ -333,7 +325,7 @@ public class ReportesDaoImpl implements ReportesDao {
                 + "select sum(dp.total) from detalle_pagos dp "
                 + "where dp.idcuenta like '5%' and dp.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
                 + "union all "
-		+" select sum(total) as total from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' "
+		+" select sum(total) as total +from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' "
                 + ")sub0 "
                 + ")sub1 "
                 + "union all "
@@ -362,8 +354,13 @@ public class ReportesDaoImpl implements ReportesDao {
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisionalXSede(String nameDataSource, String fechaInicial, String fechaFinal, Long idSede) {
         this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
         String sql = "select 'Ingresos'as nombre,case when sub0.total_ingresos is null then 0 else sub0.total_ingresos end as totalCuenta from( "
-                + "select sum(dcs.total) as total_ingresos from detalle_cierre_sedes dcs "
-                + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dcs.idsede=" + idSede + " "
+                + "select sum(si.total) as total_ingresos from( "
+                + "select 'Ingresos' as nombre, dcs.total as total  from detalle_cierre_sedes dcs "
+                + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dcs.idsede=" + idSede
+                + " union all "
+                + " select 'Notas Debito' as nombre, total from notas_debito "
+                + " where fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and idsede=" + idSede + " "
+                + ")si "
                 + ")sub0 "
                 + "union all "
                 + "select 'Pagos',-1*sum(sub1.total) as total from( "
@@ -463,6 +460,9 @@ public class ReportesDaoImpl implements ReportesDao {
                     "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
                     "union " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
+                    //Sumamos notas credito a los gastos o pagos
+                    " union " +
+                    "select cuenta,sum(total) as total from notas_credito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+"  group by cuenta  "+
                     ")sub group by sub.cuenta " +
                     ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
                 + "union all "+
@@ -473,7 +473,10 @@ public class ReportesDaoImpl implements ReportesDao {
                     "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
                     "union " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
-                    ")sub group by sub.cuenta " +
+                    //Sumamos notas debito a los ingresos
+                    " union " +
+                    "select cuenta,sum(total) as total from notas_debito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+"  group by cuenta  "
+                + ")sub group by sub.cuenta " +
                     ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
                 + "union all "
                 +" select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total,6 as tipo  " +
@@ -497,5 +500,51 @@ public class ReportesDaoImpl implements ReportesDao {
         
         return reporte;
     }
+
+    @Override
+    public Long pagosContarjetaTotal(String nameDataSource, String fecha) {
+        try {
+            this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
+            return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(pago_tarjeta) as total from mesa " +
+            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(pago_tarjeta) as total from orden " +
+            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(pago_tarjeta) as total from llevar " +
+            "where " +
+            "fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
+            "and estado_orden = 'A') sub0");
+        } catch (Exception e) {
+            System.err.println("Error pagosContarjetaTotal::"+e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public Long pagosDescuentoTotal(String nameDataSource, String fecha) {
+        try {
+            this.jdbctemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
+            return this.jdbctemplate.queryForLong("select sum(total) as total from (select sum(descuento_orden) as total from mesa " +
+            "where fecha_orden = '"+fecha+"' and descuento_orden <> 0  " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(descuento_orden) as total from orden " +
+            "where fecha_orden = '"+fecha+"' and descuento_orden <> 0 " +
+            "and estado_orden = 'A' " +
+            "union " +
+            "select sum(descuento_orden) as total from llevar " +
+            "where " +
+            "fecha_orden = '"+fecha+"' and  descuento_orden <> 0 " +
+            "and estado_orden = 'A') sub0");
+        } catch (Exception e) {
+            System.err.println("Error pagosDescuentoTotal::"+e.getMessage());
+        }
+        return null;
+    }
+
+    
 
 }

@@ -15,7 +15,7 @@ public class OrdenesColombianDto {
     
     private Date fecha;
     private String dia;
-    private Double domicilios;
+    private Long domicilios;
     private Long valor_total;
 
     /**
@@ -46,11 +46,11 @@ public class OrdenesColombianDto {
         this.dia = dia;
     }
 
-    public Double getDomicilios() {
+    public Long getDomicilios() {
         return domicilios;
     }
 
-    public void setDomicilios(Double domicilios) {
+    public void setDomicilios(Long domicilios) {
         this.domicilios = domicilios;
     }
 

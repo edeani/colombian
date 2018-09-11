@@ -72,4 +72,9 @@
 		<view-id value="/faces/reportes/ordenesdomicilios/ordenesdomicilios.xhtml" /> 
                 <action>#{authenticationService.validateAuthentication}</action>
 	</url-mapping>
+        <url-mapping id="anulaciones">
+		<pattern value="/home/usuario/#{username}/anulaciones" />
+		<view-id value="/faces/data/anulaciones/anula.xhtml" /> 
+                <action>#{authenticationService.validateAuthentication}</action>
+	</url-mapping>
         </pretty-config>

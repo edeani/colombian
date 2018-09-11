@@ -14,9 +14,11 @@ public class DetalleCompraDTO {
     private String totalFactura;
     private String numeroFactura;
     private String codigoProveedor;
+    private String nombreProveedor;
     private String fechaVencimiento;
     private String fecha;
     private String estadoCompraProveedor;
+    private String impresora;
     private Double saldo;
     private Long idFacturaCompra;
     private Long idsede;
@@ -123,5 +125,21 @@ public class DetalleCompraDTO {
     public void setIdsede(Long idsede) {
         this.idsede = idsede;
     }
-    
+
+    public String getImpresora() {
+        return impresora;
+    }
+
+    public void setImpresora(String impresora) {
+        this.impresora = impresora;
+    }
+
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }
+        
 }

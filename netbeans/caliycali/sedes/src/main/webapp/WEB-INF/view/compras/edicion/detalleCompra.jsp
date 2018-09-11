@@ -3,9 +3,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div id="contenidoCompra">
+
     <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
-    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/actualizar.htm" >
+    <form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/compraPdf.htm" target="_blank">
         <div id="contenidoHome"> 
             <div id="tituloPagina">${titulo}</div>
             <div id="campoNumeroFactura">
@@ -18,6 +18,7 @@
                 </label>
                 <form:input readonly="readonly" type="hidden" path="codigoProveedor"></form:input>
                 <input id="nameProveedor" value="${sproveedor}"/>
+                <input type="hidden" value="${sproveedor}" id="nombreProveedor" name="nombreProveedor"/>
                 <label>Sede
                     <select id="idsede" name="idsede" style="width: 155px;">
                         <option value="">Seleccionar</option>
@@ -39,6 +40,7 @@
                 <form:input readonly="readonly"  path="estadoCompraProveedor"></form:input>
                     <label>Saldo</label>
                 <form:input readonly="readonly"  path="saldo"></form:input>
+                <input type="hidden" id="impresora" name="impresora" value=""/>
                 </div>
                 <div id="cargador"></div>
                 <div class="clear"></div>
@@ -117,7 +119,10 @@
                             <td></td>
                             <td></td>
                             <td colspan="4" align="right">
+                                <input type="button" id="actualizar" value="Actualizar" />
+                                <!--div style="display: none;">
                                 <input type="button" id="actualizar" value="Actualizar" >
+                                </div-->
                                 <!input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                     <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                     </td>
@@ -127,5 +132,5 @@
             </div>
         </div>
     </form:form>
-</div>
+
 

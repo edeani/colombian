@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="SedesSql.findXname">
+        select s.*,sxs.titulo,sxs.slogan from sedes s 
+        inner join sloganxsede sxs on sxs.idsede = s.idsedes
+        where s.sede=:sede
+    </query>z
+    <query id="SedesSql.list">
+        select s.*,sxs.titulo,sxs.slogan from sedes s
+        inner join sloganxsede sxs on sxs.idsede = s.idsedes
+    </query>
+    <query id="SedesSql.findSloganSede">
+        select titulo,slogan from sloganxsede where idsede = :idsede
+    </query>
+    <query id="SedesSql.listaSedesOptByUser">
+        select sed.idsedes as id,sed.sede as label from  sedes sed
+        inner join userxsede uxs on uxs.idsede = sed.idsedes
+        inner join users us on us.cedula = uxs.iduser
+        where us.username=:username
+    </query>
+</queries>

@@ -20,7 +20,10 @@ public interface CierreService {
     public Double cierreVentas(Date  fechaCierre);
     public Double cierreGastos(Date  fechaCierre);
     public Double cierreConsignaciones(Date  fechaCierre);
-    public Double cierrCajaFinal(Double ventas,Double gastos,Double cajaInicial, Double consignaciones);
+    public Double cierrCajaFinal(Double ventas,Double gastos,Double cajaInicial, Double consignaciones,
+            Double pagosTarjeta, Double descuentos);
+    public Double cierreDescuentos(Date fechaCierre);
+    public Double cierrePagosTarjeta(Date fechaCierre);
     public List<Consignaciones> cierreListaConsignaciones(Date  fechaCierre);
     
 }

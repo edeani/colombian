@@ -35,6 +35,8 @@ public class CuadreBean {
     private String totalGastos;
     private String totalConsignaciones;
     private String valorCajaReal;
+    private String totalPagosTarjeta;
+    private String totalDescuentos;
     
     public CuadreBean() {
         cuadreDiarioService = new CuadreServiceImpl();
@@ -44,6 +46,8 @@ public class CuadreBean {
         totalGastos = "0.0";
         totalConsignaciones = "0.0";
         valorCajaReal = "0.0";
+        totalDescuentos = "0.0";
+        totalPagosTarjeta = "0.0";
     }
 
     
@@ -54,6 +58,8 @@ public class CuadreBean {
        totalConsignaciones = formato.numeroToStringFormato(cuadreDiarioService.getValorConsignaciones());
        totalVenta = formato.numeroToStringFormato(cuadreDiarioService.getValorVentas());
        totalGastos =formato.numeroToStringFormato(cuadreDiarioService.getValorGastos());
+       totalPagosTarjeta =formato.numeroToStringFormato(cuadreDiarioService.getValorPagosTarjeta());
+       totalDescuentos = formato.numeroToStringFormato(cuadreDiarioService.getValorDescuentos());
    }
     
    public void navegarReporteCuadre() throws IOException {
@@ -172,6 +178,22 @@ public class CuadreBean {
      */
     public void setValorCajaReal(String valorCajaReal) {
         this.valorCajaReal = valorCajaReal;
+    }
+
+    public String getTotalPagosTarjeta() {
+        return totalPagosTarjeta;
+    }
+
+    public void setTotalPagosTarjeta(String totalPagosTarjeta) {
+        this.totalPagosTarjeta = totalPagosTarjeta;
+    }
+
+    public String getTotalDescuentos() {
+        return totalDescuentos;
+    }
+
+    public void setTotalDescuentos(String totalDescuentos) {
+        this.totalDescuentos = totalDescuentos;
     }
     
 }

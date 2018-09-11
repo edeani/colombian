@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="ConsignacionesSql.totalConsigsXFecha">
+        select case when total_consignacion is null then 0 else total_consignacion end as total_consignacion from(
+        select sum(c.valor_consignacion) as total_consignacion 
+        from consignaciones c 
+        where date_format(c.fecha_consignacion,'%Y-%m-%d') between :fechaInicial and :fechaFinal
+        )sub
+    </query>
+</queries>

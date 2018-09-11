@@ -6,6 +6,7 @@
 package com.colombian.cali.colombiancaliycali.controllers;
 
 import com.colombia.cali.colombiancaliycali.util.Formatos;
+import com.colombian.cali.colombiancaliycali.services.ClasePagoService;
 import com.colombian.cali.colombiancaliycali.services.colombianjsf.CierreColombianService;
 import com.mycompany.dto.TiempoRealDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,34 +21,44 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/tiemporeal")
-public class TiempoRealController extends BaseController{
-    
+public class TiempoRealController extends BaseController {
+
     @Autowired
     private CierreColombianService cierreColombianService;
-    
+
+    @Autowired
+    private ClasePagoService clasePagoService;
+
     @RequestMapping("/cierres.htm")
-    public ModelAndView pagina(){
+    public ModelAndView pagina() {
         ModelAndView mav = new ModelAndView("reportes/colombian/tiempoReal/tiempoReal");
         return mav;
     }
-    
+
     @RequestMapping("/ajax/calcular.htm")
-    public ModelAndView calcularTiempoReal(@RequestParam String fecha){
+    public ModelAndView calcularTiempoReal(@RequestParam String fecha) {
         ModelAndView mav = new ModelAndView("reportes/colombian/tiempoReal/datosTiempoReal");
-        
-        TiempoRealDto cierreDiario =  new TiempoRealDto();
-        Double cajaInicial=cierreColombianService.cierreDiario(Formatos.StringDateToDate(fecha));
+
+        TiempoRealDto cierreDiario = new TiempoRealDto();
+        Double cajaInicial = cierreColombianService.cierreDiario(Formatos.StringDateToDate(fecha));
         cierreDiario.setCajaInicial(cajaInicial);
         cierreDiario.setVentas(cierreColombianService.cierreVentas(Formatos.StringDateToDate(fecha)));
         cierreDiario.setGastos(cierreColombianService.cierreGastos(Formatos.StringDateToDate(fecha)));
         cierreDiario.setConsignaciones(cierreColombianService.cierreConsignaciones(Formatos.StringDateToDate(fecha)));
         cierreDiario.setListaConsignaciones(cierreColombianService.cierreListaConsignaciones(Formatos.StringDateToDate(fecha)));
-        cierreDiario.setCajaFinal(cierreDiario.getVentas()+cierreDiario.getCajaInicial()-cierreDiario.getConsignaciones()-cierreDiario.getGastos());
-        
+        cierreDiario.setCajaFinal(cierreDiario.getVentas() + cierreDiario.getCajaInicial() - cierreDiario.getConsignaciones() - cierreDiario.getGastos());
+        if (clasePagoService.findClasePagoById(1).getEstado().equals("A")) {
+            cierreDiario.setPagosTarjetas(cierreColombianService.cierrePagosConTarjetas(Formatos.StringDateToDate(fecha)));
+            cierreDiario.setCajaFinal(cierreDiario.getCajaFinal() - cierreDiario.getPagosTarjetas());
+        }
+        if (clasePagoService.findClasePagoById(2).getEstado().equals("A")) {
+            cierreDiario.setDescuentos(cierreColombianService.cierreDescuentos(Formatos.StringDateToDate(fecha)));
+            cierreDiario.setCajaFinal(cierreDiario.getCajaFinal() - cierreDiario.getDescuentos());
+        }
         
         mav.addObject("cierreDiario", cierreDiario);
-        
+
         return mav;
     }
-    
+
 }

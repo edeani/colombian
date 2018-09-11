@@ -96,7 +96,7 @@ public class CierreSedesDaoImpl extends DataGenericDao implements CierreSedesDao
 
     @Override
     public List<CierreSedesDto> buscarComprobanteCierreDtoXFecha(String nameDataSource, String fechaInicial, String fechaFinal) {
-        this.jdbcTemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
+            this.jdbcTemplate = new JdbcTemplate(projectsDao.getDatasource(nameDataSource));
         List<CierreSedesDto> cierreSedesDto = null;
         try {
             String query = "select cs.*,s.sede "

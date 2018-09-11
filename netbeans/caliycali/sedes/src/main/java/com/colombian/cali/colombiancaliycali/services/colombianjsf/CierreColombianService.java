@@ -20,6 +20,8 @@ public interface CierreColombianService {
     public Double cierreVentas(Date  fechaCierre);
     public Double cierreGastos(Date  fechaCierre);
     public Double cierreConsignaciones(Date  fechaCierre);
+    public Double cierrePagosConTarjetas(Date fechaCierre);
+    public Double cierreDescuentos(Date fechaCierre);
     public List<Consignaciones> cierreListaConsignaciones(Date  fechaCierre);
     
 }

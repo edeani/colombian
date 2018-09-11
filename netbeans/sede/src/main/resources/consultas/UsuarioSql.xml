@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="UsuarioSql.findXcorreo">
+        select u.*,r.nombrerol from usuario u inner join rol r on r.idrol = u.idrol where correo = :correo;
+    </query>
+</queries>

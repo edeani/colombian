@@ -1,0 +1,52 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18/07/2015, 05:14:39 PM
+    Author     : EderArmando
+*/
+form#formularioLogin {
+  float: left;
+  margin: 20px 38%;
+}
+
+form#formularioLogin ul li{
+    list-style:none;
+    height: 25px;
+}
+
+form#formularioLogin ul li input{
+    height: 20px;
+}
+
+form#formularioLogin ul li select{
+    height: 20px;
+    float: right;
+    border-radius: 2px;
+    width: 173px;
+}
+
+form#formularioLogin ul li label{
+    font-family: cursive;
+}
+
+form#formularioLogin ul li input{
+    float: right;
+    border-radius: 2px;
+}
+
+.buttonLogin{
+    width: 100px; 
+    height: 25px;
+    color: black;
+    float: left;
+    margin-left: 75px;
+    /*margin: 5px 75px;*/
+}
+
+.campError{
+    background: none repeat scroll 0 0 #FFE5EA;
+    border: 1px solid #CC0000;
+}

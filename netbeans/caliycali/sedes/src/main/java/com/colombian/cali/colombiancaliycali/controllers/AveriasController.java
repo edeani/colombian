@@ -6,10 +6,8 @@ package com.colombian.cali.colombiancaliycali.controllers;
 
 import com.colombia.cali.colombiancaliycali.util.LectorPropiedades;
 import com.colombian.cali.colombiancaliycali.dto.DetalleAveriaDTO;
-import com.colombian.cali.colombiancaliycali.entidades.Sedes;
 import com.colombian.cali.colombiancaliycali.services.AveriasService;
 import com.colombian.cali.colombiancaliycali.services.SecurityService;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

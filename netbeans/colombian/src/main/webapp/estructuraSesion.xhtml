@@ -57,7 +57,8 @@
                                 <p:menuitem value="Control Cierres" actionListener="#{cuadrebean.navegarReporteCuadre()}" update="messages" icon="star" />
                                 <p:menuitem value="Gastos" actionListener="#{gastosBean.navegarReporteGastos()}" update="messages" icon="star" />
                                 <p:menuitem value="Consolidado" actionListener="#{consolidadoBean.navegarReporteConsolidado()}" update="messages" icon="star" />  
-                                <p:menuitem value="Listado Clientes" actionListener="#{clientesBean.navegarReporteClientes()}" update="messages" icon="star" />  
+                                <p:menuitem value="Listado Clientes" actionListener="#{clientesBean.navegarReporteClientes()}" update="messages" icon="star" /> 
+                                <p:menuitem rendered="#{userSessionBean.anulaciones == 'S'}" value="Anulaciones" actionListener="#{anulacionesBean.navegarAnulaciones()}" update="messages" icon="star" />
                             </p:submenu>
 
 

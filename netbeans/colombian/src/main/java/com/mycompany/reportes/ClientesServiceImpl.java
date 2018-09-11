@@ -28,21 +28,24 @@ public class ClientesServiceImpl implements ClientesService {
     @Override
     public List<Clientes> listarClientes() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(user.getSede().getPersistencia());
-       
+
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+                
+        conexion.setUser(user.getSede().getUsuario());
         if (user.getSede().getPassword() == null) {
             conexion.setPassword("");
         } else {
             conexion.setPassword(user.getSede().getPassword());
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador() + "/" + user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
 
         List<Clientes> listaClientes = null;
         if (connection != null) {
-             EntityManager em = factory.createEntityManager();
+            EntityManager em = factory.createEntityManager();
             clienteJpa = new ClientesJpaController(null, factory);
             try {
                 connection.close();

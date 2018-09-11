@@ -110,7 +110,7 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 		}
 	}
 
-    @Override
+        @Override
 	public T findUniqueByFields(String[] columnas, Object[] valores) {
 		String queryString = createFieldFilteredHQL(columnas, valores, getPersistentClass(), null);
 		

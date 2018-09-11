@@ -46,6 +46,7 @@ public class HomeBean implements Serializable {
         
         if(usuario != null)
         {
+            user.setAnulaciones(usuario.getAnulaciones());
            authServ.login(user); 
            BeanNavigator.dispatch("/home/usuario/"+user.getUsername()); 
         }else

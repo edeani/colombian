@@ -23,7 +23,6 @@ import com.colombian.cali.colombiancaliycali.dto.ItemsDTO;
 import com.colombian.cali.colombiancaliycali.dto.ReporteComprasTotalesProvDTO;
 import com.colombian.cali.colombiancaliycali.dto.ReporteComprasTotalesXProveedorDTO;
 import com.colombian.cali.colombiancaliycali.entidades.Compras;
-import com.colombian.cali.colombiancaliycali.entidades.Factura;
 import com.colombian.cali.colombiancaliycali.entidades.FacturasCompras;
 import com.colombian.cali.colombiancaliycali.entidades.Proveedor;
 import com.colombian.cali.colombiancaliycali.entidades.Sedes;

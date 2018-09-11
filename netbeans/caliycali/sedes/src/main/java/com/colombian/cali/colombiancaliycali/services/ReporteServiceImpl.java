@@ -6,6 +6,7 @@
 package com.colombian.cali.colombiancaliycali.services;
 
 import com.colombia.cali.colombiancaliycali.dao.CierreSedesDao;
+import com.colombia.cali.colombiancaliycali.dao.ClasePagoDao;
 import com.colombia.cali.colombiancaliycali.dao.PagosDao;
 import com.colombia.cali.colombiancaliycali.dao.ReportesDao;
 import com.colombia.cali.colombiancaliycali.dao.SedesDao;
@@ -19,6 +20,7 @@ import com.colombian.cali.colombiancaliycali.dto.MovimientoCajaDto;
 import com.colombian.cali.colombiancaliycali.dto.PagosConsolidadoSedeDto;
 import com.colombian.cali.colombiancaliycali.dto.ReporteConsolidadoDto;
 import com.colombian.cali.colombiancaliycali.dto.ReporteTotalCuentasXNivelDto;
+import com.colombian.cali.colombiancaliycali.entidades.ClasePago;
 import com.colombian.cali.colombiancaliycali.entidades.DetallePorcentajeVentas;
 import com.colombian.cali.colombiancaliycali.entidades.PorcentajeVentas;
 import com.colombian.cali.colombiancaliycali.entidades.Sedes;
@@ -46,15 +48,19 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
     private ReportesDao reportesDao;
     @Autowired
     private SedesDao sedesDao;
+    @Autowired
+    private ClasePagoDao clasePagoDao;
     private static final String conexion_principal = "dataSource";
     private static final String cuenta_ventas = "414015";
     private static final String cuenta_consignaciones = "11050501";
+    private static final String cuenta_pagos_con_tarjeta = "11201010";
+    private static final String cuenta_descuentos = "421040";
     private static final String propiedades_cuentas = "/bd/cuentas.properties";
     private static final String propiedad_ingresos = "prefijo_ingresos";
     private static final String propiedad_gastos = "prefijo_gastos";
     private static final String propiedad_costos = "prefijo_costos";
     private static final String propiedad_bdprincipal = "sede_principal";
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<ReporteConsolidadoDto> reporteConsolidado(String nameDatasource, String fechaInicial, String fechaFinal) {
@@ -80,11 +86,9 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
         comprobanteConsolidadoSedeDtoVentas.setIdSede(idSede);
         comprobanteConsolidadoSedeDtoVentas.setSede(sede.getSede());
 
-        Long mesas = reportesDao.mesasConsolidadoSede(sede, sfecha);
-        Long llevar = reportesDao.llevarConsolidadoSede(sede, sfecha);
-        Long orden = reportesDao.ordenesConsolidadoSede(sede, sfecha);
+        Long totalVentas = reportesDao.totalConsolidadoSede(sede, sfecha);
 
-        comprobanteConsolidadoSedeDtoVentas.setTotal(mesas + llevar + orden);
+        comprobanteConsolidadoSedeDtoVentas.setTotal(totalVentas);
         comprobanteConsolidadoSedeDtoVentas.setConcepto("Ventas " + sede.getSede());
         comprobanteConsolidadoSedeDtoVentas.setIdCuenta(cuenta_ventas);
 
@@ -101,7 +105,7 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
         comprobanteConsolidadoSedeDtoConsignaciones.setIdCuenta(cuenta_consignaciones);
 
         boolean agregarRegistro = false;
-        if (mesas != 0L && llevar != 0L && orden != 0L) {
+        if (totalVentas != 0L) {
             agregarRegistro = true;
         }
 
@@ -115,7 +119,7 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
         }
         //Gastos
         List<ComprobanteConsolidadoSedeDto> gastos = reportesDao.buscarGastosXFecha(sede.getSede(), sfecha);
-        if(gastos!=null){
+        if (gastos != null) {
             for (ComprobanteConsolidadoSedeDto gasto : gastos) {
                 gasto.setIdSede(idSede);
                 gasto.setSede(sede.getSede());
@@ -125,6 +129,44 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
             comprobante.addAll(gastos);
         }
 
+        /**
+         * Pagos con tarjeta
+         */
+        ClasePago clasePago = clasePagoDao.findClasePagoById(1, sede.getSede());
+        if (clasePago.getEstado().equals("A")) {
+            Long pagosContarjeta = reportesDao.pagosContarjetaTotal(sede.getSede(), sfecha);
+            if (pagosContarjeta != null) {
+                if (pagosContarjeta != 0L) {
+                    ComprobanteConsolidadoSedeDto comprobantePagosConTarjeta = new ComprobanteConsolidadoSedeDto();
+                    comprobantePagosConTarjeta.setTotal(pagosContarjeta);
+                    comprobantePagosConTarjeta.setConcepto("Pagos con Tarjeta " + sede.getSede());
+                    comprobantePagosConTarjeta.setFecha(sfecha);
+                    comprobantePagosConTarjeta.setIdCuenta(cuenta_pagos_con_tarjeta);
+                    comprobantePagosConTarjeta.setIdSede(idSede);
+                    comprobantePagosConTarjeta.setSede(sede.getSede());
+                    comprobante.add(comprobantePagosConTarjeta);
+                }
+            }
+        }
+        /**
+         * Descuento de los pagos
+         */
+        clasePago = clasePagoDao.findClasePagoById(2, sede.getSede());
+        if (clasePago.getEstado().equals("A")) {
+            Long pagosDescuento = reportesDao.pagosDescuentoTotal(sede.getSede(), sfecha);
+            if (pagosDescuento != null) {
+                if (pagosDescuento != 0L) {
+                    ComprobanteConsolidadoSedeDto comprobantePagosDescuento = new ComprobanteConsolidadoSedeDto();
+                    comprobantePagosDescuento.setTotal(pagosDescuento);
+                    comprobantePagosDescuento.setConcepto("Descuentos " + sede.getSede());
+                    comprobantePagosDescuento.setFecha(sfecha);
+                    comprobantePagosDescuento.setIdCuenta(cuenta_descuentos);
+                    comprobantePagosDescuento.setIdSede(idSede);
+                    comprobantePagosDescuento.setSede(sede.getSede());
+                    comprobante.add(comprobantePagosDescuento);
+                }
+            }
+        }
         return comprobante;
     }
 
@@ -141,7 +183,7 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
 
         return movimientos;
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<MovimientoCajaDto> movimientoCajaMenor(String nameDataSource, String fechaInicial, String fechaFinal) {
@@ -190,23 +232,23 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
         int ingresos = Integer.parseInt(getPropiedades().leerPropiedad(propiedad_ingresos));
         Long sedePrincipal = Long.parseLong(getPropiedades().leerPropiedad(propiedad_bdprincipal));
         List<Sedes> sedes = sedesDao.listSedes();
-        List<ReporteTotalCuentasXNivelDto> reporteIngresoxNivel =  new ArrayList<ReporteTotalCuentasXNivelDto>();
+        List<ReporteTotalCuentasXNivelDto> reporteIngresoxNivel = new ArrayList<ReporteTotalCuentasXNivelDto>();
         for (Sedes sedes1 : sedes) {
-            if(sedes1.getIdsedes() != sedePrincipal){
-                ReporteTotalCuentasXNivelDto ingresoxnivel = cierreSedesDao.totalCierreCuentaXNivelSede(nameDataSource,sedes1.getIdsedes(), ingresos, fechInicial, fechaFinal);
+            if (sedes1.getIdsedes() != sedePrincipal) {
+                ReporteTotalCuentasXNivelDto ingresoxnivel = cierreSedesDao.totalCierreCuentaXNivelSede(nameDataSource, sedes1.getIdsedes(), ingresos, fechInicial, fechaFinal);
                 ingresoxnivel.setIdSede(sedes1.getIdsedes());
                 ingresoxnivel.setSede(sedes1.getSede());
                 reporteIngresoxNivel.add(ingresoxnivel);
             }
         }
-        
+
         return reporteIngresoxNivel;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(String nameDataSource, String fechInicial, String fechaFinal) {
-       return reportesDao.reporteEstadoPerdidaGananciaProvisional(nameDataSource, fechInicial, fechaFinal);
+        return reportesDao.reporteEstadoPerdidaGananciaProvisional(nameDataSource, fechInicial, fechaFinal);
     }
 
     @Override
@@ -217,17 +259,17 @@ public class ReporteServiceImpl extends GenericService implements ReportesServic
 
     /**
      * Si la sede viene nula el dao ejecutala consulta general
+     *
      * @param nameDataSource
      * @param fechInicial
      * @param fechaFinal
      * @param idsede
-     * @return 
+     * @return
      */
     @Override
     @Transactional(readOnly = true)
-    public List<BalanceDto> reporteBalanceService(String nameDataSource, String fechInicial, String fechaFinal,Long idsede) {
-        return reportesDao.reporteBalance(nameDataSource, fechInicial, fechaFinal,idsede);
+    public List<BalanceDto> reporteBalanceService(String nameDataSource, String fechInicial, String fechaFinal, Long idsede) {
+        return reportesDao.reporteBalance(nameDataSource, fechInicial, fechaFinal, idsede);
     }
 
-    
 }

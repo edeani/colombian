@@ -3,16 +3,21 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css">
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-confirm.css">
 <script src="<%=request.getContextPath()%>/js/tabladinamica/manipulacion.js" type="text/javascript"> </script>
 <script src="<%=request.getContextPath()%>/js/compras/compras.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"> </script>
-<script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"> </script>
+<script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-confirm.js"></script>
 
-<form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/guardar.htm" data-verificacion="${pageContext.servletContext.contextPath}/compras/ajax/verificar/compra.htm" >
+<div id="contenidoCompra">
+<div id="urlGuardar" url-guardar="${pageContext.servletContext.contextPath}/compras/ajax/guardar.htm"></div>
+<form:form commandName="${commandName}" path="DetalleCompraDTO" action="${pageContext.servletContext.contextPath}/compras/compraPdf.htm" data-verificacion="${pageContext.servletContext.contextPath}/compras/ajax/verificar/compra.htm" target="_blank">
     <div id="contenidoHome"> 
         <div id="tituloPagina">${titulo}</div>
         <div id="campoNumeroFactura">
@@ -28,10 +33,12 @@
                 <c:param name="proveedores" value="${proveedores}"/>
             </c:import>
             </form:select>
+            <input id="nombreProveedor" name="nombreProveedor" type="hidden" value=""/>
             <label>
                 Fecha Vencimiento
             </label>
                 <form:input path="fechaVencimiento" class="fechaVencimiento"/>
+                </br>
             <label>Sede
                 <select id="idsede" name="idsede" style="width: 155px;">
                     <option value="">Seleccionar</option>
@@ -39,7 +46,9 @@
                     </c:import>
                 </select>
             </label>
-            </div>
+            <input type="hidden" id="impresora" name="impresora" value=""/>
+        </div>
+            
         <div class="clear"></div>
         <div class="clear"></div>
         <div class="clear"></div>
@@ -89,7 +98,10 @@
                         <td></td>
                         <td colspan="4" align="right">
                             <input type="button" id="facturar" value="Facturar" >
-                            <!input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
+                            <!--div style="display: none;">
+                                <input type="button" id="facturar" value="Facturar" >
+                            </div-->
+                            <!--input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                 <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                 </td>
                 </tr>
@@ -99,3 +111,4 @@
     </div>
 </form:form>
 
+</div>

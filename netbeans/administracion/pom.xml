@@ -227,8 +227,8 @@
             <id>prod</id>
             <properties>
                 <base.datos>domicilios</base.datos>
-                <bd.user>root</bd.user>
-                <bd.password>YI15102206j</bd.password>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j.</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
                 <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/productos/</path.img>
                 <url.img>/estaticos/img/productos</url.img>

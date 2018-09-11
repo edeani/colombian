@@ -16,4 +16,6 @@ public interface MesasyllevarService {
     
     public List<Mesasyllevar> mesas(Date fi, Date ff);
     public Double getTotalvalor();
+    public void anularMesa(Long idMesa);
+    public void anularLlevar(Long idLlevar);
 }

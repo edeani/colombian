@@ -5,21 +5,19 @@
 package com.mycompany.reportes;
 
 import com.mycompani.bean.util.UserSessionBean;
-import com.mycompany.entidades.Orden;
 import com.mycompany.util.Conexion;
 import com.mycompany.util.Formatos;
-import com.mycompany.mapper.Inventario;
 import com.mycompany.mapper.Ordenes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,12 +35,14 @@ public class DomiciliosDiaServiceImpl implements DomiciliosDiaService {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
         if (password == null) {
             conexion.setPassword("");
         } else {
             conexion.setPassword(password);
         }
-        conexion.establecerConexion(user.getSede());
+        conexion.setServer(user.getSede().getIdentificador() + "/" + user.getSede().getBd());
+        conexion.establecerConexion();
         connection = conexion.getConexion();
 
         totalDomicilios = 0D;
@@ -104,7 +104,38 @@ public class DomiciliosDiaServiceImpl implements DomiciliosDiaService {
         }
         return ordenes;
     }
+    
+    @Override
+    public void anularDomicilio(Long idDomicilio) {
+        Connection connection;
+        //Me conecto a la base de datos
+        Conexion conexion = new Conexion();
+        conexion.setUser(user.getSede().getUsuario());
+        if (password == null) {
+            conexion.setPassword("");
+        } else {
+            conexion.setPassword(password);
+        }
+        conexion.setServer(user.getSede().getIdentificador() + "/" + user.getSede().getBd());
+        conexion.establecerConexion();
+        connection = conexion.getConexion();
+        
+        if (connection != null) {
+        
+            String query ="update orden set estado_orden='I' where numero_orden="+idDomicilio;
+            Statement st = null;
 
+            try {
+                st = connection.createStatement();
+                PreparedStatement ps = connection.prepareStatement(query);
+                
+                ps.executeUpdate();
+                
+            }catch(SQLException e){
+                user.setMensaje("NO CONECTA LA BASE DE DATOS " + user.getSede().getSed_nombre());
+            }
+        }
+    }
     /**
      * @return the totalDomicilios
      */

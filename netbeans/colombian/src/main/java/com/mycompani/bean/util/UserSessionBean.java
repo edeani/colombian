@@ -34,10 +34,11 @@ public class UserSessionBean implements Serializable{
     private List<SelectItem> sed;
     //Base de datos que contiene usuarios y base de datos principal
     private String nombrePersistencia = "com.mycompany_colombian_war_1.0-SNAPSHOTPU";
-    private String baseDatos = "192.168.0.23:3306/colombian_2012";
+    private String baseDatos = "192.168.0.22:3306/colombian_2012";
     private SedesService sedesService;
     //Base de datos
     private Sedes sede;
+    private String anulaciones;
     public static UserSessionBean getInstance(){
         if(BeanNavigator.getSessionAttribute("userSessionBean")!=null){
             return (UserSessionBean) BeanNavigator.getSessionAttribute("userSessionBean");
@@ -246,5 +247,13 @@ public class UserSessionBean implements Serializable{
      */
     public void setS(Long s) {
         this.s = s;
+    }
+
+    public String getAnulaciones() {
+        return anulaciones;
+    }
+
+    public void setAnulaciones(String anulaciones) {
+        this.anulaciones = anulaciones;
     }
 }

@@ -31,7 +31,8 @@ public class Usuario implements Serializable  {
     private Long telefono_usuario;
     @Column(name="estado")
     private String estado;
-
+    @Column(name="anulaciones")
+    private String anulaciones;
     /**
      * @return the cedula_usuario
      */
@@ -114,6 +115,14 @@ public class Usuario implements Serializable  {
      */
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getAnulaciones() {
+        return anulaciones;
+    }
+
+    public void setAnulaciones(String anulaciones) {
+        this.anulaciones = anulaciones;
     }
     
     

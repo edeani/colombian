@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="administracion-1.0-PU" transaction-type="RESOURCE_LOCAL">
+    <class>com.administracion.entidad.Users</class>
+    <class>com.administracion.entidad.Sedes</class>
+    <class>com.administracion.entidad.Rol</class>
+    <class>com.administracion.entidad.Userxsede</class>
+    <class>com.administracion.entidad.Sloganxsede</class>
+  </persistence-unit>
+</persistence>

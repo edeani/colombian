@@ -4,59 +4,40 @@
  */
 package com.mycompany.util;
 
-import com.mycompany.entidades.Sedes;
+import com.mycompani.bean.util.UserSessionBean;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author joseefren
  */
 public class Conexion {
 
-    private Connection conexion;
+
+private Connection conexion;
     private String bd = "colombian_2012";
-    private String user = "root";
-    private String password = "";
-    private String server = "jdbc:mysql://192.168.0.23:3306/" + bd;
-    private static final String PREFIJO_CONEXION = "jdbc:mysql://";
-    private static final String SLASH = "/";
+    private String user = "llmdvi";
+    private String password = "YI15102206j";
+    private String server = "jdbc:mysql://192.168.0.22:3306/" + bd;
     public int estado;
 
     /**
      * Creates a new instance of BasedeDatos
      */
     public Conexion() {
-        estado = 0;
-    }
-    
-    /**
-     * Metodo para una conexion general
-     */
-    public void establecerConexion() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conexion = DriverManager.getConnection(getServer(), getUser(), getPassword());
-        } catch (Exception e) {
-            System.out.println("establecerConexion::Imposible realizar conexion con la BD " + e.getMessage());
-        }
+        estado=0;
     }
 
-    /**
-     * Metodo que conecta a una sede con los datos de BD de la tabla sede
-     *
-     * @param sede
-     */
-    public void establecerConexion(Sedes sede) {
+    public void establecerConexion(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conexion = DriverManager.getConnection(PREFIJO_CONEXION + sede.getIdentificador() + SLASH + sede.getBd(), sede.getUsuario(), sede.getPassword());
-        } catch (ClassNotFoundException e) {
-            System.out.println("establecerConexionSede::ClassNotFoundException::Imposible realizar conexion con la BD " + e.getMessage());
-        } catch (SQLException e) {
-            System.out.println("establecerConexionSede::SQLException::Imposible realizar conexion con la BD " + e.getMessage());
+           
+            conexion = DriverManager.getConnection(getServer(), getUser(), getPassword());
+            
+        } catch (Exception e) {
+            System.out.println("Imposible realizar conexion con la BD "+e.getMessage());
         }
     }
 
@@ -119,7 +100,7 @@ public class Conexion {
      * @param server the server to set
      */
     public void setServer(String server) {
-        this.server = PREFIJO_CONEXION + server;
+        this.server = "jdbc:mysql://"+server;
     }
 
     /**

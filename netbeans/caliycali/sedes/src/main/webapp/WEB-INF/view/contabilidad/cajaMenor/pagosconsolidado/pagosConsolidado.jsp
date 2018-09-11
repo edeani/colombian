@@ -14,7 +14,7 @@
     <script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/contabilidad/pagosConsolidadoSede.js" type="text/javascript"></script>
 </head> 
-<div id="tituloPagina">Procentaje Sedesr Caja Menor</div>
+<div id="tituloPagina">Procentaje Sedes Bancos</div>
 <div id="formPagoConsolidadoSede" data-urlconsecutivo="${pageContext.servletContext.contextPath}/cajamenor/ajax/secuencia.htm" data-url="${pageContext.servletContext.contextPath}/cajamenor/ajax/consolidado/porcentaje/sede/generar.htm">                                 
     <form:form target="_blank" commandName="${commandName}" path="PagosConsolidadoSedeDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/cajamenor/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/cajamenor/ajax/consolidado/sede/guardar.htm" >
         <div id="contenidoHome"> 

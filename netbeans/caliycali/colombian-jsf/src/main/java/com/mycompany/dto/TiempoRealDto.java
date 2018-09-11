@@ -17,6 +17,8 @@ public class TiempoRealDto {
     private Double gastos;
     private Double consignaciones;
     private Double cajaFinal;
+    private Double pagosTarjetas;
+    private Double descuentos;
     
     private List<Consignaciones> listaConsignaciones;
 
@@ -67,5 +69,22 @@ public class TiempoRealDto {
     public void setListaConsignaciones(List<Consignaciones> listaConsignaciones) {
         this.listaConsignaciones = listaConsignaciones;
     }
+
+    public Double getPagosTarjetas() {
+        return pagosTarjetas;
+    }
+
+    public void setPagosTarjetas(Double pagosTarjetas) {
+        this.pagosTarjetas = pagosTarjetas;
+    }
+
+    public Double getDescuentos() {
+        return descuentos;
+    }
+
+    public void setDescuentos(Double descuentos) {
+        this.descuentos = descuentos;
+    }
+    
     
 }

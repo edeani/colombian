@@ -32,7 +32,7 @@ public class JobServiceImpl implements JobService{
      */
     @Override
     //@Scheduled(cron = "0 54 19 * * ?")
-    @Scheduled(cron = "0 0 2 1 * *")
+    @Scheduled(cron = "0 30 0 1 * *")
     public void jobPorcentajeVentas() {
         //Archivo con credenciales de la bd principal
         LectorPropiedades lectorPropiedades = new LectorPropiedades();

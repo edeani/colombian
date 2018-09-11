@@ -11,7 +11,7 @@ package com.mycompany.mapper;
 public class VentasMapper {
     
     private String tipo;
-    private Long codigo_proucto;
+    private Long codigo_producto;
     private String descripcion_producto;
     private String valor_producto;
     private String numero_unidades;
@@ -30,19 +30,7 @@ public class VentasMapper {
         this.tipo = tipo;
     }
 
-    /**
-     * @return the codigo_proucto
-     */
-    public Long getCodigo_proucto() {
-        return codigo_proucto;
-    }
-
-    /**
-     * @param codigo_proucto the codigo_proucto to set
-     */
-    public void setCodigo_proucto(Long codigo_proucto) {
-        this.codigo_proucto = codigo_proucto;
-    }
+    
 
     /**
      * @return the descripcion_producto
@@ -98,6 +86,14 @@ public class VentasMapper {
      */
     public void setTotal_producto(String total_producto) {
         this.total_producto = total_producto;
+    }
+
+    public Long getCodigo_producto() {
+        return codigo_producto;
+    }
+
+    public void setCodigo_producto(Long codigo_producto) {
+        this.codigo_producto = codigo_producto;
     }
     
 }

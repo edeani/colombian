@@ -16,7 +16,7 @@
 </head> 
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 
-<div id="tituloPagina">Pagos  Terceros Caja Menor</div>
+<div id="tituloPagina">Pagos  Terceros Bancos</div>
 <div id="formPago" data-url="${pageContext.servletContext.contextPath}/cajamenor/ajax/secuencia.htm">                                 
     <form:form target="_blank" commandName="${commandName}" path="PagosTercerosDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/cajamenor/terceros/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/cajamenor/ajax/terceros/guardar.htm" >
         <div id="contenidoHome"> 

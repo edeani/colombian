@@ -42,7 +42,7 @@ public class Sedes implements Serializable {
     @Column(name="password")
     private String password;
     
-    @Column(name="usuario")
+    @Column(name = "usuario")
     private String usuario;
     /**
      * @return the sed_cod

@@ -74,7 +74,8 @@ $(document).ready(function () {
                 $.colorbox({
                     html: "<p id='mensaje'>" + tramaProducto + "</p>",
                     initialHeight: 50,
-                    Height: 50
+                    Height: 50,
+                    width: "300px"
                 });
 
             }
@@ -218,9 +219,32 @@ $(document).ready(function () {
 
 
     }
-    ;
 
-
+    $("#pre-facturar").live("click", function (e) {
+        e.preventDefault();
+        $.confirm({
+            title: 'Seleccionar Impresora',
+            content: "url:" + $("#contextpath").val() + "/compras/ajax/impresoras.htm",
+            columnClass: 'ancho-confirm',
+            buttons: {
+                aceptar: {
+                    text: "aceptar",
+                    action: function () {
+                        $("#impresora").val($("#confirm-impresora").val());
+                        $("#nombreProveedor").val($("#codigoProveedor option:selected").text());
+                        this.close();
+                        $("#facturar").click();
+                    }
+                },
+                cancelar: {
+                    text: "cancelar",
+                    action: function () {
+                        console.log("Cancelado");
+                    }
+                }
+            }
+        });
+    });
     $("#facturar").live("click", function (e) {
         //e.preventDefault();
         //variables en el llamado
@@ -233,74 +257,120 @@ $(document).ready(function () {
             if ($("#codigoProveedor").val() != "") {
                 if ($("#numeroFactura").val() != "") {
                     if ($("#fechaVencimiento").val() != "") {
-                      if($("#idsede").val()!= ""){
-                        if ($("#totalFactura").val() == "") {
-                            $.colorbox({
-                                html: "<!DOCTYPE html><html><body><p id='mensaje'>Compra Vacia</p></body></html>",
-                                initialHeight: 50,
-                                Height: 50
-                            });
-                        } else {
-                            for (i = 0; i < fila.length; i++) {
-                                var valor = fila[i].children[2].children[0].value
-                                if (valor != "" && valor != undefined) {
-                                    //valor = valor.split(".");
+                        if ($("#idsede").val() != "") {
+                            if ($("#totalFactura").val() == "") {
+                                $.colorbox({
+                                    html: "<!DOCTYPE html><html><body><p id='mensaje'>Compra Vacia</p></body></html>",
+                                    initialHeight: 50,
+                                    Height: 50,
+                                    width: "300px"
+                                });
+                            } else {
+                                for (i = 0; i < fila.length; i++) {
+                                    var valor = fila[i].children[2].children[0].value
+                                    if (valor != "" && valor != undefined) {
+                                        //valor = valor.split(".");
 
-                                    factura += fila[i].children[0].children[0].value + "," + fila[i].children[1].children[0].value + ","
-                                            + quitarFormato(valor) + "," + fila[i].children[3].children[0].value + "," + quitarFormato(fila[i].children[4].children[0].value);
+                                        factura += fila[i].children[0].children[0].value + "," + fila[i].children[1].children[0].value + ","
+                                                + quitarFormato(valor) + "," + fila[i].children[3].children[0].value + "," + quitarFormato(fila[i].children[4].children[0].value);
 
-                                    if (i != fila.length - 1) {
-                                        factura += "@";
+                                        if (i != fila.length - 1) {
+                                            factura += "@";
+                                        }
                                     }
                                 }
-                            }
 
-                            $("#factura").val(factura);
+                                $("#factura").val(factura);
+                                var dialogoGuardar = $.dialog({
+                                    columnClass: 'ancho-confirm',
+                                    title: 'Mensaje',
+                                    content: 'Guardando',
+                                    closeIcon: false
+                                });
+                                $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
+
+                                var parametrosForm = $("#detalleCompraDTO").serialize();
+                                $.ajax({
+                                    url: $("#urlGuardar").attr("url-guardar"),
+                                    timeout: 20000,
+                                    type: "POST",
+                                    data: parametrosForm,
+                                    success: function (result) {
+                                        dialogoGuardar.close();
+                                        $("#detalleCompraDTO").submit();
+                                        $("#contenidoCompra").html(result);
+                                        $(".fechaVencimiento").datepicker({
+                                            dateFormat: "yy-mm-dd"
+                                        });
+                                    }
+                                });
+
+
+                            }
+                        } else {
                             $.colorbox({
-                                html: "<!DOCTYPE html><html><body><p id='mensaje'>Guardando</p></body></html>",
+                                html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe ingresar la sede</p></body></html>",
                                 initialHeight: 50,
-                                Height: 50
+                                Height: 50,
+                                width: "300px"
                             });
-                            $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
-                            $("#detalleCompraDTO").submit();
                         }
-                     }else{
-                         $.colorbox({
-                            html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe ingresar la sede</p></body></html>",
-                            initialHeight: 50,
-                            Height: 50
-                        });
-                     }  
                     } else {
                         $.colorbox({
                             html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe ingresar la fecha de Vencimiento</p></body></html>",
                             initialHeight: 50,
-                            Height: 50
+                            Height: 50,
+                            width: "300px"
                         });
                     }
                 } else {
                     $.colorbox({
                         html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe ingresar n&uacute;mero de Factura</p></body></html>",
                         initialHeight: 50,
-                        Height: 50
+                        Height: 50,
+                        width: "300px"
                     });
                 }
             } else {
                 $.colorbox({
                     html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe seleccionar un proveedor/p></body></html>",
                     initialHeight: 50,
-                    Height: 50
+                    Height: 50,
+                    width: "300px"
                 });
-            } 
-        }else{
+            }
+        } else {
             lightboxMensaje("Esta Compra ya existe");
         }
     });
     /*------------------------Actualizar Compra--------------------------*/
-
+    $("#pre-actualizar").live("click", function (e) {
+        e.preventDefault();
+        $.confirm({
+            title: 'Seleccionar Impresora',
+            content: "url:" + $("#contextpath").val() + "/compras/ajax/impresoras.htm",
+            columnClass: 'ancho-confirm',
+            buttons: {
+                aceptar: {
+                    text: "aceptar",
+                    action: function () {
+                        $("#impresora").val($("#confirm-impresora").val());
+                        this.close();
+                        $("#actualizar").click();
+                    }
+                },
+                cancelar: {
+                    text: "cancelar",
+                    action: function () {
+                        console.log("Cancelado");
+                    }
+                }
+            }
+        });
+    });
 
     $("#actualizar").live("click", function (e) {
-        //e.preventDefault();
+        e.preventDefault();
         //variables en el llamado
         type:"POST";
         var fila = $("#contenidoFactura").children();
@@ -311,7 +381,8 @@ $(document).ready(function () {
                     $.colorbox({
                         html: "<!DOCTYPE html><html><body><p id='mensaje'>Compra Vacia</p></body></html>",
                         initialHeight: 50,
-                        Height: 50
+                        Height: 50,
+                        width: "300px"
                     });
                 } else {
                     for (i = 0; i < fila.length; i++) {
@@ -328,12 +399,29 @@ $(document).ready(function () {
                     }
 
                     $("#factura").val(factura);
-                    $.colorbox({
-                        html: "<!DOCTYPE html><html><body><p id='mensaje'>Guardando</p></body></html>",
-                        initialHeight: 50,
-                        Height: 50
+                    var dialogoGuardar = $.dialog({
+                        columnClass: 'ancho-confirm',
+                        title: 'Mensaje',
+                        content: 'Guardando',
+                        closeIcon: false
                     });
                     $("#totalFactura").val(quitarFormato($("#totalFactura").val()));
+                    var parametrosForm = $("#detalleCompraDTO").serialize();
+                    $.ajax({
+                        url: $("#urlGuardar").attr("url-guardar"),
+                        timeout: 20000,
+                        type: "POST",
+                        data: parametrosForm,
+                        success: function (result) {
+                            dialogoGuardar.close();
+                            $("#submit-form").val("S");
+                            $("#detalleCompraDTO").submit();
+                            $("#submit-form").val("N");
+                            $("#contenidoCompra").html(result);
+                        }
+                    });
+
+
                     $("#detalleCompraDTO").submit();
                     console.log(factura);
                 }
@@ -341,17 +429,29 @@ $(document).ready(function () {
                 $.colorbox({
                     html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe ingresar n&uacute;mero de Factura</p></body></html>",
                     initialHeight: 50,
-                    Height: 50
+                    Height: 50,
+                    width: "300px"
                 });
             }
         } else {
             $.colorbox({
                 html: "<!DOCTYPE html><html><body><p id='mensaje'>Debe seleccionar un proveedor/p></body></html>",
                 initialHeight: 50,
-                Height: 50
+                Height: 50,
+                width: "300px"
             });
         }
     });
+    
+    $(document).on("submit","#detalleCompraDTO",function(){
+        if($("#submit-form").val() == "S"){
+            return true;
+        }else{
+            return false;
+        }
+        
+    });
+
     /*------------------------Buscar Compra--------------------------*/
     $(document).on('click', '#buscarCompra', function () {
         var url = $(this).data("url");
@@ -424,7 +524,8 @@ $(document).ready(function () {
             $.colorbox({
                 html: "<p id='mensaje'>" + tramaProducto + "</p>",
                 initialHeight: 50,
-                Height: 50
+                Height: 50,
+                width: "300px"
             });
 
         }
