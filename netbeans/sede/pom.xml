@@ -270,6 +270,17 @@
             </properties>
         </profile>
         <profile>
+            <id>pruebas-prod</id>
+            <properties>
+                <base.datos>credencials2</base.datos>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>192.168.0.22:3306</bd.ip>
+                <path.img>/opt/tomcat/webapps/estaticos/img/</path.img>
+                <url.img>/estaticos/img</url.img>
+            </properties>
+        </profile>
+        <profile>
             <id>prod</id>
             <properties>
                 <base.datos>credencials</base.datos>
