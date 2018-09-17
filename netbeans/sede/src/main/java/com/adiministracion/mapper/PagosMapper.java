@@ -41,6 +41,7 @@ public class PagosMapper {
         
         pagosTerceros.setIdbeneficiario(pagosTercerosDto.getIdBeneficiario());
         pagosTerceros.setTotal(pagosTercerosDto.getTotalPago());
+        pagosTerceros.setTipo(pagosTercerosDto.getTipo());
         return  pagosTerceros;
     }
     

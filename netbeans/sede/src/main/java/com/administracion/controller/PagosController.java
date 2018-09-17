@@ -19,6 +19,7 @@ import com.administracion.dto.SedesDto;
 import com.administracion.entidad.DetallePagos;
 import com.administracion.entidad.Pagos;
 import com.administracion.entidad.Sedes;
+import com.administracion.enumeration.TipoPagoEnum;
 import com.administracion.service.BeneficiariosService;
 import com.administracion.service.PagosService;
 import com.administracion.service.ReporteService;
@@ -75,6 +76,7 @@ public class PagosController extends BaseController {
     public ModelAndView inicioPagos() {
         ModelAndView mav = new ModelAndView("contabilidad/pagosterceros/administracionpagos");
         PagosTercerosDto pagosTercerosDto = new PagosTercerosDto();
+        pagosTercerosDto.setTipo(TipoPagoEnum.PAGOS_TERCEROS.getTipo_pago());
         setBasicModel(mav, pagosTercerosDto);
         mav.addObject("pagosTercerosDto", pagosTercerosDto);
         return mav;
@@ -89,16 +91,18 @@ public class PagosController extends BaseController {
     public ModelAndView inicioPagosEdicion() {
         ModelAndView mav = new ModelAndView("contabilidad/pagosterceros/edicion/administracionpagos");
         PagosTercerosDto pagosTercerosDto = new PagosTercerosDto();
+        pagosTercerosDto.setTipo(TipoPagoEnum.PAGOS_TERCEROS.getTipo_pago());
         setBasicModel(mav, pagosTercerosDto);
         mav.addObject("pagosTercerosDto", pagosTercerosDto);
         return mav;
     }
     
     @RequestMapping(value = "/ajax/terceros/buscar.htm")
-    public ModelAndView inicioPagosEdicion(@PathVariable String sede,@RequestParam Long idpagotercero){
+    public ModelAndView inicioPagosEdicion(@PathVariable String sede,@RequestParam Long idpagotercero,
+            @RequestParam Integer tipo){
         ModelAndView mav = new ModelAndView("contabilidad/pagosterceros/edicion/tablaPagosTerceros");
         List<DetallePagosTercerosDto> detalle = pagosService.buscarDetallePagosTercerosDtos(sede, idpagotercero);
-        PagosCabeceraDto pagosProveedor = pagosService.buscarPagosProveedorXId(sede, idpagotercero);
+        PagosCabeceraDto pagosProveedor = pagosService.buscarPagosProveedorXId(sede, idpagotercero,tipo);
         
         PagosMapper pagosMapper = new PagosMapper();
         PagosTercerosDto pagosTercerosDto = pagosMapper.pagoCabeceraDtoToPagosTercerosDto(pagosProveedor);

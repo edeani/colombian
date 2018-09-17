@@ -13,7 +13,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         var urlBuscarPago = $(this).attr("data-url");
-        var htmlPago = peticionAjax(urlBuscarPago, "POST", "idpagotercero=" + $("#secuencia").val());
+        var htmlPago = peticionAjax(urlBuscarPago, "POST", "idpagotercero=" + $("#secuencia").val()+"&tipo="+$("#tipo").val());
         if (htmlPago !== "") {
             $("#contenidoFormularioPago").html(htmlPago);
 

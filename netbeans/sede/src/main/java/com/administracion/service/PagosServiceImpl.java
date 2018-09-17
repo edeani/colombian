@@ -112,8 +112,8 @@ public class PagosServiceImpl implements PagosService {
     
     @Override
     @Transactional(readOnly = true)
-    public PagosCabeceraDto buscarPagosProveedorXId(String nameDataSource, Long idpago) {
-        return pagosDao.buscarPagosXId(connectsAuth.getDataSourceSede(nameDataSource), idpago);
+    public PagosCabeceraDto buscarPagosProveedorXId(String nameDataSource, Long idpago,Integer tipo) {
+        return pagosDao.buscarPagosXId(connectsAuth.getDataSourceSede(nameDataSource), idpago,tipo);
     }
     
     @Override

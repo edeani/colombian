@@ -39,6 +39,7 @@
                             <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"></c:import>
                         </form:select>
                         <form:input path="sede" type="hidden"/>
+                        <form:input path="tipo" type="hidden"/>
                     </label>
 
                     <label id="cmpSecuencia" >

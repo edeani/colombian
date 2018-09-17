@@ -61,9 +61,9 @@ private LectorPropiedades lectorPropiedades;
     public void guardarPagos(DataSource nameDataSource, Pagos pagosTerceros) {
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
         try {
-            this.jdbcTemplate.execute(insertJdbTemplate("idpagos,idbeneficiario,total,fecha", "pagos",
+            this.jdbcTemplate.execute(insertJdbTemplate("idpagos,idbeneficiario,total,fecha,tipo", "pagos",
                     pagosTerceros.getIdpagos() + ",'" + pagosTerceros.getIdbeneficiario() + "',"
-                    + pagosTerceros.getTotal() + ",'" + Formatos.dateTostring(pagosTerceros.getFecha()) + "'"));
+                    + pagosTerceros.getTotal() + ",'" + Formatos.dateTostring(pagosTerceros.getFecha()) + "',"+pagosTerceros.getTipo()));
         } catch (DataAccessException e) {
             System.out.println("Error guardarPagosTerceros::" + e.getMessage());
         }
@@ -294,7 +294,7 @@ private LectorPropiedades lectorPropiedades;
     }
     
     @Override
-    public PagosCabeceraDto buscarPagosXId(DataSource nameDataSource, Long idpago) {
+    public PagosCabeceraDto buscarPagosXId(DataSource nameDataSource, Long idpago,Integer tipo) {
         
         String sql = "select distinct p.idpagos ,p.idbeneficiario as idproveedor, "
                 + "case when b.nombre is null then prov.nombre else b.nombre end  as nombreProveedor,p.fecha as fecha, "
@@ -304,7 +304,7 @@ private LectorPropiedades lectorPropiedades;
                 + "inner join pagos p on p.idpagos  = dpp.idpago "
                 + "left join beneficiarios b on b.id = p.idbeneficiario "
                 + "left join proveedor prov on prov.idproveedor = p.idbeneficiario "
-                + "where p.idpagos = "+idpago+" and dpp.numero_compra is null";
+                + "where p.idpagos = "+idpago+" and p.tipo="+tipo;
         PagosCabeceraDto pagos = null;
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);

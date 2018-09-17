@@ -41,6 +41,8 @@ public class Pagos implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    @Column(name = "tipo")
+    private Integer tipo;
     
     public Pagos() {
     }
@@ -80,4 +82,12 @@ public class Pagos implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }   
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
 }

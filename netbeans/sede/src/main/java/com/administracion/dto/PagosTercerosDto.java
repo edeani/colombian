@@ -22,6 +22,7 @@ public class PagosTercerosDto {
     private String fechaPago;
     private Double totalPago;
     private List<DetallePagosTercerosDto> detallePagosTerceros;
+    private Integer tipo;
 
     public Long getSecuencia() {
         return secuencia;
@@ -85,6 +86,14 @@ public class PagosTercerosDto {
 
     public void setTotalPago(Double totalPago) {
         this.totalPago = totalPago;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
     
     
