@@ -37,6 +37,8 @@ public interface ComprasService {
     public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra,Integer codigoProveedor);
 
     public void actualizarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO);
+    
+    public void actualizarCompraCabecera(String nameDataSource, Long consecutivo);
 
     public List<ReporteComprasTotalesXProveedorDTO> comprasTotalesXProveedor(String nameDatasource, Long idproveedor, String fechaInicio, String fechaFin);
 

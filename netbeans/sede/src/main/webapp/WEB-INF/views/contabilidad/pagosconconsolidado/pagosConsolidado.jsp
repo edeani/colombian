@@ -29,6 +29,7 @@
                         <c:import url="/${sessionScope.path}/beneficiarios/ajax/select.htm"></c:import>
                     </form:select>    
                     <form:input path="idBeneficiario" type="hidden"/>
+                    <form:input path="tipo" type="hidden"/>
                 </label>
                 <label id="cmpSecuencia" style="display: none;">
                     No. Comprobante

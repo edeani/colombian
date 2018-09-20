@@ -121,6 +121,18 @@ public class PagosController extends BaseController {
     public ModelAndView inicioPagosProveedor() {
         ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/administracionpagosproveedor");
         PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
+        pagosProveedorDto.setTipo(TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago());
+        setBasicModel(mav, pagosProveedorDto);
+        mav.addObject("pagosTercerosDto", pagosProveedorDto);
+        mav.addObject("cuentaProveedores", cuentaProveedores);
+        return mav;
+    }
+    
+    @RequestMapping(value = "/proveedor/edicion/index.htm")
+    public ModelAndView inicioEdicionPagosProveedor() {
+        ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/editadministracionpagosproveedor");
+        PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
+        pagosProveedorDto.setTipo(TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago());
         setBasicModel(mav, pagosProveedorDto);
         mav.addObject("pagosTercerosDto", pagosProveedorDto);
         mav.addObject("cuentaProveedores", cuentaProveedores);
@@ -146,6 +158,7 @@ public class PagosController extends BaseController {
         PagosConsolidadoSedeDto pagosConsolidadoSedeDto = new PagosConsolidadoSedeDto();
         Date fechaDate = new Date();
         pagosConsolidadoSedeDto.setFechaPago(Formatos.dateTostring(fechaDate));
+        pagosConsolidadoSedeDto.setTipo(TipoPagoEnum.PAGOS_PORCENTAJE.getTipo_pago());
         setBasicModel(mav, pagosConsolidadoSedeDto);
         mav.addObject("pagosConsolidadoSedeDto", pagosConsolidadoSedeDto);
         return mav;

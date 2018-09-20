@@ -38,6 +38,7 @@
                         <c:import url="/${sessionScope.path}/proveedor/ajax/listaProveedores.htm"></c:import>
                     </form:select>    
                     <form:input path="idProveedor" type="hidden"/>
+                    <form:input path="tipo" type="hidden"/>
                 </label>
                 <label id="cmpSecuencia" style="display: none;">
                     No. Comprobante
@@ -88,7 +89,7 @@
                             <td></td>
                             <td></td>
                             <td colspan="4" align="right">
-                                <input type="button" id="generarComprobanteProveedor" value="Generar" />
+                                <input type="button" id="actualizarComprobanteProveedor" value="Generar" />
                                 <!--input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                                 <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                             </td>

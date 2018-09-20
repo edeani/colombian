@@ -19,6 +19,7 @@ public class PagosConsolidadoSedeDto {
     private String nombreBeneficiario;
     private String fechaPago;
     private Double total;
+    private Integer tipo;
     private int mes;
     private List<DetallePagosCosolidadoSedeDto> detallePagosCosolidadoSedeDtos;
 
@@ -77,6 +78,14 @@ public class PagosConsolidadoSedeDto {
 
     public void setMes(int mes) {
         this.mes = mes;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
     
     

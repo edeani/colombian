@@ -12,7 +12,6 @@ import com.administracion.dao.FacturasComprasDao;
 import com.administracion.dao.ProveedoresDao;
 import com.administracion.dao.ReportesDao;
 import com.administracion.dao.SecuenciasMysqlDao;
-import com.administracion.dao.SedesDao;
 import com.administracion.dto.ComprasProveedorFechaDto;
 import com.administracion.dto.ComprasTotalesDTO;
 import com.administracion.dto.CuentasPagarProveedoresDto;
@@ -34,7 +33,6 @@ import java.util.List;
 import java.util.Objects;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -256,6 +254,7 @@ public class ComprasServiceImpl implements ComprasService {
         }
     }
 
+    
     @Override
     @Transactional(readOnly = true)
     public List<ReporteComprasTotalesXProveedorDTO> comprasTotalesXProveedor(String nameDatasource, Long idproveedor, String fechaInicio, String fechaFin) {
@@ -290,5 +289,15 @@ public class ComprasServiceImpl implements ComprasService {
     @Transactional(readOnly = true)
     public Compras getCompraXIDproveedor(String nameDataSource, Long idCompra, Integer codigopProveedor) {
         return comprasDao.getCompraXProveedor(connectsAuth.getDataSourceSede(nameDataSource), idCompra, codigopProveedor);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void actualizarCompraCabecera(String nameDataSource, Long consecutivo) {
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
+        
+        Compras compra = comprasDao.getCompraXConsecutivo(consecutivo, ds);
+        compra.setSaldo(Double.NaN);
+        comprasDao.actualizarCompraXConsecutivo(ds, compra);
     }
 }

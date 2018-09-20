@@ -21,6 +21,7 @@ public class PagosProveedorDto {
     private String nombreProveedor;
     private String fechaPago;
     private Double totalPago;
+    private Integer tipo;
     private List<DetallePagosProveedorDto> detallePagosProveedor;
 
     public Long getSecuencia() {
@@ -85,5 +86,13 @@ public class PagosProveedorDto {
 
     public void setIdProveedor(String idProveedor) {
         this.idProveedor = idProveedor;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
 }

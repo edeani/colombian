@@ -71,6 +71,7 @@ public class PagosMapper {
         
         pagosProveedor.setIdbeneficiario(pagosProveedorDto.getIdProveedor());
         pagosProveedor.setTotal(pagosProveedorDto.getTotalPago());
+        pagosProveedor.setTipo(pagosProveedorDto.getTipo());
         return  pagosProveedor;
     }
     
@@ -82,7 +83,7 @@ public class PagosMapper {
         pagos.setIdbeneficiario(pagosConsolidadoSedeDto.getIdBeneficiario());
         pagos.setIdpagos(pagosConsolidadoSedeDto.getSecuencia());
         pagos.setTotal(pagosConsolidadoSedeDto.getTotal());
-        
+        pagos.setTipo(pagosConsolidadoSedeDto.getTipo());
         return pagos;
     }
     

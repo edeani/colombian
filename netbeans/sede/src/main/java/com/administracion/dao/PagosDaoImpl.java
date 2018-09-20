@@ -10,6 +10,7 @@ import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.dto.PagosCabeceraDto;
+import com.administracion.dto.PagosComprasDto;
 import com.administracion.dto.ReportePagosDto;
 import com.administracion.dto.ReporteTotalCuentasXNivelDto;
 import com.administracion.entidad.DetallePagos;
@@ -361,6 +362,24 @@ private LectorPropiedades lectorPropiedades;
         } catch (DataAccessException e) {
             System.out.println("Error borrarDetallePagos::"+e.getMessage());
         }
+    }
+
+    @Override
+    public List<PagosComprasDto> buscarComprasXPagoProveedor(DataSource nameDataSource, Long idpago) {
+        String sql = "select dp.idpago,dp.idcuenta,dp.fecha,dp.fecha_vencimiento," +
+            "dp.descripcion,dp.total,dp.numero_compra " +
+            "from pagos p " +
+            "inner join detalle_pagos dp on dp.idpago = p.idpagos " +
+            "where p.tipo = 2 and p.idpagos="+idpago;
+        List<PagosComprasDto> pagos = null;
+        try {
+            this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+            pagos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>());
+        } catch (DataAccessException e) {
+            System.out.println("Error buscarComprasXPagoProveedor::"+e.getMessage());
+        }
+        
+        return pagos;
     }
 
 }

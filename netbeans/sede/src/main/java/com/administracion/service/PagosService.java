@@ -10,6 +10,7 @@ package com.administracion.service;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.dto.PagosCabeceraDto;
+import com.administracion.dto.PagosComprasDto;
 import com.administracion.dto.ReportePagosDto;
 import com.administracion.entidad.DetallePagos;
 import com.administracion.entidad.Pagos;
@@ -35,4 +36,5 @@ public interface PagosService {
     public List<PagosCabeceraDto> buscarPagosProveedorXFecha(String nameDataSource,String fecha);
     public PagosCabeceraDto buscarPagosProveedorXId(String nameDataSource, Long idpago,Integer tipo);
     public List<ReportePagosDto> reportePagos(String nameDataSource,String fechaInicial, String fechaFinal,Long idsede);
+    public List<PagosComprasDto> buscarComprasXPagoProveedor(String nameDataSource,Long idpago);
 }
