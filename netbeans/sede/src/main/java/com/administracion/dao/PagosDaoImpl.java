@@ -10,11 +10,11 @@ import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.dto.PagosCabeceraDto;
-import com.administracion.dto.PagosComprasDto;
 import com.administracion.dto.ReportePagosDto;
 import com.administracion.dto.ReporteTotalCuentasXNivelDto;
 import com.administracion.entidad.DetallePagos;
 import com.administracion.entidad.Pagos;
+import com.administracion.enumeration.TipoPagoEnum;
 import com.administracion.util.Formatos;
 import com.administracion.util.LectorPropiedades;
 import java.sql.SQLException;
@@ -117,7 +117,26 @@ private LectorPropiedades lectorPropiedades;
         }
         return pagosTerceros;
     }
+    
+    @Override
+    public PagosCabeceraDto buscarPagoXIdPagoXTipo(DataSource nameDataSource, Long idpagotercero, Integer tipo) {
+        this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+        String sql = "select p.idpagos,dp.idsede,s.sede,b.id as idProveedor," +
+            "b.nombre as nombreProveedor,p.fecha,p.total,p.tipo " +
+            " from pagos p " +
+            "inner join detalle_pagos dp on dp.idpago = p.idpagos " +
+            "inner join beneficiarios b on b.id = p.idbeneficiario " +
+            "inner join sedes s on s.idsedes = dp.idsede "
+            +"where p.idpagos=" + idpagotercero +" p.tipo = "+tipo;
+        PagosCabeceraDto pagosCabeceraDto = null;
 
+        try {
+            pagosCabeceraDto = this.jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(PagosCabeceraDto.class));
+        } catch (DataAccessException e) {
+            System.out.println("Error buscarPagoXIdPagoXTipo::" + e.getMessage());
+        }
+        return pagosCabeceraDto;
+    }
     @Override
     public List<DetallePagosProveedorDto> buscarDetallePagosDtos(DataSource nameDataSource, Long idpagoproveedor) {
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
@@ -125,10 +144,11 @@ private LectorPropiedades lectorPropiedades;
         String sql = "select dpp.idcuenta,dpp.total,trim(cp.nombre_cta) as conceptoCuenta,dpp.descripcion as detalle, "
                 + "dpp.numero,date_format(dpp.fecha,'%Y-%m-%d') as fecha, "
                 + "dpp.idpago as idpagoproveedor,"
-                + "dpp.numero_compra as numeroCompra,dpp.fecha_vencimiento as fechaVencimiento,s.sede as nombreSede from detalle_pagos dpp "
+                + "dpp.numero_compra as numeroCompra,dpp.fecha_vencimiento as fechaVencimiento,s.sede as nombreSede from pagos p  "
+                + "inner join detalle_pagos dpp on dpp.idpago = p.idpagos "
                 + "inner join sedes s on s.idsedes = dpp.idsede "
                 + "inner join cuentas_puc cp on cp.cod_cta = dpp.idcuenta "
-                + "where dpp.idpago =" + idpagoproveedor;
+                + "where p.idpagos =" + idpagoproveedor +" p.tipo = "+TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago();
 
         try {
             detalle = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DetallePagosProveedorDto.class));
@@ -364,22 +384,5 @@ private LectorPropiedades lectorPropiedades;
         }
     }
 
-    @Override
-    public List<PagosComprasDto> buscarComprasXPagoProveedor(DataSource nameDataSource, Long idpago) {
-        String sql = "select dp.idpago,dp.idcuenta,dp.fecha,dp.fecha_vencimiento," +
-            "dp.descripcion,dp.total,dp.numero_compra " +
-            "from pagos p " +
-            "inner join detalle_pagos dp on dp.idpago = p.idpagos " +
-            "where p.tipo = 2 and p.idpagos="+idpago;
-        List<PagosComprasDto> pagos = null;
-        try {
-            this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-            pagos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>());
-        } catch (DataAccessException e) {
-            System.out.println("Error buscarComprasXPagoProveedor::"+e.getMessage());
-        }
-        
-        return pagos;
-    }
 
 }

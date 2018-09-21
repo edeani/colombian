@@ -18,6 +18,7 @@ public class PagosCabeceraDto {
     private String nombreProveedor;
     private String fecha;
     private Double total;
+    private Integer tipo;
 
     public Long getIdpagos() {
         return idpagos;
@@ -73,6 +74,14 @@ public class PagosCabeceraDto {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
     
     

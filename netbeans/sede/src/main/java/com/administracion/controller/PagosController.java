@@ -112,6 +112,21 @@ public class PagosController extends BaseController {
         mav.addObject("pagosTercerosDto", pagosTercerosDto);
         return mav;
     }
+    @RequestMapping("/ajax/proveedor/buscar.htm")
+    public ModelAndView buscarPagosCompras(@PathVariable String sede,@RequestParam Long idpago,
+            @RequestParam Integer tipo){
+            ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/tablaPagosProveedor");
+            List<DetallePagosProveedorDto> detalle = pagosService.buscarDetallePagosDtos(sede, idpago);
+            PagosCabeceraDto cabecera = pagosService.buscarPagoXIdPagoXTipo(sede, idpago,tipo);
+            
+            PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
+            pagosProveedorDto = (new PagosMapper()).pagosCabeceraDtoToPagosProveedorDto(cabecera);
+            pagosProveedorDto.setDetallePagosProveedor(detalle);
+            
+            setBasicModel(mav, pagosProveedorDto);
+            mav.addObject("pagosProveedorDto", pagosProveedorDto);
+            return mav;
+    }
     /**
      * Pagos Proveedor
      *
@@ -134,7 +149,7 @@ public class PagosController extends BaseController {
         PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
         pagosProveedorDto.setTipo(TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago());
         setBasicModel(mav, pagosProveedorDto);
-        mav.addObject("pagosTercerosDto", pagosProveedorDto);
+        mav.addObject("pagosProveedorDto", pagosProveedorDto);
         mav.addObject("cuentaProveedores", cuentaProveedores);
         return mav;
     }

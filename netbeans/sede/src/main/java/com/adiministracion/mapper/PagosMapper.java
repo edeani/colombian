@@ -45,6 +45,18 @@ public class PagosMapper {
         return  pagosTerceros;
     }
     
+    public PagosProveedorDto pagosCabeceraDtoToPagosProveedorDto(PagosCabeceraDto pago){
+        PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
+        pagosProveedorDto.setFechaPago(pago.getFecha());
+        pagosProveedorDto.setIdProveedor(pago.getIdProveedor());
+        pagosProveedorDto.setNombreProveedor(pago.getNombreProveedor());
+        pagosProveedorDto.setIdSede(pago.getIdSede());
+        pagosProveedorDto.setSede(pago.getSede());
+        pagosProveedorDto.setSecuencia(pago.getIdpagos());
+        pagosProveedorDto.setTipo(pago.getTipo());
+        pagosProveedorDto.setTotalPago(pago.getTotal());
+        return pagosProveedorDto;
+    }
     public PagosTercerosDto pagoCabeceraDtoToPagosTercerosDto(PagosCabeceraDto pago){
         PagosTercerosDto pagosTercerosDto = new PagosTercerosDto();
         pagosTercerosDto.setFechaPago(pago.getFecha());

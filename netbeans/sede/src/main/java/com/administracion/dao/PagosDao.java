@@ -11,7 +11,6 @@ import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.dto.PagosCabeceraDto;
-import com.administracion.dto.PagosComprasDto;
 import com.administracion.dto.ReportePagosDto;
 import com.administracion.dto.ReporteTotalCuentasXNivelDto;
 import com.administracion.entidad.DetallePagos;
@@ -31,6 +30,7 @@ public interface PagosDao extends GenericDao<Pagos>{
     public void guardarDetallePagosTerceros(DataSource nameDataSource,DetallePagos detallePagosTerceros);
     public void guardarDetallePagosProveedor(DataSource nameDataSource,DetallePagos detallePagosProveedor);
     public Pagos buscarPagoXIdPago(DataSource nameDataSource,Long idpagotercero);
+    public PagosCabeceraDto buscarPagoXIdPagoXTipo(DataSource nameDataSource, Long idpagotercero, Integer tipo);
     public List<DetallePagosTercerosDto> buscarDetallePagosTercerosDtos(DataSource nameDataSource,Long idpagotercero);
     public List<DetallePagosProveedorDto> buscarDetallePagosDtos(DataSource nameDataSource,Long idpagoproveedor);
     public List<ComprobanteConsolidadoSedeDto> buscarPagosXFecha(DataSource nameDataSource,String fechaInicial,String fechaFinal);
@@ -39,5 +39,4 @@ public interface PagosDao extends GenericDao<Pagos>{
     public List<PagosCabeceraDto> buscarPagosXFecha(DataSource nameDataSource,String fecha);
     public PagosCabeceraDto buscarPagosXId(DataSource nameDataSource,Long idpago,Integer tipo);
     public List<ReportePagosDto> reportePagos(DataSource nameDataSource,String fechaInicial, String fechaFinal,Long idsede);
-    public List<PagosComprasDto> buscarComprasXPagoProveedor(DataSource nameDataSource, Long idpago);
 }

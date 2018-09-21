@@ -11,7 +11,6 @@ import com.administracion.dao.PagosDao;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.dto.PagosCabeceraDto;
-import com.administracion.dto.PagosComprasDto;
 import com.administracion.dto.ReportePagosDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.DetallePagos;
@@ -78,6 +77,12 @@ public class PagosServiceImpl implements PagosService {
     public Pagos buscarPagoXIdPago(String nameDataSource, Long idpagotercero) {
         return pagosDao.buscarPagoXIdPago(connectsAuth.getDataSourceSede(nameDataSource), idpagotercero);
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public PagosCabeceraDto buscarPagoXIdPagoXTipo(String nameDataSource, Long idpagotercero,Integer tipo) {
+        return pagosDao.buscarPagoXIdPagoXTipo(connectsAuth.getDataSourceSede(nameDataSource), idpagotercero,tipo);
+    }
 
     @Override
     @Transactional
@@ -123,10 +128,5 @@ public class PagosServiceImpl implements PagosService {
         return pagosDao.reportePagos(connectsAuth.getDataSourceSede(nameDataSource), fechaInicial,fechaFinal,idsede);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<PagosComprasDto> buscarComprasXPagoProveedor(String nameDataSource, Long idpago) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }
