@@ -121,13 +121,13 @@ private LectorPropiedades lectorPropiedades;
     @Override
     public PagosCabeceraDto buscarPagoXIdPagoXTipo(DataSource nameDataSource, Long idpagotercero, Integer tipo) {
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-        String sql = "select p.idpagos,dp.idsede,s.sede,b.id as idProveedor," +
+        String sql = "select distinct p.idpagos,dp.idsede,s.sede,b.idproveedor as idProveedor," +
             "b.nombre as nombreProveedor,p.fecha,p.total,p.tipo " +
             " from pagos p " +
             "inner join detalle_pagos dp on dp.idpago = p.idpagos " +
-            "inner join beneficiarios b on b.id = p.idbeneficiario " +
+            "inner join proveedor b on b.idproveedor  = p.idbeneficiario " +
             "inner join sedes s on s.idsedes = dp.idsede "
-            +"where p.idpagos=" + idpagotercero +" p.tipo = "+tipo;
+            +"where p.idpagos=" + idpagotercero +" and p.tipo = "+tipo;
         PagosCabeceraDto pagosCabeceraDto = null;
 
         try {
@@ -148,7 +148,7 @@ private LectorPropiedades lectorPropiedades;
                 + "inner join detalle_pagos dpp on dpp.idpago = p.idpagos "
                 + "inner join sedes s on s.idsedes = dpp.idsede "
                 + "inner join cuentas_puc cp on cp.cod_cta = dpp.idcuenta "
-                + "where p.idpagos =" + idpagoproveedor +" p.tipo = "+TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago();
+                + "where p.idpagos =" + idpagoproveedor +" and p.tipo = "+TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago();
 
         try {
             detalle = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DetallePagosProveedorDto.class));

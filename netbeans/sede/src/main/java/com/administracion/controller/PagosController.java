@@ -145,7 +145,7 @@ public class PagosController extends BaseController {
     
     @RequestMapping(value = "/proveedor/edicion/index.htm")
     public ModelAndView inicioEdicionPagosProveedor() {
-        ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/editadministracionpagosproveedor");
+        ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/editadministracionpagosproveedor");
         PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
         pagosProveedorDto.setTipo(TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago());
         setBasicModel(mav, pagosProveedorDto);

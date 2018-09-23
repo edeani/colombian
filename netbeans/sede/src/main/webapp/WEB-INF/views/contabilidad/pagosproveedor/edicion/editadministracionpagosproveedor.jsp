@@ -12,10 +12,10 @@
     <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.js" type="text/javascript"></script>
-    <script src="<%=request.getContextPath()%>/js/pagos/pagos-terceros-edicion.js?id=1" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/pagos/pagos-proveedor-edicion.js?id=1" type="text/javascript"></script>
 </head> 
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
-<div id="tituloPagina">Buscar Pagos  Terceros Caja Mayor</div>
+<div id="tituloPagina">Edici&oacute;n Pagos de Proveedor</div>
 <div id="formPago" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/secuencia.htm">                                 
 
     <div id="contenidoHome"> 
@@ -33,7 +33,7 @@
                         No. Comprobante
                         <form:input path="secuencia" readonly="readonly"/>
                         <form:input path="tipo" type="hidden"/>
-                        <input type="button" value="buscar" id="buscarPago" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/terceros/buscar.htm"/>
+                        <input type="button" value="buscar" id="buscarPagoProveedor" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/proveedor/buscar.htm"/>
                     </label>
                     <label id="cmpBeneficiario" style="display: none;">
                         Beneficiario
@@ -44,16 +44,21 @@
                         Fecha
                         <form:input path="fechaPago" cssClass="fechaInicial"/>
                     </label>
+                    <label id="cmpFecha" style="display: none;">
+                        Total
+                        <form:input path="totalPago" />
+                    </label>
                 </div>
                 <div id="cargador"></div>
                 <div id="divContenedorTabla"  style="margin: 0 3% !important;" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/factura/ajax/producto.htm">
                     <table id="tblDatos" class="tblPagosTerceros" align="center" style="display: none;">
                         <thead>
                             <tr>
-                                <th>Sede</th>
+                                <th>Compra</th>
                                 <th>Cuenta</th>
                                 <th>Concepto</th>
                                 <th>Detalle</th>
+                                <th>Fecha</th>
                                 <th>Total</th>
                                 <th width="22">&nbsp;</th>
                             </tr>
@@ -62,9 +67,7 @@
 
                             <tr>
                                 <td>
-                                    <select data-numero="0" class="claseSelectSede" id="identificadorSede0" >
-                                        <!--Aquí van las opciones-->
-                                    </select>
+                                    <input type="text" id="numeroCompra0" name="detallePagosProveedor[0].numeroCompra" value=""/>
                                     <input type="hidden" id="inputIdentificadorSede0" name="detallePagosProveedor[0].idSede" value=""/>    
                                 </td>
                                 <td>
@@ -78,8 +81,10 @@
                                     <input class="clasedescripcion claseproximocampo" id="detalle0" name="detallePagosProveedor[0].detalle" value="" maxlength="500"/>
                                 </td>
                                 <td>
-                                    <input class="claseValidarNum claseFormatDec claseTotalProveedor" id="total0" name="detallePagosProveedor[0].total" value=""/>
-                                    <input id="fechaPago0" name="detallePagosProveedor[0].fecha" value="" type="hidden"/>
+                                    <input id="fecha0" name="detallePagosProveedor[0].fecha" value="" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="claseValidarNum claseFormatDec claseTotalProveedor" id="total0" name="detallePagosProveedor[0].total" value=""/>                                    
                                 </td>
                                 <td align="right">
                                     <input type="button" value="-" class="clsEliminarFila">
@@ -92,6 +97,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>Total</td>
                                 <td><input name="totalPago" id="totalPago" value="0"/></td>
                             </tr>
@@ -99,7 +106,7 @@
                                 <td></td>
                                 <td></td>
                                 <td colspan="4" align="right">
-                                    <input type="button" id="generar" value="Generar" />
+                                    <input type="button" id="reset-pago" value="Reset" />
                                     <!--input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                                     <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                                 </td>
