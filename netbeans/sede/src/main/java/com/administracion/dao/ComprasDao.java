@@ -40,4 +40,5 @@ public interface ComprasDao {
     List<ComprasTotalesDTO> comprasTotales(DataSource nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra);
     List<ComprasTotalesDTO> comprasTotalesProveedor(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor);
     Compras getCompraXProveedor(DataSource dataSource,Long idCompra,Integer codigoProveedor);
+    public void actualizarSaldosCompra(DataSource dataSource,String idsCompra,Integer codigoProveedor);
 }

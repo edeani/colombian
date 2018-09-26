@@ -6,6 +6,7 @@
 package com.administracion.controller;
 
 import com.adiministracion.mapper.PagosMapper;
+import com.administracion.dao.ComprasDao;
 import com.administracion.dao.SedesDao;
 import com.administracion.dto.BeneficiarioAutocompletarDto;
 import com.administracion.dto.DetallePagosProveedorDto;
@@ -21,6 +22,7 @@ import com.administracion.entidad.Pagos;
 import com.administracion.entidad.Sedes;
 import com.administracion.enumeration.TipoPagoEnum;
 import com.administracion.service.BeneficiariosService;
+import com.administracion.service.ComprasService;
 import com.administracion.service.PagosService;
 import com.administracion.service.ReporteService;
 import com.administracion.service.autorizacion.ConnectsAuth;
@@ -62,6 +64,8 @@ public class PagosController extends BaseController {
     private ReporteService reportesService;
     @Autowired
     private SedesDao sedesDao;
+    @Autowired
+    private ComprasService comprasService;
     @Autowired
     private ConnectsAuth connectsAuth;
 
@@ -125,6 +129,7 @@ public class PagosController extends BaseController {
             
             setBasicModel(mav, pagosProveedorDto);
             mav.addObject("pagosProveedorDto", pagosProveedorDto);
+            mav.addObject("encontrado",cabecera==null?"N":"S");
             return mav;
     }
     /**
@@ -265,6 +270,16 @@ public class PagosController extends BaseController {
         return "ok";
     }
 
+    @RequestMapping("/ajax/proveedor/actualizar.htm")
+    public @ResponseBody
+    String actualizarPagoProveedor(@RequestParam String idscompras,
+            @RequestParam Integer idProveedor,@PathVariable String sede) {
+        
+        comprasService.actualizarSaldosCompra(sede, idscompras, idProveedor);
+        
+        return "ok";
+    }
+    
     @RequestMapping(value = "/terceros/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView comprobanteTerceroPDF(Long idpagotercero, @PathVariable String sede) {
 

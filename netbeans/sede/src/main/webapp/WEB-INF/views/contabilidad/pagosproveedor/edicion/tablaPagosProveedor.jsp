@@ -2,7 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/proveedor/pdf/comprobante.htm" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/terceros/actualizar.htm" >
+<input type="hidden" value="${encontrado}" id="encontrado"/>
+<form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/proveedor/actualizar.htm" >
     <div class="clear"></div>
     <div class="clear"></div>
     <div class="clear"></div>
@@ -46,7 +47,7 @@
                 <c:forEach var="itemPago" items="${pagosProveedorDto.detallePagosProveedor}" varStatus="indice">
                     <tr>
                         <td style=" ">
-                            <input type="text" id="numeroCompra${indice.index}" name="detallePagosProveedor[${indice.index}].numeroCompra" value="${itemPago.numeroCompra}"/>
+                            <input class="claseCompra" type="text" id="numeroCompra${indice.index}" name="detallePagosProveedor[${indice.index}].numeroCompra" value="${itemPago.numeroCompra}"/>
                             <input type="hidden" id="inputIdentificadorSede${indice.index}" name="detallePagosProveedor[${indice.index}].idSede" value="${itemPago.idSede}"/>    
                         </td>
                         <td>

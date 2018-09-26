@@ -300,4 +300,10 @@ public class ComprasServiceImpl implements ComprasService {
         compra.setSaldo(Double.NaN);
         comprasDao.actualizarCompraXConsecutivo(ds, compra);
     }
+
+    @Override
+    @Transactional
+    public void actualizarSaldosCompra(String dataSource, String idsCompra, Integer codigoProveedor) {
+        comprasDao.actualizarSaldosCompra(connectsAuth.getDataSourceSede(dataSource), idsCompra, codigoProveedor);
+    }
 }

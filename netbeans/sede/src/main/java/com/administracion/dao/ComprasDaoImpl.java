@@ -284,4 +284,19 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
         }
     }
 
+    @Override
+    public void actualizarSaldosCompra(DataSource dataSource, String idsCompra, Integer codigoProveedor) {
+        String sql = leerXml.getQuery("ComprasSql.updateSaldoCompraXIproveedor");
+        idsCompra = idsCompra.replaceAll("\\@", ",");
+        sql = sql.replaceAll("listacompras", idsCompra);
+        MapSqlParameterSource params = new MapSqlParameterSource("idProveedor", codigoProveedor);
+        
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        try {
+            this.namedParameterJdbcTemplate.update(sql, params);
+        } catch (Exception e) {
+            System.out.println("Error getCompraXProveedor "+e.getMessage());
+        }
+    }
+
 }
