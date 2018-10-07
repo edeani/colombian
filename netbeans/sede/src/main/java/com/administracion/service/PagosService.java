@@ -36,4 +36,5 @@ public interface PagosService {
     public List<PagosCabeceraDto> buscarPagosProveedorXFecha(String nameDataSource,String fecha);
     public PagosCabeceraDto buscarPagosProveedorXId(String nameDataSource, Long idpago,Integer tipo);
     public List<ReportePagosDto> reportePagos(String nameDataSource,String fechaInicial, String fechaFinal,Long idsede);
+    public void actualizarPagosProveedor(String nameDataSource,Pagos pagoProveedor, List<DetallePagos> detallePagosProveedor);
 }

@@ -216,7 +216,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
                     + "',estado_compra='" + compras.getEstadoCompra() + "',valor_total=" + compras.getValorTotal()
                     + ",codigo_proveedor=" + compras.getCodigoProveedor() + ",estado_compra_proveedor='" + compras.getEstadoCompraProveedor()
                     + "',saldo=" + compras.getSaldo() + ",fecha_vencimiento='" + Formatos.dateTostring(compras.getFechaVencimiento()) + "'"
-                    + ",idsede="+compras.getIdsede(), "compras", "consecutivo=" + compras.getConsecutivo());
+                        + ",idsede="+compras.getIdsede(), "compras", "consecutivo=" + compras.getConsecutivo());
             this.jdbctemplate.execute(sql);
         } catch (DataAccessException e) {
             LOGGER.error("Error actualizarCompra::" + e.getMessage());

@@ -374,7 +374,7 @@ private LectorPropiedades lectorPropiedades;
 
     @Override
     public void borrarPagos(DataSource nameDataSource, Long idpago) {
-        String sql = "delete from pagos where idpago="+idpago;
+        String sql = "delete from pagos where idpagos="+idpago;
         
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
@@ -383,6 +383,16 @@ private LectorPropiedades lectorPropiedades;
             System.out.println("Error borrarDetallePagos::"+e.getMessage());
         }
     }
-
+    @Override
+    public void updatePagoProveedor(DataSource nameDataSource,Pagos pagoProveedor){
+        String sql = "update pagos set fecha='"+Formatos.dateTostring(pagoProveedor.getFecha())+"',total="+pagoProveedor.getTotal()+" where idpagos="+pagoProveedor.getIdpagos();
+        
+        try {
+            this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+            this.jdbcTemplate.execute(sql);
+        } catch (DataAccessException e) {
+            System.out.println("Error borrarDetallePagos::"+e.getMessage());
+        }
+    }
 
 }

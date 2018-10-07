@@ -2,13 +2,14 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */ 
+ */
 package com.administracion.controller;
 
+import com.adiministracion.mapper.ComprasMapper;
 import com.adiministracion.mapper.PagosMapper;
-import com.administracion.dao.ComprasDao;
 import com.administracion.dao.SedesDao;
 import com.administracion.dto.BeneficiarioAutocompletarDto;
+import com.administracion.dto.ComprasDto;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.dto.PagosCabeceraDto;
@@ -17,6 +18,7 @@ import com.administracion.dto.PagosProveedorDto;
 import com.administracion.dto.PagosTercerosDto;
 import com.administracion.dto.ReportePagosDto;
 import com.administracion.dto.SedesDto;
+import com.administracion.entidad.Compras;
 import com.administracion.entidad.DetallePagos;
 import com.administracion.entidad.Pagos;
 import com.administracion.entidad.Sedes;
@@ -34,10 +36,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,7 +74,15 @@ public class PagosController extends BaseController {
     @Autowired
     private ConnectsAuth connectsAuth;
 
-    private final String cuentaProveedores = "220505";
+    private static final String cuentaProveedores = "220505";
+
+    private static final String PAGO_EDITAR_SESSION = "pagosProveedorDto";
+
+    private static final String LISTA_COMPRAS_SESSION = "idscompras";
+
+    private static final String SESSIONPAGO = "#{session.getAttribute('" + PAGO_EDITAR_SESSION + "')}";
+
+    private static final String SESSIONCOMPRAS = "#{session.getAttribute('" + LISTA_COMPRAS_SESSION + "')}";
 
     /**
      * Pagos Terceros
@@ -87,10 +100,10 @@ public class PagosController extends BaseController {
     }
 
     @RequestMapping("/ajax/terceros/tabla.htm")
-    public ModelAndView tablaPagosTerceros(){
+    public ModelAndView tablaPagosTerceros() {
         return new ModelAndView("contabilidad/pagosterceros/tablaPagosTerceros");
     }
-    
+
     @RequestMapping(value = "/terceros/edicion/index.htm")
     public ModelAndView inicioPagosEdicion() {
         ModelAndView mav = new ModelAndView("contabilidad/pagosterceros/edicion/administracionpagos");
@@ -98,40 +111,46 @@ public class PagosController extends BaseController {
         pagosTercerosDto.setTipo(TipoPagoEnum.PAGOS_TERCEROS.getTipo_pago());
         setBasicModel(mav, pagosTercerosDto);
         mav.addObject("pagosTercerosDto", pagosTercerosDto);
+        
         return mav;
     }
-    
+
     @RequestMapping(value = "/ajax/terceros/buscar.htm")
-    public ModelAndView inicioPagosEdicion(@PathVariable String sede,@RequestParam Long idpagotercero,
-            @RequestParam Integer tipo){
+    public ModelAndView inicioPagosEdicion(@PathVariable String sede, @RequestParam Long idpagotercero,
+            @RequestParam Integer tipo) {
         ModelAndView mav = new ModelAndView("contabilidad/pagosterceros/edicion/tablaPagosTerceros");
         List<DetallePagosTercerosDto> detalle = pagosService.buscarDetallePagosTercerosDtos(sede, idpagotercero);
-        PagosCabeceraDto pagosProveedor = pagosService.buscarPagosProveedorXId(sede, idpagotercero,tipo);
-        
+        PagosCabeceraDto pagosProveedor = pagosService.buscarPagosProveedorXId(sede, idpagotercero, tipo);
+
         PagosMapper pagosMapper = new PagosMapper();
         PagosTercerosDto pagosTercerosDto = pagosMapper.pagoCabeceraDtoToPagosTercerosDto(pagosProveedor);
         pagosTercerosDto.setDetallePagosTerceros(detalle);
-        
+
         setBasicModel(mav, pagosTercerosDto);
         mav.addObject("pagosTercerosDto", pagosTercerosDto);
         return mav;
     }
+
     @RequestMapping("/ajax/proveedor/buscar.htm")
-    public ModelAndView buscarPagosCompras(@PathVariable String sede,@RequestParam Long idpago,
-            @RequestParam Integer tipo){
-            ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/tablaPagosProveedor");
-            List<DetallePagosProveedorDto> detalle = pagosService.buscarDetallePagosDtos(sede, idpago);
-            PagosCabeceraDto cabecera = pagosService.buscarPagoXIdPagoXTipo(sede, idpago,tipo);
-            
-            PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
-            pagosProveedorDto = (new PagosMapper()).pagosCabeceraDtoToPagosProveedorDto(cabecera);
-            pagosProveedorDto.setDetallePagosProveedor(detalle);
-            
-            setBasicModel(mav, pagosProveedorDto);
-            mav.addObject("pagosProveedorDto", pagosProveedorDto);
-            mav.addObject("encontrado",cabecera==null?"N":"S");
-            return mav;
+    public ModelAndView buscarPagosCompras(@PathVariable String sede, @RequestParam Long idpago,
+            @RequestParam Integer tipo, HttpSession session) {
+        ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/tablaPagosProveedor");
+        List<DetallePagosProveedorDto> detalle = pagosService.buscarDetallePagosDtos(sede, idpago);
+        PagosCabeceraDto cabecera = pagosService.buscarPagoXIdPagoXTipo(sede, idpago, tipo);
+
+        PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
+        pagosProveedorDto = (new PagosMapper()).pagosCabeceraDtoToPagosProveedorDto(cabecera);
+        pagosProveedorDto.setDetallePagosProveedor(detalle);
+
+        setBasicModel(mav, pagosProveedorDto);
+        mav.addObject("pagosProveedorDto", pagosProveedorDto);
+        mav.addObject("encontrado", cabecera == null ? "N" : "S");
+
+        session.setAttribute(PAGO_EDITAR_SESSION, pagosProveedorDto);
+
+        return mav;
     }
+
     /**
      * Pagos Proveedor
      *
@@ -147,16 +166,45 @@ public class PagosController extends BaseController {
         mav.addObject("cuentaProveedores", cuentaProveedores);
         return mav;
     }
-    
-    @RequestMapping(value = "/proveedor/edicion/index.htm")
-    public ModelAndView inicioEdicionPagosProveedor() {
-        ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/editadministracionpagosproveedor");
-        PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
-        pagosProveedorDto.setTipo(TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago());
-        setBasicModel(mav, pagosProveedorDto);
-        mav.addObject("pagosProveedorDto", pagosProveedorDto);
-        mav.addObject("cuentaProveedores", cuentaProveedores);
-        return mav;
+
+    @GetMapping(value = "/proveedor/edicion/index.htm")
+    public ModelAndView inicioEdicionPagosProveedor(HttpSession session, @PathVariable String sede) {
+
+        if (session.getAttribute(LISTA_COMPRAS_SESSION) != null) {
+
+            return new ModelAndView("redirect:/"+sede+"/pagos/proveedor/edicion/administrar.htm");
+        } else {
+            ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/editadministracionpagosproveedor");
+            PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
+            pagosProveedorDto.setTipo(TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago());
+            setBasicModel(mav, pagosProveedorDto);
+            mav.addObject("pagosProveedorDto", pagosProveedorDto);
+            mav.addObject("cuentaProveedores", cuentaProveedores);
+            return mav;
+        }
+
+    }
+
+    @GetMapping(value = "/proveedor/edicion/administrar.htm")
+    public ModelAndView inicioEdicionPagosProveedor(@Value(SESSIONPAGO) PagosProveedorDto pagosProveedorDto, @Value(SESSIONCOMPRAS) String idscompras,
+             @PathVariable String sede, HttpSession session) {
+
+        if (idscompras != null) {
+            ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/administracionpagosproveedor");
+
+            List<Compras> compras = comprasService.comprasAVencer(sede, 0, Long.valueOf(pagosProveedorDto.getIdProveedor()));
+            ComprasMapper comprasMapper = new ComprasMapper();
+            List<ComprasDto> comprasPendientes = comprasMapper.comprasListaTOComprasDto(compras);
+            mav.addObject("comprasPendientes", comprasPendientes);
+
+            setBasicModel(mav, pagosProveedorDto);
+            mav.addObject("pagosProveedorDto", pagosProveedorDto);
+            mav.addObject("cuentaProveedores", cuentaProveedores);
+
+            return mav;
+        } else {
+            return new ModelAndView("redirect:/"+sede+"/pagos/proveedor/edicion/index.htm");
+        }
     }
 
     @RequestMapping(value = "/ajax/comprobante/buscar.htm")
@@ -255,7 +303,7 @@ public class PagosController extends BaseController {
 
         return "ok";
     }
-    
+
     @RequestMapping("/ajax/proveedor/guardar.htm")
     public @ResponseBody
     String guardarPagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto,
@@ -269,17 +317,33 @@ public class PagosController extends BaseController {
 
         return "ok";
     }
+    
+    @RequestMapping("/ajax/proveedor/update.htm")
+    public @ResponseBody
+    String updatePagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto,
+            @PathVariable String sede,HttpSession session) {
+        PagosMapper pagosMapper = new PagosMapper();
+        //to do: Hacer los mappers de las clases
+        Pagos pagosProveedor = pagosMapper.pagoProveedorDtoToPagoCabecera(pagosProveedorDto);
+        List<DetallePagos> detallePagosProveedor = pagosMapper.detallePagosProveedorDtoTodetallePagosTerceros(pagosProveedorDto.getDetallePagosProveedor());
 
+        pagosService.actualizarPagosProveedor(sede, pagosProveedor, detallePagosProveedor);
+        
+        session.removeAttribute(LISTA_COMPRAS_SESSION);
+        session.removeAttribute(PAGO_EDITAR_SESSION);
+        return "okupdate";
+    }
+    
     @RequestMapping("/ajax/proveedor/actualizar.htm")
     public @ResponseBody
     String actualizarPagoProveedor(@RequestParam String idscompras,
-            @RequestParam Integer idProveedor,@PathVariable String sede) {
-        
+            @RequestParam Integer idProveedor, @PathVariable String sede, HttpSession session) {
+
         comprasService.actualizarSaldosCompra(sede, idscompras, idProveedor);
-        
+        session.setAttribute(LISTA_COMPRAS_SESSION, idscompras);
         return "ok";
     }
-    
+
     @RequestMapping(value = "/terceros/pdf/comprobante.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView comprobanteTerceroPDF(Long idpagotercero, @PathVariable String sede) {
 
@@ -296,7 +360,7 @@ public class PagosController extends BaseController {
                 parameterMap.put("titulo", "Comprobante Terceros Caja Mayor");
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
                 parameterMap.put("msjtitulo", sedesDto.getTitulo());
-                parameterMap.put("nombresede",sede);
+                parameterMap.put("nombresede", sede);
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprobanteBeneficiario", parameterMap);
                 return mav;

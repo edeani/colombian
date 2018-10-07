@@ -106,7 +106,7 @@
                                 <td></td>
                                 <td></td>
                                 <td colspan="4" align="right">
-                                    <input type="button" id="reset-pago" value="Reset" />
+                                    <input type="button" id="reset-pago" value="Continuar" />
                                     <!--input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                                     <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                                 </td>

@@ -39,4 +39,5 @@ public interface PagosDao extends GenericDao<Pagos>{
     public List<PagosCabeceraDto> buscarPagosXFecha(DataSource nameDataSource,String fecha);
     public PagosCabeceraDto buscarPagosXId(DataSource nameDataSource,Long idpago,Integer tipo);
     public List<ReportePagosDto> reportePagos(DataSource nameDataSource,String fechaInicial, String fechaFinal,Long idsede);
+    public void updatePagoProveedor(DataSource nameDataSource,Pagos pagoProveedor);
 }

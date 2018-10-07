@@ -36,13 +36,13 @@ $(document).ready(function () {
             }
         }
 
-        var urlActualizar = $("#pagosProveedorDto").attr("action");
+        var urlActualizar = $("#pagosProveedorDto").attr("url-update-compras");
 
         var respuesta = peticionAjax(urlActualizar, "POST", "idscompras=" + coleccionCompras + "&idProveedor=" + $("#idProveedor").val());
 
         if (respuesta === "ok") {
-            dialogMessage("Pago Proveedor Actualizado");
-            limpiarBusquedaProveedor();
+         
+            location.href = $("#pagosProveedorDto").attr("action");
         } else {
             dialogMessage("Error guardando pago proveedor");
         }

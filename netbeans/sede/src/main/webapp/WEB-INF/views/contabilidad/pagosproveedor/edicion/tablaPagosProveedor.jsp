@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <input type="hidden" value="${encontrado}" id="encontrado"/>
-<form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/proveedor/actualizar.htm" >
+<form:form target="_blank" commandName="${commandName}" path="PagosProveedorDto" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/proveedor/edicion/administrar.htm" url-update-compras="${pageContext.servletContext.contextPath}/${sessionScope.path}/pagos/ajax/proveedor/actualizar.htm" >
     <div class="clear"></div>
     <div class="clear"></div>
     <div class="clear"></div>
@@ -86,7 +86,7 @@
                     <td></td>
                     <td></td>
                     <td colspan="4" align="right">
-                        <input type="button" id="reset-pago" value="Reset" />
+                        <input type="button" id="reset-pago" value="Continuar" />
                         <!--input type="button" value="Clonar la tabla" class="clsClonarTabla"-->
                         <!--input type="button" value="Eliminar la tabla" class="clsEliminarTabla"-->
                     </td>

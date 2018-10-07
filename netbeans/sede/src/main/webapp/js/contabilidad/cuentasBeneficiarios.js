@@ -194,7 +194,7 @@ $(document).ready(function () {
             var urlTabla = $("#contextpath").val() + "/" + $("#idpath").val() + "/pagos/ajax/terceros/tabla.htm";
             var html_tabla = peticionAjax(urlTabla, "post", "");
             $("#divContenedorTabla").html(html_tabla);
-            
+
             //Reiniciar campos
             $("#cmpSecuencia").hide();
             $("#secuencia").val("");
@@ -235,17 +235,21 @@ $(document).ready(function () {
             form.appendChild(input);
             body.appendChild(form);
             form.submit();
-            $("#cmpSecuencia").hide();
-            $("#secuencia").val("");
-            $("#cmpFecha").hide();
-            $("#fechaPago").val("");
-            
-            $("#divContenedorTabla").hide();
-            $("#contenidoComprobante").html("");
-            
-            $("#divContenedorTabla2").hide("");
-            $("#divContenedorTabla2").html("");
-            $("#nombreProveedor").val("");
+            if (html === "ok") {
+                $("#cmpSecuencia").hide();
+                $("#secuencia").val("");
+                $("#cmpFecha").hide();
+                $("#fechaPago").val("");
+
+                $("#divContenedorTabla").hide();
+                $("#contenidoComprobante").html("");
+
+                $("#divContenedorTabla2").hide("");
+                $("#divContenedorTabla2").html("");
+                $("#nombreProveedor").val("");
+            } else if (html === "okupdate") {
+                location.href = $("#pagosProveedorDto").attr("data-home");
+            }
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");
         }
@@ -466,7 +470,7 @@ $(document).on("click", ".clsAgregarFilaProveedor", function (e) {
     $("#fechaVencimiento" + (numeroFilasDetalle - 1)).val($("#fechaVencimientoPendiente" + filaCompra).val());
     $("#saldo" + (numeroFilasDetalle - 1)).val($("#saldoPendiente" + filaCompra).val());
     $("#saldoTemporal" + (numeroFilasDetalle - 1)).val($("#saldoPendiente" + filaCompra).val());
-    
+
     $("#divContenedorTabla").show();
 });
 /*Manejo de tabla para Beneficiarios*/
@@ -613,7 +617,7 @@ function addRowPagosProveedor(tableID) {
     cmpConsecutivoInterno.id = "consecutivo" + rowCount;
     cmpConsecutivoInterno.name = "detallePagosProveedor[" + rowCount + "].consecutivo";
     cmpConsecutivoInterno.type = "hidden";
-    
+
     //Agrego la primera columna
     cellNumeroCompra.appendChild(cmpIdPagoProveedor);
     cellNumeroCompra.appendChild(cmpNumeroCuenta);

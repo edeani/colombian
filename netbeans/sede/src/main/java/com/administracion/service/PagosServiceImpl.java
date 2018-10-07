@@ -66,6 +66,29 @@ public class PagosServiceImpl implements PagosService {
             pagosDao.guardarDetallePagosTerceros(ds, elementoDetallePagosTerceros);
         });
     }
+    
+    @Transactional
+    @Override
+    public void actualizarPagosProveedor(String nameDataSource,Pagos pagoProveedor, List<DetallePagos> detallePagosProveedor){
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
+        pagosDao.updatePagoProveedor(ds, pagoProveedor);
+        //Actualizamos todos los detalles de pagos
+        pagosDao.borrarDetallePagos(ds, pagoProveedor.getIdpagos());
+        detallePagosProveedor.stream().map((elementoDetallePagosProveedor) -> {
+            Compras compra = comprasDao.getCompraXConsecutivo(elementoDetallePagosProveedor.getConsecutivo(), ds);
+            pagosDao.guardarDetallePagosProveedor(ds, elementoDetallePagosProveedor);
+            compra.setSaldo(compra.getSaldo() - elementoDetallePagosProveedor.getTotal());
+            return compra;
+        }).map((compra) -> {
+            if (compra.getSaldo().intValue() == 0) {
+                compra.setEstadoCompraProveedor(estado_aprobado_comprobante);
+            }
+            return compra;
+        }).forEachOrdered((Compras compra) -> {
+            comprasDao.actualizarCompraXConsecutivo(ds, compra);
+        });
+        
+    }
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosTercerosDto> buscarDetallePagosTercerosDtos(String nameDataSource, Long idpagotercero) {

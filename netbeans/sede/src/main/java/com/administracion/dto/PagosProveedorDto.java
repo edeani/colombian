@@ -6,13 +6,14 @@
 
 package com.administracion.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Jose Efren
  */
-public class PagosProveedorDto {
+public class PagosProveedorDto implements Serializable{
     
     private Long secuencia;
     private Long idSede;
