@@ -80,6 +80,8 @@ public class PagosController extends BaseController {
 
     private static final String LISTA_COMPRAS_SESSION = "idscompras";
 
+    private static final String SEDE_PAGO = "sedePago";
+
     private static final String SESSIONPAGO = "#{session.getAttribute('" + PAGO_EDITAR_SESSION + "')}";
 
     private static final String SESSIONCOMPRAS = "#{session.getAttribute('" + LISTA_COMPRAS_SESSION + "')}";
@@ -111,7 +113,7 @@ public class PagosController extends BaseController {
         pagosTercerosDto.setTipo(TipoPagoEnum.PAGOS_TERCEROS.getTipo_pago());
         setBasicModel(mav, pagosTercerosDto);
         mav.addObject("pagosTercerosDto", pagosTercerosDto);
-        
+
         return mav;
     }
 
@@ -169,10 +171,13 @@ public class PagosController extends BaseController {
 
     @GetMapping(value = "/proveedor/edicion/index.htm")
     public ModelAndView inicioEdicionPagosProveedor(HttpSession session, @PathVariable String sede) {
-
+        String sedePago_ =  session.getAttribute(SEDE_PAGO)==null?"":(String)session.getAttribute(SEDE_PAGO);
+        if (!sedePago_.equals(sede)) {
+            session.removeAttribute(LISTA_COMPRAS_SESSION);
+            session.removeAttribute(PAGO_EDITAR_SESSION);
+        }
         if (session.getAttribute(LISTA_COMPRAS_SESSION) != null) {
-
-            return new ModelAndView("redirect:/"+sede+"/pagos/proveedor/edicion/administrar.htm");
+            return new ModelAndView("redirect:/" + sede + "/pagos/proveedor/edicion/administrar.htm");
         } else {
             ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/editadministracionpagosproveedor");
             PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
@@ -187,7 +192,7 @@ public class PagosController extends BaseController {
 
     @GetMapping(value = "/proveedor/edicion/administrar.htm")
     public ModelAndView inicioEdicionPagosProveedor(@Value(SESSIONPAGO) PagosProveedorDto pagosProveedorDto, @Value(SESSIONCOMPRAS) String idscompras,
-             @PathVariable String sede, HttpSession session) {
+            @PathVariable String sede, HttpSession session) {
 
         if (idscompras != null) {
             ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/administracionpagosproveedor");
@@ -203,7 +208,7 @@ public class PagosController extends BaseController {
 
             return mav;
         } else {
-            return new ModelAndView("redirect:/"+sede+"/pagos/proveedor/edicion/index.htm");
+            return new ModelAndView("redirect:/" + sede + "/pagos/proveedor/edicion/index.htm");
         }
     }
 
@@ -317,23 +322,33 @@ public class PagosController extends BaseController {
 
         return "ok";
     }
-    
+
+    @RequestMapping("/ajax/proveedor/limpiarSession.htm")
+    public @ResponseBody
+    String limpiarSessionPagoProveedor(HttpSession session) {
+
+        session.removeAttribute(LISTA_COMPRAS_SESSION);
+        session.removeAttribute(PAGO_EDITAR_SESSION);
+
+        return "ok";
+    }
+
     @RequestMapping("/ajax/proveedor/update.htm")
     public @ResponseBody
     String updatePagoProveedor(@ModelAttribute PagosProveedorDto pagosProveedorDto,
-            @PathVariable String sede,HttpSession session) {
+            @PathVariable String sede, HttpSession session) {
         PagosMapper pagosMapper = new PagosMapper();
         //to do: Hacer los mappers de las clases
         Pagos pagosProveedor = pagosMapper.pagoProveedorDtoToPagoCabecera(pagosProveedorDto);
         List<DetallePagos> detallePagosProveedor = pagosMapper.detallePagosProveedorDtoTodetallePagosTerceros(pagosProveedorDto.getDetallePagosProveedor());
 
         pagosService.actualizarPagosProveedor(sede, pagosProveedor, detallePagosProveedor);
-        
+
         session.removeAttribute(LISTA_COMPRAS_SESSION);
         session.removeAttribute(PAGO_EDITAR_SESSION);
         return "okupdate";
     }
-    
+
     @RequestMapping("/ajax/proveedor/actualizar.htm")
     public @ResponseBody
     String actualizarPagoProveedor(@RequestParam String idscompras,
@@ -341,6 +356,7 @@ public class PagosController extends BaseController {
 
         comprasService.actualizarSaldosCompra(sede, idscompras, idProveedor);
         session.setAttribute(LISTA_COMPRAS_SESSION, idscompras);
+        session.setAttribute(SEDE_PAGO, sede);
         return "ok";
     }
 

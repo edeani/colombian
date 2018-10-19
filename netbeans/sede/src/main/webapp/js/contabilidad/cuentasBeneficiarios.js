@@ -248,7 +248,9 @@ $(document).ready(function () {
                 $("#divContenedorTabla2").html("");
                 $("#nombreProveedor").val("");
             } else if (html === "okupdate") {
-                location.href = $("#pagosProveedorDto").attr("data-home");
+                confirmMessageRelocate("Pagos actualizados correctamente",$("#pagosProveedorDto").attr("data-home"));
+            }else{
+                dialogMessage("Ocurrió un error al realizar la operación");
             }
         } else {
             lightboxMensaje("Hay campos vac&iacute;os");

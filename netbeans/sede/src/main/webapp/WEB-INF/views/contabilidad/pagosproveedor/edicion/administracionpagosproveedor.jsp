@@ -45,7 +45,7 @@
                     Fecha
                     <form:input path="fechaPago" cssClass="fechaInicial"/>
                 </label>
-                <!--label id="lnkRows" style="display: none;">
+                <!--+label id="lnkRows" style="display: none;">
                     <a href="javascript:void(0);" onclick="addRowPagosProveedor('contenidoComprobante');" id="agregarFila">AgregarFila</a>
                 </label-->
             </div>

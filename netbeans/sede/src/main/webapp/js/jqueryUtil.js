@@ -210,6 +210,25 @@ function dialogMessage(msg) {
     });
 }
 
+function confirmMessageRelocate(msg, url) {
+    $.confirm({
+        title: 'Mensaje de Confirmación',
+        content: msg,
+        useBootstrap: false,
+        boxWidth: '350px',
+        buttons: {
+            aceptar: function () {
+                location.href = url;
+            }
+        },
+        onClose: function () {
+            location.href = url;
+        },
+        escapeKey: true,
+        backgroundDismiss: true
+    });
+}
+
 /**
  * Los campos deben estar en el body de la tabla
  * @param {type} idtabla
@@ -220,15 +239,15 @@ function validarCamposTabla(idtabla) {
     var aprobado = true;
     if (inputsTbody.length > 0) {
         $(inputsTbody).each(function (index) {
-            console.log("campo "+$(this).attr("id"));
+            console.log("campo " + $(this).attr("id"));
             if ($(this).val() === undefined) {
                 aprobado = false;
                 $(this).addClass("campError");
-                console.log("indefinido "+$(this).val());
+                console.log("indefinido " + $(this).val());
             } else if ($.trim($(this).val()) === "") {
                 aprobado = false;
                 $(this).addClass("campError");
-                console.log("vacio "+$(this).val());
+                console.log("vacio " + $(this).val());
             } else {
                 $(this).removeClass("campError");
             }
