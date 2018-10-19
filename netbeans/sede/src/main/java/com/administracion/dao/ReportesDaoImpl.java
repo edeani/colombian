@@ -43,6 +43,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportesDaoImpl.class);
     private final String UNION = " union all ";
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final  String cuentaDescuento = "421040";
     /**
      * Servicio que me permite cambiar de conexión
      */
@@ -306,14 +307,16 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     @Override
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(DataSource nameDataSource, String fechaInicial, String fechaFinal) {
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+       
         String sql = "select 'Ingresos'as nombre,case when sub0.total_ingresos is null then 0 else sub0.total_ingresos end as totalCuenta from( "
-                + "select sum(si.total) as total_ingresos from( "
-                + "select 'Ingresos' as nombre, dcs.total as total  from detalle_cierre_sedes dcs "
+                + "select sum(si2.total) as total_ingresos from( "
+                + "select si.nombre,case when si.idcuenta = '"+cuentaDescuento+"' then  si.total*-1 else si.total end as total from ("
+                + "select 'Ingresos' as nombre, dcs.total as total,dcs.idcuenta  from detalle_cierre_sedes dcs "
                 + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
                 + " union all "
-                + " select 'Notas Debito' as nombre, total from notas_debito "
-                + " where fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
-                + ")si "
+                + " select 'Notas Debito' as nombre, total , cuenta from notas_debito "
+                + " where fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and cuenta like '4%' "
+                + ")si )si2"
                 + ")sub0 "
                 + "union all "
                 + "select 'Pagos',-1*sum(sub1.total) as total from( "
@@ -353,13 +356,14 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisionalXSede(DataSource nameDataSource, String fechaInicial, String fechaFinal, Long idSede) {
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
         String sql = "select 'Ingresos'as nombre,case when sub0.total_ingresos is null then 0 else sub0.total_ingresos end as totalCuenta from( "
-                + "select sum(si.total) as total_ingresos from( "
-                + "select 'Ingresos' as nombre, dcs.total as total  from detalle_cierre_sedes dcs "
+                + "select sum(si2.total) as total_ingresos from( "
+                + "select si.nombre,case when si.idcuenta = '"+cuentaDescuento+"' then  si.total*-1 else si.total end as total from ("
+                + "select 'Ingresos' as nombre, dcs.total as total,dcs.idcuenta  from detalle_cierre_sedes dcs "
                 + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dcs.idsede=" + idSede
                 + " union all "
-                + " select 'Notas Debito' as nombre, total from notas_debito "
-                + " where fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and idsede=" + idSede + " "
-                + ")si "
+                + " select 'Notas Debito' as nombre, total,cuenta from notas_debito "
+                + " where fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and idsede=" + idSede + " and cuenta like '4%' "
+                + ")si )si2"
                 + ")sub0 "
                 + "union all "
                 + "select 'Pagos',-1*sum(sub1.total) as total from( "
@@ -455,37 +459,37 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         String sql = " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total,5 as tipo  " +
                     "from( select sub.cuenta,sum(sub.total) as total from( " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
-                    "union " +
+                    "union all " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
-                    "union " +
+                    "union all " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
                     //Sumamos notas credito a los gastos o pagos
-                    " union " +
+                    " union all " +
                     "select cuenta,sum(total) as total from notas_credito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+"  group by cuenta  "+
                     ")sub group by sub.cuenta " +
                     ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
                 + "union all "+
                 " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total,4 as tipo  " +
                     "from( select sub.cuenta,sum(sub.total) as total from( " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
-                    "union " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
-                    "union " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
-                    //Sumamos notas debito a los ingresos
-                    " union " +
-                    "select cuenta,sum(total) as total from notas_debito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+"  group by cuenta  "
+                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end  as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
+                    "union all " +
+                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
+                    "union all " +
+                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
+                    //Sumamos notas debito a los ingresos 
+                    " union all " +
+                    "select cuenta,case when cuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from notas_debito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+" and cuenta like '4%'  group by cuenta  "
                 + ")sub group by sub.cuenta " +
                     ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
                 + "union all "
                 +" select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total,6 as tipo  " +
                     "from( select sub.cuenta,sum(sub.total) as total from( " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '6%')"+condicionSede+" group by idcuenta " +
-                    "union " +
+                    "union all " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '6%') "+condicionSede+" group by idcuenta " +
-                    "union " +
+                    "union all " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '6%') "+condicionSede+" group by idcuenta " +
-                    "union " +
+                    "union all " +
                     "select fc.idcuenta as cuenta,sum(fc.total) as total from facturas_compras fc where fc.idcuenta like '6%' and fc.fecha between '"+fechInicial+"' and '"+fechaFinal+"' "+condicionSede+" group by idcuenta "+
                     ")sub group by sub.cuenta " +
                     ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta";
