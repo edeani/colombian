@@ -471,14 +471,14 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "union all "+
                 " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total,4 as tipo  " +
                     "from( select sub.cuenta,sum(sub.total) as total from( " +
-                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end  as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
+                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end  as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+"  " +
                     "union all " +
-                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
+                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+"  " +
                     "union all " +
-                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+" group by idcuenta " +
+                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+"  " +
                     //Sumamos notas debito a los ingresos 
                     " union all " +
-                    "select cuenta,case when cuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from notas_debito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+" and cuenta like '4%'  group by cuenta  "
+                    "select cuenta,case when cuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from notas_debito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+" and cuenta like '4%'    "
                 + ")sub group by sub.cuenta " +
                     ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
                 + "union all "
