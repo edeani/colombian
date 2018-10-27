@@ -9,6 +9,7 @@ package com.administracion.dao;
 
 import com.administracion.dto.ComprasTotalesDTO;
 import com.administracion.dto.DetalleCompraDTO;
+import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.ReporteComprasTotalesProvDTO;
 import com.administracion.dto.ReporteComprasTotalesXProveedorDTO;
 import com.administracion.entidad.Compras;
@@ -40,5 +41,5 @@ public interface ComprasDao {
     List<ComprasTotalesDTO> comprasTotales(DataSource nameDataSource,String fechaInicial,String fechaFinal,String estadoCompra);
     List<ComprasTotalesDTO> comprasTotalesProveedor(DataSource nameDataSource, String fechaInicial, String fechaFinal, String estadoCompra, Long codigoProveedor);
     Compras getCompraXProveedor(DataSource dataSource,Long idCompra,Integer codigoProveedor);
-    public void actualizarSaldosCompra(DataSource dataSource,String idsCompra,Integer codigoProveedor);
+    public void actualizarSaldosCompra(DataSource dataSource,DetallePagosProveedorDto pago,Integer codigoProveedor);
 }

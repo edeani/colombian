@@ -17,6 +17,7 @@ import com.administracion.dto.ComprasTotalesDTO;
 import com.administracion.dto.CuentasPagarProveedoresDto;
 import com.administracion.dto.DetalleCompraDTO;
 import com.administracion.dto.DetalleFacturaDTO;
+import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteComprasTotalesProvDTO;
 import com.administracion.dto.ReporteComprasTotalesXProveedorDTO;
@@ -303,7 +304,11 @@ public class ComprasServiceImpl implements ComprasService {
 
     @Override
     @Transactional
-    public void actualizarSaldosCompra(String dataSource, String idsCompra, Integer codigoProveedor) {
-        comprasDao.actualizarSaldosCompra(connectsAuth.getDataSourceSede(dataSource), idsCompra, codigoProveedor);
+    public void actualizarSaldosCompra(String dataSource, List<DetallePagosProveedorDto> detallePagosProveedor, Integer codigoProveedor) {
+        
+        detallePagosProveedor.forEach((pago) -> {
+            comprasDao.actualizarSaldosCompra(connectsAuth.getDataSourceSede(dataSource), pago, codigoProveedor);
+        });
+        
     }
 }

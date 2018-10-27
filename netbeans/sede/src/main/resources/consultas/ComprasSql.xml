@@ -46,6 +46,6 @@
         where id_compra = :id_compra and codigo_proveedor = :codigo_proveedor
     </query>
     <query id="ComprasSql.updateSaldoCompraXIproveedor">
-        update compras set saldo=valor_total,estado_compra_proveedor='N' where id_compra in(listacompras) and codigo_proveedor=:idProveedor
+        update compras set saldo=:total + saldo ,estado_compra_proveedor='N' where id_compra in(listacompras) and codigo_proveedor=:idProveedor
     </query>
 </queries>

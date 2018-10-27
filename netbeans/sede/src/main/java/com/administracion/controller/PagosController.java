@@ -352,9 +352,10 @@ public class PagosController extends BaseController {
     @RequestMapping("/ajax/proveedor/actualizar.htm")
     public @ResponseBody
     String actualizarPagoProveedor(@RequestParam String idscompras,
-            @RequestParam Integer idProveedor, @PathVariable String sede, HttpSession session) {
+            @RequestParam Integer idProveedor, @PathVariable String sede, HttpSession session,
+            @Value(SESSIONPAGO) PagosProveedorDto pagosProveedorDto ) {
 
-        comprasService.actualizarSaldosCompra(sede, idscompras, idProveedor);
+        comprasService.actualizarSaldosCompra(sede, pagosProveedorDto.getDetallePagosProveedor(),idProveedor);
         session.setAttribute(LISTA_COMPRAS_SESSION, idscompras);
         session.setAttribute(SEDE_PAGO, sede);
         return "ok";

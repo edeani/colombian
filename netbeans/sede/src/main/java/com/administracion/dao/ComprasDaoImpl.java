@@ -8,6 +8,7 @@ package com.administracion.dao;
 
 import com.administracion.dto.ComprasTotalesDTO;
 import com.administracion.dto.DetalleCompraDTO;
+import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.ReporteComprasTotalesProvDTO;
 import com.administracion.dto.ReporteComprasTotalesXProveedorDTO;
 import com.administracion.entidad.Compras;
@@ -285,12 +286,12 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
     }
 
     @Override
-    public void actualizarSaldosCompra(DataSource dataSource, String idsCompra, Integer codigoProveedor) {
+    public void actualizarSaldosCompra(DataSource dataSource,DetallePagosProveedorDto pago, Integer codigoProveedor) {
         String sql = leerXml.getQuery("ComprasSql.updateSaldoCompraXIproveedor");
-        idsCompra = idsCompra.replaceAll("\\@", ",");
+        String idsCompra = pago.getNumeroCompra().toString();
         sql = sql.replaceAll("listacompras", idsCompra);
         MapSqlParameterSource params = new MapSqlParameterSource("idProveedor", codigoProveedor);
-        
+        params.addValue("total", pago.getTotal());
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         try {
             this.namedParameterJdbcTemplate.update(sql, params);

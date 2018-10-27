@@ -9,6 +9,7 @@ import com.administracion.dto.ComprasProveedorFechaDto;
 import com.administracion.dto.ComprasTotalesDTO;
 import com.administracion.dto.CuentasPagarProveedoresDto;
 import com.administracion.dto.DetalleCompraDTO;
+import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteComprasTotalesProvDTO;
 import com.administracion.dto.ReporteComprasTotalesXProveedorDTO;
@@ -52,5 +53,5 @@ public interface ComprasService {
     
     public Compras getCompraXIDproveedor(String  nameDataSource,Long idCompra,Integer codigopProveedor);
     
-    public void actualizarSaldosCompra(String dataSource, String idsCompra, Integer codigoProveedor);
+    public void actualizarSaldosCompra(String dataSource,List<DetallePagosProveedorDto> detallePagosProveedor, Integer codigoProveedor);
 }
