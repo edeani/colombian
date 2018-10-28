@@ -139,7 +139,10 @@ public class PagosController extends BaseController {
         ModelAndView mav = new ModelAndView("contabilidad/pagosproveedor/edicion/tablaPagosProveedor");
         List<DetallePagosProveedorDto> detalle = pagosService.buscarDetallePagosDtos(sede, idpago);
         PagosCabeceraDto cabecera = pagosService.buscarPagoXIdPagoXTipo(sede, idpago, tipo);
-
+        
+        if(cabecera==null){
+            throw new NullPointerException("buscarPagosCompras::El pago no existe");
+        }
         PagosProveedorDto pagosProveedorDto = new PagosProveedorDto();
         pagosProveedorDto = (new PagosMapper()).pagosCabeceraDtoToPagosProveedorDto(cabecera);
         pagosProveedorDto.setDetallePagosProveedor(detalle);

@@ -21,7 +21,7 @@
         </label>
         <label id="cmpFecha" style="display: block; float: left;">
             Fecha
-            <form:input path="fechaPago" cssClass="fechaInicial"/>
+            <form:input path="fechaPago" cssClass="fechaInicial claseCellFechaLight"/>
         </label>
         <label id="cmpTotal" style="display: block; float: left;">
             Total

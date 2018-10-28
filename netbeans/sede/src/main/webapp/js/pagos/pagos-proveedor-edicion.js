@@ -9,10 +9,15 @@ $(document).ready(function () {
 
             var urlProv = $(this).attr("data-url");
             var html = peticionAjax(urlProv, "POST", "idpago=" + $("#secuencia").val() + "&tipo=" + $("#tipo").val());
-
-            $("#contenidoFormularioPago").html(html);
-            var estadoEncontrado = $("#encontrado").val();
-
+            var estadoEncontrado="";
+            if(html===""){
+                $("#secuencia").val("");
+                estadoEncontrado="N";
+            }else{
+                $("#contenidoFormularioPago").html(html);
+                estadoEncontrado= $("#encontrado").val();
+            }
+       
             if (estadoEncontrado === "N") {
                 dialogMessage("Pago proveedor no encontrado");
             }

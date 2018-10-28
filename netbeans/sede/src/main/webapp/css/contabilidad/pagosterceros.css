@@ -30,6 +30,18 @@
     border-radius: 5px;
 }
 #tblDatos2{
-    width: 750px;
-    margin: 0 165px;
+    width: 900px;
+    margin: 0 8%;
+}   
+
+.claseCellCompraLight{
+    width: 100px;
 }
+
+.claseCellFechaLight{
+    width: 110px;
+}
+
+.claseCellSaldoLight{
+    width: 160px;
+}   

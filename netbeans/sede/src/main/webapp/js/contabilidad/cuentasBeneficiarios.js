@@ -349,35 +349,39 @@ $(document).ready(function () {
             celdanumeroCompra.id = "numeroCompra" + indice;
             celdanumeroCompra.name = "detallePagosProveedor[" + indice + "].numeroCompra";
             $(celdanumerocuenta).attr("data-numero", indice);
-            //Columna 2
-            var celdafechaFactura = cells[3];
+            var celdaConsecutivo = cells[3];
+            celdaConsecutivo.id = "consecutivo" + indice;
+            celdaConsecutivo.name = "detallePagosProveedor[" + indice + "].consecutivo";
+            $(celdaConsecutivo).attr("data-numero", indice);
+            
+            var celdafechaFactura = cells[4];
             celdafechaFactura.id = "fechaFactura" + indice;
             //Columna 3
-            var celdadetalle = cells[4];
+            var celdadetalle = cells[5];
             celdadetalle.id = "detalle" + indice;
             celdadetalle.name = "detallePagosProveedor[" + indice + "].detalle";
             //Columna 4
-            var celdafechaVencimiento = cells[5];
+            var celdafechaVencimiento = cells[6];
             celdafechaVencimiento.id = "fechaVencimiento" + indice;
             celdafechaVencimiento.name = "detallePagosProveedor[" + indice + "].fechaVencimiento";
             //Columna 5
-            var celdasaldo = cells[6];
+            var celdasaldo = cells[7];
             celdasaldo.id = "saldo" + indice;
             celdasaldo.name = "detallePagosProveedor[" + indice + "].saldo";
-            var celdasaldotemporal = cells[7];
+            var celdasaldotemporal = cells[8];
             celdasaldotemporal.id = "saldoTemporal" + indice;
             //Columna 6
-            var celdatotal = cells[8];
+            var celdatotal = cells[9];
             celdatotal.id = "total" + indice;
             celdatotal.name = "detallePagosProveedor[" + indice + "].total";
             $(celdatotal).attr("data-numero", indice);
-            var celdafechaPago = cells[9];
+            var celdafechaPago = cells[10];
             celdafechaPago.id = "fechaPago" + indice;
             celdafechaPago.name = "detallePagosProveedor[" + indice + "].fecha";
             //Columna 7
-            var celdabtnEliminar = cells[10];
+            var celdabtnEliminar = cells[11];
             $(celdabtnEliminar).attr("data-numero", indice);
-            var celdanumero = cells[11];
+            var celdanumero = cells[12];
             celdanumero.id = "numero" + indice;
             celdanumero.name = "detallePagosProveedor[" + indice + "].numero";
             $(celdanumero).val(indice);
@@ -611,7 +615,7 @@ function addRowPagosProveedor(tableID) {
     var cmpNumeroCompra = document.createElement("input");
     cmpNumeroCompra.id = "numeroCompra" + rowCount;
     cmpNumeroCompra.name = "detallePagosProveedor[" + rowCount + "].numeroCompra";
-    $(cmpNumeroCompra).addClass("ui-autocomplete-input claseValidarNum claseCompra");
+    $(cmpNumeroCompra).addClass("ui-autocomplete-input claseValidarNum claseCompra claseCellCompraLight");
     $(cmpNumeroCompra).attr("autocomplete", "off");
     $(cmpNumeroCompra).attr("readonly", true);
     $(cmpNumeroCompra).attr("data-numero", "" + rowCount);
@@ -655,7 +659,7 @@ function addRowPagosProveedor(tableID) {
     cmpFechaVencimiento.id = "fechaVencimiento" + rowCount;
     cmpFechaVencimiento.name = "detallePagosProveedor[" + rowCount + "].fechaVencimiento";
     $(cmpFechaVencimiento).attr("maxlength", "500");
-    $(cmpFechaVencimiento).addClass("claseproximocampo");
+    $(cmpFechaVencimiento).addClass("claseproximocampo claseCellFechaLight");
     $(cmpFechaVencimiento).attr("readonly", true);
     cellFechaVencimiento.appendChild(cmpFechaVencimiento);
     /*$(cmpFechaVencimiento).datepicker({dateFormat: "yy-mm-dd"
@@ -672,7 +676,7 @@ function addRowPagosProveedor(tableID) {
     cmpSaldo.id = "saldo" + rowCount;
     cmpSaldo.name = "detallePagosProveedor[" + rowCount + "].saldo";
     $(cmpSaldo).attr("readonly", "readonly");
-    $(cmpSaldo).addClass("claseproximocampo claseValidarNum claseFormatDec");
+    $(cmpSaldo).addClass("claseproximocampo claseValidarNum claseFormatDec claseCellSaldoLight");
     var cmpSaldoTemporal = document.createElement("input");
     cmpSaldoTemporal.type = "hidden";
     cmpSaldoTemporal.id = "saldoTemporal" + rowCount;

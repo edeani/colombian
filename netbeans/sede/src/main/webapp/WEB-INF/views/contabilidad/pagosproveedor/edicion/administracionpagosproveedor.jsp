@@ -9,6 +9,7 @@
     <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/contabilidad/pagosterceros.css">
     <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/utilWindows.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.js" type="text/javascript"></script>
