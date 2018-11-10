@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -50,10 +51,12 @@ public class CuadreColombianServiceImpl implements CuadreColombianService {
         Formatos formato = new Formatos();
             DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
             String query = "SELECT cierre_diario.fecha AS FECHA, "
-                    + "cierre_diario.valor_ventas AS VENTAS, "
-                    + "cierre_diario.valor_gastos AS GASTOS, "
-                    + "cierre_diario.consignaciones AS CONSIGNACIONES, "
-                    + "cierre_diario.caja_real AS CAJA_REAL "
+                    + "cierre_diario.valor_ventas AS valorVentas, "
+                    + "cierre_diario.valor_gastos AS valorGastos, "
+                    + "cierre_diario.consignaciones AS valorConsignaciones, "
+                    + "cierre_diario.caja_real AS ValorCajaReal, "
+                    + "cierre_diario.descuento_ventas AS valorDescuentos, "
+                    + "cierre_diario.pago_tarjetas AS valorPagosTarjeta "
                     + "FROM cierre_diario "
                     + "WHERE cierre_diario.fecha between '" + formato.dateTostring(dfDefault.format(fi)) + "'  and '" + formato.dateTostring(dfDefault.format(ff)) + "' " 
                     + "ORDER BY FECHA";

@@ -15,7 +15,7 @@ public class Cuadre {
     private String valorVentas;
     private String valorGastos;
     private String valorConsignaciones;
-    private String ValorCajaReal;
+    private String valorCajaReal;
     private String valorPagosTarjeta;
     private String valorDescuentos;
 
@@ -52,11 +52,11 @@ public class Cuadre {
     }
 
     public String getValorCajaReal() {
-        return ValorCajaReal;
+        return valorCajaReal;
     }
 
     public void setValorCajaReal(String ValorCajaReal) {
-        this.ValorCajaReal = ValorCajaReal;
+        this.valorCajaReal = ValorCajaReal;
     }
 
     public String getValorPagosTarjeta() {

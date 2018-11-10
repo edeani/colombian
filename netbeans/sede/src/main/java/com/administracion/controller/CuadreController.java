@@ -5,11 +5,17 @@
  */
 package com.administracion.controller;
 
+import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.jsf.CuadreColombianService;
+import com.mycompany.mapper.Cuadre;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -21,12 +27,27 @@ import org.springframework.web.servlet.ModelAndView;
 public class CuadreController {
     @Autowired
     private CuadreColombianService cuadreColombianService;
+    @Autowired
+    private ConnectsAuth connectsAuth;
     
     @RequestMapping("/index-cuadre.htm")
     public ModelAndView indexCuadre(){
         ModelAndView mav = new ModelAndView("reportes/colombian/cuadre/reporte_cuadre");
         
         mav.addObject("fecha", new Date());
+        return mav;
+    }
+    
+    @RequestMapping("/ajax/consultar.htm")
+    public ModelAndView getCuadre(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fi,
+             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date ff, @RequestParam Integer idSubsede, @PathVariable String sede){
+        ModelAndView mav = new ModelAndView("reportes/colombian/cuadre/tabla_cuadre");
+        
+        List<Cuadre> reporteCuadre = cuadreColombianService.cuadreDia(fi, ff, connectsAuth.findSubsedeXId(idSubsede).getSede());
+        
+        mav.addObject("datos", reporteCuadre);
+        
+        
         return mav;
     }
 }

@@ -103,6 +103,7 @@
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/gastos/index.htm'><span>Gastos</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/domicilios/index-domicilios.htm'><span>Domicilios</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/domicilios/domicilios-dia.htm'><span>Domicilios D&iacute;a</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/cuadre/index-cuadre.htm'><span>Control Cierres</span></a></li>
             </ul>
         </li>
     </ul>

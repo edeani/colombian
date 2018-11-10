@@ -7,7 +7,7 @@
     <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jqueryUtil.js" type="text/javascript"></script>
-    <script src="<%=request.getContextPath()%>/js/domicilios/reporte-domicilios.js" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/domicilios/reporte-cuadre.js" type="text/javascript"></script>
 </head>
 <title>Reporte Cuadre Diarios</title>
 <body>
@@ -15,7 +15,7 @@
         <div class="tituloPagina">Reporte Cuadre Diarios</div>
         <div class="contenedorEstructuraFormLarge">
             <div class="contentFormSimple">
-                <form id="formDomicilios" action="<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/colombian/ajax/consultar.htm">
+                <form id="formCuadre" action="<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/colombian/ajax/consultar.htm">
                     <label>Fecha Inicial
                         <input name="fi" id="fechaInicial" class="fechaInicial contentRequired" style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fecha}"/>"/>
                     </label>
@@ -30,14 +30,14 @@
                         </select>
                     </label>
                     <label>
-                        <input id="consultarDomicilios" type="button" value="Aceptar" class="generalButton"/>
+                        <input id="consultarCuadre" type="button" value="Aceptar" class="generalButton"/>
                     </label>
                 </form>
             </div>
         </div>
 
         <div class="divContenedorTabla">
-            <div id="contDomicilios" data-url="<%=request.getContextPath()%>/${sessionScope.path}/domicilios/ajax/consultar.htm">
+            <div id="contCuadre" data-url="<%=request.getContextPath()%>/${sessionScope.path}/cuadre/ajax/consultar.htm">
                 <table align="center" id="tabladomicilios">
                     <thead>
                         <tr>
@@ -50,27 +50,52 @@
                             <th>Caja Real</th>
                         </tr>
                     </thead>
-                    <tbody id="contenidodomicilios" >
+                    <tbody id="contenidocuadre" >
 
                     </tbody>
 
                 </table>
             </div>
-            <input id="totalDomicilios" type="hidden" value="" class="decimaldomicilios"/>
+            <input id="totalGastos" type="hidden" value="" class="decimalcuadre"/>
+            <input id="totalConsignaciones" type="hidden" value="" class="decimalcuadre"/>
+            <input id="totalVentas" type="hidden" value="" class="decimalcuadre"/>
+            <input id="totalPagosTarjeta" type="hidden" value="" class="decimalcuadre"/>
+            <input id="totalDescuentos" type="hidden" value="" class="decimalcuadre"/>
+            <div class="contenedorResumen">             
+                <label id="totalConsignacionesLabel" class="resumen">
+                    $0
+                </label>
+                <label class="resumen">
+                TOTAL CONSIGNACIONES
+                </label> 
+                <label id="totalGastosLabel" class="resumen">
+                    $0
+                </label>
+                <label class="resumen">
+                TOTAL GASTOS
+                </label>
+            </div>
             <div class="contenedorResumen">
-                <label id="totalDomiciliosLabel" class="resumen">
+                <label id="totalVentasLabel" class="resumen">
+                    $0
+                </label>
+                <label class="resumen">
+                TOTAL VENTAS
+                </label>
+                <label id="totalPagosTarjetaLabel" class="resumen">
                     $0
                 </label>
                 <label class="resumen">
                 PAGOS TARJETA
                 </label>
-                
-                <label id="totalCantDomiciliosLabel" class="resumen">
+            </div>
+            <div class="contenedorResumen">
+                <label id="totalDescuentosLabel" class="resumen">
                     $0
                 </label>
                 <label class="resumen">
-                DESCUENTOS
-                </label> 
+                    DESCUENTOS
+                </label>
             </div>
         </div>
 
