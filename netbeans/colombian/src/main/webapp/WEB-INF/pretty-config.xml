@@ -14,7 +14,7 @@
 	</url-mapping>
         <url-mapping id="clientes">
 		<pattern value="/home/usuario/#{username}/reportes/clientes" />
-		<view-id value="/faces/reportes/clientes/listadoCliente.xhtml" /> 
+		<view-id value="/faces/reportes/compras/clientes/listadoCliente.xhtml" /> 
                 <action>#{authenticationService.validateAuthentication}</action>
 	</url-mapping>
         <url-mapping id="averias">
