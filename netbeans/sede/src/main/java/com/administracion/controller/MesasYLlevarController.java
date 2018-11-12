@@ -40,6 +40,7 @@ public class MesasYLlevarController extends BaseController {
        
         ModelAndView mav = new ModelAndView("reportes/colombian/mesasyllevar/datosMesas");
         mav.addObject("mesas", mesas);
+        mav.addObject("cantidadOrdenes", mesas==null?0:mesas.size());
         return mav;
     }
 }

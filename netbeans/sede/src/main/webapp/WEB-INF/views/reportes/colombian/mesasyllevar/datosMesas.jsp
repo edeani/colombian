@@ -5,7 +5,7 @@
 
 
 <table id="datosInventario" class="tablaDatosInfo">
-<thead>
+    <thead>
     <th>Fecha</th>
     <th>Tipo</th>
     <th>No. Orden</th>
@@ -19,7 +19,10 @@
             <td><fmt:formatDate  type="both" pattern="yyyy-MM-dd h:m:s a" value="${itemMesa.fecha}"/></td>
             <td>${itemMesa.tipo}</td>
             <td>${itemMesa.orden}</td>
-            <td>${itemMesa.valor}</td>
+            <td>
+                ${itemMesa.valor}
+                <input type="hidden" value="${itemMesa.valor}" class="cmpResumenvalorOrdenes"/>
+            </td>
             <td>${itemMesa.mesa}</td>
             <td>${itemMesa.codMesera}</td>
         </tr>    
@@ -27,3 +30,18 @@
 </tbody>
 <tfoot></tfoot>
 </table>
+<input id="totalOrdenes" type="hidden" value="" class="decimalordenes"/>
+<div class="contenedorResumen">             
+    <label id="cantidadOrenesLabel" class="resumen">
+        <fmt:formatNumber type="number" pattern="###,##0" value="${cantidadOrdenes}"/>
+    </label>
+    <label class="resumen">
+        ORDENES
+    </label> 
+    <label id="totalOrdenesLabel" class="resumen">
+        $0
+    </label>
+    <label class="resumen">
+        TOTAL ORDENES
+    </label>
+</div>

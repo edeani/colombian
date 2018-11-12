@@ -25,7 +25,7 @@
                 </label>
                 <label>Sede
                     <c:set var="sedeSeleccionada" value="${sessionScope.idusuario}"></c:set>
-                    <select id="sedeSession" name="sede" class="contentRequired">
+                        <select id="sedeSession" name="sede" class="contentRequired">
                             <option value="">Seleccionar</option>
                         <c:import url="/${sessionScope.path}/sedes/ajax/seleccionarSede.htm">
                             <c:param name="idSede" value="${sedeSeleccionada}"></c:param>
@@ -39,7 +39,23 @@
         </div>
         <!-- barra Cargando -->
         <div id="cargador"></div>             
-        <div id="listaMesas" >
+        <div id="listaMesas" class="divContenedorTabla" >
+            <div class="contenedorResumen">             
+                 
+                <label id="totalGastosLabel" class="resumen">
+                    $0
+                </label>
+                <label class="resumen">
+                    TOTAL ORDENES
+                </label>
+                <label id="totalConsignacionesLabel" class="resumen">
+                    0
+                </label>
+                <label class="resumen">
+                    ORDENES
+                </label>
+            </div>
         </div>
+
     </div>
 </div>

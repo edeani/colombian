@@ -15,6 +15,10 @@ $(document).ready(function(){
                     +"&sede="+$("#sedeSession").find("option:selected").text());
             loader("cargador", "");
             $("#listaMesas").html(html);
+            var pesos = "$";
+            var suma_total_gastos=sumaColumna(event,"cmpResumenvalorOrdenes","totalOrdenes");
+            formatCurrencyFieldText(document.getElementById("totalOrdenes"));
+            $("#totalOrdenesLabel").html(pesos+$("#totalOrdenes").val());
         }else{
             lightboxMensaje("Hay campos vac&iacute;os");
         }

@@ -119,3 +119,11 @@
 #datosGastos span{
     background: green;
 }
+
+.divContenedorTabla .resumen{
+    float: right;
+    position: relative;
+    border-top: 2px  solid green;
+    border-bottom: 2px  solid green; 
+    margin: 0px 10px;
+}
