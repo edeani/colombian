@@ -101,11 +101,13 @@
             <version>5.2.4.Final</version>
         </dependency>
         <!-- MySQL JDBC driver -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.34</version>
+            <version>8.0.11</version>
         </dependency>
+
         <!-- Logs -->
         <dependency>
             <groupId>log4j</groupId>
