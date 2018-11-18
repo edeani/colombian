@@ -17,7 +17,7 @@
     <class>com.mycompany.entidades.Usuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/2015?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/principal?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
       <!--property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/-->
       <property name="javax.persistence.jdbc.user" value="llmdvi"/>
