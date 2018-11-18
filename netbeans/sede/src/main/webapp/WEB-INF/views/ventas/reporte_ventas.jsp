@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="contenidoHome">
-        <div class="tituloPagina">Reporte Ventas Colombian Broaster</div>
+        <div class="tituloPagina">Reporte Ventas ${sede} Broaster</div>
         <div class="contenedorEstructuraFormLarge">
             <div class="contentFormSimple">
                 <form id="formVentas" action="<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/colombian/ajax/consultar.htm">

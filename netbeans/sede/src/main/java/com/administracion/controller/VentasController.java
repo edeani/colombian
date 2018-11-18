@@ -30,9 +30,10 @@ public class VentasController {
     private ConnectsAuth connectsAuth;
 
     @RequestMapping("/index-ventas.htm")
-    public ModelAndView indexVentas() {
+    public ModelAndView indexVentas(@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("ventas/reporte_ventas");
-        mav.addObject("fecha", new Date());;
+        mav.addObject("fecha", new Date());
+        mav.addObject("sede",sede );
         return mav;
     }
 

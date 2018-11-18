@@ -17,7 +17,7 @@
         
         <td>
             $<fmt:formatNumber type="number" pattern="###,##0" value="${totalProducto}"/>
-            <input type="hidden" value="${totalProducto}" class="cmpResumen${clase}"/>
+            <input type="hidden" value="<fmt:formatNumber type="number" pattern="###,##0" value="${totalProducto}"/>" class="cmpResumen${clase}"/>
         </td>
     </tr>
 </c:forEach>
