@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.mycompany.entidades.Barrios</class>
     <class>com.mycompany.entidades.CierreDiario</class>
+    <class>com.mycompany.entidades.ClasePago</class>
     <class>com.mycompany.entidades.Clientes</class>
     <class>com.mycompany.entidades.Consignaciones</class>
     <class>com.mycompany.entidades.DetalleFactura</class>
@@ -14,16 +15,15 @@
     <class>com.mycompany.entidades.Orden</class>
     <class>com.mycompany.entidades.Sedes</class>
     <class>com.mycompany.entidades.Usuario</class>
-    <class>com.mycompany.entidades.ClasePago</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/principal?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <!--property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/-->
       <property name="javax.persistence.jdbc.user" value="llmdvi"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="colombian" transaction-type="RESOURCE_LOCAL">
+  <!--persistence-unit name="colombian" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.mycompany.entidades.Barrios</class>
     <class>com.mycompany.entidades.CierreDiario</class>
@@ -92,5 +92,5 @@
       <property name="javax.persistence.jdbc.user" value=""/>
       <property name="eclipselink.canonicalmodel.subpackage" value="ten"/>
     </properties>
-  </persistence-unit>
+  </persistence-unit-->
 </persistence>

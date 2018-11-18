@@ -32,8 +32,8 @@ private Connection conexion;
 
     public void establecerConexion(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-           
+            //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(getServer(), getUser(), getPassword());
             
         } catch (Exception e) {
