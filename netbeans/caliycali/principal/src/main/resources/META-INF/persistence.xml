@@ -31,21 +31,21 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <!-- Nuevo -->
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/buffalosluzprincipal?zeroDateTimeBehavior=convertToNullcaliycali?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/buffalosluzprincipal?zeroDateTimeBehavior=CONVERT_TO_NULLcaliycali?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <!--property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/-->
       <property name="javax.persistence.jdbc.user" value="llmdvi"/>
     </properties>
     <!-- Viejo -->
     <!--properties>
-      <pr operty name="javax.persistence.jdbc.url" value="jdbc:mysql://200.58.112.133:3306/x022vm01_caliycali?zeroDateTimeBehavior=convertToNullcaliycali?zeroDateTimeBehavior=convertToNull"/>
+      <pr operty name="javax.persistence.jdbc.url" value="jdbc:mysql://200.58.112.133:3306/x022vm01_caliycali?zeroDateTimeBehavior=CONVERT_TO_NULLcaliycali?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.password" value="taYzLzk4hqx"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="x022vm01"/>
     </properties-->
     <!-- Local -->
     <!--properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://locahost:3306/pruebascali?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://locahost:3306/pruebascali?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.password" value="compaq"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="compaq"/>
