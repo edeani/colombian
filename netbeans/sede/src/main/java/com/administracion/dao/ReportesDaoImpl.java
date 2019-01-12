@@ -253,19 +253,19 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         List<ComprobanteConsolidadoSedeDto> movimientos = null;
 
         try {
-            String sql = "select a.* from(" + selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idcajamenor as idComprobante",
+            String sql = "select a.* from(" + selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idcajamenor as idComprobante,1 as tipoComprobante ",
                     "detalle_caja_menor", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
                     + " union "
-                    + selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idpago",
+                    + selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idpago,2 as tipoComprobante ",
                             "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11051001'")
                     + " union "
-                    + " select consecutivo,idcuenta,concepto,total,fecha,idcomprobantecierre "
+                    + " select consecutivo,idcuenta,concepto,total,fecha,idcomprobantecierre,3 as tipoComprobante "
                     + " from detalle_cierre_sedes where fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11201010'"
                     + " union "
-                    + " select cons as consecutivo,'11201010' as idcuenta,concepto,total,fecha,cons "
+                    + " select cons as consecutivo,'11201010' as idcuenta,concepto,total,fecha,cons,4 as tipoComprobante "
                     + " from notas_credito where fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
                     + " union "
-                    + " select cons as consecutivo,cuenta as idcuenta,concepto,total,fecha,cons "
+                    + " select cons as consecutivo,cuenta as idcuenta,concepto,total,fecha,cons,5 as tipoComprobante "
                     + " from notas_debito where fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
                     + ")a order by fecha,idComprobante");
             movimientos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ComprobanteConsolidadoSedeDto.class));

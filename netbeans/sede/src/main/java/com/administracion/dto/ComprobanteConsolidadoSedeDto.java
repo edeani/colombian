@@ -21,6 +21,7 @@ public class ComprobanteConsolidadoSedeDto {
     private String fechaComprobante;
     private String idCuenta;
     private Long idComprobante;
+    private Integer tipoComprobante;
 
     public Long getConsecutivo() {
         return consecutivo;
@@ -100,6 +101,14 @@ public class ComprobanteConsolidadoSedeDto {
 
     public void setIdComprobante(Long idComprobante) {
         this.idComprobante = idComprobante;
+    }
+
+    public Integer getTipoComprobante() {
+        return tipoComprobante;
+    }
+
+    public void setTipoComprobante(Integer tipoComprobante) {
+        this.tipoComprobante = tipoComprobante;
     }
    
     

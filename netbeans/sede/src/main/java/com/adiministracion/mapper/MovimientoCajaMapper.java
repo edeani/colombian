@@ -5,11 +5,12 @@
  */
 package com.adiministracion.mapper;
 
-
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.MovimientoCajaDto;
+import com.administracion.enumeration.TipoComprobanteConsolidado;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -20,6 +21,7 @@ public class MovimientoCajaMapper {
     private static final String cuenta_deber_caja_mayor = "11050501";
     private static final String cuenta_deber_caja_menor = "11051001";
     private static final String cuenta_deber_pagos_t = "11201010";
+
     public MovimientoCajaDto comprobanteConsolidadoSedeDtoToMovimietoCajaMayorDto(ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeDto) {
         MovimientoCajaDto movimientoCajaMayorDto = new MovimientoCajaDto();
         movimientoCajaMayorDto.setConcepto(comprobanteConsolidadoSedeDto.getConcepto());
@@ -35,16 +37,23 @@ public class MovimientoCajaMapper {
     public MovimientoCajaDto comprobanteConsolidadoSedeDtoToMovimietoCajaMenorDto(ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeDto) {
         MovimientoCajaDto movimientoCajaMayorDto = new MovimientoCajaDto();
         movimientoCajaMayorDto.setConcepto(comprobanteConsolidadoSedeDto.getConcepto());
-        if (comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_caja_menor)
-               || comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_pagos_t)) {
+        if (Objects.equals(comprobanteConsolidadoSedeDto.getTipoComprobante(), TipoComprobanteConsolidado.NOTA_CREDITO.getTipo_comprobante())) {
+            movimientoCajaMayorDto.setDeber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
+        } else if (Objects.equals(comprobanteConsolidadoSedeDto.getTipoComprobante(), TipoComprobanteConsolidado.NOTA_DEBITO.getTipo_comprobante())) {
             movimientoCajaMayorDto.setHaber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
         } else {
-            movimientoCajaMayorDto.setDeber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
+            if (comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_caja_menor)
+                    || comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_pagos_t)) {
+                movimientoCajaMayorDto.setHaber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
+            } else {
+                movimientoCajaMayorDto.setDeber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
+            }
         }
+
         movimientoCajaMayorDto.setFecha(comprobanteConsolidadoSedeDto.getFecha());
         return movimientoCajaMayorDto;
     }
-    
+
     public List<MovimientoCajaDto> comprobanteConsolidadoSedeDtoToMovimietoCajaMayorDto(List<ComprobanteConsolidadoSedeDto> comprobanteConsolidadoSedeDto) {
         List<MovimientoCajaDto> movimientos = new ArrayList<>();
         Double saldoAcumulado = 0D;
@@ -66,7 +75,7 @@ public class MovimientoCajaMapper {
         }
         return movimientos;
     }
-    
+
     public List<MovimientoCajaDto> comprobanteConsolidadoSedeDtoToMovimietoCajaMenorDto(List<ComprobanteConsolidadoSedeDto> comprobanteConsolidadoSedeDto) {
         List<MovimientoCajaDto> movimientos = new ArrayList<>();
         Double saldoAcumulado = 0D;
