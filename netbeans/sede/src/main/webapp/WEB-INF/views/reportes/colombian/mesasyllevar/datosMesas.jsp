@@ -21,7 +21,7 @@
             <td>${itemMesa.orden}</td>
             <td>
                 ${itemMesa.valor}
-                <input type="hidden" value="${itemMesa.valor}" class="cmpResumenvalorOrdenes"/>
+                <input type="hidden" value="<fmt:formatNumber type="number" pattern="###,##0" value="${itemMesa.valor}"/>" class="cmpResumenvalorOrdenes"/>
             </td>
             <td>${itemMesa.mesa}</td>
             <td>${itemMesa.codMesera}</td>
