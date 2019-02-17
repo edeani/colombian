@@ -23,6 +23,7 @@ public class DetalleCompraDTO {
     private Long idFacturaCompra;
     private Long idsede;
     private Integer idsedepoint;
+    private Double totalFacturaAnterior;
     /**
      * @return the compra
      */
@@ -149,6 +150,14 @@ public class DetalleCompraDTO {
 
     public void setIdsedepoint(Integer idsedepoint) {
         this.idsedepoint = idsedepoint;
+    }
+
+    public Double getTotalFacturaAnterior() {
+        return totalFacturaAnterior;
+    }
+
+    public void setTotalFacturaAnterior(Double totalFacturaAnterior) {
+        this.totalFacturaAnterior = totalFacturaAnterior;
     }
         
 }

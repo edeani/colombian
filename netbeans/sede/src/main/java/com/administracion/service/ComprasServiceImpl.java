@@ -44,7 +44,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ComprasServiceImpl implements ComprasService {
 
-
     @Autowired
     private InventarioService inventarioService;
     @Autowired
@@ -169,17 +168,17 @@ public class ComprasServiceImpl implements ComprasService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra,Integer codigProveedor) {
-        return comprasDao.getDetalleCompraDTO(idcompra,codigProveedor, connectsAuth.getDataSourceSede(nameDataSource));
+    public List<ComprasTotalesDTO> getDetalleCompraDTO(String nameDataSource, Long idcompra, Integer codigProveedor) {
+        return comprasDao.getDetalleCompraDTO(idcompra, codigProveedor, connectsAuth.getDataSourceSede(nameDataSource));
     }
 
     @Override
     @Transactional
-    public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra,Integer codigoProveedor) {
-        System.out.println("getCompraDTO:: "+nameDataSource+" "+idcompra);
+    public DetalleCompraDTO getCompraDTO(String nameDataSource, Long idcompra, Integer codigoProveedor) {
+        System.out.println("getCompraDTO:: " + nameDataSource + " " + idcompra);
         Compras compras = comprasDao.getCompraXProveedor(connectsAuth.getDataSourceSede(nameDataSource),
                 idcompra, codigoProveedor);
-        System.out.println("getCompraDTO::compras "+compras);
+        System.out.println("getCompraDTO::compras " + compras);
         ComprasMapper comprasMapper = new ComprasMapper();
         DetalleCompraDTO detalleCompraDTO = comprasMapper.comprasToDetalleCompraDto(compras);
         if (detalleCompraDTO.getIdsedepoint() != null) {
@@ -202,60 +201,61 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional
     public void actualizarCompra(String nameDataSource, DetalleCompraDTO detalleCompraDTO) {
-        SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
-        SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
-        if ((subSede.getSede().contains("Principal") && Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.PRINCIPAL.getTipo_sede()))
-                || !subSede.getSede().contains("Principal")) {
-            String[] fila = detalleCompraDTO.getFactura().split("@");
-            DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
-            Long idcompra = Long.parseLong(detalleCompraDTO.getNumeroFactura());
-            Integer codigoProveedor=Integer.valueOf(detalleCompraDTO.getCodigoProveedor());
-            Compras compra = comprasDao.getCompraXProveedor(ds,idcompra, codigoProveedor);
-            Long idFacturaCompra = compra.getIdFacturaCompra();
-            Double canceladoFactura = compra.getValorTotal() - compra.getSaldo();
-            comprasDao.borrarCompra(idcompra,codigoProveedor, ds);
-            comprasDao.borrarDetalleCompra(idcompra,codigoProveedor, ds);
+        if (Objects.equals(detalleCompraDTO.getSaldo(), Double.valueOf(detalleCompraDTO.getTotalFacturaAnterior()))) {
+            SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
+            SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
+            if ((subSede.getSede().contains("Principal") && Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.PRINCIPAL.getTipo_sede()))
+                    || !subSede.getSede().contains("Principal")) {
+                String[] fila = detalleCompraDTO.getFactura().split("@");
+                DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
+                Long idcompra = Long.parseLong(detalleCompraDTO.getNumeroFactura());
+                Integer codigoProveedor = Integer.valueOf(detalleCompraDTO.getCodigoProveedor());
+                Compras compra = comprasDao.getCompraXProveedor(ds, idcompra, codigoProveedor);
+                Long idFacturaCompra = compra.getIdFacturaCompra();
+                Double canceladoFactura = compra.getValorTotal() - compra.getSaldo();
+                comprasDao.borrarCompra(idcompra, codigoProveedor, ds);
+                comprasDao.borrarDetalleCompra(idcompra, codigoProveedor, ds);
 
-            //Nuevo Saldo
-            detalleCompraDTO.setSaldo(Double.parseDouble(detalleCompraDTO.getTotalFactura()) - canceladoFactura);
-            detalleCompraDTO.setIdFacturaCompra(idFacturaCompra);
-            if (Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.NORMAL.getTipo_sede())) {
-                comprasDao.insertarCompra(ds, detalleCompraDTO);
-            } else {
-                comprasDao.insertarCompraSede(ds, detalleCompraDTO);
-            }
+                //Nuevo Saldo
+                detalleCompraDTO.setSaldo(Double.parseDouble(detalleCompraDTO.getTotalFactura()) - canceladoFactura);
+                detalleCompraDTO.setIdFacturaCompra(idFacturaCompra);
+                if (Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.NORMAL.getTipo_sede())) {
+                    comprasDao.insertarCompra(ds, detalleCompraDTO);
+                } else {
+                    comprasDao.insertarCompraSede(ds, detalleCompraDTO);
+                }
 
-            String filasCompra[] = detalleCompraDTO.getFactura().split("@");
-            for (int i = 0; i < filasCompra.length; i++) {
-                String datosFilaCompra[] = filasCompra[i].split(",");
+                String filasCompra[] = detalleCompraDTO.getFactura().split("@");
+                for (int i = 0; i < filasCompra.length; i++) {
+                    String datosFilaCompra[] = filasCompra[i].split(",");
 
-                comprasDao.insertarDetalleCompra(ds, i, idcompra.toString(), datosFilaCompra, compra.getCodigoProveedor().toString(), Formatos.StringDateToDate(detalleCompraDTO.getFecha()));
-            }
+                    comprasDao.insertarDetalleCompra(ds, i, idcompra.toString(), datosFilaCompra, compra.getCodigoProveedor().toString(), Formatos.StringDateToDate(detalleCompraDTO.getFecha()));
+                }
 
-            ComprasMapper comprasMapper = new ComprasMapper();
-            FacturasCompras facturasCompras = comprasMapper.detalleCompraDTOToFacturasComprasDto(detalleCompraDTO);
-            facturasComprasDao.actualizarFacturaComprasDao(ds, facturasCompras);
+                ComprasMapper comprasMapper = new ComprasMapper();
+                FacturasCompras facturasCompras = comprasMapper.detalleCompraDTOToFacturasComprasDto(detalleCompraDTO);
+                facturasComprasDao.actualizarFacturaComprasDao(ds, facturasCompras);
 
-            //Inserción en la sede escogida
-            if (Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.NORMAL.getTipo_sede())) {
-                DataSource dsSubSede = connectsAuth.getDataSourceSubSede(subSede.getSede());
-                /**
-                 * Se toma el id de compra para buscar en factura
-                 */
-                facturaDao.borrarFactura(dsSubSede, idcompra);
-                facturaDao.borrarDetalleFactura(dsSubSede, idcompra);
+                //Inserción en la sede escogida
+                if (Objects.equals(sedesDto.getTipo_sede(), TipoSedeEnum.NORMAL.getTipo_sede())) {
+                    DataSource dsSubSede = connectsAuth.getDataSourceSubSede(subSede.getSede());
+                    /**
+                     * Se toma el id de compra para buscar en factura
+                     */
+                    facturaDao.borrarFactura(dsSubSede, idcompra);
+                    facturaDao.borrarDetalleFactura(dsSubSede, idcompra);
 
-                FacturaMapper facturaMapper = new FacturaMapper();
+                    FacturaMapper facturaMapper = new FacturaMapper();
 
-                DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
-                facturaDao.insertarFacturaSubSede(dsSubSede, factura, "A", idcompra);
-                facturaDao.insertarDetalleSede(dsSubSede, detalleCompraDTO, "A", idcompra);
+                    DetalleFacturaDTO factura = facturaMapper.comprasToFactura(detalleCompraDTO);
+                    facturaDao.insertarFacturaSubSede(dsSubSede, factura, "A", idcompra);
+                    facturaDao.insertarDetalleSede(dsSubSede, detalleCompraDTO, "A", idcompra);
 
+                }
             }
         }
     }
 
-    
     @Override
     @Transactional(readOnly = true)
     public List<ReporteComprasTotalesXProveedorDTO> comprasTotalesXProveedor(String nameDatasource, Long idproveedor, String fechaInicio, String fechaFin) {
@@ -296,7 +296,7 @@ public class ComprasServiceImpl implements ComprasService {
     @Transactional(readOnly = true)
     public void actualizarCompraCabecera(String nameDataSource, Long consecutivo) {
         DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
-        
+
         Compras compra = comprasDao.getCompraXConsecutivo(consecutivo, ds);
         compra.setSaldo(Double.NaN);
         comprasDao.actualizarCompraXConsecutivo(ds, compra);
@@ -305,10 +305,10 @@ public class ComprasServiceImpl implements ComprasService {
     @Override
     @Transactional
     public void actualizarSaldosCompra(String dataSource, List<DetallePagosProveedorDto> detallePagosProveedor, Integer codigoProveedor) {
-        
+
         detallePagosProveedor.forEach((pago) -> {
             comprasDao.actualizarSaldosCompra(connectsAuth.getDataSourceSede(dataSource), pago, codigoProveedor);
         });
-        
+
     }
 }

@@ -128,6 +128,8 @@
                         <td></td>
                         <td>Total</td>
                         <td><form:input path="totalFactura" type="text" readonly="readonly"/>
+                            <input id="totalFacturaAnterior" name="totalFacturaAnterior" value="${detalleCompraDTO.totalFactura}" type="hidden"/>
+                        </td>
                     </tr>
                     <tr>    
                         <td></td>

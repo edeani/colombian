@@ -384,7 +384,9 @@ $(document).ready(function () {
             if ($("#numeroFactura").val() != "") {
                 if ($("#totalFactura").val() == "") {
                     dialogMessage("Compra Vacia");
-                } else {
+                }else if(($("#totalFacturaAnterior").val() !== $("#saldo").val())){
+                    dialogMessage("La compra ya está cancelada o tienes abonos, y no se puede modificar");
+                }else {
                     for (i = 0; i < fila.length; i++) {
                         var valor = fila[i].children[2].children[0].value
                         if (valor != "" && valor != undefined) {
