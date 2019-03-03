@@ -1,4 +1,4 @@
-package com.printig.apps.controller;
+package com.printing.apps.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

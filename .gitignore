@@ -40,3 +40,4 @@ MANIFEST.MF
 /nbdist/
 /.nb-gradle/
 /build/
+/eclipse/printingcolombian/target/
