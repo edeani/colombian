@@ -1,7 +1,5 @@
 package com.printing.apps.services;
 
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +22,6 @@ import com.printing.apps.dto.ItemFacturaDto;
 import com.printing.apps.util.PrintUtil;
 
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
