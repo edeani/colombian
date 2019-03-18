@@ -13,7 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 import com.printing.apps.components.LocalConfigurationConnection;
 
 @SpringBootApplication
-//@ComponentScan("com.printig.apps.controller")
 public class PrintingcolombianApplication {
 	
 	@Autowired
