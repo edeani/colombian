@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+	<query id="PrintingSql.findByIdState">
+		select * from printing where orden = :idOrder and estado = :state
+	</query>
+	<query id="PrintingSql.findByState">
+		select * from printing where estado = :state
+	</query>
+	<query id="PrintingSql.updateStateById">
+		update printing set estado = :stateNew where estado = :stateOld and orden = :idOrder
+	</query>
+	
+	
+</queries>

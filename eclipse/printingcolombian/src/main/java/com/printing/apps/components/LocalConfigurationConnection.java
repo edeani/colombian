@@ -41,9 +41,9 @@ public class LocalConfigurationConnection {
 			Properties propertie = new Properties();
 			propertie.load(new FileInputStream(pathConnection));
 
-			url = propertie.getProperty(DATASOURCE_URL);
-			user = propertie.getProperty(DATASOURCE_USERNAME);
-			password = propertie.getProperty(DATASOURCE_PASSWORD);
+			this.url = propertie.getProperty(DATASOURCE_URL);
+			this.user = propertie.getProperty(DATASOURCE_USERNAME);
+			this.password = propertie.getProperty(DATASOURCE_PASSWORD);
 		} catch (IOException e) {
 			Logger.getLogger(LocalConfigurationConnection.class.getName()).log(Level.SEVERE, null, e);
 		}

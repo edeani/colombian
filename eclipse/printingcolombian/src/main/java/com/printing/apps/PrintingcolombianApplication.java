@@ -9,10 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.printing.apps.components.LocalConfigurationConnection;
 
 @SpringBootApplication
+@EnableScheduling
 public class PrintingcolombianApplication {
 	
 	@Autowired
@@ -24,7 +26,7 @@ public class PrintingcolombianApplication {
 	
 	@Bean
 	public DataSource dataSource() {
-	    DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+	    DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
 	        dataSourceBuilder.url(confConnection.getUrl());
 	        dataSourceBuilder.username(confConnection.getUser());
 	        dataSourceBuilder.password(confConnection.getPassword());

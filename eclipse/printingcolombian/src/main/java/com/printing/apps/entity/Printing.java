@@ -21,7 +21,7 @@ public class Printing {
 	@Column(name="orden")
 	private Long orden;
 	
-	@Column(name="fechaImpresion")
+	@Column(name="fechaImpresion",nullable=true)
 	private Date fechaImpresion;
 	
 	@Column(name="fechaCreacion")

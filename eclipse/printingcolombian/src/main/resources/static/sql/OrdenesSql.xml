@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+	<query id="OrdenesSql.bringOrderById">
+		select p.codigo_producto as
+		codigoProducto,p.descripcion_producto as descripcion,
+		deto.numero_unidades as unidades,p.valor_producto as valorUnitario,
+		(deto.numero_unidades * p.valor_producto) as valorTotal
+		from orden o
+		inner join detalle_orden deto on deto.numero_orden = o.numero_orden
+		inner join productos p on p.codigo_producto = deto.codigo_producto
+		where o.numero_orden = :idOrder
+	</query>
+	<query id="OrdenesSql.getOrderInformationById">
+		select o.numero_orden,o.fecha_orden,o.observacion,cli.numero_telefono,cli.descripcion_cliente,
+		cli.direccion_cliente,b.descripcion_barrio as barrio from orden o
+		inner join clientes cli on cli.numero_telefono = o.numero_telefono
+		inner join barrios b on b.codigo_barrio = cli.codigo_barrio
+		where o.numero_orden = :idOrder
+	</query>
+</queries>
