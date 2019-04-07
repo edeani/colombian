@@ -9,6 +9,63 @@ $(document).ready(function () {
     $(".fechaVencimiento").datepicker({
         dateFormat: "yy-mm-dd"
     });
+
+    $(".unidadesCampo").live('keyup', function (e) {
+        var code = e.keyCode || e.which;
+        if (code != '13' && code != '9') {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+
+            //Obtengo el tr que tiene el evento
+            var fila = $(this).parents().get(1);
+            //Obtengo los td del tr
+            var cols = fila.cells;
+
+            //Valores de cada input que estan en los td
+            var unidadString = cols[2].children[0].value;
+            var valorTotalString = cols[4].children[0].value;
+
+            var vs = valorTotalString;
+            while (valorTotalString.indexOf(",", 0) != -1) {
+                valorTotalString = valorTotalString.replace(",", "");
+            }
+
+            //Elimino la parte decimal            
+            var unidad = "0";
+
+            //COndicion para que cuando haya al menos un número
+            if (unidadString.length >= 1) {
+                if (unidadString.charAt(0) == "0") {
+                    //unidadString = unidadString.substring(1);
+                    this.value = unidadString.substring(1);
+                }
+                unidad = parseInt(unidadString);
+            } else {//Si no hay nada coloco cero
+                this.value = "0";
+            }
+
+            var cadena = String.fromCharCode(code);
+            //Calculo el total de ese producto en la fila
+            if ((parseInt(code) > 48 || parseInt(code) < 57) && (parseInt(code) > 96 || parseInt(code) < 106)) {
+                //valorTotalString+=cadena;
+                //$(this).value+=cadena;
+            } else {
+                cadena = "";
+            }
+            cols[3].children[0].value = "" + valorTotalString / unidad;
+
+            //Actualizar el total de la factura
+            //Obtengo a quien tiene las filas
+            var totalFila = $(this).parents().get(2);
+            calcularTotalFactura(totalFila);
+
+
+            
+        }
+
+        return true;
+    });
+
     $(".unidadesCampo").live('keypress', function (e) {
         var code = e.keyCode || e.which;
         if (code == '13' || code == '9') {
@@ -25,15 +82,16 @@ $(document).ready(function () {
                 return true;
             patron = /[1234567890]/;
             te = String.fromCharCode(tecla);
+
             return patron.test(te);
         }
     });
-    $(document).on("click","#limpiar",function (e){
+    $(document).on("click", "#limpiar", function (e) {
         e.preventDefault();
         var urlAjax = $(this).attr("data-url");
-        var html = peticionAjax(urlAjax,"POST","");
+        var html = peticionAjax(urlAjax, "POST", "");
         $("#contenidoCompra").html(html);
-        
+
     });
     $(document).on("keydown", ".primerCampo2", function (e) {
         var code = e.keyCode || e.which;
@@ -96,7 +154,7 @@ $(document).ready(function () {
     $(".totalCampo").live('keyup', function (e) {
         var code = e.keyCode || e.which;
         //Reemplazo los valores que ingreso
-        this.value = this.value.replace(/[^0-9]/g, '');
+        this.value = this.value.replace(/[^0-9\.]/g, '');
 
         //Obtengo el input que recibió elevento
         var object = $(this);
@@ -384,9 +442,9 @@ $(document).ready(function () {
             if ($("#numeroFactura").val() != "") {
                 if ($("#totalFactura").val() == "") {
                     dialogMessage("Compra Vacia");
-                }else if(($("#totalFacturaAnterior").val() !== $("#saldo").val())){
+                } else if (($("#totalFacturaAnterior").val() !== $("#saldo").val())) {
                     dialogMessage("La compra ya está cancelada o tienes abonos, y no se puede modificar");
-                }else {
+                } else {
                     for (i = 0; i < fila.length; i++) {
                         var valor = fila[i].children[2].children[0].value
                         if (valor != "" && valor != undefined) {
@@ -466,10 +524,10 @@ $(document).ready(function () {
             $("#contenidoCompra").html(compraHTML);
         } else {
             var msjError = "";
-            if(idcompra===""){
-                msjError="Favor ingresar el numero de factura";
-            }else if(codigoProveedor_===""){
-                msjError="Seleccione el proveedor";
+            if (idcompra === "") {
+                msjError = "Favor ingresar el numero de factura";
+            } else if (codigoProveedor_ === "") {
+                msjError = "Seleccione el proveedor";
             }
             dialogMessage(msjError);
         }

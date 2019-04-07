@@ -20,6 +20,7 @@ import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.Proveedor;
 import com.administracion.service.ComprasService;
+import com.administracion.service.ProveedoresService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.service.jsf.ComprasColombianService;
@@ -81,6 +82,8 @@ public class ComprasController extends BaseController {
     private ComprasColombianService comprasColombianService;
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private ProveedoresService proveedoresService;
     @Autowired
     private ConnectsAuth connectsAuth;
 
@@ -512,7 +515,20 @@ public class ComprasController extends BaseController {
     @RequestMapping("/compraPdf.htm")
     public ModelAndView compraFindedPdf(@Valid DetalleCompraDTO detalleCompraDTO, @PathVariable String sede) {
         ModelAndView mav = null;
-        List<ItemFacturaDto> detalleFactura = FacturaMapper.stringFacturaToIteFacturaDto(detalleCompraDTO.getFactura());
+        
+        Long idcompra = Long.valueOf(detalleCompraDTO.getNumeroFactura());
+        Integer codigoProveedor = Integer.valueOf(detalleCompraDTO.getCodigoProveedor());
+        detalleCompraDTO = comprasService.getCompraDTO(sede, idcompra, codigoProveedor);
+        
+        List<ComprasTotalesDTO> detalleCompras = comprasService.getDetalleCompraDTO(sede, idcompra, codigoProveedor);
+        
+        int numeroCompras = 0;
+        if (detalleCompras != null) {
+            numeroCompras = detalleCompras.size();
+        }
+        
+        List<ItemFacturaDto> detalleFactura = FacturaMapper.detalleCompraDtoToIteFacturaDto(detalleCompras);
+        Proveedor proveedor = proveedoresService.proveedor(sede, codigoProveedor.longValue());
         if (detalleFactura != null) {
             JRDataSource datos = new JRBeanCollectionDataSource(detalleFactura);
             Map<String, Object> parameterMap = new HashMap<>();
@@ -521,7 +537,7 @@ public class ComprasController extends BaseController {
             parameterMap.put("usuario", sedesDto.getUsersLogin());
             parameterMap.put("nombresede", sedesDto.getTitulo());
             parameterMap.put("slogan", sedesDto.getSlogan());
-            parameterMap.put("proveedor", detalleCompraDTO.getNombreProveedor());
+            parameterMap.put("proveedor", proveedor.getNombre());
             parameterMap.put("numeroFactura", detalleCompraDTO.getNumeroFactura());
             mav = new ModelAndView("comprasModificadas", parameterMap);
             return mav;

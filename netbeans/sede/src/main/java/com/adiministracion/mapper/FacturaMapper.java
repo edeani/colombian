@@ -7,6 +7,7 @@
 package com.adiministracion.mapper;
 
 import com.administracion.dao.GenericDaoImpl;
+import com.administracion.dto.ComprasTotalesDTO;
 import com.administracion.dto.DetalleCompraDTO;
 import com.administracion.dto.DetalleFacturaDTO;
 import com.administracion.dto.ItemFacturaDto;
@@ -147,4 +148,27 @@ public class FacturaMapper extends GenericDaoImpl<Object>{
             return detalleFactura;
  
     }
+    
+    public static ItemFacturaDto itemCompraToItemFactura(ComprasTotalesDTO itemCompraDto){
+        ItemFacturaDto itemF = new ItemFacturaDto();
+        
+        itemF.setCodigoProducto(itemCompraDto.getCodigo().intValue());
+        itemF.setDescripcion(itemCompraDto.getProducto());
+        itemF.setUnidades(itemCompraDto.getUnidades().intValue());
+        itemF.setValorUnitario(itemCompraDto.getPromedio().floatValue());
+        itemF.setValorTotal(itemCompraDto.getValor().floatValue());
+        
+        return itemF;
+    }
+    public static List<ItemFacturaDto> detalleCompraDtoToIteFacturaDto(List<ComprasTotalesDTO> lisItemComprasDto){
+        
+        List<ItemFacturaDto> itemFacturasDto = new ArrayList<>();
+        lisItemComprasDto.forEach((item) ->{
+            itemFacturasDto.add(itemCompraToItemFactura(item));
+        });
+        
+        return itemFacturasDto;
+    }
+    
+    
 }

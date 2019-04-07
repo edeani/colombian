@@ -4,6 +4,8 @@
  */
 package com.administracion.dto;
 
+import javax.validation.constraints.Pattern;
+
 /**
  *
  * @author user
@@ -12,7 +14,9 @@ public class DetalleCompraDTO {
     
     private String factura;
     private String totalFactura;
+    @Pattern(regexp = "[0-9]*")
     private String numeroFactura;
+    @Pattern(regexp = "[0-9]*")
     private String codigoProveedor;
     private String nombreProveedor;
     private String fechaVencimiento;

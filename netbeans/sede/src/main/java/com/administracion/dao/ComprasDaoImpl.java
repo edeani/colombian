@@ -46,14 +46,14 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
     private  final String estado_default_comprobante = "N";
     private  final String estado_default_compra = "A";
 
-    private static final String SQL_DETALLECOMPRA_DTO = "SELECT i.codigo_producto_inventario as codigo, "
-            + "i.descripcion_producto as producto, "
-            + "dc.numero_unidades as unidades, "
-            + "i.promedio, "
-            + "dc.valor_producto as valor "
-            + "FROM detalle_compra dc "
-            + "inner join inventario i on i.codigo_producto_inventario = dc.codigo_producto_inventario "
-            + "where dc.numero_compra = ? and dc.codigo_proveedor= ?";
+    private static final String SQL_DETALLECOMPRA_DTO = " SELECT i.codigo_producto_inventario as codigo, "
+            + " i.descripcion_producto as producto, "
+            + " dc.numero_unidades as unidades, "
+            + " i.promedio, "
+            + " dc.valor_producto as valor "
+            + " FROM detalle_compra dc "
+            + " inner join inventario i on i.codigo_producto_inventario = dc.codigo_producto_inventario "
+            + " where dc.numero_compra = ? and dc.codigo_proveedor= ?";
 
     @Override
     public Compras getCompra(Long idcompra, DataSource nameDataSource) {
