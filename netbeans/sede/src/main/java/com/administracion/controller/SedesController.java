@@ -65,10 +65,18 @@ public class SedesController extends BaseController {
     }
     
     @RequestMapping("/ajax/listaSedeSelectCredencial.htm")
-    public ModelAndView cargarSedesCredencials(HttpSession session,@PathVariable String sede) {
+    public ModelAndView cargarSedesCredencials(HttpSession session,@PathVariable String sede,
+            @RequestParam(required = false) String page) {
         ModelAndView mav = new ModelAndView("util/formSelect");
         SedesDto ss = connectsAuth.findSedeXName(sede);
         List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
+        
+        if(page != null){
+            if(page.equals("compras")){
+                datosSedes.remove(0);
+            }
+        }
+            
         mav.addObject("datos", datosSedes);
 
         return mav;

@@ -46,7 +46,9 @@
                         <label>Sede
                             <select id="idsede" name="idsede" style="width: 155px;">
                                 <option value="">Seleccionar</option>
-                                <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm"/>
+                                <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm">
+                                    <c:param name="page" value="compras"/>
+                                </c:import>
                             </select>
                             <input type="hidden" id="idsedepoint" name="idsedepoint" value="" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
                         </label>
