@@ -49,7 +49,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
     private static final String SQL_DETALLECOMPRA_DTO = " SELECT i.codigo_producto_inventario as codigo, "
             + " i.descripcion_producto as producto, "
             + " dc.numero_unidades as unidades, "
-            + " i.promedio, "
+            + " dc.valor_producto/dc.numero_unidades as promedio, "
             + " dc.valor_producto as valor "
             + " FROM detalle_compra dc "
             + " inner join inventario i on i.codigo_producto_inventario = dc.codigo_producto_inventario "
