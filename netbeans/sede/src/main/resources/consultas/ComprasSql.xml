@@ -38,7 +38,7 @@
         dc.numero_unidades as unidades,i.promedio as promedio,dc.valor_producto as valor,c.estado_compra ,dc.fecha_compra 
         from inventario i inner join detalle_compra dc on i.codigo_producto_inventario = dc.codigo_producto_inventario 
         inner join compras c on dc.numero_compra = c.id_compra 
-        where c.codigo_proveedor = :codigoProveedor and c.fecha_compra between :fechaInicial and :fechaFinal  order by 1)subCompras 
+        where c.codigo_proveedor = :codigoProveedor and c.fecha_compra between :fechaInicial and :fechaFinal and c.fecha_compra = dc.fecha_compra order by 1)subCompras 
         )subCompras2 where subCompras2.estado_compra = :estadoCompra 
         group by subCompras2.codigo,subCompras2.producto) subCompras3 order by 1
     </query>
