@@ -20,11 +20,11 @@
         <intercept-url pattern="/[a-zA-Z]+/signin.htm" access="permitAll()" />
         <intercept-url pattern="/403.htm" access="permitAll()" />
         <intercept-url pattern="/404.htm" access="permitAll()" />
-        <intercept-url pattern="/[a-zA-Z]+/productos/.*" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER')" />
-        <intercept-url pattern="/[a-zA-Z]+/pedidos/.*" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER')" />
-        <intercept-url pattern="/[a-zA-Z]+/home.htm" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER')" />
-        <intercept-url pattern="/[a-zA-Z]+/usuarios/.*" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER')" />
-        <intercept-url pattern="/[a-zA-Z]+/tipos-pago/.*" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER')" />
+        <intercept-url pattern="/[a-zA-Z]+/productos/.*" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER','ROLE_ADMIN_VENTAS')" />
+        <intercept-url pattern="/[a-zA-Z]+/pedidos/.*" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER','ROLE_ADMIN_VENTAS')" />
+        <intercept-url pattern="/[a-zA-Z]+/home.htm" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER','ROLE_ADMIN_VENTAS')" />
+        <intercept-url pattern="/[a-zA-Z]+/usuarios/.*" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER','ROLE_ADMIN_VENTAS')" />
+        <intercept-url pattern="/[a-zA-Z]+/tipos-pago/.*" access="hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_USER','ROLE_ADMIN_VENTAS')" />
         <access-denied-handler error-page="/403.htm" />
         
         <custom-filter ref="customAuthenticationFilter" position="FORM_LOGIN_FILTER" />

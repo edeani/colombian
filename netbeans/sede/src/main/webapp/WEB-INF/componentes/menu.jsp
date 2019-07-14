@@ -28,7 +28,7 @@
             </ul>
         </li>
         <!--Contabilidad-->
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ADMIN_VENTAS')">
         <li class='has-sub'><a href='#'><span>Contabilidad</span></a>
             <ul>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/cuentas/index.htm'><span>Cuentas</span></a></li>
@@ -96,7 +96,9 @@
         <li class='has-sub'><a href='#'><span>Entrar Sedes</span></a>
             <ul>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/tiemporeal/cierres.htm'><span>Tiempo Real</span></a></li>
+                <sec:authorize access="!hasRole('ROLE_ADMIN_VENTAS')">
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/reporte/inventarios.htm'><span>Inventario</span></a></li>
+                </sec:authorize>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compras.htm'><span>Compras</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/ordenes.htm'><span>Mesas y Llevar</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/ventas/index-ventas.htm'><span>Ventas</span></a></li>
