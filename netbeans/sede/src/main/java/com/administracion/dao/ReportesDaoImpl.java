@@ -515,11 +515,11 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
             return this.jdbcTemplate.queryForObject("select sum(total) as total from (select sum(pago_tarjeta) as total from mesa " +
             "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A' " +
-            "union " +
+            "union all " +
             "select sum(pago_tarjeta) as total from orden " +
             "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
             "and estado_orden = 'A' " +
-            "union " +
+            "union all " +
             "select sum(pago_tarjeta) as total from llevar " +
             "where " +
             "fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
