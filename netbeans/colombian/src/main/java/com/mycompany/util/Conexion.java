@@ -8,6 +8,7 @@ import com.mycompani.bean.util.UserSessionBean;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 /**
  *
@@ -36,9 +37,11 @@ private Connection conexion;
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(getServer(), getUser(), getPassword());
             
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
             System.out.println("Imposible realizar conexion con la BD "+e.getMessage());
-        }
+        } catch (SQLException e) {
+            System.out.println("Imposible realizar conexion con la BD "+e.getMessage());
+    }
     }
 
     public Connection getConexion() {
