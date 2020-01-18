@@ -9,15 +9,12 @@ import com.mycompani.bean.util.UserSessionBean;
 import com.mycompany.reportes.InventarioService;
 import com.mycompany.reportes.InventarioServiceImpl;
 import com.mycompany.mapper.Inventario;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -33,7 +30,7 @@ public class InventarioBean implements Serializable{
     private Date finicial;
     private Date ffinal;
     private List<Inventario> inventario;
-    private InventarioService inventarioService;
+    private final InventarioService inventarioService;
     public InventarioBean() {
         inventarioService = new InventarioServiceImpl();
         finicial = new Date();

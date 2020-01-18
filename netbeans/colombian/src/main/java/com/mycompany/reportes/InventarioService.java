@@ -5,10 +5,8 @@
 package com.mycompany.reportes;
 
 import com.mycompany.mapper.Inventario;
-import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
-import javax.naming.spi.DirStateFactory;
 
 /**
  *

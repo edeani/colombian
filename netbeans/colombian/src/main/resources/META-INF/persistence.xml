@@ -40,7 +40,7 @@
     <class>com.mycompany.entidades.ClasePago</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/colombian_2012?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.22:3306/colombian_2018?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
       <!--property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/-->
       <property name="javax.persistence.jdbc.user" value="llmdvi"/>
@@ -91,6 +91,29 @@
       <!--property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/-->
       <property name="javax.persistence.jdbc.user" value=""/>
       <property name="eclipselink.canonicalmodel.subpackage" value="ten"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="villas" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mycompany.entidades.Barrios</class>
+    <class>com.mycompany.entidades.CierreDiario</class>
+    <class>com.mycompany.entidades.Clientes</class>
+    <class>com.mycompany.entidades.Consignaciones</class>
+    <class>com.mycompany.entidades.DetalleFactura</class>
+    <class>com.mycompany.entidades.Factura</class>
+    <class>com.mycompany.entidades.Gastos</class>
+    <class>com.mycompany.entidades.Llevar</class>
+    <class>com.mycompany.entidades.Mesa</class>
+    <class>com.mycompany.entidades.Orden</class>
+    <class>com.mycompany.entidades.Sedes</class>
+    <class>com.mycompany.entidades.Usuario</class>
+    <class>com.mycompany.entidades.ClasePago</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://colombianbroaster.dyndns.org:3306/villasdegranada?serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.password" value="25012908"/>
+      <!--property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/-->
+      <property name="javax.persistence.jdbc.user" value="babymadfhs"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="eleven"/>
     </properties>
   </persistence-unit>
 </persistence>

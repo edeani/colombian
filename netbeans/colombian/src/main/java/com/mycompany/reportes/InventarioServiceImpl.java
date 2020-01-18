@@ -25,8 +25,8 @@ import javax.swing.JOptionPane;
  */
 public class InventarioServiceImpl implements InventarioService {
 
-    private UserSessionBean user = UserSessionBean.getInstance();
-    private String password = user.getSede().getPassword();
+    private final UserSessionBean user = UserSessionBean.getInstance();
+    private final String password = user.getSede().getPassword();
 
     @Override
     public List<Inventario> traerInventario(Date Ffinal, Date Finicial) {
@@ -84,7 +84,8 @@ public class InventarioServiceImpl implements InventarioService {
                     + "( "
                     + "select inv.codigo_producto_inventario,inv.descripcion_producto as producto,df.numero_unidades from inventario inv "
                     + "inner join detalle_factura df on df.codigo_producto_inventario = inv.codigo_producto_inventario "
-                    + "inner join factura f on f.numero_factura = df.numero_factura and f.fecha_factura between '"+formato.dateTostring(dfDefault.format(Finicial))+"' and '"+formato.dateTostring(dfDefault.format(Ffinal))+"' AND f.estado_factura= 'A' "
+                    + "inner join factura f on f.numero_factura = df.numero_factura "
+                    + "where f.fecha_factura between '"+formato.dateTostring(dfDefault.format(Finicial))+"' and '"+formato.dateTostring(dfDefault.format(Ffinal))+"' AND f.estado_factura= 'A' and f.fecha_factura = df.fecha_factura "
                     + ")nivela on nivela.codigo_producto_inventario = inv1.codigo_producto_inventario "
                     + ")a0 "
                     + "group by 1,2 "
