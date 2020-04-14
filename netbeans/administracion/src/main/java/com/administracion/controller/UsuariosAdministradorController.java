@@ -5,24 +5,29 @@
  */
 package com.administracion.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.administracion.dto.UsuarioDto;
 import com.administracion.service.RolesService;
 import com.administracion.service.UsuarioService;
 import com.administracion.util.LectorPropiedades;
 import com.administracion.util.ManageCookies;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -49,18 +54,17 @@ public class UsuariosAdministradorController extends BaseController {
         coordUrbana.addAll(Arrays.asList(listado));
     }
 
-    @RequestMapping("/index.htm")
+    @GetMapping("/index.htm")
     public ModelAndView indexAdminUsuarios() {
         return new ModelAndView("usuarios/clientes");
     }
 
-    @RequestMapping("/roles.htm")
+    @GetMapping("/roles.htm")
     public ModelAndView modificarRol(Integer idrol) {
-        ModelAndView mav = new ModelAndView("usuarios/clientes-rol");
-        return mav;
+        return new ModelAndView("usuarios/clientes-rol");
     }
 
-    @RequestMapping("/ajax/buscar-x-mail-rol.htm")
+    @PostMapping("/ajax/buscar-x-mail-rol.htm")
     public ModelAndView buscarUsuarioXmailRol(@RequestParam String email) {
         EmailValidator validatorEmail = new EmailValidator();
         ModelAndView mav = new ModelAndView("usuarios/finded-rol");
@@ -78,7 +82,7 @@ public class UsuariosAdministradorController extends BaseController {
         return mav;
     }
 
-    @RequestMapping("/ajax/buscar-x-mail.htm")
+    @PostMapping("/ajax/buscar-x-mail.htm")
     public ModelAndView buscarUsuarioXmail(@RequestParam String email) {
         EmailValidator validatorEmail = new EmailValidator();
         ModelAndView mav = new ModelAndView("usuarios/finded");
@@ -113,7 +117,7 @@ public class UsuariosAdministradorController extends BaseController {
         return mav;
     }
 
-    @RequestMapping("/ajax/actualizar-usuario.htm")
+    @PostMapping("/ajax/actualizar-usuario.htm")
     public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto, BindingResult binding,
             HttpServletResponse response) {
         if (binding.hasErrors()) {
@@ -131,7 +135,7 @@ public class UsuariosAdministradorController extends BaseController {
         }
     }
 
-    @RequestMapping("/ajax/actualizar-usuario-rol.htm")
+    @PostMapping("/ajax/actualizar-usuario-rol.htm")
     public ModelAndView actualizarUsuarioRol(@RequestParam Integer idrol,@RequestParam Long idusuario,HttpServletResponse response) {
             ModelAndView mav = new ModelAndView("usuarios/finded-rol");
             usuarioService.actualizarUsuarioAdministracionRol(idrol,idusuario);
