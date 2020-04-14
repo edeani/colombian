@@ -105,7 +105,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.11</version>
+            <version>8.0.19</version>
         </dependency>
 
         <!-- Logs -->
@@ -223,6 +223,17 @@
                 <bd.ip>localhost:3306</bd.ip>
                 <path.img>/home/edeani/git/colombian/netbeans/administracion/src/main/webapp/img-producto/</path.img>
                 <url.img></url.img>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod-remote</id>
+            <properties>
+                <base.datos>domicilios</base.datos>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>186.31.32.253:3306</bd.ip>
+                <path.img>C:/apache-tomcat-8.5.54/webapps/estaticos/img/productos/</path.img>
+                <url.img>/estaticos/img/productos</url.img>
             </properties>
         </profile>
         <profile>
