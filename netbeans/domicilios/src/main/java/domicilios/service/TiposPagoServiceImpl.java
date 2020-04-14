@@ -5,15 +5,16 @@
  */
 package domicilios.service;
 
-import domicilios.dao.TipoPagoDao;
-import domicilios.entidad.Tipopago;
-import domicilios.util.LeerXml;
-import static java.awt.PageAttributes.MediaType.A;
 import java.util.HashMap;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import domicilios.dao.TipoPagoDao;
+import domicilios.entidad.Tipopago;
+import domicilios.util.LeerXml;
 
 /**
  *

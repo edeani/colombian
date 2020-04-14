@@ -6,7 +6,7 @@
 package domicilios.entidad;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,13 +44,6 @@ public class Detallepedido implements Serializable {
     @JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
     @ManyToOne
     private Pedido pedido;
-
-    public Detallepedido() {
-    }
-
-    public Detallepedido(Long iddetallepedido) {
-        this.iddetallepedido = iddetallepedido;
-    }
 
     public Long getIddetallepedido() {
         return iddetallepedido;

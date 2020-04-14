@@ -43,14 +43,6 @@ public class Tipopago implements Serializable {
     public Tipopago() {
     }
 
-    public Tipopago(Integer idtipo) {
-        this.idtipo = idtipo;
-    }
-
-    public Tipopago(Integer idtipo, String nombre) {
-        this.idtipo = idtipo;
-        this.nombre = nombre;
-    }
 
     public Integer getIdtipo() {
         return idtipo;

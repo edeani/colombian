@@ -65,15 +65,6 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Long idusuario) {
-        this.idusuario = idusuario;
-    }
-
-    public Usuario(Long idusuario, String cedula, String estado) {
-        this.idusuario = idusuario;
-        this.cedula = cedula;
-        this.estado = estado;
-    }
 
     public Long getIdusuario() {
         return idusuario;

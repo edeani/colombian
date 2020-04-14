@@ -5,16 +5,18 @@
  */
 package domicilios.mapper;
 
-import domicilios.dto.ProductoDto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import org.springframework.jdbc.core.RowMapper;
+
+import domicilios.dto.ProductoDto;
 
 /**
  *
  * @author user
  */
-public class ProductoDtoMapper implements RowMapper{
+public class ProductoDtoMapper implements RowMapper<ProductoDto>{
     @Override
     public ProductoDto mapRow(ResultSet rs, int rowNum) throws SQLException {  
         ProductoDto productoDto = new ProductoDto();

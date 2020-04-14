@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,7 +55,7 @@ public class ProductosController {
         this.paginas = (productoService.numeroProducto() / this.cantidadPagina) + 1;
     }
 
-    @RequestMapping("/productos.htm")
+    @GetMapping("/productos.htm")
     public ModelAndView productos(Device device) {
         List<ProductoDto> productos = productoService.listAllPage(1);
         ModelAndView mav = new ModelAndView("productos/contenidoProductos");
@@ -69,7 +71,7 @@ public class ProductosController {
         return mav;
     }
 
-    @RequestMapping("/ajax/productosxpagina.htm")
+    @PostMapping("/ajax/productosxpagina.htm")
     public ModelAndView productosPagina(@RequestParam Integer page) {
         List<ProductoDto> productos = productoService.listAllPage(page);
         ModelAndView mav = new ModelAndView("productos/listaProductosFront");
@@ -78,7 +80,7 @@ public class ProductosController {
         return mav;
     }
 
-    @RequestMapping("/ajax/carrito/agregar.htm")
+    @PostMapping("/ajax/carrito/agregar.htm")
     public ModelAndView agregarCarrito(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, @RequestParam Integer idproducto,
             @RequestParam Float precioProducto, @RequestParam String nombreProducto) {
         List<ProductoClienteDto> productoClienteDto;
@@ -108,7 +110,7 @@ public class ProductosController {
         return mav;
     }
 
-    @RequestMapping("/ajax/carrito/actualizar.htm")
+    @PostMapping("/ajax/carrito/actualizar.htm")
     public @ResponseBody
     String actualizarCarrito(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, @RequestParam Integer idproducto,
             @RequestParam Float precioProducto) {
@@ -127,7 +129,7 @@ public class ProductosController {
         return "OK";
     }
     
-    @RequestMapping("/ajax/carrito/cantidad/actualizar.htm")
+    @PostMapping("/ajax/carrito/cantidad/actualizar.htm")
     public @ResponseBody
     String actualizarCarritoAddRemove(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, @RequestParam Integer idproducto,
             @RequestParam Float precioProducto,@RequestParam Integer cantidad) {

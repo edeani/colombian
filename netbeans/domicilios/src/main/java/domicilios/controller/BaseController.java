@@ -28,7 +28,7 @@ public class BaseController {
         mav.addObject("commandName", entityKey);
     }
     
-    public static String getPROPIEDADES_COLOMBIAN() {
+    public static String getPropiedadesColombian() {
         return PROPIEDADES_COLOMBIAN;
     }
     

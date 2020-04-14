@@ -5,7 +5,28 @@
  */
 package domicilios.controller;
 
-import static domicilios.controller.BaseController.getPROPIEDADES_COLOMBIAN;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import domicilios.dto.PedidoClienteDto;
 import domicilios.dto.ProductoClienteDto;
 import domicilios.entidad.Tipopago;
@@ -15,24 +36,6 @@ import domicilios.service.TipoPagoService;
 import domicilios.service.autorizacion.SecurityService;
 import domicilios.util.LectorPropiedades;
 import domicilios.util.ManageCookies;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -69,22 +72,18 @@ public class PedidosController extends BaseController {
     private void listaEstructuraUrbana() {
         coordUrbana = new ArrayList<>();
         LectorPropiedades lp = new LectorPropiedades();
-        final String listaBuff = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), "coord.urbana");
+        final String listaBuff = lp.leerPropiedad(getPropiedadesColombian(), "coord.urbana");
         String listado[] = listaBuff.split(",");
         coordUrbana.addAll(Arrays.asList(listado));
     }
 
 
-    @RequestMapping(value = "/pedido.htm", method = RequestMethod.GET)
+    @GetMapping(value = "/pedido.htm")
     public ModelAndView pedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         ModelAndView mav;
 
         mav = new ModelAndView("compra/pedido");
-        if (pedidoDto == null) {
-            return new ModelAndView("compra/pedidoVacio");
-        } else if (pedidoDto.getProductos() == null) {
-            return new ModelAndView("compra/pedidoVacio");
-        } else if (pedidoDto.getProductos().isEmpty()) {
+        if (pedidoDto == null || Objects.equals(pedidoDto.getProductos(), null) || pedidoDto.getProductos().isEmpty()) {
             return new ModelAndView("compra/pedidoVacio");
         }
         Usuario usuario = securityService.getCurrentUser();
@@ -128,8 +127,8 @@ public class PedidosController extends BaseController {
 
         if (ManageCookies.getCookieValue(request, NAME_COORDS_DOMI) == null) {
             LectorPropiedades lp = new LectorPropiedades();
-            String jsonCoordenadasString = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), PROP_COORDS_DOMI);
-            String jsonCoordenadasColString = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), PROP_COORDS_COLOMBIAN);
+            String jsonCoordenadasString = lp.leerPropiedad(getPropiedadesColombian(), PROP_COORDS_DOMI);
+            String jsonCoordenadasColString = lp.leerPropiedad(getPropiedadesColombian(), PROP_COORDS_COLOMBIAN);
             ManageCookies.setCookie(response, NAME_COORDS_DOMI, jsonCoordenadasString, 1, "/");
             ManageCookies.setCookie(response, NAME_COORDS_COLOMBIAN, jsonCoordenadasColString, 1, "/");
         }
@@ -137,7 +136,7 @@ public class PedidosController extends BaseController {
         return mav;
     }
 
-    @RequestMapping(value = "/pedido.htm", method = RequestMethod.POST)
+    @PostMapping(value = "/pedido.htm")
     public ModelAndView guardarPedido(@ModelAttribute @Valid PedidoClienteDto pedidoClienteDto, BindingResult binding, @Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto,
             HttpServletResponse response, HttpServletRequest request, HttpSession session) {
 
@@ -148,7 +147,6 @@ public class PedidosController extends BaseController {
         } else {
             try {
                 pedidoService.guardarPedido(pedidoClienteDto, securityService.getCurrentUser());
-                pedidoDto = null;
                 ManageCookies.eraseCookie(NAME_COORDS_COLOMBIAN, response, request);
                 ManageCookies.eraseCookie(NAME_COORDS_DOMI, response, request);
                 session.removeAttribute("pedido");
@@ -161,12 +159,12 @@ public class PedidosController extends BaseController {
         }
     }
 
-    @RequestMapping("/finalizada.htm")
+    @GetMapping("/finalizada.htm")
     public ModelAndView compraFinalizada() {
         return new ModelAndView("compra/finalizacion");
     }
 
-    @RequestMapping("/ajax/resumen.htm")
+    @GetMapping("/ajax/resumen.htm")
     public ModelAndView resumenPedido(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session) {
         if (pedidoDto == null) {
             pedidoDto = new PedidoClienteDto();
@@ -181,7 +179,7 @@ public class PedidosController extends BaseController {
         return mav;
     }
 
-    @RequestMapping("/ajax/carrito/eliminar.htm")
+    @PostMapping("/ajax/carrito/eliminar.htm")
     public @ResponseBody
     String eliminarProductoCarrito(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, HttpSession session, @RequestParam Integer idproducto) {
 
