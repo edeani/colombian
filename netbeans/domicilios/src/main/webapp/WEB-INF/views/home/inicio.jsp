@@ -292,31 +292,31 @@
                     <div class="rst-happy-hours">
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Lunes</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.30PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Martes</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.30PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Miercoles</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.30PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Jueves</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.30PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Viernes</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="In stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.30PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">S&aacute;bado</div>
-                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.45PM</div>
+                            <div class="pull-right hours"><span class="rst-stock in-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 09.30PM</div>
                         </div>
                         <div class="clearfix rst-happy-date">
                             <div class="pull-left date">Domingos y Festivos</div>
-                            <div class="pull-right hours"><span class="rst-stock low-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 08.45PM</div>
+                            <div class="pull-right hours"><span class="rst-stock low-stock" data-original-title="Low stock" data-placement="bottom" data-toggle="tooltip"></span> 11.00AM — 08.30PM</div>
                         </div>
                     </div>
                 </div>
