@@ -46,7 +46,7 @@ public class Producto implements Serializable {
     private String estado;
     
     @Basic(optional = false)
-    @Column(name = "tipo")
+    @Column(name = "idCategoria")
     private Integer tipo;
     
     @Size(max = 45)
@@ -55,9 +55,10 @@ public class Producto implements Serializable {
     
     @OneToMany(mappedBy = "idproducto")
     private List<Detallepedido> detallepedidoList;
-    
+
     public Producto() {
     }
+    
 
     public Producto(Integer idproducto) {
         this.idproducto = idproducto;

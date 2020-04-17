@@ -232,7 +232,7 @@
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
                 <bd.ip>186.31.32.253:3306</bd.ip>
-                <path.img>C:/apache-tomcat-8.5.54/webapps/estaticos/img/productos/</path.img>
+                <path.img>C:/Users/10 Spring Creators/Documents/apache-tomcat-8.5.37/webapps/estaticos/img/productos/</path.img>
                 <url.img>/estaticos/img/productos</url.img>
             </properties>
         </profile>

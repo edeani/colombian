@@ -46,8 +46,8 @@ public class Producto implements Serializable {
     private String estado;
     
     @Basic(optional = false)
-    @Column(name = "tipo")
-    private Integer tipo;
+    @Column(name = "idcategoria")
+    private Integer idCategoria;
     
     @Size(max = 45)
     @Column(name = "imagen")
@@ -111,13 +111,7 @@ public class Producto implements Serializable {
         this.estado = estado;
     }
 
-    public Integer getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
-    }
+    
 
     public String getImagen() {
         return imagen;
@@ -125,6 +119,14 @@ public class Producto implements Serializable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
     }
     
     

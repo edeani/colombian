@@ -89,14 +89,14 @@
                             <br />
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa  fa-tag"></i></span>
-                                    <springForm:select path="tipo" cssClass="form-control">
+                                    <springForm:select path="idCategoria" cssClass="form-control">
                                     <option value="">Categor&iacute;a</option>
                                     <c:forEach items="${categorias}" var="c">
-                                        <option value="${c.cons}" <c:if test="${c.cons eq producto.tipo}"> selected </c:if>>${c.nombre}</option>
+                                        <option value="${c.cons}" <c:if test="${c.cons eq producto.idCategoria}"> selected </c:if>>${c.nombre}</option>
                                     </c:forEach>
                                 </springForm:select>
                             </div>
-                            <springForm:errors path="tipo" cssClass="text-danger" />
+                            <springForm:errors path="idCategoria" cssClass="text-danger" />
                             <br />
                             <springForm:hidden path="estado" />
                             <div class="rst-product-info main-product-detail">

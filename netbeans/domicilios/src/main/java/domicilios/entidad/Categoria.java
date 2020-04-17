@@ -33,6 +33,10 @@ public class Categoria implements Serializable {
     @Size(max = 45)
     @Column(name = "nombre")
     private String nombre;
+    @Column(name = "imagen")
+    private String imagen;
+    @Column(name = "descripcion")
+    private String descripcion;
 
     public Categoria() {
     }
@@ -80,6 +84,22 @@ public class Categoria implements Serializable {
     @Override
     public String toString() {
         return "domicilios.entidad.Categoria[ cons=" + cons + " ]";
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }

@@ -86,7 +86,7 @@
                                                         <img src="${urlImg}/${p.imagen}" alt="${p.nombreproducto}" />
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <img src="/administracion/img-producto/gallery10.jpg" alt="" />
+                                                        <img src="${urlImg}/gallery10.jpg" alt="default image" />
                                                     </c:otherwise>
                                                 </c:choose>
                                             </a>
