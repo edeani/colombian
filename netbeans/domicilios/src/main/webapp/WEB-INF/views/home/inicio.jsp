@@ -10,6 +10,7 @@
     <title>Domicilios Colombian Broaster</title>
 
     <link rel="stylesheet" type="text/css" href="/js/owlcarousel/owl.carousel.css"><!-- owl carousel -->
+    <link rel="stylesheet" type="text/css" href="/css/home/home.css">
     <!-- Custom Css 
     ================================================== -->
     <link rel="stylesheet" type="text/css" href="/css/rs-wp-v1.2.css">
@@ -283,7 +284,16 @@
                         </li>
                         <li>
                             <h4><a href="#">Tel&eacute;fono</a></h4>
-                            <p>(1) 2685558</p>
+                            
+                            <p><span class="glyphicon glyphicon-phone-alt" ></span> (1) 2685558</p>
+                            <div class="background-social background-whatsapp" ></div>
+                            <p class="right-side-logo">
+                              3142002610
+                            </p>
+                            <div class="background-social background-facebook"></div>
+                            <p class="right-side-logo">
+                                <a href="https://www.facebook.com/colombian.broaster.77">P&aacute;gina Oficial- Encuentranos en Facebook</a>
+                            </p>
                         </li>
                     </ul>
                 </div>

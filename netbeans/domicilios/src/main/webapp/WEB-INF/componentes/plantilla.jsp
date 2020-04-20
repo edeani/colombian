@@ -131,8 +131,8 @@
                 <div class="row">
                     <div class="rst-table">
                         <div class="rst-table-row">
-                            <div class="rst-copyright rst-table-cell">
-                                &copy; 2016 / Colombian Broaster - Todos los derechos reservados.
+                            <div class="rst-copyright rst-table-cell" id="year-copy-right">
+                                &copy; 
                             </div>
                             <div class="rst-note rst-table-cell">
                                 <p>IR ARRIBA</p>
@@ -172,5 +172,6 @@
     <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>
 
     <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/all-site/year.js"></script>
 </body>
 </html>

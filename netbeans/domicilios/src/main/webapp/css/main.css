@@ -155,9 +155,13 @@ a {
 	-ms-transition: 0.2s;
 	transition: 0.2s;
 }
-a, a:hover {
+a {
 	color: #363636
 }
+a:hover {
+	color: #2EFE2E
+}
+
 a:focus {
 	outline: none;
 }
