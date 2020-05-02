@@ -44,8 +44,8 @@ function sumaColumna(evento, clase, idViewTotal) {
     var sumaTotal = 0;
 
     for (i = 0; i < numeroCeldas; i++) {
-        var valor = $(celdas[i]).val();
-        var comas = false;
+        let valor = $(celdas[i]).val();
+        /*var comas = false;
         while (valor.indexOf(",", 0) !== -1) {
             valor = valor.replace(",", "");
             comas = true;
@@ -54,7 +54,7 @@ function sumaColumna(evento, clase, idViewTotal) {
             while (valor.indexOf(".", 0) !== -1) {
                 valor = valor.replace(".", "");
             }
-        }
+        }*/
         sumaTotal += parseInt(valor);
     }
     $("#" + idViewTotal).val(sumaTotal);

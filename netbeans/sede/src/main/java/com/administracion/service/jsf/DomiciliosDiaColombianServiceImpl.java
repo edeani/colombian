@@ -57,7 +57,7 @@ public class DomiciliosDiaColombianServiceImpl implements DomiciliosDiaColombian
                     + " count(*) Domicilios, sum(orden.valor_total) Valor_Total   FROM        orden   "
                     + " WHERE  ( ( orden.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "'  and '" + formato.dateTostring(dfDefault.format(ff)) + "' ) AND  "
                     + " ( orden.estado_orden = 'A' ) )    "
-                    + " group by orden.fecha_orden";
+                    + " group by orden.fecha_orden order by orden.fecha_orden desc";
             ordenes = this.jdbctemplate.query(query, new BeanPropertyRowMapper<>(OrdenesColombianDto.class));
             calcularResumenDomicilios(ordenes);
         } catch (DataAccessException e) {
