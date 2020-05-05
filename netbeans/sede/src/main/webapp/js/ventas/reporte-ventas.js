@@ -27,15 +27,15 @@ $(document).ready(function(){
         var htmlTotal = peticionAjaxAsync(urlVentasTotal,tipoPeticion,parametros);
         $("#contenidototal").html(htmlTotal);
                 
-        var suma_total_mesas=sumaColumna(event,"cmpResumenMesa","totalMesas");
+        var suma_total_mesas=sumaColumnaWithoutFormat(event,"cmpResumenMesa","totalMesas");
         formatCurrencyFieldText(document.getElementById("totalMesas"));
         $("#totalMesaLabel").html($("#totalMesas").val());
         
-        var suma_total_dom=sumaColumna(event,"cmpResumenDomicilio","totalDom");
+        var suma_total_dom=sumaColumnaWithoutFormat(event,"cmpResumenDomicilio","totalDom");
         formatCurrencyFieldText(document.getElementById("totalDom"));
         $("#totalDomicilioLabel").html($("#totalDom").val());
         
-        var suma_total_llevar=sumaColumna(event,"cmpResumenLlevar","totalLlevar");
+        var suma_total_llevar=sumaColumnaWithoutFormat(event,"cmpResumenLlevar","totalLlevar");
         formatCurrencyFieldText(document.getElementById("totalLlevar"));
         $("#totalLlevarLabel").html($("#totalLlevar").val());
         

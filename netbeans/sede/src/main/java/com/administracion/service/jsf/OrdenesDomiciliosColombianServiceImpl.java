@@ -61,7 +61,7 @@ public class OrdenesDomiciliosColombianServiceImpl implements OrdenesDomiciliosC
                     + " ( barrios.codigo_barrio = clientes.codigo_barrio ) and "
                     + " ( ( orden.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "' ) AND "
                     + " ( orden.estado_orden = 'A' ) ) "
-                    + " ORDER BY orden.fecha_orden desc,orden.numero_orden desc";
+                    + " ORDER BY orden.fecha_orden ,orden.numero_orden ";
             domicilios = this.jdbctemplate.query(query, new BeanPropertyRowMapper<>(OrdenesDomiciliosMapper.class));
             
         } catch (DataAccessException e) {
