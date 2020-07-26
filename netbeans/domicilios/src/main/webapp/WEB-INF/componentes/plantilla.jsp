@@ -171,7 +171,7 @@
 
     <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>
 
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/main.js" async defer></script>
     <script type="text/javascript" src="/js/all-site/year.js"></script>
 </body>
 </html>
