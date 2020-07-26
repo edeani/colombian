@@ -47,7 +47,6 @@
 	}
 	.rst-nav-menu .rst-search-bottom,
 	#header .btn.rst-signup{
-		display: none;
 	}
 	.rst-nav-menu li {
 		padding: 0 0 0 20px;
@@ -94,7 +93,7 @@
 	}
 }
 @media screen and (max-width: 767px) {
-	.rst-visitors{ display:none;}
+	.rst-visitors{}
 	.rst-table, .rst-table-row, .rst-table-cell {
 		display: block;
 		width: auto;
@@ -113,7 +112,7 @@
 		width: 60px;
 	}
 	.navbar-toggle.active {
-		background-color: #58cd65;
+		background-color: #ffd600;
 	}
 	.navbar-toggle .icon-bar {
 		background: #1b1b1b;
@@ -121,14 +120,14 @@
 		margin: 0 auto;
 	}
 	.navbar-toggle.active .icon-bar {
-		background: #fff;
+		background: #000;
 	}
 	.home-page .navbar-toggle .icon-bar {
 		background: #fff;
 	}
 	.rst-nav-menu.navbar-collapse {
 		background-color: #fff;
-		border-top: 2px solid #58cd65;
+		border-top: 2px solid #000;
 		left: 0;
 		position: absolute;
 		padding: 0 20px;
@@ -198,6 +197,8 @@
 	.rst-account {
 		display: inline-block;
 		position: static;
+		float: right;
+		margin: 12px 80px 0 0;
 	}
 	.rst-cart-icon {
 		border: 0 none;
@@ -367,7 +368,8 @@
 @media screen and (max-width: 480px) {
 	.rst-menu a, .rst-digits a {
 		display: block;
-		width: auto
+		width: 50%;
+		float: left;
 	}
 	.rst-dishes-form {
 		margin: 0 15px;
