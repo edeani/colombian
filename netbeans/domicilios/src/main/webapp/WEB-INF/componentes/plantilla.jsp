@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="rst-table">
                     <div class="rst-table-row">
-                        <a href="index.html" class="rst-logo rst-table-cell"><img src="/img/logopollo.png" alt=""/></a>
+                        <a href="http://www.colombianbroaster.com" class="rst-logo rst-table-cell"><img src="/img/logopollo.png" alt=""/></a>
                         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
