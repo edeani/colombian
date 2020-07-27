@@ -10,7 +10,9 @@ import domicilios.dto.ProductoClienteDto;
 import domicilios.dto.ProductoDto;
 import domicilios.entidad.Categoria;
 import domicilios.service.ProductoService;
+import domicilios.util.Util;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +40,14 @@ public class ProductosController {
 
     @Value("${url.img}")
     private String urlImg;
-    
+
     @Autowired
     private ProductoService productoService;
 
     private Integer paginas = 0;
 
     private static final Integer CANTIDAD_PRODUCTO = 1;
-    
+
     private static final String ESTADO_COMPRA = "P";
 
     private static final String SESSIONCOMPRA = "#{session.getAttribute('pedido')}";
@@ -61,22 +63,37 @@ public class ProductosController {
         ModelAndView mav = new ModelAndView("productos/contenidoProductos");
         List<Categoria> categorias = productoService.listCategory();
         mav.addObject("productos", productos);
+        mav.addObject("productsNumber", productos == null ? 0 : productos.size());
         mav.addObject("actualPage", 1);
         mav.addObject("categorias", categorias);
-        if(device.isNormal()){
+        if (device.isNormal()) {
             mav.addObject("dispositivo", "desktop");
-        }else{
+        } else {
             mav.addObject("dispositivo", "mobile");
         }
         return mav;
     }
 
     @PostMapping("/ajax/productosxpagina.htm")
-    public ModelAndView productosPagina(@RequestParam Integer page) {
-        List<ProductoDto> productos = productoService.listAllPage(page);
+    public ModelAndView productosPagina(@RequestParam Integer page, @RequestParam(required = false) Integer idCategory) {
+
+        List<ProductoDto> productos = productoService.searchProductPage(page, idCategory);
+
+        Integer totalProducts = null;
         ModelAndView mav = new ModelAndView("productos/listaProductosFront");
+        if (idCategory != null) {
+            HashMap<String, Object> paramas = new HashMap<>();
+            paramas.put("p.idCategoria", idCategory);
+            totalProducts = productoService.cantidadProductosFilter(paramas);
+            mav.addObject("totalFilterProducts",Util.firstItemPage(page,totalProducts));
+        }
+
+        
+        
+
         mav.addObject("productos", productos);
         mav.addObject("actualPage", page);
+        mav.addObject("productsNumber", productos == null ? 0 : productos.size());
         return mav;
     }
 
@@ -128,11 +145,11 @@ public class ProductosController {
 
         return "OK";
     }
-    
+
     @PostMapping("/ajax/carrito/cantidad/actualizar.htm")
     public @ResponseBody
     String actualizarCarritoAddRemove(@Value(SESSIONCOMPRA) PedidoClienteDto pedidoDto, @RequestParam Integer idproducto,
-            @RequestParam Float precioProducto,@RequestParam Integer cantidad) {
+            @RequestParam Float precioProducto, @RequestParam Integer cantidad) {
 
         List<ProductoClienteDto> productoClienteDto = pedidoDto.getProductos();
         Float totalProducto = 0F;
@@ -150,12 +167,12 @@ public class ProductosController {
 
         return "OK";
     }
-    
+
     @ModelAttribute("pages")
     public Integer cantidadProductos() {
         return paginas;
     }
-    
+
     @ModelAttribute("urlImg")
     public String urlImg() {
         return urlImg;

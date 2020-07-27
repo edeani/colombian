@@ -16,4 +16,6 @@ import java.util.List;
  */
 public interface ProductoDao extends GenericDao<Producto>{
     List<ProductoDto> findAllPageSql(Integer first,Integer cantidad,HashMap<String,Object> parametros);
+    List<ProductoDto> searchAllPageSql(Integer first,Integer cantidad,HashMap<String,Object> parametros);
+    Integer countProducts(HashMap<String,Object> parametros);
 }

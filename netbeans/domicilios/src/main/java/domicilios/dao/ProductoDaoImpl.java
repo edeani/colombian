@@ -24,6 +24,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProductoDaoImpl extends GenericDaoImpl<Producto> implements ProductoDao {
 
+    private static final String AND =" and ";
+    private static final String EQUAL =" = ";
     @Autowired
     private LeerXml leerXml;
     
@@ -47,6 +49,36 @@ public class ProductoDaoImpl extends GenericDaoImpl<Producto> implements Product
         
         return namedParameterJdbcTemplate.query(leerXml.getQuery("ProductoSql.listProducto"),namedParameterSource, new ProductoDtoMapper());
         
+    }
+
+    @Override
+    public List<ProductoDto> searchAllPageSql(Integer first, Integer cantidad, HashMap<String, Object> parametros) {
+        StringBuilder conditions =  new StringBuilder("");
+        final MapSqlParameterSource namedParameterSource = new MapSqlParameterSource();
+        if(parametros!=null){
+            parametros.entrySet().stream().forEach(param->{
+                conditions.append(AND).append(param.getKey()).append(EQUAL).append(" '").append(String.valueOf(param.getValue())).append("' ");
+                namedParameterSource.addValue(param.getKey(),param.getValue());
+            });
+        }
+        String finalQuery = String.format(leerXml.getQuery("ProductoSql.searchProducto"),conditions.toString());
+        namedParameterSource.addValue("minimo", first);
+        namedParameterSource.addValue("cantidad", cantidad);
+        return namedParameterJdbcTemplate.query(finalQuery,namedParameterSource, new ProductoDtoMapper());
+    }
+
+    @Override
+    public Integer countProducts(HashMap<String, Object> parametros) {
+        StringBuilder conditions =  new StringBuilder("");
+        final MapSqlParameterSource namedParameterSource = new MapSqlParameterSource();
+        if(parametros!=null){
+            parametros.entrySet().stream().forEach(param->{
+                conditions.append(AND).append(param.getKey()).append(EQUAL).append(" '").append(String.valueOf(param.getValue())).append("' ");
+                namedParameterSource.addValue(param.getKey(),param.getValue());
+            });
+        }
+        String finalQuery = String.format(leerXml.getQuery("ProductoSql.countSearchProducto"),conditions.toString());
+        return namedParameterJdbcTemplate.queryForObject(finalQuery,namedParameterSource, Integer.class);
     }
 
 }

@@ -11,6 +11,7 @@ import domicilios.dto.ProductoDto;
 import domicilios.entidad.Categoria;
 import domicilios.entidad.Producto;
 import domicilios.util.Util;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +38,7 @@ public class ProductoServiceImpl implements ProductoService{
     @Override
     public List<ProductoDto> listAllPage(Integer page) {
        Integer firstItem  = Util.firstItemPage(page,cantidad);
-       return productoDao.findAllPageSql(firstItem+1,cantidad+firstItem,null);
+       return productoDao.findAllPageSql(firstItem+1,cantidad,null);
     }
 
     @Override
@@ -58,6 +59,23 @@ public class ProductoServiceImpl implements ProductoService{
         Producto producto = productoDao.findById(idproducto);
         producto.setEstado("I");
         productoDao.Update(producto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductoDto> searchProductPage(Integer page, Integer idCategory) {
+        Integer firstItem  = Util.firstItemPage(page,cantidad);
+        HashMap<String,Object> parameteres =  new HashMap<>();
+        if(idCategory!=null){
+            parameteres.put("p.idCategoria", idCategory);
+        }
+        
+        return productoDao.searchAllPageSql(firstItem+1, cantidad, parameteres);
+    }
+
+    @Override
+    public Integer cantidadProductosFilter(HashMap<String, Object> filterParameters) {
+        return productoDao.countProducts(filterParameters);
     }
     
 }

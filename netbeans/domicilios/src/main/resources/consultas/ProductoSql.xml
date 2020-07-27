@@ -3,4 +3,11 @@
     <query id="ProductoSql.listProducto">
         select p.*,c.nombre as nombretipo from producto p inner join categoria c on c.cons = p.idCategoria where p.estado = 'A' order by p.idCategoria limit :cantidad offset :minimo ;
     </query>
+    
+    <query id="ProductoSql.searchProducto">
+        select p.*,c.nombre as nombretipo from producto p inner join categoria c on c.cons = p.idCategoria where p.estado = 'A' %s order by p.idCategoria limit :cantidad offset :minimo ;
+    </query>
+    <query id="ProductoSql.countSearchProducto">
+        select count(p.idproducto) as total from producto p inner join categoria c on c.cons = p.idCategoria where p.estado = 'A' %s 
+    </query>
 </queries>
