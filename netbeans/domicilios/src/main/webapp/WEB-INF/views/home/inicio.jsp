@@ -61,7 +61,7 @@
                                             <h2 class="shadow">EL MEJOR POLLO<br />
                                                 AL ESTILO AMERICANO</h2>
                                             <a class="btn btn-lg btn-danger btnslider " href="/contenido/productos.htm">Ver men&uacute;</a> </div>
-                                        <div class="rst-table-cell" style="width: 50%"> <img src="/img/post/slider3.png" alt="" /> </div>
+                                        <div class="rst-table-cell" style="width: 50%; opacity:0;"> <img src="/img/post/slider3.png" alt="" /> </div>
                                     </div>
                                 </div>
                             </div>
