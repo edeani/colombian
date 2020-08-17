@@ -61,7 +61,7 @@
                                             <h2 class="shadow">EL MEJOR POLLO<br />
                                                 AL ESTILO AMERICANO</h2>
                                             <a class="btn btn-lg btn-danger btnslider " href="/contenido/productos.htm">Ver men&uacute;</a> </div>
-                                        <div class="rst-table-cell" style="width: 50%; opacity:0;"> <img src="/img/post/slider3.png" alt="" /> </div>
+                                        <div class="rst-table-cell" style="width: 50%"> <img src="/img/post/slider3.png" alt="" /> </div>
                                     </div>
                                 </div>
                             </div>
@@ -199,11 +199,10 @@
             <div class="container">
                 <div class="rst-menu rst-menu-home rst-table">
                     <div class="rst-table-row">
-                        <a href="#" class="rst-table-cell"> <span class="rst-image-category" style="background-image: url(/img/categorias/1.jpg);"> </span> Pollo</a>
-                        <a href="#" class="rst-table-cell"> <span class="rst-image-category" style="background-image: url(/img/categorias/2.jpg);"> </span> Sopas</a>
-                        <a href="#" class="rst-table-cell"> <span class="rst-image-category" style="background-image: url(/img/categorias/3.jpg);"> </span> Hamburguesas </a>
+                        <a href="#" class="rst-table-cell"> <span class="rst-image-category" style="background-image: url(/img/categorias/1.jpg);"> </span> Pollo Asado</a>
                         <a href="#" class="rst-table-cell"> <span class="rst-image-category" style="background-image: url(/img/categorias/4.jpg);"> </span> Combos Familiares </a>
                         <a href="#" class="rst-table-cell"> <span class="rst-image-category" style="background-image: url(/img/categorias/5.jpg);"> </span> Porciones </a>
+                        <a href="#" class="rst-table-cell"> <span class="rst-image-category" style="background-image: url(/img/categorias/3.jpg);"> </span> Comida R&aacute;pida </a>
                         <a href="#" class="rst-table-cell"> <span class="rst-image-category" style="background-image: url(/img/categorias/6.jpg);"> </span> Bebidas </a>
                     </div>
                 </div>
