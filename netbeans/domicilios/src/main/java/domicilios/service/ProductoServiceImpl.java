@@ -38,7 +38,7 @@ public class ProductoServiceImpl implements ProductoService{
     @Override
     public List<ProductoDto> listAllPage(Integer page) {
        Integer firstItem  = Util.firstItemPage(page,cantidad);
-       return productoDao.findAllPageSql(firstItem+1,cantidad,null);
+       return productoDao.findAllPageSql(firstItem,cantidad,null);
     }
 
     @Override

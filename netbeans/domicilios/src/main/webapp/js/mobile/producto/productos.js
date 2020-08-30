@@ -7,10 +7,13 @@ $(document).ready(function () {
         }
         $(this).parent().addClass("active");
         // setTimeout(function () {
-        $('html, body').animate({
+        /*$('html, body').animate({
             scrollTop: $(volver).offset().top
-        }, 500);
+        }, 500);*/
         //}, 1000);
+        let nextPage = 1;
+        let selectCategory = $(this).attr('data-id');
+        filterContent(nextPage,selectCategory);
     });
     
     $(document).on("click",".addCar",function(event){
@@ -77,6 +80,27 @@ $(document).ready(function () {
             }
         });
     });
+    
+    $(document).on("click",".elem-page",function(event){
+       event.preventDefault();
+       let nextPage = $(this).attr("data-href");
+       let selectCategory = $("#category-product").val();
+       
+        filterContent(nextPage,selectCategory);
+    });
+    
+    function filterContent(nextPage,selectCategory){
+        $.ajax({
+            url:"/contenido/ajax/productosxpagina.htm",
+            data: "page="+nextPage+"&idCategory="+selectCategory,
+            type: 'POST',
+            async: false,
+            timeout: 20000,
+            success: function (html) {
+               $("#content-products").html(html);
+            }
+        });
+    }
     function actualizarTotalPedido(totalPedido,totalProducto){
          $("#totalPedido").val(parseInt(totalPedido)+parseInt(totalProducto));
          $("#totalPrice").html("$"+$("#totalPedido").val());
