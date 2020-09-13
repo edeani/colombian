@@ -68,7 +68,7 @@ function sumaColumnaWithoutFormat(evento, clase, idViewTotal) {
 
     for (i = 0; i < numeroCeldas; i++) {
         let valor = $(celdas[i]).val();
-        sumaTotal += parseInt(valor);
+        sumaTotal += parseFloat(valor);
     }
     $("#" + idViewTotal).val(sumaTotal);
     return sumaTotal;
