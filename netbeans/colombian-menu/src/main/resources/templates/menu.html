@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Men&uacute; Colombian</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -62,64 +62,40 @@ and open the template in the editor.
                     <div class="col-sm-10">
                         <!-- Accordion --> 
                         <div id="accordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <div class="row">
-                                        <div class="col-sm-1 d-flex align-items-start justify-content-start">
-                                            <img src="/menu/img/categorias/1.jpg" class="img-fluid" alt="Responsive image" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            
-                                        </div>
-                                        <div class="col-sm-10 d-flex align-items-start justify-content-start">
-          
-                                            <button class="btn  collapsed btn-block" style="text-align: left;"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                   Pollo Asado 
+                            
+                            <div class="card" th:each="category: ${menuColombian.categories}">
+                                <div class="card">
+                                    <div class="card-header" th:id="'heading'+${categoryStat.index}">
+                                        <div class="row">
+                                            <div class="col-sm-1 d-flex align-items-start justify-content-start">
+                                                <img th:src="${category.urlImage}" class="img-fluid" alt="Responsive image" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
+
+                                            </div>
+                                            <div class="col-sm-10 d-flex align-items-start justify-content-start">
+
+                                                <button th:text="${category.name}" class="btn  collapsed btn-block" style="text-align: left;"  data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
+                                                       
+                                                 </button>
+
+                                            </div>
+                                            <div class="col-sm-1 d-flex align-items-start justify-content-end">
+                                                <button class="btn collapsed" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
+                                                    <i class="fas fa-angle-down collapsed "></i>
                                                 </button>
-                                 
+
+                                            </div>
                                         </div>
-                                        <div class="col-sm-1 d-flex align-items-start justify-content-end">
-                                            <button class="btn collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                <i class="fas fa-angle-down collapsed "></i>
-                                            </button>
-                                            
-                                        </div>
+
                                     </div>
 
-                                </div>
-
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <div th:id="'collapse'+${categoryStat.index}" class="collapse" th:aria-labelledby="'heading'+${categoryStat.index}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header" id="headingTwo">
-                                    <div class="row">
-                                        <div class="col-sm-1 d-flex align-items-start justify-content-start">
-                                            <img src="/menu/img/categorias/4.jpg" class="img-fluid" alt="Responsive image" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                            
-                                        </div>
-                                        <div class="col-sm-10 d-flex align-items-start justify-content-start">
-          
-                                            <button class="btn  collapsed btn-block" style="text-align: left;"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                                   Compbos Familiares 
-                                                </button>
-                                 
-                                        </div>
-                                        <div class="col-sm-1 d-flex align-items-start justify-content-end">
-                                            <button class="btn collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                                <i class="fas fa-angle-down collapsed "></i>
-                                            </button>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                    </div>
-                                </div>
-                            </div>
+                            
                             
                         </div>
                     </div>

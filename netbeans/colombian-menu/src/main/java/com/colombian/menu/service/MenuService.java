@@ -5,11 +5,13 @@
  */
 package com.colombian.menu.service;
 
+import com.colombian.menu.components.MenuData;
+
 /**
  *
  * @author 10 Spring Creators
  */
 public interface MenuService {
    
-    
+    MenuData getMenu();
 }

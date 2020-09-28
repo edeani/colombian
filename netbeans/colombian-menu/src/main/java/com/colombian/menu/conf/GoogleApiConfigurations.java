@@ -17,6 +17,13 @@ import org.springframework.stereotype.Component;
 public class GoogleApiConfigurations {
     
     private String idColombianmenu;
+    private String categorySheet;
+    private String productSheet;
+    private String summarySheet;
+    
+    private String categoryRange;
+    private String productRange;
+    private String summaryRange;
 
     public String getIdColombianmenu() {
         return idColombianmenu;
@@ -25,6 +32,55 @@ public class GoogleApiConfigurations {
     public void setIdColombianmenu(String idColombianmenu) {
         this.idColombianmenu = idColombianmenu;
     }
+
+    public String getCategorySheet() {
+        return categorySheet;
+    }
+
+    public void setCategorySheet(String categorySheet) {
+        this.categorySheet = categorySheet;
+    }
+
+    public String getProductSheet() {
+        return productSheet;
+    }
+
+    public void setProductSheet(String productSheet) {
+        this.productSheet = productSheet;
+    }
+
+    public String getSummarySheet() {
+        return summarySheet;
+    }
+
+    public void setSummarySheet(String summarySheet) {
+        this.summarySheet = summarySheet;
+    }
+
+    public String getCategoryRange() {
+        return categoryRange;
+    }
+
+    public void setCategoryRange(String categoryRange) {
+        this.categoryRange = categoryRange;
+    }
+
+    public String getProductRange() {
+        return productRange;
+    }
+
+    public void setProductRange(String productRange) {
+        this.productRange = productRange;
+    }
+
+    public String getSummaryRange() {
+        return summaryRange;
+    }
+
+    public void setSummaryRange(String summaryRange) {
+        this.summaryRange = summaryRange;
+    }
+    
     
     
 }

@@ -1,0 +1,9 @@
+#Drive Ubication resources
+sheet:
+    idColombianmenu: 1n6cZ1JazgRLeVk3qF9Ahno3vKITtK-49BtlBztR0Xms
+    categorySheet: Categorias
+    categoryRange: '!A2:D20'
+    productSheet: Productos
+    productRange: 
+    summarySheet: Pedido
+    summaryRange:
