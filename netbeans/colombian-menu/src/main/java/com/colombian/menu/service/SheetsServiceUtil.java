@@ -12,17 +12,23 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author 10 Spring Creators
  */
+@Component
 public class SheetsServiceUtil {
 
+    @Autowired
+    private GoogleAuthorizeUtil googleAuthorizeUtil;
+    
     private static final String APPLICATION_NAME = "Google Sheets Colombian";
 
-    public static Sheets getSheetsService() throws IOException, GeneralSecurityException {
-        Credential credential = GoogleAuthorizeUtil.authorize();
+    public Sheets getSheetsService() throws IOException, GeneralSecurityException {
+        Credential credential = googleAuthorizeUtil.authorize();
         return new Sheets.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(),
                 JacksonFactory.getDefaultInstance(), credential)

@@ -5,6 +5,7 @@
  */
 package com.colombian.menu.conf;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,12 @@ public class GoogleApiConfigurations {
     private String categoryRange;
     private String productRange;
     private String summaryRange;
+    
+    @Value("${google.file-app}")
+    private String jsonConfApi;
+    
+    @Value("${google.port-app}")
+    private Integer portApp;
 
     public String getIdColombianmenu() {
         return idColombianmenu;
@@ -79,6 +86,22 @@ public class GoogleApiConfigurations {
 
     public void setSummaryRange(String summaryRange) {
         this.summaryRange = summaryRange;
+    }
+
+    public String getJsonConfApi() {
+        return jsonConfApi;
+    }
+
+    public void setJsonConfApi(String jsonConfApi) {
+        this.jsonConfApi = jsonConfApi;
+    }
+
+    public Integer getPortApp() {
+        return portApp;
+    }
+
+    public void setPortApp(Integer portApp) {
+        this.portApp = portApp;
     }
     
     

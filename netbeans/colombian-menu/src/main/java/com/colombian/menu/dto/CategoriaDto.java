@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoriaDto {
     
+    private Integer idCategory;
     private String name;
     private String urlImage;
     private Integer order;

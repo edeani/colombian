@@ -5,6 +5,7 @@
  */
 package com.colombian.menu.auth;
 
+import com.colombian.menu.conf.GoogleApiConfigurations;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
@@ -22,23 +23,29 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author 10 Spring Creators
  */
+@Component
 public class GoogleAuthorizeUtil {
 
-    public static Credential authorize() throws IOException, GeneralSecurityException {
+    @Autowired
+    private GoogleApiConfigurations googleApiConfigurations;
+    
+    public Credential authorize() throws IOException, GeneralSecurityException {
 
-        InputStream in = GoogleAuthorizeUtil.class.getResourceAsStream("/google-api-secret-sheets.json");
+        InputStream in = GoogleAuthorizeUtil.class.getResourceAsStream(googleApiConfigurations.getJsonConfApi());
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new InputStreamReader(in));
 
         List<String> scopes = Arrays.asList(SheetsScopes.SPREADSHEETS_READONLY);
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), clientSecrets, scopes).setDataStoreFactory(new FileDataStoreFactory(new java.io.File("tokens")))
                 .setAccessType("offline").build();
-        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver.Builder().setPort(8888).build()).authorize("user");
+        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver.Builder().setPort(googleApiConfigurations.getPortApp()).build()).authorize("user");
         return credential;
     }
 
