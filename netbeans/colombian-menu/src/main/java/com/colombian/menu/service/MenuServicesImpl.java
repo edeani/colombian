@@ -52,17 +52,33 @@ public class MenuServicesImpl implements MenuService {
 
     private List<CategoriaDto> loadCategories() throws IOException {
 
+        /**
+         * Categories
+         */
         final String rangeCategory = String.format("%s%s",
                 googleApiConfigurations.getCategorySheet(), googleApiConfigurations.getCategoryRange());
         ValueRange categorySheetRange = sheetService.spreadsheets().values()
                 .get(googleApiConfigurations.getIdColombianmenu(), rangeCategory)
                 .execute();
+        List<List<Object>> valuesSheetCategory = categorySheetRange.getValues();
+        
+        /**
+         * Products
+         */
+        final String rangeProducts = String.format("%s%s",
+                googleApiConfigurations.getProductSheet(), googleApiConfigurations.getProductRange());
 
-        List<List<Object>> values = categorySheetRange.getValues();
+        ValueRange productSheetRange = sheetService.spreadsheets().values()
+                .get(googleApiConfigurations.getIdColombianmenu(), rangeProducts)
+                .execute();
+        List<List<Object>> valuesSheetProduct = categorySheetRange.getValues();
 
+        /**
+         * Processing information
+         */
         List<CategoriaDto> valuesCat = new ArrayList<>();
-        if (verifyEmptyList(values)) {
-            values.stream().map((List<Object> rowCategory) -> {
+        if (verifyEmptyList(valuesSheetCategory)) {
+            valuesSheetCategory.stream().map((List<Object> rowCategory) -> {
                 CategoriaDto itemCategory = new CategoriaDto();
                 itemCategory.setIdCategory(Integer.valueOf((String)rowCategory.get(0)));
                 itemCategory.setName(String.valueOf(rowCategory.get(1)));
@@ -71,7 +87,8 @@ public class MenuServicesImpl implements MenuService {
                 return itemCategory;
             }).forEachOrdered((itemCategory) -> {
                 try {
-                    itemCategory.setProducts(loadProductsByCategory(itemCategory.getIdCategory()));
+                    
+                    itemCategory.setProducts(loadProductsByCategory(itemCategory.getIdCategory(),valuesSheetProduct));
                     boolean add = valuesCat.add(itemCategory);
                 } catch (IOException ex) {
                     Logger.getLogger(MenuServicesImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,16 +100,8 @@ public class MenuServicesImpl implements MenuService {
 
     }
 
-    private List<ProductoDto> loadProductsByCategory(Integer categoria) throws IOException {
-        final String rangeProducts = String.format("%s%s",
-                googleApiConfigurations.getProductSheet(), googleApiConfigurations.getProductRange());
-
-        ValueRange categorySheetRange = sheetService.spreadsheets().values()
-                .get(googleApiConfigurations.getIdColombianmenu(), rangeProducts)
-                .execute();
-
-        List<List<Object>> values = categorySheetRange.getValues();
-
+    private List<ProductoDto> loadProductsByCategory(Integer categoria,List<List<Object>> values) throws IOException {
+       
         List<ProductoDto> productoDtos = new ArrayList<>();
         if (verifyEmptyList(values)) {
             values.stream().map((List<Object> rowProduct) -> {

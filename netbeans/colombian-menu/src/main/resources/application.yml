@@ -6,7 +6,9 @@ spring:
 ---
 
 spring:
-    profiles: dev
+    config:
+        activate:
+            on-profile: dev
 
 sheet:
     idColombianmenu: 1n6cZ1JazgRLeVk3qF9Ahno3vKITtK-49BtlBztR0Xms
@@ -23,7 +25,9 @@ google:
 ---
 
 spring:
-    profiles: prod
+    config:
+        activate:
+            on-profile: prod
     
 sheet:
     idColombianmenu: 1n6cZ1JazgRLeVk3qF9Ahno3vKITtK-49BtlBztR0Xms

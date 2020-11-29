@@ -30,7 +30,13 @@ and open the template in the editor.
                 <div class="container">
                     <div class="rst-table">
                         <div class="rst-table-row">
-                            <a href="http://www.colombianbroaster.com" class="rst-logo rst-table-cell"><img src="/menu/img/logopollo.png" alt=""/></a>
+                     
+                                <a href="http://www.colombianbroaster.com" class="rst-logo rst-table-cell"><img src="/menu/img/logopollo.png" alt=""/></a>
+                           
+                            <div class="align-middle  h-50">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            
 
                             <div class="rst-nav-menu collapse navbar-collapse bs-navbar-collapse rst-table-cell">
 
@@ -64,11 +70,11 @@ and open the template in the editor.
                         <div id="accordion">
                             
                             <div class="card" th:each="category: ${menuColombian.categories}">
-                                <div class="card">
+       
                                     <div class="card-header" th:id="'heading'+${categoryStat.index}">
                                         <div class="row">
                                             <div class="col-sm-1 d-flex align-items-start justify-content-start">
-                                                <img th:src="${category.urlImage}" class="img-fluid" alt="Responsive image" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
+                                                <img th:src="${category.urlImage}" class="img-fluid" th:alt="${category.name}" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
 
                                             </div>
                                             <div class="col-sm-10 d-flex align-items-start justify-content-start">
@@ -90,10 +96,28 @@ and open the template in the editor.
 
                                     <div th:id="'collapse'+${categoryStat.index}" class="collapse" th:aria-labelledby="'heading'+${categoryStat.index}" data-parent="#accordion">
                                         <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            <div class="row">
+                                                <div class="col-sm-6 " th:each="product: ${category.products}">
+                                                    <div class="row m-element-1">
+                                                        <img th:src="${product.urlImage}" class="img-fluid mx-auto d-block" th:alt="${product.name}"   aria-expanded="true" >
+                                                    </div>
+                                                    <div class="row m-element-1" style="height: 50px">
+                                                        <div class="col-sm-6 text-left" th:text="${product.name}">
+                                                            
+                                                        </div>
+                                                        <div class="col-sm-6 text-right" th:text="'$'+${product.price}">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="row m-element-1">
+                                                        <input value=""  class="form-control" type="text" placeholder="Comentarios Adicionales">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div> 
                                         </div>
                                     </div>
-                                </div>
+
                             </div>
                             
                             

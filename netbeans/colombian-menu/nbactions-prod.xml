@@ -5,6 +5,9 @@
             <packagings>
                 <packaging>war</packaging>
             </packagings>
+            <goals>
+                <goal>-Dspring.profiles.active=prod</goal>
+            </goals>
             <activatedProfiles>
                 <activatedProfile>prod</activatedProfile>
             </activatedProfiles>
