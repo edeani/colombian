@@ -3004,6 +3004,31 @@ footer .rst-table {
     font-size: 16px;
 }
 
+/**
+Class for ducts
+**/
 .m-element-1{
     margin: 0.2px;
+}
+
+
+.item_centralized {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.item-row-summary{
+    /*height: 101px; */
+    margin-bottom: 2px;
+}
+.sub-item-row-summary{
+    height: 40px;
+}
+
+/**
+Modifiers for fontawesome
+**/
+.fa-shopping-cart{
+    color: white;
+    cursor: pointer;
 }

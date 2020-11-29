@@ -21,6 +21,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="/menu/css/main.css">
         <link href="/menu/css/all.min.css" rel="stylesheet" type="text/css"/>
 
+        <link rel="stylesheet" type="text/css" href="/menu/css/jquery-confirm.min.css">
 
     </head>
     <body>
@@ -29,23 +30,25 @@ and open the template in the editor.
             <header id="header">
                 <div class="container">
                     <div class="rst-table">
-                        <div class="rst-table-row">
-                     
-                                <a href="http://www.colombianbroaster.com" class="rst-logo rst-table-cell"><img src="/menu/img/logopollo.png" alt=""/></a>
-                           
-                            <div class="align-middle  h-50">
-                                <i class="fas fa-shopping-cart"></i>
+                        <div class="row" style="display: flex; align-items: center;">
+                            <div class="col-sm-7">
+                                <a href="http://www.colombianbroaster.com" class="/*rst-logo rst-table-cell*/"><img src="/menu/img/logopollo.png" alt=""/></a>
                             </div>
                             
 
-                            <div class="rst-nav-menu collapse navbar-collapse bs-navbar-collapse rst-table-cell">
+                            <div class="col-sm-5 item_centralized">
+                                <i id="carrito" class="fas fa-shopping-cart fa-2x" ></i>
+                            </div>
+                            
+
+                            <!--div class="rst-nav-menu collapse navbar-collapse bs-navbar-collapse rst-table-cell">
 
                                 <ul class="rst-main-menu">
 
 
                                 </ul>
                                 <!--<a href="#" class="rst-search-bottom"><i class="fa fa-search"></i></a>-->
-                            </div>
+                            <!--/div-->
 
                         </div>
                     </div><!-- End Top Header -->
@@ -71,52 +74,52 @@ and open the template in the editor.
                             
                             <div class="card" th:each="category: ${menuColombian.categories}">
        
-                                    <div class="card-header" th:id="'heading'+${categoryStat.index}">
+                                <div class="card-header" th:id="'heading'+${categoryStat.index}">
+                                    <div class="row">
+                                        <div class="col-sm-1 d-flex align-items-start justify-content-start">
+                                            <img th:src="${category.urlImage}" class="img-fluid" th:alt="${category.name}" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
+
+                                        </div>
+                                        <div class="col-sm-10 d-flex align-items-start justify-content-start">
+
+                                            <button th:text="${category.name}" class="btn  collapsed btn-block" style="text-align: left;"  data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
+
+                                            </button>
+
+                                        </div>
+                                        <div class="col-sm-1 d-flex align-items-start justify-content-end">
+                                            <button class="btn collapsed" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
+                                                <i class="fas fa-angle-down collapsed "></i>
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div th:id="'collapse'+${categoryStat.index}" class="collapse" th:aria-labelledby="'heading'+${categoryStat.index}" data-parent="#accordion">
+                                    <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-1 d-flex align-items-start justify-content-start">
-                                                <img th:src="${category.urlImage}" class="img-fluid" th:alt="${category.name}" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
-
-                                            </div>
-                                            <div class="col-sm-10 d-flex align-items-start justify-content-start">
-
-                                                <button th:text="${category.name}" class="btn  collapsed btn-block" style="text-align: left;"  data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
-                                                       
-                                                 </button>
-
-                                            </div>
-                                            <div class="col-sm-1 d-flex align-items-start justify-content-end">
-                                                <button class="btn collapsed" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
-                                                    <i class="fas fa-angle-down collapsed "></i>
-                                                </button>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div th:id="'collapse'+${categoryStat.index}" class="collapse" th:aria-labelledby="'heading'+${categoryStat.index}" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-6 " th:each="product: ${category.products}">
-                                                    <div class="row m-element-1">
-                                                        <img th:src="${product.urlImage}" class="img-fluid mx-auto d-block" th:alt="${product.name}"   aria-expanded="true" >
-                                                    </div>
-                                                    <div class="row m-element-1" style="height: 50px">
-                                                        <div class="col-sm-6 text-left" th:text="${product.name}">
-                                                            
-                                                        </div>
-                                                        <div class="col-sm-6 text-right" th:text="'$'+${product.price}">
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    <div class="row m-element-1">
-                                                        <input value=""  class="form-control" type="text" placeholder="Comentarios Adicionales">
-                                                    </div>
-                                                    
+                                            <div class="col-sm-6 " th:each="product: ${category.products}">
+                                                <div class="row m-element-1">
+                                                    <img th:src="${product.urlImage}" class="img-fluid mx-auto d-block" th:alt="${product.name}"   aria-expanded="true" >
                                                 </div>
-                                            </div> 
-                                        </div>
+                                                <div class="row m-element-1" style="height: 50px">
+                                                    <div class="col-sm-6 text-left" th:text="${product.name}">
+
+                                                    </div>
+                                                    <div class="col-sm-6 text-right" th:text="'$'+${product.price}">
+
+                                                    </div>
+                                                </div>
+                                                <div class="row m-element-1">
+                                                    <input value=""  class="form-control" type="text" placeholder="Comentarios Adicionales">
+                                                </div>
+
+                                            </div>
+                                        </div> 
                                     </div>
+                                </div>
 
                             </div>
                             
@@ -128,8 +131,118 @@ and open the template in the editor.
             </div>
         </div>
 
+        <!-- Modals or boxes -->
+        <!-- Carrito de Compras -->
+        <div id="content-cart" style="display: none;">
+            <div class="card">
+                <div class="card-header text-white" style="background: #df1d04;">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            T&uacute; Pedido
+                        </div>
+                        <div class="col-sm-4">
+                            Total: $25.0000
+                        </div>
+                    </div>
+                </div>
+                <div id="summaty-order" class="card-body">
+                    <div class="row item-row-summary">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row" style="height: 40px;">
+                                    Producto 1
+                                </div>
+                                <div class="row">
+                                    eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row sub-item-row-summary" >
+                                    <div class="number-input md-number-input">
+                                        <button  class="minus">-</button>
+                                        <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
+                                        <button  class="plus">+</button>
+                                    </div>
+                                </div>
+                                <div class="row" >
+                                   $245000
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row item-row-summary">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row" style="height: 40px;">
+                                    Producto 1
+                                </div>
+                                <div class="row">
+                                    eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row sub-item-row-summary" >
+                                    <div class="number-input md-number-input">
+                                        <button  class="minus">-</button>
+                                        <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
+                                        <button  class="plus">+</button>
+                                    </div>
+                                </div>
+                                <div class="row" >
+                                   $245000
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row item-row-summary">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row" style="height: 40px;">
+                                    Producto 1
+                                </div>
+                                <div class="row">
+                                    eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row sub-item-row-summary" >
+                                    <div class="number-input md-number-input">
+                                        <button  class="minus">-</button>
+                                        <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
+                                        <button  class="plus">+</button>
+                                    </div>
+                                </div>
+                                <div class="row" >
+                                   $245000
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="products">
+            <div class="row">
+                
+            </div>
+        </div>
+        
         <script type="text/javascript" src="/menu/js/jquery-3.5.1.min.js"></script>
         <script type="text/javascript" src="/menu/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/menu/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="/menu/js/jquery-confirm.min.js"></script>
+        <script type="text/javascript" src="/menu/js/menu/control-menu.js"></script>
     </body>
 </html>

@@ -71,7 +71,7 @@ public class MenuServicesImpl implements MenuService {
         ValueRange productSheetRange = sheetService.spreadsheets().values()
                 .get(googleApiConfigurations.getIdColombianmenu(), rangeProducts)
                 .execute();
-        List<List<Object>> valuesSheetProduct = categorySheetRange.getValues();
+        List<List<Object>> valuesSheetProduct = productSheetRange.getValues();
 
         /**
          * Processing information
