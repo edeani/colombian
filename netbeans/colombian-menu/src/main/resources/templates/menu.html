@@ -37,7 +37,7 @@ and open the template in the editor.
                             
 
                             <div class="col-sm-5 item_centralized">
-                                <i id="carrito" class="fas fa-shopping-cart fa-2x" ></i>
+                                <i id="carrito" class="fas fa-shopping-cart fa-white-cursor fa-2x" ></i>
                             </div>
                             
 
@@ -76,20 +76,20 @@ and open the template in the editor.
        
                                 <div class="card-header" th:id="'heading'+${categoryStat.index}">
                                     <div class="row">
-                                        <div class="col-sm-1 d-flex align-items-start justify-content-start">
+                                        <div class="col-sm-1 d-flex align-items-start justify-content-start div-category">
                                             <img th:src="${category.urlImage}" class="img-fluid" th:alt="${category.name}" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
 
                                         </div>
-                                        <div class="col-sm-10 d-flex align-items-start justify-content-start">
+                                        <div class="col-sm-10 d-flex align-items-start justify-content-start title-category">
 
                                             <button th:text="${category.name}" class="btn  collapsed btn-block" style="text-align: left;"  data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
 
                                             </button>
 
                                         </div>
-                                        <div class="col-sm-1 d-flex align-items-start justify-content-end">
+                                        <div class="col-sm-1 d-flex align-items-start justify-content-end generic-angle">
                                             <button class="btn collapsed" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
-                                                <i class="fas fa-angle-down collapsed "></i>
+                                                <i class="fas fa-angle-down collapsed fa-2x"></i>
                                             </button>
 
                                         </div>
@@ -142,6 +142,9 @@ and open the template in the editor.
                         </div>
                         <div class="col-sm-4">
                             Total: $25.0000
+                        </div>
+                        <div class="col-sm-1" data-toggle="tooltip" data-placement="top" title="Borrar todo el pedido">
+                            <i id="borrar-pedido" class="fas fa-trash fa-white-cursor" ></i>
                         </div>
                     </div>
                 </div>

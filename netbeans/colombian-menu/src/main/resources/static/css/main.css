@@ -3025,10 +3025,22 @@ Class for ducts
     height: 40px;
 }
 
-/**
+/************************
 Modifiers for fontawesome
-**/
-.fa-shopping-cart{
+************************/
+.fa-white-cursor{
     color: white;
     cursor: pointer;
+}
+/**photo size**/
+@media screen and (max-width: 600px) {
+    .div-category{
+       max-width: 100px;
+    }
+    .title-category{
+        max-width: 190px;
+    }
+    .generic-angle{
+        max-width: 65px;
+    }
 }
