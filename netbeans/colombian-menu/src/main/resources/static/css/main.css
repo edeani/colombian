@@ -3005,7 +3005,7 @@ footer .rst-table {
 }
 
 /**
-Class for ducts
+Class for products
 **/
 .m-element-1{
     margin: 0.2px;
@@ -3020,11 +3020,46 @@ Class for ducts
 .item-row-summary{
     /*height: 101px; */
     margin-bottom: 2px;
-}
+    border: solid black 0.2px;
+} 
 .sub-item-row-summary{
     height: 40px;
 }
 
+
+.bar-fixed-bot{
+    background: #df1d04;
+    max-height: 50px;
+    margin-bottom: 0px;
+}
+#btn-wapp{
+    background: #53CF5E;
+    text-decoration: white;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 0px 5px 5px 0px;
+    width: 300px;
+    height: 30px;
+    margin: 0px;
+}
+.background-social{
+    background-size: 30px 32px;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    position: relative;
+    float: left;
+    border-radius: 5px 0px 0px 5px;
+    margin: 0px 0px 0px -7px;
+}
+
+.background-whatsapp{
+    background-image: url('/menu/img/whatsapp.png');
+    width: 30px;
+    height: 30px;
+}
 /************************
 Modifiers for fontawesome
 ************************/
@@ -3033,14 +3068,32 @@ Modifiers for fontawesome
     cursor: pointer;
 }
 /**photo size**/
+@media screen and (min-width: 601px) {
+    .div-photo-2{
+       max-width: 120px;
+       /*padding: 0px !important;*/
+    } 
+}
 @media screen and (max-width: 600px) {
-    .div-category{
+    .div-photo{
        max-width: 100px;
+       margin: 1px;
+    }
+    .div-photo-product{
+       max-width: 100px;
+       margin: 1px;
+       padding: 0px !important;
     }
     .title-category{
-        max-width: 190px;
+        max-width: 170px;
+    }
+    .title-product{
+        max-width: 140px;
     }
     .generic-angle{
         max-width: 65px;
+    }
+    .generic-counter{
+        max-width: 80px;
     }
 }

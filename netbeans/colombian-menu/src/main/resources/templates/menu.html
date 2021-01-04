@@ -76,7 +76,7 @@ and open the template in the editor.
        
                                 <div class="card-header" th:id="'heading'+${categoryStat.index}">
                                     <div class="row">
-                                        <div class="col-sm-1 d-flex align-items-start justify-content-start div-category">
+                                        <div class="col-sm-1 d-flex align-items-start justify-content-start div-photo">
                                             <img th:src="${category.urlImage}" class="img-fluid" th:alt="${category.name}" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
 
                                         </div>
@@ -131,6 +131,12 @@ and open the template in the editor.
             </div>
         </div>
 
+        <div class="navbar navbar-expand-md fixed-bottom bar-fixed-bot justify-content-center">
+            <div class="text-white">
+                <div class="background-social background-whatsapp" ></div>
+                <div id="btn-wapp" class="d-flex align-items-center justify-content-center">Haz tu pedido</div>
+            </div>
+        </div>
         <!-- Modals or boxes -->
         <!-- Carrito de Compras -->
         <div id="content-cart" style="display: none;">
@@ -150,94 +156,96 @@ and open the template in the editor.
                 </div>
                 <div id="summaty-order" class="card-body">
                     <div class="row item-row-summary">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row" style="height: 40px;">
-                                    Producto 1
-                                </div>
-                                <div class="row">
-                                    eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="row sub-item-row-summary" >
-                                    <div class="number-input md-number-input">
-                                        <button  class="minus">-</button>
-                                        <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
-                                        <button  class="plus">+</button>
-                                    </div>
-                                </div>
-                                <div class="row" >
-                                   $245000
-                                </div>
 
+                        <div class="col-sm-3 div-photo-product">
+                            <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
+                        </div>
+                        <div class="col-sm-6  title-product">
+                            <div class="row" style="max-height: 40px; height: auto;">
+                                Producto 1
+                            </div>
+                            <div class="row">
+                                eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
                             </div>
                         </div>
+                        <div class="col-sm-3 generic-counter">
+                            <div class="row sub-item-row-summary" >
+                                <div class="number-input md-number-input">
+                                    <button  class="minus">-</button>
+                                    <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
+                                        <button  class="plus">+</button>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                $245000
+                            </div>
+
+                        </div>
+
                     </div>
+                    
                     <div class="row item-row-summary">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row" style="height: 40px;">
-                                    Producto 1
-                                </div>
-                                <div class="row">
-                                    eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="row sub-item-row-summary" >
-                                    <div class="number-input md-number-input">
-                                        <button  class="minus">-</button>
-                                        <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
-                                        <button  class="plus">+</button>
-                                    </div>
-                                </div>
-                                <div class="row" >
-                                   $245000
-                                </div>
 
+                        <div class="col-sm-3 div-photo-product">
+                            <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
+                        </div>
+                        <div class="col-sm-6  title-product">
+                            <div class="row" style="max-height: 40px; height: auto;">
+                                Producto 1
+                            </div>
+                            <div class="row">
+                                eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
                             </div>
                         </div>
+                        <div class="col-sm-3 generic-counter">
+                            <div class="row sub-item-row-summary" >
+                                <div class="number-input md-number-input">
+                                    <button  class="minus">-</button>
+                                    <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
+                                        <button  class="plus">+</button>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                $245000
+                            </div>
+
+                        </div>
+
                     </div>
+                    
                     <div class="row item-row-summary">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row" style="height: 40px;">
-                                    Producto 1
-                                </div>
-                                <div class="row">
-                                    eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="row sub-item-row-summary" >
-                                    <div class="number-input md-number-input">
-                                        <button  class="minus">-</button>
-                                        <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
-                                        <button  class="plus">+</button>
-                                    </div>
-                                </div>
-                                <div class="row" >
-                                   $245000
-                                </div>
 
+                        <div class="col-sm-3 div-photo-product">
+                            <image class="img-fluid" src="/estaticos/img/categorias/1.jpg"/>
+                        </div>
+                        <div class="col-sm-6  title-product">
+                            <div class="row" style="max-height: 40px; height: auto;">
+                                Producto 1
+                            </div>
+                            <div class="row">
+                                eurewhjkasah aj kahjfajhf ajafajfh jkafhjakhfaj 
                             </div>
                         </div>
+                        <div class="col-sm-3 generic-counter">
+                            <div class="row sub-item-row-summary" >
+                                <div class="number-input md-number-input">
+                                    <button  class="minus">-</button>
+                                    <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
+                                        <button  class="plus">+</button>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                $245000
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
         <div id="products">
-            <div class="row">
+            <div class="row item-row-summary">
                 
             </div>
         </div>
