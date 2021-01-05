@@ -13,7 +13,8 @@ $(document).ready(function(){
                     text:"Hacer pedido",
                     btnClass: "btn-blue",
                     action: function(){
-                        alert("Yesss");
+                        htmlInformation = $("#form-delivery").html();
+                        loadInformation(htmlInformation);
                     }
                 },
                 cancel:function(){
@@ -22,6 +23,34 @@ $(document).ready(function(){
             }
         });
     });
+    
+    $(document).on("click","#btn-wapp",function (event){
+        event.preventDefault();
+        
+        htmlInformation = $("#form-delivery").html();
+        loadInformation(htmlInformation);
+    });
+    
+    function loadInformation(htmlInformation){
+        
+        $.confirm({
+            title: false,
+            content: htmlInformation,
+            columnClass: 'small',
+            buttons:{
+                formSubmit:{
+                    text:"Enviar",
+                    btnClass: "btn-blue",
+                    action: function(){
+                        alert("Yesss");
+                    }
+                },
+                cancel:function(){
+                    //close
+                }
+            }
+        });
+    }
 });
 
 
