@@ -78,7 +78,7 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="col-sm-1 d-flex align-items-start justify-content-start div-photo">
                                             <img th:src="${category.urlImage}" class="img-fluid" th:alt="${category.name}" data-toggle="collapse" th:data-target="'#collapse'+${categoryStat.index}" aria-expanded="true" th:aria-controls="'collapse'+${categoryStat.index}">
-
+                                                                  
                                         </div>
                                         <div class="col-sm-10 d-flex align-items-start justify-content-start title-category">
 
@@ -105,10 +105,14 @@ and open the template in the editor.
                                                     <img th:src="${product.urlImage}" class="img-fluid mx-auto d-block" th:alt="${product.name}"   aria-expanded="true" >
                                                 </div>
                                                 <div class="row m-element-1" style="height: 50px">
-                                                    <div class="col-sm-6 text-left" th:text="${product.name}">
-
+                                                    <div class="col-sm-1">
+                                                        <i class="fas fa-plus-square"></i>
                                                     </div>
-                                                    <div class="col-sm-6 text-right" th:text="'$'+${product.price}">
+                                                    
+                                                    <div class="col-sm-6 text-left" th:text="${product.name}">
+                                                       
+                                                    </div>
+                                                    <div class="col-sm-5 text-right" th:text="'$'+${product.price}">
 
                                                     </div>
                                                 </div>

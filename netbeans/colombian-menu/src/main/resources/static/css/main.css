@@ -3020,7 +3020,7 @@ Class for products
 .item-row-summary{
     /*height: 101px; */
     margin-bottom: 2px;
-    border: solid black 0.2px;
+    /*border: solid black 0.2px;*/
 } 
 .sub-item-row-summary{
     height: 40px;
