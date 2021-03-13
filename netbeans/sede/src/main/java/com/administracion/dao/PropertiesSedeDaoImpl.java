@@ -8,6 +8,7 @@ package com.administracion.dao;
 import com.administracion.dao.PropertiesSedeDao;
 import com.administracion.entidad.PropertiesSede;
 import com.administracion.util.LeerXml;
+import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,13 @@ public class PropertiesSedeDaoImpl implements PropertiesSedeDao{
     
     private static final Logger logger = LoggerFactory.getLogger(PropertiesSedeDaoImpl.class);
     
-    @Autowired
+    
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
+    @Autowired
+    private  void init(DataSource dataSource){
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    }
     
     @Autowired
     private LeerXml leerXml;
