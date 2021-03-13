@@ -9,6 +9,7 @@ import com.adiministracion.mapper.FacturaMapper;
 import com.administracion.dao.ComprasDao;
 import com.administracion.dao.FacturaDao;
 import com.administracion.dao.FacturasComprasDao;
+import com.administracion.dao.PropertiesSedeDao;
 import com.administracion.dao.ProveedoresDao;
 import com.administracion.dao.ReportesDao;
 import com.administracion.dao.SecuenciasMysqlDao;
@@ -25,7 +26,9 @@ import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.FacturasCompras;
+import com.administracion.entidad.PropertiesSede;
 import com.administracion.entidad.Proveedor;
+import com.administracion.enumeration.GeneralPropertiesSedeEnum;
 import com.administracion.enumeration.TipoSedeEnum;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.Formatos;
@@ -59,6 +62,8 @@ public class ComprasServiceImpl implements ComprasService {
     @Autowired
     private FacturaDao facturaDao;
     @Autowired
+    private PropertiesSedeDao propertiesSedeDao;
+    @Autowired
     private ConnectsAuth connectsAuth;
 
     @Override
@@ -74,8 +79,8 @@ public class ComprasServiceImpl implements ComprasService {
          * Subsede y seded de la base de datos de credencials
          */
         SubSedesDto subSede = connectsAuth.findSubsedeXId(detalleCompraDTO.getIdsede().intValue());
-        SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
-        if ((subSede.getSede().contains("Principal") && sedesDto.getTipo_sede() == TipoSedeEnum.PRINCIPAL.getTipo_sede())
+        SedesDto sedePrincipalDto = connectsAuth.findSedeXName(nameDataSource);
+        if ((subSede.getSede().contains("Principal") && sedePrincipalDto.getTipo_sede() == TipoSedeEnum.PRINCIPAL.getTipo_sede())
                 || (!subSede.getSede().contains("Principal"))) {
             String[] fila = detalleCompraDTO.getFactura().split("@");
             Date fechacompra = null;
@@ -89,7 +94,7 @@ public class ComprasServiceImpl implements ComprasService {
             }
             Long secuenciFacturaCompras = secuenciasMysqlDao.secuenceTable(ds, "facturas_compras");
             detalleCompraDTO.setIdFacturaCompra(secuenciFacturaCompras);
-            if (sedesDto.getTipo_sede() == TipoSedeEnum.NORMAL.getTipo_sede()) {
+            if (sedePrincipalDto.getTipo_sede() == TipoSedeEnum.NORMAL.getTipo_sede()) {
                 comprasDao.insertarCompra(ds, detalleCompraDTO);
             } else {
                 comprasDao.insertarCompraSede(ds, detalleCompraDTO);
@@ -97,12 +102,12 @@ public class ComprasServiceImpl implements ComprasService {
             for (int i = 0; i < fila.length; i++) {
                 String[] datosFila = fila[i].split(",");
                 comprasDao.insertarDetalleCompra(ds, i, detalleCompraDTO.getNumeroFactura(), datosFila, detalleCompraDTO.getCodigoProveedor(), fechacompra);
-                actualizarPromedioInventario(nameDataSource, datosFila[0]);
+                actualizarPromedioInventario(nameDataSource, datosFila[0],sedePrincipalDto);
             }
 
             //Insercion de la compra en una sede, se convierte en factura
             //El tipo de sede 1 es una sede normal.
-            if (sedesDto.getTipo_sede() == TipoSedeEnum.NORMAL.getTipo_sede()) {
+            if (sedePrincipalDto.getTipo_sede() == TipoSedeEnum.NORMAL.getTipo_sede()) {
 
                 DataSource dsSubsede = connectsAuth.getDataSourceSubSede(subSede.getSede());
                 FacturaMapper facturaMapper = new FacturaMapper();
@@ -119,7 +124,7 @@ public class ComprasServiceImpl implements ComprasService {
         }
     }
 
-    public boolean actualizarPromedioInventario(String dataSource, String codigoProductoInventario) {
+    public boolean actualizarPromedioInventario(String dataSource, String codigoProductoInventario,SedesDto sedesPrincipalDto) {
         //Armo el intervalo de fechas
         //Date fecha = new Date();
         //String anio = "" + Formatos.obtenerAnio(fecha);
@@ -141,6 +146,13 @@ public class ComprasServiceImpl implements ComprasService {
                 promedio += 250f;
             }*/
             //Le doy un formato al  promedio
+            PropertiesSede propertiesSede = propertiesSedeDao.getPropertie(GeneralPropertiesSedeEnum.ADDITIONAL_PERCENTAGE_INVENTORY.getPropertie()
+                    ,sedesPrincipalDto.getIdsedes().longValue());
+            
+            if(Objects.nonNull(propertiesSede)){
+                promedio = promedio*(1+ Double.valueOf(propertiesSede.getValue()));
+            }
+            
             promedio = Double.parseDouble(Formatos.formatearNumeros("####.###", promedio));
             //Actualizo el promedio en inventario
             inventarioService.actualizarPromedioInventario(dataSource, Long.parseLong(codigoProductoInventario), promedio);

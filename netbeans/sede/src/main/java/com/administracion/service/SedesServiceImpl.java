@@ -9,7 +9,6 @@ import com.administracion.dao.SedesDao;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.Sedes;
-import com.administracion.service.autorizacion.ConnectsAuth;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,7 @@ public class SedesServiceImpl extends GenericService implements SedesService{
 
     @Autowired
     private SedesDao sedesDao;
-    @Autowired
-    private ConnectsAuth connectsAuth;
+
     
     @Transactional
     @Override
