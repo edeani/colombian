@@ -6,9 +6,7 @@
 package com.colombian.menu.controller;
 
 import com.colombian.menu.components.MenuData;
-import com.colombian.menu.dto.CategoriaDto;
 import com.colombian.menu.service.MenuService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
