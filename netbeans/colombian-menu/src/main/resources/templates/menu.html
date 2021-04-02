@@ -104,7 +104,7 @@ and open the template in the editor.
                                                                                         <div class="row m-element-1">
                                                                                             <img th:src="${product.urlImage}" class="img-fluid mx-auto d-block" th:alt="${product.name}"   aria-expanded="true" >
                                                                                         </div>
-                                                                                        <div class="row m-element-1" style="height: 50px">
+                                                                                        <div class="row m-element-1" style="max-height: 500px">
                                                                                             <div class="col-sm-1 add-product" th:data-ref-prod="''+${categoryStat.index}+${productStat.index}"
                                                                                                  data-pre-comment="comment"
                                                                                                  data-pre-prod="prod"
@@ -118,12 +118,12 @@ and open the template in the editor.
                                                                                             <div class="col-sm-6 text-left" th:text="${product.name}">
 
                                                                                             </div>
-                                                                                            <div class="col-sm-5 text-right" th:text="'$'+${product.price}">
+                                                                                            <div th:id="'price'+${categoryStat.index}+${productStat.index}" class="col-sm-5 text-right" th:text="'$'+${product.price}">
 
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="row m-element-1" th:id="'comment'+${categoryStat.index}+${productStat.index}" style="display: none;">
-                                                                                            <input value="" th:id="'inputProd'+${categoryStat.index}+${productStat.index}"  class="form-control" type="text" placeholder="Comentarios Adicionales">
+                                                                                            <textarea th:id="'inputProd'+${categoryStat.index}+${productStat.index}"  class="form-control" rows="3" cols="50" placeholder="Comentarios Adicionales"></textarea>
                                                                                         </div>
 
                                                                                     </div>
@@ -183,7 +183,7 @@ and open the template in the editor.
                                                                         <div class="number-input md-number-input">
                                                                             <button  class="minus">-</button>
                                                                             <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 25px;">
-                                                                                <button  class="plus">+</button>
+                                                                            <button  class="plus">+</button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row" >

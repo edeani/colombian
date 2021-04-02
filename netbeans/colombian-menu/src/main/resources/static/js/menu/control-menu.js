@@ -3,6 +3,7 @@ $(document).ready(function () {
    const dataRefProduct = "data-ref-prod";
    const refId = "#";
    const classProdSelected = "container-item-selected-product";
+   const idPrice = "price";
    
    localStorage.clear();
     /**
@@ -54,6 +55,21 @@ $(document).ready(function () {
         }
         
         $(this).parent().parent().addClass(classProdSelected);
+        
+        let htmlQuantity = '<div class="d-flex flex-row-reverse"><button  class="p-2 plus control-qty-grid remove-prod-grid" data-ref="'+$(this).attr(dataRefProduct)+'">-</button>'+
+                        '<input class="quantity p-2" readonly min="0" name="quantity" value="1" type="number" style="width: 35px; max-height: 35px;">'+
+                        '<button  class="p-2 control-qty-grid minus add-prod-grid" data-ref="'+$(this).attr(dataRefProduct)+'" >+</button></div>';
+        $( refId+idPrice+$(this).attr(dataRefProduct)).append(htmlQuantity);
+    });
+    
+    $(document).on("click",".remove-prod-grid",function(event){
+        event.preventDefault();
+        let currentProductId = refId+$(this).attr("data-pre-prod") + $(this).attr(dataRefProduct);
+         let refInputComment = refId +$(this).attr("data-pre-input-comment")+$(this).attr(dataRefProduct);
+    });
+    $(document).on("click",".add-prod-grid",function(event){
+        event.preventDefault();
+        refId +$(this).attr("data-pre-comment")
     });
 
     $(document).on("click", "#btn-wapp", function (event) {

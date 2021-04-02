@@ -3044,6 +3044,15 @@ Class for products
     height: 40px;
 }
 
+.control-qty-grid{
+    width: 35px!important;
+    height: 35px!important;
+    color: white;
+    background-color: black;
+    font-size: 17px;
+    border: solid 1px black;
+}
+
 
 .bar-fixed-bot{
     background: #df1d04;
