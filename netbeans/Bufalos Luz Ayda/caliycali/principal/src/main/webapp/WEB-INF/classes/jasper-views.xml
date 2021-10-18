@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+              
+	<!-- 
+		Declare Spring's View Resolvers for Jasper
+		
+		Based on the bean names we can infer that:
+			* pdfReport is for generating PDFs
+			* xlsReport is for Excel format reports
+			* htmlReport is for HTML reports
+			* csvReport is for CSV reports
+	-->
+	<!-- 
+		id: the name to be used as a reference in the controller
+		url: the path where the Jasper JRXML file is located
+		reportDateKey: the name of the datasource. This is passed by the controller
+	-->
+        <bean id="comprasTotales"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/comprasTotales.jrxml"
+		p:reportDataKey="datos"/>
+        <bean id="comprasTotalProducto"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/comprasTotalProducto.jrxml"
+		p:reportDataKey="datos"/>
+        <bean id="comprasTotalesProveedor"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/comprasTotalesProveedor.jrxml"
+		p:reportDataKey="datos"/>
+        <bean id="comprasTotalXProveedor"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/comprasTotalXProveedor.jrxml"
+		p:reportDataKey="datos"/>
+        <bean id="ventasTotales"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/ventasTotales.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="ventasTotalesSede"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/ventasTotalesSede.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="facturasTotalXSede"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/facturasTotalXSede.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="facturaVenta"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/facturaVentas.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="facturasTotal"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/facturasTotal.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="inventarioTotal"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/inventarioTotal.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="consolidado"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/consolidado.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="traslados"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/traslados.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="comprobanteBeneficiario"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/comprobantePagoBeneficiario.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="comprobanteProveedor"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/comprobantePagoProveedor.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="comprobanteCierreSede"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/comprobanteCierreSedes.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="reporteCierreSedes"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/reporteCierreSedes.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="movimientoCaja"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/movimientoCaja.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="estadoPerdidaGananciasSede"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/reportePerdidasGananciasTotalSede.jrxml"
+           p:reportDataKey="datos"/>
+        
+        <bean id="estadoPerdidaGananciasProvisional"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/reportePerdidasGananciasTotalProvisional.jrxml"
+           p:reportDataKey="datos"/>
+        
+        <bean id="comprasProveedorFecha"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/comprasProveedorFecha.jrxml"
+           p:reportDataKey="datos"/>
+        <bean id="comprasCuentasPagarProveedor"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/comprasCuentasPagarProveedor.jrxml"
+		p:reportDataKey="datos"/>
+        <bean id="reportePagos"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/reportePagos.jrxml"
+		p:reportDataKey="datos"/>
+        <bean id="comprasSedesColombian"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/comprasSedesColombian.jrxml"
+		p:reportDataKey="datos"/>
+        
+        <!-- Reporte de Estado Pérdida Ganancias  Subreportes-->
+           
+        <bean id="reporteUtilidades"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/reporteUtilidadesTotal.jrxml"
+		p:reportDataKey="datos" 
+		p:subReportUrls-ref="customSubReportUrlsPrueba"
+		p:subReportDataKeys-ref="customSubReportDatasourcePrueba"/>
+
+	<util:map id="customSubReportUrlsPrueba">
+	    <!-- This entry key must be declared exactly as you declared it in the master JRXML file -->
+	    <entry key="JasperCustomSubReportLocation" value="classpath:/reportes/subreporteUtilidadesTotal.jrxml"/>
+	</util:map>
+	
+	<util:list id="customSubReportDatasourcePrueba">
+	    <!-- This value must be declared exactly as you declared it in the master JRXML file -->
+	    <value>JasperCustomSubReportDatasource</value>
+	</util:list>
+	<!--bean id="xlsReport"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
+		p:url="classpath:tree-template.jrxml"
+		p:reportDataKey="datasource" />
+	
+	<bean id="htmlReport"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsHtmlView"
+		p:url="classpath:tree-template.jrxml" 
+		p:reportDataKey="datasource" />
+        <bean id="csvReport"
+        class="org.springframework.web.servlet.view.jasperreports.JasperReportsCsvView"
+            p:url="classpath:tree-template.jrxml"
+            p:reportDataKey="datasource" /-->
+
+    
+</beans>

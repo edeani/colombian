@@ -1,0 +1,35 @@
+.tblPagosTerceros{
+    width: 830px;
+}
+.tblPagosTerceros tbody tr td .clasedescripcion{
+    width: 400px;
+}
+.tblPagosProveedor tbody tr td .clasedescripcionproveedor{
+    width: 345px;
+}
+.tblPagosProveedor tbody tr td .clasefechafactura{
+    width: 120px;
+}
+.tblPagosTerceros tbody tr td .claseCuenta{
+    width: 80px;
+}
+.tblPagosTerceros tbody tr td .claseConceptoCuenta{
+    width: 250px;
+}
+
+.tblComprobanteCierre{
+    margin: 0 65px;
+    width: 900px;
+}
+#divContenedorTabla2{
+    height: 180px;
+    width: 1080px;
+    margin: 0 1% !important;
+    overflow:auto;
+    background: black;
+    border-radius: 5px;
+}
+#tblDatos2{
+    width: 750px;
+    margin: 0 165px;
+}

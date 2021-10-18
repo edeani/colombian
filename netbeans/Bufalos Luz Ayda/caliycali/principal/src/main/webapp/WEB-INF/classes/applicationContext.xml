@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+       ">
+
+    <!--bean id="propertyConfigurer"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+    p:location="/WEB-INF/jdbc.properties" /-->
+    <context:property-placeholder location="classpath:bd/basedatos.properties"/>
+    <bean id="entityManagerFactory"
+      class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="Principal" />
+        <property name="persistenceUnitName" value="CaliyCali" />
+        <property name="jpaDialect" ref="jpaDialect" />
+        <property name="jpaVendorAdapter">
+            <bean
+                class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+            </bean>
+        </property>
+        <property name="loadTimeWeaver">
+            <bean class="com.colombia.cali.colombiancaliycali.classloading.MyClassLoaderWeaver" />
+        </property>
+    </bean> 
+    <!-- Local -->
+    <!--bean id="principal"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/x022vm01_principalsedes"
+      p:username="${user}"
+      p:password="${password}" /-->   
+    <!-- Viejo -->
+    <!--bean id="principal"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.jdbc.Driver"
+      p:url="jdbc:mysql://200.58.112.133/x022vm01_caliycali"
+      p:username="x022vm01"
+      p:password="taYzLzk4hqx"/-->
+    <!-- Nuevo -->
+    <bean id="Principal"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/buffalosluzprincipal?useSSL=false"
+      p:username="${user}"
+      p:password="${password}"/>  
+    
+    <bean id="Buffalos Guatapuri"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.cj.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/buffalosvalleduparppal?useSSL=false"
+      p:username="${user_bd}"
+      p:password="${password}"/>
+
+    <!--bean id="caldas"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.cj.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/caldas"
+      p:username="${user_bd}"
+      p:password="${password}"/-->
+
+    <bean id="Principal Cartagena"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.cj.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/cartagenabuffalosprincipal?useSSL=false"
+      p:username="${user_bd}"
+      p:password="${password}"/>
+
+
+    <bean id="Principal Ibague"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.cj.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/ibaguebuffalosprincipal?useSSL=false"
+      p:username="${user_bd}"
+      p:password="${password}"/>
+
+    <bean id="Buffalos Valledupar"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.cj.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/buffalosvalledupar?useSSL=false"
+     p:username="${user_bd}"
+      p:password="${password}"/>
+
+    <bean id="Cartagena Buffalos"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.cj.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/cartagenabuffalos?useSSL=false"
+     p:username="${user_bd}"
+      p:password="${password}"/>
+    
+    <bean id="Ibague Buffalos"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+      p:driverClassName="com.mysql.cj.jdbc.Driver"
+      p:url="jdbc:mysql://${url}/ibaguebuffalos?useSSL=false"
+     p:username="${user_bd}"
+      p:password="${password}"/>
+    
+     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect " />
+    
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor "/>  
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+    <!--bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">
+        <filter-chain-map path-type="ant">
+            <filter-chain pattern="/**" filters="sif"/>
+        </filter-chain-map>
+        
+    </bean>
+
+    <bean id="sif"  class="org.springframework.security.context.HttpSessionContextIntegrationFilter" /-->
+    <bean id="caliycaliDao" class="com.colombia.cali.colombiancaliycali.dao.generic.GenericDaoImpl" >
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--Importo el archivo que contiene los reportes-->
+    <import resource="jasper-views.xml" />
+</beans>
