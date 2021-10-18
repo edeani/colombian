@@ -56,7 +56,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Conexion conexion = new Conexion();
         conexion.setBd("principal");
         conexion.setPassword("YI15102206j");
-        conexion.setServer("192.168.0.22:3306" + "/principal");
+        conexion.setServer("localhost:3306" + "/principal");
         conexion.setUser("llmdvi");
         conexion.establecerConexion();
         connection = conexion.getConexion();
