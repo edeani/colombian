@@ -28,6 +28,8 @@ public class ConnectsAuth {
     private SedesService sedesService;
     @Autowired
     private AccesosSubsedes accesosSubsedes;
+    
+    private static final String PROPERTIES_CONNECTION="?verifyServerCertificate=false&useSSL=false&requireSSL=false";
     /**
      * Tiene todas las conexiones existentes
      */
@@ -42,7 +44,7 @@ public class ConnectsAuth {
         SedesDto puntoSedeConn = findSedeXNameConn(nameDataSource);
         DriverManagerDataSource dataSourceConn_ = new DriverManagerDataSource();
         dataSourceConn_.setPassword(puntoSedeConn.getPassword());
-        dataSourceConn_.setUrl(puntoSedeConn.getUrl());
+        dataSourceConn_.setUrl(puntoSedeConn.getUrl().concat(PROPERTIES_CONNECTION));
         dataSourceConn_.setUsername(puntoSedeConn.getUsername());
         return dataSourceConn_;
     }
@@ -57,7 +59,7 @@ public class ConnectsAuth {
         SedesDto puntoSede = findSedeXName(nameDataSource);
         DriverManagerDataSource dataSource_ = new DriverManagerDataSource();
         dataSource_.setPassword(puntoSede.getPassword());
-        dataSource_.setUrl(puntoSede.getUrl());
+        dataSource_.setUrl(puntoSede.getUrl().concat(PROPERTIES_CONNECTION));
         dataSource_.setUsername(puntoSede.getUsername());
         return dataSource_;
     }
@@ -72,7 +74,7 @@ public class ConnectsAuth {
         SubSedesDto subSedesDto = findSubsedeXName(nameDataSource);
         DriverManagerDataSource dataSourceSub_ = new DriverManagerDataSource();
         dataSourceSub_.setPassword(subSedesDto.getPassword());
-        dataSourceSub_.setUrl(subSedesDto.getUrl());
+        dataSourceSub_.setUrl(subSedesDto.getUrl().concat(PROPERTIES_CONNECTION));
         dataSourceSub_.setUsername(subSedesDto.getUsername());
         return dataSourceSub_;
     }
