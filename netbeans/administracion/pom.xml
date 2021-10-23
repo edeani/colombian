@@ -253,7 +253,7 @@
                 <base.datos>domicilios</base.datos>
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
-                <bd.ip>192.168.0.22:3306</bd.ip>
+                <bd.ip>localhost:3306</bd.ip>
                 <path.img>/opt/tomcat8/webapps/estaticos/img/productos/</path.img>
                 <url.img>/estaticos/img/productos</url.img>
             </properties>
