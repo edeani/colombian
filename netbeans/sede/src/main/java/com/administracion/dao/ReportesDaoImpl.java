@@ -460,7 +460,8 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         if(idsede!=null){
             condicionSede = " and idsede="+idsede;
         }
-        String sql = " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total,5 as tipo  " +
+        String sql = "select sub1.*,SUBSTRING(cuenta, 1, 1) as tipo from( "
+                + " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total,5 as tipo  " +
                     "from( select sub.cuenta,sum(sub.total) as total from( " +
                     "select idcuenta as cuenta ,sum(total) as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
                     "union all " +
@@ -496,7 +497,8 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                     "union all " +
                     "select fc.idcuenta as cuenta,sum(fc.total) as total from facturas_compras fc where fc.idcuenta like '6%' and fc.fecha between '"+fechInicial+"' and '"+fechaFinal+"' "+condicionSede+" group by idcuenta "+
                     ")sub group by sub.cuenta " +
-                    ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta";
+                    ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
+                + ")sub1";
         
         List<BalanceDto> reporte = null;
         try {
