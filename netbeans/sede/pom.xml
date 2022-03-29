@@ -266,7 +266,7 @@
         <profile>
             <id>dev-pc</id>
             <properties>
-                <base.datos>credencials2</base.datos>
+                <base.datos>credencials</base.datos>
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
                 <bd.ip>186.31.32.253:3306</bd.ip>
