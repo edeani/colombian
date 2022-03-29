@@ -329,7 +329,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "union all "
 		+" select sum(total) as total from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' "
                 + "union all "
-                +" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') /*and  cuenta like '5%'*/ "
+                +" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '5%' "
                 + ")sub0 "
                 + ")sub1 "
                 + "union all "
@@ -343,6 +343,8 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "union all "
                 + "select sum(dp.total) from detalle_pagos dp "
                 + "where dp.idcuenta like '6%' and dp.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
+                + "union all "
+                +" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '6%' "
                 + ")sub0 "
                 + ")sub1 ";
         List<EstadoPerdidaGananciaProvisionalDto> reporte = null;
@@ -378,7 +380,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "union all "
 		+" select sum(total) as total from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' and idsede="+ idSede + " "
                 + "union all "
-		+" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') /*and  cuenta like '5%'*/ and idsede="+ idSede + " "
+		+" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '5%' and idsede="+ idSede + " "
                 + ")sub0 "
                 + ")sub1 "
                 + "union all "
@@ -392,6 +394,8 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "union all "
                 + "select sum(dp.total) from detalle_pagos dp "
                 + "where dp.idcuenta like '6%' and dp.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dp.idsede=" + idSede + " "
+                + "union all "
+		+" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '6%' and idsede="+ idSede + " "
                 + ")sub0 "
                 + ")sub1 ";
         List<EstadoPerdidaGananciaProvisionalDto> reporte = null;
