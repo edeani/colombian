@@ -8,6 +8,7 @@ import com.mycompani.bean.util.UserSessionBean;
 import com.mycompany.dao.ConsignacionesJpaController;
 import com.mycompany.entidades.Consignaciones;
 import com.mycompany.entidades.Sedes;
+import com.mycompany.enums.EnumTipoPagoTarjeta;
 import com.mycompany.util.Conexion;
 import com.mycompany.util.Formatos;
 import java.sql.Connection;
@@ -17,8 +18,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import javax.ejb.Asynchronous;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -398,7 +401,7 @@ public class CierreServiceImpl implements CierreService {
     }
     @Asynchronous
     @Override
-    public Double cierrePagosTarjeta(Date fechaCierre) {
+    public HashMap<String,Double> cierrePagosTarjeta(Date fechaCierre) {
         Connection connection;
         //Me conecto a la base de datos
         Conexion conexion = new Conexion();
@@ -412,23 +415,82 @@ public class CierreServiceImpl implements CierreService {
         conexion.establecerConexion();
         connection = conexion.getConexion();
         
-        Double pagosTarjeta =0D;
+        HashMap<String,Double> paymentsCard = new HashMap<>();
         if(connection!=null){
         DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
         Formatos formato = new Formatos();
         String fecha = formato.dateTostring(dfDefault.format(fechaCierre));
-        String query = "select sum(total) as total from (select sum(pago_tarjeta) as total from mesa " +
-            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
-            "and estado_orden = 'A' " +
-            "union all " +
-            "select sum(pago_tarjeta) as total from orden " +
-            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
-            "and estado_orden = 'A' " +
-            "union all " +
-            "select sum(pago_tarjeta) as total from llevar " +
-            "where " +
-            "fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
-            "and estado_orden = 'A') sub0";
+        String query = "select '"+EnumTipoPagoTarjeta.VISA.getName()+"' as tipo,sum(total) as total \n " +
+                        "from(\n " +
+                        "select SUM(pago_tarjeta) as total\n " +
+                        "from orden\n" +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND datafono_pago <> 0 \n " +
+                        "UNION ALL\n " +
+                        "select SUM(pago_tarjeta) as total\n " +
+                        "from mesa\n " +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND datafono_pago <> 0\n " +
+                        "UNION ALL\n " +
+                        "select SUM(pago_tarjeta) as total\n " +
+                        "from llevar\n " +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND datafono_pago <> 0 \n " +
+                        ")subTarjetas\n " +
+                        "UNION ALL\n " +
+                        "select '"+EnumTipoPagoTarjeta.NEQUI.getName()+"' as tipo, sum(total) as total \n " +
+                        "from (\n " +
+                        "select sum(pago_tarjeta) as total \n " +
+                        "from orden\n " +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.NEQUI.getTipo()+"'\n " +
+                        "UNION ALL\n " +
+                        "select sum(pago_tarjeta) as total \n" +
+                        "from mesa\n" +
+                        "where fecha_orden='"+fecha+"' and \n" +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.NEQUI.getTipo()+"'\n " +
+                        "UNION ALL\n" +
+                        "select sum(pago_tarjeta) as total \n " +
+                        "from llevar\n " +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.NEQUI.getTipo()+"'\n " +
+                        ") subnequi\n " +
+                        "UNION ALL\n " +
+                        "select '"+EnumTipoPagoTarjeta.DAVIPLATA.getName()+"' as tipo , sum(total) as total \n " +
+                        "from (\n " +
+                        "select sum(pago_tarjeta) as total\n " +
+                        "from orden\n " +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.DAVIPLATA.getTipo()+"'\n " +
+                        "UNION ALL\n" +
+                        "select sum(pago_tarjeta) as total\n " +
+                        "from mesa\n " +
+                        "where fecha_orden='"+fecha+"'and \n " +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.DAVIPLATA.getTipo()+"'\n " +
+                        "UNION ALL\n " +
+                        "select sum(pago_tarjeta) as total\n " +
+                        "from llevar\n " +
+                        "where fecha_orden='"+fecha+"'and \n " +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.DAVIPLATA.getTipo()+"'\n" +
+                        ") subdaviplata\n " +
+                        "UNION ALL\n " +
+                        "select '"+EnumTipoPagoTarjeta.TRANSFERENCIA.getName()+"' as tipo, sum(total) as total\n " +
+                        "from(\n " +
+                        "select sum(pago_tarjeta) as total\n " +
+                        "from orden\n " +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.TRANSFERENCIA.getTipo()+"'\n " +
+                        "UNION ALL\n " +
+                        "select sum(pago_tarjeta) as total\n " +
+                        "from mesa\n " +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.TRANSFERENCIA.getTipo()+"'\n " +
+                        "UNION ALL\n " +
+                        "select sum(pago_tarjeta) as total\n " +
+                        "from llevar\n " +
+                        "where fecha_orden='"+fecha+"' and \n " +
+                        "		 estado_orden='A' AND franquicia_tarjeta = '"+EnumTipoPagoTarjeta.TRANSFERENCIA.getTipo()+"'\n " +
+                        ")subtransf ";
 
         
         ResultSet rs = null;
@@ -447,10 +509,14 @@ public class CierreServiceImpl implements CierreService {
             
             rs = ps.executeQuery();
             
-            rs.next();
-            pagosTarjeta = rs.getDouble(1);
+            while(rs.next()){
+                Double curtotal = Objects.nonNull(rs.getDouble(2))?rs.getDouble(2):0d;
+                paymentsCard.put(rs.getString(1),curtotal);
+                
+            }
+
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
           System.out.print(e.getMessage());
             
@@ -463,7 +529,7 @@ public class CierreServiceImpl implements CierreService {
             user.setMensaje("NO CONECTA LA BASE DE DATOS "+user.getSede().getSed_nombre());
         }
         
-        return pagosTarjeta;
+        return paymentsCard;
     }
        
   

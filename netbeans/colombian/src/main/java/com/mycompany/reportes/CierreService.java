@@ -6,6 +6,7 @@ package com.mycompany.reportes;
 
 import com.mycompany.entidades.Consignaciones;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,7 +24,7 @@ public interface CierreService {
     public Double cierrCajaFinal(Double ventas,Double gastos,Double cajaInicial, Double consignaciones,
             Double pagosTarjeta, Double descuentos);
     public Double cierreDescuentos(Date fechaCierre);
-    public Double cierrePagosTarjeta(Date fechaCierre);
+    public HashMap<String,Double> cierrePagosTarjeta(Date fechaCierre);
     public List<Consignaciones> cierreListaConsignaciones(Date  fechaCierre);
     
 }
