@@ -281,9 +281,9 @@ public class CierreServiceImpl implements CierreService {
 
     @Override
     public Double cierrCajaFinal(Double ventas, Double gastos, Double cajaInicial, Double consignaciones, 
-            Double pagosTarjeta, Double descuentos) {
+            Double pagosTarjeta, Double descuentos, Double nequi, Double daviplata, Double transacciones) {
         
-        return (ventas + cajaInicial - consignaciones - gastos - pagosTarjeta - descuentos);
+        return (ventas + cajaInicial - consignaciones - gastos - pagosTarjeta - nequi - daviplata - transacciones - descuentos);
         
     }
     @Asynchronous
