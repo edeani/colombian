@@ -87,9 +87,9 @@
     </dependencies>
     
     <repositories>
-        <repository>
+        <!--repository>
             <id>ocpsoft</id>
-            <url>http://ocpsoft.com/repository/</url>
+            <url>http://ocpsoft.org/repository/</url>
         </repository>
         <repository>  
             <id>prime-repo</id>  
@@ -107,7 +107,7 @@
             <id>unknown-jars-temp-repo</id>
             <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
             <url>file:${project.basedir}/lib</url>
-        </repository>
+        </repository-->
     </repositories>
   
     <build>
