@@ -33,7 +33,7 @@ public class Conexion {
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection(getServer().concat("?verifyServerCertificate=false&useSSL=false&requireSSL=false"), getUser(), getPassword());
+            conexion = DriverManager.getConnection(getServer().concat("?verifyServerCertificate=false&useSSL=false&requireSSL=false&serverTimezone=UTC"), getUser(), getPassword());
 
         } catch (ClassNotFoundException e) {
             System.out.println("Imposible realizar conexion con la BD " + e.getMessage());
