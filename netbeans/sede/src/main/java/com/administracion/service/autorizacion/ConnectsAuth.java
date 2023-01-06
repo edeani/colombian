@@ -29,7 +29,7 @@ public class ConnectsAuth {
     @Autowired
     private AccesosSubsedes accesosSubsedes;
     
-    private static final String PROPERTIES_CONNECTION="?verifyServerCertificate=false&useSSL=false&requireSSL=false";
+    private static final String PROPERTIES_CONNECTION="?verifyServerCertificate=false&useSSL=false&requireSSL=false&serverTimezone=UTC";
     /**
      * Tiene todas las conexiones existentes
      */
