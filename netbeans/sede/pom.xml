@@ -156,7 +156,7 @@
         <dependency>
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewritefilter</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.mycompany</groupId>
@@ -164,6 +164,22 @@
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
+        
+        <!--Start: Use, if the application is deployed with JAVA 9 or higher -->
+        <!--dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.1</version>
+            <scope>runtime</scope>
+        </dependency-->
+        <!-- End: Use, if the application is deployed with JAVA 9 or higher -->
     </dependencies>
 
     <build>
@@ -240,7 +256,7 @@
             <properties>
                 <base.datos>credencials</base.datos>
                 <bd.user>root</bd.user>
-                <bd.password>compaq</bd.password>
+                <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
                 <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/sede/src/main/webapp/img/</path.img>
                 <url.img>/sede/img</url.img>
@@ -250,7 +266,7 @@
         <profile>
             <id>dev-pc</id>
             <properties>
-                <base.datos>credencials2</base.datos>
+                <base.datos>credencials</base.datos>
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
                 <bd.ip>186.31.32.253:3306</bd.ip>
@@ -272,7 +288,7 @@
         <profile>
             <id>pruebas-prod</id>
             <properties>
-                <base.datos>credencials2</base.datos>
+                <base.datos>credencials</base.datos>
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
                 <bd.ip>186.31.32.253:3306</bd.ip>
@@ -297,7 +313,7 @@
                 <base.datos>credencials</base.datos>
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
-                <bd.ip>192.168.0.22:3306</bd.ip>
+                <bd.ip>localhost:3306</bd.ip>
                 <path.img>/opt/tomcat8/webapps/estaticos/img/</path.img>
                 <url.img>/estaticos/img</url.img>
             </properties>

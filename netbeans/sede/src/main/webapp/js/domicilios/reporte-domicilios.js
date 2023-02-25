@@ -15,7 +15,7 @@ $(document).ready(function(){
         var htmlMesas = peticionAjaxAsync(urlVentasMesa,tipoPeticion,parametros);
         $("#contenidodomicilios").html(htmlMesas);
         
-        var suma_total_mesas=sumaColumna(event,"cmpResumenDomicilios","totalDomicilios");
+        var suma_total_mesas=sumaColumnaWithoutFormat(event,"cmpResumenDomicilios","totalDomicilios");
         formatCurrencyFieldText(document.getElementById("totalDomicilios"));
         $("#totalDomiciliosLabel").html($("#totalDomicilios").val());
         

@@ -15,7 +15,7 @@
         sum(subCompras2.valor) as valor 
         from ( select subCompras.codigo as codigo,subCompras.producto as producto, case when subCompras.unidades is null then 0 else subCompras.unidades end as unidades, 
         case when subCompras.estado_compra is null then :estadoCompra else subCompras.estado_compra end as estado_compra, 
-        case when subCompras.fecha_compra is null or subCompras.fecha_compra = '' then :fechaInicial else subCompras.fecha_compra end as fecha_compra  , 
+        case when subCompras.fecha_compra is null  then :fechaInicial else subCompras.fecha_compra end as fecha_compra  , 
         case when subCompras.promedio is null then 0 else subCompras.promedio end as promedio, 
         case when subCompras.valor is null then 0 else subCompras.valor end as valor 
         from (select distinct i.codigo_producto_inventario as codigo,i.descripcion_producto as producto, 
@@ -31,7 +31,7 @@
         sum(subCompras2.valor) as valor 
         from ( select subCompras.codigo as codigo,subCompras.producto as producto, case when subCompras.unidades is null then 0 else subCompras.unidades end as unidades, 
         case when subCompras.estado_compra is null then :estadoCompra else subCompras.estado_compra end as estado_compra, 
-        case when subCompras.fecha_compra is null or subCompras.fecha_compra = '' then :fechaInicial else subCompras.fecha_compra end as fecha_compra  , 
+        case when subCompras.fecha_compra is null  then :fechaInicial else subCompras.fecha_compra end as fecha_compra  , 
         case when subCompras.promedio is null then 0 else subCompras.promedio end as promedio, 
         case when subCompras.valor is null then 0 else subCompras.valor end as valor 
         from (select i.codigo_producto_inventario as codigo,i.descripcion_producto as producto, 

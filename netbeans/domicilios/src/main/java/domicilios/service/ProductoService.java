@@ -7,6 +7,7 @@ package domicilios.service;
 
 import domicilios.dto.ProductoDto;
 import domicilios.entidad.Categoria;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,7 +17,9 @@ import java.util.List;
 public interface ProductoService {
 
     List<ProductoDto> listAllPage(Integer page);
+    List<ProductoDto> searchProductPage(Integer page,Integer idCategory);
     Integer numeroProducto();
+    Integer cantidadProductosFilter(HashMap<String,Object> filterParameters);
     List<Categoria> listCategory();
     void eliminarProductoXid(Integer idproducto);
 }

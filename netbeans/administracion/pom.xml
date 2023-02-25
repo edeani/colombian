@@ -105,7 +105,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.11</version>
+            <version>8.0.19</version>
         </dependency>
 
         <!-- Logs -->
@@ -208,10 +208,10 @@
             <properties>
                 <base.datos>domicilios</base.datos>
                 <bd.user>root</bd.user>
-                <bd.password></bd.password>
+                <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img></path.img>
-                <url.img></url.img>
+                <path.img>C:/Users/10 Spring Creators/Documents/apache-tomcat-8.5.37/webapps/estaticos/img/productos/</path.img>
+                <url.img>/estaticos/img/productos</url.img>
             </properties>
         </profile>
         <profile>
@@ -226,13 +226,35 @@
             </properties>
         </profile>
         <profile>
+            <id>prod-remote</id>
+            <properties>
+                <base.datos>domicilios</base.datos>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>186.31.32.253:3306</bd.ip>
+                <path.img>C:/Users/10 Spring Creators/Documents/apache-tomcat-8.5.37/webapps/estaticos/img/productos/</path.img>
+                <url.img>/estaticos/img/productos</url.img>
+            </properties>
+        </profile>
+        <profile>
             <id>prod</id>
             <properties>
                 <base.datos>domicilios</base.datos>
                 <bd.user>llmdvi</bd.user>
-                <bd.password>YI15102206j.</bd.password>
+                <bd.password>YI15102206j</bd.password>
+                <bd.ip>192.168.0.22:3306</bd.ip>
+                <path.img>C:/Users/10 Spring Creators/Documents/apache-tomcat-8.5.37/webapps/estaticos/img/productos/</path.img>
+                <url.img>/estaticos/img/productos</url.img>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod-linux</id>
+            <properties>
+                <base.datos>domicilios</base.datos>
+                <bd.user>llmdvi</bd.user>
+                <bd.password>YI15102206j</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>C:/apache-tomcat-7.0.75/webapps/estaticos/img/productos/</path.img>
+                <path.img>/opt/tomcat8/webapps/estaticos/img/productos/</path.img>
                 <url.img>/estaticos/img/productos</url.img>
             </properties>
         </profile>

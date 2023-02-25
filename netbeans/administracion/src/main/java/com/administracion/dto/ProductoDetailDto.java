@@ -27,7 +27,7 @@ public class ProductoDetailDto{
     @NotNull
     private Float precioproducto;
     @NotNull
-    private Integer tipo;
+    private Integer idCategoria;
     @NotEmpty
     @Size(max = 500)
     @Pattern(regexp = "[A-Za-z0-9 áéíóúñÁÉÍÓÚÑ\\.#\\-,]*")
@@ -64,12 +64,12 @@ public class ProductoDetailDto{
         this.precioproducto = precioproducto;
     }
 
-    public Integer getTipo() {
-        return tipo;
+    public Integer getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
     }
     
     public String getDescripcion() {

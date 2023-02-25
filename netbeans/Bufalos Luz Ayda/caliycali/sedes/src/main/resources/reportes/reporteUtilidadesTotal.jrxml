@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteUtilidadesTotal" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="042338d2-989c-43b3-a0a4-ea7b3345bc53">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="39"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\EderArmando\\Documents\\NetBeansProjects\\colombianCaliyCali_v2\\src\\main\\resources\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="JasperCustomSubReportLocation" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="JasperCustomSubReportDatasource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="fechaInicial" class="java.util.Date"/>
+	<parameter name="fechaFinal" class="java.util.Date"/>
+	<parameter name="nombreSede" class="java.lang.String"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="label" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="106" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="291" y="73" width="233" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="f1c50710-9775-4e76-bb4c-d7fe1cef27af"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Sencillamente mejor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="1" y="0" width="500" height="81" forecolor="#000000" backcolor="#FFFFFF" uuid="2a4176a4-b8c0-4f81-b403-6cd9e759b932"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="58" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Cali y Cali]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="370" y="3" width="62" height="20" uuid="6a532a2c-8d7e-40ca-b903-8097ac40de89"/>
+				<text><![CDATA[Generado el]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="3" width="34" height="20" uuid="e4d4bdec-9a10-4c7d-a183-6d3d65105e4c"/>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="169" y="3" width="100" height="20" uuid="113e478d-13c9-4054-8449-fc3ba834d645"/>
+				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="35" y="3" width="100" height="20" uuid="04c1ffb3-9e72-4ec4-8be8-de2eb67ecacc"/>
+				<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="3" width="34" height="20" uuid="8b853255-c9a8-4526-b0a7-8647aa27b918"/>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="432" y="3" width="140" height="20" uuid="dd766a67-44b5-4c72-9f2b-f34f9708cb93"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="151" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="21" width="100" height="20" uuid="7a786b4a-600e-424f-bb5b-2f36636671fa"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="27" y="51" width="518" height="100" uuid="adcadf57-3c6a-4ffc-9108-a16cdb13820f"/>
+				<subreportParameter name="tipocuenta">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource ($P{JasperCustomSubReportDatasource}.getData())]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{JasperCustomSubReportLocation}]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="100" y="21" width="147" height="20" uuid="758037e2-ef51-400a-a1de-ab0391f1d7d7"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1" width="100" height="20" uuid="233c7ba8-a111-42ad-ac90-da89343dca37"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<text><![CDATA[Tipo Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="1" width="147" height="20" uuid="ec770519-e05e-418c-bf83-d8fb02c47bcb"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="432" y="1" width="140" height="20" uuid="5acd71f1-78e8-46d4-8bff-4f731519eef4"/>
+				<textFieldExpression><![CDATA[$P{nombreSede}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="61">
+			<staticText>
+				<reportElement x="27" y="41" width="100" height="20" uuid="2d8ecbc6-346b-466e-963c-da6b9625d2e8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Elaborado por]]></text>
+			</staticText>
+			<line>
+				<reportElement x="27" y="40" width="161" height="1" uuid="45b26e09-4132-497d-af09-4f82fbdb8f84"/>
+			</line>
+			<line>
+				<reportElement x="259" y="39" width="161" height="1" uuid="5c90f538-4182-42b9-a5f2-1dc288cbd631"/>
+			</line>
+			<staticText>
+				<reportElement x="259" y="41" width="100" height="20" uuid="4508423b-00b0-490d-8b82-7ba7b5637f89"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Recibido]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="27" y="21" width="161" height="20" uuid="c6d4d886-b6ac-47ee-a529-4b250c584d25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

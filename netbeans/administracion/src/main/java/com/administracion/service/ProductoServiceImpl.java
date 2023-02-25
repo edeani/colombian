@@ -74,7 +74,7 @@ public class ProductoServiceImpl implements ProductoService {
         nuevoProducto.setNombreproducto(producto.getNombreproducto());
         nuevoProducto.setPrecioproducto(producto.getPrecioproducto());
         nuevoProducto.setEstado(producto.getEstado());
-        nuevoProducto.setTipo(producto.getTipo());
+        nuevoProducto.setIdCategoria(producto.getIdCategoria());
         productoDao.save(nuevoProducto);
 
         //Recupero consecutivo del producto guardado
@@ -108,7 +108,7 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setImagen(productoDetailDto.getRutaImagen());
         producto.setNombreproducto(productoDetailDto.getNombreproducto());
         producto.setPrecioproducto(productoDetailDto.getPrecioproducto());
-        producto.setTipo(productoDetailDto.getTipo());
+        producto.setIdCategoria(productoDetailDto.getIdCategoria());
         if (producto.getImagen() == null) {
             producto.setImagen("");
         }

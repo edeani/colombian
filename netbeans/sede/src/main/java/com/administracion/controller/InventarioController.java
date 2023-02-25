@@ -166,7 +166,7 @@ public class InventarioController extends BaseController {
     String actualizarProducto(@RequestParam("producto") String tramaProducto,@PathVariable String sede) {
 
 
-        InventarioDTO inventarioDTO = new InventarioDTO();
+        InventarioDTO inventarioDTO = null;
         InventarioMapper inventarioMapper = new InventarioMapper();
         inventarioDTO = inventarioMapper.tramaProductoToInventarioDTO(tramaProducto);
         //consulto para ver si existe el producto

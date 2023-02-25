@@ -55,18 +55,7 @@ public class ValidacionUsuarios implements Serializable {
     @ManyToOne(optional = false)
     private Usuario idusuario;
 
-    public ValidacionUsuarios() {
-    }
 
-    public ValidacionUsuarios(Integer cons) {
-        this.cons = cons;
-    }
-
-    public ValidacionUsuarios(Integer cons, String token, String estado) {
-        this.cons = cons;
-        this.token = token;
-        this.estado = estado;
-    }
 
     public Integer getCons() {
         return cons;

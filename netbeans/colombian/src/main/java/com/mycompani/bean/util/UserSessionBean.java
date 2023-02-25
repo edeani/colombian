@@ -34,7 +34,6 @@ public class UserSessionBean implements Serializable{
     private List<SelectItem> sed;
     //Base de datos que contiene usuarios y base de datos principal
     private String nombrePersistencia = "com.mycompany_colombian_war_1.0-SNAPSHOTPU";
-    private String baseDatos = "192.168.0.22:3306/colombian_2012";
     private SedesService sedesService;
     //Base de datos
     private Sedes sede;
@@ -214,12 +213,6 @@ public class UserSessionBean implements Serializable{
         return nombrePersistencia;
     }
 
-    /**
-     * @return the baseDatos
-     */
-    public String getBaseDatos() {
-        return baseDatos;
-    }
 
     /**
      * @return the sed

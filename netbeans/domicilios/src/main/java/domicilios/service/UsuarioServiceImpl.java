@@ -48,7 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Value("${token.clave}")
     private String CLAVE_TOKEN;
     private static final String PROPIEDADES_COLOMBIAN = "colombian.properties";
-    private static final int ID_ROL_USUARIO = 1;
+    private static final int ID_ROL_USUARIO = 2;
 
     @Transactional(readOnly = true)
     @Override

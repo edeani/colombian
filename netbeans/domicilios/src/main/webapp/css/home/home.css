@@ -1,0 +1,24 @@
+.background-social{
+    background-size: 30px 32px;
+    width: 30px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    position: relative;
+    float: left;
+    margin: 0px 0px 0px -7px;
+}
+.background-whatsapp{
+    background-image: url('/img/home/whatsapp.png');
+}
+
+.background-facebook{
+    background-image: url('/img/home/facebook.png');
+}
+.right-side-logo{
+    margin-top: 14px !important;
+}
+
+a:hover{
+    color: blue;
+}

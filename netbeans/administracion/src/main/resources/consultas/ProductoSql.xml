@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <queries>
     <query id="ProductoSql.listProducto">
-        select p.*,c.nombre as nombretipo from producto p inner join categoria c on c.cons = p.tipo order by p.tipo limit :cantidad offset :minimo ;
+        select p.*,c.nombre as nombretipo from producto p inner join categoria c on c.cons = p.idCategoria order by p.idCategoria limit :cantidad offset :minimo ;
     </query>
     <query id="ProductoSql.listProductoLikeNombre">
-        select p.idproducto,p.nombreproducto,p.precioproducto,p.tipo as idtipo,p.descripcion,p.imagen,c.nombre as nombretipo from producto p inner join categoria c on c.cons = p.tipo where lower(p.nombreproducto) like lower(:nombreproducto) order by p.tipo limit :cantidad offset 1 
+        select p.idproducto,p.nombreproducto,p.precioproducto,p.idCategoria as idCategoria,p.descripcion,p.imagen,c.nombre as nombretipo from producto p inner join categoria c on c.cons = p.idCategoria where lower(p.nombreproducto) like lower(:nombreproducto) order by p.idCategoria limit :cantidad offset 1 
     </query>
 </queries>

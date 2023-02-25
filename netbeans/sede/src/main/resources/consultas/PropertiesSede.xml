@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+    <query id="PropertiesSede.getPropertie">
+        SELECT * FROM properties_sede WHERE name = :name AND id_sede_principal=:idSede
+    </query>
+</queries>

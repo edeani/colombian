@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>run</actionName>
+            <packagings>
+                <packaging>war</packaging>
+            </packagings>
+            <goals>
+                <goal>-Dspring.profiles.active=prod</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>prod</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>

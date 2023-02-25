@@ -5,16 +5,18 @@
  */
 package domicilios.mapper;
 
-import domicilios.dto.PedidoViewDto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import org.springframework.jdbc.core.RowMapper;
+
+import domicilios.dto.PedidoViewDto;
 
 /**
  *
  * @author edeani
  */
-public class PedidoViewDtoMapper implements RowMapper{
+public class PedidoViewDtoMapper implements RowMapper<PedidoViewDto>{
 
     @Override
     public PedidoViewDto mapRow(ResultSet rs, int i) throws SQLException {

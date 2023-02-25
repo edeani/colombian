@@ -44,7 +44,7 @@ function sumaColumna(evento, clase, idViewTotal) {
     var sumaTotal = 0;
 
     for (i = 0; i < numeroCeldas; i++) {
-        var valor = $(celdas[i]).val();
+        let valor = $(celdas[i]).val();
         var comas = false;
         while (valor.indexOf(",", 0) !== -1) {
             valor = valor.replace(",", "");
@@ -56,6 +56,19 @@ function sumaColumna(evento, clase, idViewTotal) {
             }
         }
         sumaTotal += parseInt(valor);
+    }
+    $("#" + idViewTotal).val(sumaTotal);
+    return sumaTotal;
+}
+
+function sumaColumnaWithoutFormat(evento, clase, idViewTotal) {
+    var celdas = $("body").find("." + clase);
+    var numeroCeldas = celdas.length;
+    var sumaTotal = 0;
+
+    for (i = 0; i < numeroCeldas; i++) {
+        let valor = $(celdas[i]).val();
+        sumaTotal += parseFloat(valor);
     }
     $("#" + idViewTotal).val(sumaTotal);
     return sumaTotal;

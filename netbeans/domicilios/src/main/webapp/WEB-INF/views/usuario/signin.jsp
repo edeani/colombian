@@ -95,5 +95,11 @@
 
         </div>
         <!-- Fin Contenido Login Registro -->
+		
+		<a href="https://api.whatsapp.com/send?phone=+573142002610&amp;text=Hola,%20deseo%20hacer%20un%20pedido%20a%20domicilio." title="Pide Domicilio" target="_blank"  class="whatsapp">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAM1BMVEUAAAD///////////////////////////////////////////////////////////////+3leKCAAAAEHRSTlMAQPAQgDDAYCCg4JDQULBw4g/QJQAABD5JREFUaN7tWtmu3CAMjVkc1sD/f22rqhp6GYwhTkdVdc/jaMjBxwt2wvGNb/xrsABgfgIA7PEZ2BJR1S9QGAtDLybFSgL/FrmNoTII8XFufaa6hHTqB2mdUXUZyjxFrX3dxCPUmrCWsVrMm0O9hQAyc6+xQeiNgV8wxuNYkksLzB08Mpn89kSdTRps77bR8d2KU9MJ966OuScz9m4rmllR+oDAG3Lb7iG4JFzGzjF2m1cRtBzgK7WyEt5w7qw9Vcd8mzduekrHu8xWCbMCFMfM86IWpMQes/6TNz5RBMLa5lNtOI/bOGtDWlnghbyNeU+4TPhGyJzZZkMR9gqZFedmJHjFzNfyP83xAOKi2Fp1OxQD18SOXerJodWKhK4JA8dDgPqCo1N4knfWIKpkJW72pMG00Db9dpTbFzuwJnsyAq0S1O7cTOYMRnrTSksie7zYkJF1yco3MIEdKINz/QNJksxh7goY7KgBJCbDLLQSsYyMEB5htlg1L84HCi04LNRAaTJuk3ww0ROtI6lG7RCOfVx0HUjk8VV7ZIHWiRbjrVrWHpdEazLikS5o7S/7SJSTDR06AmL++c37QOWZ7KzOVOwmOksv3sU8NCXXJFdKN2vrO8RNN2ZDZHQpK+z6iKD24zUNDC/fVsGY2DCjiD9uwiwR0+dieJjYTMvhKTki+hA9+f00oMTJtKY8sRX0PiLiw/BDtpyYFfsUTaxlXErNwsCu7KfSqY9sZZ8j5h3oCWZZ5XL8WavTnPk83VKt1pPTiXdzVaMm+IKF1nrxd7r7iiNfIXDncaKUACYlGpIdqZHOeRpfVNAVNhkboh75P5w7PVdea2zi8HNe06tRU4pmqs1QXFZ01NG1HycFnZ68wuKcUGqPC+s7gBA00aZ4tuiuAIinx8m0uPDen0dXTBStp16fyWziiSmVZpMkrnxmYYBETF9T37mDBYQ5celSZqqm2mlhtdlwsZ/Hj++WMXB+3+A4ftJu1+48Ed9+0yLcHkT12daQJyawcybcGb1d/9EYe7MSbw8STmJgTWpGAV1jkel977yX1tlc6E8gPlSyDrx6d8iRiJBjAluMyIjIFmz5Fy+z/rJTDtt408YrRzmv6qZbXmn7NG9Z80h4mhcPgdIC3qCPx5WWTZfPKx27F9wfUtqluvEGwRFK23OXtyiCl2nVQ38bE91WVGHd4j3Sm9L51WJ4vayyrwwvo7T+zfoaz9wSbVRfaFXeeOcXxvfgqge26e37v2B3Ds6rXHWMUNysDwn1zs05V5cQYtajBiSGevOuYKnLCGgKgP19wbsYbKQ3ruulKgRvLq+0HBeTA7zSymfAHcr20kmgdIjQrjxKaGk45l669WqNVfm26o7SqbiFu7Xk3dybSmNj7bnVxFaalYZd3rQtHgdu9cVK+gXl1zbtIJsXMrjjNsIv1nx8GvaVOB8G2OMb3/hv8ANQJO0/wtUsfQAAAABJRU5ErkJggg==" alt="">	
+</a>
+
+		
     </body>
 </html>

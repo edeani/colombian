@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="rst-table">
                     <div class="rst-table-row">
-                        <a href="index.html" class="rst-logo rst-table-cell"><img src="/img/logopollo.png" alt=""/></a>
+                        <a href="http://www.colombianbroaster.com" class="rst-logo rst-table-cell"><img src="/img/logopollo.png" alt=""/></a>
                         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -131,8 +131,8 @@
                 <div class="row">
                     <div class="rst-table">
                         <div class="rst-table-row">
-                            <div class="rst-copyright rst-table-cell">
-                                &copy; 2016 / Colombian Broaster - Todos los derechos reservados.
+                            <div class="rst-copyright rst-table-cell" id="year-copy-right">
+                                &copy; 
                             </div>
                             <div class="rst-note rst-table-cell">
                                 <p>IR ARRIBA</p>
@@ -171,6 +171,7 @@
 
     <script type='text/javascript' src="/js/owlcarousel/owl.carousel.min.js"></script>
 
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/main.js" async defer></script>
+    <script type="text/javascript" src="/js/all-site/year.js"></script>
 </body>
 </html>

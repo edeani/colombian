@@ -6,14 +6,13 @@
 package domicilios.entidad;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -34,6 +33,10 @@ public class Categoria implements Serializable {
     @Size(max = 45)
     @Column(name = "nombre")
     private String nombre;
+    @Column(name = "imagen")
+    private String imagen;
+    @Column(name = "descripcion")
+    private String descripcion;
 
     public Categoria() {
     }
@@ -81,6 +84,22 @@ public class Categoria implements Serializable {
     @Override
     public String toString() {
         return "domicilios.entidad.Categoria[ cons=" + cons + " ]";
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }

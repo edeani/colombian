@@ -107,7 +107,7 @@ public class ProductosController extends BaseController {
             productoDetailDto.setIdproducto(producto.getIdproducto());
             productoDetailDto.setRutaImagen(producto.getImagen());
             productoDetailDto.setNombreproducto(producto.getNombreproducto());
-            productoDetailDto.setTipo(producto.getTipo());
+            productoDetailDto.setIdCategoria(producto.getIdCategoria());
             productoDetailDto.setPrecioproducto(producto.getPrecioproducto());
 
             if(origen!=null){

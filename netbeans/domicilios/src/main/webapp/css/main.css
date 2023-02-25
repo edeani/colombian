@@ -155,9 +155,13 @@ a {
 	-ms-transition: 0.2s;
 	transition: 0.2s;
 }
-a, a:hover {
-	color: #363636
+a {
+	color: #3b4656;
 }
+a:hover {
+	color: #00a046;
+}
+
 a:focus {
 	outline: none;
 }
@@ -279,7 +283,7 @@ blockquote:after {
 	vertical-align: top;
 }
 .rst-logo.rst-table-cell {
-	max-width: 160px;
+	max-width: 130px;
 }
 .rst-logo.rst-table-cell .cls-2 {
 	fill: #fa0;
@@ -297,6 +301,7 @@ blockquote:after {
 #header {
 	box-shadow: 0 1px 2px #e3e3e3;
 	text-transform: uppercase;
+	background: #df1d04;
 }
 #header .container {
 	position: relative;
@@ -320,7 +325,7 @@ blockquote:after {
 	position: relative;
 }
 .rst-nav-menu a {
-	color: #555;
+	color: #fff;
 }
 .rst-main-menu {
 	font-size: 13px;
@@ -331,7 +336,7 @@ blockquote:after {
 	margin-left: 20px;
 }
 .rst-nav-menu a:hover, .rst-nav-menu li.current-menu-item a {
-	color: #ff4c05;
+	color: #ffd600;
 }
 .home-page .rst-nav-menu a:hover, .home-page .rst-nav-menu li.current-menu-item a {
 	color: #fff;
@@ -364,14 +369,28 @@ blockquote:after {
 	width: 25px;
 }
 .btn.rst-signup {
-	border-bottom: 1px solid #47a652;
-	font-size: 12px;
-	font-weight: bold;
-	height: 35px;
-	line-height: 25px;
-	margin-left: 20px;
-	text-align: center;
-	padding: 6px 15px;
+border: 1px solid #ffd600;
+    font-size: 12px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 25px;
+    margin-left: 20px;
+    text-align: center;
+    padding: 6px 15px;
+    background-color: #ffd600;
+    color: #000;
+}
+.btn.rst-signup:hover {
+border: 1px solid #000;
+    font-size: 12px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 25px;
+    margin-left: 20px;
+    text-align: center;
+    padding: 6px 15px;
+    background-color: #ffd600;
+    color: #000;
 }
 .rst-main-menu > li {
 	height: 100px;
@@ -563,6 +582,24 @@ blockquote:after {
 .rst-user-setting li:hover a {
 	color: #fff;
 }
+.whatsapp{
+   background: #00d35c;
+    width: 60px;
+    height: 60px;
+    float: left;
+    display: block;
+    position: fixed;
+    border-radius: 80px;
+    padding: 11px;
+    right: 40px;
+    bottom: 40px;
+    z-index: 999999;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
+	cursor: pointer;
+}
+.whatsapp:hover{
+   background: #02c256;
+}
 #header .rst-form-login {
 	background: #fff;
 	border-radius: 2px;
@@ -648,7 +685,7 @@ blockquote:after {
 	text-align: center;
 }
 .rst-product-item .price {
-	color: #d3492c;
+	color: #00a046;
 	float: right;
 	font-weight: bold;
 }
@@ -683,6 +720,7 @@ blockquote:after {
 #rst-banner {
 	height: 250px;
 	color: #fff;
+	text-shadow: 1px 2px 2px rgba(0,0,0,0.5);
 }
 #rst-banner.height-large {
 	height: 430px;
@@ -721,7 +759,7 @@ blockquote:after {
 }
 .description-heading {
 	font-size: 16px;
-	color: #9da3a9;
+	color: #3b4656;
 }
 .rst-newsletter {
 	background: #58cc65;
@@ -798,16 +836,17 @@ blockquote:after {
 	display: none;
 }
 .rst-menu.rst-menu-home a {
-	color: #9da3a9;
-	padding: 0;
-	text-transform: uppercase;
+    color: #fff;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .rst-menu.rst-menu-home a img {
 	padding: 40px 0 0;
 }
 .rst-image-category {
 	border-radius: 100%;
-	border: 1px solid #58cc65;
+	border: 3px solid #df1d04;
 	/* Internet Explorer 10 */
 	display: -ms-flexbox;
 	-ms-flex-pack: center;
@@ -830,23 +869,23 @@ blockquote:after {
 	height: 124px;
 	margin: 0 auto 20px;
 	width: 124px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+.rst-image-category:hover{
+	border: 3px solid #ffd600;
 }
 .rst-menu.rst-menu-home {
 	padding-bottom: 70px;
 }
 .rst-menu.rst-menu-home a:hover {
-	color: #1e2a36;
+	color: #ffd600;
 }
 .rst-menu.rst-menu-home a:hover .rst-image-category {
-	background: #58cc65;
+	background-size: 100%;
+    background-repeat: no-repeat;
 }
-.rst-menu.rst-menu-home a:hover .rst-image-category .svgh {
-	fill: #fff !important;
-}
-.rst-menu.rst-menu-home a:hover .rst-image-category .svghv {
-	stroke: #fff !important;
-	fill: #5ccd69 !important;
-}
+
 .rst-dishes {
 	min-height: 550px;
 	padding: 94px 0;
@@ -939,7 +978,7 @@ blockquote:after {
 	margin-bottom: 20px;
 }
 .rst-happy-date .date {
-	color: #9da3a9;
+	color: #3b4656;
 }
 .rst-happy-date .rst-stock {
 	left: auto;
@@ -1183,8 +1222,8 @@ th {
 	padding: 9px 20px;
 }
 .btn-success {
-	background-color: #5ccd69;
-	border-bottom-color: #47a652;
+	background-color: #00d35c;
+	border-color: #47a652;
 	color: #fff;
 }
 .btnpagar {
@@ -1200,8 +1239,8 @@ th {
 }
 .btn-danger.btnslider {
 	background-color: #fff;
-	border-bottom-color: #ff4c05;
-	color: #ff4c05;
+	border: 1px solid #ff391f;
+	color: #ff391f;
 	margin: 20px 0 0;
 }
 .btn-danger.btnslider:hover {
@@ -1502,6 +1541,9 @@ blockquote.style-2 {
 .rst-form-input input.btn {
 	width: auto;
 	font-size: 12px;
+	background: #27313e;
+	border-bottom: 1px solid #000000;
+	margin-bottom: 50px;
 }
 .rst-form-input .form-group.btnpago {
 	text-align: center;
@@ -1572,11 +1614,14 @@ blockquote.style-2 {
 	color: #1b1b1b;
 }
 .rst-visitors {
-	border-color: #5ccd69;
-	border-style: solid;
-	border-width: 30px 0;
-	color: #fff;
-	padding: 40px 0;
+    border-color: #5ccd69;
+    border-style: solid;
+    border-width: 0px 0;
+    color: #fff;
+    padding: 10px 0 40px;
+    background: #3b4656;
+    background-image: url(http://www.colombianbroaster.com/img/fondo.png?tmp=344443);
+    background-size: 100%;
 }
 .rst-visitors .description-heading {
 	color: #fff;
@@ -1906,7 +1951,7 @@ input.qty {
 	padding: 0;
 }
 .list-tag li a, .list-category li a {
-	color: #9da3a9;
+	color: #3b4656;
 	border-bottom: 1px dotted #bec2c7;
 	padding-bottom: 1px;
 }
@@ -2243,8 +2288,9 @@ input.qty {
 	font-size: 12px;
 	border-radius: 6px;
 	border-top: 1px solid;
-	border-top-color: #47a652;
+	border-top-color: #3b4656;
 	border-bottom-color: transparent;
+	background: #3b4656;
 }
 .wp-pagenavi .page-next {
 	float: right;
@@ -2590,6 +2636,7 @@ hr.line.line-comment:after {
 }
 .rst-view {
 	text-align: right;
+	margin-bottom: 30px;
 }
 .rst-view .rst-tile, .rst-view .rst-list {
 	display: inline-block;
@@ -2623,7 +2670,7 @@ hr.line.line-comment:after {
 	width: 170px;
 }
 .rst-hover .addtocard {
-	background: url("../img/card.png") no-repeat center center #58cc65;
+	background: url("../img/card.png") no-repeat center center #00d35c;
 	bottom: 0;
 	display: block;
 	height: 100%;
@@ -2638,10 +2685,10 @@ hr.line.line-comment:after {
 	text-transform: uppercase;
 }
 .product-item .rst-hover {
-	background: rgba(27, 27, 27, 0.65);
+	background: rgba(27, 27, 27, 0.8);
 	border-radius: 0 0 6px 6px;
 	bottom: 0;
-	color: #9da3a9;
+	color: #fff;
 	font-size: 12px;
 	height: 0px;
 	left: 0;
@@ -2671,7 +2718,7 @@ hr.line.line-comment:after {
 	top: 10px;
 }
 .view-tile .product-item .rst-hover {
-	font-size: 14px;
+	font-size: 12px;
 	padding-left: 20px;
 	line-height: 80px;
 }
@@ -2682,8 +2729,8 @@ hr.line.line-comment:after {
 	height: 80px;
 }
 .price-product {
-	color: #d3492c;
-	font-size: 18px;
+	color: #000;
+	font-size: 20px;
 	font-weight: bold;
 }
 .price-product sup {
@@ -2700,7 +2747,7 @@ hr.line.line-comment:after {
 	position: absolute;
 }
 .rst-stock.in-stock {
-	border-color: #83d38c;
+	border-color: #00d35c;
 }
 .rst-stock.low-stock {
 	border-color: #fbd952;
@@ -2913,7 +2960,7 @@ footer .rst-table {
 	text-align: right;
 }
 .rst-backtop {
-	background: #5ccd69;
+	background: #df1d04;
 	border-radius: 100%;
 	color: #fff;
 	font-size: 13px;
@@ -2930,4 +2977,11 @@ footer .rst-table {
 .rst-backtop:hover, .rst-backtop:focus {
 	background: #47a652;
 	color: #fff;
+}
+
+@media screen and (max-width: 767px){
+.whatsapp {
+    right: 20px;
+    bottom: 20px;
+}
 }

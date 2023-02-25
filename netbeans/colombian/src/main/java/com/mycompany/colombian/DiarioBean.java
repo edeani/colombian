@@ -9,6 +9,7 @@ import com.mycompani.bean.util.UserSessionBean;
 import com.mycompany.dto.ConsignacionesDtoToMapper;
 import com.mycompany.entidades.Consignaciones;
 import com.mycompany.enums.EnumClasePago;
+import com.mycompany.enums.EnumTipoPagoTarjeta;
 import com.mycompany.mapper.ConsignacionesMapper;
 import com.mycompany.reportes.CierreService;
 import com.mycompany.reportes.CierreServiceImpl;
@@ -17,6 +18,7 @@ import com.mycompany.reportes.ClasePagoServiceImpl;
 import com.mycompany.util.Formatos;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -28,7 +30,7 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class DiarioBean {
-  /**
+    /**
      * Creates a new instance of CierreBean
      */
     private Date fechaCierre;
@@ -39,6 +41,9 @@ public class DiarioBean {
     private String caja_final;
     private String descuentos;
     private String pagosTarjetas;
+    private String pagosNequi;
+    private String pagosDaviplata;
+    private String pagosTransferencia;
     private List<Consignaciones> consigs;
     private boolean viewPagosTarjeta;
     private boolean viewDescuentos;
@@ -70,9 +75,17 @@ public class DiarioBean {
         setGastos(formato.numeroToStringFormato(cierreService.cierreGastos(fechaCierre)));
         setConsignaciones(formato.numeroToStringFormato(cierreService.cierreConsignaciones(fechaCierre)));
         if(viewPagosTarjeta){
-            setPagosTarjetas(formato.numeroToStringFormato(cierreService.cierrePagosTarjeta(fechaCierre)));
+            HashMap<String, Double> paymentsCardFront = cierreService.cierrePagosTarjeta(fechaCierre);
+            setPagosTarjetas(formato.numeroToStringFormato(paymentsCardFront.get(EnumTipoPagoTarjeta.VISA.getName())));
+            setPagosNequi(formato.numeroToStringFormato(paymentsCardFront.get(EnumTipoPagoTarjeta.NEQUI.getName())));
+            setPagosDaviplata(formato.numeroToStringFormato(paymentsCardFront.get(EnumTipoPagoTarjeta.DAVIPLATA.getName())));
+            setPagosTransferencia(formato.numeroToStringFormato(paymentsCardFront.get(EnumTipoPagoTarjeta.TRANSFERENCIA.getName())));
         }else{
-            setPagosTarjetas("0");
+            final String zero = "0";
+            setPagosTarjetas(zero);
+            setPagosNequi(zero);
+            setPagosDaviplata(zero);
+            setPagosTransferencia(zero);
         }
         if(viewDescuentos){
             setDescuentos(formato.numeroToStringFormato(cierreService.cierreDescuentos(fechaCierre)));
@@ -82,7 +95,8 @@ public class DiarioBean {
         setCaja_final(formato.numeroToStringFormato(cierreService.cierrCajaFinal(formato.stringToNumeroFormato(ventas), 
                    formato.stringToNumeroFormato(gastos),formato.stringToNumeroFormato(cajaInicial),
                    formato.stringToNumeroFormato(consignaciones),formato.stringToNumeroFormato(pagosTarjetas),
-                   formato.stringToNumeroFormato(descuentos))));
+                   formato.stringToNumeroFormato(descuentos),formato.stringToNumeroFormato(pagosNequi),
+                   formato.stringToNumeroFormato(pagosDaviplata),formato.stringToNumeroFormato(pagosTransferencia))));
         setConsigs(cierreService.cierreListaConsignaciones(fechaCierre));
         ConsignacionesDtoToMapper consignacionDtoToMapper = new ConsignacionesDtoToMapper();
         consigsMapper = consignacionDtoToMapper.consignacionDtoToMapper(consigs);
@@ -231,6 +245,32 @@ public class DiarioBean {
     public void setViewDescuentos(boolean viewDescuentos) {
         this.viewDescuentos = viewDescuentos;
     }
+
+    public String getPagosNequi() {
+        return pagosNequi;
+    }
+
+    public void setPagosNequi(String pagosNequi) {
+        this.pagosNequi = pagosNequi;
+    }
+
+    public String getPagosDaviplata() {
+        return pagosDaviplata;
+    }
+
+    public void setPagosDaviplata(String pagosDaviplata) {
+        this.pagosDaviplata = pagosDaviplata;
+    }
+
+    public String getPagosTransferencia() {
+        return pagosTransferencia;
+    }
+
+    public void setPagosTransferencia(String pagosTransferencia) {
+        this.pagosTransferencia = pagosTransferencia;
+    }
+
+   
     
     
 }

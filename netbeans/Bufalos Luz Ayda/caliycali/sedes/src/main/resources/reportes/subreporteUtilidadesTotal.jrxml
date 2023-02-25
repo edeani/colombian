@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreporteUtilidadesTotal" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a82c2110-9096-41c5-b55b-cd819939245f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tipocuenta" class="java.lang.Long"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.Long"/>
+	<field name="nombre_cuenta" class="java.lang.String"/>
+	<field name="total" class="java.lang.Double"/>
+	<variable name="totalCuenta" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($P{tipocuenta}.equals( $F{tipo} ) ? $F{total} : 0L)]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="1" width="100" height="20" uuid="092a594a-d5fe-4294-a652-d3d9baf5ea36"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Numero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="1" width="217" height="20" uuid="8da3ab3f-90b3-4e95-a5fd-eed3daddde85"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="1" width="146" height="20" uuid="c7fc2f43-24f3-4ce0-96e1-53c314d58984"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="19" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="012dfe99-780c-465c-be66-6245c0306a80">
+					<printWhenExpression><![CDATA[$P{tipocuenta}.equals( $F{tipo} )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="0" width="217" height="20" uuid="dbeb2d5f-f125-4525-be86-8c63034107b8">
+					<printWhenExpression><![CDATA[$P{tipocuenta}.equals( $F{tipo} )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nombre_cuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="336" y="0" width="146" height="20" uuid="2b78c80d-5e9f-4643-acef-74d4235d7044">
+					<printWhenExpression><![CDATA[$P{tipocuenta}.equals( $F{tipo} )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="32" splitType="Stretch">
+			<textField pattern="$#,##0">
+				<reportElement x="336" y="6" width="146" height="20" uuid="3c6d7741-cb81-44d5-bab9-c0fc9092053a"/>
+				<textFieldExpression><![CDATA[$V{totalCuenta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="220" y="6" width="100" height="20" uuid="d405cd65-fe81-4cdf-abe6-b5b0f977a416"/>
+				<text><![CDATA[Total Cuenta]]></text>
+			</staticText>
+			<line>
+				<reportElement x="19" y="6" width="463" height="1" uuid="ac67d3cb-409f-4027-9ba5-fc7087196f33"/>
+			</line>
+			<line>
+				<reportElement x="19" y="26" width="463" height="1" uuid="359dd277-569d-45be-9247-c367ea0da027"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

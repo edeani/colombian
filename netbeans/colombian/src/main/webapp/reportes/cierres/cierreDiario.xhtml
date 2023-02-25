@@ -48,6 +48,12 @@
                             <c:if test="#{diarioBean.viewPagosTarjeta}">
                             <h:outputText value="Pagos Tarjeta: " />
                             <p:inputText readonly="true" value="$#{diarioBean.pagosTarjetas}"/>
+                            <h:outputText value="Pagos Nequi " />
+                            <p:inputText readonly="true" value="$#{diarioBean.pagosNequi}"/>
+                            <h:outputText value="Pagos Daviplata " />
+                            <p:inputText readonly="true" value="$#{diarioBean.pagosDaviplata}"/>
+                            <h:outputText value="Pagos Transferencia " />
+                            <p:inputText readonly="true" value="$#{diarioBean.pagosTransferencia}"/>
                             </c:if>
                             <c:if test="#{diarioBean.viewDescuentos}">
                             <h:outputText value="Descuentos: " />

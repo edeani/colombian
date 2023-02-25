@@ -1,0 +1,43 @@
+#Drive Ubication resources
+spring:
+    profiles:
+        active: dev
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: dev
+
+sheet:
+    idColombianmenu: 1n6cZ1JazgRLeVk3qF9Ahno3vKITtK-49BtlBztR0Xms
+    categorySheet: Categorias
+    categoryRange: '!A2:D20'
+    productSheet: Productos
+    productRange: '!A2:F120'
+    summarySheet: Pedido
+    summaryRange:
+
+google:
+    file-app: /google-api-secret-sheets.json
+    port-app: 8888
+---
+
+spring:
+    config:
+        activate:
+            on-profile: prod
+    
+sheet:
+    idColombianmenu: 1n6cZ1JazgRLeVk3qF9Ahno3vKITtK-49BtlBztR0Xms
+    categorySheet: Categorias
+    categoryRange: '!A2:D20'
+    productSheet: Productos
+    productRange: 
+    summarySheet: Pedido
+    summaryRange:
+
+google:
+    file-app: /google-api-secret-sheets-prod.json
+    port-app: 8888

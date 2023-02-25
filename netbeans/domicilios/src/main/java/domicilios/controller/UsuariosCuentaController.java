@@ -27,7 +27,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,22 +57,21 @@ public class UsuariosCuentaController extends BaseController {
     private void listaEstructuraUrbana() {
         coordUrbana = new ArrayList<>();
         LectorPropiedades lp = new LectorPropiedades();
-        final String listaBuff = lp.leerPropiedad(getPROPIEDADES_COLOMBIAN(), "coord.urbana");
+        final String listaBuff = lp.leerPropiedad(getPropiedadesColombian(), "coord.urbana");
         String listado[] = listaBuff.split(",");
         coordUrbana.addAll(Arrays.asList(listado));
     }
     
-    @RequestMapping("/pedidos.htm")
+    @GetMapping("/pedidos.htm")
     public ModelAndView misPedidos() {
 
-        String fecha = Util.dateTostring(new Date());
         Usuario usuario = securityService.getCurrentUser();
         UsuarioDto usuarioDto = usuarioService.findUsuarioByCorreoDto(usuario.getCorreo());
         List<PedidoViewDto> pedidos = pedidoService.findPedidosXPageUsuario(1, 5, usuario.getIdusuario());
         ModelAndView mav = new ModelAndView("pedido/ordenes");
 
         setBasicModel(mav, usuarioDto);
-        String direccion = usuario.getDireccion();
+        String direccion = usuarioDto.getDireccion();
         if (direccion != null) {
             String[] direccionPartes = direccion.split("#");
             String placa = direccionPartes[1];
@@ -96,7 +97,7 @@ public class UsuariosCuentaController extends BaseController {
 
     }
 
-    @RequestMapping("/ajax/detalle-orden.htm")
+    @PostMapping("/ajax/detalle-orden.htm")
     public ModelAndView detallePedido(@RequestParam Long idpedido){
        ModelAndView mav = new ModelAndView("pedido/detalleOrden");
        VerPedidoDto verPedidoDto = new VerPedidoDto();
@@ -119,7 +120,7 @@ public class UsuariosCuentaController extends BaseController {
        mav.addObject("pedido",verPedidoDto);
        return  mav;
     }
-    @RequestMapping("/ajax/actualizar-usuario.htm")
+    @PostMapping("/ajax/actualizar-usuario.htm")
     public ModelAndView actualizarUsuario(@ModelAttribute @Valid UsuarioDto usuarioDto, BindingResult binding,
             HttpServletResponse response) {
         if (binding.hasErrors()) {
