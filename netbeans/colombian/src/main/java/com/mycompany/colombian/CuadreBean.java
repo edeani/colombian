@@ -37,17 +37,26 @@ public class CuadreBean {
     private String valorCajaReal;
     private String totalPagosTarjeta;
     private String totalDescuentos;
+    private String totalPagosNequi;
+    private String totalPagosDaviplata;
+    private String totalPagosTransferencia;
     
     public CuadreBean() {
         cuadreDiarioService = new CuadreServiceImpl();
-        fi = new Date();
-        ff = new Date();
-        totalVenta = "0.0";
-        totalGastos = "0.0";
-        totalConsignaciones = "0.0";
-        valorCajaReal = "0.0";
-        totalDescuentos = "0.0";
-        totalPagosTarjeta = "0.0";
+        final Date currentDate = new Date();
+        fi = currentDate;
+        ff = currentDate;
+        
+        final String defaultTotalCuadreQty = "0.0";
+        totalVenta = defaultTotalCuadreQty;
+        totalGastos = defaultTotalCuadreQty;
+        totalConsignaciones = defaultTotalCuadreQty;
+        valorCajaReal = defaultTotalCuadreQty;
+        totalDescuentos = defaultTotalCuadreQty;
+        totalPagosTarjeta = defaultTotalCuadreQty;
+        totalPagosNequi = defaultTotalCuadreQty;
+        totalPagosDaviplata = defaultTotalCuadreQty;
+        totalPagosTransferencia = defaultTotalCuadreQty;
     }
 
     
@@ -60,6 +69,9 @@ public class CuadreBean {
        totalGastos =formato.numeroToStringFormato(cuadreDiarioService.getValorGastos());
        totalPagosTarjeta =formato.numeroToStringFormato(cuadreDiarioService.getValorPagosTarjeta());
        totalDescuentos = formato.numeroToStringFormato(cuadreDiarioService.getValorDescuentos());
+       totalPagosNequi = formato.numeroToStringFormato(cuadreDiarioService.getValorPagoNequi());
+       totalPagosDaviplata = formato.numeroToStringFormato(cuadreDiarioService.getValorPagoDaviplata());
+       totalPagosTransferencia = formato.numeroToStringFormato(cuadreDiarioService.getValorPagoTransferencia());
    }
     
    public void navegarReporteCuadre() throws IOException {
@@ -194,6 +206,30 @@ public class CuadreBean {
 
     public void setTotalDescuentos(String totalDescuentos) {
         this.totalDescuentos = totalDescuentos;
+    }
+
+    public String getTotalPagosNequi() {
+        return totalPagosNequi;
+    }
+
+    public void setTotalPagosNequi(String totalPagosNequi) {
+        this.totalPagosNequi = totalPagosNequi;
+    }
+
+    public String getTotalPagosDaviplata() {
+        return totalPagosDaviplata;
+    }
+
+    public void setTotalPagosDaviplata(String totalPagosDaviplata) {
+        this.totalPagosDaviplata = totalPagosDaviplata;
+    }
+
+    public String getTotalPagosTransferencia() {
+        return totalPagosTransferencia;
+    }
+
+    public void setTotalPagosTransferencia(String totalPagosTransferencia) {
+        this.totalPagosTransferencia = totalPagosTransferencia;
     }
     
 }
