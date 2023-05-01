@@ -83,7 +83,7 @@ public class MesasyllevarServiceImpl implements MesasyllevarService {
                 while (rs.next()) {
                     Mesasyllevar ll = new Mesasyllevar();
 
-                    ll.setFecha(rs.getDate("fecha_orden"));
+                    ll.setFecha(formato.extractDateResultSet(rs,"fecha_orden"));
                     ll.setOrden(formato.numeroToStringFormato(rs.getLong("numero_orden")));
                     ll.setTipo(rs.getString("tipo"));
                     ll.setValor(formato.numeroToStringFormato(rs.getDouble("valor_total")));

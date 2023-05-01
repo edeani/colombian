@@ -80,7 +80,7 @@ public class DomiciliosDiaServiceImpl implements DomiciliosDiaService {
                     Ordenes o = new Ordenes();
 
                     o.setDia(rs.getString("Dia"));
-                    o.setFecha(rs.getDate("Fecha"));
+                    o.setFecha(formato.StringDateToDate( rs.getString("Fecha")));
                     o.setRegistros(formato.numeroToStringFormato(rs.getLong("Domicilios")));
                     o.setValorTotal(formato.numeroToStringFormato(rs.getDouble("Valor_Total")));
 

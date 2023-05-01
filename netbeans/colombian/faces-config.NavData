@@ -3,9 +3,9 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="index.xhtml" x="252" y="310" zoom="true"/>
+        <Node id="reportes/clientes/listadoCliente.xhtml" x="78" y="209" zoom="true"/>
         <Node id="index.jsp" x="390" y="43" zoom="true"/>
         <Node id="estructuraSesion.xhtml" x="595" y="327" zoom="true"/>
-        <Node id="reportes/clientes/listadoCliente.xhtml" x="78" y="209" zoom="true"/>
         <Node id="homeUsuario.xhtml" x="165" y="439" zoom="true"/>
         <Node id="estructura.xhtml" x="671" y="22" zoom="false"/>
         <Node id="reportes/errorLogin.xhtml" x="659" y="212" zoom="true"/>
