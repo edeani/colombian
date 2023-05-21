@@ -340,6 +340,17 @@
                 <url.img>/estaticos/img</url.img>
             </properties>
         </profile>
+        <profile>
+            <id>prod-rapi</id>
+            <properties>
+                <base.datos>credencials</base.datos>
+                <bd.user>Admin</bd.user>
+                <bd.password>Rapiernesto.1</bd.password>
+                <bd.ip>localhost:3306</bd.ip>
+                <path.img>/opt/tomcat9/webapps/estaticos/img/</path.img>
+                <url.img>/estaticos/img</url.img>
+            </properties>
+        </profile>
     </profiles>
     <repositories>
         <repository>
