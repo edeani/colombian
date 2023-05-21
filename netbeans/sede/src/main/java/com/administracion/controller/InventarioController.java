@@ -4,26 +4,26 @@
  */
 package com.administracion.controller;
 
-
 import com.adiministracion.mapper.InventarioMapper;
-import com.administracion.dto.FormReporteInventarioDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteInventarioDTO;
 import com.administracion.dto.SedesDto;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.service.InventarioService;
 import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.jsf.InventarioColombianService;
 import com.administracion.util.Formatos;
-import com.administracion.util.LectorPropiedades;
 import com.google.gson.Gson;
 import com.mycompany.mapper.Inventario;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -45,8 +45,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/{sede:[a-zA-Z]+}/inventario")
 public class InventarioController extends BaseController {
 
-    private  final String titulo = "Formulario de Inventario";
-    private  final String tituloReporte = "Reporte de Inventario";
+    private final String titulo = "Formulario de Inventario";
     @Autowired
     SedesService sedesService;
     @Autowired
@@ -62,6 +61,13 @@ public class InventarioController extends BaseController {
         mav.addObject("titulo", titulo);
         return mav;
     }
+    
+    @RequestMapping("/colombian/index.htm")
+    public ModelAndView inicioSubSede() {
+        ModelAndView mav = new ModelAndView("inventario/inventarioSede");
+        mav.addObject("titulo", titulo);
+        return mav;
+    }
 
     @RequestMapping("/ajax/formularioInventario.htm")
     public ModelAndView formularioInventario() {
@@ -69,10 +75,21 @@ public class InventarioController extends BaseController {
 
         return mav;
     }
+    
+    @RequestMapping("/ajax/subsede/formularioInventario.htm")
+    public ModelAndView formularioInventarioSede(@PathVariable String sede) {
+        
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipal = connectsAuth.findSubSedeXIdSede(sedePrincipal.getIdsedes());
+        
+        ModelAndView mav = new ModelAndView("inventario/formInventarioSede");
+        mav.addObject("tipo_sede", sedePrincipal.getTipo_sede());
+        mav.addObject("subSedePrincipal", subSedePrincipal);
+        return mav;
+    }
 
     @RequestMapping("/reportes/inventario.htm")
     public ModelAndView reporteInvetario(@PathVariable String sede) {
-        FormReporteInventarioDto formReporteInventarioDto = new FormReporteInventarioDto();
         ModelAndView mav = new ModelAndView("reportes/inventario/inventario");
         List<ItemsDTO> productos = inventarioService.listaProductosLabel(sede);
         mav.addObject("productos", productos);
@@ -94,7 +111,6 @@ public class InventarioController extends BaseController {
     public @ResponseBody
     String reporteInventarioSedeDatos(@RequestParam("fecha") String fecha,
             @RequestParam("sede") String sede) {
-        ModelAndView mav = new ModelAndView("reportes/inventario/sede");
 
         String s[] = sede.split(",");
         List<ReporteInventarioDTO> reporteInventarioDTOs = inventarioService.reporteInventario(s[0], fecha);
@@ -110,9 +126,25 @@ public class InventarioController extends BaseController {
     @RequestMapping(value = "/ajax/listInventario.htm")
     public ModelAndView listarInventario(@PathVariable String sede) {
         ModelAndView mav = new ModelAndView("inventario/listInventario");
-
         mav.addObject("inventarios", inventarioService.reporteInventario(sede));
-
+        return mav;
+    }
+    
+    @RequestMapping(value = "/ajax/subsede/listInventario.htm")
+    public ModelAndView listarInventarioSubsede(@PathVariable String sede,@RequestParam(required = false) Integer idSubsede) throws Exception {
+        ModelAndView mav = new ModelAndView("inventario/listInventarioSede");
+        
+        List<InventarioDTO> productosSubsede = null;
+        if(Objects.nonNull(idSubsede)){
+            String subSede = connectsAuth.findSubsedeXId(idSubsede).getSede();
+            if(Objects.isNull(subSede)){
+                throw new Exception("La sede no existe");
+            }
+            productosSubsede = inventarioService.reporteInventarioSubSede(subSede);
+        }else{
+            productosSubsede = new ArrayList<>();
+        }
+        mav.addObject("inventarios", productosSubsede);
         return mav;
     }
 
@@ -122,6 +154,16 @@ public class InventarioController extends BaseController {
             @PathVariable String sede) {
 
         inventarioService.eliminarProducto(sede, idProducto);
+
+        return "";
+    }
+    
+    @RequestMapping(value = "/ajax/subsede/eliminarProducto.htm")
+    public @ResponseBody
+    String eliminarProductoSubSede(@RequestParam("idProducto") Long idProducto,
+            @RequestParam Integer idSubsede) {
+        String subSede = connectsAuth.findSubsedeXId(idSubsede).getSede();
+        inventarioService.eliminarProductoSubSede(subSede, idProducto);
 
         return "";
     }
@@ -135,11 +177,10 @@ public class InventarioController extends BaseController {
             String stockHoy,
             String stockReal,
             String descripcionProducto,
-            String promedio,@PathVariable String sede) {
-
+            String promedio, @PathVariable String sede) {
 
         //consulto para ver si existe el producto
-        InventarioDTO inventarioDTO = inventarioService.traerProducto(sede, Long.parseLong(codigoProductoInventario));
+        InventarioDTO inventarioDTO = inventarioService.traerProducto(sede, Long.valueOf(codigoProductoInventario));
 
         if (inventarioDTO == null) {
             inventarioDTO = new InventarioDTO();
@@ -160,8 +201,43 @@ public class InventarioController extends BaseController {
             return "El c&oacute;digo del producto ya existe";
         }
     }
+    
+    @RequestMapping(value = "/ajax/subsede/insertarProducto.htm")
+    public @ResponseBody
+    String insertarProductoSubSede(String codigoProductoInventario,
+            String fechaInicial,
+            String fechaFinal,
+            String stockMinimo,
+            String stockHoy,
+            String stockReal,
+            String descripcionProducto,
+            String promedio, @PathVariable String sede,@RequestParam Integer idSubsede) {
 
-    @RequestMapping(value = "/ajax/actualizarProducto.htm")
+        //consulto para ver si existe el producto
+        String subSede = connectsAuth.findSubsedeXId(idSubsede).getSede();
+        InventarioDTO inventarioDTO = inventarioService.traerProductoSubSede(subSede, Long.valueOf(codigoProductoInventario));
+        
+        if (inventarioDTO == null) {
+            inventarioDTO = new InventarioDTO();
+
+            inventarioDTO.setCodigoProductoInventario(codigoProductoInventario);
+            inventarioDTO.setDescripcionProducto(descripcionProducto);
+            inventarioDTO.setFechaFinal(fechaFinal);
+            inventarioDTO.setFechaInicial(fechaInicial);
+            inventarioDTO.setPromedio(promedio);
+            inventarioDTO.setStockHoy(stockHoy);
+            inventarioDTO.setStockMinimo(stockMinimo);
+            inventarioDTO.setStockReal(stockReal);
+
+            inventarioService.insertarProductoSubSede(subSede, inventarioDTO);
+
+            return "OK";
+        } else {
+            return "El c&oacute;digo del producto ya existe";
+        }
+    }
+    
+    @RequestMapping(value = "/ajax/reportes/actualizarProducto.htm")
     public @ResponseBody
     String actualizarProducto(@RequestParam("producto") String tramaProducto,@PathVariable String sede) {
 
@@ -170,12 +246,29 @@ public class InventarioController extends BaseController {
         InventarioMapper inventarioMapper = new InventarioMapper();
         inventarioDTO = inventarioMapper.tramaProductoToInventarioDTO(tramaProducto);
         //consulto para ver si existe el producto
-        InventarioDTO invDTO = inventarioService.traerProducto(sede, Long.parseLong(inventarioDTO.getCodigoProductoInventario()));
-
+        InventarioDTO invDTO = inventarioService.traerProducto(sede, Long.valueOf(inventarioDTO.getCodigoProductoInventario()));
+        
         if (invDTO != null) {
 
             inventarioService.actualizarProducto(sede, inventarioDTO);
 
+            return "";
+        } else {
+            return "El c&oacute;digo del producto no existe";
+        }
+    }
+    
+    @RequestMapping(value = "/ajax/subsede/actualizarProducto.htm")
+    public @ResponseBody
+    String actualizarProductoSubSede(@RequestParam("producto") String tramaProducto, @PathVariable String sede,@RequestParam Integer idSubsede) {
+        InventarioMapper inventarioMapper = new InventarioMapper();
+        InventarioDTO inventarioDTO = inventarioMapper.tramaProductoToInventarioDTOSubsede(tramaProducto);
+        //consulto para ver si existe el producto
+        String subSede = connectsAuth.findSubsedeXId(idSubsede).getSede();
+        InventarioDTO invDTO = inventarioService.traerProductoSubSede(subSede, Long.valueOf(inventarioDTO.getCodigoProductoInventario()));
+        
+        if (invDTO != null) {
+            inventarioService.actualizarProductoSubSede(subSede, inventarioDTO);
             return "";
         } else {
             return "El c&oacute;digo del producto no existe";
@@ -197,11 +290,11 @@ public class InventarioController extends BaseController {
     @RequestMapping(value = "/reportes/inventarioTotalPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteComprasTotalesProveedorPDF(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
-            @PathVariable String sede,@RequestParam(required = false, value = "fechaFinal") String fechaFinal
+            @PathVariable String sede, @RequestParam(required = false, value = "fechaFinal") String fechaFinal
     ) {
         ModelAndView mav = null;
         List<InventarioFinalDTO> inventarioTotal = inventarioService.reporteInventarioFinal(sede, fechaInicial, fechaFinal);
-        if (inventarioTotal.size() > 0) {
+        if (inventarioTotal.isEmpty()) {
             JRDataSource datos = new JRBeanCollectionDataSource(inventarioTotal);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
@@ -213,7 +306,7 @@ public class InventarioController extends BaseController {
             parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("inventarioTotal", parameterMap);
         } else {
-            mav = new ModelAndView("redirect:/"+sede+"/inventario/reportes/inventarioTotal.htm");
+            mav = new ModelAndView("redirect:/" + sede + "/inventario/reportes/inventarioTotal.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;
@@ -221,7 +314,7 @@ public class InventarioController extends BaseController {
 
     @RequestMapping("/ajax/selectProducto.htm")
     public ModelAndView selectProducto(@RequestParam(value = "seleccion", required = false) Long seleccion,
-            @PathVariable String sede){
+            @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("util/formSelect");
 
         if (seleccion == null) {
@@ -232,18 +325,18 @@ public class InventarioController extends BaseController {
         mav.addObject("seleccion", seleccion);
         return mav;
     }
-    
+
     @RequestMapping(value = "/colombian/reporte/inventarios.htm")
-    public ModelAndView indexInventarioColombian(){
+    public ModelAndView indexInventarioColombian() {
         return new ModelAndView("reportes/colombian/inventario/formInventario");
     }
-    
+
     @RequestMapping(value = "/colombian/ajax/consultar.htm")
-    public ModelAndView consultarInventarioColombian(@RequestParam String fechaInicial,@RequestParam String fechaFinal,
-    @RequestParam(required = false,value="sede" )String subsede){
+    public ModelAndView consultarInventarioColombian(@RequestParam String fechaInicial, @RequestParam String fechaFinal,
+            @RequestParam(required = false, value = "sede") String subsede) {
         ModelAndView mav = new ModelAndView("reportes/colombian/inventario/datosInventario");
-        List<Inventario> inventario = inventarioColombianService.traerInventario(Formatos.StringDateToDate(fechaFinal), Formatos.StringDateToDate(fechaInicial),subsede);
-        mav.addObject("inventario", inventario); 
+        List<Inventario> inventario = inventarioColombianService.traerInventario(Formatos.StringDateToDate(fechaFinal), Formatos.StringDateToDate(fechaInicial), subsede);
+        mav.addObject("inventario", inventario);
         return mav;
     }
 }

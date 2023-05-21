@@ -75,6 +75,19 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
             LOGGER.error("insertarProducto:: No se insertó el producto");
         }
     }
+    
+    @Override
+    public void insertarProductoSubsede(DataSource nameDataSource, InventarioDTO inventarioDTO) {
+        this.jdbctemplate = new JdbcTemplate(nameDataSource);
+        try {
+            this.jdbctemplate.execute(insertJdbTemplate("codigo_producto_inventario,descripcion_producto,fecha_inicial,stock_minimo,stock_hoy,fecha_final,stock_real", "inventario",
+                     inventarioDTO.getCodigoProductoInventario() + ",'" + inventarioDTO.getDescripcionProducto() + "','"
+                    + inventarioDTO.getFechaInicial() + "'," + inventarioDTO.getStockMinimo() + "," + inventarioDTO.getStockHoy() + ",'" + inventarioDTO.getFechaFinal() + "'," + inventarioDTO.getStockReal()
+                    ));
+        } catch (DataAccessException e) {
+            LOGGER.error("insertarProducto:: No se insertó el producto");
+        }
+    }
 
     @Override
     public void actualizarProducto(DataSource nameDataSource, InventarioDTO inventarioDTO) {
@@ -84,6 +97,21 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
             this.jdbctemplate.execute(updateJdbTemplate("descripcion_producto='" + inventarioDTO.getDescripcionProducto() + "',fecha_inicial='" + inventarioDTO.getFechaInicial()
                     + "',stock_minimo=" + inventarioDTO.getStockMinimo() + ",stock_hoy=" + inventarioDTO.getStockHoy()
                     + ",fecha_final='" + inventarioDTO.getFechaFinal() + "',stock_real=" + inventarioDTO.getStockReal() + ",promedio=" + inventarioDTO.getPromedio(),
+                     "inventario",
+                     "codigo_producto_inventario = " + inventarioDTO.getCodigoProductoInventario()));
+        } catch (DataAccessException e) {
+            LOGGER.error("actualizarProducto:: No se actualizó el producto");
+        }
+    }
+    
+    @Override
+    public void actualizarProductoSubsede(DataSource nameDataSource, InventarioDTO inventarioDTO) {
+        this.jdbctemplate = new JdbcTemplate(nameDataSource);
+
+        try {
+            this.jdbctemplate.execute(updateJdbTemplate("descripcion_producto='" + inventarioDTO.getDescripcionProducto() + "',fecha_inicial='" + inventarioDTO.getFechaInicial()
+                    + "',stock_minimo=" + inventarioDTO.getStockMinimo() + ",stock_hoy=" + inventarioDTO.getStockHoy()
+                    + ",fecha_final='" + inventarioDTO.getFechaFinal() + "',stock_real=" + inventarioDTO.getStockReal(),
                      "inventario",
                      "codigo_producto_inventario = " + inventarioDTO.getCodigoProductoInventario()));
         } catch (DataAccessException e) {

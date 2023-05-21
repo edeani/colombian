@@ -39,4 +39,21 @@ public class InventarioMapper {
         
         return inventarioDTO;
     }   
+    
+    public InventarioDTO tramaProductoToInventarioDTOSubsede(String tramaProducto){
+        
+        InventarioDTO inventarioDTO = new InventarioDTO();
+        
+        String arrInventarioDTO[] = tramaProducto.split("@");
+        
+        inventarioDTO.setCodigoProductoInventario(arrInventarioDTO[0]);
+        inventarioDTO.setDescripcionProducto(arrInventarioDTO[1]);
+        inventarioDTO.setStockMinimo(arrInventarioDTO[2]);
+        inventarioDTO.setStockReal(arrInventarioDTO[5]);
+        inventarioDTO.setFechaFinal(arrInventarioDTO[6]);
+        inventarioDTO.setStockHoy(arrInventarioDTO[3]);
+        inventarioDTO.setFechaInicial(arrInventarioDTO[4]);
+        
+        return inventarioDTO;
+    }   
 }

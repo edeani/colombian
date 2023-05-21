@@ -24,7 +24,9 @@ public interface InventarioDao extends GenericDao<Inventario>{
     List<InventarioDTO> listInventarioDto(DataSource nameDataSource);
     void eliminarProducto(DataSource nameDataSource,Long idProducto);
     void insertarProducto(DataSource nameDataSource,InventarioDTO inventarioDTO);
+    void insertarProductoSubsede(DataSource nameDataSource,InventarioDTO inventarioDTO);
     void actualizarProducto(DataSource nameDataSource,InventarioDTO inventarioDTO);
+    void actualizarProductoSubsede(DataSource nameDataSource, InventarioDTO inventarioDTO);
     InventarioDTO  traerProductoDto(DataSource nameDataSource,Long idProducto);
     Double promedioInventario(DataSource nameDataSource,Long idProducto,String fechaini,String fechafin);
     List<InventarioFinalDTO> inventarioFinal(DataSource nameDatasource, String fechaInicial, String fechaFinal);

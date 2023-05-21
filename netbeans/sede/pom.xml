@@ -161,7 +161,7 @@
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
-            <scope>provided</scope>
+            <scope>providuebas-proded</scope>
         </dependency>
         <!-- Tuckey urlrewrite -->
         <dependency>
@@ -269,7 +269,7 @@
                 <bd.user>root</bd.user>
                 <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/sede/src/main/webapp/img/</path.img>
+                <path.img>C:/Users/Anlod/Documents/repository/colombianbroaster/colombian/netbeans/sede/src/main/webapp/img/</path.img>
                 <url.img>/sede/img</url.img>
             </properties>
         </profile>

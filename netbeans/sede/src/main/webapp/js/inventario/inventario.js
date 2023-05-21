@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    
+    $("#idsede").live("change",function(){
+        var selectSubsede = $(this).find('option:selected');
+        $("#idSubsede").val(selectSubsede.val());
+    });
     /*$('#tablaInventario').DataTable({
             lengthMenu: [[50, 80, 100], [50, 80, 100]],
             language: {
@@ -40,14 +45,14 @@ $(document).ready(function(){
                 break;
             }
         }
-        
+
         //Actualizo el registro en inventario
         var estado="";
         $.ajax({
             url: url,
             timeout: 20000,
             type: type,
-            data: "producto="+tramaInventario,
+            data: "producto="+tramaInventario+"&idSubsede="+$("#idSubsede").val(),
             async: false,
             success: function (result) {
                 estado=result;
@@ -98,13 +103,13 @@ $(document).ready(function(){
             var idProducto =objIdProducto[0].children[0].value; 
             type = "POST";
             var tramaProducto="";
-    
+            
             var url = $("#divContenedorTabla").data("url");
             $.ajax({
                 url: url,
                 timeout: 20000,
                 type: type,
-                data: "idProducto="+idProducto,
+                data: "idProducto="+idProducto+"&idSubsede="+$("#idSubsede").val(),
                 async: false,
                 success: function (result) {
                     tramaProducto= result;
@@ -130,87 +135,89 @@ $(document).ready(function(){
         }
     });   
     
-    $(".clsAgregarFila").live('click',function(e){
-        
+    $(".clsAgregarFila").live('click', function (e) {
+
         e.preventDefault();
-        var estadoFormulario="";
-        
+        var estadoFormulario = "";
+
         //validar campos  vacios
-        $("#idInventario").find(':input').each(function() {
-            var elemento= this;
-            if($(this).val() == ""){
-                if($(this).is(".contentRequired")){
+        $("#idInventario").find(':input').each(function () {
+            var elemento = this;
+            if ($(this).val() == "") {
+                if ($(this).is(".contentRequired")) {
                     $(this).addClass("campError");
                     estadoFormulario = "Hay campos vac&iacute;os";
                 }
-            }else{
-                if($(this).is(".contentRequired")){
+            } else {
+                if ($(this).is(".contentRequired")) {
                     $(this).removeClass("campError");
                 }
             }
-        }); 
-        
-        
-        if(estadoFormulario==""){
+        });
+
+
+        if (estadoFormulario == "") {
             type = "POST";
-            var response="";
+            var response = "";
             //guardar producto
             var url = $("#idInventario").attr("action");
             $.ajax({
                 url: url,
                 timeout: 20000,
                 type: type,
-                data: $("#idInventario").serialize(),
+                data: $("#idInventario").serialize() + "&idSubsede=" + $("#idSubsede").val(),
                 async: false,
                 success: function (result) {
-                    response= result;
-                } 
+                    response = result;
+                }
             });
-            
-                        
+
+
             //Si el producto ya  existe
-            if(response == ""){
+            if (response == "") {
                 //Limpio los campos del formulario
-                $("#idInventario").find(':input').each(function() {
-                    if(!$(this).is(".clsAgregarFila")){
+                $("#idInventario").find(':input').each(function () {
+                    if (!$(this).is(".clsAgregarFila")) {
                         $(this).val("");
                     }
                 });
-                //Actualizar lista
-                var url = $("#contenidoInventario").data("url");
-                $.ajax({
-                    url: url,
-                    timeout: 20000,
-                    type: type,
-                    data: $("#idInventario").serialize(),
-                    async: false,
-                    success: function (result) {
-                        $("#contenidoInventario").html(result);
-                    } 
-                });
-                
+
+
                 $.colorbox({
-                    html:"<p id='mensaje'>Producto guardado</p>",
-                    initialHeight:50,
-                    Height:50
+                    html: "<p id='mensaje'>Producto guardado</p>",
+                    initialHeight: 50,
+                    Height: 50
                 });
-                
-                
-            } else{
+
+
+            } else {
                 $.colorbox({
-                    html:"<p id='mensaje'>"+response+"</p>",
-                    initialHeight:50,
-                    Height:50
+                    html: "<p id='mensaje'>" + response + "</p>",
+                    initialHeight: 50,
+                    Height: 50
                 });
             }
-        }else{
+
+            //Actualizar lista
+            var url = $("#contenidoInventario").data("url");
+            $.ajax({
+                url: url,
+                timeout: 20000,
+                type: type,
+                data: $("#idInventario").serialize() + "&idSubsede=" + $("#idSubsede").val(),
+                async: false,
+                success: function (result) {
+                    $("#contenidoInventario").html(result);
+                }
+            });
+        } else {
             $.colorbox({
-                html:"<p id='mensaje'>"+estadoFormulario+"</p>",
-                initialHeight:50,
-                Height:50
+                html: "<p id='mensaje'>" + estadoFormulario + "</p>",
+                initialHeight: 50,
+                Height: 50
             });
         }
-         
+
     });
     
     $(".descripcionProducto").live('keyup',function(e){
@@ -219,6 +226,22 @@ $(document).ready(function(){
         this.value=this.value.toUpperCase();
     });
     
+    $("#buscarInventario").on('click',function (event) {
+        event.preventDefault();
+        var url = $("#contenidoInventario").data("url");
+        
+        $("#labelSubsede").html("INVENTARIO "+$("#idsede").find('option:selected').text());
+        $.ajax({
+            url: url,
+            timeout: 20000,
+            type: "POST",
+            data: $("#idInventario").serialize() + "&idSubsede=" + $("#idSubsede").val(),
+            async: false,
+            success: function (result) {
+                $("#contenidoInventario").html(result);
+            }
+        });
+    });
 });
 
 

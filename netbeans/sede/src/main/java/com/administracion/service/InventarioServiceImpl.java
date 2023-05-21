@@ -15,7 +15,6 @@ import com.administracion.service.autorizacion.ConnectsAuth;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class InventarioServiceImpl implements InventarioService{
 
-    @Autowired
-    private SedesService sedesService;
     
     @Autowired
     private InventarioDao inventarioDao;
@@ -38,7 +35,6 @@ public class InventarioServiceImpl implements InventarioService{
     @Autowired
     private ConnectsAuth connectsAuth;
     
-    private JdbcTemplate jdbctemplate;
     
     @Override
     @Transactional(readOnly=true)
@@ -127,5 +123,50 @@ public class InventarioServiceImpl implements InventarioService{
     @Transactional(readOnly = true)
     public List<ItemsDTO> listaProductosLabel(String nameDatasource) {
         return inventarioDao.listaProductosLabel(connectsAuth.getDataSourceSede(nameDatasource));
+    }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public InventarioDTO traerProductoSubSede(String nameDatasource, Long idProducto) {
+        return inventarioDao.traerProductoDto(connectsAuth.getDataSourceSubSede(nameDatasource), idProducto);
+    }
+
+    @Override
+    public List<InventarioDTO> reporteInventarioSubSede(String nameDataSource) {
+        List<InventarioDTO> inventarioDTO=null;
+        try{
+        inventarioDTO= inventarioDao.listInventarioDto(connectsAuth.getDataSourceSubSede(nameDataSource));
+        
+        }catch(DataAccessException e){
+            System.out.println("reporteInventarioSubSede: Se encontraron 0 registros");
+        }
+        return inventarioDTO;
+    }
+
+    @Override
+    public void eliminarProductoSubSede(String nameDataSource, Long idProducto) {
+        try {
+            inventarioDao.eliminarProducto(connectsAuth.getDataSourceSubSede(nameDataSource), idProducto);
+        } catch (DataAccessException e) {
+            System.out.println("No se eliminó el producto");
+        }
+    }
+
+    @Override
+    public void insertarProductoSubSede(String nameDataSource, InventarioDTO inventarioDTO) {
+        try {
+            inventarioDao.insertarProductoSubsede(connectsAuth.getDataSourceSubSede(nameDataSource), inventarioDTO);
+        } catch (DataAccessException e) {
+            System.out.println("No se insertó el producto");
+        }
+    }
+
+    @Override
+    public void actualizarProductoSubSede(String nameDataSource, InventarioDTO inventarioDTO) {
+        try {
+            inventarioDao.actualizarProductoSubsede(connectsAuth.getDataSourceSubSede(nameDataSource), inventarioDTO);
+        } catch (DataAccessException e) {
+            System.out.println("No se actualizó el producto");
+        }
     }
 }

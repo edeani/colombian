@@ -8,7 +8,12 @@
         <li class='has-sub'><a href='#'><span>Facturaci&oacute;n</span></a>
             <ul>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/sede.htm'><span>Cierre Sedes</span></a></li>
-                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/index.htm'><span>Inventario</span></a></li>
+                <li class='has-sub'><a href='#'><span>Inventario</span></a>
+                    <ul>
+                        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/index.htm'><span>Inventario Principal</span></a></li>
+                        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/index.htm'><span>Inventario Sedes</span></a></li>
+                    </ul>
+                </li>
                 <li class='has-sub'><a href='#'><span>Compras</span></a>
                     <ul>
                         <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/home.htm'><span>Compras</span></a></li>
