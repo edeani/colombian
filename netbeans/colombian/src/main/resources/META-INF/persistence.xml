@@ -40,10 +40,10 @@
     <class>com.mycompany.entidades.ClasePago</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/colombian_2018?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;useSSL=false&amp;serverTimezone=UTC"/>
-      <property name="javax.persistence.jdbc.password" value="YI15102206j"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/rapibolivia?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;useSSL=false&amp;serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.password" value="Rapiernesto.1"/>
       <!--property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/-->
-      <property name="javax.persistence.jdbc.user" value="llmdvi"/>
+      <property name="javax.persistence.jdbc.user" value="Admin"/>
       <property name="eclipselink.canonicalmodel.subpackage" value="four"/>
     </properties>
   </persistence-unit>
