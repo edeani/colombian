@@ -246,6 +246,24 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
 
         return movimientos;
     }
+    
+    @Override
+    public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayorSubsede(DataSource nameDataSource, String fechaInicio, String fechaFin, Integer idSubsede) {
+        this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+        List<ComprobanteConsolidadoSedeDto> movimientos = null;
+
+        try {
+            String sql = "select a.* from(" + selectJdbTemplate("consecutivo,idcuenta,concepto,total,fecha, idComprobanteCierre as idComprobante",
+                    "detalle_cierre_sedes", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11050501' AND idsede = "+idSubsede+"") + " union all "
+                    + selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idpago",
+                            "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' AND idsede = "+idSubsede+" )a order by fecha,idComprobante");
+            movimientos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ComprobanteConsolidadoSedeDto.class));
+        } catch (DataAccessException e) {
+            LOGGER.error("Error bucarMovimientoCajaMayor::" + e.getMessage());
+        }
+
+        return movimientos;
+    }
 
     @Override
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMenor(DataSource nameDataSource, String fechaInicio, String fechaFin) {

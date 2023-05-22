@@ -53,7 +53,13 @@
                             </ul>
                         </li>
                         <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/pagos/sede/consolidado/index.htm'><span>Pagos Porcentaje Sedes</span></a></li>
-                        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/cajamayor.htm'><span>Caja Mayor</span></a></li>
+                        <li class='has-sub'><a href='#'><span>Caja Mayor</span></a>
+                            <ul>
+                                <a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/cajamayor.htm'><span>Caja Mayor</span></a>
+                                <a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/subsede/cajamayor.htm'><span>Caja Mayor Sede</span></a>
+                            </ul>
+                            
+                        </li>
                         <li class='has-sub'><a href='#'><span>Imprimir</span></a>
                             <ul>
                                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/imprimir/comprobante/pago.htm'><span>Comprobantes de Pago</span></a></li>
