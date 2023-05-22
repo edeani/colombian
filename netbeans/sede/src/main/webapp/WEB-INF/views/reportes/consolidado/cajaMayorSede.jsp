@@ -32,12 +32,11 @@
                 <input name="fechaFinal" id="fechaFinal"class="fechaFinal"  style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fechaFinal}"/>"/>
             </label>
             <label>Sede
-                <select id="idsede" name="idsede" style="width: 155px;">
+                <select id="idsede" name="idSubsede" style="width: 155px;">
                     <option value="">Seleccionar</option>
-                    <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelectCredencial.htm">
-                        <c:param name="page" value="compras"/>
-                    </c:import>
+                   <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"></c:import>
                 </select>
+                
                 <input type="hidden" id="idsedepoint" name="idsedepoint" value="" data-url="${pageContext.servletContext.contextPath}/${sessionScope.path}/sedes/ajax/find/idsedepoint.htm"/>
             </label>
             <label>

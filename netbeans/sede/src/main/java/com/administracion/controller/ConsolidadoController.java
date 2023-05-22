@@ -24,6 +24,7 @@ import com.administracion.entidad.SubSedes;
 import com.administracion.service.CierreSedesService;
 import com.administracion.service.CuentasService;
 import com.administracion.service.ReporteService;
+import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.AccesosSubsedes;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
@@ -64,7 +65,7 @@ public class ConsolidadoController extends BaseController {
     @Autowired
     private SecurityService security;
     @Autowired
-    private SedesDao sedesDao;
+    private SedesService sedesService;
     @Autowired
     private SubSedesDao subSedesDao;
     @Autowired
@@ -240,10 +241,13 @@ public class ConsolidadoController extends BaseController {
         String nombresede = sede;
         List<MovimientoCajaDto> movimientos = new ArrayList<>();
         if (Objects.nonNull(idSubsede)) {
-            String subSede = connectsAuth.findSubsedeXId(idSubsede).getSede();
-            if (Objects.isNull(subSede)) {
+            Sedes sedeBelongPPAL = sedesService.buscarSede(idSubsede.longValue());
+            
+            if (Objects.isNull(sedeBelongPPAL)) {
                 throw new Exception("La sede no existe");
             }
+            
+            String subSede = sedeBelongPPAL.getSede();
             nombresede = subSede;
             movimientos = reporteService.movimientoCajaMayorSubsede(sede, objFechaInicio, objFechaFin, idSubsede);
         }else{
