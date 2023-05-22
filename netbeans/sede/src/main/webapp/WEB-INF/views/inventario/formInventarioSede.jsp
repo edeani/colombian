@@ -20,32 +20,7 @@
         <div style="height: 20px; margin-top: 10px">
             <label id="labelSubsede"></label>
         </div>
-        <table align="center">
-            <thead>
-                <tr>
-                    <th>C&oacute;digo</th>
-                    <th>Nombre</th>
-                    <th>Inventario Mínimo</th>
-                    <th>Inventario Inicial</th>
-                    <th>Fecha Inicial</th>
-                    <th>Inventario Final</th>
-                    <th>Fecha Final</th>
-                </tr>
-            </thead>
-            <tbody id="productoInventario">
-                <tr>
-                    <td><input name="codigoProductoInventario" id="codigoProductoInventario" type="text" class="codigoInventario contentRequired primerCampo3"  onkeypress="return validarNUM(event)" value=""/></td>
-                    <td><input name="descripcionProducto" id="descripcionProducto" type="text" class="contentRequired descripcionProducto" value=""/></td>
-                    <td><input name="stockMinimo" id="stockMinimo" type="text" class="contentRequired clsAnchoTotal" onkeypress="return validarNUM(event)" value=""/></td>
-                    <td><input name="stockHoy" id="stockHoy" type="text" class="contentRequired clsAnchoTotal" onkeypress="return validarNUM(event)" value=""/></td>
-                    <td><input name="fechaInicial" id="fechaInicial" type="text" style="cursor: pointer;" readonly="readonly" class="contentRequired clsAnchoTotal fechaInicial" onkeypress="return validarNUM(event)" value=""/></td>
-                    <td><input name="stockReal" id="stockReal" class="contentRequired clsAnchoTotal" type="text" onkeypress="return validarNUM(event)" value=""/></td>
-                    <td><input name="fechaFinal" id="fechaFinal" class="contentRequired clsAnchoTotal fechaFinal" readonly="readonly" style="cursor: pointer;" type="text" value=""/></td>
-                    <input name="idSubsede" id="idSubsede"  type="hidden" value=""/>
-                    <td align="right"><input type="button" alt="Agregar" value="+" class="clsAgregarFila"></td>
-                </tr>
-            </tbody>
-        </table>
+        <input name="idSubsede" id="idSubsede"  type="hidden" value=""/>
     </form>
         <div>
             <br>

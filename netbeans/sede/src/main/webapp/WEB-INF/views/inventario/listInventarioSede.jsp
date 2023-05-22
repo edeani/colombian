@@ -6,10 +6,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:forEach items="${inventarios}" var="inventario">
     <tr>
-        <td><input type="text" class="codigoInventario primerCampo3" readonly="readonly" value="${inventario.codigoProductoInventario}"/></td>
-        <td><input type="text" class="descripcionProducto" value="${inventario.descripcionProducto}"/></td>
-        <td><input type="text" class="clsAnchoTotal2" onkeypress="return validarNUM(event)" value="${inventario.stockMinimo}"/></td>
-        <td><input type="text" class="clsAnchoTotal2" onkeypress="return validarNUM(event)" value="${inventario.stockHoy}"/></td>
+        <td><input type="text" class="codigoInventario primerCampo3 codigoInvSede" readonly="readonly" value="${inventario.codigoProductoInventario}"/></td>
+        <td><input type="text" class="descripcionProducto nombreInvSede" value="${inventario.descripcionProducto}"/></td>
+        <td><input type="text" class="clsAnchoTotal2 invMin" onkeypress="return validarNUM(event)" value="${inventario.stockMinimo}"/></td>
+        <td><input type="text" class="clsAnchoTotal2 invInicial" onkeypress="return validarNUM(event)" value="${inventario.stockHoy}"/></td>
         <td><input type="text" style="cursor: pointer;" class="clsAnchoTotal2 fechaInicial" value="${inventario.fechaInicial}"/></td>
         <td><input class="clsAnchoTotal2" type="text" onkeypress="return validarNUM(event)" value="${inventario.stockReal}"/></td>
         <td><input class="clsAnchoTotal2 fechaFinal" style="cursor: pointer;" type="text" value="${inventario.fechaFinal}"/></td>

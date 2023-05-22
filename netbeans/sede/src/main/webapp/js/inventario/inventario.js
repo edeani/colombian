@@ -239,9 +239,45 @@ $(document).ready(function(){
             async: false,
             success: function (result) {
                 $("#contenidoInventario").html(result);
+                inhabilitarComponentes();
             }
         });
     });
+    
+    function inhabilitarComponentes(){
+        $("#tablaInventario").find(".clsEliminarFila").each(function () {
+            var elemento = this;
+            $(elemento).attr("disabled","disabled");
+            $(elemento).hide();
+            
+        });
+        
+        $("#tablaInventario").find(".codigoInvSede").each(function () {
+            var elemento = this;
+            $(elemento).attr("disabled","disabled");
+        });
+        $("#tablaInventario").find(".nombreInvSede").each(function () {
+            var elemento = this;
+            $(elemento).attr("disabled","disabled");
+        });
+        $("#tablaInventario").find(".invMin").each(function () {
+            var elemento = this;
+            $(elemento).attr("disabled","disabled");
+        });
+        
+        
+        
+        $("#tablaInventario").find(".invInicial").each(function () {
+            var elemento = this;
+            $(elemento).attr("disabled","disabled");
+        });
+        
+        $("#tablaInventario").find(".fechaInicial").each(function () {
+            var elemento = this;
+            $(elemento).attr("disabled","disabled");
+        });
+        
+    }
 });
 
 
