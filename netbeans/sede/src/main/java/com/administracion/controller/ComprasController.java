@@ -343,7 +343,7 @@ public class ComprasController extends BaseController {
 
         List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotales(sede, fechaInicial, fechaFinal, "A");
         if (comprasTotales != null) {
-            if (comprasTotales.isEmpty()) {
+            if (!comprasTotales.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(comprasTotales);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -370,7 +370,7 @@ public class ComprasController extends BaseController {
         ModelAndView mav;
         List<ReporteComprasTotalesProvDTO> compras = comprasService.comprasTotalesProveedores(sede, fechaInicial, fechaFinal);
         if (compras != null) {
-            if (compras.isEmpty()) {
+            if (!compras.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(compras);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -398,7 +398,7 @@ public class ComprasController extends BaseController {
         ModelAndView mav;
         List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotalesProveedor(sede, fechaInicial, fechaFinal, "A", codigoProveedor);
         if (comprasTotales != null) {
-            if (comprasTotales.isEmpty()) {
+            if (!comprasTotales.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(comprasTotales);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -427,7 +427,7 @@ public class ComprasController extends BaseController {
         ModelAndView mav;
         List<ReporteComprasTotalesXProveedorDTO> reporte = comprasService.comprasTotalesXProveedor(sede, codigoProveedor, fechaInicial, fechaFinal);
         if (reporte != null) {
-            if (reporte.isEmpty()) {
+            if (!reporte.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -456,7 +456,7 @@ public class ComprasController extends BaseController {
         ModelAndView mav;
         List<CuentasPagarProveedoresDto> reporte = comprasService.reporteCuentasPagarProveedoresDto(sede, fechaInicial, fechaFinal, codigoProveedor);
         if (reporte != null) {
-            if (reporte.isEmpty()) {
+            if (!reporte.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -495,7 +495,7 @@ public class ComprasController extends BaseController {
         SubSedesDto subSedesDto = connectsAuth.findSubsedeXId(Integer.valueOf(sede));
         List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal), subSedesDto.getSede());
         if (reporte != null) {
-            if (reporte.isEmpty()) {
+            if (Boolean.FALSE.equals(reporte.isEmpty())) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
