@@ -8,7 +8,7 @@ package com.administracion.controller;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.jsf.DomiciliosDiaColombianService;
 import com.administracion.service.jsf.OrdenesDomiciliosColombianService;
-import com.mycompany.mapper.OrdenesDomiciliosMapper;
+import com.mycompany.dto.OrdenesDomiciliosDto;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +41,11 @@ public class DomiciliosController {
     }
     
     @RequestMapping("/ajax/consultar.htm")
-    public ModelAndView getDomicilios(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fi,
-             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date ff, @RequestParam Integer idSubsede, @PathVariable String sede) {
+    public ModelAndView getDomicilios(@RequestParam String fi,
+             @RequestParam String ff, @RequestParam Integer idSubsede, @PathVariable String sede) {
         ModelAndView mav = new ModelAndView("reportes/colombian/domicilios/tabla_domicilios");
         mav.addObject("clase", "Domicilios");
-        List<OrdenesDomiciliosMapper> ordenesDOm = ordenesDomiciliosColombianService.domiciliosordenes(fi, ff, connectsAuth.findSubsedeXId(idSubsede).getSede());
+        List<OrdenesDomiciliosDto> ordenesDOm = ordenesDomiciliosColombianService.domiciliosordenes(fi, ff, connectsAuth.findSubsedeXId(idSubsede).getSede());
         mav.addObject("datos", ordenesDOm);
         mav.addObject("totalDom", ordenesDOm == null?0:ordenesDOm.size());
         return mav;

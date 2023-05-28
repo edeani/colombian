@@ -4,21 +4,17 @@
  */
 package com.administracion.service.jsf;
 
+import com.adiministracion.rowmapper.OrdenesDomiciliosDtoRowMapper;
 import com.administracion.entidad.Users;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
-import com.mycompany.util.Formatos;
-import com.mycompany.mapper.OrdenesDomiciliosMapper;
-import java.text.DateFormat;
+import com.mycompany.dto.OrdenesDomiciliosDto;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,13 +38,11 @@ public class OrdenesDomiciliosColombianServiceImpl implements OrdenesDomiciliosC
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrdenesDomiciliosMapper> domiciliosordenes(Date fi, Date ff,String subsede) {
+    public List<OrdenesDomiciliosDto> domiciliosordenes(String fi, String ff,String subsede) {
         Users user = securityService.getCurrentUser();
         this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
-        List<OrdenesDomiciliosMapper> domicilios = new ArrayList<>();
+        List<OrdenesDomiciliosDto> domicilios = new ArrayList<>();
         try {
-            Formatos formato = new Formatos();
-            DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
 
             String query = " SELECT orden.numero_telefono as telefono, "
                     + " orden.numero_orden as orden, "
@@ -59,10 +53,10 @@ public class OrdenesDomiciliosColombianServiceImpl implements OrdenesDomiciliosC
                     + " FROM clientes,orden,barrios "
                     + " WHERE ( orden.numero_telefono = clientes.numero_telefono ) and "
                     + " ( barrios.codigo_barrio = clientes.codigo_barrio ) and "
-                    + " ( ( orden.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "' ) AND "
+                    + " ( ( orden.fecha_orden between '" + fi + "' and '" + ff + "' ) AND "
                     + " ( orden.estado_orden = 'A' ) ) "
                     + " ORDER BY orden.fecha_orden ,orden.numero_orden ";
-            domicilios = this.jdbctemplate.query(query, new BeanPropertyRowMapper<>(OrdenesDomiciliosMapper.class));
+            domicilios = this.jdbctemplate.query(query, new OrdenesDomiciliosDtoRowMapper());
             
         } catch (DataAccessException e) {
             LOGGER.error("Error mesas::" + e.getMessage());
@@ -74,7 +68,7 @@ public class OrdenesDomiciliosColombianServiceImpl implements OrdenesDomiciliosC
      * Calcula el valor total en los domicilios
      * @param domicilios 
      */
-    public void calcularValorTotal(List<OrdenesDomiciliosMapper> domicilios){
+    public void calcularValorTotal(List<OrdenesDomiciliosDto> domicilios){
         if(domicilios!=null){
             totalvalor=0D;
             domicilios.forEach((domicilio) -> {
