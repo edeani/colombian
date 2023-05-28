@@ -4,8 +4,15 @@
  */
 package com.mycompany.util;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -68,4 +75,21 @@ public class Formatos {
          
          return valor;
      }
+     
+     /**
+     * Fix for ResultSet when is getting a Date
+     * */
+    public Date extractDateResultSet(ResultSet rs, String fieldName) {
+        Date newDate = null;
+        try {
+            if (Objects.nonNull(rs.getDate(fieldName))) {
+                newDate = java.sql.Date.valueOf(rs.getObject(fieldName, LocalDate.class));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Formatos.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQLException "+ex.getMessage());
+        }
+
+        return newDate;
+    }
 }
