@@ -5,7 +5,7 @@
 package com.administracion.service.jsf;
 
 
-import com.adiministracion.rowmapper.OrdenesColombianDtoMapper;
+import com.adiministracion.rowmapper.OrdenesColombianDtoRowMapper;
 import com.administracion.entidad.Users;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
@@ -59,7 +59,7 @@ public class DomiciliosDiaColombianServiceImpl implements DomiciliosDiaColombian
                     + " WHERE  ( ( orden.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "'  and '" + formato.dateTostring(dfDefault.format(ff)) + "' ) AND  "
                     + " ( orden.estado_orden = 'A' ) )    "
                     + " group by orden.fecha_orden order by orden.fecha_orden";
-            ordenes = this.jdbctemplate.query(query, new OrdenesColombianDtoMapper());
+            ordenes = this.jdbctemplate.query(query, new OrdenesColombianDtoRowMapper());
             calcularResumenDomicilios(ordenes);
         } catch (DataAccessException e) {
             System.out.println("Error domicilioDia::" + e.getMessage());

@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author Anlod
  */
-public class OrdenesColombianDtoMapper implements RowMapper<OrdenesColombianDto>{
+public class OrdenesColombianDtoRowMapper implements RowMapper<OrdenesColombianDto>{
 
     @Override
     public OrdenesColombianDto mapRow(ResultSet rs, int i) throws SQLException {
