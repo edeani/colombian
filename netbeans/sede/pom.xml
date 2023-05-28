@@ -14,6 +14,8 @@
         <springsecurity.version>4.1.0.RELEASE</springsecurity.version>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
     
     <dependencies>
@@ -280,7 +282,7 @@
                 <base.datos>credencials</base.datos>
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
-                <bd.ip>186.155.211.28:3306</bd.ip>
+                <bd.ip>localhost:3306</bd.ip>
                 <path.img>C:/Users/Anlod/Documents/repository/colombianbroaster/colombian/netbeans/sede/src/main/webapp/img/</path.img>
                 <url.img>/sede/img</url.img>
             </properties>
