@@ -6,6 +6,8 @@
 package com.administracion.dao;
 
 
+import com.adiministracion.rowmapper.ComprasTotalesXProveedorDTORowMapper;
+import com.adiministracion.rowmapper.ReporteComprasTotalesProvRowMapper;
 import com.administracion.dto.ComprasTotalesDTO;
 import com.administracion.dto.DetalleCompraDTO;
 import com.administracion.dto.DetallePagosProveedorDto;
@@ -155,7 +157,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
                 + " where c.codigo_proveedor= " + idproveedor + " and c.fecha_compra between '" + fechaInicio + "' and '" + fechaFin + "' order by c.fecha_compra";
         List<ReporteComprasTotalesXProveedorDTO> reporte = null;
         try {
-            reporte = jdbctemplate.query(sql, new BeanPropertyRowMapper<>(ReporteComprasTotalesXProveedorDTO.class));
+            reporte = jdbctemplate.query(sql, new ComprasTotalesXProveedorDTORowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("ERROR::comprasTotalesXProveedor::" + e.getMessage());
         }
@@ -171,7 +173,7 @@ public class ComprasDaoImpl extends GenericDaoImpl<Compras> implements ComprasDa
                 + " where  c.fecha_compra between '" + fechaInicio + "' and '" + fechaFin + "' order by p.nombre,c.fecha_compra";
         List<ReporteComprasTotalesProvDTO> reporte = null;
         try {
-            reporte = jdbctemplate.query(sql, new BeanPropertyRowMapper<>(ReporteComprasTotalesProvDTO.class));
+            reporte = jdbctemplate.query(sql, new ReporteComprasTotalesProvRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("ERROR::comprasTotalesProveedores::" + e.getMessage());
         }

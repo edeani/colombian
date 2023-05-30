@@ -8,6 +8,8 @@ package com.administracion.dao;
 
 
 import com.adiministracion.mapper.FacturaMapper;
+import com.adiministracion.rowmapper.FacturaReporteSedeRowMapper;
+import com.adiministracion.rowmapper.FacturaTotalReporteRowMapper;
 import com.administracion.dto.DetalleCompraDTO;
 import com.administracion.dto.DetalleFacturaDTO;
 import com.administracion.dto.FacturaAutocompletarDto;
@@ -157,7 +159,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
         
         List<FacturaReporteSedeDto> reporte = null;
         try {
-            reporte = jdbctemplate.query(sql, new BeanPropertyRowMapper<>(FacturaReporteSedeDto.class));
+            reporte = jdbctemplate.query(sql, new FacturaReporteSedeRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("reporteTotalFacturaXSede::"+e.getMessage());
         }
@@ -173,7 +175,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
         
         List<FacturaTotalReporteDto> reporte = null;
         try {
-            reporte = jdbctemplate.query(sql, new BeanPropertyRowMapper<>(FacturaTotalReporteDto.class));
+            reporte = jdbctemplate.query(sql, new FacturaTotalReporteRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("reporteTotalFactura::"+e.getMessage());
         }

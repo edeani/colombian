@@ -5,6 +5,7 @@
  */
 package com.administracion.dao;
 
+import com.adiministracion.rowmapper.CuentasPagarProveedoresRowMapper;
 import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.BalanceDto;
 import com.administracion.dto.ComprasProveedorFechaDto;
@@ -467,7 +468,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "   and c.fecha_compra between '" + fechInicial + "' and '" + fechaFinal + "'";
         List<CuentasPagarProveedoresDto> reporte = null;
         try {
-            reporte = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CuentasPagarProveedoresDto.class));
+            reporte = this.jdbcTemplate.query(sql, new CuentasPagarProveedoresRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error reporteCuentasPagarProveedoresDto::"+e.getMessage());
         }
