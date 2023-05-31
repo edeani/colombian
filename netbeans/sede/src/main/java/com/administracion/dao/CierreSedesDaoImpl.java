@@ -6,6 +6,7 @@
 package com.administracion.dao;
 
 
+import com.adiministracion.rowmapper.CierreSedesRowMapper;
 import com.administracion.dto.CierreSedesDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.ReporteComprobanteCierreDto;
@@ -296,7 +297,7 @@ public class CierreSedesDaoImpl extends GenericDaoImpl<CierreSedes> implements C
             "inner join detalle_cierre_sedes dcs on dcs.idcomprobantecierre = cs.consecutivo " +
             "where cs.fecha between '"+fechaInicial+"' and '"+fechaFinal+"'   " +
             "and cs.idsede = "+idsede+" order by cs.fecha,consecutivo";
-            reporte = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CierreSedesDto.class));
+            reporte = this.jdbcTemplate.query(sql, new CierreSedesRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarDetalleComprobanteView::" + e.getMessage());
         }

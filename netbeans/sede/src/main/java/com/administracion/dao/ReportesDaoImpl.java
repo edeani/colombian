@@ -5,6 +5,7 @@
  */
 package com.administracion.dao;
 
+import com.adiministracion.rowmapper.ComprobanteConsolidadoSedeRowMapper;
 import com.adiministracion.rowmapper.CuentasPagarProveedoresRowMapper;
 import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.BalanceDto;
@@ -240,7 +241,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                     "detalle_cierre_sedes", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11050501'") + " union all "
                     + selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idpago",
                             "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' )a order by fecha,idComprobante");
-            movimientos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ComprobanteConsolidadoSedeDto.class));
+            movimientos = this.jdbcTemplate.query(sql, new ComprobanteConsolidadoSedeRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("Error bucarMovimientoCajaMayor::" + e.getMessage());
         }
@@ -258,7 +259,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                     "detalle_cierre_sedes", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11050501' AND idsede = "+idSubsede+"") + " union all "
                     + selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idpago",
                             "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' AND idsede = "+idSubsede+" )a order by fecha,idComprobante");
-            movimientos = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ComprobanteConsolidadoSedeDto.class));
+            movimientos = this.jdbcTemplate.query(sql, new ComprobanteConsolidadoSedeRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("Error bucarMovimientoCajaMayor::" + e.getMessage());
         }
