@@ -20,7 +20,7 @@ public class ComprobanteConsolidadoSedeRowMapper implements RowMapper<Comprobant
     public ComprobanteConsolidadoSedeDto mapRow(ResultSet rs, int i) throws SQLException {
         ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeMapped = new ComprobanteConsolidadoSedeDto();
 
-        comprobanteConsolidadoSedeMapped.setConcepto("concepto");
+        comprobanteConsolidadoSedeMapped.setConcepto(rs.getString("concepto"));
         comprobanteConsolidadoSedeMapped.setConsecutivo(rs.getLong("consecutivo"));
 
         Formatos formatosComprobanteConsSed = new Formatos();

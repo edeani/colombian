@@ -294,7 +294,7 @@ public class InventarioController extends BaseController {
     ) {
         ModelAndView mav = null;
         List<InventarioFinalDTO> inventarioTotal = inventarioService.reporteInventarioFinal(sede, fechaInicial, fechaFinal);
-        if (inventarioTotal.isEmpty()) {
+        if (Boolean.FALSE.equals(inventarioTotal.isEmpty())) {
             JRDataSource datos = new JRBeanCollectionDataSource(inventarioTotal);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);

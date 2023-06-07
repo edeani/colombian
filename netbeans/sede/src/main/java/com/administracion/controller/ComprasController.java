@@ -315,7 +315,7 @@ public class ComprasController extends BaseController {
 
         List<ComprasProveedorFechaDto> reporte = comprasService.reporteComprasProveedorFechaDto(sede, fechaInicial, fechaFinal);
         if (reporte != null) {
-            if (reporte.isEmpty()) {
+            if (Boolean.FALSE.equals(reporte.isEmpty())) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);

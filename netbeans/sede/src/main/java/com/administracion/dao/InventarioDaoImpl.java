@@ -4,6 +4,8 @@
  */
 package com.administracion.dao;
 
+import com.adiministracion.mapper.InventarioDTORowMapper;
+import com.adiministracion.mapper.InventarioRowMapper;
 import com.administracion.dto.FacturaVentaDTO;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
@@ -54,7 +56,7 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
     @Override
     public List<InventarioDTO> listInventarioDto(DataSource nameDataSource) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
-        return this.jdbctemplate.query(leerXml.getQuery("InventarioSql.list"), new BeanPropertyRowMapper(InventarioDTO.class));
+        return this.jdbctemplate.query(leerXml.getQuery("InventarioSql.list"), new InventarioDTORowMapper());
     }
 
     @Override
@@ -125,7 +127,7 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
         InventarioDTO inventarioDTO = null;
         try {
             inventarioDTO = (InventarioDTO) this.jdbctemplate.queryForObject(selectJdbTemplate("*",
-                    "inventario", "codigo_producto_inventario = ? "), new Object[]{idProducto}, new BeanPropertyRowMapper(InventarioDTO.class));
+                    "inventario", "codigo_producto_inventario = ? "), new Object[]{idProducto}, new InventarioDTORowMapper());
 
         } catch (DataAccessException e) {
             LOGGER.error("traerProductoDto::Inventario: Se encontraron 0 registros");
@@ -184,7 +186,7 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
         this.jdbctemplate = new JdbcTemplate(nameDatasource);
         Inventario inventario = null;
         try {
-            inventario = (Inventario) this.jdbctemplate.queryForObject(selectJdbTemplate("*", "inventario", "codigo_producto_inventario= ?"), new Object[]{idProducto}, new BeanPropertyRowMapper(Inventario.class));
+            inventario = (Inventario) this.jdbctemplate.queryForObject(selectJdbTemplate("*", "inventario", "codigo_producto_inventario= ?"), new Object[]{idProducto}, new InventarioRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("traerProducto::La consulta retornó 0 elementos");
         }
