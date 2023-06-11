@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author Anlod
  */
-public class ComprobanteConsolidadoSedeRowMapper implements RowMapper<ComprobanteConsolidadoSedeDto> {
+public class ComprobanteConsolidadoSedeDtoRowMapper implements RowMapper<ComprobanteConsolidadoSedeDto> {
 
     @Override
     public ComprobanteConsolidadoSedeDto mapRow(ResultSet rs, int i) throws SQLException {

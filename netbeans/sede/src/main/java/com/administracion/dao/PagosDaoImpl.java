@@ -6,6 +6,12 @@
 package com.administracion.dao;
 
 
+import com.adiministracion.rowmapper.ComprobanteConsolidadoSedeDtoRowMapper;
+import com.adiministracion.rowmapper.DetallePagosProveedorDtoRowMapper;
+import com.adiministracion.rowmapper.DetallePagosTercerosDtoRowMapper;
+import com.adiministracion.rowmapper.PagosCabeceraDtoRowMapper;
+import com.adiministracion.rowmapper.PagosRowMapper;
+import com.adiministracion.rowmapper.ReportePagosDtoRowMapper;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
@@ -96,7 +102,7 @@ private LectorPropiedades lectorPropiedades;
                 + "where dpt.idpago =" + idpagotercero +" and dpt.numero_compra is null";
 
         try {
-            detalle = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DetallePagosTercerosDto.class));
+            detalle = this.jdbcTemplate.query(sql, new DetallePagosTercerosDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarDetallePagosTercerosDtos::" + e.getMessage());
         }
@@ -111,7 +117,7 @@ private LectorPropiedades lectorPropiedades;
         Pagos pagosTerceros = null;
 
         try {
-            pagosTerceros = this.jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Pagos.class));
+            pagosTerceros = this.jdbcTemplate.queryForObject(sql, new PagosRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarPagoXIdPago::" + e.getMessage());
         }
@@ -131,7 +137,7 @@ private LectorPropiedades lectorPropiedades;
         PagosCabeceraDto pagosCabeceraDto = null;
 
         try {
-            pagosCabeceraDto = this.jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(PagosCabeceraDto.class));
+            pagosCabeceraDto = this.jdbcTemplate.queryForObject(sql, new PagosCabeceraDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarPagoXIdPagoXTipo::" + e.getMessage());
         }
@@ -151,7 +157,7 @@ private LectorPropiedades lectorPropiedades;
                 + "where p.idpagos =" + idpagoproveedor +" and p.tipo = "+TipoPagoEnum.PAGOS_PROVEEDOR.getTipo_pago();
 
         try {
-            detalle = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DetallePagosProveedorDto.class));
+            detalle = this.jdbcTemplate.query(sql, new DetallePagosProveedorDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarDetallePagosProveedorDtos::" + e.getMessage());
         }
@@ -179,7 +185,7 @@ private LectorPropiedades lectorPropiedades;
         List<ComprobanteConsolidadoSedeDto> pagos = null;
         try {
             pagos = this.jdbcTemplate.query(selectJdbTemplate("*,descripcion as concepto",
-                    "detalle_pagos", "fecha between '" + fechaInicial + "' and '" + fechaFinal + "'"), new BeanPropertyRowMapper<>(ComprobanteConsolidadoSedeDto.class));
+                    "detalle_pagos", "fecha between '" + fechaInicial + "' and '" + fechaFinal + "'"), new ComprobanteConsolidadoSedeDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarPagosXFecha::" + e.getMessage());
         }
@@ -306,7 +312,7 @@ private LectorPropiedades lectorPropiedades;
         List<PagosCabeceraDto> pagos = null;
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-            pagos =  this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PagosCabeceraDto.class));
+            pagos =  this.jdbcTemplate.query(sql, new PagosCabeceraDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarPagosXFecha::"+e.getMessage());
         }
@@ -329,7 +335,7 @@ private LectorPropiedades lectorPropiedades;
         PagosCabeceraDto pagos = null;
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-            pagos =  this.jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(PagosCabeceraDto.class));
+            pagos =  this.jdbcTemplate.queryForObject(sql, new PagosCabeceraDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarPagosXId::"+e.getMessage());
         }
@@ -351,7 +357,7 @@ private LectorPropiedades lectorPropiedades;
         List<ReportePagosDto> pagos = null;
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-            pagos =  this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ReportePagosDto.class));
+            pagos =  this.jdbcTemplate.query(sql, new ReportePagosDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error reportePagos::"+e.getMessage());
         }

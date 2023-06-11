@@ -23,7 +23,7 @@ public class ComprasRowMapper implements  RowMapper<Compras>{
         compraMapped.setCodigoProveedor(rs.getLong("codigo_proveedor"));
         compraMapped.setConsecutivo(rs.getLong("consecutivo"));
         compraMapped.setEstadoCompra(rs.getString("estado_compra").charAt(0));
-        compraMapped.setEstadoCompraProveedor("estado_compra_proveedor");
+        compraMapped.setEstadoCompraProveedor(rs.getString("estado_compra_proveedor"));
         Formatos formatosCompra = new Formatos();
         compraMapped.setFechaCompra(formatosCompra.extractDateResultSet(rs, "fecha_compra"));
         compraMapped.setFechaVencimiento(formatosCompra.extractDateResultSet(rs, "fecha_vencimiento"));

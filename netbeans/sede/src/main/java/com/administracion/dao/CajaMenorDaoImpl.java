@@ -7,6 +7,9 @@
 package com.administracion.dao;
 
 
+import com.adiministracion.rowmapper.CajaMenorRowMapper;
+import com.adiministracion.rowmapper.DetallePagosProveedorDtoRowMapper;
+import com.adiministracion.rowmapper.DetallePagosTercerosDtoRowMapper;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.entidad.CajaMenor;
@@ -15,7 +18,6 @@ import com.administracion.util.Formatos;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -69,7 +71,7 @@ public class CajaMenorDaoImpl extends GenericDaoImpl<CajaMenor> implements CajaM
                 + "where dpt.idcajamenor =" + idpagotercero;
 
         try {
-            detalle = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DetallePagosTercerosDto.class));
+            detalle = this.jdbcTemplate.query(sql, new DetallePagosTercerosDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarDetallePagosTercerosCajaMenorDtos::" + e.getMessage());
         }
@@ -84,7 +86,7 @@ public class CajaMenorDaoImpl extends GenericDaoImpl<CajaMenor> implements CajaM
         CajaMenor pagos = null;
 
         try {
-            pagos = this.jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(CajaMenor.class));
+            pagos = this.jdbcTemplate.queryForObject(sql, new CajaMenorRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarPagoXIdPagoCajaMenor::" + e.getMessage());
         }
@@ -118,7 +120,7 @@ public class CajaMenorDaoImpl extends GenericDaoImpl<CajaMenor> implements CajaM
                 + "where dpp.idcajamenor =" + idpago;
 
         try {
-            detalle = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DetallePagosProveedorDto.class));
+            detalle = this.jdbcTemplate.query(sql, new DetallePagosProveedorDtoRowMapper());
         } catch (DataAccessException e) {
             System.out.println("Error buscarDetallePagosProveedorDtos::" + e.getMessage());
         }
