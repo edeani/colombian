@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>s/css/datatable/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/datatable/jquery.dataTables.min.css">
 <script src="<%=request.getContextPath()%>/js/jquery-1.8.3.min.js" type="text/javascript"> </script>
 <script src="<%=request.getContextPath()%>/js/jquery-ui.js" type="text/javascript"> </script>
 <script src="<%=request.getContextPath()%>/js/util.js" type="text/javascript"> </script>
