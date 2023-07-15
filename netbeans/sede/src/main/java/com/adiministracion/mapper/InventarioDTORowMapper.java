@@ -31,7 +31,10 @@ public class InventarioDTORowMapper implements RowMapper<InventarioDTO>{
                                 formatosInvetarioDTO.extractDateResultSet(rs, "fecha_inicial")
         ));
         
-        inventarioDTOMapped.setPromedio(rs.getString("promedio"));
+        final String promedioName = "promedio";
+        if(formatosInvetarioDTO.hasColumn(rs, promedioName)){
+            inventarioDTOMapped.setPromedio(rs.getString(promedioName));
+        }
         inventarioDTOMapped.setStockHoy(rs.getString("stock_hoy"));
         inventarioDTOMapped.setStockMinimo(rs.getString("stock_minimo"));
         inventarioDTOMapped.setStockReal(rs.getString("stock_real"));
