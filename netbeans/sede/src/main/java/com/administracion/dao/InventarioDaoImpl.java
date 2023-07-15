@@ -4,8 +4,8 @@
  */
 package com.administracion.dao;
 
-import com.adiministracion.mapper.InventarioDTORowMapper;
-import com.adiministracion.mapper.InventarioRowMapper;
+import com.adiministracion.rowmapper.InventarioDTORowMapper;
+import com.adiministracion.rowmapper.InventarioRowMapper;
 import com.administracion.dto.FacturaVentaDTO;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;

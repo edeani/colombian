@@ -7,9 +7,9 @@
 package com.administracion.dao;
 
 
-import com.adiministracion.mapper.FacturaAutocompletarDtoRowMapper;
+import com.adiministracion.rowmapper.FacturaAutocompletarDtoRowMapper;
 import com.adiministracion.mapper.FacturaMapper;
-import com.adiministracion.mapper.FacturaRowMapper;
+import com.adiministracion.rowmapper.FacturaRowMapper;
 import com.adiministracion.rowmapper.FacturaReporteSedeRowMapper;
 import com.adiministracion.rowmapper.FacturaTotalReporteRowMapper;
 import com.administracion.dto.DetalleCompraDTO;

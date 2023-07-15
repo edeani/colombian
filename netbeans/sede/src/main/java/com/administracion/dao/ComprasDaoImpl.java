@@ -5,7 +5,7 @@
  */
 package com.administracion.dao;
 
-import com.adiministracion.mapper.ComprasRowMapper;
+import com.adiministracion.rowmapper.ComprasRowMapper;
 import com.adiministracion.rowmapper.ComprasTotalesXProveedorDTORowMapper;
 import com.adiministracion.rowmapper.ReporteComprasTotalesProvRowMapper;
 import com.administracion.dto.ComprasTotalesDTO;
