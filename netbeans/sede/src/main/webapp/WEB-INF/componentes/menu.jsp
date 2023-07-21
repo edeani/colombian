@@ -106,17 +106,21 @@
         </li>
         <li class='has-sub'><a href='#'><span>Entrar Sedes</span></a>
             <ul>
+                <sec:authorize access="!hasRole('ROLE_USER')">
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/tiemporeal/cierres.htm'><span>Tiempo Real</span></a></li>
+                </sec:authorize>
                 <sec:authorize access="!hasRole('ROLE_ADMIN_VENTAS')">
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/reporte/inventarios.htm'><span>Inventario</span></a></li>
                 </sec:authorize>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compras.htm'><span>Compras</span></a></li>
+                <sec:authorize access="!hasRole('ROLE_USER')">
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/ordenes.htm'><span>Mesas y Llevar</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/ventas/index-ventas.htm'><span>Ventas</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/gastos/index.htm'><span>Gastos</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/domicilios/index-domicilios.htm'><span>Domicilios</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/domicilios/domicilios-dia.htm'><span>Domicilios D&iacute;a</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/cuadre/index-cuadre.htm'><span>Control Cierres</span></a></li>
+                </sec:authorize>
             </ul>
         </li>
     </ul>
