@@ -4,6 +4,7 @@
  */
 package com.administracion.service.jsf;
 
+import com.adiministracion.rowmapper.MesasYLlevarRowMapper;
 import com.administracion.entidad.Users;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
@@ -67,7 +68,7 @@ public class MesasyllevarColombianServiceImpl implements MesasyllevarColombianSe
                     + " FROM llevar "
                     + " WHERE ( llevar.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "' ) AND ( llevar.estado_orden = 'A' ) "
                     + " ORDER BY 2";
-            mesasyllevar = this.jdbctemplate.query(query, new BeanPropertyRowMapper<>(Mesasyllevar.class));
+            mesasyllevar = this.jdbctemplate.query(query, new MesasYLlevarRowMapper());
             calcularTotalMesas(mesasyllevar);
         } catch (DataAccessException e) {
             LOGGER.error("Error mesas::" + e.getMessage());

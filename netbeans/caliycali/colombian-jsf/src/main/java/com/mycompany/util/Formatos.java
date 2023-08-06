@@ -36,10 +36,18 @@ public class Formatos {
      * @return La fecha convertida a String
      */
     public String dateTostring(Date date) {
-
-        String formato = "yyyy-MM-dd";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.Formatos.FORMAT_DATE);
+        return dateFormat.format(date);
+    }
+    
+    /**
+     * 
+     * @param date fecha a convertir
+     * @param formatDateString Formato de la fecha en String
+     * @return Devuelve la fecha con hora como un String
+     */
+    public String dateTostring(Date date, String formatDateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatDateString);
         return dateFormat.format(date);
 
     }
