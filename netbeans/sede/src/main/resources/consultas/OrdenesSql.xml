@@ -7,4 +7,24 @@
         where o.fecha_orden between :fechaInicial and :fechaFinal and o.estado_orden='A'
         )sub
     </query>
+    <query id="OrdenesSql.ordenesReporteClientes">
+    SELECT CAST(max(c.numero_telefono) AS CHAR(25)) AS telefono,   
+         max(c.descripcion_cliente) as nombreCliente,   
+         c.codigo_barrio as codigoBarrio,   
+         SUM(dot.numero_unidades) AS unidades,   
+         sum(inv.promedio) as promedioValorProducto,   
+         max(p.descripcion_producto) as nombreProducto,   
+         max(ppi.codigo_producto) as codigoProducto
+    FROM clientes c
+    INNER JOIN orden o ON o.numero_telefono = c.numero_telefono
+    INNER JOIN detalle_orden dot ON dot.numero_orden = o.numero_orden
+    INNER JOIN producto_por_inventario ppi ON ppi.codigo_producto = dot.codigo_producto
+    INNER JOIN productos p ON p.codigo_producto = ppi.codigo_producto
+    INNER JOIN %s.inventario inv ON inv.codigo_producto_inventario =  ppi.codigo_producto_inventario   
+    WHERE o.estado_orden = 'A' AND  
+         o.fecha_orden between :fechaInicial and :fechaFinal
+        
+    GROUP BY c.numero_telefono
+    ORDER BY c.descripcion_cliente,c.numero_telefono
+    </query>
 </queries>

@@ -54,7 +54,7 @@ public class DomiciliosController {
     @RequestMapping("/domicilios-dia.htm")
     public ModelAndView indexDomiciliosPorDia(){
         ModelAndView mav = new ModelAndView("reportes/colombian/domicilios/reporte_domicilios_dia");
-        mav.addObject("fecha", new Date());;
+        mav.addObject("fecha", new Date());
         return mav;
     }
     

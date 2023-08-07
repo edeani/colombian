@@ -121,7 +121,10 @@
 	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:/reportes/factura.jrxml"
 		p:reportDataKey="datos"/>
-        
+        <bean id="reporteOrdenesUsuarios"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:/reportes/reporteOrdenesUsuarios.jrxml"
+		p:reportDataKey="datos"/>
         
         <!-- Reporte de Estado Pérdida Ganancias  Subreportes-->
            

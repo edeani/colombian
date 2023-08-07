@@ -308,7 +308,7 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping(value = "/reportes/comprasProveedorFechaPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView reporteComprasProveedorFechaPDF(HttpServletRequest request, HttpServletResponse response,
+    public ModelAndView reporteComprasProveedorFechaPDF( 
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
             @PathVariable String sede) {
         ModelAndView mav;

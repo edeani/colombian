@@ -48,4 +48,16 @@ public class Util {
         return dateFormat.format(date);
 
     }
+    
+    public static String extractDatabaseFromURL(String url){
+        String nameDatabase = "";
+        try {
+            String arrUrl[] = url.split("/");
+            return arrUrl[arrUrl.length -1];
+        } catch (Exception e) {
+            System.out.println("Error extractDatabaseFromURL "+e.getMessage());
+        }
+        
+        return nameDatabase;
+    }
 }
