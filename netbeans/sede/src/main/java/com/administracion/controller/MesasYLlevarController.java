@@ -12,12 +12,13 @@ import com.mycompany.mapper.Mesasyllevar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
+ * Esta clase contiene todas las ordenes que se encuentran en las tablas mesa y llevar
  * @author EderArmando
  */
 @Controller
@@ -27,7 +28,7 @@ public class MesasYLlevarController extends BaseController {
     @Autowired
     private MesasyllevarColombianService mesasyllevarColombianService;
 
-    @RequestMapping(value = "/ordenes.htm")
+    @GetMapping(value = "/ordenes.htm")
     public ModelAndView paginaMesasyLlevar() {
         return new ModelAndView("reportes/colombian/mesasyllevar/formMesas"); 
     }

@@ -7,9 +7,13 @@ package com.mycompany.util;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -112,6 +116,24 @@ public class Formatos {
         }
 
         return newDate;
+    }
+    
+    public Date extractDateTimeResultSet(ResultSet rs, String fieldName){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.Formatos.FORMAT_HOUR);
+        LocalDateTime dateTime=null;
+        Date date = null;
+        try {
+            dateTime = LocalDateTime.parse(rs.getString(fieldName), formatter);
+            Timestamp timestamp = Timestamp.valueOf(dateTime.format(formatter));
+            date = new Date(timestamp.getTime());
+        } catch (SQLException  | NullPointerException ex) {
+            System.out.println("Error extractDateTimeResultSet "+ex.getMessage());
+            Logger.getLogger(Formatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        
+        return  date;
+         
     }
 
     public boolean hasColumn(ResultSet rs, String columnName) throws SQLException {

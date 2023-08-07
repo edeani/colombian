@@ -9,8 +9,6 @@ import com.mycompany.util.Constants;
 import com.mycompany.util.Formatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.Objects;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -30,20 +28,36 @@ public class MesasYLlevarRowMapper implements RowMapper<Mesasyllevar>{
     private static final String REGISTROS = "registros";
     private static final String HORA = "hora";
     
+    /**
+     * Verificación de las columnas
+     */
+    private Boolean colRegistros = Boolean.TRUE;
+    private Boolean colHora = Boolean.TRUE;
+    private Boolean colsVerified = Boolean.FALSE;
     @Override
     public Mesasyllevar mapRow(ResultSet rs, int i) throws SQLException {
+        
+        /**
+         * Verificar las columnas
+         */
+        if(Boolean.FALSE.equals(colsVerified)){
+            colHora = formatosMesasYLlevar.hasColumn(rs, HORA);
+            colRegistros = formatosMesasYLlevar.hasColumn(rs, REGISTROS);
+            colsVerified = Boolean.TRUE;
+        }
+        
         Mesasyllevar mesasyllevar = new Mesasyllevar();
         
-        mesasyllevar.setFecha(formatosMesasYLlevar.extractDateResultSet(rs, FECHA));
+        mesasyllevar.setFecha(formatosMesasYLlevar.extractDateTimeResultSet(rs, FECHA));
         mesasyllevar.setCodMesera(rs.getString(COD_MESERA));
         
-        mesasyllevar.setHora(formatosMesasYLlevar.hasColumn(rs, HORA)?
+        mesasyllevar.setHora(Boolean.TRUE.equals(colHora)?
                 formatosMesasYLlevar.dateTostring(
-                formatosMesasYLlevar.extractDateResultSet(rs, HORA)
+                formatosMesasYLlevar.extractDateTimeResultSet(rs, HORA)
                 ,Constants.Formatos.FORMAT_HOUR):null);
         mesasyllevar.setMesa(rs.getString(MESA));
         mesasyllevar.setOrden(rs.getString(ORDEN));
-        mesasyllevar.setRegistros(formatosMesasYLlevar.hasColumn(rs, REGISTROS)?
+        mesasyllevar.setRegistros(colRegistros?
                 rs.getString( REGISTROS):null);
         mesasyllevar.setTipo(rs.getString(TIPO));
         mesasyllevar.setValor(rs.getString(VALOR));
