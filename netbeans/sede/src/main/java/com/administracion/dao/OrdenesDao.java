@@ -14,5 +14,6 @@ import javax.sql.DataSource;
  */
 public interface OrdenesDao {
     
-    List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(DataSource nameDataSource, String fechaInicial, String fechaFinal, String nameDataPrincipal);
+    List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(DataSource nameDataSource
+            , String fechaInicial, String fechaFinal, String nameDataPrincipal, String tel);
 }

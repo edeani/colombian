@@ -6,7 +6,6 @@ package com.administracion.service;
 
 import com.administracion.dto.OrdenesClienteProdDto;
 import java.util.List;
-import javax.sql.DataSource;
 
 /**
  *
@@ -14,5 +13,6 @@ import javax.sql.DataSource;
  */
 public interface OrdenesService {
     
-    List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(String nameDataSource, String fechaInicial, String fechaFinal);
+    List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(String nameDataSource
+            , String fechaInicial, String fechaFinal, String tel);
 }

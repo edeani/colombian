@@ -15,9 +15,12 @@
 
 <div id="contenidoHome">
     <div id="tituloPagina">Usuario Ordenes</div>
-    <div class="contenedorEstructuraFormLarge">
+    <div>
         <div class="contentFormSimple">
             <form id="formOrdenesUsuario" target="_blank" action="<%=request.getContextPath()%>/${sessionScope.path}/ordenes/usuariosPdf.htm">
+                <label>Tel&eacute;fono
+                    <input name="tel" id="tel" class="fechaInicial contentRequired" style="cursor: pointer;" type="text" value=""/>
+                </label>
                 <label>Fecha Inicial
                     <input name="fechaInicial" id="fechaInicial" class="fechaInicial contentRequired" style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fecha}"/>"/>
                 </label>
@@ -38,25 +41,7 @@
                 </label>
             </form>
         </div>
-        <!-- barra Cargando -->
-        <div id="cargador"></div>
+
         
-        <div id="listaOrdenesUsuario" class="divContenedorTabla" >
-            <div class="contenedorResumen">             
-                 
-                <label id="totalGastosLabel" class="resumen">
-                    $0
-                </label>
-                <label class="resumen">
-                    TOTAL ORDENES
-                </label>
-                <label id="totalConsignacionesLabel" class="resumen">
-                    0
-                </label>
-                <label class="resumen">
-                    ORDENES
-                </label>
-            </div>
-        </div>
     </div>
 </div>

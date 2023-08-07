@@ -13,8 +13,8 @@
          c.codigo_barrio as codigoBarrio,   
          SUM(dot.numero_unidades) AS unidades,   
          sum(inv.promedio) as promedioValorProducto,   
-         max(p.descripcion_producto) as nombreProducto,   
-         max(ppi.codigo_producto) as codigoProducto
+         p.descripcion_producto as nombreProducto,   
+         ppi.codigo_producto as codigoProducto
     FROM clientes c
     INNER JOIN orden o ON o.numero_telefono = c.numero_telefono
     INNER JOIN detalle_orden dot ON dot.numero_orden = o.numero_orden
@@ -23,8 +23,8 @@
     INNER JOIN %s.inventario inv ON inv.codigo_producto_inventario =  ppi.codigo_producto_inventario   
     WHERE o.estado_orden = 'A' AND  
          o.fecha_orden between :fechaInicial and :fechaFinal
-        
-    GROUP BY c.numero_telefono
+         AND c.numero_telefono = :tel
+    GROUP BY c.numero_telefono,ppi.codigo_producto,p.descripcion_producto
     ORDER BY c.descripcion_cliente,c.numero_telefono
     </query>
 </queries>

@@ -26,11 +26,12 @@ public class OrdenesServiceImpl implements OrdenesService{
     private ConnectsAuth connectsAuth;
 
     @Override
-    public List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(String nameDataSource, String fechaInicial, String fechaFinal) {
+    public List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(String nameDataSource, String fechaInicial
+            , String fechaFinal, String tel) {
         try {
             String url = connectsAuth.findSedeXId(connectsAuth.findSubsedeXName(nameDataSource).getIdsede()).getUrl();
             return ordenesDao.ordenesReporteClientesSubSede(connectsAuth.getDataSourceSubSede(nameDataSource), fechaInicial, fechaFinal
-                , Util.extractDatabaseFromURL(url));
+                , Util.extractDatabaseFromURL(url),tel);
         } catch (Exception e) {
             System.out.println("Error ordenesReporteClientesSubSede "+e.getMessage());
         }

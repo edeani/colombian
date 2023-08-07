@@ -54,17 +54,17 @@ public class OrdenesController extends BaseController{
     @RequestMapping("/usuariosPdf.htm")
      public ModelAndView reporteOrdenesUsuario(@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam String fechaInicial
             ,@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam String fechaFinal
-            , @RequestParam(value="sede")Integer subsede
+            , @RequestParam(value="sede")Integer subsede,@RequestParam String tel
             ,@PathVariable(value = "sede") String sedePrincipal) {
         
         SubSedesDto subSedesDto = connectsAuth.findSubsedeXId(subsede);
-        if(Objects.isNull(subSedesDto)){
+        if (Objects.isNull(subSedesDto)) {
             indexOrdenes();
         }
-        
-        List<OrdenesClienteProdDto> ordenesIndex = ordenesService.ordenesReporteClientesSubSede(subSedesDto.getSede()
-                , fechaInicial,fechaFinal);
-       
+
+        List<OrdenesClienteProdDto> ordenesIndex = ordenesService.ordenesReporteClientesSubSede(subSedesDto.getSede(),
+                 fechaInicial, fechaFinal, tel);
+
         ModelAndView mav = null;
         if (ordenesIndex != null) {
             if (Boolean.FALSE.equals(ordenesIndex.isEmpty())) {
@@ -80,7 +80,7 @@ public class OrdenesController extends BaseController{
                 parameterMap.put("fechaFinal", fechaFinal);
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("reporteOrdenesUsuarios", parameterMap);
-                
+
             }
         }
         return mav;

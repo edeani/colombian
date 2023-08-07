@@ -37,7 +37,8 @@ public class OrdenesDaoImpl implements OrdenesDao{
      * @return Las órdenes por producto de los clientes por sub-sede
      */
     @Override
-    public List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(DataSource nameDataSource, String fechaInicial, String fechaFinal, String nameDataPrincipal) {
+    public List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(DataSource nameDataSource, String fechaInicial, String fechaFinal
+            , String nameDataPrincipal,String tel) {
         List<OrdenesClienteProdDto> ordenesCliente = new ArrayList<>();
         
         try {
@@ -47,6 +48,7 @@ public class OrdenesDaoImpl implements OrdenesDao{
             
             MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fechaInicial);
             params.addValue("fechaFinal", fechaFinal);
+            params.addValue("tel", tel);
             
             namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(nameDataSource);
             return namedParameterJdbcTemplate.query(sqlOrdenesClientes, params, new BeanPropertyRowMapper<>(OrdenesClienteProdDto.class));
