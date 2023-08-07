@@ -107,11 +107,11 @@
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="336" y="100" width="100" height="20" uuid="efd21c2b-e54a-4d72-b7ed-e9730d235466"/>
+				<reportElement x="329" y="100" width="84" height="20" uuid="efd21c2b-e54a-4d72-b7ed-e9730d235466"/>
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="436" y="100" width="119" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a9b00a69-15b3-4067-86ee-b7c9671a333d"/>
+				<reportElement mode="Transparent" x="413" y="100" width="142" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a9b00a69-15b3-4067-86ee-b7c9671a333d"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
