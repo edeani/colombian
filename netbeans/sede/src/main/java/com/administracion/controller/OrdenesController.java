@@ -7,6 +7,10 @@ package com.administracion.controller;
 import com.administracion.dto.OrdenesClienteProdDto;
 import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
+import com.administracion.entidad.Barrios;
+import com.administracion.entidad.Clientes;
+import com.administracion.service.BarriosService;
+import com.administracion.service.ClientesService;
 import com.administracion.service.OrdenesService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
@@ -36,10 +40,12 @@ public class OrdenesController extends BaseController{
     
     @Autowired
     private OrdenesService ordenesService;
-    
     @Autowired
     private SecurityService security;
-    
+    @Autowired
+    private BarriosService barriosService;
+    @Autowired
+    private ClientesService clientesService;
     @Autowired
     private ConnectsAuth connectsAuth;
     
@@ -64,21 +70,27 @@ public class OrdenesController extends BaseController{
 
         List<OrdenesClienteProdDto> ordenesIndex = ordenesService.ordenesReporteClientesSubSede(subSedesDto.getSede(),
                  fechaInicial, fechaFinal, tel);
-
+        Clientes cliente = clientesService.findClientesByTel(tel,subSedesDto.getSede() );
+        
+        
         ModelAndView mav = null;
-        if (ordenesIndex != null) {
+        if (ordenesIndex != null && Objects.nonNull(cliente)) {
+            Barrios barrio = barriosService.listClientes(cliente.getCodigoBarrio(), subSedesDto.getSede());
+            SedesDto sedesDto = connectsAuth.findSedeXName(sedePrincipal);
             if (Boolean.FALSE.equals(ordenesIndex.isEmpty())) {
-                JRDataSource datos = new JRBeanCollectionDataSource(ordenesIndex);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("usuario", security.getCurrentUser().getUsername());
                 parameterMap.put("datos", ordenesIndex);
-                SedesDto sedesDto = connectsAuth.findSedeXName(sedePrincipal);
+                
                 parameterMap.put("titulo", sedesDto.getTitulo());
                 parameterMap.put("sede", subSedesDto.getSede());
                 parameterMap.put("nombresede", sedePrincipal);
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
                 parameterMap.put("slogan", sedesDto.getSlogan());
+                parameterMap.put("cliente", cliente.getDescripcionCliente());
+                parameterMap.put("telefono", tel);
+                parameterMap.put("barrio", barrio.getDescripcionBarrio());
                 mav = new ModelAndView("reporteOrdenesUsuarios", parameterMap);
 
             }

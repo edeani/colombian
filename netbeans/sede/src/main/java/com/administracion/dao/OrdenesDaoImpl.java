@@ -29,22 +29,21 @@ public class OrdenesDaoImpl implements OrdenesDao{
     @Autowired
     private LeerXml leerXml;
     /**
-     * El parámetro de promedion proviene de la base de datos principal. Los demas datos se extraen de la subsede
+     * El parámetro de promedion proviene de la base de datos principal.Los demas datos se extraen de la subsede
      * @param nameDataSource
      * @param fechaInicial
      * @param fechaFinal
-     * @param nameDataPrincipal
+     * @param tel
      * @return Las órdenes por producto de los clientes por sub-sede
      */
     @Override
     public List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(DataSource nameDataSource, String fechaInicial, String fechaFinal
-            , String nameDataPrincipal,String tel) {
+            ,String tel) {
         List<OrdenesClienteProdDto> ordenesCliente = new ArrayList<>();
         
         try {
             @SuppressWarnings("UnusedAssignment")
             String sqlOrdenesClientes = leerXml.getQuery("OrdenesSql.ordenesReporteClientes");
-            sqlOrdenesClientes = String.format(sqlOrdenesClientes, nameDataPrincipal);
             
             MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fechaInicial);
             params.addValue("fechaFinal", fechaFinal);

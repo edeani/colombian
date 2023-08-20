@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.administracion.dto;
+package com.administracion.entidad;
 
+import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,15 +14,12 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class OrdenesClienteProdDto {
-
-    private String telefono;
-    private String nombreCliente;
+public class Clientes implements Serializable{
+    
+    private String numeroTelefono;
+    private String descripcionCliente;
+    private String direccionCliente;
+    private String fechaIngreso;
     private Integer codigoBarrio;
-    private Integer unidades;
-    private Float valorProducto;
-    private String nombreProducto;
-    private String codigoProducto;
-    private Float valorTotal;
     
 }

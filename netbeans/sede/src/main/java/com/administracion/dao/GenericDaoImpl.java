@@ -136,7 +136,7 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
     @Override
     public String selectJdbTemplate(String parametros, String tabla, String condiciones) {
         StringBuilder sql = new StringBuilder("");
-        sql.append("SELECT ").append(parametros).append(" FROM ").append(tabla);
+        sql.append("SELECT ").append((parametros==null?"*":parametros)).append(" FROM ").append(tabla);
         if (condiciones != null && !"".equals(condiciones)) {
             sql.append(" WHERE ").append(condiciones);
         }

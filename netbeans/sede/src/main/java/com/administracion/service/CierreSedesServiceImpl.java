@@ -42,7 +42,6 @@ public class CierreSedesServiceImpl implements CierreSedesService {
     @Transactional
     public void guardarComprobanteCierreService(String nameDatasource, ComprobanteCierreSedesDto comprobanteCierreSedesDto) {
         Long secuencia = 0L;
-        SedesDto sedePrincipalActual = connectsAuth.findSedeXName(nameDatasource);
         DataSource ds = connectsAuth.getDataSourceSede(nameDatasource);
         CierreSedes cierreSedesFind = cierreSedesDao.buscarCabeceraComprobanteCierreXFechaXSede(ds, comprobanteCierreSedesDto.getFecha()
                 , comprobanteCierreSedesDto.getFecha(),comprobanteCierreSedesDto.getIdsedepoint().longValue());

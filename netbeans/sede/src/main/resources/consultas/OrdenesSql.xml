@@ -8,23 +8,24 @@
         )sub
     </query>
     <query id="OrdenesSql.ordenesReporteClientes">
+    SELECT sub0.*,sub0.valor_producto*sub0.unidades AS valorTotal FROM(
     SELECT CAST(max(c.numero_telefono) AS CHAR(25)) AS telefono,   
          max(c.descripcion_cliente) as nombreCliente,   
          c.codigo_barrio as codigoBarrio,   
-         SUM(dot.numero_unidades) AS unidades,   
-         sum(inv.promedio) as promedioValorProducto,   
+         SUM(dot.numero_unidades) AS unidades,
          p.descripcion_producto as nombreProducto,   
-         ppi.codigo_producto as codigoProducto
+         ppi.codigo_producto as codigoProducto,
+         dot.valor_producto
     FROM clientes c
     INNER JOIN orden o ON o.numero_telefono = c.numero_telefono
     INNER JOIN detalle_orden dot ON dot.numero_orden = o.numero_orden
     INNER JOIN producto_por_inventario ppi ON ppi.codigo_producto = dot.codigo_producto
-    INNER JOIN productos p ON p.codigo_producto = ppi.codigo_producto
-    INNER JOIN %s.inventario inv ON inv.codigo_producto_inventario =  ppi.codigo_producto_inventario   
+    INNER JOIN productos p ON p.codigo_producto = ppi.codigo_producto   
     WHERE o.estado_orden = 'A' AND  
          o.fecha_orden between :fechaInicial and :fechaFinal
          AND c.numero_telefono = :tel
-    GROUP BY c.numero_telefono,ppi.codigo_producto,p.descripcion_producto
+    GROUP BY c.numero_telefono,ppi.codigo_producto,p.descripcion_producto, dot.valor_producto
     ORDER BY c.descripcion_cliente,c.numero_telefono
+    )sub0
     </query>
 </queries>

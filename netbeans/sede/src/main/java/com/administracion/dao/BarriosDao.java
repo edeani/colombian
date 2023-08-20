@@ -4,16 +4,15 @@
  */
 package com.administracion.dao;
 
-import com.administracion.dto.OrdenesClienteProdDto;
-import java.util.List;
+import com.administracion.entidad.Barrios;
 import javax.sql.DataSource;
 
 /**
  *
  * @author Anlod
  */
-public interface OrdenesDao {
+public interface BarriosDao {
     
-    List<OrdenesClienteProdDto> ordenesReporteClientesSubSede(DataSource nameDataSource
-            , String fechaInicial, String fechaFinal, String tel);
+    Barrios findBarrioById(Integer codigoBarrio,DataSource dataSource);
+    
 }
