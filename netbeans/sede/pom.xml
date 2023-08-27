@@ -163,7 +163,7 @@
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
-            <scope>providuebas-proded</scope>
+            <scope>provided</scope>
         </dependency>
         <!-- Tuckey urlrewrite -->
         <dependency>
@@ -171,6 +171,12 @@
             <artifactId>urlrewritefilter</artifactId>
             <version>4.0.4</version>
         </dependency>
+        <dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.28</version>
+		<scope>provided</scope>
+	</dependency>
         <dependency>
             <groupId>com.mycompany</groupId>
             <artifactId>colombian-jsf</artifactId>
