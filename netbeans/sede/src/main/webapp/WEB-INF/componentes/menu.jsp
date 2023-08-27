@@ -89,7 +89,7 @@
         <!--Reportes-->
         <li class='has-sub'><a href='#'><span>Reportes</span></a>
             <ul>
-        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/inventario.htm'><span>Reporte de Inventario</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/inventario.htm'><span>Reporte de Inventario</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotales.htm'><span>Reporte de Compras Totales</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotalesProveedor.htm'><span>Reporte de Compras Totales por Proveedor</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotalesProducto.htm'><span>Listado facturas compra</span></a></li>
@@ -114,6 +114,7 @@
                 </sec:authorize>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compras.htm'><span>Compras</span></a></li>
                 <sec:authorize access="!hasRole('ROLE_USER')">
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/cliente/index.htm'><span>Inventario Clientes</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/ordenes.htm'><span>Mesas y Llevar</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/ventas/index-ventas.htm'><span>Ventas</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/gastos/index.htm'><span>Gastos</span></a></li>

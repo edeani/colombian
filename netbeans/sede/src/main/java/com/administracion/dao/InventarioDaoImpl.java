@@ -7,11 +7,13 @@ package com.administracion.dao;
 import com.adiministracion.rowmapper.InventarioDTORowMapper;
 import com.adiministracion.rowmapper.InventarioRowMapper;
 import com.administracion.dto.FacturaVentaDTO;
+import com.administracion.dto.InventarioClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.entidad.Inventario;
 import com.administracion.util.LeerXml;
+import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -213,6 +215,25 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
         }
 
         return detalleFactura;
+    }
+
+    @Override
+    public List<InventarioClienteDto> traerProductoClienteInventario(DataSource dataSource, String sedePrincipal, String tel, String fechaInicial, String fechaFinal) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        List<InventarioClienteDto> productosInventarioCliente = new ArrayList<>();
+        try {
+            String sqlProdInv = leerXml.getQuery("InventarioSql.clientes");
+            
+            MapSqlParameterSource paramsProdInv = new MapSqlParameterSource("tel", tel);
+            paramsProdInv.addValue("fechaFinal", fechaFinal);
+            paramsProdInv.addValue("fechaInicial", fechaInicial);
+            
+            productosInventarioCliente =  namedParameterJdbcTemplate.query(String.format(sqlProdInv, sedePrincipal), paramsProdInv
+                    ,new BeanPropertyRowMapper<>(InventarioClienteDto.class));
+        } catch (DataAccessException e) {
+            LOGGER.error("ERROR traerProductoClienteInventario: La consulta retornó 0 elementos " + e.getMessage());
+        }
+        return productosInventarioCliente;
     }
 
 }

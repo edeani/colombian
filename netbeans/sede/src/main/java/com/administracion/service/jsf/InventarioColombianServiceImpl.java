@@ -4,9 +4,7 @@
  */
 package com.administracion.service.jsf;
 
-import com.administracion.entidad.Users;
 import com.administracion.service.autorizacion.ConnectsAuth;
-import com.administracion.service.autorizacion.SecurityService;
 import com.mycompany.util.Formatos;
 import com.mycompany.mapper.Inventario;
 import java.text.DateFormat;
@@ -28,8 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class InventarioColombianServiceImpl implements InventarioColombianService {
 
-    @Autowired
-    private SecurityService securityService;
 
     private JdbcTemplate jdbctemplate;
 
@@ -39,7 +35,6 @@ public class InventarioColombianServiceImpl implements InventarioColombianServic
     @Override
     @Transactional(readOnly = true)
     public List<Inventario> traerInventario(Date Ffinal, Date Finicial, String subsede) {
-        Users user = securityService.getCurrentUser();
         this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
         List<Inventario> inventario = new ArrayList<>();
         try {

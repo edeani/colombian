@@ -5,6 +5,7 @@
 package com.administracion.dao;
 
 import com.administracion.dto.FacturaVentaDTO;
+import com.administracion.dto.InventarioClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
@@ -34,4 +35,5 @@ public interface InventarioDao extends GenericDao<Inventario>{
     List<ItemsDTO> listaProductosLabel(DataSource nameDataSource);
     Inventario traerProducto(DataSource nameDatasource, Long idProducto);
     List<FacturaVentaDTO> traerProductosFactura(DataSource datasource, Long idFactura);
+    List<InventarioClienteDto> traerProductoClienteInventario(DataSource dataSource, String sedePrincipal, String tel, String fechaInicial, String fechaFinal);
 }

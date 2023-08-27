@@ -7,11 +7,13 @@ package com.administracion.service;
 
 import com.administracion.dao.InventarioDao;
 import com.administracion.dao.ReportesDao;
+import com.administracion.dto.InventarioClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteInventarioDTO;
 import com.administracion.service.autorizacion.ConnectsAuth;
+import com.administracion.util.Util;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -168,5 +170,14 @@ public class InventarioServiceImpl implements InventarioService{
         } catch (DataAccessException e) {
             System.out.println("No se actualizó el producto");
         }
+    }
+
+    @Override
+    public List<InventarioClienteDto> traerProductoClienteInventario(String nameDatasource, String tel, String fechaInicial, String fechaFinal) {
+
+        String url = connectsAuth.findSedeXId(connectsAuth.findSubsedeXName(nameDatasource).getIdsede()).getUrl();
+        return inventarioDao.traerProductoClienteInventario(connectsAuth.getDataSourceSubSede(nameDatasource), Util.extractDatabaseFromURL(url),
+                 tel, fechaInicial, fechaFinal);
+
     }
 }
