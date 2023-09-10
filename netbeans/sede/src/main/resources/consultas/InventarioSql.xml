@@ -75,7 +75,7 @@
                          inv.codigo_producto_inventario,
                  inv.descripcion_producto as nombreProducto,
                  inv.promedio as promedioValorProducto,  
-                 SUM(dot.numero_unidades) AS unidades
+                 SUM(dot.numero_unidades*ppi.porcentaje) AS unidades
             FROM clientes c
             INNER JOIN orden o ON o.numero_telefono = c.numero_telefono
             INNER JOIN detalle_orden dot ON dot.numero_orden = o.numero_orden

@@ -23,9 +23,9 @@
                 <tr>
                     <td>${producto.codigoProductoInventario}</td>
                     <td>${producto.nombreProducto}</td>
-                    <td>${producto.unidades}</td>
+                    <td><fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${producto.unidades}" /></td>
                     <td>$<fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${producto.promedioValorProducto}" /></td>
-                    <td>$<fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${producto.totalInventarioProducto}" /></td>
+                    <td>$<fmt:formatNumber type = "number" maxFractionDigits = "0" value = "${producto.totalInventarioProducto}" /></td>
                     <c:set var="totalInventario" value="${totalInventario + producto.totalInventarioProducto}"></c:set>
                     </tr>    
             </c:forEach>

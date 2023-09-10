@@ -14,7 +14,7 @@ public class InventarioClienteDto {
     private String telefono;
     private String codigoProductoInventario;
     private String nombreProducto;
-    private Integer unidades;
+    private Float unidades;
     private Float promedioValorProducto;
     private Float totalInventarioProducto;
     
