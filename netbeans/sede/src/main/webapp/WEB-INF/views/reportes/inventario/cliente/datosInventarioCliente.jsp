@@ -35,9 +35,9 @@
     <input type="hidden" id="totalInventario" value="${totalInventario}"/>
     <br/>
     <div class="contenedorResumen">             
-        <label id="totalInventarioClienteLabel" class="resumen">$<fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${totalInventario}" /></label>
+        <label id="totalInventarioClienteLabel" class="resumen">$<fmt:formatNumber type = "number" maxFractionDigits = "0" value = "${totalInventario}" /></label>
         <label class="resumen">
-            TOTAL INVENTARIO
+            TOTAL
         </label>
     </div>
 </div>

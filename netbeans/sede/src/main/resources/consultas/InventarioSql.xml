@@ -85,8 +85,8 @@
             WHERE o.estado_orden = 'A' AND  
                  o.fecha_orden between :fechaInicial and :fechaFinal
                  AND c.numero_telefono = :tel
-            GROUP BY c.numero_telefono,ppi.codigo_producto,inv.codigo_producto_inventario,inv.descripcion_producto,inv.promedio
-            ORDER BY c.descripcion_cliente,c.numero_telefono
+            GROUP BY c.numero_telefono,inv.codigo_producto_inventario,inv.descripcion_producto,inv.promedio
+            ORDER BY inv.codigo_producto_inventario,c.numero_telefono
         )SUB0
     </query>
 </queries>
