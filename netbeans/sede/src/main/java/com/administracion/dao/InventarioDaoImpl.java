@@ -8,11 +8,14 @@ import com.adiministracion.rowmapper.InventarioDTORowMapper;
 import com.adiministracion.rowmapper.InventarioRowMapper;
 import com.administracion.dto.FacturaVentaDTO;
 import com.administracion.dto.InventarioClienteDto;
+import com.administracion.dto.InventarioConsolidadoClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Inventario;
 import com.administracion.util.LeerXml;
+import com.administracion.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -236,4 +239,48 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
         return productosInventarioCliente;
     }
 
+    @Override
+    public List<InventarioConsolidadoClienteDto> traerProductoConsolidadoInventario(DataSource dataSource,
+            String tel,List<SubSedesDto> subsedes,String sede, String fechaInicial, String fechaFinal) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        List<InventarioConsolidadoClienteDto> productosConsolidadoInventario = new ArrayList<>();
+        try {
+            String sqlProdInv = leerXml.getQuery("InventarioSql.consolidado");
+            
+            MapSqlParameterSource paramsProdInv = new MapSqlParameterSource("tel", tel);
+            paramsProdInv.addValue("fechaFinal", fechaFinal);
+            paramsProdInv.addValue("fechaInicial", fechaInicial);
+            
+            List<String> subsedesQuery = new ArrayList<>();
+            for (SubSedesDto itemSubsede : subsedes) {
+                String database = Util.extractDatabaseFromURL(itemSubsede.getUrl());
+                
+                if (!sede.equals(database)) {
+                    String querySubsede = String.format(sqlProdInv,"'"+itemSubsede.getSede()+"'", sede).concat("\n");
+                    querySubsede = querySubsede.replaceAll("__subsede__", Util.extractDatabaseFromURL(itemSubsede.getUrl()));
+                    querySubsede = querySubsede.concat("\n");
+                    subsedesQuery.add(querySubsede);
+                }
+               
+                /**
+                 * TO DO: Remover system al estabilizar
+                 */
+                System.out.println("Query subsede: "+itemSubsede.getSede());
+            }
+            sqlProdInv = unionAllJdbcTemplate(subsedesQuery);
+            if(subsedes.size()>2){
+                 String globalQuery = leerXml.getQuery("InventarioSql.consolidadoGlobal");
+                 sqlProdInv = globalQuery.replaceAll("__unionsubsedes__", sqlProdInv);
+            }
+            
+            System.out.println("Query consolidado: "+sqlProdInv);
+            
+            productosConsolidadoInventario =  namedParameterJdbcTemplate.query(sqlProdInv, paramsProdInv
+                    ,new BeanPropertyRowMapper<>(InventarioConsolidadoClienteDto.class));
+        } catch (DataAccessException e) {
+             System.out.println("Query DataAccessException: "+ e.getMessage());
+            LOGGER.error("ERROR traerProductoClienteInventario: La consulta retornó 0 elementos " + e.getMessage());
+        }
+        return productosConsolidadoInventario;
+    }
 }

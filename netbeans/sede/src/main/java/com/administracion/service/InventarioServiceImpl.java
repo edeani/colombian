@@ -8,10 +8,13 @@ package com.administracion.service;
 import com.administracion.dao.InventarioDao;
 import com.administracion.dao.ReportesDao;
 import com.administracion.dto.InventarioClienteDto;
+import com.administracion.dto.InventarioConsolidadoClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteInventarioDTO;
+import com.administracion.dto.SedesDto;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.Util;
 import java.util.List;
@@ -36,6 +39,9 @@ public class InventarioServiceImpl implements InventarioService{
     
     @Autowired
     private ConnectsAuth connectsAuth;
+    
+    @Autowired
+    private SubSedesService subSedesService;
     
     
     @Override
@@ -179,5 +185,15 @@ public class InventarioServiceImpl implements InventarioService{
         return inventarioDao.traerProductoClienteInventario(connectsAuth.getDataSourceSubSede(nameDatasource), Util.extractDatabaseFromURL(url),
                  tel, fechaInicial, fechaFinal);
 
+    }
+    
+    @Override
+    public List<InventarioConsolidadoClienteDto> traerProductoConsolidadoInventario(String sede,String tel, String fechaInicial, String fechaFinal) {
+
+        SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+        
+        List<SubSedesDto> subSedesDtos = subSedesService.subSedesXIdSede(sedesDto.getIdsedes());
+        return inventarioDao.traerProductoConsolidadoInventario(connectsAuth.getDataSourceSede(sedesDto.getSede()), tel,subSedesDtos
+                ,Util.extractDatabaseFromURL(sedesDto.getUrl()), fechaInicial, fechaFinal);
     }
 }

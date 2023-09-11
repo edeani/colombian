@@ -27,5 +27,5 @@ public interface GenericDao <T>{
     String insertJdbTemplate(String parametros, String tabla, String condiciones);
     String deleteJdbTemplate(String tabla, String condiciones);   
     String addInsertJdtbTemplate(String values1,String values2,int iteracion);
-
+    String unionAllJdbcTemplate(List<String> queries);
 }

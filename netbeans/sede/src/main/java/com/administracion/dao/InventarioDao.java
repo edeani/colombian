@@ -6,9 +6,11 @@ package com.administracion.dao;
 
 import com.administracion.dto.FacturaVentaDTO;
 import com.administracion.dto.InventarioClienteDto;
+import com.administracion.dto.InventarioConsolidadoClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Inventario;
 import java.util.List;
 import javax.sql.DataSource;
@@ -36,4 +38,6 @@ public interface InventarioDao extends GenericDao<Inventario>{
     Inventario traerProducto(DataSource nameDatasource, Long idProducto);
     List<FacturaVentaDTO> traerProductosFactura(DataSource datasource, Long idFactura);
     List<InventarioClienteDto> traerProductoClienteInventario(DataSource dataSource, String sedePrincipal, String tel, String fechaInicial, String fechaFinal);
+    List<InventarioConsolidadoClienteDto> traerProductoConsolidadoInventario(DataSource dataSource, String tel,List<SubSedesDto> subsedes
+            ,String sede, String fechaInicial, String fechaFinal);
 }

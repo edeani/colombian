@@ -6,12 +6,12 @@ package com.administracion.service;
 
 
 import com.administracion.dto.InventarioClienteDto;
+import com.administracion.dto.InventarioConsolidadoClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteInventarioDTO;
 import java.util.List;
-import javax.sql.DataSource;
 
 /**
  *
@@ -38,4 +38,6 @@ public interface InventarioService {
     public void actualizarProductoSubSede(String nameDataSource,InventarioDTO inventarioDTO);
     
     List<InventarioClienteDto> traerProductoClienteInventario(String nameDatasource,  String tel, String fechaInicial, String fechaFinal);
+    List<InventarioConsolidadoClienteDto> traerProductoConsolidadoInventario(String sede,String tel
+            , String fechaInicial, String fechaFinal);
 }
