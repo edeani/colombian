@@ -109,7 +109,7 @@
                 <sec:authorize access="!hasRole('ROLE_USER')">
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/tiemporeal/cierres.htm'><span>Tiempo Real</span></a></li>
                 </sec:authorize>
-                <sec:authorize access="!hasRole('ROLE_ADMIN_VENTAS')">
+                <sec:authorize access="!hasRole('ROLE_ADMIN_VENTAS') and !hasRole('ROLE_USER')">
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/reporte/inventarios.htm'><span>Inventario</span></a></li>
                 </sec:authorize>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compras.htm'><span>Compras</span></a></li>
