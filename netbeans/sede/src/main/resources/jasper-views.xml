@@ -63,6 +63,14 @@
 	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
            p:url="classpath:/reportes/inventarioTotal.jrxml"
            p:reportDataKey="datos"/>
+        <!--bean id="inventarioColombian"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsxView"
+           p:url="classpath:/reportes/inventarioColombian.jrxml"
+           p:reportDataKey="datos"/-->
+        <bean id="inventarioColombian"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
+           p:url="classpath:/reportes/inventarioColombian.jrxml"
+           p:reportDataKey="datos"/>
         <bean id="consolidado"
 	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
            p:url="classpath:/reportes/consolidado.jrxml"

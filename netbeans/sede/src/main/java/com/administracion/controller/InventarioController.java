@@ -11,6 +11,7 @@ import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteInventarioDTO;
 import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
+import com.administracion.enumeration.DescargasEnum;
 import com.administracion.service.InventarioService;
 import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.ConnectsAuth;
@@ -19,6 +20,7 @@ import com.administracion.util.Formatos;
 import com.google.gson.Gson;
 import com.mycompany.mapper.Inventario;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
 
 /**
  *
@@ -338,5 +341,36 @@ public class InventarioController extends BaseController {
         List<Inventario> inventario = inventarioColombianService.traerInventario(Formatos.StringDateToDate(fechaFinal), Formatos.StringDateToDate(fechaInicial), subsede);
         mav.addObject("inventario", inventario);
         return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping("/colombian/ajax/descargar.htm")
+    public ModelAndView descargarReporteInventarioColombian(@RequestParam String fechaInicial,@RequestParam String fechaFinal,
+            @RequestParam(required = false, value = "sede") String subsede,@RequestParam String tipo,
+            HttpServletResponse httpServletResponse){
+        subsede=subsede.replaceAll(",", "");
+        ModelAndView mavDescargar = consultarInventarioColombian(fechaInicial, fechaFinal, subsede);
+        List<Inventario> inventarioListDownload = (List<Inventario>)  mavDescargar.getModel().get("inventario");
+        mavDescargar.getModel().remove("inventario");
+        
+        if (Boolean.FALSE.equals(inventarioListDownload.isEmpty())) {
+            JRDataSource datos = new JRBeanCollectionDataSource(inventarioListDownload);
+            Map<String, Object> parameterMap = new HashMap<>();
+            parameterMap.put("datos", datos);
+            mavDescargar = new ModelAndView("inventarioColombian", parameterMap);
+            if(tipo.toLowerCase().equals(DescargasEnum.EXCEL.getDescarga())){
+                tipo =DescargasEnum.EXCEL.getTipo();
+            }else{
+                tipo=DescargasEnum.PDF.getTipo();
+            }
+           // httpServletResponse.setHeader("Content-Disposition", "attachment; filename=inventario.xlsx");
+            mavDescargar.addObject("format", tipo);
+        } else {
+            mavDescargar.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
+        }
+        
+        
+        return mavDescargar;
+        
     }
 }

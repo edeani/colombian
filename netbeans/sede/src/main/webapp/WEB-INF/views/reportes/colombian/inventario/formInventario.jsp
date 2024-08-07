@@ -16,7 +16,8 @@
     <div id="tituloPagina">Inventario Sede</div>
     <div class="contenedorEstructuraFormLarge">
         <div class="contentFormSimple">
-            <form id="formInventario" action="<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/ajax/consultar.htm">
+            <form id="formInventario" action="<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/ajax/consultar.htm"
+                  data-download="<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/ajax/descargar.htm">
                 <label>Fecha Inicial
                     <input name="fechaInicial" id="fechaInicial" class="fechaInicial contentRequired" style="cursor: pointer;" type="text" value=""/>
                 </label>
@@ -35,10 +36,13 @@
                 <label>
                     <input id="consultarInventario" type="submit" value="Aceptar" class="generalButton"/>
                 </label>
+                 <label>
+                     <input id="consultarInventarioxls" type="submit" value="Descargar" class="button" style="background: #2ecc71"/>
+                </label>
             </form>
         </div>
         <!-- barra Cargando -->
-        <div id="cargador"></div>             
+        <div id="cargador"></div>
         <div id="listaInventario" >
         </div>
     </div>
