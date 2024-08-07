@@ -17,7 +17,7 @@
     <div class="contenedorEstructuraFormLarge">
         <div class="contentFormSimple">
             <form id="formInventario" action="<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/ajax/consultar.htm"
-                  data-download="<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/ajax/descargar.htm">
+                  data-download="<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/ajax/reporte_inventario.htm">
                 <label>Fecha Inicial
                     <input name="fechaInicial" id="fechaInicial" class="fechaInicial contentRequired" style="cursor: pointer;" type="text" value=""/>
                 </label>

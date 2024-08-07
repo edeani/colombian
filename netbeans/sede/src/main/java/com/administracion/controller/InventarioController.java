@@ -343,9 +343,8 @@ public class InventarioController extends BaseController {
         return mav;
     }
     
-    @ResponseBody
-    @RequestMapping("/colombian/ajax/descargar.htm")
-    public ModelAndView descargarReporteInventarioColombian(@RequestParam String fechaInicial,@RequestParam String fechaFinal,
+    @RequestMapping("/colombian/ajax/reporte_inventario.htm")
+    public @ResponseBody ModelAndView descargarReporteInventarioColombian(@RequestParam String fechaInicial,@RequestParam String fechaFinal,
             @RequestParam(required = false, value = "sede") String subsede,@RequestParam String tipo,
             HttpServletResponse httpServletResponse){
         subsede=subsede.replaceAll(",", "");
