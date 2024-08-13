@@ -7,7 +7,11 @@
 package com.administracion.dao;
 
 
+import com.adiministracion.rowmapper.FacturaAutocompletarDtoRowMapper;
 import com.adiministracion.mapper.FacturaMapper;
+import com.adiministracion.rowmapper.FacturaRowMapper;
+import com.adiministracion.rowmapper.FacturaReporteSedeRowMapper;
+import com.adiministracion.rowmapper.FacturaTotalReporteRowMapper;
 import com.administracion.dto.DetalleCompraDTO;
 import com.administracion.dto.DetalleFacturaDTO;
 import com.administracion.dto.FacturaAutocompletarDto;
@@ -142,7 +146,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
         String sql = "select * from factura where numero_factura = "+idfactura.intValue();
         Factura factura = null;
         try {
-            factura = (Factura) this.jdbctemplate.queryForObject(sql,  new BeanPropertyRowMapper(Factura.class));
+            factura = (Factura) this.jdbctemplate.queryForObject(sql,  new FacturaRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("FACTURADAO::"+e.getMessage());
         }
@@ -157,7 +161,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
         
         List<FacturaReporteSedeDto> reporte = null;
         try {
-            reporte = jdbctemplate.query(sql, new BeanPropertyRowMapper<>(FacturaReporteSedeDto.class));
+            reporte = jdbctemplate.query(sql, new FacturaReporteSedeRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("reporteTotalFacturaXSede::"+e.getMessage());
         }
@@ -173,7 +177,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
         
         List<FacturaTotalReporteDto> reporte = null;
         try {
-            reporte = jdbctemplate.query(sql, new BeanPropertyRowMapper<>(FacturaTotalReporteDto.class));
+            reporte = jdbctemplate.query(sql, new FacturaTotalReporteRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("reporteTotalFactura::"+e.getMessage());
         }
@@ -226,7 +230,7 @@ public class FacturaDaoImpl extends GenericDaoImpl<Factura>implements FacturaDao
         List<FacturaAutocompletarDto> factura=null;
         try {
             factura = this.jdbctemplate.query(selectJdbTemplate("numero_factura as value,fecha_factura as fechaFactura,estado_factura as estadoFactura,valor_total as valorTotal, codigo_proveedor as codigoProveedor",
-                    "factura", "cast(numero_factura as char) like '"+numeroFactura+"%' and codigo_proveedor = "+idproveedor+" and estado_pago_comprobante='"+estado_default_comprobante+"'"), new BeanPropertyRowMapper<>(FacturaAutocompletarDto.class));
+                    "factura", "cast(numero_factura as char) like '"+numeroFactura+"%' and codigo_proveedor = "+idproveedor+" and estado_pago_comprobante='"+estado_default_comprobante+"'"), new FacturaAutocompletarDtoRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("Error de conexión buscarFacturaAutocompletar :" + e.getMessage());
         }

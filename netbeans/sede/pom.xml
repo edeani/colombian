@@ -14,6 +14,8 @@
         <springsecurity.version>4.1.0.RELEASE</springsecurity.version>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
     
     <dependencies>
@@ -71,12 +73,12 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3.2</version>
+            <version>1.5</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.5</version>
+            <version>2.16.1</version>
         </dependency>
         <!-- json google -->
         <dependency>
@@ -138,7 +140,29 @@
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>5.5.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.lowagie</groupId>
+                    <artifactId>itext</artifactId>
+                </exclusion>
+            </exclusions>
             <type>jar</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+        <dependency> 
+            <groupId>org.apache.poi</groupId> 
+            <artifactId>poi-ooxml</artifactId> 
+            <version>5.3.0</version> 
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -157,6 +181,12 @@
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewritefilter</artifactId>
             <version>4.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.mycompany</groupId>
@@ -258,7 +288,7 @@
                 <bd.user>root</bd.user>
                 <bd.password>Compaq*87</bd.password>
                 <bd.ip>localhost:3306</bd.ip>
-                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/sede/src/main/webapp/img/</path.img>
+                <path.img>C:/Users/Anlod/Documents/repository/colombianbroaster/colombian/netbeans/sede/src/main/webapp/img/</path.img>
                 <url.img>/sede/img</url.img>
             </properties>
         </profile>
@@ -269,8 +299,8 @@
                 <base.datos>credencials</base.datos>
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
-                <bd.ip>186.31.32.253:3306</bd.ip>
-                <path.img>C:/Users/EderArmando/Documents/git/colombian/netbeans/sede/src/main/webapp/img/</path.img>
+                <bd.ip>localhost:3306</bd.ip>
+                <path.img>C:/Users/Anlod/Documents/repository/colombianbroaster/colombian/netbeans/sede/src/main/webapp/img/</path.img>
                 <url.img>/sede/img</url.img>
             </properties>
         </profile>
@@ -291,7 +321,7 @@
                 <base.datos>credencials</base.datos>
                 <bd.user>llmdvi</bd.user>
                 <bd.password>YI15102206j</bd.password>
-                <bd.ip>186.31.32.253:3306</bd.ip>
+                <bd.ip>186.155.211.28</bd.ip>
                 <path.img>/opt/tomcat8/webapps/estaticos/img/</path.img>
                 <url.img>/estaticos/img</url.img>
             </properties>

@@ -197,6 +197,20 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
         return movimientos;
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<MovimientoCajaDto> movimientoCajaMayorSubsede(String nameDataSource, Date fechaInicial, Date fechaFinal, Integer idSubsede) {
+
+        String sfechaInicial = Formatos.dateTostring(fechaInicial);
+        String sfechaFinal = Formatos.dateTostring(fechaFinal);
+        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMayorSubsede(connectsAuth.getDataSourceSede(nameDataSource), sfechaInicial, sfechaFinal,idSubsede);
+
+        MovimientoCajaMapper movimientoCajaMayorMapper = new MovimientoCajaMapper();
+        List<MovimientoCajaDto> movimientos = movimientoCajaMayorMapper.comprobanteConsolidadoSedeDtoToMovimietoCajaMayorDto(movs);
+
+        return movimientos;
+    }
 
     @Override
     @Transactional(readOnly = true)

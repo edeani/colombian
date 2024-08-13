@@ -4,6 +4,7 @@
  */
 package com.administracion.service.jsf;
 
+import com.adiministracion.rowmapper.MesasYLlevarRowMapper;
 import com.administracion.entidad.Users;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
@@ -18,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,7 +67,7 @@ public class MesasyllevarColombianServiceImpl implements MesasyllevarColombianSe
                     + " FROM llevar "
                     + " WHERE ( llevar.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "' ) AND ( llevar.estado_orden = 'A' ) "
                     + " ORDER BY 2";
-            mesasyllevar = this.jdbctemplate.query(query, new BeanPropertyRowMapper<>(Mesasyllevar.class));
+            mesasyllevar = this.jdbctemplate.query(query, new MesasYLlevarRowMapper());
             calcularTotalMesas(mesasyllevar);
         } catch (DataAccessException e) {
             LOGGER.error("Error mesas::" + e.getMessage());

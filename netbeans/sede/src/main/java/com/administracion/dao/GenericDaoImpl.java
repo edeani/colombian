@@ -8,6 +8,7 @@ package com.administracion.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,6 +22,8 @@ import javax.persistence.criteria.CriteriaQuery;
 public class GenericDaoImpl<T> implements GenericDao<T> {
 
     protected Class<T> entitytClass;
+    
+    private static final String UNION_ALL = " union all ";
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -136,7 +139,7 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
     @Override
     public String selectJdbTemplate(String parametros, String tabla, String condiciones) {
         StringBuilder sql = new StringBuilder("");
-        sql.append("SELECT ").append(parametros).append(" FROM ").append(tabla);
+        sql.append("SELECT ").append((parametros==null?"*":parametros)).append(" FROM ").append(tabla);
         if (condiciones != null && !"".equals(condiciones)) {
             sql.append(" WHERE ").append(condiciones);
         }
@@ -178,5 +181,23 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         }
         return values1 + ",(" + values2 + ")";
     }
+
+    @Override
+    public String unionAllJdbcTemplate(List<String> queries) {
+        String finalQuery = "";
+        if (Objects.nonNull(queries)) {
+            int tam = queries.size();
+            for (int i = 0; i < tam;  i++) {
+                finalQuery += queries.get(i);
+                if (i < tam-1) {
+                    finalQuery += UNION_ALL;
+                }
+            }
+        }
+        
+         return  finalQuery;
+    }
+    
+    
 
 }

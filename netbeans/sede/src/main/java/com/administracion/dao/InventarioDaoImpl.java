@@ -4,12 +4,19 @@
  */
 package com.administracion.dao;
 
+import com.adiministracion.rowmapper.InventarioDTORowMapper;
+import com.adiministracion.rowmapper.InventarioRowMapper;
 import com.administracion.dto.FacturaVentaDTO;
+import com.administracion.dto.InventarioClienteDto;
+import com.administracion.dto.InventarioConsolidadoClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Inventario;
 import com.administracion.util.LeerXml;
+import com.administracion.util.Util;
+import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -54,7 +61,7 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
     @Override
     public List<InventarioDTO> listInventarioDto(DataSource nameDataSource) {
         this.jdbctemplate = new JdbcTemplate(nameDataSource);
-        return this.jdbctemplate.query(leerXml.getQuery("InventarioSql.list"), new BeanPropertyRowMapper(InventarioDTO.class));
+        return this.jdbctemplate.query(leerXml.getQuery("InventarioSql.list"), new InventarioDTORowMapper());
     }
 
     @Override
@@ -75,6 +82,19 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
             LOGGER.error("insertarProducto:: No se insertó el producto");
         }
     }
+    
+    @Override
+    public void insertarProductoSubsede(DataSource nameDataSource, InventarioDTO inventarioDTO) {
+        this.jdbctemplate = new JdbcTemplate(nameDataSource);
+        try {
+            this.jdbctemplate.execute(insertJdbTemplate("codigo_producto_inventario,descripcion_producto,fecha_inicial,stock_minimo,stock_hoy,fecha_final,stock_real", "inventario",
+                     inventarioDTO.getCodigoProductoInventario() + ",'" + inventarioDTO.getDescripcionProducto() + "','"
+                    + inventarioDTO.getFechaInicial() + "'," + inventarioDTO.getStockMinimo() + "," + inventarioDTO.getStockHoy() + ",'" + inventarioDTO.getFechaFinal() + "'," + inventarioDTO.getStockReal()
+                    ));
+        } catch (DataAccessException e) {
+            LOGGER.error("insertarProducto:: No se insertó el producto");
+        }
+    }
 
     @Override
     public void actualizarProducto(DataSource nameDataSource, InventarioDTO inventarioDTO) {
@@ -90,6 +110,21 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
             LOGGER.error("actualizarProducto:: No se actualizó el producto");
         }
     }
+    
+    @Override
+    public void actualizarProductoSubsede(DataSource nameDataSource, InventarioDTO inventarioDTO) {
+        this.jdbctemplate = new JdbcTemplate(nameDataSource);
+
+        try {
+            this.jdbctemplate.execute(updateJdbTemplate("descripcion_producto='" + inventarioDTO.getDescripcionProducto() + "',fecha_inicial='" + inventarioDTO.getFechaInicial()
+                    + "',stock_minimo=" + inventarioDTO.getStockMinimo() + ",stock_hoy=" + inventarioDTO.getStockHoy()
+                    + ",fecha_final='" + inventarioDTO.getFechaFinal() + "',stock_real=" + inventarioDTO.getStockReal(),
+                     "inventario",
+                     "codigo_producto_inventario = " + inventarioDTO.getCodigoProductoInventario()));
+        } catch (DataAccessException e) {
+            LOGGER.error("actualizarProducto:: No se actualizó el producto");
+        }
+    }
 
     @Override
     public InventarioDTO traerProductoDto(DataSource nameDataSource, Long idProducto) {
@@ -97,7 +132,7 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
         InventarioDTO inventarioDTO = null;
         try {
             inventarioDTO = (InventarioDTO) this.jdbctemplate.queryForObject(selectJdbTemplate("*",
-                    "inventario", "codigo_producto_inventario = ? "), new Object[]{idProducto}, new BeanPropertyRowMapper(InventarioDTO.class));
+                    "inventario", "codigo_producto_inventario = ? "), new Object[]{idProducto}, new InventarioDTORowMapper());
 
         } catch (DataAccessException e) {
             LOGGER.error("traerProductoDto::Inventario: Se encontraron 0 registros");
@@ -156,7 +191,7 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
         this.jdbctemplate = new JdbcTemplate(nameDatasource);
         Inventario inventario = null;
         try {
-            inventario = (Inventario) this.jdbctemplate.queryForObject(selectJdbTemplate("*", "inventario", "codigo_producto_inventario= ?"), new Object[]{idProducto}, new BeanPropertyRowMapper(Inventario.class));
+            inventario = (Inventario) this.jdbctemplate.queryForObject(selectJdbTemplate("*", "inventario", "codigo_producto_inventario= ?"), new Object[]{idProducto}, new InventarioRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("traerProducto::La consulta retornó 0 elementos");
         }
@@ -185,4 +220,67 @@ public class InventarioDaoImpl extends GenericDaoImpl<Inventario> implements Inv
         return detalleFactura;
     }
 
+    @Override
+    public List<InventarioClienteDto> traerProductoClienteInventario(DataSource dataSource, String sedePrincipal, String tel, String fechaInicial, String fechaFinal) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        List<InventarioClienteDto> productosInventarioCliente = new ArrayList<>();
+        try {
+            String sqlProdInv = leerXml.getQuery("InventarioSql.clientes");
+            
+            MapSqlParameterSource paramsProdInv = new MapSqlParameterSource("tel", tel);
+            paramsProdInv.addValue("fechaFinal", fechaFinal);
+            paramsProdInv.addValue("fechaInicial", fechaInicial);
+            
+            productosInventarioCliente =  namedParameterJdbcTemplate.query(String.format(sqlProdInv, sedePrincipal), paramsProdInv
+                    ,new BeanPropertyRowMapper<>(InventarioClienteDto.class));
+        } catch (DataAccessException e) {
+            LOGGER.error("ERROR traerProductoClienteInventario: La consulta retornó 0 elementos " + e.getMessage());
+        }
+        return productosInventarioCliente;
+    }
+
+    @Override
+    public List<InventarioConsolidadoClienteDto> traerProductoConsolidadoInventario(DataSource dataSource,
+            String tel,List<SubSedesDto> subsedes,String sede, String fechaInicial, String fechaFinal) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        List<InventarioConsolidadoClienteDto> productosConsolidadoInventario = new ArrayList<>();
+        try {
+            String sqlProdInv = leerXml.getQuery("InventarioSql.consolidado");
+            
+            MapSqlParameterSource paramsProdInv = new MapSqlParameterSource("tel", tel);
+            paramsProdInv.addValue("fechaFinal", fechaFinal);
+            paramsProdInv.addValue("fechaInicial", fechaInicial);
+            
+            List<String> subsedesQuery = new ArrayList<>();
+            for (SubSedesDto itemSubsede : subsedes) {
+                String database = Util.extractDatabaseFromURL(itemSubsede.getUrl());
+                
+                if (!sede.equals(database)) {
+                    String querySubsede = String.format(sqlProdInv,"'"+itemSubsede.getSede()+"'", sede).concat("\n");
+                    querySubsede = querySubsede.replaceAll("__subsede__", Util.extractDatabaseFromURL(itemSubsede.getUrl()));
+                    querySubsede = querySubsede.concat("\n");
+                    subsedesQuery.add(querySubsede);
+                }
+               
+                /**
+                 * TO DO: Remover system al estabilizar
+                 */
+                System.out.println("Query subsede: "+itemSubsede.getSede());
+            }
+            sqlProdInv = unionAllJdbcTemplate(subsedesQuery);
+            if(subsedes.size()>2){
+                 String globalQuery = leerXml.getQuery("InventarioSql.consolidadoGlobal");
+                 sqlProdInv = globalQuery.replaceAll("__unionsubsedes__", sqlProdInv);
+            }
+            
+            System.out.println("Query consolidado: "+sqlProdInv);
+            
+            productosConsolidadoInventario =  namedParameterJdbcTemplate.query(sqlProdInv, paramsProdInv
+                    ,new BeanPropertyRowMapper<>(InventarioConsolidadoClienteDto.class));
+        } catch (DataAccessException e) {
+             System.out.println("Query DataAccessException: "+ e.getMessage());
+            LOGGER.error("ERROR traerProductoClienteInventario: La consulta retornó 0 elementos " + e.getMessage());
+        }
+        return productosConsolidadoInventario;
+    }
 }

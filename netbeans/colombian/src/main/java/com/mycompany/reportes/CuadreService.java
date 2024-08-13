@@ -21,4 +21,9 @@ public interface CuadreService {
  public Double getValorConsignaciones();
  public Double getValorPagosTarjeta();
  public Double getValorDescuentos();
+ public Double getValorPagoNequi();
+ public Double getValorPagoDaviplata();
+ public Double getValorPagoTransferencia();
+ 
+ 
 }

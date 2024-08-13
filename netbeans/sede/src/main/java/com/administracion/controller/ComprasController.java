@@ -25,7 +25,6 @@ import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.service.jsf.ComprasColombianService;
 import com.administracion.util.Formatos;
-import com.administracion.util.LectorPropiedades;
 import com.administracion.util.PrintUtil;
 import com.mycompany.dto.ReporteComprasSedeDto;
 import java.io.InputStream;
@@ -117,6 +116,7 @@ public class ComprasController extends BaseController {
      * Este metodo verifica que una compa exista o n
      *
      * @param idcompra
+     * @param codigoProveedor
      * @param sede
      * @return Devuelve el String true si existe o false en caso contrario
      */
@@ -308,14 +308,14 @@ public class ComprasController extends BaseController {
     }
 
     @RequestMapping(value = "/reportes/comprasProveedorFechaPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView reporteComprasProveedorFechaPDF(HttpServletRequest request, HttpServletResponse response,
+    public ModelAndView reporteComprasProveedorFechaPDF( 
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
             @PathVariable String sede) {
         ModelAndView mav;
 
         List<ComprasProveedorFechaDto> reporte = comprasService.reporteComprasProveedorFechaDto(sede, fechaInicial, fechaFinal);
         if (reporte != null) {
-            if (reporte.size() > 0) {
+            if (Boolean.FALSE.equals(reporte.isEmpty())) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -343,7 +343,7 @@ public class ComprasController extends BaseController {
 
         List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotales(sede, fechaInicial, fechaFinal, "A");
         if (comprasTotales != null) {
-            if (comprasTotales.size() > 0) {
+            if (!comprasTotales.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(comprasTotales);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -370,7 +370,7 @@ public class ComprasController extends BaseController {
         ModelAndView mav;
         List<ReporteComprasTotalesProvDTO> compras = comprasService.comprasTotalesProveedores(sede, fechaInicial, fechaFinal);
         if (compras != null) {
-            if (compras.size() > 0) {
+            if (!compras.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(compras);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -398,7 +398,7 @@ public class ComprasController extends BaseController {
         ModelAndView mav;
         List<ComprasTotalesDTO> comprasTotales = comprasService.comprasTotalesProveedor(sede, fechaInicial, fechaFinal, "A", codigoProveedor);
         if (comprasTotales != null) {
-            if (comprasTotales.size() > 0) {
+            if (!comprasTotales.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(comprasTotales);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -427,7 +427,7 @@ public class ComprasController extends BaseController {
         ModelAndView mav;
         List<ReporteComprasTotalesXProveedorDTO> reporte = comprasService.comprasTotalesXProveedor(sede, codigoProveedor, fechaInicial, fechaFinal);
         if (reporte != null) {
-            if (reporte.size() > 0) {
+            if (!reporte.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -456,7 +456,7 @@ public class ComprasController extends BaseController {
         ModelAndView mav;
         List<CuentasPagarProveedoresDto> reporte = comprasService.reporteCuentasPagarProveedoresDto(sede, fechaInicial, fechaFinal, codigoProveedor);
         if (reporte != null) {
-            if (reporte.size() > 0) {
+            if (!reporte.isEmpty()) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -495,7 +495,7 @@ public class ComprasController extends BaseController {
         SubSedesDto subSedesDto = connectsAuth.findSubsedeXId(Integer.valueOf(sede));
         List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal), subSedesDto.getSede());
         if (reporte != null) {
-            if (reporte.size() > 0) {
+            if (Boolean.FALSE.equals(reporte.isEmpty())) {
                 JRDataSource datos = new JRBeanCollectionDataSource(reporte);
                 Map<String, Object> parameterMap = new HashMap<>();
                 parameterMap.put("datos", datos);
@@ -558,14 +558,13 @@ public class ComprasController extends BaseController {
         try {
             JasperDesign design = JRXmlLoader.load(input);
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
-            Map<String, Object> parametros = new HashMap<String, Object>();
+            Map<String, Object> parametros = new HashMap<>();
             parametros.put("usuario", securityService.getCurrentUser().getUsername());
             parametros.put("proveedor", detalleCompraDTO.getNombreProveedor());
             parametros.put("numeroFactura", detalleCompraDTO.getNumeroFactura());
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,
                     parametros, beanCollectionDataSource);
 
-            LectorPropiedades lector = new LectorPropiedades();
             PrintService selectedService = PrintUtil.findPrintService(detalleCompraDTO.getImpresora());
 
             PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();

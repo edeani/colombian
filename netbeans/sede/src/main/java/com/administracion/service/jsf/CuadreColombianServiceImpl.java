@@ -4,6 +4,7 @@
  */
 package com.administracion.service.jsf;
 
+import com.adiministracion.rowmapper.CuadreRowMapper;
 import com.administracion.entidad.Users;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -60,7 +60,7 @@ public class CuadreColombianServiceImpl implements CuadreColombianService {
                     + "FROM cierre_diario "
                     + "WHERE cierre_diario.fecha between '" + formato.dateTostring(dfDefault.format(fi)) + "'  and '" + formato.dateTostring(dfDefault.format(ff)) + "' " 
                     + "ORDER BY FECHA";
-            cuadres = this.jdbctemplate.query(query, new BeanPropertyRowMapper<>(Cuadre.class));
+            cuadres = this.jdbctemplate.query(query, new CuadreRowMapper());
             calcularResumenCuadre(cuadres);
         } catch (DataAccessException e) {
             System.out.println("Error cuadreDia::" + e.getMessage());

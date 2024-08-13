@@ -61,7 +61,7 @@ public class ComprasColombianServiceImpl implements ComprasColombianService{
                        " ( ( factura.fecha_factura between '"+formato.dateTostring(dfDefault.format(Finicial))+"' and '"+formato.dateTostring(dfDefault.format(Ffinal))+"' ) AND  "+
                        " ( factura.estado_factura = 'A' ) )  "+
 	               " group by inventario.codigo_producto_inventario,inventario.descripcion_producto ";
-            compras = this.jdbctemplate.query(query, new BeanPropertyRowMapper<ReporteComprasSedeDto>(ReporteComprasSedeDto.class));
+            compras = this.jdbctemplate.query(query, new BeanPropertyRowMapper<>(ReporteComprasSedeDto.class));
             OperacionesUtil.promedioCompras(compras);
         } catch (DataAccessException e) {
             LOGGER.error("Error listadoCompras::" + e.getMessage());

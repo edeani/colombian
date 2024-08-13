@@ -4,8 +4,7 @@
  */
 package com.administracion.service.jsf;
 
-import com.mycompany.mapper.OrdenesDomiciliosMapper;
-import java.util.Date;
+import com.mycompany.dto.OrdenesDomiciliosDto;
 import java.util.List;
 
 
@@ -17,7 +16,7 @@ import java.util.List;
  */
 public interface OrdenesDomiciliosColombianService {
     
-        public List<OrdenesDomiciliosMapper> domiciliosordenes(Date fi, Date ff,String subsede);
+        public List<OrdenesDomiciliosDto> domiciliosordenes(String fi, String ff,String subsede);
         public Double getTotalvalor();
     
 }

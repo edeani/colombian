@@ -52,21 +52,21 @@
  
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://${serverbd}/${basededatos}?serverTimezone=UTC&amp;useLegacyDatetimeCode=false&amp;useSSL=false"/>
+        <property name="url" value="jdbc:mysql://${serverbd}/${basededatos}?allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&amp;useLegacyDatetimeCode=false&amp;useSSL=false"/>
         <property name="username"  value="${usuariobd}"/>
         <property name="password" value="${paswordbd}"/>
     </bean>
     
     <bean id="dataSourceSede" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://${serverbd}/${basededatos}?serverTimezone=UTC&amp;useLegacyDatetimeCode=false&amp;useSSL=false"/>
+        <property name="url" value="jdbc:mysql://${serverbd}/${basededatos}?allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&amp;useLegacyDatetimeCode=false&amp;useSSL=false"/>
         <property name="username"  value="${usuariobd}"/>
         <property name="password" value="${paswordbd}"/>
     </bean>
     
     <bean id="dataSourceSubSede" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://${serverbd}/${basededatos}?serverTimezone=UTC&amp;useLegacyDatetimeCode=false&amp;useSSL=false"/>
+        <property name="url" value="jdbc:mysql://${serverbd}/${basededatos}?allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&amp;useLegacyDatetimeCode=false&amp;useSSL=false"/>
         <property name="username"  value="${usuariobd}"/>
         <property name="password" value="${paswordbd}"/>
     </bean>

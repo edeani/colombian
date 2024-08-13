@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.mapper;
+package com.mycompany.dto;
 
 
 import java.util.Date;
@@ -10,14 +10,13 @@ import java.util.Date;
  *
  * @author joseefren
  */
-public class OrdenesDomiciliosMapper {
+public class OrdenesDomiciliosDto {
     private String orden;
     private String telefono;
     private String barrio;
     private String cliente;
     private Date fecha;
     private String valor;
-    private String registros;
 
     /**
      * @return the orden
@@ -101,24 +100,6 @@ public class OrdenesDomiciliosMapper {
      */
     public void setValor(String valor) {
         this.valor = valor;
-    }
-
-    /**
-     * @return the registros
-     */
-    public String getRegistros() {
-        return registros;
-    }
-
-    /**
-     * @param registros the registros to set
-     */
-    public void setRegistros(String registros) {
-        this.registros = registros;
-    }
-
-    
-    
-    
+    }    
     
 }

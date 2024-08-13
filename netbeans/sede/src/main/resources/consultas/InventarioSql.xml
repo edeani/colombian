@@ -66,4 +66,60 @@
         select codigo_producto_inventario as id,descripcion_producto 
         as label from inventario order by codigo_producto_inventario
     </query>
+    <query id="InventarioSql.clientes">
+        SELECT SUB0.telefono,SUB0.codigo_producto_inventario,SUB0.nombreProducto,
+        SUB0.unidades * SUB0.promedioValorProducto AS totalInventarioProducto,
+        SUB0.promedioValorProducto,SUB0.unidades
+        FROM(
+        SELECT CAST(max(c.numero_telefono) AS CHAR(25)) AS telefono, 
+                         inv.codigo_producto_inventario,
+                 inv.descripcion_producto as nombreProducto,
+                 inv.promedio as promedioValorProducto,  
+                 SUM(dot.numero_unidades*ppi.porcentaje) AS unidades
+            FROM clientes c
+            INNER JOIN orden o ON o.numero_telefono = c.numero_telefono
+            INNER JOIN detalle_orden dot ON dot.numero_orden = o.numero_orden
+            INNER JOIN producto_por_inventario ppi ON ppi.codigo_producto = dot.codigo_producto
+            INNER JOIN productos p ON p.codigo_producto = ppi.codigo_producto
+            INNER JOIN %s.inventario inv ON inv.codigo_producto_inventario =  ppi.codigo_producto_inventario   
+            WHERE o.estado_orden = 'A' AND  
+                 o.fecha_orden between :fechaInicial and :fechaFinal
+                 AND c.numero_telefono = :tel
+            GROUP BY c.numero_telefono,inv.codigo_producto_inventario,inv.descripcion_producto,inv.promedio
+            ORDER BY inv.codigo_producto_inventario,c.numero_telefono
+        )SUB0
+    </query>
+    <query id="InventarioSql.consolidado">
+        SELECT %s as subsede, SUB0.codigo_producto_inventario,SUB0.nombreProducto,
+        SUB0.unidades * SUB0.promedioValorProducto AS totalInventarioProducto,
+        SUB0.promedioValorProducto,SUB0.unidades
+        FROM(
+        SELECT CAST(c.numero_telefono AS CHAR(25)) AS telefono, 
+                         inv.codigo_producto_inventario,
+                 inv.descripcion_producto as nombreProducto,
+                 inv.promedio as promedioValorProducto,  
+                 SUM(dot.numero_unidades*ppi.porcentaje) AS unidades
+            FROM __subsede__.clientes c
+            INNER JOIN __subsede__.orden o ON o.numero_telefono = c.numero_telefono
+            INNER JOIN __subsede__.detalle_orden dot ON dot.numero_orden = o.numero_orden
+            INNER JOIN __subsede__.producto_por_inventario ppi ON ppi.codigo_producto = dot.codigo_producto
+            INNER JOIN __subsede__.productos p ON p.codigo_producto = ppi.codigo_producto
+            INNER JOIN %s.inventario inv ON inv.codigo_producto_inventario =  ppi.codigo_producto_inventario   
+            WHERE o.estado_orden = 'A' AND  
+                 o.fecha_orden between :fechaInicial and :fechaFinal
+                 AND c.numero_telefono = :tel
+            GROUP BY c.numero_telefono,inv.codigo_producto_inventario,inv.descripcion_producto,inv.promedio
+            ORDER BY inv.codigo_producto_inventario,c.numero_telefono
+        )SUB0
+    </query>
+    <query id="InventarioSql.consolidadoGlobal">
+        SELECT SUB1.codigo_producto_inventario,SUB1.nombreProducto,
+        SUM(SUB1.totalInventarioProducto) AS totalInventarioProducto ,
+        SUB1.promedioValorProducto, SUM(SUB1.unidades) AS unidades
+        FROM(
+                    __unionsubsedes__
+        )SUB1
+        GROUP BY SUB1.codigo_producto_inventario,SUB1.nombreProducto,SUB1.promedioValorProducto
+        ORDER BY SUB1.codigo_producto_inventario
+    </query>
 </queries>

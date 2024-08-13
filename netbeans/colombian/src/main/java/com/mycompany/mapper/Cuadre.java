@@ -18,6 +18,9 @@ public class Cuadre {
     private String ValorCajaReal;
     private String valorPagosTarjeta;
     private String valorDescuentos;
+    private String valorPagoNequi;
+    private String valorPagoDaviplata;
+    private String valorPagoTransferencia;
 
     /**
      * @return the fecha
@@ -103,6 +106,30 @@ public class Cuadre {
 
     public void setValorDescuentos(String valorDescuentos) {
         this.valorDescuentos = valorDescuentos;
+    }
+
+    public String getValorPagoNequi() {
+        return valorPagoNequi;
+    }
+
+    public void setValorPagoNequi(String valorPagoNequi) {
+        this.valorPagoNequi = valorPagoNequi;
+    }
+
+    public String getValorPagoDaviplata() {
+        return valorPagoDaviplata;
+    }
+
+    public void setValorPagoDaviplata(String valorPagoDaviplata) {
+        this.valorPagoDaviplata = valorPagoDaviplata;
+    }
+
+    public String getValorPagoTransferencia() {
+        return valorPagoTransferencia;
+    }
+
+    public void setValorPagoTransferencia(String valorPagoTransferencia) {
+        this.valorPagoTransferencia = valorPagoTransferencia;
     }
     
     

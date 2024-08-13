@@ -8,7 +8,12 @@
         <li class='has-sub'><a href='#'><span>Facturaci&oacute;n</span></a>
             <ul>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/sede.htm'><span>Cierre Sedes</span></a></li>
-                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/index.htm'><span>Inventario</span></a></li>
+                <li class='has-sub'><a href='#'><span>Inventario</span></a>
+                    <ul>
+                        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/index.htm'><span>Inventario Principal</span></a></li>
+                        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/index.htm'><span>Inventario Sedes</span></a></li>
+                    </ul>
+                </li>
                 <li class='has-sub'><a href='#'><span>Compras</span></a>
                     <ul>
                         <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/home.htm'><span>Compras</span></a></li>
@@ -48,7 +53,13 @@
                             </ul>
                         </li>
                         <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/pagos/sede/consolidado/index.htm'><span>Pagos Porcentaje Sedes</span></a></li>
-                        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/cajamayor.htm'><span>Caja Mayor</span></a></li>
+                        <li class='has-sub'><a href='#'><span>Caja Mayor</span></a>
+                            <ul>
+                                <a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/cajamayor.htm'><span>Caja Mayor</span></a>
+                                <a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/comprobante/subsede/cajamayor.htm'><span>Caja Mayor Sede</span></a>
+                            </ul>
+                            
+                        </li>
                         <li class='has-sub'><a href='#'><span>Imprimir</span></a>
                             <ul>
                                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/imprimir/comprobante/pago.htm'><span>Comprobantes de Pago</span></a></li>
@@ -78,7 +89,7 @@
         <!--Reportes-->
         <li class='has-sub'><a href='#'><span>Reportes</span></a>
             <ul>
-        <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/inventario.htm'><span>Reporte de Inventario</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/inventario.htm'><span>Reporte de Inventario</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotales.htm'><span>Reporte de Compras Totales</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotalesProveedor.htm'><span>Reporte de Compras Totales por Proveedor</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotalesProducto.htm'><span>Listado facturas compra</span></a></li>
@@ -95,17 +106,24 @@
         </li>
         <li class='has-sub'><a href='#'><span>Entrar Sedes</span></a>
             <ul>
+                <sec:authorize access="!hasRole('ROLE_USER')">
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/tiemporeal/cierres.htm'><span>Tiempo Real</span></a></li>
-                <sec:authorize access="!hasRole('ROLE_ADMIN_VENTAS')">
+                </sec:authorize>
+                <sec:authorize access="!hasRole('ROLE_ADMIN_VENTAS') and !hasRole('ROLE_USER')">
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/colombian/reporte/inventarios.htm'><span>Inventario</span></a></li>
                 </sec:authorize>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compras.htm'><span>Compras</span></a></li>
+                <sec:authorize access="!hasRole('ROLE_USER')">
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/cliente/index.htm'><span>Inventario Clientes</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/cliente/consolidado/index.htm'><span>Inventario Consolidado</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/mesasyllevar/ordenes.htm'><span>Mesas y Llevar</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/ventas/index-ventas.htm'><span>Ventas</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/gastos/index.htm'><span>Gastos</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/domicilios/index-domicilios.htm'><span>Domicilios</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/domicilios/domicilios-dia.htm'><span>Domicilios D&iacute;a</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/cuadre/index-cuadre.htm'><span>Control Cierres</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/ordenes/index.htm'><span>Ordenes Usuario</span></a></li>
+                </sec:authorize>
             </ul>
         </li>
     </ul>

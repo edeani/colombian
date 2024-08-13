@@ -5,7 +5,6 @@
  */
 package com.administracion.controller;
 
-import com.administracion.dao.SedesDao;
 import com.administracion.dao.SubSedesDao;
 import com.administracion.dto.BalanceDto;
 import com.administracion.dto.CierreSedesDto;
@@ -24,7 +23,7 @@ import com.administracion.entidad.SubSedes;
 import com.administracion.service.CierreSedesService;
 import com.administracion.service.CuentasService;
 import com.administracion.service.ReporteService;
-import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.util.Formatos;
@@ -33,6 +32,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -63,7 +63,7 @@ public class ConsolidadoController extends BaseController {
     @Autowired
     private SecurityService security;
     @Autowired
-    private SedesDao sedesDao;
+    private SedesService sedesService;
     @Autowired
     private SubSedesDao subSedesDao;
     @Autowired
@@ -215,25 +215,55 @@ public class ConsolidadoController extends BaseController {
         mav.addObject("titulo", "Movimientos Caja Mayor");
         return mav;
     }
+    
+     @RequestMapping(value = "/comprobante/subsede/cajamayor.htm")
+    public ModelAndView comprobanteCajaMayorSubsede(@PathVariable String sede) {
+        ModelAndView mav = new ModelAndView("reportes/consolidado/cajaMayorSede");
+        
+        SedesDto sedePrincipal = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipal = connectsAuth.findSubSedeXIdSede(sedePrincipal.getIdsedes());
+        
+        mav.addObject("fechaInicial", new Date());
+        mav.addObject("fechaFinal", new Date());
+        mav.addObject("subSedePrincipal", subSedePrincipal);
+        mav.addObject("titulo", "Movimientos Caja Mayor Sede");
+        return mav;
+    }
 
     @RequestMapping(value = "/comprobante/reporte/movimiento/cajamayor/pdf.htm")
     public ModelAndView reporteCajaMayor(@RequestParam String fechaInicial, @RequestParam String fechaFinal,
-            @PathVariable String sede) {
+            @PathVariable String sede, @RequestParam(required = false) Integer idSubsede) throws Exception {
         Date objFechaInicio = Formatos.StringDateToDate(fechaInicial);
         Date objFechaFin = Formatos.StringDateToDate(fechaFinal);
-        List<MovimientoCajaDto> movimientos = reporteService.movimientoCajaMayor(sede, objFechaInicio, objFechaFin);
+        
+        String nombresede = sede;
+        List<MovimientoCajaDto> movimientos = new ArrayList<>();
+        if (Objects.nonNull(idSubsede)) {
+            Sedes sedeBelongPPAL = sedesService.buscarSede(idSubsede.longValue());
+            
+            if (Objects.isNull(sedeBelongPPAL)) {
+                throw new Exception("La sede no existe");
+            }
+            
+            String subSede = sedeBelongPPAL.getSede();
+            nombresede = subSede;
+            movimientos = reporteService.movimientoCajaMayorSubsede(sede, objFechaInicio, objFechaFin, idSubsede);
+        }else{
+            movimientos = reporteService.movimientoCajaMayor(sede, objFechaInicio, objFechaFin);
+        }
         ModelAndView mav = null;
         if (movimientos != null) {
             JRDataSource datos = new JRBeanCollectionDataSource(movimientos);
             Map<String, Object> parameterMap = new HashMap<>();
-
+            
+                
             parameterMap.put("datos", datos);
             parameterMap.put("fechaInicio", objFechaInicio);
             parameterMap.put("fechaFin", objFechaFin);
             parameterMap.put("usuario", security.getCurrentUser().getUsername());
             parameterMap.put("titulo", "Libro Auxiliar de Caja Mayor");
             SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-            parameterMap.put("nombresede", sedesDto.getTitulo());
+            parameterMap.put("nombresede", nombresede);
             parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("movimientoCaja", parameterMap);
         }

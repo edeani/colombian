@@ -85,7 +85,7 @@ public class OrdenesDomiciliosServiceImpl implements OrdenesDomiciliosService {
              od.setTelefono(rs.getString("orden.numero_telefono"));
              od.setBarrio(rs.getString("barrios.descripcion_barrio"));
              od.setCliente(rs.getString("clientes.descripcion_cliente"));
-             od.setFecha(rs.getDate("orden.fecha_orden"));
+             od.setFecha(formato.extractDateResultSet(rs,"orden.fecha_orden"));
              od.setValor(formato.numeroToStringFormato(rs.getDouble("orden.valor_total")));
              
              totalvalor += rs.getDouble("orden.valor_total");     

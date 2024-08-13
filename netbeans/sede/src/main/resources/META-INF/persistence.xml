@@ -6,5 +6,58 @@
     <class>com.administracion.entidad.Rol</class>
     <class>com.administracion.entidad.Userxsede</class>
     <class>com.administracion.entidad.Sloganxsede</class>
+    <class>com.adiministracion.mapper.model.TypeLawDeductions</class>
+    <class>com.adiministracion.mapper.model.Events</class>
+    <class>com.adiministracion.mapper.model.TypePayrollAdjustNotes</class>
+    <class>com.adiministracion.mapper.model.PaymentMethods</class>
+    <class>com.adiministracion.mapper.model.TypeItemIdentifications</class>
+    <class>com.adiministracion.mapper.model.DocumentPayrolls</class>
+    <class>com.adiministracion.mapper.model.Departments</class>
+    <class>com.adiministracion.mapper.model.UnitMeasures</class>
+    <class>com.adiministracion.mapper.model.CreditNoteDiscrepancyResponses</class>
+    <class>com.adiministracion.mapper.model.Taxes</class>
+    <class>com.adiministracion.mapper.model.TypeLiabilities</class>
+    <class>com.adiministracion.mapper.model.TypeDocuments</class>
+    <class>com.adiministracion.mapper.model.ReferencePrices</class>
+    <class>com.adiministracion.mapper.model.SubTypeWorkers</class>
+    <class>com.adiministracion.mapper.model.TypeEnvironments</class>
+    <class>com.adiministracion.mapper.model.PayrollTypeDocumentIdentifications</class>
+    <class>com.adiministracion.mapper.model.Discounts</class>
+    <class>com.adiministracion.mapper.model.HealthTypeOperations</class>
+    <class>com.adiministracion.mapper.model.Countries</class>
+    <class>com.adiministracion.mapper.model.HealthTypeUsers</class>
+    <class>com.adiministracion.mapper.model.TypeDisabilities</class>
+    <class>com.adiministracion.mapper.model.PayrollPeriods</class>
+    <class>com.adiministracion.mapper.model.Migrations</class>
+    <class>com.adiministracion.mapper.model.Software</class>
+    <class>com.adiministracion.mapper.model.TypeRegimes</class>
+    <class>com.adiministracion.mapper.model.TypeGenerationTransmitions</class>
+    <class>com.adiministracion.mapper.model.Languages</class>
+    <class>com.adiministracion.mapper.model.HealthContractingPaymentMethods</class>
+    <class>com.adiministracion.mapper.model.Companies</class>
+    <class>com.adiministracion.mapper.model.Customers</class>
+    <class>com.adiministracion.mapper.model.Municipalities</class>
+    <class>com.adiministracion.mapper.model.TypeWorkers</class>
+    <class>com.adiministracion.mapper.model.Incoterms</class>
+    <class>com.adiministracion.mapper.model.Administrators</class>
+    <class>com.adiministracion.mapper.model.TypeOvertimeSurcharges</class>
+    <class>com.adiministracion.mapper.model.TypeRejections</class>
+    <class>com.adiministracion.mapper.model.HealthTypeDocumentIdentifications</class>
+    <class>com.adiministracion.mapper.model.HealthCoverages</class>
+    <class>com.adiministracion.mapper.model.Sends</class>
+    <class>com.adiministracion.mapper.model.TypeDiscounts</class>
+    <class>com.adiministracion.mapper.model.Certificates</class>
+    <class>com.adiministracion.mapper.model.TypeDocumentIdentifications</class>
+    <class>com.adiministracion.mapper.model.Documents</class>
+    <class>com.adiministracion.mapper.model.TypeCurrencies</class>
+    <class>com.adiministracion.mapper.model.Logs</class>
+    <class>com.adiministracion.mapper.model.TypeContracts</class>
+    <class>com.adiministracion.mapper.model.TypeOrganizations</class>
+    <class>com.adiministracion.mapper.model.Resolutions</class>
+    <class>com.adiministracion.mapper.model.TypeOperations</class>
+    <class>com.adiministracion.mapper.model.ReceivedDocuments</class>
+    <class>com.adiministracion.mapper.model.PaymentForms</class>
+    <class>com.adiministracion.mapper.model.Employees</class>
+    <class>com.adiministracion.mapper.model.DebitNoteDiscrepancyResponses</class>
   </persistence-unit>
 </persistence>

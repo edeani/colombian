@@ -19,6 +19,7 @@ table{
     color:#fff;
     border-top:none;
     padding:10px;
+    width: 100%;
 }
 .divContenedorTabla table{
     width: 100%;
@@ -120,4 +121,8 @@ table caption{
     width: 100%;
     color: white;
     background-color: black;
+}
+
+input:disabled {
+  background-color: #f0f0f0 !important
 }

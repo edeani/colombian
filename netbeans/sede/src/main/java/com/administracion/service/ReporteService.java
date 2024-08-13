@@ -23,6 +23,7 @@ public interface ReporteService {
     public List<ReporteConsolidadoDto> reporteConsolidado(Integer idSede,String fechaInicial,String fechaFinal);
     public List<ComprobanteConsolidadoSedeDto> comprobanteConsolidado(String nameDataSourceSede,Integer idSubSede,Date fecha);
     public List<MovimientoCajaDto> movimientoCajaMayor(String nameDataSource,Date fechaInicial,Date fechaFinal);
+    public List<MovimientoCajaDto> movimientoCajaMayorSubsede(String nameDataSource, Date fechaInicial, Date fechaFinal, Integer idSubsede);
     public List<MovimientoCajaDto> movimientoCajaMenor(String nameDataSource, String fechaInicial, String fechaFinal);
     public PagosConsolidadoSedeDto generarPagoConsolidadoSedePorcentaje(String nameDataSource,int mes);
     public ReporteTotalCuentasXNivelDto reportePerdidaIngresoTotalXNivel(String nameDataSource,String fechInicial, String fechaFinal);

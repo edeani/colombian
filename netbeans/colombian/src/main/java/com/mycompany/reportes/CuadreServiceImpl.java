@@ -13,10 +13,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  *
@@ -31,6 +33,9 @@ public class CuadreServiceImpl implements CuadreService {
     private Double valorConsignaciones;
     private Double valorDescuentos;
     private Double valorPagosTarjeta;
+    private Double valorPagoNequi;
+    private Double valorPagoDaviplata;
+    private Double valorPagoTransferencia;
 
     @Override
     public List<Cuadre> cuadreDia(Date fi, Date ff) {
@@ -44,11 +49,17 @@ public class CuadreServiceImpl implements CuadreService {
         conexion.setServer(user.getSede().getIdentificador() + "/" + user.getSede().getBd());
         conexion.establecerConexion();
         connection = conexion.getConexion();
-        setValorVentas((Double) 0D);
-        setValorGastos((Double) 0D);
-        setValorConsignaciones((Double) 0D);
-        setValorDescuentos(0D);
-        setValorPagosTarjeta(0D);
+        
+        final double defaultValueQty=0D;
+        setValorVentas(defaultValueQty);
+        setValorGastos(defaultValueQty);
+        setValorConsignaciones(defaultValueQty);
+        setValorDescuentos(defaultValueQty);
+        setValorPagosTarjeta(defaultValueQty);
+        setValorPagoNequi(defaultValueQty);
+        setValorPagoDaviplata(defaultValueQty);
+        setValorPagoTransferencia(defaultValueQty);
+        
         List<Cuadre> cuadre = new ArrayList<Cuadre>();
         if (connection != null) {
             ResultSet rs = null;
@@ -61,7 +72,10 @@ public class CuadreServiceImpl implements CuadreService {
                     + "cierre_diario.consignaciones AS CONSIGNACIONES, "
                     + "cierre_diario.caja_real AS CAJA_REAL, "
                     + "cierre_diario.descuento_ventas AS DESCUENTOS, "
-                    + "cierre_diario.pago_tarjetas AS PAGO_TARJETAS "
+                    + "cierre_diario.pago_tarjetas AS PAGO_TARJETAS, "
+                    + "cierre_diario.pago_nequi AS PAGO_NEQUI, "
+                    + "cierre_diario.pago_daviplata AS PAGO_DAVIPLATA, "
+                    + "cierre_diario.pago_transferencia AS PAGO_TRANSFERENCIA "
                     + "FROM cierre_diario "
                     + "WHERE cierre_diario.fecha between '" + formato.dateTostring(dfDefault.format(fi)) + "'  and '" + formato.dateTostring(dfDefault.format(ff)) + "' " 
                     + "ORDER BY FECHA";
@@ -78,20 +92,28 @@ public class CuadreServiceImpl implements CuadreService {
 
                 while (rs.next()) {
                     Cuadre c = new Cuadre();
-
-                    c.setFecha(rs.getDate("FECHA"));
+                   
+                    c.setFecha( formato.extractDateResultSet(rs, "FECHA") );
                     c.setValorVentas(formato.numeroToStringFormato(rs.getDouble("VENTAS")));
                     c.setValorGastos(formato.numeroToStringFormato(rs.getDouble("GASTOS")));
                     c.setValorConsignaciones(formato.numeroToStringFormato(rs.getDouble("CONSIGNACIONES")));
                     c.setValorDescuentos(formato.numeroToStringFormato(rs.getDouble("DESCUENTOS")));
                     c.setValorPagosTarjeta(formato.numeroToStringFormato(rs.getDouble("PAGO_TARJETAS")));
                     c.setValorCajaReal(formato.numeroToStringFormato(rs.getDouble("CAJA_REAL")));
+                    c.setValorPagoNequi(formato.numeroToStringFormato(rs.getDouble("PAGO_NEQUI")));
+                    c.setValorPagoDaviplata(formato.numeroToStringFormato(rs.getDouble("PAGO_DAVIPLATA")));
+                    c.setValorPagoTransferencia(formato.numeroToStringFormato(rs.getDouble("PAGO_TRANSFERENCIA")));
+                    
+                    
                     valorVentas += rs.getDouble("VENTAS");
                     valorGastos += rs.getDouble("GASTOS");
                     valorConsignaciones += rs.getDouble("CONSIGNACIONES");
                     valorDescuentos+=rs.getDouble("DESCUENTOS");
                     valorPagosTarjeta+=rs.getDouble("PAGO_TARJETAS");
-
+                    valorPagoNequi+=rs.getDouble("PAGO_NEQUI");
+                    valorPagoDaviplata+=rs.getDouble("PAGO_DAVIPLATA");
+                    valorPagoTransferencia+=rs.getDouble("PAGO_TRANSFERENCIA");
+                    
                     cuadre.add(c);
 
                 }
@@ -171,6 +193,31 @@ public class CuadreServiceImpl implements CuadreService {
  
     public void setValorPagosTarjeta(Double valorPagosTarjeta) {
         this.valorPagosTarjeta = valorPagosTarjeta;
+    }
+    @Override
+    public Double getValorPagoNequi() {
+        return valorPagoNequi;
+    }
+
+    public void setValorPagoNequi(Double valorPagoNequi) {
+        this.valorPagoNequi = valorPagoNequi;
+    }
+    @Override
+    public Double getValorPagoDaviplata() {
+        return valorPagoDaviplata;
+    }
+
+    public void setValorPagoDaviplata(Double valorPagoDaviplata) {
+        this.valorPagoDaviplata = valorPagoDaviplata;
+    }
+
+    @Override
+    public Double getValorPagoTransferencia() {
+        return valorPagoTransferencia;
+    }
+
+    public void setValorPagoTransferencia(Double valorPagoTransferencia) {
+        this.valorPagoTransferencia = valorPagoTransferencia;
     }
     
     

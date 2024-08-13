@@ -46,4 +46,5 @@ public interface ReportesDao {
     public Long pagosDescuentoTotal(DataSource nameDataSource,String fecha);
 
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(String nameDataSource, String sfechaInicial, String sfechaFinal);
+    public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayorSubsede(DataSource nameDataSource, String fechaInicio, String fechaFin, Integer idSubsede);
 }

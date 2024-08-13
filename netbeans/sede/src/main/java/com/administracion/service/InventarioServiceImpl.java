@@ -7,15 +7,19 @@ package com.administracion.service;
 
 import com.administracion.dao.InventarioDao;
 import com.administracion.dao.ReportesDao;
+import com.administracion.dto.InventarioClienteDto;
+import com.administracion.dto.InventarioConsolidadoClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.ReporteInventarioDTO;
+import com.administracion.dto.SedesDto;
+import com.administracion.dto.SubSedesDto;
 import com.administracion.service.autorizacion.ConnectsAuth;
+import com.administracion.util.Util;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class InventarioServiceImpl implements InventarioService{
 
-    @Autowired
-    private SedesService sedesService;
     
     @Autowired
     private InventarioDao inventarioDao;
@@ -38,7 +40,9 @@ public class InventarioServiceImpl implements InventarioService{
     @Autowired
     private ConnectsAuth connectsAuth;
     
-    private JdbcTemplate jdbctemplate;
+    @Autowired
+    private SubSedesService subSedesService;
+    
     
     @Override
     @Transactional(readOnly=true)
@@ -127,5 +131,69 @@ public class InventarioServiceImpl implements InventarioService{
     @Transactional(readOnly = true)
     public List<ItemsDTO> listaProductosLabel(String nameDatasource) {
         return inventarioDao.listaProductosLabel(connectsAuth.getDataSourceSede(nameDatasource));
+    }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public InventarioDTO traerProductoSubSede(String nameDatasource, Long idProducto) {
+        return inventarioDao.traerProductoDto(connectsAuth.getDataSourceSubSede(nameDatasource), idProducto);
+    }
+
+    @Override
+    public List<InventarioDTO> reporteInventarioSubSede(String nameDataSource) {
+        List<InventarioDTO> inventarioDTO=null;
+        try{
+        inventarioDTO= inventarioDao.listInventarioDto(connectsAuth.getDataSourceSubSede(nameDataSource));
+        
+        }catch(DataAccessException e){
+            System.out.println("reporteInventarioSubSede: Se encontraron 0 registros");
+        }
+        return inventarioDTO;
+    }
+
+    @Override
+    public void eliminarProductoSubSede(String nameDataSource, Long idProducto) {
+        try {
+            inventarioDao.eliminarProducto(connectsAuth.getDataSourceSubSede(nameDataSource), idProducto);
+        } catch (DataAccessException e) {
+            System.out.println("No se eliminó el producto");
+        }
+    }
+
+    @Override
+    public void insertarProductoSubSede(String nameDataSource, InventarioDTO inventarioDTO) {
+        try {
+            inventarioDao.insertarProductoSubsede(connectsAuth.getDataSourceSubSede(nameDataSource), inventarioDTO);
+        } catch (DataAccessException e) {
+            System.out.println("No se insertó el producto");
+        }
+    }
+
+    @Override
+    public void actualizarProductoSubSede(String nameDataSource, InventarioDTO inventarioDTO) {
+        try {
+            inventarioDao.actualizarProductoSubsede(connectsAuth.getDataSourceSubSede(nameDataSource), inventarioDTO);
+        } catch (DataAccessException e) {
+            System.out.println("No se actualizó el producto");
+        }
+    }
+
+    @Override
+    public List<InventarioClienteDto> traerProductoClienteInventario(String nameDatasource, String tel, String fechaInicial, String fechaFinal) {
+
+        String url = connectsAuth.findSedeXId(connectsAuth.findSubsedeXName(nameDatasource).getIdsede()).getUrl();
+        return inventarioDao.traerProductoClienteInventario(connectsAuth.getDataSourceSubSede(nameDatasource), Util.extractDatabaseFromURL(url),
+                 tel, fechaInicial, fechaFinal);
+
+    }
+    
+    @Override
+    public List<InventarioConsolidadoClienteDto> traerProductoConsolidadoInventario(String sede,String tel, String fechaInicial, String fechaFinal) {
+
+        SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+        
+        List<SubSedesDto> subSedesDtos = subSedesService.subSedesXIdSede(sedesDto.getIdsedes());
+        return inventarioDao.traerProductoConsolidadoInventario(connectsAuth.getDataSourceSede(sedesDto.getSede()), tel,subSedesDtos
+                ,Util.extractDatabaseFromURL(sedesDto.getUrl()), fechaInicial, fechaFinal);
     }
 }
