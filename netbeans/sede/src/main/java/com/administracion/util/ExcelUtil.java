@@ -21,7 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class ExcelUtil {
 
-    public byte[] buildExcelDocument(List<?> items, String sheetName,String [] fieldsOrder) throws Exception {
+    public byte[] buildExcelDocument(List<?> items, String sheetName, String[] fieldsOrder,String[] fieldsType) throws Exception {
         XSSFWorkbook workbook = new XSSFWorkbook();
 
         ByteArrayOutputStream wbBytes = new ByteArrayOutputStream();
@@ -32,24 +32,15 @@ public class ExcelUtil {
             JsonUtil jsonUtil = new JsonUtil();
             JsonArray jsonArray = jsonUtil.toJSON(jsonUtil.objectToString(items));
 
-            
             if (jsonArray.size() > 0) {
                 buildHeaderExcel(sheet, jsonArray.get(0).getAsJsonObject());
                 int rowNum = 1;
                 for (JsonElement element : jsonArray) {
                     JsonObject jsonObjectItem = element.getAsJsonObject();
                     //create the row data
-                    XSSFRow row = sheet.createRow(rowNum++);
-                    int indexCell = 0;
-                    while ( indexCell < fieldsOrder.length ) {
-                        String currentValue = "";
-                        if (!jsonObjectItem.get(fieldsOrder[indexCell]).isJsonNull()) {
-                            currentValue = jsonObjectItem.get(fieldsOrder[indexCell]).getAsString();
-                        }
-                        row.createCell(indexCell).setCellValue(currentValue);
-                        indexCell++;
-                    }
-
+                    XSSFRow row = sheet.createRow(rowNum);
+                    fillExcelFile(jsonObjectItem, row, rowNum, fieldsOrder, fieldsType);
+                    rowNum++;
                 }
             }
 
@@ -61,20 +52,30 @@ public class ExcelUtil {
             wbBytes.close();
         }
 
-
         return wbBytes.toByteArray();
     }
 
+    private void fillExcelFile(JsonObject jsonObjectItem, XSSFRow row, int rowNum, String[] fieldsOrder, String[] fieldsType) {
+        int indexCell = 0;
+        while (indexCell < fieldsOrder.length) {
+            if (!jsonObjectItem.get(fieldsOrder[indexCell]).isJsonNull()) {
+                if (fieldsType[indexCell].equals("string")) {
+                    row.createCell(indexCell).setCellValue(jsonObjectItem.get(fieldsOrder[indexCell]).getAsString());
+                } else {
+                    row.createCell(indexCell).setCellValue(jsonObjectItem.get(fieldsOrder[indexCell]).getAsDouble());
+                }
+            }
 
-    private  void buildHeaderExcel(XSSFSheet sheet, JsonObject jsonObject) {
+            indexCell++;
+        }
+    }
+
+    private void buildHeaderExcel(XSSFSheet sheet, JsonObject jsonObject) {
         XSSFRow header = sheet.createRow(0);
-        //Map<String, String> attributes = new HashMap<>();
-        //List<String> attrs = new ArrayList<>();
+
         Set<Map.Entry<String, JsonElement>> entrySet = jsonObject.entrySet();
         int i = 0;
         for (Map.Entry<String, JsonElement> entry : entrySet) {
-            //attributes.put(entry.getKey(), jsonObject.get(entry.getKey()).getAsString());
-            //attrs.add(entry.getKey());
             header.createCell(i).setCellValue(entry.getKey());
             i++;
         }

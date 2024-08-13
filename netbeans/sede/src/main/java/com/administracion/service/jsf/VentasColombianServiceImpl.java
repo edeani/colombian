@@ -33,6 +33,9 @@ public class VentasColombianServiceImpl implements VentasColombianService {
     }
 
     /**
+     * @param nameDataSource
+     * @param fi Fecha Inicial
+     * @param ff Fecha límite final del reporte
      * @return the ventasDomicilio
      */
     @Override
@@ -61,5 +64,36 @@ public class VentasColombianServiceImpl implements VentasColombianService {
     public List<VentasMapper> totalVentas(String nameDataSource,Date fi, Date ff) {
         return  ventasDao.getTotalVentas(connectsAuth.getDataSourceSubSede(nameDataSource), fi, ff);
     }
+    
+    @Override
+    public List<VentasMapper> ventasMesaTotalCalc(String nameDataSource,Date fi, Date ff) {
+        
+        return  ventasDao.getVentasMesaTotalCalc(connectsAuth.getDataSourceSubSede(nameDataSource), fi, ff);
+       
+    }
+    
+     /**
+     * @param nameDataSource
+     * @param fi Fecha Inicial
+     * @param ff Fecha límite final del reporte
+     * @return the ventasDomicilio
+     */
+    @Override
+    public List<VentasMapper> ventasDomicilioTotalCalc(String nameDataSource,Date fi, Date ff) {
+        return  ventasDao.getVentasDomicilioTotalCalc(connectsAuth.getDataSourceSubSede(nameDataSource), fi, ff);
+    }
+
+    /**
+     * @param nameDataSource
+     * @param fi
+     * @param ff
+     * @return the ventasMostrador
+     */
+    @Override
+    public List<VentasMapper> ventasMostradorTotalCalc(String nameDataSource,Date fi, Date ff) {
+        return  ventasDao.getVentasMostradorTotalCalc(connectsAuth.getDataSourceSubSede(nameDataSource), fi, ff);
+    }
+
+
 
 }

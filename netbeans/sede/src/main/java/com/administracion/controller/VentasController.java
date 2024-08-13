@@ -8,12 +8,9 @@ package com.administracion.controller;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.jsf.VentasColombianService;
 import com.administracion.util.ExcelUtil;
-import com.administracion.util.ZipUtil;
 import com.mycompany.mapper.VentasMapper;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -100,7 +97,7 @@ public class VentasController {
         List<VentasMapper> ventasTotales = ventasColombianService.totalVentas(connectsAuth.findSubsedeXId(idSubsede).getSede(),
                 fi, ff);
         if (ventasTotales != null && !ventasTotales.isEmpty()) {
-            byte[] excelBytes = excelUtil.buildExcelDocument(ventasTotales, "reporte_total", VentasMapper.fieldsOrder);
+            byte[] excelBytes = excelUtil.buildExcelDocument(ventasTotales, "reporte_total", VentasMapper.fieldsOrder,VentasMapper.fieldsType);
             response.setHeader("Content-Disposition", "attachment; filename=ventastotal.xlsx");
             response.getOutputStream().write(excelBytes);
             response.flushBuffer();
@@ -113,10 +110,10 @@ public class VentasController {
     void reporteExcelLlevarTotales(HttpServletResponse response, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fi,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date ff, @RequestParam Integer idSubsede, @PathVariable String sede) throws Exception {
         ExcelUtil excelUtil = new ExcelUtil();
-        List<VentasMapper> llevarTotales = ventasColombianService.ventasMostrador(connectsAuth.findSubsedeXId(idSubsede).getSede(),
+        List<VentasMapper> llevarTotales = ventasColombianService.ventasMostradorTotalCalc(connectsAuth.findSubsedeXId(idSubsede).getSede(),
                 fi, ff);
         if (llevarTotales != null && !llevarTotales.isEmpty()) {
-            byte[] excelBytes = excelUtil.buildExcelDocument(llevarTotales, "reporte_total", VentasMapper.fieldsOrder);
+            byte[] excelBytes = excelUtil.buildExcelDocument(llevarTotales, "reporte_total", VentasMapper.fieldsOrder,VentasMapper.fieldsType);
             response.setHeader("Content-Disposition", "attachment; filename=llevartotal.xlsx");
             response.getOutputStream().write(excelBytes);
             response.flushBuffer();
@@ -129,10 +126,10 @@ public class VentasController {
     void reporteExcelDomicilioTotales(HttpServletResponse response, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fi,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date ff, @RequestParam Integer idSubsede, @PathVariable String sede) throws Exception {
         ExcelUtil excelUtil = new ExcelUtil();
-        List<VentasMapper> domiciliosTotales = ventasColombianService.ventasDomicilio(connectsAuth.findSubsedeXId(idSubsede).getSede(),
+        List<VentasMapper> domiciliosTotales = ventasColombianService.ventasDomicilioTotalCalc(connectsAuth.findSubsedeXId(idSubsede).getSede(),
                 fi, ff);
         if (domiciliosTotales != null && !domiciliosTotales.isEmpty()) {
-            byte[] excelBytes = excelUtil.buildExcelDocument(domiciliosTotales, "reporte_total", VentasMapper.fieldsOrder);
+            byte[] excelBytes = excelUtil.buildExcelDocument(domiciliosTotales, "reporte_total", VentasMapper.fieldsOrder,VentasMapper.fieldsType);
             response.setHeader("Content-Disposition", "attachment; filename=domiciliototal.xlsx");
             response.getOutputStream().write(excelBytes);
             response.flushBuffer();
@@ -145,10 +142,10 @@ public class VentasController {
     void reporteExcelMesaTotales(HttpServletResponse response, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fi,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date ff, @RequestParam Integer idSubsede, @PathVariable String sede) throws Exception {
         ExcelUtil excelUtil = new ExcelUtil();
-        List<VentasMapper> mesasTotales = ventasColombianService.ventasMesa(connectsAuth.findSubsedeXId(idSubsede).getSede(),
+        List<VentasMapper> mesasTotales = ventasColombianService.ventasMesaTotalCalc(connectsAuth.findSubsedeXId(idSubsede).getSede(),
                 fi, ff);
         if (mesasTotales != null && !mesasTotales.isEmpty()) {
-            byte[] excelBytes = excelUtil.buildExcelDocument(mesasTotales, "reporte_total", VentasMapper.fieldsOrder);
+            byte[] excelBytes = excelUtil.buildExcelDocument(mesasTotales, "reporte_total", VentasMapper.fieldsOrder,VentasMapper.fieldsType);
             response.setHeader("Content-Disposition", "attachment; filename=mesatotal.xlsx");
             response.getOutputStream().write(excelBytes);
             response.flushBuffer();

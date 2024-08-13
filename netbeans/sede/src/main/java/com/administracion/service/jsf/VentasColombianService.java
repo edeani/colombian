@@ -17,4 +17,8 @@ public interface VentasColombianService {
     public List<VentasMapper> ventasDomicilio(String nameDataSource,Date fi,Date ff);
     public List<VentasMapper> ventasMostrador(String nameDataSource,Date fi,Date ff);
     public List<VentasMapper> totalVentas(String nameDataSource,Date fi,Date ff);
+    
+    public List<VentasMapper> ventasMesaTotalCalc(String nameDataSource,Date fi,Date ff);
+    public List<VentasMapper> ventasDomicilioTotalCalc(String nameDataSource,Date fi,Date ff);
+    public List<VentasMapper> ventasMostradorTotalCalc(String nameDataSource,Date fi,Date ff);
 }

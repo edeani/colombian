@@ -11,7 +11,7 @@ package com.mycompany.mapper;
 public class VentasMapper {
     
     public static String[] fieldsOrder ={"tipo","codigo_producto","descripcion_producto","numero_unidades","valor_producto","total_producto"};
-    
+    public static String [] fieldsType ={"string","int","string","int","long","long"};
     private String tipo;
     private Long codigo_producto;   
     private String descripcion_producto;

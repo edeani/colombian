@@ -18,5 +18,8 @@ public interface VentasDao {
     public List<VentasMapper> getVentasMesa(DataSource dataSource,Date fi, Date ff);
     public List<VentasMapper> getVentasDomicilio(DataSource dataSource,Date fi, Date ff);
     public List<VentasMapper> getVentasMostrador(DataSource dataSource,Date fi, Date ff);
+    public List<VentasMapper> getVentasMesaTotalCalc(DataSource dataSource,Date fi, Date ff);
+    public List<VentasMapper> getVentasDomicilioTotalCalc(DataSource dataSource,Date fi, Date ff);
+    public List<VentasMapper> getVentasMostradorTotalCalc(DataSource dataSource,Date fi, Date ff);
     public List<VentasMapper> getTotalVentas(DataSource dataSource,Date fi, Date ff);
 }
