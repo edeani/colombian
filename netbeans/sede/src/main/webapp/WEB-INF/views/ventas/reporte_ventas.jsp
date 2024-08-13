@@ -33,6 +33,38 @@
                     </label>
                 </form>
             </div>
+           
+            <div class="contentFormSimpleCenter">
+                <label>
+                    <img src="/sede/img/icons/documents/icons8-excel-48.png" style="width: 25px; height: 25px; vertical-align: text-bottom;"/>
+                    Descargar Reporte Excel
+                </label>
+                <label>
+                    <button  id="reporteMesasxls" type="submit" 
+                             title="Descargar Excel Total Mesas">
+                        Total Mesas
+                    </button>
+                </label>
+                <label>
+                    <button  id="reporteDomiciliosxls" type="submit"  
+                             title="Descargar Excel Domicilios">
+                        Total Domicilios
+                    </button>
+                </label>
+                <label>
+                    <button  id="reporteLlevarxls" type="submit"
+                             title="Descargar Excel Llevar">
+                        Total Llevar
+                    </button>
+                </label>
+                <label>
+                    <button  id="reporteVentasxls" type="submit" 
+                             title="Descargar Excel Ventas Totales">
+                        Ventas Totales
+                    </button>
+                </label>
+            </div>
+            </br>
         </div>
         <div class="tituloPagina">Reporte Ventas Mesa</div>
         <div class="divContenedorTabla">
@@ -135,7 +167,10 @@
                 </table>
             </div>
             <input id="totalTotal" type="hidden" value="" class="decimaltotal"/>
-            <div class="contenedorResumen">
+            <div id="contenedorResumenBase" class="contenedorResumen" data-download="<%=request.getContextPath()%>/${sessionScope.path}/ventas/ajax/reporte/ventastotal.htm"
+                 data-download-llevar="<%=request.getContextPath()%>/${sessionScope.path}/ventas/ajax/reporte/llevartotalxls.htm" 
+                 data-download-domicilio="<%=request.getContextPath()%>/${sessionScope.path}/ventas/ajax/reporte/domiciliototalxls.htm"
+                 data-download-mesa="<%=request.getContextPath()%>/${sessionScope.path}/ventas/ajax/reporte/mesatotalxls.htm">
                 TOTAL VENTAS
                 <label id="totalTotalLabel" class="resumen">
                     $0

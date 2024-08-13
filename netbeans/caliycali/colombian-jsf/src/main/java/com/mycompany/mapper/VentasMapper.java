@@ -10,11 +10,13 @@ package com.mycompany.mapper;
  */
 public class VentasMapper {
     
+    public static String[] fieldsOrder ={"tipo","codigo_producto","descripcion_producto","numero_unidades","valor_producto","total_producto"};
+    
     private String tipo;
-    private Long codigo_producto;
+    private Long codigo_producto;   
     private String descripcion_producto;
-    private String valor_producto;
     private String numero_unidades;
+    private String valor_producto;
     private String total_producto;
     /**
      * @return the tipo
@@ -45,6 +47,20 @@ public class VentasMapper {
     public void setDescripcion_producto(String descripcion_producto) {
         this.descripcion_producto = descripcion_producto;
     }
+    
+    /**
+     * @return the numero_unidades
+     */
+    public String getNumero_unidades() {
+        return numero_unidades;
+    }
+
+    /**
+     * @param numero_unidades the numero_unidades to set
+     */
+    public void setNumero_unidades(String numero_unidades) {
+        this.numero_unidades = numero_unidades;
+    }
 
     /**
      * @return the valor_producto
@@ -60,19 +76,7 @@ public class VentasMapper {
         this.valor_producto = valor_producto;
     }
 
-    /**
-     * @return the numero_unidades
-     */
-    public String getNumero_unidades() {
-        return numero_unidades;
-    }
-
-    /**
-     * @param numero_unidades the numero_unidades to set
-     */
-    public void setNumero_unidades(String numero_unidades) {
-        this.numero_unidades = numero_unidades;
-    }
+    
 
     /**
      * @return the total_producto

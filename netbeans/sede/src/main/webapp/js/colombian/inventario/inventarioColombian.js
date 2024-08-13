@@ -21,7 +21,7 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("click", "input#consultarInventarioxls", function (event) {
+    $(document).on("click", "button#consultarInventarioxls", function (event) {
         event.preventDefault();
         var estadoFormulario = validarFormulario("#formInventario");
         if (estadoFormulario === "") {

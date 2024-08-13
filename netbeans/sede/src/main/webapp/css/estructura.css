@@ -98,7 +98,10 @@
 .contentFormCol{
     max-width: 100%;
 }
-
+.contentFormSimpleCenter {
+    width: 100%;
+    text-align: center;
+}
 .contentFormCol li {
     float: left;
     margin: 0 20px;

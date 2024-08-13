@@ -5,6 +5,7 @@
  */
 package com.administracion.dao;
 
+import com.adiministracion.rowmapper.VentasMapperRowMapper;
 import com.administracion.util.Formatos;
 import com.mycompany.mapper.VentasMapper;
 import java.text.DateFormat;
@@ -36,7 +37,7 @@ public class VentasDaoImpl implements VentasDao {
                 + " ( mesa.estado_orden = 'A' ) )    GROUP BY productos.codigo_producto,productos.descripcion_producto,   detalle_mesa.valor_producto)subc order by subc.codigo_producto";
 
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        return this.jdbcTemplate.query(query, new BeanPropertyRowMapper<>(VentasMapper.class));
+        return this.jdbcTemplate.query(query,new VentasMapperRowMapper());
     }
 
     @Override
@@ -52,7 +53,7 @@ public class VentasDaoImpl implements VentasDao {
                 + " detalle_orden.valor_producto)subdDom order by  subdDom.codigo_producto";
 
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        return this.jdbcTemplate.query(query, new BeanPropertyRowMapper<>(VentasMapper.class));
+        return this.jdbcTemplate.query(query,new VentasMapperRowMapper());
     }
 
     @Override
@@ -79,7 +80,7 @@ public class VentasDaoImpl implements VentasDao {
                 + " group by a.codigo_producto,a.descripcion_producto,a.valor_producto) subcMostrador order by  subcMostrador.codigo_producto";
         
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        return this.jdbcTemplate.query(query, new BeanPropertyRowMapper<>(VentasMapper.class));
+        return this.jdbcTemplate.query(query, new VentasMapperRowMapper());
     }
 
     @Override
@@ -87,20 +88,21 @@ public class VentasDaoImpl implements VentasDao {
         Formatos formato = new Formatos();
 
         DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
-        String query2 = "select * from( select codigo_producto,descripcion_producto, valor_producto,sum(numero_unidades) as numero_unidades,sum(total) as total_producto from(SELECT 'DOMICILIOS' tipo,productos.codigo_producto,   productos.descripcion_producto,   detalle_orden.valor_producto,detalle_orden.numero_unidades, detalle_orden.numero_unidades * detalle_orden.valor_producto as total "
+        String query2 = "select * from( select 'totales' as tipo, codigo_producto,descripcion_producto, valor_producto,sum(numero_unidades) as numero_unidades,sum(total) as total_producto from(SELECT 'DOMICILIOS' as tipo,productos.codigo_producto,   productos.descripcion_producto,   detalle_orden.valor_producto,detalle_orden.numero_unidades, detalle_orden.numero_unidades * detalle_orden.valor_producto as total "
                 + " FROM detalle_orden,   orden,   productos   WHERE ( orden.numero_orden = detalle_orden.numero_orden ) and  ( orden.numero_telefono = detalle_orden.numero_telefono ) and   "
                 + "( productos.codigo_producto = detalle_orden.codigo_producto ) and  ( ( orden.fecha_orden BETWEEN '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "') AND      ( orden.estado_orden = 'A' ) )    "
-                + " UNION ALL SELECT  'MESAS', productos.codigo_producto,   productos.descripcion_producto,   detalle_mesa.valor_producto, detalle_mesa.numero_unidades ,detalle_mesa.numero_unidades * detalle_mesa.valor_producto as total "
+                + " UNION ALL SELECT  'MESAS' as tipo, productos.codigo_producto,   productos.descripcion_producto,   detalle_mesa.valor_producto, detalle_mesa.numero_unidades ,detalle_mesa.numero_unidades * detalle_mesa.valor_producto as total "
                 + " FROM detalle_mesa,    mesa,    productos  "
                 + " WHERE ( mesa.numero_orden = detalle_mesa.numero_orden ) and  ( productos.codigo_producto = detalle_mesa.codigo_producto ) and    ( ( mesa.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "') AND  "
                 + " ( mesa.estado_orden = 'A' ) ) "
                 + " UNION ALL "
-                + " SELECT  'MOSTRADOR',productos.codigo_producto,   productos.descripcion_producto,   detalle_llevar.valor_producto, detalle_llevar.numero_unidades,detalle_llevar.numero_unidades * detalle_llevar.valor_producto as total "
+                + " SELECT  'MOSTRADOR' as tipo,productos.codigo_producto,   productos.descripcion_producto,   detalle_llevar.valor_producto, detalle_llevar.numero_unidades,detalle_llevar.numero_unidades * detalle_llevar.valor_producto as total "
                 + " FROM detalle_llevar,   llevar,   productos   WHERE ( llevar.numero_orden = detalle_llevar.numero_orden ) and  "
                 + " ( productos.codigo_producto = detalle_llevar.codigo_producto ) and  "
                 + " ( ( llevar.fecha_orden between '" + formato.dateTostring(dfDefault.format(fi)) + "' and '" + formato.dateTostring(dfDefault.format(ff)) + "') AND  ( llevar.estado_orden = 'A' ) )    "
                 + " )a GROUP BY codigo_producto,descripcion_producto,valor_producto) subcTotal order by subcTotal.codigo_producto";
-        return this.jdbcTemplate.query(query2, new BeanPropertyRowMapper<>(VentasMapper.class));
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+        return this.jdbcTemplate.query(query2, new VentasMapperRowMapper());
     }
 
 }
