@@ -375,6 +375,15 @@ $(document).ready(function () {
         $("#nombreProveedor").val($("#codigoProveedor option:selected").text());
 
     });
+    
+    $(document).on('click',".comprasreportsede",function(eventCompraReporte){
+        eventCompraReporte.preventDefault();
+        var newInput = $("<input></input>");
+        $("#formColombianCompras").append(newInput.attr("type","hidden").attr("name","tipo").attr("value",$(this).attr("data-file")));
+        $("#formColombianCompras").submit();
+        
+        newInput.remove();
+    });
 
     $(document).on('change', ".primerCampo", function (e) {
 

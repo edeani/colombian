@@ -16,6 +16,7 @@ import com.administracion.service.InventarioService;
 import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.jsf.InventarioColombianService;
+import com.administracion.util.Constants;
 import com.administracion.util.Formatos;
 import com.google.gson.Gson;
 import com.mycompany.mapper.Inventario;
@@ -360,8 +361,7 @@ public class InventarioController extends BaseController {
             }else{
                 tipo=DescargasEnum.PDF.getTipo();
             }
-           // httpServletResponse.setHeader("Content-Disposition", "attachment; filename=inventario.xlsx");
-            mavDescargar.addObject("format", tipo);
+            mavDescargar.addObject(Constants.Attributos.JASPER_FORMAT, tipo);
         } else {
             mavDescargar.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }

@@ -8,12 +8,13 @@ package com.mycompany.util;
  *
  * @author Anlod
  */
-public class Constants {
+public class ConstantsColombianJsf {
     
     public static class Formatos{
+        /**
+         * Formatos de Fecha
+         */
         public static final String FORMAT_HOUR = "yyyy-MM-dd HH:mm:ss";
         public static final String FORMAT_DATE = "yyyy-MM-dd";
-        public static final String REGEX_ID_SEDES="[0-9]{0-4}";
-        public static final String FORMAT_FLOAT_NODECIMALS="%.0f";
     }
 }

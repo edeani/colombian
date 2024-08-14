@@ -37,9 +37,9 @@
                     <input id="consultarInventario" type="submit" value="Aceptar" class="generalButton"/>
                 </label>
                  <label>
-                     <button  id="consultarInventarioxls" type="submit" style="background: transparent; border-color: transparent; cursor: pointer; margin-top: 10px;" 
-                              title="Descargar Excel">
-                         <img src="/sede/img/icons/documents/icons8-excel-48.png" style="width: 20px; height: 20px; "/>
+                     <button  id="consultarInventarioxls" type="submit" 
+                              title="Descargar Excel" class="excelButton">
+                         <img src="/sede/img/icons/documents/icons8-excel-48.png"/>
                      </button>
                 </label>
             </form>

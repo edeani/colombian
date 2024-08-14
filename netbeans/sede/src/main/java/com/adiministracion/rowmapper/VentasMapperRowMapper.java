@@ -4,8 +4,8 @@
  */
 package com.adiministracion.rowmapper;
 
+import com.administracion.util.Constants;
 import com.mycompany.mapper.VentasMapper;
-import com.mycompany.util.Constants;
 import com.mycompany.util.Formatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -40,7 +40,7 @@ public class Formatos {
      * @return La fecha convertida a String
      */
     public String dateTostring(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.Formatos.FORMAT_DATE);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(ConstantsColombianJsf.Formatos.FORMAT_DATE);
         return dateFormat.format(date);
     }
     
@@ -119,7 +119,7 @@ public class Formatos {
     }
     
     public Date extractDateTimeResultSet(ResultSet rs, String fieldName){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.Formatos.FORMAT_HOUR);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ConstantsColombianJsf.Formatos.FORMAT_HOUR);
         LocalDateTime dateTime=null;
         Date date = null;
         try {

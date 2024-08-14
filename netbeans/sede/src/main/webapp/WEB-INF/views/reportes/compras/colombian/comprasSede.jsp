@@ -26,7 +26,7 @@
     <div id="formFechas" data-url="<%=request.getContextPath()%>/${sessionScope.path}/compras/reportes/comprasTotalesPDF.htm">
         <div class="contenedorEstructuraFormLarge">
         <div class="contentFormSimple">
-        <form target="_blank" action="<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compraspdf.htm">
+            <form id="formColombianCompras" target="_blank"  action="<%=request.getContextPath()%>/${sessionScope.path}/compras/colombian/reportes/compraspdf.htm">
             <label>Fecha Inicial
                 <input name="fechaInicial" id="fechaInicial" class="fechaInicial" style="cursor: pointer;" type="text" value="<fmt:formatDate  type="both" pattern="yyyy-MM-dd" value="${fechaInicial}"/>"/>
             </label>
@@ -43,7 +43,12 @@
                 </select>
             </label>
             <label>
-                <input id="reporteComprasColombian" type="submit" value="Aceptar" class="generalButton"/>
+                <input id="reporteComprasColombian" type="submit" value="Aceptar" class="generalButton comprasreportsede" data-file="pdf" />
+            </label>
+            <label>
+                <button class="excelButton comprasreportsede" id="reporteComprasColombianxls" title="Excel de Compras" type="submit" data-file="excel">
+                    <img src="/sede/img/icons/documents/icons8-excel-48.png"/>
+                </button>
             </label>
         </form>
                 </div>

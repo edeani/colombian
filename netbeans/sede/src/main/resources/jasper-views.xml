@@ -122,7 +122,7 @@
 		p:url="classpath:/reportes/reportePagos.jrxml"
 		p:reportDataKey="datos"/>
         <bean id="comprasSedesColombian"
-	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
 		p:url="classpath:/reportes/comprasSedesColombian.jrxml"
 		p:reportDataKey="datos"/>
         <bean id="comprasModificadas"

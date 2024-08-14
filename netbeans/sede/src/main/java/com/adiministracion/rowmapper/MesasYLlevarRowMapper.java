@@ -5,7 +5,7 @@
 package com.adiministracion.rowmapper;
 
 import com.mycompany.mapper.Mesasyllevar;
-import com.mycompany.util.Constants;
+import com.mycompany.util.ConstantsColombianJsf;
 import com.mycompany.util.Formatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,9 +52,8 @@ public class MesasYLlevarRowMapper implements RowMapper<Mesasyllevar>{
         mesasyllevar.setCodMesera(rs.getString(COD_MESERA));
         
         mesasyllevar.setHora(Boolean.TRUE.equals(colHora)?
-                formatosMesasYLlevar.dateTostring(
-                formatosMesasYLlevar.extractDateTimeResultSet(rs, HORA)
-                ,Constants.Formatos.FORMAT_HOUR):null);
+                formatosMesasYLlevar.dateTostring(formatosMesasYLlevar.extractDateTimeResultSet(rs, HORA)
+                ,ConstantsColombianJsf.Formatos.FORMAT_HOUR):null);
         mesasyllevar.setMesa(rs.getString(MESA));
         mesasyllevar.setOrden(rs.getString(ORDEN));
         mesasyllevar.setRegistros(colRegistros?

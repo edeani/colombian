@@ -19,11 +19,13 @@ import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.Proveedor;
+import com.administracion.enumeration.DescargasEnum;
 import com.administracion.service.ComprasService;
 import com.administracion.service.ProveedoresService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
 import com.administracion.service.jsf.ComprasColombianService;
+import com.administracion.util.Constants;
 import com.administracion.util.Formatos;
 import com.administracion.util.PrintUtil;
 import com.mycompany.dto.ReporteComprasSedeDto;
@@ -290,7 +292,7 @@ public class ComprasController extends BaseController {
         mav.addObject("proveedores", proveedores);
         mav.addObject("titulo", "Reporte compras totales por proveedor");
         mav.addObject("mensaje", mensaje);
-        //setBasicModel(mav, comprasTotalesProveedorDTO);
+        //setBasicModel(mavComprasColombian, comprasTotalesProveedorDTO);
         return mav;
     }
 
@@ -303,7 +305,7 @@ public class ComprasController extends BaseController {
         mav.addObject("fechaFinal", new Date());
         mav.addObject("titulo", "Reporte compras proveedor fecha");
         mav.addObject("mensaje", mensaje);
-        //setBasicModel(mav, comprasTotalesProveedorDTO);
+        //setBasicModel(mavComprasColombian, comprasTotalesProveedorDTO);
         return mav;
     }
 
@@ -490,15 +492,15 @@ public class ComprasController extends BaseController {
 
     @RequestMapping("/colombian/reportes/compraspdf.htm")
     public ModelAndView generarComprasColombian(@RequestParam(required = false, value = "fechaInicial") String fechaInicial, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
-            @RequestParam(required = false, value = "sede") String sede, @PathVariable(value = "sede") String nombreSede) {
-        ModelAndView mav = null;
+            @RequestParam(required = false, value = "sede") String sede, @PathVariable(value = "sede") String nombreSede,@RequestParam String tipo) {
+        ModelAndView mavComprasColombian = null;
         SubSedesDto subSedesDto = connectsAuth.findSubsedeXId(Integer.valueOf(sede));
-        List<ReporteComprasSedeDto> reporte = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal), subSedesDto.getSede());
-        if (reporte != null) {
-            if (Boolean.FALSE.equals(reporte.isEmpty())) {
-                JRDataSource datos = new JRBeanCollectionDataSource(reporte);
+        List<ReporteComprasSedeDto> reporteComprasColombian = comprasColombianService.listadoCompras(Formatos.StringDateToDate(fechaInicial), Formatos.StringDateToDate(fechaFinal), subSedesDto.getSede());
+        if (reporteComprasColombian != null) {
+            if (Boolean.FALSE.equals(reporteComprasColombian.isEmpty())) {
+                JRDataSource datosComprasColombian = new JRBeanCollectionDataSource(reporteComprasColombian);
                 Map<String, Object> parameterMap = new HashMap<>();
-                parameterMap.put("datos", datos);
+                parameterMap.put("datos", datosComprasColombian);
                 parameterMap.put("sede", subSedesDto.getSede());
 
                 SedesDto sedesDto = connectsAuth.findSedeXId(subSedesDto.getIdsede());
@@ -506,10 +508,18 @@ public class ComprasController extends BaseController {
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 parameterMap.put("fechaInicial", fechaInicial);
                 parameterMap.put("fechaFinal", fechaFinal);
-                mav = new ModelAndView("comprasSedesColombian", parameterMap);
+                mavComprasColombian = new ModelAndView("comprasSedesColombian", parameterMap);
+                
+                if(tipo.toLowerCase().equals(DescargasEnum.EXCEL.getDescarga())){
+                    tipo = DescargasEnum.EXCEL.getTipo();
+                }else{
+                    tipo = DescargasEnum.PDF.getTipo();
+                }
+                
+                mavComprasColombian.addObject(Constants.Attributos.JASPER_FORMAT, tipo);
             }
         }
-        return mav;
+        return mavComprasColombian;
     }
 
     @RequestMapping("/compraPdf.htm")
