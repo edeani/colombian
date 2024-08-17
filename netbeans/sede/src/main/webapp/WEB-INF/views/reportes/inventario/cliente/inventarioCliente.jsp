@@ -36,7 +36,14 @@
                 </select>
             </label>
             <label>
-                <input id="consultarInventarioCilente" type="submit" value="Aceptar" class="generalButton"/>
+                <input id="consultarInventarioCilente" type="submit" value="Aceptar" class="generalButton"
+                       style="max-width: 50px"/>
+            </label>
+            <label>
+                <button  id="consultarInventarioClientexls" type="submit" 
+                         title="Descargar Excel" class="excelButton" data-download="<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/cliente/ajax/consultarexcel.htm">
+                    <img src="/sede/img/icons/documents/icons8-excel-48.png"/>
+                </button>
             </label>
         </form>
     </div>

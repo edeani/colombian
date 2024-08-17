@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InventarioClienteDto {
     
+    public static String[] fieldsOrder ={"telefono","codigoProductoInventario","nombreProducto","unidades","promedioValorProducto","totalInventarioProducto"};
+    public static String [] fieldsType ={"string","string","string","float","float","float"};
+    
     private String telefono;
     private String codigoProductoInventario;
     private String nombreProducto;
