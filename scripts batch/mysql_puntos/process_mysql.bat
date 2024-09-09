@@ -26,7 +26,7 @@ ECHO Backup finalizado
 ECHO Copiando archivos al servidor...
 for %%a in (%database%) do (
    SET full_destiny_path=%mysqlbackupdestiny%\%point_name%_%%a_%DATETIME%.sql
-   scp -i %rsa_key% !full_destiny_path!  %user_server%@%ip_server%:%path_server% 
+   scp -i %rsa_key% !full_destiny_path!  %user_server%@%ip_server%:%path_server%\%point_name%
    timeout /t 1
 )
 
