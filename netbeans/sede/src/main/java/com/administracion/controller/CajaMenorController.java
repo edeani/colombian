@@ -173,7 +173,8 @@ public class CajaMenorController extends BaseController {
                 parameterMap.put("comprobante", cabecera.getIdcajamenor());
                 parameterMap.put("fecha", cabecera.getFecha());
                 SedesDto sedesDto = connectsAuth.findSedeXName(sede);
-                parameterMap.put("nombresede", sedesDto.getTitulo());
+                parameterMap.put("nombresede", sedesDto.getSede());
+                parameterMap.put("titulo", sedesDto.getTitulo());
                 parameterMap.put("slogan", sedesDto.getSlogan());
                 mav = new ModelAndView("comprobanteProveedor", parameterMap);
                 return mav;
