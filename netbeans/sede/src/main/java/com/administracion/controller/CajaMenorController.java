@@ -75,6 +75,7 @@ public class CajaMenorController extends BaseController {
     /**
      *
      * @param pagosTercerosDto
+     * @param sede
      * @return
      */
     @RequestMapping("/ajax/terceros/guardar.htm")
@@ -206,6 +207,7 @@ public class CajaMenorController extends BaseController {
         int mes = Formatos.obtenerMes(fecha);
         PagosConsolidadoSedeDto pagosConsolidadoSedeDtos = reporteService.generarPagoConsolidadoSedePorcentaje(sede, mes - 1);
         mav = new ModelAndView("contabilidad/cajaMenor/pagosconsolidado/datosPagoConsolidado");
+        
         mav.addObject("detallePagosCosolidadoSedeDto", pagosConsolidadoSedeDtos.getDetallePagosCosolidadoSedeDtos());
         mav.addObject("fechaActual", Formatos.dateTostring(fecha));
 

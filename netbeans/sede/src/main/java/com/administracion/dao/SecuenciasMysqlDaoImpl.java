@@ -38,5 +38,17 @@ public class SecuenciasMysqlDaoImpl implements SecuenciasMysqlDao{
         
         return secuencia;
     }
+
+    @Override
+    public void updateSecuencialTabla(DataSource nameDataSource, String tabla, Long secuencia)  {
+         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
+          try {
+             String sql = "ALTER TABLE "+nameDataSource.getConnection().getCatalog()+"."+tabla+" AUTO_INCREMENT = "+secuencia;
+            this.jdbcTemplate.execute(sql);
+        } catch (DataAccessException | SQLException  e) {
+            System.out.println("Error secuenceTable DataAccessException::"+e.getMessage());
+        }
+         
+    }
     
 }

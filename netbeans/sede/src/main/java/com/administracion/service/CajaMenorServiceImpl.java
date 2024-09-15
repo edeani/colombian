@@ -35,16 +35,20 @@ public class CajaMenorServiceImpl implements CajaMenorService{
     @Autowired
     private ConnectsAuth connectsAuth;
     
+    @Autowired
+    private MysqlService mysqlServiceCajaMenor;
+    
     private final String estado_aprobado_comprobante = "S";
     
     @Override
     @Transactional
     public void guardarPagosTercerosCajaMenor(String nameDataSource, CajaMenor pagos, List<DetalleCajaMenor> detallePagos) {
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
         cajaMenorDao.guardarPagosCajaMenor(ds, pagos);
         detallePagos.forEach((DetalleCajaMenor elementoDetallePagosTerceros) -> {
             cajaMenorDao.guardarDetallePagosTercerosCajaMenor(ds, elementoDetallePagosTerceros);
         });
+        //mysqlServiceCajaMenor.updateSecuencialTabla(nameDataSource, "caja_menor", pagos.getIdcajamenor()+1);
     }
 
     @Override
@@ -56,12 +60,12 @@ public class CajaMenorServiceImpl implements CajaMenorService{
     @Override
     @Transactional(readOnly = true)
     public CajaMenor buscarPagoXIdPagoCajaMenor(String nameDataSource, Long idpago) {
-        return cajaMenorDao.buscarPagoXIdPagoCajaMenor(connectsAuth.getDataSourceSubSede(nameDataSource), idpago);
+        return cajaMenorDao.buscarPagoXIdPagoCajaMenor(connectsAuth.getDataSourceSede(nameDataSource), idpago);
     }
 
     @Override
     public void guardarPagosProveedorCajaMenor(String nameDataSource, CajaMenor pagosCajaMenor, List<DetalleCajaMenor> detalleCajaMenor) {
-        DataSource ds = connectsAuth.getDataSourceSubSede(nameDataSource);
+        DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
         cajaMenorDao.guardarPagosCajaMenor(ds, pagosCajaMenor);
         detalleCajaMenor.stream().map((elementoDetalleCajaMenor) -> {
             Compras compra = comprasDao.getCompra(elementoDetalleCajaMenor.getNumeroCompra(), ds);
@@ -81,7 +85,7 @@ public class CajaMenorServiceImpl implements CajaMenorService{
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosProveedorDto> buscarDetallePagosDtos(String nameDataSource, Long idCajaMenor) {
-        return cajaMenorDao.buscarDetallePagosProveedorCajaMenorDtos(connectsAuth.getDataSourceSubSede(nameDataSource), idCajaMenor);
+        return cajaMenorDao.buscarDetallePagosProveedorCajaMenorDtos(connectsAuth.getDataSourceSede(nameDataSource), idCajaMenor);
     }
     
 }

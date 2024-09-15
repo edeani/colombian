@@ -58,7 +58,7 @@ public class SedesDaoImpl extends GenericDaoImpl<Sedes> implements SedesDao{
         return this.namedParameterJdbcTemplate.queryForObject(leerXml.getQuery("SedesSql.findXname"), params, new BeanPropertyRowMapper<>(SedesDto.class));
     }
     @Override
-    public List<ItemsDTO> listaSedesOptions(Integer idSede) {
+    public List<ItemsDTO> listaSubSedesOptions(Integer idSede) {
         return jdbcTemplate.query("select ss.id,ss.sede as label from subsedes ss where ss.idsede ="+idSede, new BeanPropertyRowMapper(ItemsDTO.class));
     }
 

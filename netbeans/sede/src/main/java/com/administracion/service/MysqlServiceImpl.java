@@ -7,7 +7,9 @@
 package com.administracion.service;
 
 import com.administracion.dao.SecuenciasMysqlDao;
+import com.administracion.dto.SedesDto;
 import com.administracion.service.autorizacion.ConnectsAuth;
+import com.administracion.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,14 @@ public class MysqlServiceImpl implements MysqlService{
     @Transactional(readOnly = true)
     public Long secuenciaTabla(String nameDataSource, String tabla) {
         return secuenciasMysqlDao.secuenceTable(connectsAuth.getDataSourceSede(nameDataSource), tabla);
+    }
+
+    @Transactional
+    @Override
+    public void updateSecuencialTabla(String nameDataSource, String tabla, Long secuencia) {
+        SedesDto sedesDto = connectsAuth.findSedeXName(nameDataSource);
+        secuenciasMysqlDao.updateSecuencialTabla(connectsAuth.getDataSourceSede(nameDataSource), 
+                 tabla, secuencia);
     }
     
 }

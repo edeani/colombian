@@ -38,8 +38,8 @@ public class SedesServiceImpl extends GenericService implements SedesService{
 
     @Override
     @Transactional
-    public List<ItemsDTO> listaSedesOptions(Integer idSede) {
-        return sedesDao.listaSedesOptions(idSede);
+    public List<ItemsDTO> listaSubSedesOptions(Integer idSede) {
+        return sedesDao.listaSubSedesOptions(idSede);
     }
 
     @Override

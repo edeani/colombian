@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 public interface SedesDao extends GenericDao<Sedes>{
     Sedes findXName(String sede);
     SedesDto findXNameDto(String sede);
-    List<ItemsDTO> listaSedesOptions(Integer idSede);
+    List<ItemsDTO> listaSubSedesOptions(Integer idSede);
     List<Sedes> traerSedes();
     Sedes buscarSede( Long idSede);
 

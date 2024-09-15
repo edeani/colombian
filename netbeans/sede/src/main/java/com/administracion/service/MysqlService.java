@@ -13,5 +13,5 @@ package com.administracion.service;
 public interface MysqlService {
     
     public Long secuenciaTabla(String nameDataSource,String  tabla); 
-    
+    void updateSecuencialTabla(String nameDataSource, String tabla,Long scuencia);
 }

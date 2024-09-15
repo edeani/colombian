@@ -35,7 +35,7 @@
                 <label style="display: none;">
                     <form:select path="idSede">
                         <option value="">Seleccionar</option>
-                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"></c:import>
+                        <c:import url="/${sessionScope.path}/sedes/ajax/seleccionarSede.htm"/>
                     </form:select>
                     <form:input path="sede" type="hidden"/>
                 </label>

@@ -45,14 +45,14 @@ import org.springframework.transaction.annotation.Transactional;
  * @author EderArmando
  */
 @Service
-public class ReporteServiceImpl extends GenericService implements ReporteService{
+public class ReporteServiceImpl extends GenericService implements ReporteService {
 
     @Autowired
     private SubSedesDao subSedesDao;
-    
+
     @Autowired
     private ReportesDao reportesDao;
-    
+
     @Autowired
     private CierreSedesDao cierreSedesDao;
     @Autowired
@@ -63,29 +63,28 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     private ClasePagoDao clasePagoDao;
     @Autowired
     private LectorPropiedades lectorPropiedades;
-    private  final String conexion_principal = "dataSource";
-    private  final String cuenta_ventas = "414015";
-    private  final String cuenta_consignaciones = "11050501";
-    private  final String cuenta_pagos_con_tarjeta = "11201010";
-    private  final String cuenta_descuentos = "421040";
-    private  final String propiedades_cuentas = "/bd/cuentas.properties";
-    private  final String propiedad_ingresos = "prefijo_ingresos";
-    private  final String propiedad_gastos = "prefijo_gastos";
-    private  final String propiedad_costos = "prefijo_costos";
-    private  final String propiedad_bdprincipal = "sede_principal";
-    
-    
+    private final String conexion_principal = "dataSource";
+    private final String cuenta_ventas = "414015";
+    private final String cuenta_consignaciones = "11050501";
+    private final String cuenta_pagos_con_tarjeta = "11201010";
+    private final String cuenta_descuentos = "421040";
+    private final String propiedades_cuentas = "/bd/cuentas.properties";
+    private final String propiedad_ingresos = "prefijo_ingresos";
+    private final String propiedad_gastos = "prefijo_gastos";
+    private final String propiedad_costos = "prefijo_costos";
+    private final String propiedad_bdprincipal = "sede_principal";
+
     @Override
     @Transactional(readOnly = true)
-    public List<ReporteConsolidadoDto> reporteConsolidado(Integer idSede,String fechaInicial, String fechaFinal) {
+    public List<ReporteConsolidadoDto> reporteConsolidado(Integer idSede, String fechaInicial, String fechaFinal) {
         List<SubSedesDto> subSedes = subSedesDao.subsedesXIdSede(idSede);
         return reportesDao.reporteConsolidado(subSedes, fechaInicial, fechaFinal);
     }
-    
+
     @Override
     @Transactional(readOnly = true)
-    public List<ComprobanteConsolidadoSedeDto> comprobanteConsolidado(String nameDataSourceSede,Integer idSubSede, Date fecha) {
-        
+    public List<ComprobanteConsolidadoSedeDto> comprobanteConsolidado(String nameDataSourceSede, Integer idSubSede, Date fecha) {
+
         SubSedes subSedes = subSedesDao.findById(idSubSede);
 
         List<ComprobanteConsolidadoSedeDto> comprobante = new ArrayList<>();
@@ -145,8 +144,8 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         /**
          * Pagos con tarjeta
          */
-        DataSource ds =connectsAuth.getDataSourceSubSede(subSedes.getSede());
-        ClasePago clasePago = clasePagoDao.findClasePagoById(1,ds);
+        DataSource ds = connectsAuth.getDataSourceSubSede(subSedes.getSede());
+        ClasePago clasePago = clasePagoDao.findClasePagoById(1, ds);
         if (clasePago.getEstado().equals("A")) {
             Long pagosContarjeta = reportesDao.pagosContarjetaTotal(ds, sfecha);
             if (pagosContarjeta != null) {
@@ -197,14 +196,14 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
         return movimientos;
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<MovimientoCajaDto> movimientoCajaMayorSubsede(String nameDataSource, Date fechaInicial, Date fechaFinal, Integer idSubsede) {
 
         String sfechaInicial = Formatos.dateTostring(fechaInicial);
         String sfechaFinal = Formatos.dateTostring(fechaFinal);
-        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMayorSubsede(connectsAuth.getDataSourceSede(nameDataSource), sfechaInicial, sfechaFinal,idSubsede);
+        List<ComprobanteConsolidadoSedeDto> movs = reportesDao.bucarMovimientoCajaMayorSubsede(connectsAuth.getDataSourceSede(nameDataSource), sfechaInicial, sfechaFinal, idSubsede);
 
         MovimientoCajaMapper movimientoCajaMayorMapper = new MovimientoCajaMapper();
         List<MovimientoCajaDto> movimientos = movimientoCajaMayorMapper.comprobanteConsolidadoSedeDtoToMovimietoCajaMayorDto(movs);
@@ -230,20 +229,23 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         PagosMapper pagosMapper = new PagosMapper();
         DataSource ds = connectsAuth.getDataSourceSede(nameDataSource);
         PorcentajeVentas porcentajeVentas = reportesDao.buscarPagoConsolidadoMes(ds, mes);
-        PagosConsolidadoSedeDto pagosConsolidadoSedeDto = pagosMapper.porcentajeVentaTopagosConsolidadoSedeDto(porcentajeVentas);
+        if (Objects.nonNull(porcentajeVentas)) {
+            PagosConsolidadoSedeDto pagosConsolidadoSedeDto = pagosMapper.porcentajeVentaTopagosConsolidadoSedeDto(porcentajeVentas);
 
-        List<DetallePorcentajeVentas> detallePorcentajeVentases = reportesDao.buscarDetallePagoConsolidadoMes(ds, mes);
-        List<DetallePagosCosolidadoSedeDto> detallePagosCosolidadoSedeDtos = pagosMapper.detallePorcentajeVentaToDetallePagosCosolidadoSedeDto(detallePorcentajeVentases);
-        if (detallePagosCosolidadoSedeDtos != null) {
-            detallePagosCosolidadoSedeDtos.forEach((detallePagosCosolidadoSedeDto) -> {
-                Integer idSubSedeCred = connectsAuth.getIdSubSedePrincpipal(nameDataSource, detallePagosCosolidadoSedeDto.getIdSede().intValue());
-                SubSedesDto subSede = connectsAuth.findSubsedeXId(idSubSedeCred);
-                detallePagosCosolidadoSedeDto.setNombreSede(subSede.getSede());
-            });
+            List<DetallePorcentajeVentas> detallePorcentajeVentases = reportesDao.buscarDetallePagoConsolidadoMes(ds, mes);
+            List<DetallePagosCosolidadoSedeDto> detallePagosCosolidadoSedeDtos = pagosMapper.detallePorcentajeVentaToDetallePagosCosolidadoSedeDto(detallePorcentajeVentases);
+            if (detallePagosCosolidadoSedeDtos != null) {
+                detallePagosCosolidadoSedeDtos.forEach((detallePagosCosolidadoSedeDto) -> {
+                    Integer idSubSedeCred = connectsAuth.getIdSubSedePrincpipal(nameDataSource, detallePagosCosolidadoSedeDto.getIdSede().intValue());
+                    SubSedesDto subSede = connectsAuth.findSubsedeXId(idSubSedeCred);
+                    detallePagosCosolidadoSedeDto.setNombreSede(subSede.getSede());
+                });
+            }
+            pagosConsolidadoSedeDto.setDetallePagosCosolidadoSedeDtos(detallePagosCosolidadoSedeDtos);
+            return pagosConsolidadoSedeDto;
         }
-        pagosConsolidadoSedeDto.setDetallePagosCosolidadoSedeDtos(detallePagosCosolidadoSedeDtos);
 
-        return pagosConsolidadoSedeDto;
+        return null;
     }
 
     @Override
@@ -302,5 +304,4 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         return reportesDao.reporteBalance(connectsAuth.getDataSourceSede(nameDataSource), fechInicial, fechaFinal, idsede);
     }
 
-    
 }

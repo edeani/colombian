@@ -13,4 +13,5 @@ import javax.sql.DataSource;
  */
 public interface SecuenciasMysqlDao {
     public Long secuenceTable(DataSource nameDataSource,String table);
+    void updateSecuencialTabla(DataSource nameDataSource, String tabla, Long secuencia);
 }

@@ -69,7 +69,7 @@ public class SedesController extends BaseController {
             @RequestParam(required = false) String page) {
         ModelAndView mav = new ModelAndView("util/formSelect");
         SedesDto ss = connectsAuth.findSedeXName(sede);
-        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(ss.getIdsedes());
+        List<ItemsDTO> datosSedes = sedeService.listaSubSedesOptions(ss.getIdsedes());
         
         if(page != null){
             if(page.equals("compras")){
@@ -89,7 +89,7 @@ public class SedesController extends BaseController {
         ModelAndView mav = new ModelAndView("util/formSelectSedes");
         //SubSedesDto ss = connectsAuth.findSubsedeXName((String)session.getAttribute("path"));
         SedesDto sedesDto= connectsAuth.findSedeXName(sede);
-        List<ItemsDTO> datosSedes = sedeService.listaSedesOptions(sedesDto.getIdsedes());
+        List<ItemsDTO> datosSedes = sedeService.listaSubSedesOptions(sedesDto.getIdsedes());
         mav.addObject("datos", datosSedes);
         mav.addObject("sede", idSede);
         return mav;
