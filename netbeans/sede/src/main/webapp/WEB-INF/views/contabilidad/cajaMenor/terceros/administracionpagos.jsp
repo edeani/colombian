@@ -35,7 +35,7 @@
                 <label style="display: none;">
                     <form:select path="idSede">
                         <option value="">Seleccionar</option>
-                        <c:import url="/${sessionScope.path}/sedes/ajax/seleccionarSede.htm"/>
+                        <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm"/>
                     </form:select>
                     <form:input path="sede" type="hidden"/>
                 </label>
@@ -122,5 +122,10 @@
             </div>
         </div>
     </form:form>
+    <div style="display: none;">
+        <form id="ver_pdf_terceros" action="<%=request.getContextPath()%>/${sessionScope.path}/cajamenor/terceros/pdf/comprobante.htm" target="_blank">
+            <input type="hidden" value="" id="idpagotercero" name="idpagotercero"/>
+        </form>
+    </div>
 </div>
 

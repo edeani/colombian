@@ -54,7 +54,7 @@ public class CajaMenorServiceImpl implements CajaMenorService{
     @Override
     @Transactional(readOnly = true)
     public List<DetallePagosTercerosDto> buscarDetallePagosTercerosCajaMenorDtos(String nameDataSource, Long idpago) {
-        return cajaMenorDao.buscarDetallePagosTercerosCajaMenorDtos(connectsAuth.getDataSourceSubSede(nameDataSource), idpago);
+        return cajaMenorDao.buscarDetallePagosTercerosCajaMenorDtos(connectsAuth.getDataSourceSede(nameDataSource), idpago);
     }
 
     @Override

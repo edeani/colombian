@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcc6e83d-f602-4ea3-8cdd-80bf071a1a7c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -56,14 +57,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="364" y="67" width="208" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="fee9bc60-3b47-440f-a8d4-bb4f6e89f754"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="311" y="47" width="261" height="20" uuid="4cae234c-68ce-4799-9a7c-4430b44bdbf8"/>
 				<textElement>
@@ -72,12 +65,12 @@
 				<textFieldExpression><![CDATA[$P{slogan}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="0" width="400" height="47" forecolor="#000000" backcolor="#FFFFFF" uuid="fc804383-0ac0-4be5-b4fe-9b4709998116"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+				<reportElement mode="Transparent" x="14" y="0" width="400" height="47" forecolor="#000000" backcolor="#FFFFFF" uuid="fc804383-0ac0-4be5-b4fe-9b4709998116"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="36" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{msjtitulo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nombresede}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
