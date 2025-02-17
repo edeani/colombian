@@ -16,6 +16,7 @@ public class NotasDetalleDto {
     private String concepto;
     private String detalle;
     private Double total;
+    private String fecha;
 
     public Long getCons() {
         return cons;
@@ -56,5 +57,14 @@ public class NotasDetalleDto {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-      
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+    
+    
 }

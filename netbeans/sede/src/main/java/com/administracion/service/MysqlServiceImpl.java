@@ -9,7 +9,6 @@ package com.administracion.service;
 import com.administracion.dao.SecuenciasMysqlDao;
 import com.administracion.dto.SedesDto;
 import com.administracion.service.autorizacion.ConnectsAuth;
-import com.administracion.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

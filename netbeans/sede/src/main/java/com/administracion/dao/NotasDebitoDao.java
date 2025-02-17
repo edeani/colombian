@@ -5,8 +5,10 @@
  */
 package com.administracion.dao;
 
+import com.administracion.dto.NotasDetalleDto;
 import com.administracion.dto.NotasDto;
 import com.administracion.entidad.NotasDebito;
+import java.util.List;
 import javax.sql.DataSource;
 
 
@@ -16,6 +18,6 @@ import javax.sql.DataSource;
  * @author EderArmando
  */
 public interface NotasDebitoDao extends GenericDao<NotasDebito>{
-    public void guardarNotaDebito(DataSource dataSource,NotasDto notasDebito);
-    public void guardarNotaCredito(DataSource dataSource,NotasDto notasDebito);
+    public void guardarNotaDebitoDetalle(DataSource dataSource,NotasDto notasDebito);
+    public List<NotasDetalleDto> consultarDetalleNotaDebito(DataSource dataSource, int idComprobante);
 }

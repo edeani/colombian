@@ -99,6 +99,10 @@
 	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
            p:url="classpath:/reportes/movimientoCaja.jrxml"
            p:reportDataKey="datos"/>
+        <bean id="notasSede"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/notasPdf.jrxml"
+           p:reportDataKey="datos"/>
         <bean id="estadoPerdidaGananciasSede"
 	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
            p:url="classpath:/reportes/reportePerdidasGananciasTotalSede.jrxml"

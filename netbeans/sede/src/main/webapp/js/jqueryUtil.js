@@ -185,6 +185,35 @@ function peticionAjax(url, type, parametros) {
     return codigo;
 }
 
+function peticionAjaxDataType(url, type, parametros,dataType) {
+    var codigo = "";
+    if (parametros !== null && parametros !== "") {
+        $.ajax({
+            url: url,
+            timeout: 20000,
+            type: type,
+            data: parametros,
+            dataType: dataType,
+            async: false,
+            success: function (result) {
+                codigo = result;
+            }
+        });
+    } else {
+        $.ajax({
+            url: url,
+            timeout: 20000,
+            type: type,
+            async: false,
+            dataType: dataType,
+            success: function (result) {
+                codigo = result;
+            }
+        });
+    }
+    return codigo;
+}
+
 function validarFormulario(formulario) {
     var estadoFormulario = "";
     $(formulario).find('input,select').each(function () {

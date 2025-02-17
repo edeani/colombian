@@ -17,7 +17,7 @@
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 
 <div id="formPago" >                                 
-    <form:form commandName="${commandName}"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/debito/guardar.htm">
+    <form:form commandName="${commandName}"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/ajax/debito/guardar.htm" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/debito/comprobante.htm">
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
@@ -101,5 +101,11 @@
             </div>
         </div>
     </form:form>
+    
+    <div style="display: none;">
+        <form id="dataComprobante" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/debito/comprobante.htm">
+            <input type="hidden" id="idComprobante" name="idComprobante" value="" />
+        </form>
+    </div>
 </div>
 

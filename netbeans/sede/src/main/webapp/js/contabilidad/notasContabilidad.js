@@ -183,8 +183,9 @@ $(document).ready(function() {
             var url = $("#notasDto").attr("action");
             var parametros = $("#notasDto").serialize();
             var html = peticionAjax(url, "post", parametros);
+            $("#idComprobante").val(html);
             //Genero el PDF
-            /*var body = document.body;
+            var body = document.body;
             var form = document.createElement('form');
             form.method = 'POST';
             form.action = $("#notasDto").data("urlcomprobante");
@@ -193,12 +194,12 @@ $(document).ready(function() {
             form.target = "_blank";
             var input = document.createElement('input');
             input.type = 'hidden';
-            input.name = "idpagotercero";
-            input.id = "idpagotercero";
-            input.value = $("#secuencia").val();
+            input.name = "idComprobante";
+            input.id = "idComprobante";
+            input.value = $("#idComprobante").val();
             form.appendChild(input);
-            body.appendChild(form);
-            form.submit();*/
+            body.appendChild(form);     
+            form.submit();
             var urlLocal = window.location.href;
             window.location.href = urlLocal;
         } else {

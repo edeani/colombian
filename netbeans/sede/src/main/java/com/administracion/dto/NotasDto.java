@@ -17,6 +17,8 @@ public class NotasDto {
     private String fecha;
     private Integer idSede;
     private String sede;
+    private Float totalPago;
+    private Integer idControlNotas;
     private  List<NotasDetalleDto> detallesNota;
    
 
@@ -52,5 +54,27 @@ public class NotasDto {
         this.sede = sede;
     }
 
-    
+    public Float getTotalPago() {
+        return totalPago;
+    }
+
+    public void setTotalPago(Float totalPago) {
+        this.totalPago = totalPago;
+    }
+
+    public Integer getIdControlNotaCredito() {
+        return idControlNotas;
+    }
+
+    public void setIdControlNotaCredito(Integer idControlNotaCredito) {
+        this.idControlNotas = idControlNotaCredito;
+    }
+   
+    public Integer getIdControlNotaDebito() {
+        return idControlNotas;
+    }
+
+    public void setIdControlNotaDebito(Integer idControlNotas) {
+        this.idControlNotas = idControlNotas;
+    }
 }

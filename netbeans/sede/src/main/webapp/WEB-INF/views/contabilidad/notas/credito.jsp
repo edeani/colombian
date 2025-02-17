@@ -17,7 +17,7 @@
 <!--script src="<%=request.getContextPath()%>/js/select/jquery.editable-select.pack.js" type="text/javascript"> </script-->
 
 <div id="formPago" >                                 
-    <form:form commandName="${commandName}"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/credito/guardar.htm">
+    <form:form commandName="${commandName}"  action="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/ajax/credito/guardar.htm" data-urlcomprobante="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/credito/comprobante.htm">
         <div id="contenidoHome"> 
             <input id="rutaLoader"value="${pageContext.servletContext.contextPath}/img/loaders/" type="hidden"/>
             <div id="tituloPagina">${titulo}</div>
@@ -33,12 +33,14 @@
             <div style="position: relative; margin-left: 115px;">
                 <label>
                     Sede
-                    <form:select path="idSede">
+                    <form:select path="idSede" >
                         <option value="">Seleccionar</option>
                         <c:import url="/${sessionScope.path}/sedes/ajax/listaSedeSelect.htm">
                         </c:import>
                     </form:select>
-                    <form:input path="sede" type="hidden"/>
+                    <form:input path="sede" type="hidden" />
+                    
+                    
                 </label>
                 <label id="cmpFecha">
                     Fecha
@@ -101,5 +103,10 @@
             </div>
         </div>
     </form:form>
+    <div style="display: none;">
+        <form id="dataComprobante" action="${pageContext.servletContext.contextPath}/${sessionScope.path}/notas/credito/comprobante.htm">
+            <input type="hidden" id="idComprobante" name="idComprobante" value="" />
+        </form>
+    </div>
 </div>
 
