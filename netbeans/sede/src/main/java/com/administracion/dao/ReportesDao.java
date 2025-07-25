@@ -8,6 +8,7 @@ package com.administracion.dao;
 import com.administracion.dto.BalanceDto;
 import com.administracion.dto.ComprasProveedorFechaDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
+import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.CuentasPagarProveedoresDto;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
 import com.administracion.dto.ReporteConsolidadoDto;
@@ -35,6 +36,7 @@ public interface ReportesDao {
     public List<ComprobanteConsolidadoSedeDto> buscarGastosXFecha(DataSource nameDataSource,String fecha);
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(DataSource nameDataSource,String fechaInicio,String fechaFin);
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMenor(DataSource nameDataSource, String fechaInicio, String fechaFin);
+    List<ConsolidadoVentasPorcentajeDTO> reportePorcentajesVentas(List<SubSedesDto> subSedes, String fechaInicioD, String fechaFinD);
     public List<DetallePorcentajeVentas> buscarDetallePagoConsolidadoMes(DataSource nameDataSource,int mes);
     public PorcentajeVentas buscarPagoConsolidadoMes(DataSource nameDataSource,int mes);
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(DataSource nameDataSource,String fechInicial, String fechaFinal);

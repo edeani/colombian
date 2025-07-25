@@ -10,6 +10,7 @@ import com.administracion.dto.BalanceDto;
 import com.administracion.dto.CierreSedesDto;
 import com.administracion.dto.ComprobanteCierreSedesDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
+import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
 import com.administracion.dto.ItemsDTO;
 import com.administracion.dto.MovimientoCajaDto;
@@ -81,6 +82,16 @@ public class ConsolidadoController extends BaseController {
         return mav;
     }
 
+    @RequestMapping(value = "/ventasPorcentajes.htm")
+    public ModelAndView indexVentasPorcentajes() {
+        ModelAndView mav = new ModelAndView("reportes/consolidado/ventas_porcentaje/porcentajes");
+
+        mav.addObject("fechaInicial", new Date());
+        mav.addObject("fechaFinal", new Date());
+        mav.addObject("titulo", " Reporte Ventas Porcentajes");
+        return mav;
+    }
+    
     @RequestMapping(value = "/consolidadoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response, HttpSession session,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
@@ -101,6 +112,32 @@ public class ConsolidadoController extends BaseController {
             mav = new ModelAndView("consolidado", parameterMap);
         } else {
             mav = new ModelAndView("redirect:/" + sede + "/consolidado/sede.htm");
+            mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
+        }
+        return mav;
+    }
+    
+    
+    @RequestMapping(value = "/ventasProcentajePDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView reporteVentasProcentajePDF(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
+            @PathVariable String sede, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+        SedesDto ss = connectsAuth.findSedeXName(sede);
+        List<ConsolidadoVentasPorcentajeDTO> reporte = reporteService.reportesVentasTotales(ss.getIdsedes(), fechaInicial, fechaFinal);
+        ModelAndView mav = null;
+        if (reporte.size() > 0) {
+            JRDataSource datos = new JRBeanCollectionDataSource(reporte);
+            Map<String, Object> parameterMap = new HashMap<>();
+            parameterMap.put("datos", datos);
+            parameterMap.put("fechaInicial", fechaInicial);
+            parameterMap.put("fechaFinal", fechaFinal);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("titulo", sedesDto.getTitulo());
+            parameterMap.put("nombresede", sede);
+            parameterMap.put("slogan", sedesDto.getSlogan());
+            mav = new ModelAndView("ventasporcentajes", parameterMap);
+        } else {
+            mav = new ModelAndView("redirect:/" + sede + "/consolidado/ventasPorcentaje.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
         }
         return mav;

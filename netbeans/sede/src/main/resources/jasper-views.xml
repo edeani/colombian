@@ -75,6 +75,10 @@
 	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
            p:url="classpath:/reportes/consolidado.jrxml"
            p:reportDataKey="datos"/>
+        <bean id="ventasporcentajes"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+           p:url="classpath:/reportes/ventasporcentajes.jrxml"
+           p:reportDataKey="datos"/>
         <bean id="traslados"
 	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
            p:url="classpath:/reportes/traslados.jrxml"

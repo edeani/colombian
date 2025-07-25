@@ -27,4 +27,13 @@
     ORDER BY c.descripcion_cliente,c.numero_telefono
     )sub0
     </query>
+    <query id="OrdenesSql.ordenesVentasPorcentajeXFecha">
+        SELECT CASE WHEN sub1.valor_total is null THEN 0 ELSE sub1.valor_total END as valor_total from(
+		SELECT sum(o.valor_total) as valor_total FROM orden o 
+		WHERE  
+		(o.id_dian is not null 
+		and o.id_dian > 0)
+		and o.fecha_orden BETWEEN :fechaInicial and :fechaFinal and o.estado_orden='A'
+	)sub1
+    </query>
 </queries>

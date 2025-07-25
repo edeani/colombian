@@ -11,6 +11,7 @@ import com.administracion.datasources.GenericDataSource;
 import com.administracion.dto.BalanceDto;
 import com.administracion.dto.ComprasProveedorFechaDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
+import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.CuentasPagarProveedoresDto;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
 import com.administracion.dto.ReporteConsolidadoDto;
@@ -45,7 +46,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportesDaoImpl.class);
     private final String UNION = " union all ";
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private final  String cuentaDescuento = "421040";
+    private final String cuentaDescuento = "421040";
     /**
      * Servicio que me permite cambiar de conexión
      */
@@ -100,7 +101,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
             /**
              * Cambio de conexión
              */
-            
+
             this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(connectsAuth.getDataSourceSubSede(subSede.getSede()));
             /**
              * Ejecución de la consulta
@@ -211,7 +212,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         Long pagos = 0L;
         try {
             String queryPagos = "select sum(total) as totalPagos from pagos where fecha = '" + fecha + "'";
-            pagos = this.jdbcTemplate.queryForObject(queryPagos,Long.class);
+            pagos = this.jdbcTemplate.queryForObject(queryPagos, Long.class);
         } catch (DataAccessException e) {
             LOGGER.error("Error pagosConsolidadoSede::" + e.getMessage());
         }
@@ -248,7 +249,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
 
         return movimientos;
     }
-    
+
     @Override
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayorSubsede(DataSource nameDataSource, String fechaInicio, String fechaFin, Integer idSubsede) {
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
@@ -256,9 +257,9 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
 
         try {
             String sql = "select a.* from(" + selectJdbTemplate("consecutivo,idcuenta,concepto,total,fecha, idComprobanteCierre as idComprobante",
-                    "detalle_cierre_sedes", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11050501' AND idsede = "+idSubsede+"") + " union all "
+                    "detalle_cierre_sedes", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11050501' AND idsede = " + idSubsede + "") + " union all "
                     + selectJdbTemplate("consecutivo,idcuenta,descripcion as concepto,total,fecha,idpago",
-                            "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' AND idsede = "+idSubsede+" )a order by fecha,idComprobante");
+                            "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' AND idsede = " + idSubsede + " )a order by fecha,idComprobante");
             movimientos = this.jdbcTemplate.query(sql, new ComprobanteConsolidadoSedeDtoRowMapper());
         } catch (DataAccessException e) {
             LOGGER.error("Error bucarMovimientoCajaMayor::" + e.getMessage());
@@ -315,7 +316,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
         PorcentajeVentas porcentajeVentas = null;
         String sql = selectJdbTemplate("pv.*", "porcentaje_ventas pv",
-                "pv.mes = " + mes +"  and year(curdate()) = year(pv.fecha)");
+                "pv.mes = " + mes + "  and year(curdate()) = year(pv.fecha)");
         try {
             porcentajeVentas = this.jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(PorcentajeVentas.class));
         } catch (DataAccessException e) {
@@ -327,10 +328,10 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     @Override
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(DataSource nameDataSource, String fechaInicial, String fechaFinal) {
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-       
+
         String sql = "select 'Ingresos'as nombre,case when sub0.total_ingresos is null then 0 else sub0.total_ingresos end as totalCuenta from( "
                 + "select sum(si2.total) as total_ingresos from( "
-                + "select si.nombre,case when si.idcuenta = '"+cuentaDescuento+"' then  si.total*-1 else si.total end as total from ("
+                + "select si.nombre,case when si.idcuenta = '" + cuentaDescuento + "' then  si.total*-1 else si.total end as total from ("
                 + "select 'Ingresos' as nombre, dcs.total as total,dcs.idcuenta  from detalle_cierre_sedes dcs "
                 + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
                 + " union all "
@@ -347,9 +348,9 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "select sum(dp.total) from detalle_pagos dp "
                 + "where dp.idcuenta like '5%' and dp.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
                 + "union all "
-		+" select sum(total) as total from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' "
+                + " select sum(total) as total from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' "
                 + "union all "
-                +" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '5%' "
+                + " select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '5%' "
                 + ")sub0 "
                 + ")sub1 "
                 + "union all "
@@ -364,7 +365,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "select sum(dp.total) from detalle_pagos dp "
                 + "where dp.idcuenta like '6%' and dp.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' "
                 + "union all "
-                +" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '6%' "
+                + " select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '6%' "
                 + ")sub0 "
                 + ")sub1 ";
         List<EstadoPerdidaGananciaProvisionalDto> reporte = null;
@@ -381,7 +382,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
         String sql = "select 'Ingresos'as nombre,case when sub0.total_ingresos is null then 0 else sub0.total_ingresos end as totalCuenta from( "
                 + "select sum(si2.total) as total_ingresos from( "
-                + "select si.nombre,case when si.idcuenta = '"+cuentaDescuento+"' then  si.total*-1 else si.total end as total from ("
+                + "select si.nombre,case when si.idcuenta = '" + cuentaDescuento + "' then  si.total*-1 else si.total end as total from ("
                 + "select 'Ingresos' as nombre, dcs.total as total,dcs.idcuenta  from detalle_cierre_sedes dcs "
                 + "where dcs.idcuenta like '4%' and dcs.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dcs.idsede=" + idSede
                 + " union all "
@@ -398,9 +399,9 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "select sum(dp.total) from detalle_pagos dp "
                 + "where dp.idcuenta like '5%' and dp.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dp.idsede=" + idSede + " "
                 + "union all "
-		+" select sum(total) as total from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' and idsede="+ idSede + " "
+                + " select sum(total) as total from detalle_caja_menor where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  idcuenta like '5%' and idsede=" + idSede + " "
                 + "union all "
-		+" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '5%' and idsede="+ idSede + " "
+                + " select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '5%' and idsede=" + idSede + " "
                 + ")sub0 "
                 + ")sub1 "
                 + "union all "
@@ -415,7 +416,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 + "select sum(dp.total) from detalle_pagos dp "
                 + "where dp.idcuenta like '6%' and dp.fecha between '" + fechaInicial + "' and '" + fechaFinal + "' and dp.idsede=" + idSede + " "
                 + "union all "
-		+" select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '6%' and idsede="+ idSede + " "
+                + " select sum(total) as total from notas_credito where (fecha between '" + fechaInicial + "' and '" + fechaFinal + "') and  cuenta like '6%' and idsede=" + idSede + " "
                 + ")sub0 "
                 + ")sub1 ";
         List<EstadoPerdidaGananciaProvisionalDto> reporte = null;
@@ -471,66 +472,66 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         try {
             reporte = this.jdbcTemplate.query(sql, new CuentasPagarProveedoresRowMapper());
         } catch (DataAccessException e) {
-            System.out.println("Error reporteCuentasPagarProveedoresDto::"+e.getMessage());
+            System.out.println("Error reporteCuentasPagarProveedoresDto::" + e.getMessage());
         }
-        
+
         return reporte;
     }
 
     @Override
-    public List<BalanceDto> reporteBalance(DataSource nameDataSource, String fechInicial, String fechaFinal,Long idsede) {
+    public List<BalanceDto> reporteBalance(DataSource nameDataSource, String fechInicial, String fechaFinal, Long idsede) {
         this.jdbcTemplate = new JdbcTemplate(nameDataSource);
         String condicionSede = "";
-        if(idsede!=null){
-            condicionSede = " and idsede="+idsede;
+        if (idsede != null) {
+            condicionSede = " and idsede=" + idsede;
         }
         String sql = "select sub1.*,SUBSTRING(sub1.cuenta, 1, 1) as tipo from( "
-                + " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total  " +
-                    "from( select sub.cuenta,sum(sub.total) as total from( " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
-                    "union all " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
-                    "union all " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '5%') "+condicionSede+" group by idcuenta " +
-                    //Sumamos notas credito a los gastos o pagos
-                    " union all " +
-                    "select cuenta,sum(total) as total from notas_credito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+"  group by cuenta  "+
-                    ")sub group by sub.cuenta " +
-                    ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
-                + "union all "+
-                " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total  " +
-                    "from( select sub.cuenta,sum(sub.total) as total from( " +
-                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end  as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+"  " +
-                    "union all " +
-                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+"  " +
-                    "union all " +
-                    "select idcuenta as cuenta ,case when idcuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '4%') "+condicionSede+"  " +
-                    //Sumamos notas debito a los ingresos 
-                    " union all " +
-                    "select cuenta,case when cuenta = '"+cuentaDescuento+"' then total*-1 else total end as total from notas_debito where (fecha between  '"+fechInicial+"' and '"+fechaFinal+"') "+condicionSede+" and cuenta like '4%'    "
-                + ")sub group by sub.cuenta " +
-                    ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
+                + " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total  "
+                + "from( select sub.cuenta,sum(sub.total) as total from( "
+                + "select idcuenta as cuenta ,sum(total) as total from detalle_pagos where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '5%') " + condicionSede + " group by idcuenta "
                 + "union all "
-                +" select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total  " +
-                    "from( select sub.cuenta,sum(sub.total) as total from( " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_pagos where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '6%')"+condicionSede+" group by idcuenta " +
-                    "union all " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '6%') "+condicionSede+" group by idcuenta " +
-                    "union all " +
-                    "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '"+fechInicial+"' and '"+fechaFinal+"') and ( idcuenta like '6%') "+condicionSede+" group by idcuenta " +
-                    "union all " +
-                    "select fc.idcuenta as cuenta,sum(fc.total) as total from facturas_compras fc where fc.idcuenta like '6%' and fc.fecha between '"+fechInicial+"' and '"+fechaFinal+"' "+condicionSede+" group by idcuenta "+
-                    ")sub group by sub.cuenta " +
-                    ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
+                + "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '5%') " + condicionSede + " group by idcuenta "
+                + "union all "
+                + "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '5%') " + condicionSede + " group by idcuenta "
+                + //Sumamos notas credito a los gastos o pagos
+                " union all "
+                + "select cuenta,sum(total) as total from notas_credito where (fecha between  '" + fechInicial + "' and '" + fechaFinal + "') " + condicionSede + "  group by cuenta  "
+                + ")sub group by sub.cuenta "
+                + ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
+                + "union all "
+                + " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total  "
+                + "from( select sub.cuenta,sum(sub.total) as total from( "
+                + "select idcuenta as cuenta ,case when idcuenta = '" + cuentaDescuento + "' then total*-1 else total end  as total from detalle_pagos where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '4%') " + condicionSede + "  "
+                + "union all "
+                + "select idcuenta as cuenta ,case when idcuenta = '" + cuentaDescuento + "' then total*-1 else total end as total from detalle_cierre_sedes where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '4%') " + condicionSede + "  "
+                + "union all "
+                + "select idcuenta as cuenta ,case when idcuenta = '" + cuentaDescuento + "' then total*-1 else total end as total from detalle_caja_menor where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '4%') " + condicionSede + "  "
+                + //Sumamos notas debito a los ingresos 
+                " union all "
+                + "select cuenta,case when cuenta = '" + cuentaDescuento + "' then total*-1 else total end as total from notas_debito where (fecha between  '" + fechInicial + "' and '" + fechaFinal + "') " + condicionSede + " and cuenta like '4%'    "
+                + ")sub group by sub.cuenta "
+                + ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
+                + "union all "
+                + " select sub0.cuenta,cp.nombre_cta as nombre_cuenta,sub0.total  "
+                + "from( select sub.cuenta,sum(sub.total) as total from( "
+                + "select idcuenta as cuenta ,sum(total) as total from detalle_pagos where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '6%')" + condicionSede + " group by idcuenta "
+                + "union all "
+                + "select idcuenta as cuenta ,sum(total) as total from detalle_cierre_sedes where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '6%') " + condicionSede + " group by idcuenta "
+                + "union all "
+                + "select idcuenta as cuenta ,sum(total) as total from detalle_caja_menor where (fecha between '" + fechInicial + "' and '" + fechaFinal + "') and ( idcuenta like '6%') " + condicionSede + " group by idcuenta "
+                + "union all "
+                + "select fc.idcuenta as cuenta,sum(fc.total) as total from facturas_compras fc where fc.idcuenta like '6%' and fc.fecha between '" + fechInicial + "' and '" + fechaFinal + "' " + condicionSede + " group by idcuenta "
+                + ")sub group by sub.cuenta "
+                + ")sub0 inner join cuentas_puc cp on cp.cod_cta = sub0.cuenta "
                 + ")sub1";
-        
+
         List<BalanceDto> reporte = null;
         try {
             reporte = this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BalanceDto.class));
         } catch (DataAccessException e) {
-            System.out.println("Error reporteBalance::"+e.getMessage());
+            System.out.println("Error reporteBalance::" + e.getMessage());
         }
-        
+
         return reporte;
     }
 
@@ -538,20 +539,20 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     public Long pagosContarjetaTotal(DataSource nameDataSource, String fecha) {
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-            return this.jdbcTemplate.queryForObject("select sum(total) as total from (select sum(pago_tarjeta) as total from mesa " +
-            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
-            "and estado_orden = 'A' " +
-            "union all " +
-            "select sum(pago_tarjeta) as total from orden " +
-            "where fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
-            "and estado_orden = 'A' " +
-            "union all " +
-            "select sum(pago_tarjeta) as total from llevar " +
-            "where " +
-            "fecha_orden = '"+fecha+"' and pago_tarjeta <> 0 " +
-            "and estado_orden = 'A') sub0",Long.class);
+            return this.jdbcTemplate.queryForObject("select sum(total) as total from (select sum(pago_tarjeta) as total from mesa "
+                    + "where fecha_orden = '" + fecha + "' and pago_tarjeta <> 0 "
+                    + "and estado_orden = 'A' "
+                    + "union all "
+                    + "select sum(pago_tarjeta) as total from orden "
+                    + "where fecha_orden = '" + fecha + "' and pago_tarjeta <> 0 "
+                    + "and estado_orden = 'A' "
+                    + "union all "
+                    + "select sum(pago_tarjeta) as total from llevar "
+                    + "where "
+                    + "fecha_orden = '" + fecha + "' and pago_tarjeta <> 0 "
+                    + "and estado_orden = 'A') sub0", Long.class);
         } catch (DataAccessException e) {
-            LOGGER.error("Error pagosContarjetaTotal::"+e.getMessage());
+            LOGGER.error("Error pagosContarjetaTotal::" + e.getMessage());
         }
         return null;
     }
@@ -560,20 +561,20 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     public Long pagosDescuentoTotal(DataSource nameDataSource, String fecha) {
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-            return this.jdbcTemplate.queryForObject("select sum(total) as total from (select sum(descuento_orden) as total from mesa " +
-            "where fecha_orden = '"+fecha+"' and descuento_orden <> 0  " +
-            "and estado_orden = 'A' " +
-            "union " +
-            "select sum(descuento_orden) as total from orden " +
-            "where fecha_orden = '"+fecha+"' and descuento_orden <> 0 " +
-            "and estado_orden = 'A' " +
-            "union " +
-            "select sum(descuento_orden) as total from llevar " +
-            "where " +
-            "fecha_orden = '"+fecha+"' and  descuento_orden <> 0 " +
-            "and estado_orden = 'A') sub0",Long.class);
+            return this.jdbcTemplate.queryForObject("select sum(total) as total from (select sum(descuento_orden) as total from mesa "
+                    + "where fecha_orden = '" + fecha + "' and descuento_orden <> 0  "
+                    + "and estado_orden = 'A' "
+                    + "union "
+                    + "select sum(descuento_orden) as total from orden "
+                    + "where fecha_orden = '" + fecha + "' and descuento_orden <> 0 "
+                    + "and estado_orden = 'A' "
+                    + "union "
+                    + "select sum(descuento_orden) as total from llevar "
+                    + "where "
+                    + "fecha_orden = '" + fecha + "' and  descuento_orden <> 0 "
+                    + "and estado_orden = 'A') sub0", Long.class);
         } catch (DataAccessException e) {
-            LOGGER.error("Error pagosDescuentoTotal::"+e.getMessage());
+            LOGGER.error("Error pagosDescuentoTotal::" + e.getMessage());
         }
         return null;
     }
@@ -581,6 +582,73 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     @Override
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(String nameDataSource, String sfechaInicial, String sfechaFinal) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<ConsolidadoVentasPorcentajeDTO> reportePorcentajesVentas(List<SubSedesDto> subSedes, String fechaInicioD, String fechaFinD) {
+        /**
+         * Construcción de la query
+         */
+
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append(leerXml.getQuery("MesasSql.mesasVentasPorcentajeXFecha"));
+        queryBuilder.append(UNION);
+        queryBuilder.append(leerXml.getQuery("OrdenesSql.ordenesVentasPorcentajeXFecha"));
+        queryBuilder.append(UNION);
+        queryBuilder.append(leerXml.getQuery("LlevarSql.llevarVentasPorcentajeFecha"));
+
+        MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fechaInicioD);
+        params.addValue("fechaFinal", fechaFinD);
+        /**
+         * La consulta debe haerse a cada una de las sedes
+         */
+        List<ConsolidadoVentasPorcentajeDTO> reporte = new ArrayList<>();
+        float totalVentas = 0f;
+        for (SubSedesDto subSede : subSedes) {
+            if (subSede.getId() > 0) {
+                /**
+                 * Cambio de conexión
+                 */
+
+                this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(connectsAuth.getDataSourceSubSede(subSede.getSede()));
+                /**
+                 * Ejecución de la consulta
+                 */
+                ConsolidadoVentasPorcentajeDTO consolidadoDDto = new ConsolidadoVentasPorcentajeDTO();
+                try {
+                    List<Float> totalesCaja = namedParameterJdbcTemplate.queryForList(queryBuilder.toString(), params, Float.class);
+                    Float totalVentasSubSede = totalesCaja.get(0) + totalesCaja.get(1) + totalesCaja.get(2);
+                    totalVentas += totalVentasSubSede;
+                    consolidadoDDto.setValorTotal(totalVentasSubSede);
+                    consolidadoDDto.setSubsede(subSede.getSede());
+                } catch (DataAccessException e) {
+                    consolidadoDDto.setValorTotal(0f);
+                    consolidadoDDto.setPorcentaje(0f);
+                    consolidadoDDto.setSubsede(subSede.getSede() + ": No conecta ");
+                }
+
+                reporte.add(consolidadoDDto);
+
+            }
+
+        }
+
+        for (ConsolidadoVentasPorcentajeDTO consolidadoVentasPorcDTO : reporte) {
+            try {
+                if(totalVentas == 0f){
+                    consolidadoVentasPorcDTO.setPorcentaje(0f);
+                }else{
+                    consolidadoVentasPorcDTO.setPorcentaje(100*consolidadoVentasPorcDTO.getValorTotal() / totalVentas);
+                }
+                
+            } catch (Exception e) {
+                LOGGER.info("El total ventas es 0");
+                consolidadoVentasPorcDTO.setPorcentaje(0f);
+            }
+    
+        }
+
+        return reporte;
     }
 
 }

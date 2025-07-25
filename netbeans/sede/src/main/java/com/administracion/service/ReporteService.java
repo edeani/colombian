@@ -7,6 +7,7 @@ package com.administracion.service;
 
 import com.administracion.dto.BalanceDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
+import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
 import com.administracion.dto.MovimientoCajaDto;
 import com.administracion.dto.PagosConsolidadoSedeDto;
@@ -31,4 +32,5 @@ public interface ReporteService {
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisional(String nameDataSource,String fechInicial, String fechaFinal);
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisionalXSede(String nameDataSource,String fechInicial, String fechaFinal,Long idSede);
     public List<BalanceDto> reporteBalanceService(String nameDataSource,String fechInicial, String fechaFinal,Long idsede);
+    public List<ConsolidadoVentasPorcentajeDTO> reportesVentasTotales(Integer idSede, String fechaInicioD, String fechaFinD);
 }

@@ -8,4 +8,13 @@
         where ll.fecha_orden between :fechaInicial and :fechaFinal and ll.estado_orden='A'
         )sub
     </query>
+    <query id="LlevarSql.llevarVentasPorcentajeFecha">
+        SELECT CASE WHEN sub0.valor_total is null THEN 0 ELSE sub0.valor_total END as valor_total from(
+            SELECT sum(l.valor_total ) as valor_total FROM llevar l 
+            WHERE  
+            (l.id_dian is not null 
+            and l.id_dian > 0)
+            and l.fecha_orden BETWEEN :fechaInicial and :fechaFinal and l.estado_orden='A'
+	)sub0
+    </query>
 </queries>

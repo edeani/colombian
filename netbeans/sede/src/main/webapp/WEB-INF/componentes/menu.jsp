@@ -102,6 +102,7 @@
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/factura/reportes/totalFacturas.htm'><span>Reporte Facturas Totales</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/inventarioTotal.htm'><span>Inventario Total</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/sede.htm'><span>Consolidado</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/ventasPorcentajes.htm'><span>Porcentajes Ventas</span></a></li>
             </ul>
         </li>
         <li class='has-sub'><a href='#'><span>Entrar Sedes</span></a>

@@ -9,26 +9,24 @@ import com.adiministracion.mapper.MovimientoCajaMapper;
 import com.adiministracion.mapper.PagosMapper;
 import com.administracion.dao.CierreSedesDao;
 import com.administracion.dao.ClasePagoDao;
-import com.administracion.dao.PagosDao;
 import com.administracion.dao.ReportesDao;
 import com.administracion.dao.SedesDao;
 import com.administracion.dao.SubSedesDao;
 import com.administracion.dto.BalanceDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
+import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.DetallePagosCosolidadoSedeDto;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
 import com.administracion.dto.MovimientoCajaDto;
 import com.administracion.dto.PagosConsolidadoSedeDto;
 import com.administracion.dto.ReporteConsolidadoDto;
 import com.administracion.dto.ReporteTotalCuentasXNivelDto;
-import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.ClasePago;
 import com.administracion.entidad.DetallePorcentajeVentas;
 import com.administracion.entidad.PorcentajeVentas;
 import com.administracion.entidad.Sedes;
 import com.administracion.entidad.SubSedes;
-import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.Formatos;
 import com.administracion.util.LectorPropiedades;
 import java.util.ArrayList;
@@ -56,22 +54,17 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Autowired
     private CierreSedesDao cierreSedesDao;
     @Autowired
-    private PagosDao pagosDao;
-    @Autowired
     private SedesDao sedesDao;
     @Autowired
     private ClasePagoDao clasePagoDao;
     @Autowired
     private LectorPropiedades lectorPropiedades;
-    private final String conexion_principal = "dataSource";
     private final String cuenta_ventas = "414015";
     private final String cuenta_consignaciones = "11050501";
     private final String cuenta_pagos_con_tarjeta = "11201010";
     private final String cuenta_descuentos = "421040";
     private final String propiedades_cuentas = "/bd/cuentas.properties";
     private final String propiedad_ingresos = "prefijo_ingresos";
-    private final String propiedad_gastos = "prefijo_gastos";
-    private final String propiedad_costos = "prefijo_costos";
     private final String propiedad_bdprincipal = "sede_principal";
 
     @Override
@@ -304,4 +297,9 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         return reportesDao.reporteBalance(connectsAuth.getDataSourceSede(nameDataSource), fechInicial, fechaFinal, idsede);
     }
 
+    @Override
+    public List<ConsolidadoVentasPorcentajeDTO> reportesVentasTotales(Integer idSede, String fechaInicioD, String fechaFinD) {
+        List<SubSedesDto> subSedes = subSedesDao.subsedesXIdSede(idSede);
+        return reportesDao.reportePorcentajesVentas(subSedes, fechaInicioD, fechaFinD);
+    }
 }

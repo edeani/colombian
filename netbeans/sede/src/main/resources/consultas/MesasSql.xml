@@ -7,4 +7,13 @@
         where m.fecha_orden between :fechaInicial and :fechaFinal and m.estado_orden='A'
         )sub
     </query>
+    <query id="MesasSql.mesasVentasPorcentajeXFecha">
+        SELECT CASE WHEN sub0.valor_total is null THEN 0 ELSE sub0.valor_total END as valor_total from(
+		SELECT sum(m.valor_total) as valor_total FROM mesa m 
+		WHERE  
+		(m.id_dian is not null 
+		and m.id_dian > 0)
+		and m.fecha_orden BETWEEN :fechaInicial and :fechaFinal and m.estado_orden='A'
+	)sub0
+    </query>
 </queries>
