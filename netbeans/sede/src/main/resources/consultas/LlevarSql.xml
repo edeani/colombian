@@ -9,12 +9,17 @@
         )sub
     </query>
     <query id="LlevarSql.llevarVentasPorcentajeFecha">
-        SELECT CASE WHEN sub0.valor_total is null THEN 0 ELSE sub0.valor_total END as valor_total from(
-            SELECT sum(l.valor_total ) as valor_total FROM llevar l 
-            WHERE  
-            (l.id_dian is not null 
-            and l.id_dian > 0)
-            and l.fecha_orden BETWEEN :fechaInicial and :fechaFinal and l.estado_orden='A'
-	)sub0
+        SELECT CASE WHEN sub2.valor_total is null THEN 0 ELSE sub2.valor_total END AS valor_total,
+        CASE WHEN sub2.valor_porcentaje is null THEN 0 ELSE sub2.valor_porcentaje END AS valor_porcentaje
+        FROM (
+        SELECT sub1.valor_total,sub1.valor_porcentaje FROM (
+                         SELECT SUM(sub0.valor_total) as  valor_total, SUM(sub0.valor_porcentaje) as valor_porcentaje 
+                         FROM(
+                                 SELECT l.id_dian,l.valor_total,CASE WHEN l.id_dian = 0 or l.id_dian is null THEN 0 ELSE l.valor_total END valor_porcentaje  FROM llevar l 
+                                 WHERE  
+                                 l.fecha_orden BETWEEN :fechaInicial and :fechaFinal and l.estado_orden='A'
+                         )sub0
+                 )sub1
+        )sub2
     </query>
 </queries>

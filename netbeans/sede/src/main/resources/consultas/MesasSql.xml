@@ -8,12 +8,17 @@
         )sub
     </query>
     <query id="MesasSql.mesasVentasPorcentajeXFecha">
-        SELECT CASE WHEN sub0.valor_total is null THEN 0 ELSE sub0.valor_total END as valor_total from(
-		SELECT sum(m.valor_total) as valor_total FROM mesa m 
-		WHERE  
-		(m.id_dian is not null 
-		and m.id_dian > 0)
-		and m.fecha_orden BETWEEN :fechaInicial and :fechaFinal and m.estado_orden='A'
-	)sub0
+        SELECT CASE WHEN sub2.valor_total is null THEN 0 ELSE sub2.valor_total END AS valor_total,
+        CASE WHEN sub2.valor_porcentaje is null THEN 0 ELSE sub2.valor_porcentaje END AS valor_porcentaje
+        FROM (
+        SELECT sub1.valor_total,sub1.valor_porcentaje FROM (
+                            SELECT SUM(sub0.valor_total) as  valor_total, SUM(sub0.valor_porcentaje) as valor_porcentaje 
+                            FROM(
+                                    SELECT m.id_dian,m.valor_total,CASE WHEN m.id_dian = 0 or m.id_dian is null THEN 0 ELSE m.valor_total END valor_porcentaje  FROM mesa m 
+                                    WHERE  
+                                    m.fecha_orden BETWEEN :fechaInicial and :fechaFinal and m.estado_orden='A'
+                            )sub0
+                    )sub1
+         )sub2
     </query>
 </queries>

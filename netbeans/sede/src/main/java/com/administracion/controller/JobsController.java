@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/jobs")
-public class JobsController {
+public class JobsController extends BaseController{
    
     @Autowired
     private JobService jobService;
@@ -30,7 +30,7 @@ public class JobsController {
     public @ResponseBody String ejecutarJobSede(@PathVariable String sede,@PathVariable String job,
             @RequestParam(required = false) Integer mes){
         try {
-            if(job.equals("porcentje-ventas")){
+            if(job.equals("porcentaje-ventas")){
                 jobService.jobPorcentajeVentasXSedeXMes(sede,mes);
             }
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class JobsController {
     @RequestMapping("/{job}.htm")
     public @ResponseBody String ejecutarJob(@PathVariable String job,@RequestParam(required = false) Integer mes){
         try {
-            if(job.equals("porcentje-ventas")){
+            if(job.equals("porcentaje-ventas")){
                 jobService.jobPorcentajeVentas(mes);
             }
         } catch (Exception e) {

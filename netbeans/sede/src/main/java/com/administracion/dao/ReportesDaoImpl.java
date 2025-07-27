@@ -590,12 +590,16 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
          * Construcción de la query
          */
 
-        StringBuilder queryBuilder = new StringBuilder();
+        StringBuilder queryBuilder = new StringBuilder("SELECT sub5.valor_total ,sub5.valor_porcentaje," +
+                                        "CASE WHEN sub5.valor_porcentaje =0 OR sub5.valor_total =0 THEN 0 ELSE sub5.valor_porcentaje/sub5.valor_total END as porcentaje FROM (" +
+                                        " SELECT SUM(sub4.valor_total ) as valor_total, SUM(sub4.valor_porcentaje ) as valor_porcentaje FROM (");
         queryBuilder.append(leerXml.getQuery("MesasSql.mesasVentasPorcentajeXFecha"));
         queryBuilder.append(UNION);
         queryBuilder.append(leerXml.getQuery("OrdenesSql.ordenesVentasPorcentajeXFecha"));
         queryBuilder.append(UNION);
         queryBuilder.append(leerXml.getQuery("LlevarSql.llevarVentasPorcentajeFecha"));
+        queryBuilder.append(" )sub4" +
+                            " )sub5");
 
         MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fechaInicioD);
         params.addValue("fechaFinal", fechaFinD);
@@ -603,7 +607,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
          * La consulta debe haerse a cada una de las sedes
          */
         List<ConsolidadoVentasPorcentajeDTO> reporte = new ArrayList<>();
-        float totalVentas = 0f;
+        final float totalVentasZero = 0f;
         for (SubSedesDto subSede : subSedes) {
             if (subSede.getId() > 0) {
                 /**
@@ -616,14 +620,13 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                  */
                 ConsolidadoVentasPorcentajeDTO consolidadoDDto = new ConsolidadoVentasPorcentajeDTO();
                 try {
-                    List<Float> totalesCaja = namedParameterJdbcTemplate.queryForList(queryBuilder.toString(), params, Float.class);
-                    Float totalVentasSubSede = totalesCaja.get(0) + totalesCaja.get(1) + totalesCaja.get(2);
-                    totalVentas += totalVentasSubSede;
-                    consolidadoDDto.setValorTotal(totalVentasSubSede);
+                    consolidadoDDto = namedParameterJdbcTemplate.queryForObject(queryBuilder.toString(), params, new BeanPropertyRowMapper<>(ConsolidadoVentasPorcentajeDTO.class));
                     consolidadoDDto.setSubsede(subSede.getSede());
                 } catch (DataAccessException e) {
-                    consolidadoDDto.setValorTotal(0f);
-                    consolidadoDDto.setPorcentaje(0f);
+                    System.out.println("Error reportePorcentajesVentas "+e.getMessage());
+                    consolidadoDDto.setValorTotal(totalVentasZero);
+                    consolidadoDDto.setPorcentaje(totalVentasZero);
+                    consolidadoDDto.setValorPorcentaje(totalVentasZero);
                     consolidadoDDto.setSubsede(subSede.getSede() + ": No conecta ");
                 }
 
@@ -631,21 +634,6 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
 
             }
 
-        }
-
-        for (ConsolidadoVentasPorcentajeDTO consolidadoVentasPorcDTO : reporte) {
-            try {
-                if(totalVentas == 0f){
-                    consolidadoVentasPorcDTO.setPorcentaje(0f);
-                }else{
-                    consolidadoVentasPorcDTO.setPorcentaje(100*consolidadoVentasPorcDTO.getValorTotal() / totalVentas);
-                }
-                
-            } catch (Exception e) {
-                LOGGER.info("El total ventas es 0");
-                consolidadoVentasPorcDTO.setPorcentaje(0f);
-            }
-    
         }
 
         return reporte;

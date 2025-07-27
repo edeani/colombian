@@ -12,6 +12,7 @@ public class ConsolidadoVentasPorcentajeDTO {
     
     private String subsede;
     private Float valorTotal;
+    private Float valorPorcentaje;
     private Float porcentaje;
 
     public String getSubsede() {
@@ -36,6 +37,14 @@ public class ConsolidadoVentasPorcentajeDTO {
 
     public void setPorcentaje(Float porcentaje) {
         this.porcentaje = porcentaje;
+    }
+
+    public Float getValorPorcentaje() {
+        return valorPorcentaje;
+    }
+
+    public void setValorPorcentaje(Float valorPorcentaje) {
+        this.valorPorcentaje = valorPorcentaje;
     }
     
     

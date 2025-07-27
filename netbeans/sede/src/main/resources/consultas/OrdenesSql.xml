@@ -28,12 +28,17 @@
     )sub0
     </query>
     <query id="OrdenesSql.ordenesVentasPorcentajeXFecha">
-        SELECT CASE WHEN sub1.valor_total is null THEN 0 ELSE sub1.valor_total END as valor_total from(
-		SELECT sum(o.valor_total) as valor_total FROM orden o 
-		WHERE  
-		(o.id_dian is not null 
-		and o.id_dian > 0)
-		and o.fecha_orden BETWEEN :fechaInicial and :fechaFinal and o.estado_orden='A'
-	)sub1
+        SELECT CASE WHEN sub2.valor_total is null THEN 0 ELSE sub2.valor_total END AS valor_total,
+	CASE WHEN sub2.valor_porcentaje is null THEN 0 ELSE sub2.valor_porcentaje END AS valor_porcentaje
+	FROM (
+        SELECT sub1.valor_total,sub1.valor_porcentaje FROM (
+                         SELECT SUM(sub0.valor_total) as  valor_total, SUM(sub0.valor_porcentaje) as valor_porcentaje 
+                         FROM(
+                                 SELECT o.id_dian,o.valor_total,CASE WHEN o.id_dian = 0 or o.id_dian is null THEN 0 ELSE o.valor_total END valor_porcentaje  FROM orden o 
+                                 WHERE  
+                                 o.fecha_orden BETWEEN :fechaInicial and :fechaFinal and o.estado_orden='A'
+                         )sub0
+                 )sub1
+        )sub2
     </query>
 </queries>
