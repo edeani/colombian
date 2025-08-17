@@ -20,29 +20,31 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="128" splitType="Stretch">
+		<band height="130" splitType="Stretch">
 			<staticText>
-				<reportElement x="9" y="107" width="34" height="20" uuid="8cdc470a-068d-4d89-8f29-9d95f50a3b7b"/>
+				<reportElement x="3" y="109" width="34" height="20" uuid="8cdc470a-068d-4d89-8f29-9d95f50a3b7b"/>
 				<text><![CDATA[Desde]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="158" y="108" width="34" height="20" uuid="6a21e04d-4774-4892-92aa-22a5ccb48793"/>
+				<reportElement x="137" y="109" width="39" height="20" uuid="6a21e04d-4774-4892-92aa-22a5ccb48793"/>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="43" y="107" width="100" height="20" uuid="eda22a87-83f9-4796-9e79-ad9cb7367993"/>
+				<reportElement x="37" y="109" width="100" height="20" uuid="eda22a87-83f9-4796-9e79-ad9cb7367993"/>
 				<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="192" y="108" width="100" height="20" uuid="0f02ecc2-f801-4e25-b3d8-62cd47e59e0a"/>
+				<reportElement x="176" y="109" width="140" height="20" uuid="0f02ecc2-f801-4e25-b3d8-62cd47e59e0a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="307" y="108" width="62" height="20" uuid="222318dc-0d59-4f21-9707-671aafa115eb"/>
+				<reportElement x="316" y="109" width="85" height="20" uuid="222318dc-0d59-4f21-9707-671aafa115eb"/>
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss">
-				<reportElement x="381" y="108" width="140" height="20" uuid="10e56ae5-04dd-4c15-a0e9-c1d88c2fff8a"/>
+				<reportElement x="401" y="109" width="157" height="20" uuid="10e56ae5-04dd-4c15-a0e9-c1d88c2fff8a"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidado" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="5cf68c1b-6616-4519-900a-9ffcf956acdd">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -29,29 +30,29 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="128" splitType="Stretch">
+		<band height="135" splitType="Stretch">
 			<staticText>
-				<reportElement x="9" y="107" width="34" height="20" uuid="8cdc470a-068d-4d89-8f29-9d95f50a3b7b"/>
+				<reportElement x="9" y="114" width="34" height="20" uuid="8cdc470a-068d-4d89-8f29-9d95f50a3b7b"/>
 				<text><![CDATA[Desde]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="158" y="108" width="34" height="20" uuid="6a21e04d-4774-4892-92aa-22a5ccb48793"/>
+				<reportElement x="150" y="114" width="40" height="20" uuid="6a21e04d-4774-4892-92aa-22a5ccb48793"/>
 				<text><![CDATA[Hasta]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="43" y="107" width="100" height="20" uuid="eda22a87-83f9-4796-9e79-ad9cb7367993"/>
+				<reportElement x="43" y="114" width="100" height="20" uuid="eda22a87-83f9-4796-9e79-ad9cb7367993"/>
 				<textFieldExpression><![CDATA[$P{fechaInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="192" y="108" width="100" height="20" uuid="0f02ecc2-f801-4e25-b3d8-62cd47e59e0a"/>
+				<reportElement x="190" y="114" width="148" height="20" uuid="0f02ecc2-f801-4e25-b3d8-62cd47e59e0a"/>
 				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="307" y="108" width="62" height="20" uuid="222318dc-0d59-4f21-9707-671aafa115eb"/>
+				<reportElement x="343" y="114" width="77" height="20" uuid="222318dc-0d59-4f21-9707-671aafa115eb"/>
 				<text><![CDATA[Generado el]]></text>
 			</staticText>
 			<textField pattern="EEEEEEE, d MMM yyyy HH:mm:ss">
-				<reportElement x="381" y="108" width="140" height="20" uuid="10e56ae5-04dd-4c15-a0e9-c1d88c2fff8a"/>
+				<reportElement x="420" y="114" width="152" height="20" uuid="10e56ae5-04dd-4c15-a0e9-c1d88c2fff8a"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>

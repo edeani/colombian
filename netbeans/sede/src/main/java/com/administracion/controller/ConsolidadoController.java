@@ -21,12 +21,14 @@ import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.entidad.Sedes;
 import com.administracion.entidad.SubSedes;
+import com.administracion.enumeration.DescargasEnum;
 import com.administracion.service.CierreSedesService;
 import com.administracion.service.CuentasService;
 import com.administracion.service.ReporteService;
 import com.administracion.service.SedesService;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
+import com.administracion.util.Constants;
 import com.administracion.util.Formatos;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +42,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -92,10 +95,11 @@ public class ConsolidadoController extends BaseController {
         return mav;
     }
     
-    @RequestMapping(value = "/consolidadoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/ajax/consolidadoPDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView reporteConsolidadoPDF(HttpServletRequest request, HttpServletResponse response, HttpSession session,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
-            @PathVariable String sede, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+            @PathVariable String sede, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
+            @RequestParam String tipo) {
         SedesDto ss = connectsAuth.findSedeXName(sede);
         List<ReporteConsolidadoDto> reporte = reporteService.reporteConsolidado(ss.getIdsedes(), fechaInicial, fechaFinal);
         ModelAndView mav = null;
@@ -109,7 +113,16 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("titulo", sedesDto.getTitulo());
             parameterMap.put("nombresede", sede);
             parameterMap.put("slogan", sedesDto.getSlogan());
+            
             mav = new ModelAndView("consolidado", parameterMap);
+            
+            if(tipo.toLowerCase().equals(DescargasEnum.EXCEL.getDescarga())){
+                tipo =DescargasEnum.EXCEL.getTipo();
+            }else{
+                tipo=DescargasEnum.PDF.getTipo();
+            }
+            mav.addObject(Constants.Attributos.JASPER_FORMAT, tipo);
+            
         } else {
             mav = new ModelAndView("redirect:/" + sede + "/consolidado/sede.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
@@ -118,14 +131,15 @@ public class ConsolidadoController extends BaseController {
     }
     
     
-    @RequestMapping(value = "/ventasProcentajePDF.htm", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView reporteVentasProcentajePDF(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+    @RequestMapping(value = "/ajax/ventasProcentajePDF.htm")
+    public @ResponseBody ModelAndView reporteVentasProcentajePDF(HttpServletRequest request, HttpServletResponse response, HttpSession session,
             @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
-            @PathVariable String sede, @RequestParam(required = false, value = "fechaFinal") String fechaFinal) {
+            @PathVariable String sede, @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
+            @RequestParam String tipo) {
         SedesDto ss = connectsAuth.findSedeXName(sede);
         List<ConsolidadoVentasPorcentajeDTO> reporte = reporteService.reportesVentasTotales(ss.getIdsedes(), fechaInicial, fechaFinal);
         ModelAndView mav = null;
-        if (reporte.size() > 0) {
+        if (!reporte.isEmpty()) {
             JRDataSource datos = new JRBeanCollectionDataSource(reporte);
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("datos", datos);
@@ -136,6 +150,15 @@ public class ConsolidadoController extends BaseController {
             parameterMap.put("nombresede", sede);
             parameterMap.put("slogan", sedesDto.getSlogan());
             mav = new ModelAndView("ventasporcentajes", parameterMap);
+            
+            if(tipo.toLowerCase().equals(DescargasEnum.EXCEL.getDescarga())){
+                tipo =DescargasEnum.EXCEL.getTipo();
+            }else{
+                tipo=DescargasEnum.PDF.getTipo();
+            }
+            
+            mav.addObject(Constants.Attributos.JASPER_FORMAT, tipo);
+            
         } else {
             mav = new ModelAndView("redirect:/" + sede + "/consolidado/ventasPorcentaje.htm");
             mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
