@@ -34,7 +34,13 @@
         </table>
     </form>
         <div>
-            <br>
+            <form id="formInventariofacturacion"></form>
+            <label>
+                Descargar Excel <button id="facturacionInventarioXLS" type="button" title="Descargar Excel" class="excelButton"
+                                        data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/downloadListInventario.htm">
+                    <img src="/sede/img/icons/documents/icons8-excel-48.png">
+                </button>
+            </label>
         </div>    
     <table align="center" id="tablaInventario">
         <thead>

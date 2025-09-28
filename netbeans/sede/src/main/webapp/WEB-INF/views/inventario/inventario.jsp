@@ -12,6 +12,7 @@
 <script src="<%=request.getContextPath()%>/js/lightbox/jquery.colorbox-min.js" type="text/javascript"> </script>
 <script src="<%=request.getContextPath()%>/js/jquery.easy-confirm-dialog.js" type="text/javascript"> </script>
 <script src="<%=request.getContextPath()%>/js/inventario/inventario.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/js/inventario/inventario-actions.js" type="text/javascript"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/datatable/jquery.dataTables.min.js"></script>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/tabladinamica/estilos.css">
 <link href="<%=request.getContextPath()%>/css/lightbox/colorbox.css" rel="stylesheet" type="text/css">
