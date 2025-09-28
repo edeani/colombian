@@ -21,14 +21,14 @@
 	<title>
 		<band height="113" splitType="Stretch">
 			<staticText>
-				<reportElement x="7" y="67" width="323" height="26" uuid="b4c13f61-2ed9-401c-832d-2fb638e4249a"/>
+				<reportElement x="7" y="67" width="232" height="26" uuid="b4c13f61-2ed9-401c-832d-2fb638e4249a"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
-				<text><![CDATA[Informe Inventario Facturación Sede]]></text>
+				<text><![CDATA[Informe Inventario Facturación]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="342" y="67" width="185" height="23" forecolor="#000000" backcolor="#FFFFFF" uuid="31bb5ae4-142c-4197-9dd9-ac859a1411ec"/>
+				<reportElement mode="Transparent" x="253" y="67" width="185" height="23" forecolor="#000000" backcolor="#FFFFFF" uuid="31bb5ae4-142c-4197-9dd9-ac859a1411ec"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="SansSerif" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -234,7 +234,7 @@
 				</box>
 				<textFieldExpression><![CDATA[$F{fechaFinal}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField pattern="#,##0">
 				<reportElement x="499" y="0" width="55" height="20" uuid="0b552cf0-7b1b-4da2-b33c-263c7d5ce8c5"/>
 				<box topPadding="1" leftPadding="5">
 					<pen lineWidth="1.0"/>

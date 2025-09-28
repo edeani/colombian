@@ -17,13 +17,19 @@
         <label>
             <button id="buscarInventario">Buscar Inventario</button>
         </label>
+        <label>
+                <button id="facturacionInventarioSedeXLS" type="button" title="Descargar Excel" class="excelButton"
+                                        data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/downloadListInventarioSede.htm">
+                    <img src="/sede/img/icons/documents/icons8-excel-48.png">
+                </button>
+            </label>
         <div style="height: 20px; margin-top: 10px">
             <label id="labelSubsede"></label>
         </div>
         <input name="idSubsede" id="idSubsede"  type="hidden" value=""/>
     </form>
         <div>
-            <br>
+            <form id="formInventarioFacturacionSede"></form>
         </div>    
     <table align="center" id="tablaInventario">
         <thead>

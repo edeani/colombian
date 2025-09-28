@@ -163,10 +163,11 @@ public class InventarioController extends BaseController {
     @RequestMapping(value = "/ajax/subsede/listInventario.htm")
     public ModelAndView listarInventarioSubsede(@PathVariable String sede, @RequestParam(required = false) Integer idSubsede) throws Exception {
         ModelAndView mav = new ModelAndView("inventario/listInventarioSede");
-
+        
+        String subSede = "";
         List<InventarioDTO> productosSubsede = null;
         if (Objects.nonNull(idSubsede)) {
-            String subSede = connectsAuth.findSubsedeXId(idSubsede).getSede();
+            subSede = connectsAuth.findSubsedeXId(idSubsede).getSede();
             if (Objects.isNull(subSede)) {
                 throw new Exception("La sede no existe");
             }
@@ -175,7 +176,36 @@ public class InventarioController extends BaseController {
             productosSubsede = new ArrayList<>();
         }
         mav.addObject("inventarios", productosSubsede);
+        mav.addObject("subsede", subSede);
         return mav;
+    }
+    
+    @RequestMapping(value = "/ajax/downloadListInventarioSede.htm")
+    public ModelAndView downloadInventarioSede(@PathVariable String sede,@RequestParam(required = false) Integer idSubsede)throws Exception {
+        
+        ModelAndView mavInvSubsede = listarInventarioSubsede(sede,idSubsede);
+        List<InventarioDTO> inventario = (List<InventarioDTO>) mavInvSubsede.getModel().get("inventarios");
+        String subSede = (String) mavInvSubsede.getModel().get("subsede");
+        
+        ModelAndView mavInvDownload = null;
+
+        if (!inventario.isEmpty()) {
+            JRDataSource datos = new JRBeanCollectionDataSource(inventario);
+            Map<String, Object> parameterMap = new HashMap<>();
+            parameterMap.put("datos", datos);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("titulo", sedesDto.getTitulo());
+            parameterMap.put("nombresede", subSede);
+            parameterMap.put("slogan", sedesDto.getSlogan());
+            parameterMap.put(JRParameter.IS_IGNORE_PAGINATION, Boolean.TRUE);
+            
+            mavInvDownload = new ModelAndView("inventarioFacturacionSede", parameterMap);
+
+                
+            mavInvDownload.addObject(Constants.Attributos.JASPER_FORMAT, DescargasEnum.EXCEL.getTipo());
+        }
+
+        return mavInvDownload;
     }
 
     @RequestMapping(value = "/ajax/eliminarProducto.htm")
