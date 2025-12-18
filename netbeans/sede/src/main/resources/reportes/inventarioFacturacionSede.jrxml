@@ -107,7 +107,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<text><![CDATA[Inventario Inicial]]></text>
+				<text><![CDATA[Inv. Inicial]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="276" y="17" width="83" height="20" uuid="24bfc8ca-0c59-472a-9c67-87bc05a87066"/>
@@ -129,7 +129,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<text><![CDATA[Inventario Final]]></text>
+				<text><![CDATA[Inv. Final]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="421" y="17" width="78" height="20" uuid="05d84542-6c19-46f3-a24c-9ec8b44870fc"/>
