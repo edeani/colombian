@@ -6,6 +6,7 @@ package com.administracion.service.jsf;
 
 
 import com.administracion.dao.ReportesDao;
+import com.administracion.dto.TiempoRealSedeDto;
 import com.administracion.entidad.Users;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;
@@ -41,9 +42,8 @@ public class CierreColomianServiceImpl implements CierreColombianService {
     private JdbcTemplate jdbctemplate;
     
     private static final Logger LOGGER = LoggerFactory.getLogger(CierreColomianServiceImpl.class);
-
-    @Transactional
-    ////@Async
+    
+    @Transactional(readOnly = true)
     @Override
     public Double cierreDiario(Date fechaCierre,String subsede) {
         Users user = securityService.getCurrentUser();
@@ -59,6 +59,31 @@ public class CierreColomianServiceImpl implements CierreColombianService {
             LOGGER.error("Error cierreDiario::" + e.getMessage());
         }
         return cajaInicial;
+    }
+    
+    @Transactional
+    ////@Async
+    @Override
+    public TiempoRealSedeDto TiempoRealData(Date fechaCierre,String subsede) {
+        Users user = securityService.getCurrentUser();
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
+        TiempoRealSedeDto reporteRealSede = null;
+        try {
+            Formatos formato = new Formatos();
+
+            DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+            String query = "select caja_real AS cajaInicial, "
+                    + "cierre_diario.pago_nequi AS pagosNequi, "
+                    + "cierre_diario.pago_daviplata AS pagosDaviplata, "
+                    + "cierre_diario.pago_transferencia AS pagosTransferencias "
+                    + "from cierre_diario  where fecha = '" + formato.fechaMenos(dfDefault.format(fechaCierre), 1) + "'";
+            
+            reporteRealSede = this.jdbctemplate.queryForObject(query, new BeanPropertyRowMapper<>(TiempoRealSedeDto.class));
+        
+        } catch (DataAccessException e) {
+            LOGGER.error("Error cierreDiario::" + e.getMessage());
+        }
+        return reporteRealSede;
     }
 
     @Transactional
@@ -187,7 +212,26 @@ public class CierreColomianServiceImpl implements CierreColombianService {
         
         return descuentos;
     }
+    
+    @Transactional(readOnly = true)
+    @Override
+    public Double propinasDiario(Date fechaCierre,String subsede) {
+        Users user = securityService.getCurrentUser();
+        this.jdbctemplate = new JdbcTemplate(connectsAuth.getDataSourceSubSede(subsede));
+        Double propinas = 0D;
+        try {
+            DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+            Formatos formato = new Formatos();
+            String f = formato.dateTostring(dfDefault.format(fechaCierre));
+            
+            String query = "select sum(propinas_orden) AS propinas  from orden  where fecha_orden = '" + f + "'";
+            propinas = this.jdbctemplate.queryForObject(query, Double.class);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error cierreDiario::" + e.getMessage());
+        }
+        return propinas;
+    }
 
-   
+    
 
 }

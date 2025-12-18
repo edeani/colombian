@@ -23,6 +23,18 @@
         $<input id="ventas" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.ventas}"/>"></input>
     </li>
 </ul>
+<c:if test="${not empty cierreDiario.propinas}">
+    <ul>
+        <li>
+            <label>
+                Total Propinas
+            </label>
+        </li>
+        <li style="width: 200px !important;">
+            $<input  id="pagosTarjeta" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.propinas}"/>"></input>
+        </li>
+    </ul>
+</c:if>
 <ul>
     <li>
         <label>
@@ -55,15 +67,39 @@
         </li>
     </ul>
 </c:if>
-<c:if test="${not empty cierreDiario.descuentos}">
+<c:if test="${not empty cierreDiario.pagosNequi}">
 <ul>
     <li>
         <label>
-            Total Descuentos
+            Pagos Nequi
         </label>
     </li>
     <li style="width: 200px !important;">
-        $<input class="campoTiempoReal" id="descuentos" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.descuentos}"/>"></input>
+        $<input class="campoTiempoReal" id="descuentos" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.pagosNequi}"/>"></input>
+    </li>
+</ul>
+</c:if>
+<c:if test="${not empty cierreDiario.pagosDaviplata}">
+<ul>
+    <li>
+        <label>
+            Pagos Daviplata
+        </label>
+    </li>
+    <li style="width: 200px !important;">
+        $<input class="campoTiempoReal" id="descuentos" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.pagosDaviplata}"/>"></input>
+    </li>
+</ul>
+</c:if>
+<c:if test="${not empty cierreDiario.pagosTransferencias}">
+<ul>
+    <li>
+        <label>
+            Pagos Transferencias
+        </label>
+    </li>
+    <li style="width: 200px !important;">
+        $<input class="campoTiempoReal" id="descuentos" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.pagosTransferencias}"/>"></input>
     </li>
 </ul>
 </c:if>

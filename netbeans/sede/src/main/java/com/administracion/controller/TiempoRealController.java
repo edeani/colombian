@@ -6,6 +6,8 @@
 package com.administracion.controller;
 
 
+import com.administracion.dto.TiempoRealSedeDto;
+import com.administracion.enumeration.EstadosEnum;
 import com.administracion.service.ClasePagoService;
 import com.administracion.service.jsf.CierreColombianService;
 import com.administracion.util.Formatos;
@@ -42,24 +44,34 @@ public class TiempoRealController extends BaseController {
         ModelAndView mav = new ModelAndView("reportes/colombian/tiempoReal/datosTiempoReal");
 
         TiempoRealDto cierreDiario = new TiempoRealDto();   
-        Double cajaInicial = cierreColombianService.cierreDiario(Formatos.StringDateToDate(fecha),subsede);
-        cierreDiario.setCajaInicial(cajaInicial);
         cierreDiario.setVentas(cierreColombianService.cierreVentas(Formatos.StringDateToDate(fecha),subsede));
         cierreDiario.setGastos(cierreColombianService.cierreGastos(Formatos.StringDateToDate(fecha),subsede));
         cierreDiario.setConsignaciones(cierreColombianService.cierreConsignaciones(Formatos.StringDateToDate(fecha),subsede));
         cierreDiario.setListaConsignaciones(cierreColombianService.cierreListaConsignaciones(Formatos.StringDateToDate(fecha),subsede));
+        
+        if(clasePagoService.findClasePagoById(3, subsede).getEstado().equals(EstadosEnum.Activo.getEstado())){
+            TiempoRealSedeDto tiempoRealSede = cierreColombianService.TiempoRealData(Formatos.StringDateToDate(fecha),subsede);
+            cierreDiario.setPagosNequi(tiempoRealSede.getPagosNequi());
+            cierreDiario.setPagosDaviplata(tiempoRealSede.getPagosDaviplata());
+            cierreDiario.setPagosTransferencias(tiempoRealSede.getPagosTransferencias());
+            cierreDiario.setCajaInicial(tiempoRealSede.getCajaInicial());
+            cierreDiario.setPropinas(cierreColombianService.propinasDiario(Formatos.StringDateToDate(fecha), subsede));
+        }else{
+            cierreDiario.setCajaInicial(cierreColombianService.cierreDiario(Formatos.StringDateToDate(fecha),subsede));
+        }
+        
         cierreDiario.setCajaFinal(cierreDiario.getVentas() + cierreDiario.getCajaInicial() - cierreDiario.getConsignaciones() - cierreDiario.getGastos());
-        if (clasePagoService.findClasePagoById(1,subsede).getEstado().equals("A")) {
+        
+        if (clasePagoService.findClasePagoById(1,subsede).getEstado().equals(EstadosEnum.Activo.getEstado())) {
             cierreDiario.setPagosTarjetas(cierreColombianService.cierrePagosConTarjetas(Formatos.StringDateToDate(fecha),subsede));
             cierreDiario.setCajaFinal(cierreDiario.getCajaFinal() - cierreDiario.getPagosTarjetas());
         }
-        if (clasePagoService.findClasePagoById(2,subsede).getEstado().equals("A")) {
+        if (clasePagoService.findClasePagoById(2,subsede).getEstado().equals(EstadosEnum.Activo.getEstado())) {
             cierreDiario.setDescuentos(cierreColombianService.cierreDescuentos(Formatos.StringDateToDate(fecha),subsede));
             cierreDiario.setCajaFinal(cierreDiario.getCajaFinal() - cierreDiario.getDescuentos());
         }
         
         mav.addObject("cierreDiario", cierreDiario);
-
         return mav;
     }
 

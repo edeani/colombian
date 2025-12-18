@@ -19,6 +19,10 @@ public class TiempoRealDto {
     private Double cajaFinal;
     private Double pagosTarjetas;
     private Double descuentos;
+    private Double pagosNequi;
+    private Double pagosDaviplata;
+    private Double pagosTransferencias;
+    private Double propinas;
     
     private List<Consignaciones> listaConsignaciones;
 
@@ -85,6 +89,38 @@ public class TiempoRealDto {
     public void setDescuentos(Double descuentos) {
         this.descuentos = descuentos;
     }
-    
+
+    public Double getPagosNequi() {
+        return pagosNequi;
+    }
+
+    public void setPagosNequi(Double pagosNequi) {
+        this.pagosNequi = pagosNequi;
+    }
+
+    public Double getPagosDaviplata() {
+        return pagosDaviplata;
+    }
+
+    public void setPagosDaviplata(Double pagosDaviplata) {
+        this.pagosDaviplata = pagosDaviplata;
+    }
+
+    public Double getPagosTransferencias() {
+        return pagosTransferencias;
+    }
+
+    public void setPagosTransferencias(Double pagosTransferencias) {
+        this.pagosTransferencias = pagosTransferencias;
+    }
+
+    public Double getPropinas() {
+        return propinas;
+    }
+
+    public void setPropinas(Double propinas) {
+        this.propinas = propinas;
+    }
+
     
 }
