@@ -29,13 +29,13 @@
                     <input type="text" name="comprobanteConsolidadoSedeDto[${numero.index}].concepto" value="${item.concepto}"  ${atributo} />
                 </td>
                 <td>
-                    <c:if test="${item.idCuenta != '414015'}">
+                    <c:if test="${item.idCuenta != '414015' and item.idCuenta != '281505'}">
                         $<input name="comprobanteConsolidadoSedeDto[${numero.index}].total" value="<fmt:formatNumber type="number" pattern="###,##0" value="${item.total}"/>" readonly="readonly" class="claseFormatDecPoint"/>
                          <c:set var="totalDeber" value="${totalDeber + item.total}"/>
                     </c:if>
                 </td>    
                 <td>
-                    <c:if test="${item.idCuenta == '414015'}">
+                    <c:if test="${item.idCuenta == '414015' or item.idCuenta == '281505'}">
                         <c:set var="totalHaber" value="${totalHaber + item.total}"/>
                         $<input name="comprobanteConsolidadoSedeDto[${numero.index}].total" value="<fmt:formatNumber type="number  " pattern="###,##0" value="${item.total}"/>" readonly="readonly" class="claseFormatDecPoint"/>
                     </c:if>

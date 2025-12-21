@@ -554,7 +554,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         } catch (DataAccessException e) {
             LOGGER.error("Error pagosContarjetaTotal::" + e.getMessage());
         }
-        return null;
+        return 0L;
     }
 
     @Override
@@ -576,7 +576,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         } catch (DataAccessException e) {
             LOGGER.error("Error pagosDescuentoTotal::" + e.getMessage());
         }
-        return null;
+        return 0L;
     }
 
     @Override
