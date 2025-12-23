@@ -281,9 +281,10 @@ public class CierreServiceImpl implements CierreService {
 
     @Override
     public Double cierrCajaFinal(Double ventas, Double gastos, Double cajaInicial, Double consignaciones, 
-            Double pagosTarjeta, Double descuentos, Double nequi, Double daviplata, Double transacciones) {
+            Double pagosTarjeta, Double descuentos, Double nequi, Double daviplata, Double transacciones,
+            Double propinas) {
         
-        return (ventas + cajaInicial - consignaciones - gastos - pagosTarjeta - nequi - daviplata - transacciones - descuentos);
+        return (ventas + cajaInicial + propinas - consignaciones - gastos - pagosTarjeta - nequi - daviplata - transacciones - descuentos);
         
     }
     @Asynchronous
@@ -530,6 +531,68 @@ public class CierreServiceImpl implements CierreService {
         }
         
         return paymentsCard;
+    }
+
+    @Asynchronous
+    @Override
+    public Double cierrePropinas(Date fechaCierre) {
+        
+        //Me conecto a la base de datos
+        final Conexion conexionPropinas = new Conexion();
+        
+        conexionPropinas.setUser(user.getSede().getUsuario());
+        if(password == null){
+            conexionPropinas.setPassword("");
+        } else{
+            conexionPropinas.setPassword(password);
+        }
+        conexionPropinas.setServer(user.getSede().getIdentificador()+"/"+user.getSede().getBd());
+        conexionPropinas.establecerConexion();
+        
+        final Connection  connectionPropinas = conexionPropinas.getConexion();
+        
+        Double propinas =0D;
+        if (connectionPropinas != null) {
+            DateFormat dfDefault = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+            Formatos formato = new Formatos();
+            String fechaPropina = formato.dateTostring(dfDefault.format(fechaCierre));
+            String queryPropina = "SELECT sum(sub0.propinas) AS propinas FROM ("
+                    + " SELECT CASE WHEN sa.propinas IS NULL THEN 0 ELSE sa.propinas END AS propinas FROM ("
+                    +" select sum(propina_orden) AS propinas FROM orden  where fecha_orden = '" + fechaPropina + "' "
+                    +" UNION "
+                    +" select sum(propina_orden) AS propinas FROM mesa where  fecha_orden = '" + fechaPropina + "' "
+                    +" UNION "
+                    +" select sum(propina_orden) AS propinas FROM llevar where fecha_orden = '" + fechaPropina + "' "
+                    + ")sa )sub0";
+
+            ResultSet rs = null;
+
+            //java.sql.Date  d = formato.utilDateTosqlDate(fechaCierre);
+            //Ejecutar la consulta
+            Statement st = null;
+
+            try {
+                st = connectionPropinas.createStatement();
+                PreparedStatement ps = connectionPropinas.prepareStatement(queryPropina);
+
+                rs = ps.executeQuery();
+
+                rs.next();
+                propinas = rs.getDouble(1);
+
+            } catch (SQLException e) {
+
+                System.out.print(e.getMessage());
+
+            }
+
+            conexionPropinas.cerrar(rs);
+            conexionPropinas.cerrar(st);
+            conexionPropinas.destruir();
+        } else {
+            user.setMensaje("NO CONECTA LA BASE DE DATOS " + user.getSede().getSed_nombre());
+        }
+        return propinas;
     }
        
   

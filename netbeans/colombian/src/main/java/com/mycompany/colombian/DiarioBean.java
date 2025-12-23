@@ -44,6 +44,7 @@ public class DiarioBean {
     private String pagosNequi;
     private String pagosDaviplata;
     private String pagosTransferencia;
+    private String propinas;
     private List<Consignaciones> consigs;
     private boolean viewPagosTarjeta;
     private boolean viewDescuentos;
@@ -80,6 +81,7 @@ public class DiarioBean {
             setPagosNequi(formato.numeroToStringFormato(paymentsCardFront.get(EnumTipoPagoTarjeta.NEQUI.getName())));
             setPagosDaviplata(formato.numeroToStringFormato(paymentsCardFront.get(EnumTipoPagoTarjeta.DAVIPLATA.getName())));
             setPagosTransferencia(formato.numeroToStringFormato(paymentsCardFront.get(EnumTipoPagoTarjeta.TRANSFERENCIA.getName())));
+            setPropinas(formato.numeroToStringFormato(cierreService.cierrePropinas(fechaCierre)));
         }else{
             final String zero = "0";
             setPagosTarjetas(zero);
@@ -96,7 +98,8 @@ public class DiarioBean {
                    formato.stringToNumeroFormato(gastos),formato.stringToNumeroFormato(cajaInicial),
                    formato.stringToNumeroFormato(consignaciones),formato.stringToNumeroFormato(pagosTarjetas),
                    formato.stringToNumeroFormato(descuentos),formato.stringToNumeroFormato(pagosNequi),
-                   formato.stringToNumeroFormato(pagosDaviplata),formato.stringToNumeroFormato(pagosTransferencia))));
+                   formato.stringToNumeroFormato(pagosDaviplata),formato.stringToNumeroFormato(pagosTransferencia),
+                   formato.stringToNumeroFormato(propinas))));
         setConsigs(cierreService.cierreListaConsignaciones(fechaCierre));
         ConsignacionesDtoToMapper consignacionDtoToMapper = new ConsignacionesDtoToMapper();
         consigsMapper = consignacionDtoToMapper.consignacionDtoToMapper(consigs);
@@ -268,6 +271,14 @@ public class DiarioBean {
 
     public void setPagosTransferencia(String pagosTransferencia) {
         this.pagosTransferencia = pagosTransferencia;
+    }
+
+    public String getPropinas() {
+        return propinas;
+    }
+
+    public void setPropinas(String propinas) {
+        this.propinas = propinas;
     }
 
    

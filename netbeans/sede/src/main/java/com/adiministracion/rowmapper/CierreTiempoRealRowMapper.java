@@ -5,8 +5,6 @@
 package com.adiministracion.rowmapper;
 
 import com.administracion.dto.ItemsHashDTO;
-import com.administracion.dto.TiempoRealSedeDto;
-import com.mycompany.enums.EnumTipoPagoTarjeta;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;

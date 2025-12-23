@@ -68,7 +68,7 @@ public class TiempoRealController extends BaseController {
                 } else if (EnumTipoPagoTarjeta.TRANSFERENCIA.getName().equals(itemsHashDTO.getName())) {
                     tiempoRealSede.setPagosTransferencias(itemsHashDTO.getValue());
                     cierreDiario.setPagosTransferencias(tiempoRealSede.getPagosTransferencias());
-                }else if("Caja Inicial".equals(itemsHashDTO.getName())){
+                } else if("Caja Inicial".equals(itemsHashDTO.getName())){
                     Double val1 = itemsHashDTO.getValue() == null ? 0D :  itemsHashDTO.getValue();
                     tiempoRealSede.setCajaInicial(val1);
                     cierreDiario.setCajaInicial(val1);
