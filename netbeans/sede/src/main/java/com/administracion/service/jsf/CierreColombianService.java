@@ -4,6 +4,7 @@
  */
 package com.administracion.service.jsf;
 
+import com.administracion.dto.ItemsHashDTO;
 import com.administracion.dto.TiempoRealSedeDto;
 import com.mycompany.dto.Consignaciones;
 import java.util.Date;
@@ -26,5 +27,7 @@ public interface CierreColombianService {
     public Double cierreDescuentos(Date fechaCierre,String subsede);
     public List<Consignaciones> cierreListaConsignaciones(Date  fechaCierre,String subsede);
     public Double propinasDiario(Date fechaCierre,String subsede);
+    public Double cierreDiarioPagosConTarjetas(Date fechaCierre,String subsede);
+    public  List<ItemsHashDTO> cierreRealData(Date fechaCierre,String subsede);
     
 }

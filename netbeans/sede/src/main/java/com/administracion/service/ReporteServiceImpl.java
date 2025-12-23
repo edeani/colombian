@@ -17,6 +17,7 @@ import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.DetallePagosCosolidadoSedeDto;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
+import com.administracion.dto.ItemsHashDTO;
 import com.administracion.dto.MovimientoCajaDto;
 import com.administracion.dto.PagosConsolidadoSedeDto;
 import com.administracion.dto.ReporteConsolidadoDto;
@@ -32,6 +33,7 @@ import com.administracion.enumeration.EstadosEnum;
 import com.administracion.service.jsf.CierreColombianService;
 import com.administracion.util.Formatos;
 import com.administracion.util.LectorPropiedades;
+import com.mycompany.enums.EnumTipoPagoTarjeta;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -92,7 +94,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
         SubSedes subSedes = subSedesDao.findById(idSubSede);
 
-        List<ComprobanteConsolidadoSedeDto> comprobante = new ArrayList<>();
+        List<ComprobanteConsolidadoSedeDto> comprobantes = new ArrayList<>();
 
         //Ventas
         ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeDtoVentas = new ComprobanteConsolidadoSedeDto();
@@ -129,8 +131,8 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         }
 
         if (agregarRegistro) {
-            comprobante.add(comprobanteConsolidadoSedeDtoVentas);
-            comprobante.add(comprobanteConsolidadoSedeDtoConsignaciones);
+            comprobantes.add(comprobanteConsolidadoSedeDtoVentas);
+            comprobantes.add(comprobanteConsolidadoSedeDtoConsignaciones);
         }
         //Gastos
         List<ComprobanteConsolidadoSedeDto> gastos = reportesDao.buscarGastosXFecha(connectsAuth.getDataSourceSubSede(subSedes.getSede()), sfecha);
@@ -143,7 +145,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
             });
         }
         if (gastos != null) {
-            comprobante.addAll(gastos);
+            comprobantes.addAll(gastos);
         }
 
         /**
@@ -152,9 +154,10 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         DataSource ds = connectsAuth.getDataSourceSubSede(subSedes.getSede());
         ClasePago clasePago = clasePagoDao.findClasePagoById(1, ds);
         if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
-            Long pagosContarjeta = reportesDao.pagosContarjetaTotal(ds, sfecha);
-            comprobante.add(buildComprobante(subSedes, sfecha, cuenta_pagos_con_tarjeta, "Pagos con Tarjeta " + subSedes.getSede(),
-                    pagosContarjeta));
+            Double pagosContarjeta = cierreColombianService.cierrePagosConTarjetas(Formatos.StringDateToDate(sfecha), subSedes.getSede());
+            pagosContarjeta = checkNullDoubleTotal(pagosContarjeta);
+            comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_con_tarjeta, "Pagos con Tarjeta " + subSedes.getSede(),
+                    pagosContarjeta.longValue()));
 
         }
         /**
@@ -163,8 +166,8 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         clasePago = clasePagoDao.findClasePagoById(2, ds);
         if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
             Long pagosDescuento = reportesDao.pagosDescuentoTotal(ds, sfecha);
-            pagosDescuento = Objects.isNull(pagosDescuento) ? 0L : pagosDescuento;
-            comprobante.add(buildComprobante(subSedes, sfecha, cuenta_descuentos, "Descuentos " + subSedes.getSede(),
+            pagosDescuento = checkNullLongTotal(pagosDescuento);
+            comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_descuentos, "Descuentos " + subSedes.getSede(),
                     pagosDescuento));
         }
         /**
@@ -172,22 +175,40 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
          */
         clasePago = clasePagoDao.findClasePagoById(3, ds);
         if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
-            TiempoRealSedeDto tiempoRealSede = cierreColombianService.TiempoRealData(Formatos.StringDateToDate(sfecha), subSedes.getSede());
-            final Long ZERO = 0L; 
-            comprobante.add(buildComprobante(subSedes, sfecha, cuenta_pagos_nequi, "Pagos Nequi",
-                    Objects.isNull(tiempoRealSede.getPagosNequi()) ? ZERO : tiempoRealSede.getPagosNequi().longValue()));
-            comprobante.add(buildComprobante(subSedes, sfecha, cuenta_pagos_daviplata,"Pagos Daviplata ",
-                    Objects.isNull(tiempoRealSede.getPagosDaviplata()) ? ZERO : tiempoRealSede.getPagosDaviplata().longValue()));
-            comprobante.add(buildComprobante(subSedes, sfecha, cuenta_pagos_transferencias,"Pagos Transferencias ",
-                    Objects.isNull(tiempoRealSede.getPagosTransferencias()) ? ZERO : tiempoRealSede.getPagosTransferencias().longValue()));
+            TiempoRealSedeDto tiempoRealSede = new TiempoRealSedeDto();
+            List<ItemsHashDTO> itemsCierre = cierreColombianService.cierreRealData(Formatos.StringDateToDate(sfecha), subSedes.getSede());
+
+            for (ItemsHashDTO itemsHashDTO : itemsCierre) {
+                if (EnumTipoPagoTarjeta.NEQUI.getName().equals(itemsHashDTO.getName())) {
+                    comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_nequi, "Pagos Nequi",
+                            checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
+                    tiempoRealSede.setPagosNequi(itemsHashDTO.getValue());
+                } else if (EnumTipoPagoTarjeta.DAVIPLATA.getName().equals(itemsHashDTO.getName())) {
+                    comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_daviplata, "Pagos Daviplata ",
+                            checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
+                    tiempoRealSede.setPagosDaviplata(itemsHashDTO.getValue());
+                } else if (EnumTipoPagoTarjeta.TRANSFERENCIA.getName().equals(itemsHashDTO.getName())) {
+                    comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_transferencias, "Pagos Transferencias ",
+                            checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
+                    tiempoRealSede.setPagosTransferencias(itemsHashDTO.getValue());
+                }
+            }
 
             Double propinas = cierreColombianService.propinasDiario(Formatos.StringDateToDate(sfecha), subSedes.getSede());
-            
-            comprobante.add(1,buildComprobante(subSedes, sfecha, cuenta_propina,"Propinas",
+
+            comprobantes.add(1, buildComprobante(subSedes, sfecha, cuenta_propina, "Propinas",
                     propinas.longValue()));
+
+            ComprobanteConsolidadoSedeDto comprobantePT = getComprobanteByCuenta(comprobantes, cuenta_pagos_con_tarjeta);
+            if (Objects.nonNull(comprobantePT)) {
+                comprobantePT.setTotal(comprobantePT.getTotal() - tiempoRealSede.getPagosNequi().longValue()
+                        - tiempoRealSede.getPagosDaviplata().longValue()
+                        - tiempoRealSede.getPagosTransferencias().longValue());
+            }
+
         }
 
-        return comprobante;
+        return comprobantes;
     }
 
     private ComprobanteConsolidadoSedeDto buildComprobante(SubSedes subSedes, String fecha,
@@ -204,8 +225,27 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         return comprobantePagosPropinas;
     }
 
-    private Long checkNullDoubleTotal(Double value) {
-        return Objects.isNull(value) ? 0 : value.longValue();
+    private ComprobanteConsolidadoSedeDto getComprobanteByCuenta(List<ComprobanteConsolidadoSedeDto> comprobantes,
+            String idCuenta) {
+
+        for (ComprobanteConsolidadoSedeDto comprobante : comprobantes) {
+            if (comprobante.getIdCuenta() != null) {
+                if (comprobante.getIdCuenta().equals(idCuenta)) {
+                    return comprobante;
+                }
+            }
+
+        }
+
+        return null;
+    }
+
+    private Double checkNullDoubleTotal(Double doubleValue) {
+        return Objects.isNull(doubleValue) ? 0 : doubleValue;
+    }
+
+    private Long checkNullLongTotal(Long longValue) {
+        return Objects.isNull(longValue) ? 0 : longValue;
     }
 
     @Override
