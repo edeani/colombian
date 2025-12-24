@@ -24,6 +24,7 @@ public interface CuadreService {
  public Double getValorPagoNequi();
  public Double getValorPagoDaviplata();
  public Double getValorPagoTransferencia();
+ public Double getValorPropinas();
  
  
 }

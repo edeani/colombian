@@ -13,12 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  *
@@ -29,6 +27,7 @@ public class CuadreServiceImpl implements CuadreService {
     private final UserSessionBean user = UserSessionBean.getInstance();
     private final String password = user.getSede().getPassword();
     private Double valorVentas;
+    private Double valorPropinas;
     private Double valorGastos;
     private Double valorConsignaciones;
     private Double valorDescuentos;
@@ -52,6 +51,7 @@ public class CuadreServiceImpl implements CuadreService {
         
         final double defaultValueQty=0D;
         setValorVentas(defaultValueQty);
+        setValorPropinas(defaultValueQty);
         setValorGastos(defaultValueQty);
         setValorConsignaciones(defaultValueQty);
         setValorDescuentos(defaultValueQty);
@@ -75,7 +75,8 @@ public class CuadreServiceImpl implements CuadreService {
                     + "cierre_diario.pago_tarjetas AS PAGO_TARJETAS, "
                     + "cierre_diario.pago_nequi AS PAGO_NEQUI, "
                     + "cierre_diario.pago_daviplata AS PAGO_DAVIPLATA, "
-                    + "cierre_diario.pago_transferencia AS PAGO_TRANSFERENCIA "
+                    + "cierre_diario.pago_transferencia AS PAGO_TRANSFERENCIA, "
+                    + "cierre_diario.valor_propina AS PROPINAS "
                     + "FROM cierre_diario "
                     + "WHERE cierre_diario.fecha between '" + formato.dateTostring(dfDefault.format(fi)) + "'  and '" + formato.dateTostring(dfDefault.format(ff)) + "' " 
                     + "ORDER BY FECHA";
@@ -95,6 +96,7 @@ public class CuadreServiceImpl implements CuadreService {
                    
                     c.setFecha( formato.extractDateResultSet(rs, "FECHA") );
                     c.setValorVentas(formato.numeroToStringFormato(rs.getDouble("VENTAS")));
+                    c.setValorPropinas(formato.numeroToStringFormato(rs.getDouble("PROPINAS")));
                     c.setValorGastos(formato.numeroToStringFormato(rs.getDouble("GASTOS")));
                     c.setValorConsignaciones(formato.numeroToStringFormato(rs.getDouble("CONSIGNACIONES")));
                     c.setValorDescuentos(formato.numeroToStringFormato(rs.getDouble("DESCUENTOS")));
@@ -106,6 +108,7 @@ public class CuadreServiceImpl implements CuadreService {
                     
                     
                     valorVentas += rs.getDouble("VENTAS");
+                    valorPropinas+= rs.getDouble("PROPINAS");
                     valorGastos += rs.getDouble("GASTOS");
                     valorConsignaciones += rs.getDouble("CONSIGNACIONES");
                     valorDescuentos+=rs.getDouble("DESCUENTOS");
@@ -137,6 +140,7 @@ public class CuadreServiceImpl implements CuadreService {
     /**
      * @return the valorVentas
      */
+    @Override
     public Double getValorVentas() {
         return valorVentas;
     }
@@ -218,6 +222,15 @@ public class CuadreServiceImpl implements CuadreService {
 
     public void setValorPagoTransferencia(Double valorPagoTransferencia) {
         this.valorPagoTransferencia = valorPagoTransferencia;
+    }
+
+    @Override
+    public Double getValorPropinas() {
+        return valorPropinas;
+    }
+
+    public void setValorPropinas(Double valorPropinas) {
+        this.valorPropinas = valorPropinas;
     }
     
     

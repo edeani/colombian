@@ -33,6 +33,7 @@ public class CuadreBean {
     private List<Cuadre> cuadre;
     private String totalVenta;
     private String totalGastos;
+    private String totalPropinas;
     private String totalConsignaciones;
     private String valorCajaReal;
     private String totalPagosTarjeta;
@@ -49,6 +50,7 @@ public class CuadreBean {
         
         final String defaultTotalCuadreQty = "0.0";
         totalVenta = defaultTotalCuadreQty;
+        totalPropinas = defaultTotalCuadreQty;
         totalGastos = defaultTotalCuadreQty;
         totalConsignaciones = defaultTotalCuadreQty;
         valorCajaReal = defaultTotalCuadreQty;
@@ -66,6 +68,7 @@ public class CuadreBean {
        Formatos formato = new Formatos();
        totalConsignaciones = formato.numeroToStringFormato(cuadreDiarioService.getValorConsignaciones());
        totalVenta = formato.numeroToStringFormato(cuadreDiarioService.getValorVentas());
+       totalPropinas = formato.numeroToStringFormato(cuadreDiarioService.getValorPropinas());
        totalGastos =formato.numeroToStringFormato(cuadreDiarioService.getValorGastos());
        totalPagosTarjeta =formato.numeroToStringFormato(cuadreDiarioService.getValorPagosTarjeta());
        totalDescuentos = formato.numeroToStringFormato(cuadreDiarioService.getValorDescuentos());
@@ -230,6 +233,14 @@ public class CuadreBean {
 
     public void setTotalPagosTransferencia(String totalPagosTransferencia) {
         this.totalPagosTransferencia = totalPagosTransferencia;
+    }
+
+    public String getTotalPropinas() {
+        return totalPropinas;
+    }
+
+    public void setTotalPropinas(String totalPropinas) {
+        this.totalPropinas = totalPropinas;
     }
     
 }

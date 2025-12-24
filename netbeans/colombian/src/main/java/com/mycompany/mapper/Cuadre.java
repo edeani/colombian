@@ -13,6 +13,7 @@ import java.util.Date;
 public class Cuadre {
     private Date fecha;
     private String valorVentas;
+    private String valorPropinas;
     private String valorGastos;
     private String valorConsignaciones;
     private String ValorCajaReal;
@@ -130,6 +131,14 @@ public class Cuadre {
 
     public void setValorPagoTransferencia(String valorPagoTransferencia) {
         this.valorPagoTransferencia = valorPagoTransferencia;
+    }
+
+    public String getValorPropinas() {
+        return valorPropinas;
+    }
+
+    public void setValorPropinas(String valorPropinas) {
+        this.valorPropinas = valorPropinas;
     }
     
     
