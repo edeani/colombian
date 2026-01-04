@@ -23,7 +23,7 @@
         $<input id="ventas" value="<fmt:formatNumber type="number" pattern="###,##0" value="${cierreDiario.ventas}"/>"></input>
     </li>
 </ul>
-<c:if test="${not empty cierreDiario.propinas}">
+<c:if test="${fieldPropinas eq 'A'}">
     <ul>
         <li>
             <label>

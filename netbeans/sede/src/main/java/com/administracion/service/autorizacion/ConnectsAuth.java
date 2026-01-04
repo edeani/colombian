@@ -8,6 +8,7 @@ package com.administracion.service.autorizacion;
 import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.dto.UserItemDto;
+import com.administracion.enumeration.EnvEnum;
 import com.administracion.service.SedesService;
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +29,8 @@ public class ConnectsAuth {
     private SedesService sedesService;
     @Autowired
     private AccesosSubsedes accesosSubsedes;
+    @Autowired
+    private EnvironmentProperties environmentProperties;
     
     private static final String PROPERTIES_CONNECTION="?verifyServerCertificate=false&useSSL=false&requireSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     /**
@@ -44,7 +47,7 @@ public class ConnectsAuth {
         SedesDto puntoSedeConn = findSedeXNameConn(nameDataSource);
         DriverManagerDataSource dataSourceConn_ = new DriverManagerDataSource();
         dataSourceConn_.setPassword(puntoSedeConn.getPassword());
-        dataSourceConn_.setUrl(puntoSedeConn.getUrl().concat(PROPERTIES_CONNECTION));
+        dataSourceConn_.setUrl(getUrlEnv(puntoSedeConn.getUrl()).concat(PROPERTIES_CONNECTION));
         dataSourceConn_.setUsername(puntoSedeConn.getUsername());
         return dataSourceConn_;
     }
@@ -59,7 +62,7 @@ public class ConnectsAuth {
         SedesDto puntoSede = findSedeXName(nameDataSource);
         DriverManagerDataSource dataSource_ = new DriverManagerDataSource();
         dataSource_.setPassword(puntoSede.getPassword());
-        dataSource_.setUrl(puntoSede.getUrl().concat(PROPERTIES_CONNECTION));
+        dataSource_.setUrl(getUrlEnv(puntoSede.getUrl()).concat(PROPERTIES_CONNECTION));
         dataSource_.setUsername(puntoSede.getUsername());
         return dataSource_;
     }
@@ -74,7 +77,7 @@ public class ConnectsAuth {
         SubSedesDto subSedesDto = findSubsedeXName(nameDataSource);
         DriverManagerDataSource dataSourceSub_ = new DriverManagerDataSource();
         dataSourceSub_.setPassword(subSedesDto.getPassword());
-        dataSourceSub_.setUrl(subSedesDto.getUrl().concat(PROPERTIES_CONNECTION));
+        dataSourceSub_.setUrl(getUrlEnv(subSedesDto.getUrl()).concat(PROPERTIES_CONNECTION)); //.replace("localhost", "186.155.211.28"));
         dataSourceSub_.setUsername(subSedesDto.getUsername());
         return dataSourceSub_;
     }
@@ -245,4 +248,13 @@ public class ConnectsAuth {
         this.sedesConnect = sedesConnect;
     }
 
+    private String getUrlEnv(String urlService){
+        String finalUrlService = urlService;
+        
+        if(EnvEnum.TEST.getEnv().equals(this.environmentProperties.getEnvironment())){
+            finalUrlService = urlService.replace("localhost", environmentProperties.getIp());
+        }
+        
+        return finalUrlService;
+    }
 }

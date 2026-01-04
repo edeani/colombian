@@ -229,11 +229,11 @@ public class CierreColomianServiceImpl implements CierreColombianService {
             
             String query = "SELECT sum(sub0.propinas) AS propinas FROM ("
                     + " SELECT CASE WHEN sa.propinas IS NULL THEN 0 ELSE sa.propinas END AS propinas FROM ("
-                    +" select sum(propina_orden) AS propinas FROM orden  where fecha_orden = '" + f + "' "
+                    +" select sum(propina_orden) AS propinas FROM orden  where fecha_orden = '" + f + "' AND estado_orden = 'A' "
                     +" UNION "
-                    +" select sum(propina_orden) AS propinas FROM mesa where  fecha_orden = '" + f + "' "
+                    +" select sum(propina_orden) AS propinas FROM mesa where  fecha_orden = '" + f + "' AND estado_orden = 'A' "
                     +" UNION "
-                    +" select sum(propina_orden) AS propinas FROM llevar where fecha_orden = '" + f + "' "
+                    +" select sum(propina_orden) AS propinas FROM llevar where fecha_orden = '" + f + "' AND estado_orden = 'A' "
                     + ")sa )sub0";
            
             System.out.println("Query "+query);

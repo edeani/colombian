@@ -170,29 +170,31 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
             comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_descuentos, "Descuentos " + subSedes.getSede(),
                     pagosDescuento));
         }
+
+        TiempoRealSedeDto tiempoRealSede = new TiempoRealSedeDto();
+        List<ItemsHashDTO> itemsCierre = cierreColombianService.cierreRealData(Formatos.StringDateToDate(sfecha), subSedes.getSede());
+
+        for (ItemsHashDTO itemsHashDTO : itemsCierre) {
+            if (EnumTipoPagoTarjeta.NEQUI.getName().equals(itemsHashDTO.getName())) {
+                comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_nequi, "Pagos Nequi",
+                        checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
+                tiempoRealSede.setPagosNequi(itemsHashDTO.getValue());
+            } else if (EnumTipoPagoTarjeta.DAVIPLATA.getName().equals(itemsHashDTO.getName())) {
+                comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_daviplata, "Pagos Daviplata ",
+                        checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
+                tiempoRealSede.setPagosDaviplata(itemsHashDTO.getValue());
+            } else if (EnumTipoPagoTarjeta.TRANSFERENCIA.getName().equals(itemsHashDTO.getName())) {
+                comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_transferencias, "Pagos Transferencias ",
+                        checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
+                tiempoRealSede.setPagosTransferencias(itemsHashDTO.getValue());
+            }
+        }
+
         /**
          * Propinas y transferencias
          */
         clasePago = clasePagoDao.findClasePagoById(3, ds);
         if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
-            TiempoRealSedeDto tiempoRealSede = new TiempoRealSedeDto();
-            List<ItemsHashDTO> itemsCierre = cierreColombianService.cierreRealData(Formatos.StringDateToDate(sfecha), subSedes.getSede());
-
-            for (ItemsHashDTO itemsHashDTO : itemsCierre) {
-                if (EnumTipoPagoTarjeta.NEQUI.getName().equals(itemsHashDTO.getName())) {
-                    comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_nequi, "Pagos Nequi",
-                            checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
-                    tiempoRealSede.setPagosNequi(itemsHashDTO.getValue());
-                } else if (EnumTipoPagoTarjeta.DAVIPLATA.getName().equals(itemsHashDTO.getName())) {
-                    comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_daviplata, "Pagos Daviplata ",
-                            checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
-                    tiempoRealSede.setPagosDaviplata(itemsHashDTO.getValue());
-                } else if (EnumTipoPagoTarjeta.TRANSFERENCIA.getName().equals(itemsHashDTO.getName())) {
-                    comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_transferencias, "Pagos Transferencias ",
-                            checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
-                    tiempoRealSede.setPagosTransferencias(itemsHashDTO.getValue());
-                }
-            }
 
             Double propinas = cierreColombianService.propinasDiario(Formatos.StringDateToDate(sfecha), subSedes.getSede());
 
