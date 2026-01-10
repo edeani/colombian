@@ -20,10 +20,11 @@ import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
 import com.administracion.dto.ItemsHashDTO;
 import com.administracion.dto.MovimientoCajaDto;
 import com.administracion.dto.PagosConsolidadoSedeDto;
-import com.administracion.dto.ReporteConsolidadoDto;
-import com.administracion.dto.ReporteTotalCuentasXNivelDto;
+import com.administracion.dto.reports.general.ReporteConsolidadoDto;
+import com.administracion.dto.reports.general.ReporteTotalCuentasXNivelDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.dto.TiempoRealSedeDto;
+import com.administracion.dto.reports.general.ReporteCuentasDetalleDTO;
 import com.administracion.entidad.ClasePago;
 import com.administracion.entidad.DetallePorcentajeVentas;
 import com.administracion.entidad.PorcentajeVentas;
@@ -375,5 +376,10 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     public List<ConsolidadoVentasPorcentajeDTO> reportesVentasTotales(Integer idSede, String fechaInicioD, String fechaFinD) {
         List<SubSedesDto> subSedes = subSedesDao.subsedesXIdSede(idSede);
         return reportesDao.reportePorcentajesVentas(subSedes, fechaInicioD, fechaFinD);
+    }
+
+    @Override
+    public List<ReporteCuentasDetalleDTO> buscarDetallesCuentas(String nameDataSource,String idCuenta, String fechaInicio, String fechaFin) {
+        return reportesDao.buscarDetallesCuentas(connectsAuth.getDataSourceSede(nameDataSource),idCuenta, fechaInicio, fechaFin);
     }
 }

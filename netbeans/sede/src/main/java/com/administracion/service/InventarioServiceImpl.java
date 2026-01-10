@@ -12,7 +12,7 @@ import com.administracion.dto.InventarioConsolidadoClienteDto;
 import com.administracion.dto.InventarioDTO;
 import com.administracion.dto.InventarioFinalDTO;
 import com.administracion.dto.ItemsDTO;
-import com.administracion.dto.ReporteInventarioDTO;
+import com.administracion.dto.reports.general.ReporteInventarioDTO;
 import com.administracion.dto.SedesDto;
 import com.administracion.dto.SubSedesDto;
 import com.administracion.service.autorizacion.ConnectsAuth;

@@ -18,4 +18,11 @@
         left join userxsubsede uxss on uxss.idsubsede = ss.id
         where u.cedula = :cedula
     </query>
+    
+    <query id="SubSedesSql.findSubSedePrincipal">
+        select ss.* from subsedes ss
+        inner join sedes s on s.idsedes = ss.idsede
+        where s.idsedes=:idSede and ss.idsedepoint = 1
+    </query>
+    
 </queries>

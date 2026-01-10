@@ -14,9 +14,10 @@ import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.CuentasPagarProveedoresDto;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
-import com.administracion.dto.ReporteConsolidadoDto;
-import com.administracion.dto.ReporteInventarioDTO;
+import com.administracion.dto.reports.general.ReporteConsolidadoDto;
+import com.administracion.dto.reports.general.ReporteInventarioDTO;
 import com.administracion.dto.SubSedesDto;
+import com.administracion.dto.reports.general.ReporteCuentasDetalleDTO;
 import com.administracion.entidad.DetallePorcentajeVentas;
 import com.administracion.entidad.PorcentajeVentas;
 import com.administracion.entidad.Sedes;
@@ -590,16 +591,16 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
          * Construcción de la query
          */
 
-        StringBuilder queryBuilder = new StringBuilder("SELECT sub5.valor_total ,sub5.valor_porcentaje," +
-                                        "CASE WHEN sub5.valor_porcentaje =0 OR sub5.valor_total =0 THEN 0 ELSE sub5.valor_porcentaje/sub5.valor_total END as porcentaje FROM (" +
-                                        " SELECT SUM(sub4.valor_total ) as valor_total, SUM(sub4.valor_porcentaje ) as valor_porcentaje FROM (");
+        StringBuilder queryBuilder = new StringBuilder("SELECT sub5.valor_total ,sub5.valor_porcentaje,"
+                + "CASE WHEN sub5.valor_porcentaje =0 OR sub5.valor_total =0 THEN 0 ELSE sub5.valor_porcentaje/sub5.valor_total END as porcentaje FROM ("
+                + " SELECT SUM(sub4.valor_total ) as valor_total, SUM(sub4.valor_porcentaje ) as valor_porcentaje FROM (");
         queryBuilder.append(leerXml.getQuery("MesasSql.mesasVentasPorcentajeXFecha"));
         queryBuilder.append(UNION);
         queryBuilder.append(leerXml.getQuery("OrdenesSql.ordenesVentasPorcentajeXFecha"));
         queryBuilder.append(UNION);
         queryBuilder.append(leerXml.getQuery("LlevarSql.llevarVentasPorcentajeFecha"));
-        queryBuilder.append(" )sub4" +
-                            " )sub5");
+        queryBuilder.append(" )sub4"
+                + " )sub5");
 
         MapSqlParameterSource params = new MapSqlParameterSource("fechaInicial", fechaInicioD);
         params.addValue("fechaFinal", fechaFinD);
@@ -623,7 +624,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                     consolidadoDDto = namedParameterJdbcTemplate.queryForObject(queryBuilder.toString(), params, new BeanPropertyRowMapper<>(ConsolidadoVentasPorcentajeDTO.class));
                     consolidadoDDto.setSubsede(subSede.getSede());
                 } catch (DataAccessException e) {
-                    System.out.println("Error reportePorcentajesVentas "+e.getMessage());
+                    System.out.println("Error reportePorcentajesVentas " + e.getMessage());
                     consolidadoDDto.setValorTotal(totalVentasZero);
                     consolidadoDDto.setPorcentaje(totalVentasZero);
                     consolidadoDDto.setValorPorcentaje(totalVentasZero);
@@ -637,6 +638,40 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         }
 
         return reporte;
+    }
+
+    @Override
+    public List<ReporteCuentasDetalleDTO> buscarDetallesCuentas(DataSource nameSede, String idCuenta, String fechaInicio, String fechaFin) {
+        this.jdbcTemplate = new JdbcTemplate(nameSede);
+        List<ReporteCuentasDetalleDTO> cuentasDetalle = new ArrayList<>();
+        try {
+            String queryCuentasDetalle = " SELECT * FROM ( " +
+                " SELECT dcm.idcuenta, dcm.total, dcm.fecha,  'Caja menor' as origen " + 
+                " FROM detalle_caja_menor dcm " +  
+                " WHERE dcm.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and dcm.idcuenta = '"+idCuenta+"' "+
+                " UNION " +
+                " SELECT fc.idcuenta ,fc.total , fc.fecha, 'Facturas Compra' as origen " +
+                " FROM facturas_compras fc " +
+                " WHERE fc.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and fc.idcuenta = '"+idCuenta+"' "+
+                " UNION " +  
+                " SELECT dp.idcuenta ,dp.total ,dp.fecha , 'Pagos'  as origen " +
+                " FROM detalle_pagos dp " +
+                " WHERE dp.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and dp.idcuenta = '"+idCuenta+"' " +
+                " UNION "+ 
+                " SELECT nd.cuenta as idcuenta, nd.total , nd.fecha , 'Notas Debito'  as origen  "+
+                " FROM notas_debito nd  "+
+                " WHERE nd.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and nd.cuenta  = '"+idCuenta+"' "+
+                " UNION "+
+                " SELECT nc.cuenta as idcuenta, nc.total , nc.fecha , 'Notas Credito'  as origen  "+
+                " FROM notas_credito nc "+
+                " WHERE nc.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and nc.cuenta  = '"+idCuenta+"' "+
+                " ) sub0 ORDER BY sub0.fecha DESC ";
+            cuentasDetalle = this.jdbcTemplate.query(queryCuentasDetalle, new BeanPropertyRowMapper<>(ReporteCuentasDetalleDTO.class));
+        } catch (DataAccessException e) {
+            System.out.println("Error buscarDetallesCuentas "+e.getMessage());
+        }
+
+        return cuentasDetalle;
     }
 
 }

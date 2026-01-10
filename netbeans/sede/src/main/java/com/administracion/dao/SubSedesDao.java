@@ -18,4 +18,5 @@ public interface SubSedesDao extends GenericDao<SubSedes>{
      public List<SubSedesDto> subsedesXIdSede(Integer idSede);
      public List<ItemsDTO> subsedesLabelXIdSede(Integer idSede);
      public SubSedesDto findSubSedeByUser(Long cedula);
+     public SubSedesDto getSubSedePrincipal(Integer idSede);
 }

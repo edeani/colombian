@@ -16,4 +16,5 @@ import java.util.List;
 public interface SubSedesService {
     public List<SubSedesDto> subSedesXIdSede(Integer idSede);
     public List<ItemsDTO> subSedesLabelXIdSede(Integer idSede);
+    public SubSedesDto getSubSedePrincipal(Integer idSede);
 }

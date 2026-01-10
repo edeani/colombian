@@ -11,9 +11,10 @@ import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.CuentasPagarProveedoresDto;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
-import com.administracion.dto.ReporteConsolidadoDto;
-import com.administracion.dto.ReporteInventarioDTO;
+import com.administracion.dto.reports.general.ReporteConsolidadoDto;
+import com.administracion.dto.reports.general.ReporteInventarioDTO;
 import com.administracion.dto.SubSedesDto;
+import com.administracion.dto.reports.general.ReporteCuentasDetalleDTO;
 import com.administracion.entidad.DetallePorcentajeVentas;
 import com.administracion.entidad.PorcentajeVentas;
 import com.administracion.entidad.Sedes;
@@ -49,4 +50,5 @@ public interface ReportesDao {
 
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayor(String nameDataSource, String sfechaInicial, String sfechaFinal);
     public List<ComprobanteConsolidadoSedeDto> bucarMovimientoCajaMayorSubsede(DataSource nameDataSource, String fechaInicio, String fechaFin, Integer idSubsede);
+    public List<ReporteCuentasDetalleDTO> buscarDetallesCuentas(DataSource nameSede,String idCuenta,String fechaInicio, String fechaFin);
 }

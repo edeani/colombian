@@ -6,7 +6,7 @@
 
 package com.administracion.dao;
 
-import com.administracion.dto.ReporteTotalCuentasXNivelDto;
+import com.administracion.dto.reports.general.ReporteTotalCuentasXNivelDto;
 import com.administracion.entidad.FacturasCompras;
 import javax.sql.DataSource;
 

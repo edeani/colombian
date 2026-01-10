@@ -11,8 +11,9 @@ import com.administracion.dto.ConsolidadoVentasPorcentajeDTO;
 import com.administracion.dto.EstadoPerdidaGananciaProvisionalDto;
 import com.administracion.dto.MovimientoCajaDto;
 import com.administracion.dto.PagosConsolidadoSedeDto;
-import com.administracion.dto.ReporteConsolidadoDto;
-import com.administracion.dto.ReporteTotalCuentasXNivelDto;
+import com.administracion.dto.reports.general.ReporteConsolidadoDto;
+import com.administracion.dto.reports.general.ReporteCuentasDetalleDTO;
+import com.administracion.dto.reports.general.ReporteTotalCuentasXNivelDto;
 import java.util.Date;
 import java.util.List;
 
@@ -33,4 +34,5 @@ public interface ReporteService {
     public List<EstadoPerdidaGananciaProvisionalDto> reporteEstadoPerdidaGananciaProvisionalXSede(String nameDataSource,String fechInicial, String fechaFinal,Long idSede);
     public List<BalanceDto> reporteBalanceService(String nameDataSource,String fechInicial, String fechaFinal,Long idsede);
     public List<ConsolidadoVentasPorcentajeDTO> reportesVentasTotales(Integer idSede, String fechaInicioD, String fechaFinD);
+    public List<ReporteCuentasDetalleDTO> buscarDetallesCuentas(String nameDatasource,String idCuenta, String fechaInicio, String fechaFin);
 }

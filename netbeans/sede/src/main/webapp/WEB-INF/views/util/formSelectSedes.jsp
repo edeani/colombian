@@ -3,5 +3,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:forEach items="${datos}" var="item">
-    <option value="${item.id}" <c:if test="${item.id == sede}">selected</c:if> >${item.label}</option>
+    <option value="${item.id}" <c:if test="${item.id eq sede}">selected</c:if> >${item.label}</option>
 </c:forEach>

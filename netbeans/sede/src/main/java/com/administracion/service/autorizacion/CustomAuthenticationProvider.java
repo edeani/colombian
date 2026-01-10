@@ -89,6 +89,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Sec
         sedeDto.setTipo_sede(userxsede.getIdsede().getTipo_sede());
         accesosSubsedes.getSedes().add(sedeDto);
         /**
+         * Asigno sede principal del usuario
+         */
+        accesosSubsedes.setSedePrincipal(userxsede.getIdsede());
+        /**
          * Subsedes de la sede del usuario
          */
         accesosSubsedes.setSubsedes(subSedesDao.subsedesXIdSede(userxsede.getIdsede().getIdsedes()));

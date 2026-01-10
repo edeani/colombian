@@ -7,7 +7,7 @@ package com.administracion.service.jsf;
 import com.administracion.dto.GastosDto;
 import com.administracion.dto.GastosNivel2Dto;
 import com.administracion.dto.GastosNivel3Dto;
-import com.administracion.dto.ReporteGastosDto;
+import com.administracion.dto.reports.general.ReporteGastosDto;
 import com.administracion.entidad.Users;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.service.autorizacion.SecurityService;

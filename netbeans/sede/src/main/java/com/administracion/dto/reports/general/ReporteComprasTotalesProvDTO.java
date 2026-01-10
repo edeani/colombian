@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.administracion.dto;
+package com.administracion.dto.reports.general;
 
 import java.util.Date;
 
@@ -10,8 +10,8 @@ import java.util.Date;
  *
  * @author user
  */
-public class ReporteComprasTotalesXProveedorDTO {
-    
+public class ReporteComprasTotalesProvDTO {
+    private String nombre;
     private Long numero_compra;
     private Date fecha_compra;
     private Double valor_total;
@@ -43,6 +43,7 @@ public class ReporteComprasTotalesXProveedorDTO {
     public void setFecha_compra(Date fecha_compra) {
         this.fecha_compra = fecha_compra;
     }
+
     /**
      * @return the valor_total
      */
@@ -56,7 +57,18 @@ public class ReporteComprasTotalesXProveedorDTO {
     public void setValor_total(Double valor_total) {
         this.valor_total = valor_total;
     }
-    
-    
-    
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

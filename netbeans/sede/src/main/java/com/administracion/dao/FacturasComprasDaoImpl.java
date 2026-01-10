@@ -6,7 +6,7 @@
 package com.administracion.dao;
 
 
-import com.administracion.dto.ReporteTotalCuentasXNivelDto;
+import com.administracion.dto.reports.general.ReporteTotalCuentasXNivelDto;
 import com.administracion.entidad.FacturasCompras;
 import com.administracion.util.Formatos;
 import com.administracion.util.LectorPropiedades;

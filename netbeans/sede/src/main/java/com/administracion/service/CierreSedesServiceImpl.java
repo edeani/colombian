@@ -12,7 +12,7 @@ import com.administracion.dao.SecuenciasMysqlDao;
 import com.administracion.dto.CierreSedesDto;
 import com.administracion.dto.ComprobanteCierreSedesDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
-import com.administracion.dto.ReporteComprobanteCierreDto;
+import com.administracion.dto.reports.general.ReporteComprobanteCierreDto;
 import com.administracion.dto.SedesDto;
 import com.administracion.entidad.CierreSedes;
 import com.administracion.service.autorizacion.ConnectsAuth;

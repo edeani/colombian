@@ -158,6 +158,11 @@
 		p:reportDataKey="datos" 
 		p:subReportUrls-ref="customSubReportUrlsPrueba"
 		p:subReportDataKeys-ref="customSubReportDatasourcePrueba"/>
+        
+        <bean id="cuentasDetalle"
+	   class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"
+           p:url="classpath:/reportes/cuentasDetalle.jrxml"
+           p:reportDataKey="datos"/>
 
 	<util:map id="customSubReportUrlsPrueba">
 	    <!-- This entry key must be declared exactly as you declared it in the master JRXML file -->

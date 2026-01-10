@@ -6,7 +6,6 @@
 package com.administracion.controller;
 
 import com.administracion.dto.GastosDto;
-import com.administracion.dto.ReporteGastosDto;
 import com.administracion.service.jsf.GastosColombianService;
 import java.util.Date;
 import java.util.List;

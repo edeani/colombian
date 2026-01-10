@@ -11,7 +11,7 @@ import com.administracion.dao.PagosDao;
 import com.administracion.dto.DetallePagosProveedorDto;
 import com.administracion.dto.DetallePagosTercerosDto;
 import com.administracion.dto.PagosCabeceraDto;
-import com.administracion.dto.ReportePagosDto;
+import com.administracion.dto.reports.general.ReportePagosDto;
 import com.administracion.entidad.Compras;
 import com.administracion.entidad.DetallePagos;
 import com.administracion.entidad.Pagos;

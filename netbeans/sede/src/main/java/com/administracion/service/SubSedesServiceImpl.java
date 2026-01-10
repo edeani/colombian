@@ -34,5 +34,11 @@ public class SubSedesServiceImpl implements SubSedesService{
     public List<ItemsDTO> subSedesLabelXIdSede(Integer idSede) {
         return subSedesDao.subsedesLabelXIdSede(idSede);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public SubSedesDto getSubSedePrincipal(Integer idSede) {
+        return subSedesDao.getSubSedePrincipal(idSede);
+    }
     
 }

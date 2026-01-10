@@ -103,6 +103,7 @@
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/inventario/reportes/inventarioTotal.htm'><span>Inventario Total</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/sede.htm'><span>Consolidado</span></a></li>
                 <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/consolidado/ventasPorcentajes.htm'><span>Porcentajes Ventas</span></a></li>
+                <li><a href='<%=request.getContextPath()%>/${sessionScope.path}/cuentas/reportes/detalle.htm'><span>Detalle Cuentas</span></a></li>
             </ul>
         </li>
         <li class='has-sub'><a href='#'><span>Entrar Sedes</span></a>

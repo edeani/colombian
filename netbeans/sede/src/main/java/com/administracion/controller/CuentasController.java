@@ -5,14 +5,31 @@
  */
 package com.administracion.controller;
 
-
 import com.administracion.dto.CuentasAutoCompletarDto;
+import com.administracion.dto.SedesDto;
+import com.administracion.dto.SubSedesDto;
+import com.administracion.dto.reports.general.ReporteConsolidadoDto;
+import com.administracion.dto.reports.general.ReporteCuentasDetalleDTO;
 import com.administracion.entidad.CuentasPuc;
+import com.administracion.enumeration.DescargasEnum;
 import com.administracion.service.CuentasService;
+import com.administracion.service.ReporteService;
+import com.administracion.service.SubSedesService;
+import com.administracion.service.autorizacion.AccesosSubsedes;
+import com.administracion.service.autorizacion.ConnectsAuth;
+import com.administracion.util.Constants;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +48,19 @@ public class CuentasController extends BaseController {
 
     @Autowired
     private CuentasService cuentasService;
+    
+    @Autowired
+    private ReporteService reporteService;
+
+
+    @Autowired
+    private SubSedesService subSedesService;
+
+    @Autowired
+    private AccesosSubsedes accesosSubsedesCuentas;
+
+    @Autowired
+    private ConnectsAuth connectsAuth;
 
     @RequestMapping(value = "/index.htm")
     public ModelAndView inicio() {
@@ -43,7 +73,7 @@ public class CuentasController extends BaseController {
 
     @RequestMapping(value = "/ajax/actualizar.htm")
     public @ResponseBody
-    String actualizarCuenta(@Valid CuentasPuc cuentasPuc,@PathVariable String sede) {
+    String actualizarCuenta(@Valid CuentasPuc cuentasPuc, @PathVariable String sede) {
         ModelAndView mav = null;
 
         try {
@@ -67,7 +97,7 @@ public class CuentasController extends BaseController {
 
     @RequestMapping(value = "/ajax/guardar.htm")
     public @ResponseBody
-    String guardarCuenta(@Valid CuentasPuc cuentasPuc,@PathVariable String sede) {
+    String guardarCuenta(@Valid CuentasPuc cuentasPuc, @PathVariable String sede) {
         ModelAndView mav = null;
 
         try {
@@ -85,7 +115,7 @@ public class CuentasController extends BaseController {
 
         ModelAndView mav = null;
         boolean haycuenta = false;
-        CuentasPuc cuentasPuc = cuentasService.buscarCuenta("" + idCuenta,sede);
+        CuentasPuc cuentasPuc = cuentasService.buscarCuenta("" + idCuenta, sede);
         if (cuentasPuc != null) {
             haycuenta = true;
             mav = new ModelAndView("contabilidad/detalleCuenta");
@@ -99,7 +129,7 @@ public class CuentasController extends BaseController {
 
     @RequestMapping(value = "/ajax/autocompletar.htm")
     public @ResponseBody
-    String autocompletarCuenta(@RequestParam String term,@PathVariable String sede) {
+    String autocompletarCuenta(@RequestParam String term, @PathVariable String sede) {
 
         Gson gson = new Gson();
         String json = "[]";
@@ -110,5 +140,74 @@ public class CuentasController extends BaseController {
         }
 
         return json;
+    }
+
+    @RequestMapping("/reportes/detalle.htm")
+    public ModelAndView reporteDetalleCuentas(@PathVariable String sede) {
+        ModelAndView mav = new ModelAndView("reportes/cuentas/detalleCuentas");
+        SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+        SubSedesDto subSedePrincipal = subSedesService.getSubSedePrincipal(sedesDto.getIdsedes());
+        mav.addObject("titulo", "Detalle Cuentas");
+        mav.addObject("sedeSeleccionada", subSedePrincipal.getId());
+        Date currentDate = new Date();
+        mav.addObject("fechaInicial", currentDate);
+        mav.addObject("fechaFinal", currentDate);
+        return mav;
+    }
+
+    @RequestMapping("/reportes/detalleCuentasFile.htm")
+    public ModelAndView reporteDetalleCuentasFile(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
+            @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
+            @RequestParam String tipo,@RequestParam String idCuenta,
+            @RequestParam String concepto, @PathVariable String sede) {
+        SedesDto ss = connectsAuth.findSedeXName(sede);
+        List<ReporteCuentasDetalleDTO> reporte = reporteService.buscarDetallesCuentas(sede,idCuenta, fechaInicial, fechaFinal);
+        ModelAndView mav = null;
+        if (reporte.size() > 0) {
+            JRDataSource datos = new JRBeanCollectionDataSource(reporte);
+            Map<String, Object> parameterMap = new HashMap<>();
+            parameterMap.put("datos", datos);
+            parameterMap.put("fechaInicial", fechaInicial);
+            parameterMap.put("fechaFinal", fechaFinal);
+            SedesDto sedesDto = connectsAuth.findSedeXName(sede);
+            parameterMap.put("titulo", sedesDto.getTitulo());
+            parameterMap.put("nombresede", sede);
+            parameterMap.put("slogan", sedesDto.getSlogan());
+            
+            parameterMap.put("idCuenta", idCuenta);
+            parameterMap.put("concepto", concepto);
+
+            mav = new ModelAndView("cuentasDetalle", parameterMap);
+
+            if (tipo.toLowerCase().equals(DescargasEnum.EXCEL.getDescarga())) {
+                tipo = DescargasEnum.EXCEL.getTipo();
+            } else {
+                tipo = DescargasEnum.PDF.getTipo();
+            }
+            mav.addObject(Constants.Attributos.JASPER_FORMAT, tipo);
+
+        } else {
+            mav = new ModelAndView("redirect:/" + sede + "/cuentas/reportes/detalle.htm");
+            mav.addObject("mensaje", "Se encontrar&oacute;n 0 registros");
+        }
+        return mav;
+    }
+    
+    @RequestMapping("/reportes/ajax/detalle/cuenta.htm")
+    
+    public @ResponseBody String checkDetalleCuentas(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+            @RequestParam(required = false, value = "fechaInicial") String fechaInicial,
+            @RequestParam(required = false, value = "fechaFinal") String fechaFinal,
+            @RequestParam String idCuenta,
+            @RequestParam String concepto, @PathVariable String sede){
+        
+        List<ReporteCuentasDetalleDTO> reporte = reporteService.buscarDetallesCuentas(sede,idCuenta, fechaInicial, fechaFinal);
+        
+        if(reporte.isEmpty()){
+            return "N";
+        }else{
+            return "S";
+        }
     }
 }

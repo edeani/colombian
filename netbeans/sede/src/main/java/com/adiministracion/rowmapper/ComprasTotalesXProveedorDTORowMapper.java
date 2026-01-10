@@ -4,7 +4,7 @@
  */
 package com.adiministracion.rowmapper;
 
-import com.administracion.dto.ReporteComprasTotalesXProveedorDTO;
+import com.administracion.dto.reports.general.ReporteComprasTotalesXProveedorDTO;
 import com.mycompany.util.Formatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;

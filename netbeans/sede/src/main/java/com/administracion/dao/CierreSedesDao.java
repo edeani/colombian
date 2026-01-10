@@ -8,8 +8,8 @@ package com.administracion.dao;
 
 import com.administracion.dto.CierreSedesDto;
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
-import com.administracion.dto.ReporteComprobanteCierreDto;
-import com.administracion.dto.ReporteTotalCuentasXNivelDto;
+import com.administracion.dto.reports.general.ReporteComprobanteCierreDto;
+import com.administracion.dto.reports.general.ReporteTotalCuentasXNivelDto;
 import com.administracion.entidad.CierreSedes;
 import java.util.List;
 import javax.sql.DataSource;

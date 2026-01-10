@@ -8,7 +8,7 @@ package com.administracion.service;
 
 import com.administracion.dto.CierreSedesDto;
 import com.administracion.dto.ComprobanteCierreSedesDto;
-import com.administracion.dto.ReporteComprobanteCierreDto;
+import com.administracion.dto.reports.general.ReporteComprobanteCierreDto;
 import java.util.List;
 
 /**
