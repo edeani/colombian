@@ -58,7 +58,7 @@
             </tr>
         </thead>
         <tbody id="contenidoInventario" data-url="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/listInventario.htm" 
-               data-actualizar="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/actualizarProducto.htm">
+               data-actualizar="<%=request.getContextPath()%>/${sessionScope.path}/inventario/ajax/reportes/actualizarProducto.htm">
             <c:import url="/${sessionScope.path}/inventario/ajax/listInventario.htm">
             </c:import>
         </tbody>
