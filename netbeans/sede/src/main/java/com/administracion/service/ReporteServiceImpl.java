@@ -30,6 +30,7 @@ import com.administracion.entidad.DetallePorcentajeVentas;
 import com.administracion.entidad.PorcentajeVentas;
 import com.administracion.entidad.Sedes;
 import com.administracion.entidad.SubSedes;
+import com.administracion.enumeration.CuentasEnum;
 import com.administracion.enumeration.EstadosEnum;
 import com.administracion.service.jsf.CierreColombianService;
 import com.administracion.util.Formatos;
@@ -69,14 +70,6 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     @Autowired
     private CierreColombianService cierreColombianService;
 
-    private final String cuenta_ventas = "414015";
-    private final String cuenta_consignaciones = "11050501";
-    private final String cuenta_pagos_con_tarjeta = "11201010";
-    private final String cuenta_propina = "281505";
-    private final String cuenta_pagos_nequi = "11201011";
-    private final String cuenta_pagos_daviplata = "11201012";
-    private final String cuenta_pagos_transferencias = "11201013";
-
     private final String cuenta_descuentos = "421040";
     private final String propiedades_cuentas = "/bd/cuentas.properties";
     private final String propiedad_ingresos = "prefijo_ingresos";
@@ -108,7 +101,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
         comprobanteConsolidadoSedeDtoVentas.setTotal(totalVentas);
         comprobanteConsolidadoSedeDtoVentas.setConcepto("Ventas " + subSedes.getSede());
-        comprobanteConsolidadoSedeDtoVentas.setIdCuenta(cuenta_ventas);
+        comprobanteConsolidadoSedeDtoVentas.setIdCuenta(CuentasEnum.CUENTA_VENTAS.getCuenta());
 
         //Consignaciones
         ComprobanteConsolidadoSedeDto comprobanteConsolidadoSedeDtoConsignaciones = new ComprobanteConsolidadoSedeDto();
@@ -120,7 +113,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
         comprobanteConsolidadoSedeDtoConsignaciones.setTotal(consignaciones);
         comprobanteConsolidadoSedeDtoConsignaciones.setConcepto("Consignaciones " + subSedes.getSede());
-        comprobanteConsolidadoSedeDtoConsignaciones.setIdCuenta(cuenta_consignaciones);
+        comprobanteConsolidadoSedeDtoConsignaciones.setIdCuenta(CuentasEnum.CUENTA_CONSIGNACIONES.getCuenta());
 
         boolean agregarRegistro = false;
         if (totalVentas != 0L) {
@@ -157,7 +150,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
             Double pagosContarjeta = cierreColombianService.cierrePagosConTarjetas(Formatos.StringDateToDate(sfecha), subSedes.getSede());
             pagosContarjeta = checkNullDoubleTotal(pagosContarjeta);
-            comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_con_tarjeta, "Pagos con Tarjeta " + subSedes.getSede(),
+            comprobantes.add(buildComprobante(subSedes, sfecha, CuentasEnum.CUENTA_PAGOS_CON_TARJETA.getCuenta(), "Pagos con Tarjeta " + subSedes.getSede(),
                     pagosContarjeta.longValue()));
 
         }
@@ -168,7 +161,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
             Long pagosDescuento = reportesDao.pagosDescuentoTotal(ds, sfecha);
             pagosDescuento = checkNullLongTotal(pagosDescuento);
-            comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_descuentos, "Descuentos " + subSedes.getSede(),
+            comprobantes.add(buildComprobante(subSedes, sfecha, CuentasEnum.CUENTA_DESCUENTOS.getCuenta(), "Descuentos " + subSedes.getSede(),
                     pagosDescuento));
         }
 
@@ -177,15 +170,15 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
         for (ItemsHashDTO itemsHashDTO : itemsCierre) {
             if (EnumTipoPagoTarjeta.NEQUI.getName().equals(itemsHashDTO.getName())) {
-                comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_nequi, "Pagos Nequi",
+                comprobantes.add(buildComprobante(subSedes, sfecha, CuentasEnum.CUENTA_PAGOS_NEQUI.getCuenta(), "Pagos Nequi",
                         checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
                 tiempoRealSede.setPagosNequi(itemsHashDTO.getValue());
             } else if (EnumTipoPagoTarjeta.DAVIPLATA.getName().equals(itemsHashDTO.getName())) {
-                comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_daviplata, "Pagos Daviplata ",
+                comprobantes.add(buildComprobante(subSedes, sfecha, CuentasEnum.CUENTA_PAGOS_DAVIPLATA.getCuenta(), "Pagos Daviplata ",
                         checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
                 tiempoRealSede.setPagosDaviplata(itemsHashDTO.getValue());
             } else if (EnumTipoPagoTarjeta.TRANSFERENCIA.getName().equals(itemsHashDTO.getName())) {
-                comprobantes.add(buildComprobante(subSedes, sfecha, cuenta_pagos_transferencias, "Pagos Transferencias ",
+                comprobantes.add(buildComprobante(subSedes, sfecha, CuentasEnum.CUENTA_PAGOS_TRANSFERENCIAS.getCuenta(), "Pagos Transferencias ",
                         checkNullDoubleTotal(itemsHashDTO.getValue()).longValue()));
                 tiempoRealSede.setPagosTransferencias(itemsHashDTO.getValue());
             }
@@ -199,10 +192,10 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
 
             Double propinas = cierreColombianService.propinasDiario(Formatos.StringDateToDate(sfecha), subSedes.getSede());
 
-            comprobantes.add(1, buildComprobante(subSedes, sfecha, cuenta_propina, "Propinas",
+            comprobantes.add(1, buildComprobante(subSedes, sfecha, CuentasEnum.CUENTA_PROPINA.getCuenta(), "Propinas",
                     propinas.longValue()));
 
-            ComprobanteConsolidadoSedeDto comprobantePT = getComprobanteByCuenta(comprobantes, cuenta_pagos_con_tarjeta);
+            ComprobanteConsolidadoSedeDto comprobantePT = getComprobanteByCuenta(comprobantes, CuentasEnum.CUENTA_PAGOS_CON_TARJETA.getCuenta());
             if (Objects.nonNull(comprobantePT)) {
                 comprobantePT.setTotal(comprobantePT.getTotal() - tiempoRealSede.getPagosNequi().longValue()
                         - tiempoRealSede.getPagosDaviplata().longValue()
@@ -379,7 +372,7 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
     }
 
     @Override
-    public List<ReporteCuentasDetalleDTO> buscarDetallesCuentas(String nameDataSource,String idCuenta, String fechaInicio, String fechaFin) {
-        return reportesDao.buscarDetallesCuentas(connectsAuth.getDataSourceSede(nameDataSource),idCuenta, fechaInicio, fechaFin);
+    public List<ReporteCuentasDetalleDTO> buscarDetallesCuentas(String nameDataSource, String idCuenta, String fechaInicio, String fechaFin) {
+        return reportesDao.buscarDetallesCuentas(connectsAuth.getDataSourceSede(nameDataSource), idCuenta, fechaInicio, fechaFin);
     }
 }

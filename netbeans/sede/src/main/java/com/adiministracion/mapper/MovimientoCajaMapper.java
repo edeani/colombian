@@ -7,6 +7,7 @@ package com.adiministracion.mapper;
 
 import com.administracion.dto.ComprobanteConsolidadoSedeDto;
 import com.administracion.dto.MovimientoCajaDto;
+import com.administracion.enumeration.CuentasEnum;
 import com.administracion.enumeration.TipoComprobanteConsolidado;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,10 @@ public class MovimientoCajaMapper {
             movimientoCajaMayorDto.setHaber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
         } else {
             if (comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_caja_menor)
-                    || comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_pagos_t)) {
+                    || comprobanteConsolidadoSedeDto.getIdCuenta().equals(cuenta_deber_pagos_t)
+                    || comprobanteConsolidadoSedeDto.getIdCuenta().equals(CuentasEnum.CUENTA_PAGOS_NEQUI.getCuenta())
+                    || comprobanteConsolidadoSedeDto.getIdCuenta().equals(CuentasEnum.CUENTA_PAGOS_DAVIPLATA.getCuenta())
+                    || comprobanteConsolidadoSedeDto.getIdCuenta().equals(CuentasEnum.CUENTA_PAGOS_TRANSFERENCIAS.getCuenta())) {
                 movimientoCajaMayorDto.setHaber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
             } else {
                 movimientoCajaMayorDto.setDeber(comprobanteConsolidadoSedeDto.getTotal().doubleValue());
@@ -89,9 +93,12 @@ public class MovimientoCajaMapper {
                 if (movimientoCajaMenorDto.getHaber() == null) {
                     movimientoCajaMenorDto.setHaber(0D);
                 }
-                saldoAcumulado = saldoAcumulado + movimientoCajaMenorDto.getHaber() - movimientoCajaMenorDto.getDeber();
-                movimientoCajaMenorDto.setSaldo(saldoAcumulado);
-                movimientos.add(movimientoCajaMenorDto);
+
+                if (movimientoCajaMenorDto.getDeber() != 0 || movimientoCajaMenorDto.getHaber() != 0) {
+                    saldoAcumulado = saldoAcumulado + movimientoCajaMenorDto.getHaber() - movimientoCajaMenorDto.getDeber();
+                    movimientoCajaMenorDto.setSaldo(saldoAcumulado);
+                    movimientos.add(movimientoCajaMenorDto);
+                }
 
             }
         }

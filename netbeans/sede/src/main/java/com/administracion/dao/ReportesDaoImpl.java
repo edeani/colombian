@@ -22,6 +22,7 @@ import com.administracion.entidad.DetallePorcentajeVentas;
 import com.administracion.entidad.PorcentajeVentas;
 import com.administracion.entidad.Sedes;
 import com.administracion.entidad.SubSedes;
+import com.administracion.enumeration.CuentasEnum;
 import com.administracion.service.autorizacion.ConnectsAuth;
 import com.administracion.util.LeerXml;
 import java.util.ArrayList;
@@ -282,7 +283,12 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                             "detalle_pagos", "fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11051001'")
                     + " union "
                     + " select consecutivo,idcuenta,concepto,total,fecha,idcomprobantecierre,3 as tipoComprobante "
-                    + " from detalle_cierre_sedes where fecha between '" + fechaInicio + "' and '" + fechaFin + "' and idcuenta='11201010'"
+                    + " from detalle_cierre_sedes where fecha between '" + fechaInicio + "' and '" + fechaFin + "' and "
+                            + "(idcuenta='"+CuentasEnum.CUENTA_PAGOS_CON_TARJETA.getCuenta()+"' "
+                            + " OR  idcuenta='"+CuentasEnum.CUENTA_PAGOS_NEQUI.getCuenta()+"' "
+                            + " OR  idcuenta='"+CuentasEnum.CUENTA_PAGOS_DAVIPLATA.getCuenta()+"' "
+                            + " OR  idcuenta='"+CuentasEnum.CUENTA_PAGOS_TRANSFERENCIAS.getCuenta()+"' "
+                            + ") "
                     + " union "
                     + " select cons as consecutivo,'11201010' as idcuenta,concepto,total,fecha,cons,4 as tipoComprobante "
                     + " from notas_credito where fecha between '" + fechaInicio + "' and '" + fechaFin + "' "
@@ -645,11 +651,18 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
         this.jdbcTemplate = new JdbcTemplate(nameSede);
         List<ReporteCuentasDetalleDTO> cuentasDetalle = new ArrayList<>();
         try {
+             
+
+
             String queryCuentasDetalle = " SELECT * FROM ( " +
                 " SELECT dcm.idcuenta, dcm.total, dcm.fecha,  'Caja menor' as origen " + 
                 " FROM detalle_caja_menor dcm " +  
                 " WHERE dcm.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and dcm.idcuenta = '"+idCuenta+"' "+
                 " UNION " +
+                " SELECT dcs.idcuenta, dcs.total , dcs.fecha , 'Cierre Sedes'  as origen " +
+                " FROM detalle_cierre_sedes  dcs " +
+                " WHERE dcs.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and dcs.idcuenta = '"+idCuenta+"' "+
+                " UNION " + 
                 " SELECT fc.idcuenta ,fc.total , fc.fecha, 'Facturas Compra' as origen " +
                 " FROM facturas_compras fc " +
                 " WHERE fc.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and fc.idcuenta = '"+idCuenta+"' "+
@@ -665,7 +678,7 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
                 " SELECT nc.cuenta as idcuenta, nc.total , nc.fecha , 'Notas Credito'  as origen  "+
                 " FROM notas_credito nc "+
                 " WHERE nc.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' and nc.cuenta  = '"+idCuenta+"' "+
-                " ) sub0 ORDER BY sub0.fecha DESC ";
+                " ) sub0 ORDER BY sub0.fecha ";
             cuentasDetalle = this.jdbcTemplate.query(queryCuentasDetalle, new BeanPropertyRowMapper<>(ReporteCuentasDetalleDTO.class));
         } catch (DataAccessException e) {
             System.out.println("Error buscarDetallesCuentas "+e.getMessage());
