@@ -546,18 +546,22 @@ public class ReportesDaoImpl extends GenericDaoImpl<Object> implements ReportesD
     public Long pagosContarjetaTotal(DataSource nameDataSource, String fecha) {
         try {
             this.jdbcTemplate = new JdbcTemplate(nameDataSource);
-            return this.jdbcTemplate.queryForObject("select sum(total) as total from (select sum(pago_tarjeta) as total from mesa "
+            return this.jdbcTemplate.queryForObject("select sum(total) as total from ( "
+                    + " select CASE WHEN m.total is null  THEN 0 ELSE m.total END AS total from( "
+                    + "select sum(pago_tarjeta) as total from mesa "
                     + "where fecha_orden = '" + fecha + "' and pago_tarjeta <> 0 "
-                    + "and estado_orden = 'A' "
-                    + "union "
+                    + "and estado_orden = 'A' )m "
+                    + "union all "
+                    + " select CASE WHEN o.total is null  THEN 0 ELSE o.total END AS total from( "
                     + "select sum(pago_tarjeta) as total from orden "
                     + "where fecha_orden = '" + fecha + "' and pago_tarjeta <> 0 "
-                    + "and estado_orden = 'A' "
-                    + "union "
+                    + "and estado_orden = 'A')o "
+                    + "union all "
+                    + " select CASE WHEN ll.total is null  THEN 0 ELSE ll.total END AS total from("
                     + "select sum(pago_tarjeta) as total from llevar "
                     + "where "
                     + "fecha_orden = '" + fecha + "' and pago_tarjeta <> 0 "
-                    + "and estado_orden = 'A') sub0", Long.class);
+                    + "and estado_orden = 'A')ll) sub0", Long.class);
         } catch (DataAccessException e) {
             LOGGER.error("Error pagosContarjetaTotal::" + e.getMessage());
         }

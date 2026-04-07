@@ -146,8 +146,8 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
          * Pagos con tarjeta
          */
         DataSource ds = connectsAuth.getDataSourceSubSede(subSedes.getSede());
-        ClasePago clasePago = clasePagoDao.findClasePagoById(1, ds);
-        if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
+        ClasePago clasePagoTarjeta = clasePagoDao.findClasePagoById(1, ds);
+        if (clasePagoTarjeta.getEstado().equals(EstadosEnum.Activo.getEstado())) {
             Double pagosContarjeta = cierreColombianService.cierrePagosConTarjetas(Formatos.StringDateToDate(sfecha), subSedes.getSede());
             pagosContarjeta = checkNullDoubleTotal(pagosContarjeta);
             comprobantes.add(buildComprobante(subSedes, sfecha, CuentasEnum.CUENTA_PAGOS_CON_TARJETA.getCuenta(), "Pagos con Tarjeta " + subSedes.getSede(),
@@ -157,8 +157,8 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         /**
          * Descuento de los pagos
          */
-        clasePago = clasePagoDao.findClasePagoById(2, ds);
-        if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
+        ClasePago clasePagoDescuentos = clasePagoDao.findClasePagoById(2, ds);
+        if (clasePagoDescuentos.getEstado().equals(EstadosEnum.Activo.getEstado())) {
             Long pagosDescuento = reportesDao.pagosDescuentoTotal(ds, sfecha);
             pagosDescuento = checkNullLongTotal(pagosDescuento);
             comprobantes.add(buildComprobante(subSedes, sfecha, CuentasEnum.CUENTA_DESCUENTOS.getCuenta(), "Descuentos " + subSedes.getSede(),
@@ -187,8 +187,8 @@ public class ReporteServiceImpl extends GenericService implements ReporteService
         /**
          * Propinas y transferencias
          */
-        clasePago = clasePagoDao.findClasePagoById(3, ds);
-        if (clasePago.getEstado().equals(EstadosEnum.Activo.getEstado())) {
+        ClasePago clasePagoFinal = clasePagoDao.findClasePagoById(3, ds);
+        if (clasePagoFinal.getEstado().equals(EstadosEnum.Activo.getEstado())) {
 
             Double propinas = cierreColombianService.propinasDiario(Formatos.StringDateToDate(sfecha), subSedes.getSede());
 
